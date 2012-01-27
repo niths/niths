@@ -1,0 +1,6 @@
+*.properties
+.classpath
+.settings
+doc
+target
+/configuration.properties
