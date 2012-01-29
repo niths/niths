@@ -1,11 +1,13 @@
-package no.niths.rest;
+package no.niths.application.rest;
+
+import java.util.List;
 
 import no.niths.constants.AppConstants;
 import no.niths.domain.Course;
+import no.niths.rest.common.RESTConstants;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(AppConstants.COURSES)
-//@ContextConfiguration({ "/app-config.xml" })
 public class CourseController {
 
     @Autowired
@@ -50,6 +51,14 @@ public class CourseController {
     @ResponseBody
     public Course getCourseAsJSON(@PathVariable String name) {
         return service.getCourseByName(name);
+    }
+    
+    @RequestMapping(     
+            method   = RequestMethod.GET,
+            produces = RESTConstants.JSON)
+    @ResponseBody
+    public List<Course>  getAllCourses(){
+    	return service.getAllCourse();
     }
     
     public void add(Course t) {
