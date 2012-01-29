@@ -1,7 +1,8 @@
 package no.niths.rest;
 
+import no.niths.constants.AppConstants;
 import no.niths.domain.Course;
-import no.niths.services.ICourseService;
+import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("courses")
+@RequestMapping(AppConstants.COURSES)
 //@ContextConfiguration({ "/app-config.xml" })
-public class CourseController implements SimpleREST<Course>{
+public class CourseController {
 
     @Autowired
-    private ICourseService service;
+    private CourseService service;
 
     /**
      * 
@@ -25,57 +26,47 @@ public class CourseController implements SimpleREST<Course>{
      * @return The course identified by the id
      */
     @RequestMapping(
-            value    = "{id}.json",
+            value    = {"{id}.json", "id/{id}.json"},
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
     @ResponseBody
-    public Course getAsJSONs(@PathVariable String id) {
-        //System.out.println("fooooooooooooo");
-        return service.getSome();
-        //return service.getCourseById(id);
+    public Course getCourseAsJSON(@PathVariable long id) {
+        return service.getCourseById(id);
     }
-//    @RequestMapping(
-//    		value    = "{id}.json",
-//    		method   = RequestMethod.GET,
-//    		produces = RESTConstants.JSON)
-//    @ResponseBody
-//    public Course getAsJSONs(@PathVariable String id) {
-//    	//System.out.println("fooooooooooooo");
-//    	return new Course();
-//    	//return service.getCourseById(id);
-//    }
 
-    
-    
-    @Override
     @RequestMapping(
-            value    = "{id}.xml",
+            value    = {"{id}.xml", "id/{id}.xml"},
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
     @ResponseBody
-    public Course getAsXML(@PathVariable String id) {
-        return new Course();
+    public Course getCourseAsXML(@PathVariable long id) {
+        return service.getCourseById(id);
     }
 
-    @Override
+    @RequestMapping(
+            value    = "name/{name}.json",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.JSON)
+    @ResponseBody
+    public Course getCourseAsJSON(@PathVariable String name) {
+        return service.getCourseByName(name);
+    }
+    
     public void add(Course t) {
         // TODO Autfooo-generated method stub
         
     }
 
-    @Override
     public void update(Course t) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void delete(Course t) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void delete(String id) {
         // TODO Auto-generated method stub
         
@@ -83,7 +74,6 @@ public class CourseController implements SimpleREST<Course>{
 
 
 
-	@Override
 	public Course getAsJSON(String id) {
 		// TODO Auto-generated method stub
 		return null;

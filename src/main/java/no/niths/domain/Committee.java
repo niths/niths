@@ -14,11 +14,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import no.niths.constants.AppConstants;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "committees")
+@Table(name = AppConstants.COMMITTEES)
 public class Committee implements Serializable {
 
     @Transient

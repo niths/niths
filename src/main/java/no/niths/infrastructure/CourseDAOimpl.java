@@ -10,14 +10,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CourseDAOimpl implements Serializable{
-	
-	@Autowired
-	SessionFactory session;
-	
-	public Course getCourse(Long id){
-	
-		return (Course) session.getCurrentSession().get(Course.class, id);
-		
-	}
 
+    @Autowired
+    SessionFactory session;
+
+    public Course getCourseById(long id){
+        return (Course) session.getCurrentSession().get(Course.class, id);
+    }
+
+    public Course getCourseByName(String name) {
+        // TODO
+        // Fetch by name
+        return null;
+    }
 }

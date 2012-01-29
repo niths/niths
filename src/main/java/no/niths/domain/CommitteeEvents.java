@@ -15,8 +15,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import no.niths.constants.AppConstants;
+
 @Entity
-@Table(name = "committee_events")
+@Table(name = AppConstants.COMMITTEE_EVENTS)
 public class CommitteeEvents implements Serializable {
 
     @Transient

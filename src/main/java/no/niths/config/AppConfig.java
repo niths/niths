@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-public class ApplicationConfig{
+public class AppConfig {
 
     public static final String BASE_PACKAGE      = "no.niths",
                                PERSISTENCE_PROPS = "persistence.properties";

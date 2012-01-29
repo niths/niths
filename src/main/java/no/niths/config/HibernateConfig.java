@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ApplicationConfig.BASE_PACKAGE})
-public class PersistenceHibernateConfig{
+@ComponentScan({AppConfig.BASE_PACKAGE})
+public class HibernateConfig{
 
     private final String DRIVER       = "jdbc.driver.class_name",
                          URL          = "jdbc.url",
@@ -60,7 +60,7 @@ public class PersistenceHibernateConfig{
    public LocalSessionFactoryBean alertsSessionFactory() {
       LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
       sessionFactory.setDataSource(restDataSource());
-      sessionFactory.setPackagesToScan(ApplicationConfig.BASE_PACKAGE);
+      sessionFactory.setPackagesToScan(AppConfig.BASE_PACKAGE);
       sessionFactory.setHibernateProperties(additionlProperties());
 
       return sessionFactory;

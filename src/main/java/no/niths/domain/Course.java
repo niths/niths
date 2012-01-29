@@ -11,9 +11,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import no.niths.constants.AppConstants;
+
 @XmlRootElement
 @Entity
-@Table(name = "courses")
+@Table(name = AppConstants.COURSES)
 public class Course implements Serializable {
 
     @Transient
