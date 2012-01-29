@@ -28,12 +28,12 @@ public class Student implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column
+	@Column(name = "first_name")
 //	@NotNull
 //	@Size(min = 1, max = 35, message = "Must be minimun 1 char and max 35 chars")
 	private String firstName;
 	
-	@Column
+	@Column(name = "last_name")
 //	@NotNull
 //	@Size(min = 1, max = 35, message = "Must be minimun 1 char and max 35 chars")
 	private String lastName;
@@ -42,7 +42,7 @@ public class Student implements Serializable {
 //	@Email(message = "Not a valid email")
 	private String email;
 	
-	@Column
+	@Column(name = "phone_number")
 //	@Pattern(regexp = "(^$)|([0-9]{8})", message = "Not a valid number")
 	private String telephoneNumber;
 
