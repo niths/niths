@@ -52,6 +52,7 @@ public class CourseController implements SimpleREST<Course>{
             value    = "{id}.xml",
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
+    @ResponseBody
     public Course getAsXML(@PathVariable String id) {
         return new Course();
     }

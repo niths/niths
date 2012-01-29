@@ -15,96 +15,96 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "committees")
 public class Committee implements Serializable {
 
-	@Transient
-	private static final long serialVersionUID = 2901268519809419196L;
+    @Transient
+    private static final long serialVersionUID = 2901268519809419196L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@Column
-	private String description;
+    @Column
+    private String description;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Student> members = new ArrayList<Student>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Student> members = new ArrayList<Student>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	private List<CommitteeEvents> events = new ArrayList<CommitteeEvents>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private List<CommitteeEvents> events = new ArrayList<CommitteeEvents>();
 
-	public Committee() {
-		this("", "");
-	}
+    public Committee() {
+        this("", "");
+    }
 
-	public Committee(String name, String description) {
-		this(-1, name, description);
-	}
+    public Committee(String name, String description) {
+        this(-1, name, description);
+    }
 
-	public Committee(long id, String name, String description) {
-		setId(id);
-		setName(name);
-		setDescription(description);
-	}
+    public Committee(long id, String name, String description) {
+        setId(id);
+        setName(name);
+        setDescription(description);
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<CommitteeEvents> getEvents() {
-		return events;
-	}
+    public List<CommitteeEvents> getEvents() {
+        return events;
+    }
 
-	public void setEvents(List<CommitteeEvents> events) {
-		this.events = events;
-	}
+    public void setEvents(List<CommitteeEvents> events) {
+        this.events = events;
+    }
 
-	@Override
-	public boolean equals(Object that) {
-		if (!(that instanceof Committee))
-			return false;
-		Committee s = (Committee) that;
-		return s == this ? true : s.getId() == id ? true : false;
-	}
+    @Override
+    public boolean equals(Object that) {
+        if (!(that instanceof Committee))
+            return false;
+        Committee s = (Committee) that;
+        return s == this ? true : s.getId() == id ? true : false;
+    }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "Committee";
-	}
+    @Override
+    public String toString() {
+        return "Committee";
+    }
 
-	public List<Student> getStudents() {
-		return members;
-	}
+    public List<Student> getStudents() {
+        return members;
+    }
 
-	public void setStudents(List<Student> students) {
-		this.members = students;
-	}
+    public void setStudents(List<Student> students) {
+        this.members = students;
+    }
 }
