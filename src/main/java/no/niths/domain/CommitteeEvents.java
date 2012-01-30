@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import no.niths.constants.AppConstants;
+import no.niths.common.AppConstants;
 
 @Entity
 @Table(name = AppConstants.COMMITTEE_EVENTS)

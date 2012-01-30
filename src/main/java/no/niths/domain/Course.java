@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.constants.AppConstants;
+import no.niths.common.AppConstants;
 
 @XmlRootElement
 @Entity

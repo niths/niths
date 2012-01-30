@@ -1,4 +1,4 @@
-package no.niths.constants;
+package no.niths.common;
 
 public final class AppConstants {
 

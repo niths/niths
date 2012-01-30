@@ -1,4 +1,4 @@
-package no.niths.rest.common;
+package no.niths.common;
 
 abstract public class RESTConstants {
 

@@ -50,7 +50,7 @@ public class CoursesRepositoryImpl implements CoursesRepository {
 				.getCurrentSession()
 				.createQuery(
 						"from " + Course.class.getName()
-								+ "c wherer name=:name")
+								+ " c where name=:name")
 				.setString("name", name).uniqueResult();
 	}
 }
