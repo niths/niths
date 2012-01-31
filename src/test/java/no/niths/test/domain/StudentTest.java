@@ -16,7 +16,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-@Ignore
+
+
 public class StudentTest {
 	
 	private static final Logger logger = LoggerFactory
@@ -33,7 +34,7 @@ public class StudentTest {
 	@Test
 	public void testStudentValues() {
 
-		Student student = new Student("John", "Doe", "john@doe.com",
+		Student student = new Student("John", "Doe", "M", 1, "john@doe.com",
 				"12345678", "Student at NITH");
 
 		// Should pass validation
@@ -54,5 +55,21 @@ public class StudentTest {
 		student.setTelephoneNumber("123");
 		constraintViolations = validator.validate(student);
 		assertEquals(2, constraintViolations.size());
+		
+		Student student2 = new Student("John", "Doe", "K", 5, "john@doe.com",
+				"12345678", "Student at NITH");
+		constraintViolations = validator.validate(student2);
+		assertEquals(2, constraintViolations.size());
+		
+		student2.setSex("M");
+		constraintViolations = validator.validate(student2);
+		assertEquals(1, constraintViolations.size());
+		
+		student2.setGrade(1);
+		constraintViolations = validator.validate(student2);
+		assertEquals(0, constraintViolations.size());
+		
+		
+		
 	}
 }
