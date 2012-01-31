@@ -51,6 +51,14 @@ public class CoursesRepositoryImpl implements CoursesRepository {
     }
 
     @Override
+    public void deleteCourse(long id) {
+        session.getCurrentSession().createQuery(
+                "FROM " + Course.class.getName()
+                + " c WHERE id=:id")
+                .setLong("id", id);
+    }
+
+    @Override
     @Transactional(readOnly = false)
     public void deleteCourse(Course course) {
         session.getCurrentSession().delete(course);

@@ -39,7 +39,7 @@ public class CourseController {
 
     /**
      * 
-     * @param String The course's id
+     * @param long The course's id
      * @return The course identified by the id
      */
     @RequestMapping(
@@ -51,6 +51,11 @@ public class CourseController {
         return service.getCourseById(id);
     }
 
+    /**
+     * 
+     * @param long The course's id
+     * @return The course identified by the id
+     */
     @RequestMapping(
             value    = {"{id}.xml", "id/{id}.xml"},
             method   = RequestMethod.GET,
@@ -60,6 +65,11 @@ public class CourseController {
         return service.getCourseById(id);
     }
 
+    /**
+     * 
+     * @param String The course's name plus '.json'
+     * @return The course identified by the name
+     */
     @RequestMapping(
             value    = "name/{name}.json",
             method   = RequestMethod.GET,
@@ -69,6 +79,11 @@ public class CourseController {
         return service.getCourseByName(name);
     }
 
+    /**
+     * 
+     * @param String The course's name plus '.xml'
+     * @return The course identified by the name
+     */
     @RequestMapping(
             value    = "name/{name}.xml",
             method   = RequestMethod.GET,
@@ -78,6 +93,10 @@ public class CourseController {
         return service.getCourseByName(name);
     }
 
+    /**
+     * 
+     * @return All courses as JSON
+     */
     @RequestMapping(
             value    = {"", "all.json"},
             method   = RequestMethod.GET,
@@ -87,6 +106,10 @@ public class CourseController {
         return service.getAllCourses();
     }
 
+    /**
+     * 
+     * @return All courses as XML
+     */
     @RequestMapping(
             value    = "all.xml",
             method   = RequestMethod.GET,
@@ -99,20 +122,32 @@ public class CourseController {
         return list;
     }
 
+    /**
+     * 
+     * @param Course The Course to update
+     */
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateCourse(Course course) {
         service.updateCourse(course);
     }
 
+    /**
+     * 
+     * @param Course The Course to delete
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCourse(Course course) {
         service.deleteCourse(course);
     }
 
+    /**
+     * 
+     * @param long The id of the Course to delete
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(String id) {
+    public void deleteCourse(long id) {
     }
 }
