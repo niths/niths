@@ -134,20 +134,13 @@ public class CourseController {
 
     /**
      * 
-     * @param Course The Course to delete
-     */
-    @RequestMapping(method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(Course course) {
-        service.deleteCourse(course);
-    }
-
-    /**
-     * 
      * @param long The id of the Course to delete
      */
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(
+            value  = "{id}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(long id) {
+    public void deleteCourse(@PathVariable long id) {
+        service.deleteCourse(id);
     }
 }

@@ -39,7 +39,4 @@ public class CourseService {
     public void deleteCourse(long id) {
         repo.deleteCourse(id);
     }
-
-    public void deleteCourse(Course course) {
-    }
 }
