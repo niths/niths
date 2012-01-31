@@ -2,6 +2,7 @@ package no.niths.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,160 +14,203 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Email;
 
-
-@Entity 
+@Entity
 @Table(name = AppConstants.STUDENTS)
+@XmlRootElement
 public class Student implements Serializable {
 
-    @Transient
-    private static final long serialVersionUID = 8441269238845961513L;
+	@Transient
+	private static final long serialVersionUID = 8441269238845961513L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-    @Column(name = "first_name")
-//  @NotNull
-//  @Size(min = 1, max = 35, message = "Must be minimun 1 char and max 35 chars")
-    private String firstName;
-    
-    @Column(name = "last_name")
-//  @NotNull
-//  @Size(min = 1, max = 35, message = "Must be minimun 1 char and max 35 chars")
-    private String lastName;
-    
-    @Column
-//  @Email(message = "Not a valid email")
-    private String email;
-    
-    @Column(name = "phone_number")
-//  @Pattern(regexp = "(^$)|([0-9]{8})", message = "Not a valid number")
-    private String telephoneNumber;
+	@Column(name = "first_name")
+	@NotNull
+	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	private String firstName;
 
-    @Column
-//  @Size(min = 0, max = 255, message = "Can not be more then 255 chars")
-    private String description;
+	@Column(name = "last_name")
+	@NotNull
+	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	private String lastName;
+	
+	
+	@Column
+	@Pattern(regexp = "M|F", message = "Must be M=male, or F=female")
+	private String sex;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-   // @Cascade(CascadeType.SAVE_UPDATE)
-    private List<Course> courses;
+	@Column
+	@Past
+	private Date birthday;
+	
+	@Column
+	@Max(value = 3, message = "Can not be larger then 3")
+	@Min(value = 1, message = "Can not be smaller then 1")
+	private Integer grade;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "members")
-    //@Cascade(CascadeType.SAVE_UPDATE)
-    private List<Committee> committees;
+	@Column
+	@Email(message = "Not a valid email")
+	private String email;
 
-    public Student() {
-        this("", "", "");
-    }
+	@Column(name = "phone_number")
+	@Pattern(regexp = "(^$)|([0-9]{8})", message = "Not a valid number")
+	private String telephoneNumber;
 
-    public Student(String firstName, String lastName){
-        this(firstName, lastName, "");
-    }
-    
-     public Student(String firstName, String lastName, String email){
-         this(firstName, lastName, email, "", "");
-     }
+	@Column
+	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
+	private String description;
 
-    public Student(String firstName, String lastName, String email, String telephoneNumber, String description) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEmail(email);
-        setTelephoneNumber(telephoneNumber);
-        setDescription(description);
-        setCourses(new ArrayList<Course>());
-        setCommittees(new ArrayList<Committee>());
-    }
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<Course> courses;
 
-    public long getId() {
-        return id;
-    }
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "members")
+	private List<Committee> committees;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public Student() {
+		this("", "", "");
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public Student(String firstName, String lastName) {
+		this(firstName, lastName, "");
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public Student(String firstName, String lastName, String email) {
+		this(firstName, lastName, "M" , 1, email, "", "");
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public Student(String firstName, String lastName, String sex, Integer grade, String email,
+		String telephoneNumber, String description) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEmail(email);
+		setTelephoneNumber(telephoneNumber);
+		setDescription(description);
+		setCourses(new ArrayList<Course>());
+		setCommittees(new ArrayList<Committee>());
+		setSex(sex);
+		setGrade(grade);
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Integer getGrade() {
+		return grade;
+	}
 
-    
-    public List<Course> getCourses() {
-        return courses;
-    }
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Student)) {
-            return false;
-        }
-        Student s = (Student) obj;
-        return s == this ? true : s.getId() == id ? true : false;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-   
-    public List<Committee> getCommittees() {
-        return committees;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setCommittees(List<Committee> committees) {
-        this.committees = committees;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    @Override
-    public String toString() {
-    	String s = "{\"name\":\""+firstName+"\",\"id\"";
-    	
-        return s;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Student)) {
+			return false;
+		}
+		Student s = (Student) obj;
+		return s == this ? true : s.getId() == id ? true : false;
+	}
+
+	public List<Committee> getCommittees() {
+		return committees;
+	}
+
+	public void setCommittees(List<Committee> committees) {
+		this.committees = committees;
+	}
+
+	@Override
+	public String toString() {
+		String s = "{\"name\":\"" + firstName + "\",\"id\"";
+
+		return s;
+	}
 }
