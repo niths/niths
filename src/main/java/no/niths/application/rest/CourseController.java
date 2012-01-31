@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import no.niths.common.AppConstants;
 import no.niths.common.RESTConstants;
 import no.niths.domain.Course;
@@ -9,12 +11,14 @@ import no.niths.domain.CourseList;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.COURSES)
@@ -25,7 +29,17 @@ public class CourseController {
 
     /**
      * 
-     * @param String the course's id
+     * @param Course The course to be created
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public void createCourse(@RequestBody Course course) {
+        service.createCourse(course);
+    }
+
+    /**
+     * 
+     * @param String The course's id
      * @return The course identified by the id
      */
     @RequestMapping(
@@ -85,25 +99,20 @@ public class CourseController {
         return list;
     }
 
-    public void update(Course t) {
-        // TODO Auto-generated method stub
-        
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void updateCourse(Course course) {
+        service.updateCourse(course);
     }
 
-    public void delete(Course t) {
-        // TODO Auto-generated method stub
-        
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCourse(Course course) {
+        service.deleteCourse(course);
     }
 
-    public void delete(String id) {
-        // TODO Auto-generated method stub
-        
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCourse(String id) {
     }
-
-
-
-	public Course getAsJSON(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

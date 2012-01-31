@@ -13,44 +13,46 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class CoursesRepositoryImpl implements CoursesRepository {
 
-	@Autowired
-	private SessionFactory session;
+    @Autowired
+    private SessionFactory session;
 
-	@Transactional(readOnly = false)
-	public Long create(Course domain) {
-		Long id = (Long) session.getCurrentSession().save(domain);
-		return id;
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public Long createCourse(Course course) {
+        return (Long) session.getCurrentSession().save(course);
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<Course> getAll() {
-		return session.getCurrentSession()
-				.createQuery("from " + Course.class.getName()).list();
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Course> getAllCourses() {
+        return session.getCurrentSession()
+                .createQuery("FROM " + Course.class.getName()).list();
+    }
 
-	public Course getByCourseId(long courseId) {
-		return (Course) session.getCurrentSession().get(Course.class, courseId);
-	}
+    @Override
+    public Course getCourseById(long id) {
+        return (Course) session.getCurrentSession().get(Course.class, id);
+    }
 
-	@Transactional(readOnly = false)
-	public void update(Course domain) {
-		session.getCurrentSession().update(domain);
-	}
+    @Override
+    public Course getCourseByName(String name) {
+        return (Course) session
+                .getCurrentSession()
+                .createQuery(
+                        "FROM " + Course.class.getName()
+                        + " c WHERE name=:name")
+                        .setString("name", name).uniqueResult();
+    }
 
-	@Transactional(readOnly = false)
-	public Course delete(Course domain) {
-		session.getCurrentSession().delete(domain);
-		return domain;
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public void updateCourse(Course course) {
+        session.getCurrentSession().update(course);
+    }
 
-	@Override
-	public Course getByCourseName(String name) {
-
-		return (Course) session
-				.getCurrentSession()
-				.createQuery(
-						"from " + Course.class.getName()
-								+ " c where name=:name")
-				.setString("name", name).uniqueResult();
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public void deleteCourse(Course course) {
+        session.getCurrentSession().delete(course);
+    }
 }
