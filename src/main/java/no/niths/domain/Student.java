@@ -55,11 +55,11 @@ public class Student implements Serializable {
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.SAVE_UPDATE)
+   // @Cascade(CascadeType.SAVE_UPDATE)
     private List<Course> courses;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "members")
-    @Cascade(CascadeType.SAVE_UPDATE)
+    //@Cascade(CascadeType.SAVE_UPDATE)
     private List<Committee> committees;
 
     public Student() {
