@@ -48,4 +48,10 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Committee getCommitteeByIdWithStudents(long cid) {
+		String sql = "from" + Committee.class.getName()+ " c join fetch c.members where c.id:=cid";
+		return (Committee) session.getCurrentSession().createQuery(sql).setLong("cid",cid).uniqueResult();
+	}
 }

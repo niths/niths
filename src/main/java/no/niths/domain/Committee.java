@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -44,7 +45,7 @@ public class Committee implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
     private List<CommitteeEvents> events = new ArrayList<CommitteeEvents>();
-
+    
     public Committee() {
         this("", "");
     }
@@ -93,7 +94,7 @@ public class Committee implements Serializable {
 
     @Override
     public boolean equals(Object that) {
-        if (!(that instanceof Committee))
+        if (!(that instanceof Committee))	
             return false;
         Committee s = (Committee) that;
         return s == this ? true : s.getId() == id ? true : false;
@@ -104,6 +105,7 @@ public class Committee implements Serializable {
         return "Committee";
     }
 
+    @JsonIgnore
     public List<Student> getStudents() {
         return members;
     }
@@ -111,4 +113,5 @@ public class Committee implements Serializable {
     public void setStudents(List<Student> students) {
         this.members = students;
     }
+
 }

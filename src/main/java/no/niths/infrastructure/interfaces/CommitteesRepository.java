@@ -18,4 +18,6 @@ public interface CommitteesRepository {
 	void update(Committee committee);
 	
 	Committee delete(Committee committee);
+	
+	Committee getCommitteeByIdWithStudents(long cid);
 }

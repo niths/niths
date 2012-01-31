@@ -13,14 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement
+
 @Entity 
 @Table(name = AppConstants.STUDENTS)
 public class Student implements Serializable {
@@ -153,6 +153,7 @@ public class Student implements Serializable {
         return s == this ? true : s.getId() == id ? true : false;
     }
 
+    
     public List<Committee> getCommittees() {
         return committees;
     }
