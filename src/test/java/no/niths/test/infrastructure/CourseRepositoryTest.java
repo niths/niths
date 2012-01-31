@@ -44,7 +44,7 @@ public class CourseRepositoryTest {
 		assertEquals(course, repo.getCourseById(course.getId()));
 		
 		//Delete
-		repo.deleteCourse(course);
+		repo.deleteCourse(course.getId());
 
 		assertNull("Should be deleted now",repo.getCourseById(course.getId()));
 	}
@@ -62,6 +62,6 @@ public class CourseRepositoryTest {
 		assertNotSame(0, repo.getAllCourses().size());
 		
 		// deleting courses
-		repo.deleteCourse(courseProg);
+		repo.deleteCourse(courseProg.getId());
 	}
 }
