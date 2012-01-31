@@ -12,40 +12,47 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CourseService {
-   
 
     @Autowired
-    CoursesRepository dao;
-   
-   
+    private CoursesRepository repo;
+
     public Course getCourseById(long cid){
-	    return dao.getByCourseId(cid);
+        return repo.getByCourseId(cid);
    }
 
-   
     public Course getCourseByName(String name) {
-        return dao.getByCourseName(name);
+        return repo.getByCourseName(name);
     }
 
-    public List<Course> getAllCourse(){
-    	return dao.getAll();
+    public List<Course> getAllCourses(){
+        return repo.getAll();
+    }
+    
+    public Long create(Course course) {
+        return null;
+    }
+
+    public void update(Course course) {
     }
 
 
-	public Long create(Course course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Course delete(Course course) {
+        return null;
+    }
+
+    public List<Course> getAll() {
+        return null;
+    }
 
 
-	public void update(Course course) {
-		// TODO Auto-generated method stub
-		
-	}
+    public Course getByCourseId(long cid) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
-	public Course delete(Course course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Course getByCourseName(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

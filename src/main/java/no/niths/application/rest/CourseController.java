@@ -5,11 +5,13 @@ import java.util.List;
 import no.niths.common.AppConstants;
 import no.niths.common.RESTConstants;
 import no.niths.domain.Course;
+import no.niths.domain.CourseList;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,8 +32,8 @@ public class CourseController {
             value    = {"{id}.json", "id/{id}.json"},
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
-    @ResponseBody
-    public Course getCourseAsJSON(@PathVariable long id) {
+    @ResponseBody()
+    public Course getCourseByIdAsJSON(@PathVariable long id) {
         return service.getCourseById(id);
     }
 
@@ -40,7 +42,7 @@ public class CourseController {
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
     @ResponseBody
-    public Course getCourseAsXML(@PathVariable long id) {
+    public Course getCourseByIdAsXML(@PathVariable long id) {
         return service.getCourseById(id);
     }
 
@@ -49,21 +51,38 @@ public class CourseController {
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
     @ResponseBody
-    public Course getCourseAsJSON(@PathVariable String name) {
+    public Course getCourseByNameAsJSON(@PathVariable String name) {
         return service.getCourseByName(name);
     }
-    
-    @RequestMapping(     
+
+    @RequestMapping(
+            value    = "name/{name}.xml",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.XML)
+    @ResponseBody
+    public Course getCourseByNameAsXML(@PathVariable String name) {
+        return service.getCourseByName(name);
+    }
+
+    @RequestMapping(
+            value    = {"", "all.json"},
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
     @ResponseBody
-    public List<Course>  getAllCourses(){
-    	return service.getAllCourse();
+    public List<Course> getAllCoursesAsJSON() {
+        return service.getAllCourses();
     }
-    
-    public void add(Course t) {
-        // TODO Autfooo-generated method stub
+
+    @RequestMapping(
+            value    = "all.xml",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.XML)
+    @ResponseBody
+    public CourseList getAllCoursesAsXML() {
+        CourseList list = new CourseList();
+        list.setData(service.getAllCourses());
         
+        return list;
     }
 
     public void update(Course t) {
