@@ -126,9 +126,18 @@ public class CourseController {
      * 
      * @param Course The Course to update
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = {"", "{id}"},
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCourse(Course course) {
+    public void updateCourse(
+            @RequestBody Course course,
+            @PathVariable Long id) {
+
+        // If the ID is only provided through the URL.
+        if (id != null)
+            course.setId(id);
+
         service.updateCourse(course);
     }
 
