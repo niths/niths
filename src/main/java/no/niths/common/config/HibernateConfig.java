@@ -1,4 +1,4 @@
-package no.niths.config;
+package no.niths.common.config;
 
 import java.util.Properties;
 

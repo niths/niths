@@ -4,7 +4,7 @@ package no.niths.test.infrastructure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import no.niths.config.AppConfig;
+import no.niths.common.config.AppConfig;
 import no.niths.domain.Course;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CoursesRepositoryImpl implements CoursesRepository {
 
 	@Autowired
-	SessionFactory session;
+	private SessionFactory session;
 
 	@Transactional(readOnly = false)
 	public Long create(Course domain) {

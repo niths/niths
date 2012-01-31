@@ -1,4 +1,4 @@
-package no.niths.config;
+package no.niths.common.config;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
