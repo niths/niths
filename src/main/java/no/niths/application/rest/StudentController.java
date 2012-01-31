@@ -1,8 +1,10 @@
 package no.niths.application.rest;
 
+import java.util.List;
+
 import no.niths.common.AppConstants;
-import no.niths.common.RESTConstants;
 import no.niths.domain.Student;
+import no.niths.domain.StudentList;
 import no.niths.services.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,5 +88,21 @@ public class StudentController {
     @ResponseBody
     public Student getStudentByNameAsXML(@PathVariable String name) {
         return service.getStudentByName(name);
+    }
+
+    @RequestMapping(
+            value    = {"", "all.json"},
+            method   = RequestMethod.GET,
+            produces = RESTConstants.JSON)
+    public List<Student> getAllStudentsAsJSON() {
+        return service.getAllStudents();
+    }
+
+    @RequestMapping(
+            value    = "all.xml",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.XML)
+    public StudentList getAllStudentsAsXML() {
+        return new StudentList(service.getAllStudents());
     }
 }

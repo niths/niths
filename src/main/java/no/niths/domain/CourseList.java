@@ -5,7 +5,9 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "courses")
+import no.niths.common.AppConstants;
+
+@XmlRootElement(name = AppConstants.COURSES)
 public class CourseList {
 
     @XmlElement(name = "course")
