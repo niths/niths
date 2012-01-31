@@ -9,19 +9,24 @@ import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.test.common.config.TestAppConfig;
 
 import org.hibernate.annotations.Loader;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.transaction.annotation.Transactional;
 
-@Ignore
+
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( classes ={AppConfig.class, HibernateConfig.class,WebConfig.class })
+@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class}, loader = AnnotationConfigContextLoader.class)
+@Transactional
 public class CommitteeRepositoryTest {
 
 	@Autowired
@@ -31,6 +36,7 @@ public class CommitteeRepositoryTest {
 	private StudentRepository studentRepo;
 	
 	@Test
+	@Rollback(true)
 	public void testCRUD() {
 		Committee committee = new Committee("LUG", "Linux");
 
@@ -47,6 +53,7 @@ public class CommitteeRepositoryTest {
 	}
 	
 	@Test
+	@Rollback(true)
 	public void testStudentJoin(){
 		Committee committee = new Committee("LUG", "Linux");
 		
@@ -55,22 +62,22 @@ public class CommitteeRepositoryTest {
 		studentRepo.create(stud1);
 		studentRepo.create(stud2);
 		
-//		committee.getStudents().add(stud1);
-//		committee.getStudents().add(stud2);
+		committee.getStudents().add(stud1);
+		committee.getStudents().add(stud2);
 		
 		committeeRepo.create(committee);
 						
-		committee = committeeRepo.getCommitteeById(committee.getId());
+		committee = committeeRepo.getCommitteeByIdWithStudents(committee.getId());
 		
-//		assertEquals(2, committee.getStudents().size());
+		assertEquals(2, committee.getStudents().size());
 		
-//		committee.getStudents().clear();
-//		getRepo().update(committee);
+		committee.getStudents().clear();
+		committeeRepo.update(committee);
 		
 		
-//		getStudentRepo().delete(stud1);
-//		getStudentRepo().delete(stud2);
-//		getRepo().delete(committee);
+		studentRepo.delete(stud1);
+		studentRepo.delete(stud2);
+		committeeRepo.delete(committee);
 	}
 
 	@Test

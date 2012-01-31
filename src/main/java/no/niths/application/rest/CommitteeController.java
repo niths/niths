@@ -33,7 +33,7 @@ public class CommitteeController {
             produces = RESTConstants.JSON)
     @ResponseBody
 	public Committee getByIdAsJSON(@PathVariable long id){
-    	Committee c= service.getCommitteeById(id);
+    	Committee c = service.getCommitteeById(id);
     	
     	logger.info(c.getName());
 		return c;
