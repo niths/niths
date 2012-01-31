@@ -2,17 +2,18 @@ package no.niths.test.infrastructure;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import no.niths.common.config.AppConfig;
+
+import java.awt.color.CMMException;
+
 import no.niths.common.config.HibernateConfig;
-import no.niths.common.config.WebConfig;
 import no.niths.domain.Committee;
+import no.niths.domain.CommitteeEvents;
 import no.niths.domain.Student;
+import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.test.common.config.TestAppConfig;
 
-import org.hibernate.annotations.Loader;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
 public class CommitteeRepositoryTest {
 
@@ -34,6 +35,9 @@ public class CommitteeRepositoryTest {
 		
 	@Autowired
 	private StudentRepository studentRepo;
+	
+	@Autowired
+	private CommitteeEventsRepository eventRepo;
 	
 	@Test
 	@Rollback(true)
@@ -77,12 +81,44 @@ public class CommitteeRepositoryTest {
 		
 		studentRepo.delete(stud1);
 		studentRepo.delete(stud2);
+		
+		assertEquals(0, studentRepo.getAllStudents().size());
 		committeeRepo.delete(committee);
+		
+		
+		assertNull(committeeRepo.getCommitteeById(committee.getId()));
 	}
 
 	@Test
+	@Rollback(true)
 	public void testEventJoin(){
-		assertNull(null);
+		
+		CommitteeEvents event = new CommitteeEvents();
+		Committee committee = new Committee("LUG", "Linux");
+		committee.getEvents().add(event);
+		
+		committeeRepo.create(committee);
+		Committee temp = committeeRepo.getCommitteeById(committee.getId());
+		assertEquals(committee, temp);
+		
+		assertEquals(1, temp.getEvents().size());
+		
+	}
+	
+	@Test
+	@Rollback(true)
+	public void committeeWithStudentAndEventsTest(){
+		CommitteeEvents event = new CommitteeEvents();
+		Student stud1 = new Student	("JJ.s","doe");
+		Committee committee = new Committee("LUG", "Linux");
+		committee.getEvents().add(event);
+		committee.getStudents().add(stud1);
+		committeeRepo.create(committee);
+		
+		Committee temp = committeeRepo.getCommitteeById(committee.getId());
+		
+		assertEquals(1, temp.getEvents().size());
+		assertEquals(1, temp.getStudents().size());
 	}
 	
 

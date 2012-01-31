@@ -45,8 +45,8 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 
 	@Override
 	public Committee getCommitteeByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql ="from " + Committee.class.getName() + " c join fetch c.events e join c.members m where c.name=:name";
+		return (Committee) session.getCurrentSession().createQuery(sql).setString("name",name).uniqueResult();
 	}
 
 	@Override
