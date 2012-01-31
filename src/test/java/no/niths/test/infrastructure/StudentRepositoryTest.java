@@ -99,7 +99,7 @@ public class StudentRepositoryTest {
 		getRepo().create(s2);
 		
 		//Courses should be persisted
-		assertEquals(2, getCourseRepo().getAll().size());
+		assertEquals(2, getCourseRepo().getAllCourses().size());
 
 		//Student should have two courses
 		assertEquals(2, s1.getCourses().size());
@@ -109,7 +109,7 @@ public class StudentRepositoryTest {
 		getRepo().update(s1);
 		
 		//Courses should still exist
-		assertEquals(2, getCourseRepo().getAll().size());
+		assertEquals(2, getCourseRepo().getAllCourses().size());
 				
 		//Student should have one courses
 		assertEquals(1, s1.getCourses().size());
@@ -117,11 +117,11 @@ public class StudentRepositoryTest {
 		getRepo().delete(s1);
 		getRepo().delete(s2);
 		
-		getCourseRepo().delete(c1);
-		getCourseRepo().delete(c2);
+		getCourseRepo().deleteCourse(c1);
+		getCourseRepo().deleteCourse(c2);
 		
 		assertEquals(true, getRepo().getAllStudents().isEmpty());
-		assertEquals(true, getCourseRepo().getAll().isEmpty());
+		assertEquals(true, getCourseRepo().getAllCourses().isEmpty());
 		
 		
 	}
@@ -145,7 +145,7 @@ public class StudentRepositoryTest {
 		Course c3 = new Course("Spill design", "cool");
 		
 		// create a course explicit
-		c3.setId(getCourseRepo().create(c3));
+		c3.setId(getCourseRepo().createCourse(c3));
 		
 		// add the other two courses to the test student
 		List<Course> cList = new ArrayList<Course>();
@@ -157,7 +157,7 @@ public class StudentRepositoryTest {
 		getRepo().update(testStudent);
 		
 		cList.clear();
-		cList = courseRepo.getAll();
+		cList = courseRepo.getAllCourses();
 
 		// add all three courses to aStudentd
 		aStudent.setId(getRepo().create(aStudent));
@@ -180,12 +180,12 @@ public class StudentRepositoryTest {
 		getRepo().delete(testStudent);
 		getRepo().delete(aStudent);
 		getRepo().delete(bStudent);
-		getCourseRepo().delete(c1);
-		getCourseRepo().delete(c2);
-		getCourseRepo().delete(c3);
+		getCourseRepo().deleteCourse(c1);
+		getCourseRepo().deleteCourse(c2);
+		getCourseRepo().deleteCourse(c3);
 		
 		assertEquals(true, getRepo().getAllStudents().isEmpty());
-		assertEquals(true, getCourseRepo().getAll().isEmpty());
+		assertEquals(true, getCourseRepo().getAllCourses().isEmpty());
 	}
 	
 	

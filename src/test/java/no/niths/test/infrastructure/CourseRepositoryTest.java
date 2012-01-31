@@ -31,22 +31,22 @@ public class CourseRepositoryTest {
 	@Rollback(true)
 	public void testCRUD() {
 		// creates a course
-		course.setId(repo.create(course));
+		course.setId(repo.createCourse(course));
 	
 		// Get by id
-		assertEquals(course , repo.getByCourseId(course.getId()));	
+		assertEquals(course , repo.getCourseById(course.getId()));	
 
 		//Updates parameters and entity object
 		course.setName("Mobil-Programmering");
 		course.setDescription("Mobil prog");
-		repo.update(course);
+		repo.createCourse(course);
 		
-		assertEquals(course, repo.getByCourseId(course.getId()));
+		assertEquals(course, repo.getCourseById(course.getId()));
 		
 		//Delete
-		repo.delete(course);
+		repo.deleteCourse(course);
 
-		assertNull("Should be deleted now",repo.getByCourseId(course.getId()));
+		assertNull("Should be deleted now",repo.getCourseById(course.getId()));
 	}
 	
 	
@@ -57,11 +57,11 @@ public class CourseRepositoryTest {
 		Course courseProg = new Course("Programmering", "programmering er kult");
 
 		// adding course
-		courseProg.setId(repo.create(courseProg));
+		courseProg.setId(repo.createCourse(courseProg));
 	
-		assertNotSame(0, repo.getAll().size());
+		assertNotSame(0, repo.getAllCourses().size());
 		
 		// deleting courses
-		repo.delete(courseProg);
+		repo.deleteCourse(courseProg);
 	}
 }
