@@ -16,8 +16,8 @@ public class CourseService {
     @Autowired
     private CoursesRepository repo;
 
-    public Long createCourse(Course course) {
-        return repo.createCourse(course);
+    public void createCourse(Course course) {
+        repo.createCourse(course);
     }
 
     public Course getCourseById(long id){
