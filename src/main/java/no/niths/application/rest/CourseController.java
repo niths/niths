@@ -5,6 +5,7 @@ import java.util.List;
 import no.niths.common.AppConstants;
 import no.niths.common.RESTConstants;
 import no.niths.domain.Course;
+import no.niths.domain.CourseList;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class CourseController {
             produces = RESTConstants.JSON)
     @ResponseBody
     public List<Course> getAllCoursesAsJSON() {
-    	return service.getAllCourses();
+        return service.getAllCourses();
     }
 
     @RequestMapping(
@@ -77,16 +78,11 @@ public class CourseController {
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
     @ResponseBody
-    public List<Course> getAllCoursesAsXML() {
-        return service.getAllCourses();
-    }
-
-    @RequestMapping(
-            value = "foo",
-            method   = RequestMethod.POST,
-            headers  = "Accept=application/json")
-    public void addCourse(@RequestBody Course course) {
-        System.out.println("added course");
+    public CourseList getAllCoursesAsXML() {
+        CourseList list = new CourseList();
+        list.setData(service.getAllCourses());
+        
+        return list;
     }
 
     public void update(Course t) {
