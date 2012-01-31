@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import no.niths.common.AppConstants;
 
 @XmlRootElement
@@ -79,6 +81,7 @@ public class CommitteeEvents implements Serializable {
         this.description = description;
     }
 
+    @JsonIgnore
     public Committee getCommittee() {
         return committee;
     }

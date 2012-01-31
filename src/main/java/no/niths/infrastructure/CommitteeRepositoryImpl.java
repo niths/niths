@@ -54,4 +54,11 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 		String sql = "from " + Committee.class.getName()+ " c join fetch c.members m where c.id=:cid";
 		return (Committee) session.getCurrentSession().createQuery(sql).setLong("cid",cid).uniqueResult();
 	}
+	
+	
+	@Override
+	public Committee getCommitteeByIdWithEvents(long cid) {
+		String sql = "from " + Committee.class.getName()+ " c join fetch c.events e where c.id=:cid";
+		return (Committee) session.getCurrentSession().createQuery(sql).setLong("cid",cid).uniqueResult();
+	}
 }
