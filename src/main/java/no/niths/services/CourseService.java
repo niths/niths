@@ -16,44 +16,26 @@ public class CourseService {
     @Autowired
     private CoursesRepository repo;
 
-    public Course getCourseById(long cid){
-        return repo.getByCourseId(cid);
+    public Long createCourse(Course course) {
+        return repo.createCourse(course);
+    }
+
+    public Course getCourseById(long id){
+        return repo.getCourseById(id);
    }
 
     public Course getCourseByName(String name) {
-        return repo.getByCourseName(name);
+        return repo.getCourseByName(name);
     }
 
     public List<Course> getAllCourses(){
-        return repo.getAll();
-    }
-    
-    public Long create(Course course) {
-        repo.create(course);
-        return null;
+        return repo.getAllCourses();
     }
 
-    public void update(Course course) {
+    public void updateCourse(Course course) {
+        repo.updateCourse(course);
     }
 
-
-    public Course delete(Course course) {
-        return null;
-    }
-
-    public List<Course> getAll() {
-        return null;
-    }
-
-
-    public Course getByCourseId(long cid) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    public Course getByCourseName(String name) {
-        // TODO Auto-generated method stub
-        return null;
+    public void deleteCourse(Course course) {
     }
 }

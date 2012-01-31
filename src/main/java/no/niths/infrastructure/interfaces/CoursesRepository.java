@@ -7,17 +7,15 @@ import no.niths.domain.Course;
 
 public interface CoursesRepository   {
 
-	Long create(Course course);
-	
-	//Read
-	List<Course> getAll();
-	
-	Course getByCourseId(long cid);
-	
-	Course getByCourseName(String name);
-	
-	void update(Course course);
-	
-	Course delete(Course course);
+    Long createCourse(Course course);
 
+    Course getCourseById(long id);
+
+    Course getCourseByName(String name);
+
+    List<Course> getAllCourses();
+
+    void updateCourse(Course course);
+
+    void deleteCourse(Course course);
 }

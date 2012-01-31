@@ -29,7 +29,17 @@ public class CourseController {
 
     /**
      * 
-     * @param String the course's id
+     * @param Course The course to be created
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public void createCourse(@RequestBody Course course) {
+        service.createCourse(course);
+    }
+
+    /**
+     * 
+     * @param String The course's id
      * @return The course identified by the id
      */
     @RequestMapping(
@@ -89,31 +99,20 @@ public class CourseController {
         return list;
     }
 
-    @RequestMapping(method   = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourse(@RequestBody Course course) {
-        service.create(course);
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void updateCourse(Course course) {
+        service.updateCourse(course);
     }
 
-    public void update(Course t) {
-        // TODO Auto-generated method stub
-        
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCourse(Course course) {
+        service.deleteCourse(course);
     }
 
-    public void delete(Course t) {
-        // TODO Auto-generated method stub
-        
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCourse(String id) {
     }
-
-    public void delete(String id) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-
-	public Course getAsJSON(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
