@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({AppConfig.BASE_PACKAGE})
+@ComponentScan({"no.niths.domain", "no.niths.infrastructure"})
 public class HibernateConfig{
 
     private final String DRIVER       = "jdbc.driver.class_name",

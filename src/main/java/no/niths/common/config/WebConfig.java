@@ -1,7 +1,15 @@
 package no.niths.common.config;
 
+import java.util.List;
+
+import no.niths.domain.Course;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
+import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
