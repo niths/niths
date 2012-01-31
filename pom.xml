@@ -97,12 +97,13 @@
 			<version>1.0</version>
 			<scope>runtime</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.2</version>
 		</dependency>
--->
+
 		<!-- persistence -->
 <dependency>
 			<groupId>org.springframework</groupId>

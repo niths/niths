@@ -11,11 +11,14 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import no.niths.common.AppConstants;
 
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.COURSES)
+@XStreamAlias("course")
 public class Course implements Serializable {
 
     @Transient
