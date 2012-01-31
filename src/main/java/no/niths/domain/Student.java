@@ -58,9 +58,8 @@ public class Student implements Serializable {
 	private Date birthday;
 	
 	@Column
-	@Max(3)
-	@Min(1)
-	//@Pattern(regexp = "1|2|3", message = "Must be 1, 2 or 3")	
+	@Max(value = 3, message = "Can not be larger then 3")
+	@Min(value = 1, message = "Can not be smaller then 1")
 	private Integer grade;
 
 	@Column
