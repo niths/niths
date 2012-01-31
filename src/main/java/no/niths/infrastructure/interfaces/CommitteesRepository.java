@@ -20,4 +20,6 @@ public interface CommitteesRepository {
 	Committee delete(Committee committee);
 	
 	Committee getCommitteeByIdWithStudents(long cid);
+
+	Committee getCommitteeByIdWithEvents(long cid);
 }

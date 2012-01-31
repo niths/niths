@@ -68,4 +68,15 @@ public class CommitteeController {
     	logger.info(c.getName());
 		return c;
 	}
+    
+    @RequestMapping(
+            value    = {"events/{id}"},
+            method   = RequestMethod.GET,
+            produces = RESTConstants.JSON)
+    @ResponseBody
+	public Committee getByIdWithEventsAsJSON(@PathVariable long id){
+    	Committee c= service.getCommitteeByIdWithEvents(id);
+    	logger.info(c.getName());
+		return c;
+	}
 }

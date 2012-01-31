@@ -69,7 +69,16 @@ public class CommitteeService  {
 		return repo.delete(committee);
 	}
 	
+	/**
+	 * 
+	 * @param cid
+	 * @return
+	 */
 	public Committee getCommitteeByIdWithStudents(long cid){
 		return repo.getCommitteeByIdWithStudents(cid);
+	}
+	
+	public Committee getCommitteeByIdWithEvents(long cid){
+		return repo.getCommitteeByIdWithEvents(cid);
 	}
 }
