@@ -78,11 +78,15 @@
 
  		-->
 		<!-- json, xml, atom -->
+		<dependency>                                                                 
+          <groupId>org.codehaus.jackson</groupId>                                  
+          <artifactId>jackson-core-asl</artifactId>                                
+          <version>${jackson-mapper-asl.version}</version>                                                 
+      </dependency> 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson-mapper-asl.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.xml.bind</groupId>

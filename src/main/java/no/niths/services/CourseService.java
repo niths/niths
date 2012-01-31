@@ -29,6 +29,7 @@ public class CourseService {
     }
     
     public Long create(Course course) {
+        repo.create(course);
         return null;
     }
 
