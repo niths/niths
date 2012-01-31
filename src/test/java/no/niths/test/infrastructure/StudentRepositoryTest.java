@@ -1,7 +1,10 @@
 package no.niths.test.infrastructure;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
+import no.niths.domain.Course;
 import no.niths.domain.Student;
+import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.test.common.config.TestAppConfig;
 
@@ -13,11 +16,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.transaction.annotation.Transactional;
 
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class}, loader = AnnotationConfigContextLoader.class)
-//@Transactional
+@Transactional
 public class StudentRepositoryTest {
 
 	@Autowired
@@ -29,26 +32,26 @@ public class StudentRepositoryTest {
 	/**
 	 * Testing of basic CRUD functions
 	 */
-//	@Test
-//	@Rollback(true)
-//	public void testCRUD(){
-//		Student stud = new Student("John", "Doe");
-//		studentRepo.create(stud);
-//		
-//		assertEquals(stud, studentRepo.getById(stud.getId()));
-//		assertEquals(1, studentRepo.getAllStudents().size());
-//		
-//		stud.setFirstName("Jane");
-//		studentRepo.update(stud);
-//		
-//		assertEquals("Jane", studentRepo.getById(stud.getId()).getFirstName());
-//	
-//		studentRepo.delete(stud);
-//		assertEquals(null, studentRepo.getById(stud.getId()));
-//		
-//		assertEquals(true, studentRepo.getAllStudents().isEmpty());
-//
-//	}
+	@Test
+	@Rollback(true)
+	public void testCRUD(){
+		Student stud = new Student("John", "Doe");
+		studentRepo.create(stud);
+		
+		assertEquals(stud, studentRepo.getById(stud.getId()));
+		assertEquals(1, studentRepo.getAllStudents().size());
+		
+		stud.setFirstName("Jane");
+		studentRepo.update(stud);
+		
+		assertEquals("Jane", studentRepo.getById(stud.getId()).getFirstName());
+	
+		studentRepo.delete(stud);
+		assertEquals(null, studentRepo.getById(stud.getId()));
+		
+		assertEquals(true, studentRepo.getAllStudents().isEmpty());
+
+	}
 	
 	/**
 	 * Tests the course association
