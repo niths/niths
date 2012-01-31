@@ -20,7 +20,7 @@ public class CourseService {
         repo.createCourse(course);
     }
 
-    public Course getCourseById(long id){
+    public Course getCourseById(long id) {
         return repo.getCourseById(id);
    }
 
@@ -28,7 +28,7 @@ public class CourseService {
         return repo.getCourseByName(name);
     }
 
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses() {
         return repo.getAllCourses();
     }
 
