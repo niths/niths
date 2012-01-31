@@ -1,19 +1,11 @@
 package no.niths.test.infrastructure;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import no.niths.common.config.HibernateConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Course;
 import no.niths.domain.Student;
-import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.test.common.config.TestAppConfig;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +13,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class}, loader = AnnotationConfigContextLoader.class)
-@Transactional
+//@Transactional
 public class StudentRepositoryTest {
 
 	@Autowired

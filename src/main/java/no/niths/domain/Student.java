@@ -132,6 +132,7 @@ public class Student implements Serializable {
         this.description = description;
     }
 
+    
     public List<Course> getCourses() {
         return courses;
     }
@@ -153,7 +154,7 @@ public class Student implements Serializable {
         return s == this ? true : s.getId() == id ? true : false;
     }
 
-    
+   
     public List<Committee> getCommittees() {
         return committees;
     }
@@ -164,6 +165,8 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName;
+    	String s = "{\"name\":\""+firstName+"\",\"id\"";
+    	
+        return s;
     }
 }
