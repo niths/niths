@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.support.PersistenceExceptionTranslator;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -83,5 +85,10 @@ public class HibernateConfig{
       txManager.setSessionFactory(alertsSessionFactory().getObject());
 
       return txManager;
+   }
+   
+   @Bean
+   public PersistenceExceptionTranslator exceptionTranslator() {
+	   return new HibernateExceptionTranslator();
    }
 }
