@@ -21,7 +21,7 @@ import no.niths.common.AppConstants;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.COMMITTEE_EVENTS)
-public class CommitteeEvents implements Serializable {
+public class CommitteeEvent implements Serializable {
 
     @Transient
     private static final long serialVersionUID = 1878727682733503699L;
@@ -43,11 +43,11 @@ public class CommitteeEvents implements Serializable {
     @ManyToOne
     private Committee committee;
 
-    public CommitteeEvents() {
+    public CommitteeEvent() {
         this(-1, "foo", "bar", new GregorianCalendar());
     }
 
-    public CommitteeEvents(long id, String name, String description,
+    public CommitteeEvent(long id, String name, String description,
             GregorianCalendar dateAndTime) {
         setId(id);
         setName(name);
@@ -97,10 +97,10 @@ public class CommitteeEvents implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof CommitteeEvents)) {
+        if (!(obj instanceof CommitteeEvent)) {
             return false;
         }
-        CommitteeEvents s = (CommitteeEvents) obj;
+        CommitteeEvent s = (CommitteeEvent) obj;
         return s == this ? true : s.getId() == id ? true : false;
     }
 }

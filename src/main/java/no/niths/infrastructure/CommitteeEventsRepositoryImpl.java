@@ -2,7 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import no.niths.domain.CommitteeEvents;
+import no.niths.domain.CommitteeEvent;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 
 import org.hibernate.SessionFactory;
@@ -17,27 +17,27 @@ public class CommitteeEventsRepositoryImpl implements CommitteeEventsRepository 
 	private SessionFactory session;
 
 	@Transactional(readOnly = false)
-	public Long create(CommitteeEvents domain) {
+	public Long create(CommitteeEvent domain) {
 		return (Long) session.getCurrentSession().save(domain);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<CommitteeEvents> getAll() {
-		return session.getCurrentSession().createQuery("from " + CommitteeEvents.class.getName())
+	public List<CommitteeEvent> getAll() {
+		return session.getCurrentSession().createQuery("from " + CommitteeEvent.class.getName())
 				.list();
 	}
 
-	public CommitteeEvents getCommitteeEventsById(long cid) {
-		return (CommitteeEvents) session.getCurrentSession().get(CommitteeEvents.class, cid);
+	public CommitteeEvent getCommitteeEventsById(long cid) {
+		return (CommitteeEvent) session.getCurrentSession().get(CommitteeEvent.class, cid);
 	}
 
 	@Transactional(readOnly = false)
-	public void update(CommitteeEvents domain) {
+	public void update(CommitteeEvent domain) {
 		session.getCurrentSession().update(domain);
 	}
 
 	@Transactional(readOnly = false)
-	public CommitteeEvents delete(CommitteeEvents domain) {
+	public CommitteeEvent delete(CommitteeEvent domain) {
 		session.getCurrentSession().delete(domain);
 		return domain;
 	}

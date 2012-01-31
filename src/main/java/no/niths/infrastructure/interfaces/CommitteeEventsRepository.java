@@ -2,18 +2,18 @@ package no.niths.infrastructure.interfaces;
 
 import java.util.List;
 
-import no.niths.domain.CommitteeEvents;
+import no.niths.domain.CommitteeEvent;
 
 public interface CommitteeEventsRepository {
 
-	Long create(CommitteeEvents committeeEvents);
+	Long create(CommitteeEvent committeeEvents);
 	
 	//Read
-	List<CommitteeEvents> getAll();
+	List<CommitteeEvent> getAll();
 	
-	CommitteeEvents getCommitteeEventsById(long ceid);
+	CommitteeEvent getCommitteeEventsById(long ceid);
 	
-	void update(CommitteeEvents committeeEvents);
+	void update(CommitteeEvent committeeEvents);
 	
-	CommitteeEvents delete(CommitteeEvents committeeEvents);
+	CommitteeEvent delete(CommitteeEvent committeeEvents);
 }

@@ -59,4 +59,32 @@ public class StudentController {
     public Student getCourseByIdAsXML(@PathVariable long id) {
         return service.getStudentById(id);
     }
+
+    /**
+     * 
+     * @param String The student's name
+     * @return The student identified by the name
+     */
+    @RequestMapping(
+            value    = "name/{name}.json",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.JSON)
+    @ResponseBody
+    public Student getStudentByNameAsJSON(@PathVariable String name) {
+        return service.getStudentByName(name);
+    }
+
+    /**
+     * 
+     * @param String The student's name
+     * @return The student identified by the name
+     */
+    @RequestMapping(
+            value    = "name/{name}.xml",
+            method   = RequestMethod.GET,
+            produces = RESTConstants.XML)
+    @ResponseBody
+    public Student getStudentByNameAsXML(@PathVariable String name) {
+        return service.getStudentByName(name);
+    }
 }

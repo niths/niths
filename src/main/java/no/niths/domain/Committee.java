@@ -47,7 +47,7 @@ public class Committee implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
-    private List<CommitteeEvents> events = new ArrayList<CommitteeEvents>();
+    private List<CommitteeEvent> events = new ArrayList<CommitteeEvent>();
     
     public Committee() {
         this("", "");
@@ -87,11 +87,11 @@ public class Committee implements Serializable {
         this.description = description;
     }
 
-    public List<CommitteeEvents> getEvents() {
+    public List<CommitteeEvent> getEvents() {
         return events;
     }
 
-    public void setEvents(List<CommitteeEvents> events) {
+    public void setEvents(List<CommitteeEvent> events) {
         this.events = events;
     }
 

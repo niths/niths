@@ -7,7 +7,7 @@ import java.awt.color.CMMException;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.domain.Committee;
-import no.niths.domain.CommitteeEvents;
+import no.niths.domain.CommitteeEvent;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
@@ -93,7 +93,7 @@ public class CommitteeRepositoryTest {
 	@Rollback(true)
 	public void testEventJoin(){
 		
-		CommitteeEvents event = new CommitteeEvents();
+		CommitteeEvent event = new CommitteeEvent();
 		Committee committee = new Committee("LUG", "Linux");
 		committee.getEvents().add(event);
 		
@@ -108,7 +108,7 @@ public class CommitteeRepositoryTest {
 	@Test
 	@Rollback(true)
 	public void committeeWithStudentAndEventsTest(){
-		CommitteeEvents event = new CommitteeEvents();
+		CommitteeEvent event = new CommitteeEvent();
 		Student stud1 = new Student	("JJ.s","doe");
 		Committee committee = new Committee("LUG", "Linux");
 		committee.getEvents().add(event);

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 import java.util.GregorianCalendar;
 
 import no.niths.common.config.AppConfig;
-import no.niths.domain.CommitteeEvents;
+import no.niths.domain.CommitteeEvent;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 
 import org.junit.Ignore;
@@ -26,7 +26,7 @@ public class CommitteeEventsRepositoryTest {
 	@Test
 	public void testCRUD() {
 		// create
-		CommitteeEvents event = new CommitteeEvents();
+		CommitteeEvent event = new CommitteeEvent();
 		eventRepo.create(event);
 		assertEquals(event, eventRepo.getCommitteeEventsById(event.getId()));
 
