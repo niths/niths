@@ -2,8 +2,6 @@ package no.niths.application.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import no.niths.common.AppConstants;
 import no.niths.common.RESTConstants;
 import no.niths.domain.Course;
