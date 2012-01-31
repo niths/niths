@@ -14,9 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
+@XmlRootElement
 @Entity
 @Table(name = AppConstants.COMMITTEE_EVENTS)
 public class CommitteeEvents implements Serializable {

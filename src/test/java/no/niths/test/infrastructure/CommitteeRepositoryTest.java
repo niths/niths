@@ -3,26 +3,30 @@ package no.niths.test.infrastructure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.AppConfig;
+import no.niths.common.config.HibernateConfig;
+import no.niths.common.config.WebConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
+import org.hibernate.annotations.Loader;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration( classes ={ AppConfig.class })
+@ContextConfiguration( classes ={AppConfig.class, HibernateConfig.class,WebConfig.class })
 public class CommitteeRepositoryTest {
 
 	@Autowired
 	private CommitteesRepository committeeRepo;
-	
+		
 	@Autowired
 	private StudentRepository studentRepo;
 	
@@ -33,7 +37,7 @@ public class CommitteeRepositoryTest {
 		committee.setId(committeeRepo.create(committee));
 		assertEquals(committee, committeeRepo.getCommitteeById(committee.getId()));
 	
-		committee.setName("LINUXXx");
+		committee.setName("LINUXs");
 		committeeRepo.update(committee);
 
 		assertEquals(committee, committeeRepo.getCommitteeById(committee.getId()));
