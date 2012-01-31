@@ -82,10 +82,11 @@ public class StudentRepositoryImpl implements StudentRepository {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Student> getByNamedCommittee(String committyName) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "from " + Student.class.getName() +" s join fetch s.committees c where c=:cName";
+		return session.getCurrentSession().createQuery(sql).setString("cName", committyName).list();
 	}
 
 	@SuppressWarnings("unchecked")
