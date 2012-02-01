@@ -23,7 +23,7 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Committee> getAll() {
+	public List<Committee> getAllCommittees() {
 		return session.getCurrentSession().createQuery("from " + Committee.class.getName())
 				.list();
 	}
@@ -38,27 +38,16 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 	}
 
 	@Transactional(readOnly = false)
-	public Committee delete(Committee domain) {
-		session.getCurrentSession().delete(domain);
-		return domain;
+	public void delete(Committee committee) {
+	
+		session.getCurrentSession().delete(Committee.class.getSimpleName(), committee);
+	
 	}
 
 	@Override
 	public Committee getCommitteeByName(String name) {
-		String sql ="from " + Committee.class.getName() + " c join fetch c.events e join c.members m where c.name=:name";
+		String sql ="from " + Committee.class.getName() + " c where c.name=:name";
 		return (Committee) session.getCurrentSession().createQuery(sql).setString("name",name).uniqueResult();
 	}
 
-	@Override
-	public Committee getCommitteeByIdWithStudents(long cid) {
-		String sql = "from " + Committee.class.getName()+ " c join fetch c.members m where c.id=:cid";
-		return (Committee) session.getCurrentSession().createQuery(sql).setLong("cid",cid).uniqueResult();
-	}
-	
-	
-	@Override
-	public Committee getCommitteeByIdWithEvents(long cid) {
-		String sql = "from " + Committee.class.getName()+ " c join fetch c.events e where c.id=:cid";
-		return (Committee) session.getCurrentSession().createQuery(sql).setLong("cid",cid).uniqueResult();
-	}
 }

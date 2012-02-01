@@ -9,7 +9,7 @@ public interface CommitteesRepository {
 	Long create(Committee committee);
 	
 	//Read
-	List<Committee> getAll();
+	List<Committee> getAllCommittees();
 	
 	Committee getCommitteeById(long cid);
 	
@@ -17,9 +17,6 @@ public interface CommitteesRepository {
 	
 	void update(Committee committee);
 	
-	Committee delete(Committee committee);
-	
-	Committee getCommitteeByIdWithStudents(long cid);
+	void delete(Committee committee);
 
-	Committee getCommitteeByIdWithEvents(long cid);
 }

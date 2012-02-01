@@ -19,3 +19,19 @@ INSERT INTO committees (name) VALUES("Linx utvalget");
 INSERT INTO committees (name) VALUES("Microsoft utvalget");
 INSERT INTO committees (name) VALUES("KIT");
 INSERT INTO committees (name) VALUES("MDF");
+
+
+INSERT INTO committee_events (name) VALUES("awesome");
+INSERT INTO committee_events (name) VALUES("super");
+INSERT INTO committee_events (name) VALUES("asdasd");
+INSERT INTO committee_events (name) VALUES("23asd");
+INSERT INTO committee_events (name) VALUES("zjkzhck");
+INSERT INTO committee_events (name) VALUES("asdokihju");
+
+
+insert into committees_committee_events (committees_id, events_id) values(1, 1);
+insert into committees_committee_events (committees_id, events_id) values(1, 2);
+insert into committees_committee_events (committees_id, events_id) values(1, 3);
+insert into committees_committee_events (committees_id, events_id) values(1, 4);
+insert into committees_committee_events (committees_id, events_id) values(2, 5);
+insert into committees_committee_events (committees_id, events_id) values(2, 6);

@@ -30,7 +30,7 @@ public class CommitteeService  {
 	 * @return
 	 */
 	public List<Committee> getAll() {
-		return repo.getAll();
+		return repo.getAllCommittees();
 	}
 
 	
@@ -63,22 +63,10 @@ public class CommitteeService  {
 	/**
 	 * 
 	 * @param committee
-	 * @return
 	 */
-	public Committee delete(Committee committee) {
-		return repo.delete(committee);
+	public void delete(Committee committee) {
+		repo.delete(committee);
 	}
 	
-	/**
-	 * 
-	 * @param cid
-	 * @return
-	 */
-	public Committee getCommitteeByIdWithStudents(long cid){
-		return repo.getCommitteeByIdWithStudents(cid);
-	}
-	
-	public Committee getCommitteeByIdWithEvents(long cid){
-		return repo.getCommitteeByIdWithEvents(cid);
-	}
+
 }

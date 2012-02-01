@@ -5,7 +5,6 @@ import java.util.List;
 import no.niths.common.AppConstants;
 import no.niths.common.RESTConstants;
 import no.niths.domain.Committee;
-import no.niths.domain.Student;
 import no.niths.services.CommitteeService;
 
 import org.slf4j.Logger;
@@ -55,28 +54,4 @@ public class CommitteeController {
     public List<Committee>  getAllCourses(){
     	return service.getAll();
     }
-    
-    
-    @RequestMapping(
-            value    = {"students/{id}"},
-            method   = RequestMethod.GET,
-            produces = RESTConstants.JSON)
-    @ResponseBody
-	public Committee getByIdWithStudentsAsJSON(@PathVariable long id){
-    	Committee c= service.getCommitteeByIdWithStudents(id);
-    		c.getStudents().add(new Student());
-    	logger.info(c.getName());
-		return c;
-	}
-    
-    @RequestMapping(
-            value    = {"events/{id}"},
-            method   = RequestMethod.GET,
-            produces = RESTConstants.JSON)
-    @ResponseBody
-	public Committee getByIdWithEventsAsJSON(@PathVariable long id){
-    	Committee c= service.getCommitteeByIdWithEvents(id);
-    	logger.info(c.getName());
-		return c;
-	}
 }

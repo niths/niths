@@ -77,7 +77,8 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Course> courses;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "members")
+	//, mappedBy = "members"
+	@ManyToMany(fetch = FetchType.LAZY,mappedBy="committees")
 	private List<Committee> committees;
 
 	public Student() {

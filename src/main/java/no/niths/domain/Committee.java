@@ -42,11 +42,11 @@ public class Committee implements Serializable {
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Student> members = new ArrayList<Student>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private List<Student> members = new ArrayList<Student>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<CommitteeEvent> events = new ArrayList<CommitteeEvent>();
     
     public Committee() {
@@ -108,13 +108,13 @@ public class Committee implements Serializable {
         return "Committee";
     }
 
-    @JsonIgnore
-    public List<Student> getStudents() {
-        return members;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.members = students;
-    }
+//    @JsonIgnore
+//    public List<Student> getStudents() {
+//        return members;
+//    }
+//
+//    public void setStudents(List<Student> students) {
+//        this.members = students;
+//    }
 
 }
