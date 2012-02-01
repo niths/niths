@@ -52,7 +52,7 @@ public class Student implements Serializable {
 	
 	@Column
 	@StudentSex
-	private String sex;
+	private Character sex;
 
 	@Column
 	@Past
@@ -90,10 +90,10 @@ public class Student implements Serializable {
 	}
 
 	public Student(String firstName, String lastName, String email) {
-		this(firstName, lastName, "M" , 1, email, "", "");
+		this(firstName, lastName, 'M' , 1, email, "", "");
 	}
 
-	public Student(String firstName, String lastName, String sex, Integer grade, String email,
+	public Student(String firstName, String lastName, Character sex, Integer grade, String email,
 		String telephoneNumber, String description) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -123,11 +123,11 @@ public class Student implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public String getSex() {
+	public Character getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Character sex) {
 		this.sex = sex;
 	}
 

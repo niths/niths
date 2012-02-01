@@ -34,7 +34,7 @@ public class StudentTest {
 	@Test
 	public void testStudentValues() {
 
-		Student student = new Student("John", "Doe", "M", 1, "john@doe.com",
+		Student student = new Student("John", "Doe", 'M', 1, "john@doe.com",
 				"12345678", "Student at NITH");
 
 		// Should pass validation
@@ -56,12 +56,12 @@ public class StudentTest {
 		constraintViolations = validator.validate(student);
 		assertEquals(2, constraintViolations.size());
 		
-		Student student2 = new Student("John", "Doe", "K", 5, "john@doe.com",
+		Student student2 = new Student("John", "Doe", 'K', 5, "john@doe.com",
 				"12345678", "Student at NITH");
 		constraintViolations = validator.validate(student2);
 		assertEquals(2, constraintViolations.size());
 		
-		student2.setSex("M");
+		student2.setSex('M');
 		constraintViolations = validator.validate(student2);
 		assertEquals(1, constraintViolations.size());
 		
