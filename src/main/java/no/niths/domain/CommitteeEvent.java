@@ -60,6 +60,8 @@ public class CommitteeEvent implements Serializable {
         setDateAndTime(dateAndTime);
     }
 
+  
+
     public long getId() {
         return id;
     }

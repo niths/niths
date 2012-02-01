@@ -1,5 +1,5 @@
 package no.niths.test.rest;
-
+//
 //import static org.junit.Assert.assertEquals;
 //
 //import java.io.UnsupportedEncodingException;
