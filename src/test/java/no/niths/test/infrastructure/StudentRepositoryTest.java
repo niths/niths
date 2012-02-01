@@ -59,8 +59,8 @@ public class StudentRepositoryTest {
 	@Test
 	@Rollback(true)
 	public void testStudentWithCourses(){
-		Course c1 = new Course("c1", "c1");
-		Course c2 = new Course("c2", "c2");
+		Course c1 = new Course("PROG", "casd1");
+		Course c2 = new Course("DESIGN", "cdda2");
 		
 		courseRepo.createCourse(c1);
 		courseRepo.createCourse(c2);
