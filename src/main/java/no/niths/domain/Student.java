@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.constraints.StudentSex;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -50,8 +51,8 @@ public class Student implements Serializable {
 	
 	
 	@Column
-	@Pattern(regexp = "M|F", message = "Must be M=male, or F=female")
-	private String sex;
+	@StudentSex
+	private Character sex;
 
 	@Column
 	@Past
@@ -90,10 +91,10 @@ public class Student implements Serializable {
 	}
 
 	public Student(String firstName, String lastName, String email) {
-		this(firstName, lastName, "M" , 1, email, "", "");
+		this(firstName, lastName, 'M' , 1, email, "", "");
 	}
 
-	public Student(String firstName, String lastName, String sex, Integer grade, String email,
+	public Student(String firstName, String lastName, Character sex, Integer grade, String email,
 		String telephoneNumber, String description) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -123,11 +124,11 @@ public class Student implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public String getSex() {
+	public Character getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Character sex) {
 		this.sex = sex;
 	}
 
