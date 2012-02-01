@@ -12,7 +12,6 @@ import javax.validation.ValidatorFactory;
 import no.niths.domain.Student;
 
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
