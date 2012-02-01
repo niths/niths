@@ -4,7 +4,7 @@ import java.util.List;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
-import no.niths.domain.StudentList;
+import no.niths.domain.list.StudentList;
 import no.niths.services.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;

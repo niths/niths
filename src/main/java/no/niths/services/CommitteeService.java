@@ -64,8 +64,8 @@ public class CommitteeService  {
 	 * 
 	 * @param committee
 	 */
-	public void delete(Committee committee) {
-		repo.delete(committee);
+	public void delete(long    id) {
+		repo.delete(id);
 	}
 	
 

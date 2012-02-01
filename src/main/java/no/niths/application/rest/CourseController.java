@@ -3,9 +3,8 @@ package no.niths.application.rest;
 import java.util.List;
 
 import no.niths.common.AppConstants;
-import no.niths.common.RESTConstants;
 import no.niths.domain.Course;
-import no.niths.domain.CourseList;
+import no.niths.domain.list.CourseList;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;

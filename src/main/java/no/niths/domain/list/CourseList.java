@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.list;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Course;
 
 @XmlRootElement(name = AppConstants.COURSES)
 public class CourseList {

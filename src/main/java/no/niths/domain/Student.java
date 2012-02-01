@@ -79,7 +79,7 @@ public class Student implements Serializable {
 	private List<Course> courses;
 
 	//, mappedBy = "members"
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	private List<Committee> committees;
 
 	public Student() {
