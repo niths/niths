@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -32,10 +33,12 @@ public class CommitteeEvent implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(unique = true)
+    @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
     private String name;
 
-    @Column
+    @Column(length=500)
+    @Size(max = 500, message ="The length of the description must not exceed 500 letters")
     private String description;
 
     @Column
