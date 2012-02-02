@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
+import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
@@ -70,6 +71,12 @@ public class StudentRepositoryImpl implements StudentRepository {
 	public Student delete(Student domain) {
 		session.getCurrentSession().delete(domain);
 		return domain;
+	}
+	
+	@Transactional(readOnly = false)
+	public void delete(long id) {
+		session.getCurrentSession().clear();
+        session.getCurrentSession().delete(new Student(id,"",""));
 	}
 
 	@SuppressWarnings("unchecked")

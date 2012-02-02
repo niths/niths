@@ -29,4 +29,6 @@ public interface StudentRepository {
 	void update(Student domain);
 	
 	Student delete(Student domain);
+	
+	void delete(long id);
 }
