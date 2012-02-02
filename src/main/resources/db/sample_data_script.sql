@@ -10,7 +10,7 @@ INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny 
 INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
 
-INSERT INTO students (first_name, last_name) VALUES("Andre", "Dockinsen");
+INSERT INTO students (first_name, last_name) VALUES("Andre", "Kristensen");
 INSERT INTO students (first_name, last_name) VALUES("Bendik", "Rostad");
 INSERT INTO students (first_name, last_name) VALUES("Liv", "Kolås");
 INSERT INTO students (first_name, last_name) VALUES("Øyvind", "Ødegård");
@@ -21,8 +21,8 @@ INSERT INTO committees (name) VALUES("KIT");
 INSERT INTO committees (name) VALUES("MDF");
 
 
-INSERT INTO committee_events (name) VALUES("awesome");
-INSERT INTO committee_events (name) VALUES("super");
+INSERT INTO committee_events (name) VALUES("LUG event");
+INSERT INTO committee_events (name) VALUES("FEst");
 INSERT INTO committee_events (name) VALUES("asdasd");
 INSERT INTO committee_events (name) VALUES("23asd");
 INSERT INTO committee_events (name) VALUES("zjkzhck");

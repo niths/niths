@@ -2,8 +2,6 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import no.niths.common.LoggerTest;
-import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 

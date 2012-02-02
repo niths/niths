@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
@@ -44,8 +46,14 @@ public class CommitteeController implements RESTController<Committee>{
            headers = RESTConstants.HEADERS
            )
     @ResponseBody
-    public Committee getById( @PathVariable long id) {
-        return service.getCommitteeById(id);
+    public Committee getById(@PathVariable long id) throws ObjectNotFoundException{
+        Committee c = service.getCommitteeById(id);
+        
+        if(c == null){
+            throw new ObjectNotFoundException("No comittees with id :" + id);
+        }
+        
+        return c;
     }
 
 
@@ -71,7 +79,7 @@ public class CommitteeController implements RESTController<Committee>{
      * @param Course The Course to update
      */
     @RequestMapping(
-            value  = {"", "{id}"},
+            value  = {"", "{id}", "?id={id}" },
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(
@@ -97,8 +105,9 @@ public class CommitteeController implements RESTController<Committee>{
         service.delete(id);
     }
 
-    @Override
-    public ArrayList<Committee> getByName(String name) {
+    @RequestMapping(value="?name={name}",
+            headers = RESTConstants.HEADERS)
+    public ArrayList<Committee> getByName(@PathVariable String name) {
         // TODO Auto-generated method stub
         return null;
     }
