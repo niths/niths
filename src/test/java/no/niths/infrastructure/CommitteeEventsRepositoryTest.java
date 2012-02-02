@@ -42,7 +42,7 @@ public class CommitteeEventsRepositoryTest {
 		event = eventRepo.getCommitteeEventsById(event.getId());
 		assertEquals(event.getDateAndTime(), event.getDateAndTime());
 
-		eventRepo.delete(event);
+		eventRepo.delete(event.getId());
 
 		assertNull(eventRepo.getCommitteeEventsById(event.getId()));
 	}

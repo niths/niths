@@ -105,9 +105,6 @@ public class CommitteeEventsController {
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCourse(@PathVariable long id) {
-        // TODO FIXME
-        CommitteeEvent c= new  CommitteeEvent();
-        c.setId(id);
-        service.delete(c);
+        service.delete(id);
     }
 }

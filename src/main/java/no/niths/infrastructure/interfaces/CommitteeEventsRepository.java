@@ -15,5 +15,5 @@ public interface CommitteeEventsRepository {
 	
 	void update(CommitteeEvent committeeEvents);
 	
-	CommitteeEvent delete(CommitteeEvent committeeEvents);
+	void delete(long eid);
 }

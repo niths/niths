@@ -3,7 +3,6 @@ package no.niths.infrastructure;
 import java.util.List;
 
 import no.niths.domain.Committee;
-import no.niths.domain.Course;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 
 import org.hibernate.SessionFactory;
@@ -40,8 +39,8 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 
 	@Transactional(readOnly = false)
 	public void delete(long id) {
-	    session.getCurrentSession().delete(getCommitteeById(id));
-	
+	    session.getCurrentSession().clear();
+	    session.getCurrentSession().delete(new Committee(id,"",""));
 	}
 
 	@Override

@@ -2,16 +2,11 @@ package no.niths.application.rest;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 import no.niths.services.CommitteeService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -25,9 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
 public class CommitteeController {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(CommitteeController.class);
 
     @Autowired
     private CommitteeService service;
@@ -50,14 +42,21 @@ public class CommitteeController {
         service.create(c);
     }
 
-    @RequestMapping(value = { "{id}.json", "id/{id}.json", "id/{id}" }, method = RequestMethod.GET, produces = RESTConstants.JSON)
-    @ResponseBody
     
+   //produces = RESTConstants.JSON
+    @RequestMapping(
+           value = { "?id={id}","{id}" }, 
+           method = RequestMethod.GET, 
+           headers = "Accept="+ RESTConstants.JSON+", " +RESTConstants.XML
+           )
+    @ResponseBody
     public Committee getByIdAsJSON(@PathVariable long id) {
         return service.getCommitteeById(id);
     }
 
-    @RequestMapping(value = { "{id}.xml", "id/{id}.xml" }, method = RequestMethod.GET, produces = RESTConstants.XML)
+    @RequestMapping(value = { "{id}.xml", "id/{id}.xml" },
+            method = RequestMethod.GET, 
+            produces = RESTConstants.XML)
     @ResponseBody
     public Committee getByIdAsXML(@PathVariable long id) {
         return service.getCommitteeById(id);

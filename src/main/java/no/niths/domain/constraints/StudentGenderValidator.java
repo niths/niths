@@ -3,10 +3,10 @@ package no.niths.domain.constraints;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
  
-public class StudentSexValidator implements ConstraintValidator<StudentSex, Character> {
+public class StudentGenderValidator implements ConstraintValidator<StudentGender, Character> {
  
 	@Override
-	public void initialize(StudentSex number) {
+	public void initialize(StudentGender number) {
 	}
  
 

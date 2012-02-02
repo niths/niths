@@ -25,7 +25,7 @@ public class CommitteeRepositoryTest {
 	private CommitteesRepository committeeRepo;
 			
 	@Test
-	@Rollback(true)
+	//@Rollback(true)
 	public void testCRUD() {
 		Committee committee = new Committee("LUG", "Linux");
 

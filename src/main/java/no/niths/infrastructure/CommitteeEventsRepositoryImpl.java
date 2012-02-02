@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
+import no.niths.domain.Committee;
 import no.niths.domain.CommitteeEvent;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 
@@ -37,10 +38,8 @@ public class CommitteeEventsRepositoryImpl implements CommitteeEventsRepository 
 	}
 
 	@Transactional(readOnly = false)
-	public CommitteeEvent delete(CommitteeEvent domain) {
-		session.getCurrentSession().delete(domain);
-		return domain;
+	public void delete(long eid) {
+	    session.getCurrentSession().clear();
+        session.getCurrentSession().delete(new CommitteeEvent(eid,"","",null));
 	}
-
-	
 }

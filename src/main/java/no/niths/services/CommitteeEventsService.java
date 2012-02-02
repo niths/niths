@@ -33,7 +33,7 @@ public class CommitteeEventsService  {
         
     }
    
-    public CommitteeEvent delete(CommitteeEvent committeeEvents) {
-        return repo.delete(committeeEvents);
+    public void delete(long eid) {
+        repo.delete(eid);
     }
 }

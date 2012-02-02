@@ -54,7 +54,7 @@ public class HibernateConfig{
         props.setProperty(DIALECT, hibernateDialect);
         props.setProperty(HBM2DDL_AUTO, hbm2ddlAuto);
         props.setProperty(SHOW_SQL, showSQL.toString());
-
+       
         return props;
     }
 
