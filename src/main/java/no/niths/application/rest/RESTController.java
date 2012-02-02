@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 public interface RESTController<T> {
  
-    public void create(@RequestBody T domain) ;
+    public void create( T domain) ;
     
-    public T getById( @PathVariable long id); 
+    public T getById(@PathVariable long id); 
+
+    public ArrayList<T> getByName(@PathVariable String name);
 
     public ArrayList<T> getAll(HttpEntity<byte[]> request);
 
-    public void update(@RequestBody T domain,@PathVariable Long id);
+    public void update(T domain,@PathVariable Long id);
 
     public void delete(@PathVariable long id);
 }
