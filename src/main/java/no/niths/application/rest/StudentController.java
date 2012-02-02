@@ -5,8 +5,11 @@ import java.util.List;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
+import no.niths.infrastructure.StudentRepositoryImpl;
 import no.niths.services.StudentService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.STUDENTS)
 public class StudentController {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(StudentController.class);
 
     @Autowired
     private StudentService service;
@@ -45,6 +51,7 @@ public class StudentController {
             produces = RESTConstants.JSON)
     @ResponseBody
     public Student getStudentByIdAsJSON(@PathVariable long id) {
+    	logger.debug("Getting student by id: " + id );
         return service.getStudentById(id);
     }
 
