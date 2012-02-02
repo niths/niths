@@ -1,13 +1,13 @@
 package no.niths.application.rest;
 
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.ArrayList;
 
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.domain.CommitteeEvent;
 import no.niths.services.CommitteeEventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping("events")
-public class CommitteeEventsController {
-
-    
+public class CommitteeEventsController implements RESTController<CommitteeEvent> {
+ 
     @Autowired
     private CommitteeEventsService service;
     
@@ -29,11 +28,9 @@ public class CommitteeEventsController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourse(@RequestBody CommitteeEvent event) {
+    public void create(@RequestBody CommitteeEvent event) {
         service.create(event);
     }
-
-   
 
     @RequestMapping(value = { "?id={id}","{id}" },
             method = RequestMethod.GET,
@@ -43,18 +40,21 @@ public class CommitteeEventsController {
         return service.getCommitteeEventsById(id);
     }
 
-    @RequestMapping(value = { "", "all.json" }, method = RequestMethod.GET, produces = RESTConstants.JSON)
+    @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.HEADERS)
     @ResponseBody
-    public List<CommitteeEvent> getAllCoursesAsJSON() {
-        return service.getAll();
-    }
+    public ArrayList<CommitteeEvent> getAll(HttpEntity<byte[]> request) {
+        
+        String req = request.getHeaders().getFirst(RESTConstants.ACCEPT);
 
-    @RequestMapping(value = { "all.xml" }, method = RequestMethod.GET, produces = RESTConstants.XML)
-    @ResponseBody
-    public CommitteeEventList getAllCoursesAsXML() {
-        list.setCommitteeData(service.getAll());
-        return list;
+        if(req.equals(RESTConstants.JSON)){     
+            return (ArrayList<CommitteeEvent>) service.getAll();    
+        }else if (req.equals(RESTConstants.XML)){
+            list.setEventData(service.getAll());
+            return list;
+        }
+        return null;
     }
+    
 
     /**
      * 
@@ -64,7 +64,7 @@ public class CommitteeEventsController {
             value  = {"", "{id}"},
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCourse(
+    public void update(
             @RequestBody CommitteeEvent event,
             @PathVariable Long id) {
 
@@ -83,7 +83,7 @@ public class CommitteeEventsController {
             value  = "{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(@PathVariable long id) {
+    public void delete(@PathVariable long id) {
         service.delete(id);
     }
 }
