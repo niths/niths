@@ -1,6 +1,6 @@
 package no.niths.application.rest;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
@@ -8,6 +8,7 @@ import no.niths.domain.Course;
 import no.niths.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.COURSES)
-public class CourseController {
+public class CourseController implements RESTController<Course> {
 
     @Autowired
     private CourseService service;
@@ -28,9 +29,10 @@ public class CourseController {
      * 
      * @param Course The course to be created
      */
+    @Override
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourse(@RequestBody Course course) {
+    public void create(@RequestBody Course course) {
         service.createCourse(course);
     }
 
@@ -39,26 +41,12 @@ public class CourseController {
      * @param long The course's id
      * @return The course identified by the id
      */
+    @Override
     @RequestMapping(
-            value    = {"{id}.json", "id/{id}.json"},
-            method   = RequestMethod.GET,
-            produces = RESTConstants.JSON)
+            value    = {"{id}", "?id={id}"},
+            method   = RequestMethod.GET)
     @ResponseBody()
-    public Course getCourseByIdAsJSON(@PathVariable long id) {
-        return service.getCourseById(id);
-    }
-
-    /**
-     * 
-     * @param long The course's id
-     * @return The course identified by the id
-     */
-    @RequestMapping(
-            value    = {"{id}.xml", "id/{id}.xml"},
-            method   = RequestMethod.GET,
-            produces = RESTConstants.XML)
-    @ResponseBody
-    public Course getCourseByIdAsXML(@PathVariable long id) {
+    public Course getById(@PathVariable long id) {
         return service.getCourseById(id);
     }
 
@@ -67,13 +55,13 @@ public class CourseController {
      * @param String The course's name plus '.json'
      * @return The course identified by the name
      */
+    @Override
     @RequestMapping(
-            value    = "name/{name}.json",
-            method   = RequestMethod.GET,
-            produces = RESTConstants.JSON)
+            value    = "?name={name}",
+            method   = RequestMethod.GET)
     @ResponseBody
-    public Course getCourseByNameAsJSON(@PathVariable String name) {
-        return service.getCourseByName(name);
+    public ArrayList<Course> getByName(@PathVariable String name) {
+        return null;
     }
 
     /**
@@ -90,32 +78,33 @@ public class CourseController {
         return service.getCourseByName(name);
     }
 
-    /**
-     * 
-     * @return All courses as JSON
-     */
-    @RequestMapping(
-            value    = {"", "all.json"},
-            method   = RequestMethod.GET,
-            produces = RESTConstants.JSON)
-    @ResponseBody
-    public List<Course> getAllCoursesAsJSON() {
-        return service.getAllCourses();
-    }
+//    /**
+//     * 
+//     * @return All courses as JSON
+//     */
+//    @RequestMapping(
+//            value    = {"", "all.json"},
+//            method   = RequestMethod.GET,
+//            produces = RESTConstants.JSON)
+//    @ResponseBody
+//    public List<Course> getAllCoursesAsJSON() {
+//        return service.getAllCourses();
+//    }
 
     /**
      * 
      * @return All courses as XML
      */
     @RequestMapping(
-            value    = "all.xml",
-            method   = RequestMethod.GET,
-            produces = RESTConstants.XML)
+            value    = "all",
+            method   = RequestMethod.GET)
     @ResponseBody
-    public CourseList getAllCoursesAsXML() {
+    public CourseList getAllCoursesAsXML(HttpEntity<byte[]> requestEntity) {
+//        String requestHeader = requestEntity.getHeaders().getFirst("foo");
+//        //System.out.println(requestHeader);
         CourseList list = new CourseList();
         list.setData(service.getAllCourses());
-        
+        int asd = 10;
         return list;
     }
 
@@ -148,5 +137,23 @@ public class CourseController {
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteCourse(@PathVariable long id) {
         service.deleteCourse(id);
+    }
+
+    @Override
+    public ArrayList<Course> getAll(HttpEntity<byte[]> request) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void update(Course domain, Long id) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void delete(long id) {
+        // TODO Auto-generated method stub
+        
     }
 }
