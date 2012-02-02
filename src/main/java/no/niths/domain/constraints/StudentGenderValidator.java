@@ -10,12 +10,13 @@ public class StudentGenderValidator implements ConstraintValidator<StudentGender
 	}
  
 
+	/**
+	 * Valid values is M(male), F(emale) or null
+	 */
 	@Override
 	public boolean isValid(Character studentSex, ConstraintValidatorContext context) {
 		
-		if (studentSex == null)
-			return false;
-		if (studentSex == 'M' || studentSex == 'F')
+		if (studentSex == null || studentSex == 'M' || studentSex == 'F')
 			return true;
 		
 		return false;
