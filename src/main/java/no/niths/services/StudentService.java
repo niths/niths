@@ -41,8 +41,6 @@ public class StudentService {
     }
 
     public void deleteStudent(long id) {
-        
-        // TODO
-        // Implement this.
+        repo.delete(id);
     }
 }
