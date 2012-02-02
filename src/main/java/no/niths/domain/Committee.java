@@ -102,10 +102,18 @@ public class Committee implements Serializable {
         Committee s = (Committee) that;
         return s == this ? true : s.getId() == id ? true : false;
     }
+    
+	@Override
+	public int hashCode(){
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+		return result;
+	}
 
     @Override
     public String toString() {
-        return "Committee";
+        return name;
     }
 
 //    @JsonIgnore
