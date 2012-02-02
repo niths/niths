@@ -3,8 +3,8 @@ package no.niths.application.rest;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.domain.CommitteeEvent;
-import no.niths.domain.list.CommitteeEventList;
 import no.niths.services.CommitteeEventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;

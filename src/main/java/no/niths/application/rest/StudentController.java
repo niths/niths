@@ -2,9 +2,9 @@ package no.niths.application.rest;
 
 import java.util.List;
 
+import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
-import no.niths.domain.list.StudentList;
 import no.niths.services.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;

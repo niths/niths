@@ -2,9 +2,12 @@ package no.niths.application.rest;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
-import no.niths.domain.list.CommitteeList;
 import no.niths.services.CommitteeService;
 
 import org.slf4j.Logger;

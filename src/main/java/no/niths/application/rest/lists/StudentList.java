@@ -1,4 +1,4 @@
-package no.niths.domain.list;
+package no.niths.application.rest.lists;
 
 import java.util.List;
 
