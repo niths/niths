@@ -40,7 +40,7 @@ public class StudentService {
         repo.update(student);
     }
 
-    public void deleteStudent(long id) {
-        repo.delete(id);
+    public boolean deleteStudent(long id) {
+        return repo.delete(id);
     }
 }

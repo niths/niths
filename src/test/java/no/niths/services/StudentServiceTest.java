@@ -1,7 +1,11 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import javax.validation.constraints.AssertTrue;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Student;
@@ -52,9 +56,15 @@ public class StudentServiceTest {
 		
 		
 		//Testing delete
-		studService.deleteStudent(s.getId());
+		boolean isDeleted = studService.deleteStudent(s.getId());
+		
+		assertTrue(isDeleted);
 		assertEquals(1, studService.getAllStudents().size());
 		
+		
+		
+		assertNull(studService.getStudentById(s.getId()));
+	
 		studService.deleteStudent(x.getId());
 		assertEquals(true, studService.getAllStudents().isEmpty());
 		

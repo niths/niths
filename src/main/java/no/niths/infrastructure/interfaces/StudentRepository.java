@@ -30,5 +30,5 @@ public interface StudentRepository {
 	
 	Student delete(Student domain);
 	
-	void delete(long id);
+	boolean delete(long id);
 }
