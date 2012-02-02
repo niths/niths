@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-//@ComponentScan( { "no.niths."} )
+@ComponentScan( { "no.niths.services"} )
 public class TestAppConfig {
 
     public static final String BASE_PACKAGE      = "no.niths",
