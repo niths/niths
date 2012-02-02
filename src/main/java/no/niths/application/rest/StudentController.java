@@ -94,6 +94,7 @@ public class StudentController {
             value    = {"", "all.json"},
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
+    @ResponseBody
     public List<Student> getAllStudentsAsJSON() {
         return service.getAllStudents();
     }
@@ -102,6 +103,7 @@ public class StudentController {
             value    = "all.xml",
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
+    @ResponseBody
     public StudentList getAllStudentsAsXML() {
         return new StudentList(service.getAllStudents());
     }
