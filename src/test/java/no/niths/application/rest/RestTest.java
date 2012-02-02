@@ -33,47 +33,53 @@ public class RestTest {
 	// @Autowired
 	// private RestTemplate template;
 	String en = "http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/courses/1.json";
-	String all = "http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/courses";
+	// String all =
+	// "http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/courses";
+	String all = "http://localhost:8080/niths/courses";
 
 	@Test
 	@Ignore
 	public void testMethod() {
 		// Course c = template.getForObject(en, Course.class,new Object[]{});
-		String tradeXml = new RestTemplate().getForObject(
-				"http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/courses/1.json",
-				String.class);
-		
+		String tradeXml = new RestTemplate()
+				.getForObject(
+						"http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/courses/1.json",
+						String.class);
+
 		logger.debug(tradeXml);
 	}
-	
+
 	@Test
-	public void testSome(){
-		//Gets the response in a String
-		String responseString = new RestTemplate().getForObject(
-				all,
+	public void testSome() {
+		// Gets the response in a String
+		String responseString = new RestTemplate().getForObject(all,
 				String.class);
-		
-		//Converts to a json array
+		logger.debug(responseString);
+		// Converts to a json array
 		Object obj = JSONValue.parse(responseString);
 		JSONArray objArray = (JSONArray) obj;
-		
-		
-		
-		//Prints all in the json array
+
+		// Prints all in the json array
 		logger.debug("ALL OBJECTS");
-		for (int i = 0;  i < objArray.size(); i++){
+		for (int i = 0; i < objArray.size(); i++) {
 			logger.debug("Content : " + objArray.get(i));
 		}
-		
-		//Gets the first json object in the array
-		JSONObject oneObj = (JSONObject) objArray.get(objArray.size()   - 1);
-		//Prints out all in the object
-		logger.debug("ONE OBJECT");
-		for (int i = 0; i < oneObj.size(); i++){
-			logger.debug("Content: " + oneObj.get(i));
+		JSONObject oneObj;
+		// Gets the first json object in the array
+		if (objArray.size() >= 1) {
+			if (objArray.size() == 1) {
+				oneObj = (JSONObject) objArray.get(0);
+			} else {
+				oneObj = (JSONObject) objArray.get(1);
+			}
+			// Prints out all in the object
+			logger.debug("ONE OBJECT");
+			for (int i = 0; i < oneObj.size(); i++) {
+				logger.debug("Content: " + oneObj.get(i));
+			}
+			
+			logger.debug("ONE OBJECT: " + oneObj);
 		}
-		
-		logger.debug("ONE OBJECT: " + oneObj);
-	}
 
+	}
 }

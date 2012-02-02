@@ -83,15 +83,12 @@ public class Student implements Serializable {
 	private List<Committee> committees;
 
 	public Student() {
-		this("", "", "");
+		this("", "");
 	}
 
 	public Student(String firstName, String lastName) {
-		this(firstName, lastName, "");
-	}
-
-	public Student(String firstName, String lastName, String email) {
-		this(firstName, lastName, 'M' , 1, email, "", "");
+		setFirstName(firstName);
+		setLastName(lastName);
 	}
 
 	public Student(String firstName, String lastName, Character sex, Integer grade, String email,
