@@ -85,6 +85,11 @@ public class Student implements Serializable {
 	public Student() {
 		this("", "");
 	}
+	
+	public Student(long id, String firstName, String lastName){
+		this(firstName, lastName);
+		setId(id);
+	}
 
 	public Student(String firstName, String lastName) {
 		setFirstName(firstName);
