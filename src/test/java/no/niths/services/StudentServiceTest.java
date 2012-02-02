@@ -1,9 +1,10 @@
-package no.niths.application.rest;
+package no.niths.services;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.services.StudentService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,31 +20,40 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class }, loader = AnnotationConfigContextLoader.class)
-public class StudentControllerTest {
+public class StudentServiceTest {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(StudentControllerTest.class);
+			.getLogger(StudentServiceTest.class);
 	
 	private RestTemplate template;
 	private String getAllStudents = "http://localhost:8080/niths/students/";
 	
-	@Autowired
-	StudentRepository studRep;
+//	@Autowired
+//	private StudentRepository studRep;
 	
-	@Before
-	public void init(){
-		template = new RestTemplate();
-	}
+	@Autowired
+	private no.niths.services.StudentService studService;
+	
+//	@Before
+//	public void init(){
+//		template = new RestTemplate();
+//	}
 	
 	@Test
 	@Rollback(true)
 	public void testGetByID(){
 		Student s = new Student("John", "Doe");
-		studRep.create(s);
-		logger.debug(" ID. :::::::." + s.getId());
-		String responseString = new RestTemplate().getForObject(getAllStudents + s.getId() + ".json", String.class);
 		
-		logger.debug(responseString);
+		//studRep.create(s);
+		
+		studService.createStudent(s);
+		
+		logger.debug("DDDDDD : " + s.getId());
+		
+//		logger.debug(" ID. :::::::." + s.getId());
+//		String responseString = template.getForObject(getAllStudents + s.getId() + ".json", String.class);
+//		
+//		logger.debug(responseString);
 	}
 
 }
