@@ -96,4 +96,10 @@ public class CommitteeController implements RESTController<Committee>{
     public void delete(@PathVariable long id) {
         service.delete(id);
     }
+
+    @Override
+    public ArrayList<Committee> getByName(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -86,4 +86,10 @@ public class CommitteeEventsController implements RESTController<CommitteeEvent>
     public void delete(@PathVariable long id) {
         service.delete(id);
     }
+
+    @Override
+    public ArrayList<CommitteeEvent> getByName(String name) {
+        // TODO generate GET method ++ 
+        return null ;
+    }
 }
