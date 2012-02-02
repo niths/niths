@@ -1,4 +1,4 @@
-package no.niths.test.domain;
+package no.niths.domain;
 
 import static org.junit.Assert.assertEquals;
 

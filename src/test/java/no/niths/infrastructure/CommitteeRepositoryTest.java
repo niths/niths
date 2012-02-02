@@ -1,17 +1,16 @@
-package no.niths.test.infrastructure;
+package no.niths.infrastructure;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
+import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.CommitteeEvent;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
-import no.niths.test.common.config.TestAppConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.NotTransactional;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

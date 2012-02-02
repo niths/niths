@@ -1,6 +1,6 @@
-package no.niths.test.domain;
+package no.niths.domain;
 
-import no.niths.domain.Course;
+import no.niths.domain.CommitteeEvent;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,13 +10,14 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class CourseTest {
+public class CommitteeEventTest {
 
     private static final Logger logger = LoggerFactory
             .getLogger(StudentTest.class);
@@ -32,28 +33,28 @@ public class CourseTest {
     @Test
     public void testCourseValues() {
 
-        Course course = new Course("Programmering", "Programmeringsfaget");
+        CommitteeEvent committeeEvent = new CommitteeEvent(1, "Spillkveld", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
 
         // Should pass validation
-        Set<ConstraintViolation<Course>> constraintViolations = validator
-                .validate(course);
+        Set<ConstraintViolation<CommitteeEvent>> constraintViolations = validator
+                .validate(committeeEvent);
 
         assertThat(0, is(equalTo(constraintViolations.size())));
 
         // Should not pass validation
-        course.setName("P");
-        constraintViolations = validator.validate(course);
+        committeeEvent.setName("SK");
+        constraintViolations = validator.validate(committeeEvent);
         assertThat(1, is(equalTo(constraintViolations.size())));
 
         //Prints the error message
         logger.debug(constraintViolations.iterator().next().getMessage());
 
-        Course course2 = new Course("VF", "Fag med valideringsfeil");
-        constraintViolations = validator.validate(course2);
+        CommitteeEvent committeeEvent2 = new CommitteeEvent(1, "SK", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
+        constraintViolations = validator.validate(committeeEvent2);
         assertThat(1, is(equalTo(constraintViolations.size())));
 
-        course2.setName("UVF");
-        constraintViolations = validator.validate(course2);
+        committeeEvent2.setName("Spillkveld");
+        constraintViolations = validator.validate(committeeEvent2);
         assertThat(0, is(equalTo(constraintViolations.size())));
     }
 }

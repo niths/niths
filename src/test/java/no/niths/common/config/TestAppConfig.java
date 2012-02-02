@@ -1,4 +1,4 @@
-package no.niths.test.common.config;
+package no.niths.common.config;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-@ComponentScan( { "no.niths.test"} )
+//@ComponentScan( { "no.niths."} )
 public class TestAppConfig {
 
     public static final String BASE_PACKAGE      = "no.niths",

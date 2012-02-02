@@ -1,17 +1,14 @@
-package no.niths.test.infrastructure;
+package no.niths.infrastructure;
 
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import no.niths.common.config.AppConfig;
 import no.niths.common.config.HibernateConfig;
+import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
-import no.niths.infrastructure.CoursesRepositoryImpl;
 import no.niths.infrastructure.interfaces.CoursesRepository;
-import no.niths.test.common.config.TestAppConfig;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

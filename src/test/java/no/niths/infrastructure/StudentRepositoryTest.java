@@ -1,14 +1,13 @@
-package no.niths.test.infrastructure;
-import static org.junit.Assert.*;
+package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import no.niths.common.config.HibernateConfig;
+import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
-import no.niths.test.common.config.TestAppConfig;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
 public class StudentRepositoryTest {
 

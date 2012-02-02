@@ -1,4 +1,4 @@
-package no.niths.test.domain;
+package no.niths.domain;
 
 import no.niths.domain.Committee;
 import org.junit.BeforeClass;

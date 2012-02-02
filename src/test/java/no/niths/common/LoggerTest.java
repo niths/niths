@@ -1,4 +1,4 @@
-package no.niths.test.common;
+package no.niths.common;
 
 
 import org.junit.Test;
