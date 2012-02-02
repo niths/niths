@@ -33,34 +33,13 @@ public class CommitteeEventsController {
         service.create(event);
     }
 
-    @RequestMapping(value = {"new/name/{name}/description/{description}/date/yy/{year}/mm/{month}/dd/{dayOfMonth}/hh/{hourOfDay}/min/{minute}"
-            ,"new/name/{name}"},
-            method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourseWithValues(@PathVariable String name, 
-            @PathVariable String description,
-            @PathVariable int year,
-            @PathVariable int month,
-            @PathVariable int dayOfMonth,
-            @PathVariable int hourOfDay,
-            @PathVariable int minute
-            ) {
-        
-       CommitteeEvent ce= new CommitteeEvent(-1,name, description, new GregorianCalendar(year, month, dayOfMonth, hourOfDay, minute));
-        
-        service.create(ce);
-    }
+   
 
-    @RequestMapping(value = { "{id}.json", "id/{id}.json", "id/{id}" }, method = RequestMethod.GET, produces = RESTConstants.JSON)
+    @RequestMapping(value = { "?id={id}","{id}" },
+            method = RequestMethod.GET,
+            headers = RESTConstants.HEADERS)
     @ResponseBody
-    
-    public CommitteeEvent getByIdAsJSON(@PathVariable long id) {
-        return service.getCommitteeEventsById(id);
-    }
-
-    @RequestMapping(value = { "{id}.xml", "id/{id}.xml" }, method = RequestMethod.GET, produces = RESTConstants.XML)
-    @ResponseBody
-    public CommitteeEvent getByIdAsXML(@PathVariable long id) {
+    public CommitteeEvent getById(@PathVariable long id) {
         return service.getCommitteeEventsById(id);
     }
 

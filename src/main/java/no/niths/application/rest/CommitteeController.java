@@ -1,13 +1,16 @@
 package no.niths.application.rest;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 import no.niths.services.CommitteeService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +22,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
-public class CommitteeController {
+public class CommitteeController implements RESTController<Committee>{
 
+    Logger logger = LoggerFactory
+            .getLogger(CommitteeController.class);
+    
     @Autowired
     private CommitteeService service;
 
@@ -28,54 +34,39 @@ public class CommitteeController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourse(@RequestBody Committee committee) {
+    public void create(@RequestBody Committee committee) {
         service.create(committee);
     }
 
-    @RequestMapping(value = {"new/name/{name}/description/{description}","new/name/{name}"},
-            method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void createCourseWithValues(@PathVariable String name, 
-            @PathVariable String description) {
-        Committee c = new Committee(name, description);
-        
-        service.create(c);
-    }
-
-    
-   //produces = RESTConstants.JSON
     @RequestMapping(
            value = { "?id={id}","{id}" }, 
            method = RequestMethod.GET, 
-           headers = "Accept="+ RESTConstants.JSON+", " +RESTConstants.XML
+           headers = RESTConstants.HEADERS
            )
     @ResponseBody
-    public Committee getByIdAsJSON(@PathVariable long id) {
+    public Committee getById( @PathVariable long id) {
         return service.getCommitteeById(id);
     }
 
-    @RequestMapping(value = { "{id}.xml", "id/{id}.xml" },
+
+    @RequestMapping(
             method = RequestMethod.GET, 
-            produces = RESTConstants.XML)
+            headers = RESTConstants.HEADERS)
     @ResponseBody
-    public Committee getByIdAsXML(@PathVariable long id) {
-        return service.getCommitteeById(id);
+    public ArrayList<Committee> getAll(HttpEntity<byte[]> request) {
+      
+        String req = request.getHeaders().getFirst(RESTConstants.ACCEPT);
+
+        if(req.equals(RESTConstants.JSON)){     
+            return (ArrayList<Committee>) service.getAll();    
+        }else if (req.equals(RESTConstants.XML)){
+            list.setCommitteeData(service.getAll());
+            return list;
+        }
+        return null;
     }
 
-    @RequestMapping(value = { "", "all.json" }, method = RequestMethod.GET, produces = RESTConstants.JSON)
-    @ResponseBody
-    public List<Committee> getAllCoursesAsJSON() {
-        return service.getAll();
-    }
-
-    @RequestMapping(value = { "all.xml" }, method = RequestMethod.GET, produces = RESTConstants.XML)
-    @ResponseBody
-    public CommitteeList getAllCoursesAsXML() {
-        list.setCommitteeData(service.getAll());
-        return list;
-    }
-
-    /**
+   /**
      * 
      * @param Course The Course to update
      */
@@ -83,7 +74,7 @@ public class CommitteeController {
             value  = {"", "{id}"},
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCourse(
+    public void update(
             @RequestBody Committee committee,
             @PathVariable Long id) {
 
@@ -102,7 +93,7 @@ public class CommitteeController {
             value  = "{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(@PathVariable long id) {
+    public void delete(@PathVariable long id) {
         service.delete(id);
     }
 }
