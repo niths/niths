@@ -52,7 +52,7 @@ public class Student implements Serializable {
 	
 	@Column
 	@StudentGender
-	private Character sex;
+	private Character gender;
 
 	@Column
 	@Past
@@ -96,7 +96,7 @@ public class Student implements Serializable {
 		setLastName(lastName);
 	}
 
-	public Student(String firstName, String lastName, Character sex, Integer grade, String email,
+	public Student(String firstName, String lastName, Character gender, Integer grade, String email,
 		String telephoneNumber, String description) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -105,7 +105,7 @@ public class Student implements Serializable {
 		setDescription(description);
 		setCourses(new ArrayList<Course>());
 		setCommittees(new ArrayList<Committee>());
-		setSex(sex);
+		setGender(gender);
 		setGrade(grade);
 	}
 
@@ -126,12 +126,12 @@ public class Student implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public Character getSex() {
-		return sex;
+	public Character getGender() {
+		return gender;
 	}
 
-	public void setSex(Character sex) {
-		this.sex = sex;
+	public void setGender(Character gender) {
+		this.gender = gender;
 	}
 
 	public Integer getGrade() {

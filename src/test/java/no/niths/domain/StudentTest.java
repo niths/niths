@@ -60,7 +60,7 @@ public class StudentTest {
 		constraintViolations = validator.validate(student2);
 		assertEquals(2, constraintViolations.size());
 		
-		student2.setSex('M');
+		student2.setGender('M');
 		constraintViolations = validator.validate(student2);
 		assertEquals(1, constraintViolations.size());
 		
