@@ -3,8 +3,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
+import no.niths.infrastructure.interfaces.CommitteesRepository;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
@@ -27,6 +29,9 @@ public class StudentRepositoryTest {
 
 	@Autowired
 	private CoursesRepository courseRepo;
+	
+	@Autowired
+	private CommitteesRepository comRepo;
 
 	/**
 	 * Testing of basic CRUD functions
@@ -80,6 +85,20 @@ public class StudentRepositoryTest {
 		assertEquals(1, studentRepo.getById(stud.getId()).getCourses().size());
 		
 		assertEquals(2, courseRepo.getAllCourses().size());
+		
+		Committee c = new Committee("Utvalg", "desc");
+		
+		comRepo.create(c);
+		assertEquals(1, comRepo.getAllCommittees().size());
+		stud = studentRepo.getById(stud.getId());
+		stud.getCommittees().add(c);
+		
+		studentRepo.update(stud);
+		
+		assertEquals(1, studentRepo.getById(stud.getId()).getCommittees().size());
+		
+		
+		
 
 		
 	}
