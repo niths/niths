@@ -21,13 +21,21 @@ public class StudentService {
     }
 
     public Student getStudentById(long id) {
-        return repo.getById(id);
+    	
+    	Student  s = repo.getById(id);
+    	
+    	if(s != null){
+    		s.getCommittees().size();
+    		s.getCourses().size();
+    	}
+    	
+        return s;
     }
 
     public Student getStudentByName(String name) {
 
-        // TODO
-        // Implement this
+        // TODO   // Implement this
+     
 
         return null;
     }

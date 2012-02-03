@@ -28,6 +28,15 @@ INSERT INTO committee_events (name) VALUES("23asd");
 INSERT INTO committee_events (name) VALUES("zjkzhck");
 INSERT INTO committee_events (name) VALUES("asdokihju");
 
+insert into students_committees (students_id, committees_id) values(1, 1);
+insert into students_committees (students_id, committees_id) values(1, 2);
+insert into students_committees (students_id, committees_id) values(2, 1);
+insert into students_committees (students_id, committees_id) values(3, 1);
+
+insert into students_courses (students_id, courses_id) values(1, 1);
+insert into students_courses (students_id, courses_id) values(2, 2);
+insert into students_courses (students_id, courses_id) values(3, 1);
+insert into students_courses (students_id, courses_id) values(4, 3);
 
 insert into committees_committee_events (committees_id, events_id) values(1, 1);
 insert into committees_committee_events (committees_id, events_id) values(1, 2);

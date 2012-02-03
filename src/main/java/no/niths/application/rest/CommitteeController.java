@@ -46,7 +46,7 @@ public class CommitteeController implements RESTController<Committee>{
            headers = RESTConstants.HEADERS
            )
     @ResponseBody
-    public Committee getById(@PathVariable long id) throws ObjectNotFoundException{
+    public Committee getById(@PathVariable long id) {
         Committee c = service.getCommitteeById(id);
         
         if(c == null){
