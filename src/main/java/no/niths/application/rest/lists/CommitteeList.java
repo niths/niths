@@ -13,17 +13,16 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 
 @XmlRootElement(name = AppConstants.COMMITTEES)
-public class CommitteeList extends ArrayList<Committee> {
+public class CommitteeList extends ArrayList<Committee>
+        implements Exportable<Committee>{
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -7988084285022242469L;
+    
     @XmlElement(name = "committee")
-    private List<Committee> committeeData;
+    private List<Committee> data;
 
-    public void setCommitteeData(List<Committee> committeeData) {
-        this.committeeData = committeeData;
+    @Override
+    public void setData(List<Committee> data) {
+        this.data = data;
     }
-
 }

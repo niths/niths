@@ -20,29 +20,35 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping("events")
 public class CommitteeEventsController implements RESTController<CommitteeEvent> {
- 
+  
     @Autowired
     private CommitteeEventsService service;
     
     private CommitteeEventList list = new CommitteeEventList();
 
+    @Override
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void create(@RequestBody CommitteeEvent event) {
         service.create(event);
     }
 
+    @Override
     @RequestMapping(value = { "?id={id}","{id}" },
             method = RequestMethod.GET,
-            headers = RESTConstants.HEADERS)
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public CommitteeEvent getById(@PathVariable long id) {
+    public CommitteeEvent getById(@PathVariable Long id) {
         return service.getCommitteeEventsById(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.HEADERS)
+    @Override
+    @RequestMapping(
+            method = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public ArrayList<CommitteeEvent> getAll(HttpEntity<byte[]> request) {
+    public ArrayList<CommitteeEvent> getAll(CommitteeEvent committeeEvent,
+            HttpEntity<byte[]> request) {
         
         String req = request.getHeaders().getFirst(RESTConstants.ACCEPT);
 
@@ -60,6 +66,7 @@ public class CommitteeEventsController implements RESTController<CommitteeEvent>
      * 
      * @param Course The Course to update
      */
+    @Override
     @RequestMapping(
             value  = {"", "{id}"},
             method = RequestMethod.PUT)
@@ -79,17 +86,12 @@ public class CommitteeEventsController implements RESTController<CommitteeEvent>
      * 
      * @param long The id of the Course to delete
      */
+    @Override
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
-    }
-
-    @Override
-    public ArrayList<CommitteeEvent> getByName(String name) {
-        // TODO generate GET method ++ 
-        return null ;
     }
 }

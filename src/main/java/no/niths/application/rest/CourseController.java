@@ -25,6 +25,9 @@ public class CourseController implements RESTController<Course> {
     @Autowired
     private CourseService service;
 
+    private CourseList courseList = new CourseList();
+
+
     /**
      * 
      * @param Course The course to be created
@@ -43,80 +46,55 @@ public class CourseController implements RESTController<Course> {
      */
     @Override
     @RequestMapping(
-            value    = {"{id}", "?id={id}"},
-            method   = RequestMethod.GET)
-    @ResponseBody()
-    public Course getById(@PathVariable long id) {
+            value   = "{id}",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public Course getById(@PathVariable Long id) {
         return service.getCourseById(id);
     }
 
     /**
      * 
-     * @param String The course's name plus '.json'
-     * @return The course identified by the name
+     * @return All courses
      */
     @Override
     @RequestMapping(
-            value    = "?name={name}",
-            method   = RequestMethod.GET)
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public ArrayList<Course> getByName(@PathVariable String name) {
+    public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
+
+        // When there is no valid query string
+        if (course.isEmpty()) {
+            final String FIRST =
+                    request.getHeaders().getFirst(RESTConstants.ACCEPT);
+
+            if (FIRST.equals(RESTConstants.JSON)) {
+                return (ArrayList<Course>) service.getAllCourses();
+            } else if (FIRST.equals(RESTConstants.XML)) {
+                courseList.setData(service.getAllCourses());
+                return courseList;
+            }
+        } else {
+            // TODO
+            // Find and return the course
+        }
+
         return null;
-    }
-
-    /**
-     * 
-     * @param String The course's name plus '.xml'
-     * @return The course identified by the name
-     */
-    @RequestMapping(
-            value    = "name/{name}.xml",
-            method   = RequestMethod.GET,
-            produces = RESTConstants.XML)
-    @ResponseBody
-    public Course getCourseByNameAsXML(@PathVariable String name) {
-        return service.getCourseByName(name);
-    }
-
-//    /**
-//     * 
-//     * @return All courses as JSON
-//     */
-//    @RequestMapping(
-//            value    = {"", "all.json"},
-//            method   = RequestMethod.GET,
-//            produces = RESTConstants.JSON)
-//    @ResponseBody
-//    public List<Course> getAllCoursesAsJSON() {
-//        return service.getAllCourses();
-//    }
-
-    /**
-     * 
-     * @return All courses as XML
-     */
-    @RequestMapping(
-            value    = "all",
-            method   = RequestMethod.GET)
-    @ResponseBody
-    public CourseList getAllCoursesAsXML(HttpEntity<byte[]> requestEntity) {
-//        String requestHeader = requestEntity.getHeaders().getFirst("foo");
-//        //System.out.println(requestHeader);
-        CourseList list = new CourseList();
-        list.setData(service.getAllCourses());
-        int asd = 10;
-        return list;
     }
 
     /**
      * 
      * @param Course The Course to update
      */
+    @Override
     @RequestMapping(
-            value  = {"", "{id}"},
-            method = RequestMethod.PUT)
+            value   = {"", "{id}"},
+            method  = RequestMethod.PUT,
+            headers = RESTConstants.CONTENT_TYPE_HEADER)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateCourse(
+    public void update(
             @RequestBody Course course,
             @PathVariable Long id) {
 
@@ -131,29 +109,12 @@ public class CourseController implements RESTController<Course> {
      * 
      * @param long The id of the Course to delete
      */
+    @Override
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteCourse(@PathVariable long id) {
+    public void delete(@PathVariable Long id) {
         service.deleteCourse(id);
-    }
-
-    @Override
-    public ArrayList<Course> getAll(HttpEntity<byte[]> request) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void update(Course domain, Long id) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void delete(long id) {
-        // TODO Auto-generated method stub
-        
     }
 }

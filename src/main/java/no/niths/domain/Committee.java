@@ -27,11 +27,11 @@ import org.hibernate.annotations.CascadeType;
 public class Committee implements Serializable {
 
     @Transient
-    private static final long serialVersionUID = 2901268519809419196L;
+    private static final Long serialVersionUID = 2901268519809419196L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
@@ -49,24 +49,24 @@ public class Committee implements Serializable {
     private List<CommitteeEvent> events = new ArrayList<CommitteeEvent>();
     
     public Committee() {
-        this("", "");
+        this(null, null);
     }
 
     public Committee(String name, String description) {
-        this(-1, name, description);
+        this(null, name, description);
     }
 
-    public Committee(long id, String name, String description) {
-        setId(id);
-        setName(name);
-        setDescription(description);
+    public Committee(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,6 +94,10 @@ public class Committee implements Serializable {
         this.events = events;
     }
 
+    public boolean isEmpty() {
+        return (id == null && name == null && description == null);
+    }
+
     @Override
     public boolean equals(Object that) {
         if (!(that instanceof Committee))	
@@ -101,20 +105,19 @@ public class Committee implements Serializable {
         Committee s = (Committee) that;
         return s == this ? true : s.getId() == id ? true : false;
     }
-    
-	@Override
-	public int hashCode(){
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
-		return result;
-	}
 
     @Override
     public String toString() {
         return name;
     }
 
+    @Override
+    public int hashCode(){
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+        return result;
+    }
 //    @JsonIgnore
 //    public List<Student> getStudents() {
 //        return members;

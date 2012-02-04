@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import no.niths.common.AppConstants;
 
 
@@ -22,11 +24,11 @@ import no.niths.common.AppConstants;
 public class Course implements Serializable {
 
     @Transient
-    private static final long serialVersionUID = 363916933860451377L;
+    private static final Long serialVersionUID = 363916933860451377L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
@@ -37,24 +39,24 @@ public class Course implements Serializable {
     private String description;
 
     public Course() {
-        this(-1, "", "");
+        this(null, null, null);
     }
 
     public Course(String name, String description) {
-        this(-1, name, description);
+        this(null, name, description);
     }
 
-    public Course(long id, String name, String description) {
-        setId(id);
-        setName(name);
-        setDescription(description);
+    public Course(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,6 +74,11 @@ public class Course implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonIgnore
+    public boolean isEmpty() {
+        return (id == null && name == null && description == null);
     }
 
     @Override

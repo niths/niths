@@ -2,15 +2,12 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
-
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 import no.niths.services.CommitteeService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -26,27 +23,30 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(AppConstants.COMMITTEES)
 public class CommitteeController implements RESTController<Committee>{
 
-    Logger logger = LoggerFactory
-            .getLogger(CommitteeController.class);
-    
     @Autowired
     private CommitteeService service;
 
-    private CommitteeList list = new CommitteeList();
+    private CommitteeList committeeList = new CommitteeList();
 
+    /**
+     * 
+     * @param Committee The committee to be created
+     */
+    @Override
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void create(@RequestBody Committee committee) {
         service.create(committee);
     }
 
+    @Override
     @RequestMapping(
-           value = { "?id={id}","{id}" }, 
-           method = RequestMethod.GET, 
-           headers = RESTConstants.HEADERS
+           value = "{id}",
+           method = RequestMethod.GET,
+           headers = RESTConstants.ACCEPT_HEADER
            )
     @ResponseBody
-    public Committee getById(@PathVariable long id) {
+    public Committee getById(@PathVariable Long id) {
         Committee c = service.getCommitteeById(id);
         
         if(c == null){
@@ -57,20 +57,29 @@ public class CommitteeController implements RESTController<Committee>{
     }
 
 
+    @Override
     @RequestMapping(
             method = RequestMethod.GET, 
-            headers = RESTConstants.HEADERS)
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public ArrayList<Committee> getAll(HttpEntity<byte[]> request) {
-      
-        String req = request.getHeaders().getFirst(RESTConstants.ACCEPT);
+    public ArrayList<Committee> getAll(Committee committee,
+            HttpEntity<byte[]> request) {
 
-        if(req.equals(RESTConstants.JSON)){     
-            return (ArrayList<Committee>) service.getAll();    
-        }else if (req.equals(RESTConstants.XML)){
-            list.setCommitteeData(service.getAll());
-            return list;
+        if (committee.isEmpty()) {
+            final String FIRST =
+                    request.getHeaders().getFirst(RESTConstants.ACCEPT);
+            
+            if (FIRST.equals(RESTConstants.JSON)) {
+                return (ArrayList<Committee>) service.getAll();
+            } else if (FIRST.equals(RESTConstants.XML)) {
+                committeeList.setData(service.getAll());
+                return committeeList;
+            }
+        } else {
+            //TODO
+            // Find and return the committee
         }
+
         return null;
     }
 
@@ -78,8 +87,9 @@ public class CommitteeController implements RESTController<Committee>{
      * 
      * @param Course The Course to update
      */
+    @Override
     @RequestMapping(
-            value  = {"", "{id}", "?id={id}" },
+            value  = {"", "{id}" },
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(
@@ -97,16 +107,17 @@ public class CommitteeController implements RESTController<Committee>{
      * 
      * @param long The id of the Course to delete
      */
+    @Override
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
     }
 
     @RequestMapping(value="?name={name}",
-            headers = RESTConstants.HEADERS)
+            headers = RESTConstants.ACCEPT_HEADER)
     public ArrayList<Committee> getByName(@PathVariable String name) {
         // TODO Auto-generated method stub
         return null;
