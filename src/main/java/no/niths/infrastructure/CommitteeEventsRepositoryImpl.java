@@ -4,8 +4,10 @@ import java.util.List;
 
 import no.niths.domain.Committee;
 import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,8 +40,11 @@ public class CommitteeEventsRepositoryImpl implements CommitteeEventsRepository 
 	}
 
 	@Transactional(readOnly = false)
-	public void delete(long eid) {
-	    session.getCurrentSession().clear();
-        session.getCurrentSession().delete(new CommitteeEvent(eid,"","",null));
+	public boolean delete(long eid) {
+        Query query = session.getCurrentSession().createQuery(
+        		"delete " + CommitteeEvent.class.getSimpleName() + " where id = :id");
+        query.setParameter("id", eid);
+        
+        return (1 == query.executeUpdate());
 	}
 }

@@ -31,8 +31,11 @@ public class CommitteeEventsRepositoryTest {
 	@Rollback(true)
 	public void testCRUD() {
 		// create
+		int size = eventRepo.getAll().size();
+		
 		CommitteeEvent event = new CommitteeEvent();
 		eventRepo.create(event);
+		assertEquals(size + 1, eventRepo.getAll().size());
 		assertEquals(event, eventRepo.getCommitteeEventsById(event.getId()));
 
 		// update time
@@ -43,8 +46,8 @@ public class CommitteeEventsRepositoryTest {
 		assertEquals(event.getDateAndTime(), event.getDateAndTime());
 
 		eventRepo.delete(event.getId());
-
-		assertNull(eventRepo.getCommitteeEventsById(event.getId()));
+		assertEquals(size, eventRepo.getAll().size());
+		
 	}
 
 }
