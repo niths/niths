@@ -17,5 +17,5 @@ public interface CoursesRepository   {
 
     void updateCourse(Course course);
 
-    void deleteCourse(long id);
+    boolean deleteCourse(long id);
 }

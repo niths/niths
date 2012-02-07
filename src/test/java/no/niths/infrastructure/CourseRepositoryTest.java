@@ -1,9 +1,10 @@
 package no.niths.infrastructure;
 
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
@@ -11,8 +12,9 @@ import no.niths.infrastructure.interfaces.CoursesRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
 public class CourseRepositoryTest {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(CourseRepositoryTest.class);
 	
 	private Course course = new Course("Programmering","Programmeringsfaget");
 	
@@ -50,23 +55,23 @@ public class CourseRepositoryTest {
 	@Test
 	@Rollback(true)
 	public void testCRUD() {
-		// creates a course
-		course.setId(repo.createCourse(course));
-	
-		// Get by id
-		assertEquals(course , repo.getCourseById(course.getId()));	
-
-		//Updates parameters and entity object
-		course.setName("Mobil-Programmering");
-		course.setDescription("Mobil prog");
-		repo.createCourse(course);
+		int size = repo.getAllCourses().size();
+		Course c = new Course("Name222", "Desc");
+		repo.createCourse(c);
+		assertEquals(size + 1, repo.getAllCourses().size());
 		
-		assertEquals(course, repo.getCourseById(course.getId()));
+		Course c1 = repo.getCourseById(c.getId());
+		assertEquals(c1.getId(), c.getId());
+		long id = c1.getId();
 		
-		//Delete
-		repo.deleteCourse(course.getId());
-
-		assertNull("Should be deleted now",repo.getCourseById(course.getId()));
+		assertEquals(c1, repo.getCourseByName("Name222"));
+		
+		boolean isDeleted = repo.deleteCourse(id);
+		assertTrue(isDeleted);
+		assertEquals(size, repo.getAllCourses().size());
+		
+		assertNull(repo.getCourseByName("Name222"));
+		
 	}
 	
 	

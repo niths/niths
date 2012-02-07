@@ -3,8 +3,10 @@ package no.niths.infrastructure;
 import java.util.List;
 
 import no.niths.domain.Course;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,9 +53,10 @@ public class CoursesRepositoryImpl implements CoursesRepository {
     }
 
     @Override
-    public void deleteCourse(long id) {
-        session.getCurrentSession().clear();
-        session.getCurrentSession().delete(new Course(id,"",""));
-        
+    public boolean deleteCourse(long id) {
+        Query query = session.getCurrentSession().createQuery(
+        		"delete " + Course.class.getSimpleName() + " where id = :id");
+        query.setParameter("id", id);
+        return (1 == query.executeUpdate());
     }
 }
