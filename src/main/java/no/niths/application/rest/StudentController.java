@@ -79,7 +79,7 @@ public class StudentController {
             method   = RequestMethod.GET,
             produces = RESTConstants.JSON)
     @ResponseBody
-    public Student getStudentByNameAsJSON(@PathVariable String name) {
+    public List<Student> getStudentByNameAsJSON(@PathVariable String name) {
         return service.getStudentByName(name);
     }
 
@@ -93,7 +93,7 @@ public class StudentController {
             method   = RequestMethod.GET,
             produces = RESTConstants.XML)
     @ResponseBody
-    public Student getStudentByNameAsXML(@PathVariable String name) {
+    public List<Student> getStudentByNameAsXML(@PathVariable String name) {
         return service.getStudentByName(name);
     }
 
