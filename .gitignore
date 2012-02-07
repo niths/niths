@@ -1,5 +1,6 @@
 *.properties
 .classpath
+.project
 .settings
 doc
 target
