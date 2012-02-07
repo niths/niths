@@ -31,6 +31,9 @@ public class CourseService {
     public List<Course> getAllCourses() {
         return repo.getAllCourses();
     }
+    public List<Course> getAllCourses(Course c) {
+    	return repo.getAllCourses(c);
+    }
 
     public void updateCourse(Course course) {
         repo.updateCourse(course);
