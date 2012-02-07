@@ -27,9 +27,11 @@ public class CommitteeRepositoryTest {
 	@Test
 	//@Rollback(true)
 	public void testCRUD() {
+		int size = committeeRepo.getAllCommittees().size();
 		Committee committee = new Committee("LUG", "Linux");
 
 		committee.setId(committeeRepo.create(committee));
+		assertEquals(size + 1, committeeRepo.getAllCommittees().size());
 		assertEquals(committee, committeeRepo.getCommitteeById(committee.getId()));
 	
 		committee.setName("LINUXs");
@@ -38,8 +40,8 @@ public class CommitteeRepositoryTest {
 		assertEquals(committee, committeeRepo.getCommitteeById(committee.getId()));
 		
 		committeeRepo.delete(committee.getId());
-	
-		assertNull(committeeRepo.getCommitteeById(committee.getId()));
+		
+		assertEquals(size, committeeRepo.getAllCommittees().size());
 	}
 	
 

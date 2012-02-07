@@ -5,6 +5,7 @@ import java.util.List;
 import no.niths.domain.Committee;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,9 +39,12 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 	}
 
 	@Transactional(readOnly = false)
-	public void delete(long id) {
-	    session.getCurrentSession().clear();
-	    session.getCurrentSession().delete(new Committee(id,"",""));
+	public boolean delete(long id) {
+	    Query query = session.getCurrentSession().createQuery(
+        		"delete " + Committee.class.getSimpleName() + " where id = :id");
+        query.setParameter("id", id);
+        
+        return (1 == query.executeUpdate());
 	}
 
 	@Override

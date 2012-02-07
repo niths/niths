@@ -17,6 +17,6 @@ public interface CommitteesRepository {
 	
 	void update(Committee committee);
 	
-	void delete(long cid);
+	boolean delete(long cid);
 
 }
