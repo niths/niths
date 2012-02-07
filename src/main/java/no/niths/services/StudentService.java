@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.domain.Student;
@@ -37,7 +38,12 @@ public class StudentService {
     }
 
     public List<Student> getAllStudents() {
-        return repo.getAllStudents();
+    	ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents();
+    	for (int i = 0; i < temp.size(); i++){
+    		temp.get(i).setCommittees(null);
+    		temp.get(i).setCourses(null);
+    	}
+        return temp;
     }
     
     public List<Student> getAllStudents(Student s) {
