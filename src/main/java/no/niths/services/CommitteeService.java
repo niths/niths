@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.domain.Committee;
@@ -26,13 +27,31 @@ public class CommitteeService  {
 	}
 
 	/**
-	 * 
+	 * <
 	 * @return
 	 */
 	public List<Committee> getAll() {
-		return repo.getAllCommittees();
+		List<Committee> temp = repo.getAllCommittees();
+	
+		for (int i = 0; i < temp.size(); i++) {
+			temp.get(i).setEvents(null);
+		}
+		return temp;
 	}
 
+	/**
+	 * <
+	 * @return
+	 */
+	public List<Committee> getAll(Committee committee) {
+		List<Committee> temp = repo.getAllCommittees(committee);
+	
+		for (int i = 0; i < temp.size(); i++) {
+			temp.get(i).setEvents(null);
+		}
+		return temp;
+	}
+	
 	
 	/**
 	 * 
@@ -40,7 +59,12 @@ public class CommitteeService  {
 	 * @return
 	 */
 	public Committee getCommitteeById(long cid) {
-		return repo.getCommitteeById(cid);
+		Committee c = repo.getCommitteeById(cid);
+		
+		if(c != null){
+			c.setEvents(null);
+		}
+		return c;
 	}
 
 	/**
@@ -64,7 +88,7 @@ public class CommitteeService  {
 	 * 
 	 * @param committee
 	 */
-	public void delete(long    id) {
+	public void delete(long id) {
 		repo.delete(id);
 	}
 	

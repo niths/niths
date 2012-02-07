@@ -10,6 +10,7 @@ public interface CommitteesRepository {
 	
 	//Read
 	List<Committee> getAllCommittees();
+	List<Committee> getAllCommittees(Committee committee);
 	
 	Committee getCommitteeById(long cid);
 	

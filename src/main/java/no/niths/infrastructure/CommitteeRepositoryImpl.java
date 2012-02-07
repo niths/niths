@@ -2,11 +2,13 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
+import no.niths.application.rest.lists.CommitteeList;
 import no.niths.domain.Committee;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 
 	@SuppressWarnings("unchecked")
 	public List<Committee> getAllCommittees() {
-		return session.getCurrentSession().createQuery("from " + Committee.class.getName())
+		return  session.getCurrentSession().createQuery("from " + Committee.class.getName())
 				.list();
 	}
 
@@ -51,6 +53,13 @@ public class CommitteeRepositoryImpl implements CommitteesRepository {
 	public Committee getCommitteeByName(String name) {
 		String sql ="from " + Committee.class.getName() + " c where c.name=:name";
 		return (Committee) session.getCurrentSession().createQuery(sql).setString("name",name).uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Committee> getAllCommittees(Committee committee) {
+		return  session.getCurrentSession().createCriteria(Committee.class).add(Example.create(committee)).list();
+		
 	}
 
 }

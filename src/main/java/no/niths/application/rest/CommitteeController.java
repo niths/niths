@@ -8,6 +8,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 import no.niths.services.CommitteeService;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(AppConstants.COMMITTEES)
 public class CommitteeController implements RESTController<Committee>{
 
+	Logger logger = org.slf4j.LoggerFactory.getLogger(CommitteeController.class);
+	
     @Autowired
     private CommitteeService service;
 
@@ -50,8 +53,10 @@ public class CommitteeController implements RESTController<Committee>{
         Committee c = service.getCommitteeById(id);
         
         if(c == null){
+        	logger.info("c is null");
             throw new ObjectNotFoundException("No comittees with id :" + id);
         }
+        
         
         return c;
     }
@@ -65,10 +70,12 @@ public class CommitteeController implements RESTController<Committee>{
     public ArrayList<Committee> getAll(Committee committee,
             HttpEntity<byte[]> request) {
 
+    	logger.info(committee.toString());
+    	
+    	 final String FIRST =
+                 request.getHeaders().getFirst(RESTConstants.ACCEPT);
+    	 
         if (committee.isEmpty()) {
-            final String FIRST =
-                    request.getHeaders().getFirst(RESTConstants.ACCEPT);
-            
             if (FIRST.equals(RESTConstants.JSON)) {
                 return (ArrayList<Committee>) service.getAll();
             } else if (FIRST.equals(RESTConstants.XML)) {
@@ -76,8 +83,12 @@ public class CommitteeController implements RESTController<Committee>{
                 return committeeList;
             }
         } else {
-            //TODO
-            // Find and return the committee
+        	 if (FIRST.equals(RESTConstants.JSON)) {
+                 return (ArrayList<Committee>) service.getAll(committee);
+             } else if (FIRST.equals(RESTConstants.XML)) {
+                 committeeList.setData(service.getAll(committee));
+                 return committeeList;
+             }
         }
 
         return null;
@@ -114,12 +125,5 @@ public class CommitteeController implements RESTController<Committee>{
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         service.delete(id);
-    }
-
-    @RequestMapping(value="?name={name}",
-            headers = RESTConstants.ACCEPT_HEADER)
-    public ArrayList<Committee> getByName(@PathVariable String name) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

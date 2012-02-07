@@ -1,7 +1,6 @@
 package no.niths.infrastructure;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
@@ -25,7 +24,7 @@ public class CommitteeRepositoryTest {
 	private CommitteesRepository committeeRepo;
 			
 	@Test
-	//@Rollback(true)
+	@Rollback(true)
 	public void testCRUD() {
 		int size = committeeRepo.getAllCommittees().size();
 		Committee committee = new Committee("LUG", "Linux");
@@ -45,6 +44,27 @@ public class CommitteeRepositoryTest {
 	}
 	
 
+	@Test
+	@Rollback(true)
+	public void testGetAllWithCreateCritera(){
+		
+		Committee c1 = new Committee("LUG", "23");
+		Committee c2 = new Committee("LAG", "Linux");
+		Committee c3 = new Committee("ads", "Linux");
+		
+		committeeRepo.create(c1);
+		committeeRepo.create(c2);
+		committeeRepo.create(c3);
+		
+		
+		c1.setDescription(null);
+		assertEquals(1, committeeRepo.getAllCommittees(c1).size());
+	
+		c3.setName(null);
+		assertEquals(2, committeeRepo.getAllCommittees(c3).size());
+	}
+	
+	
 	@Test
 	@Rollback(true)
 	public void testEventJoin(){
