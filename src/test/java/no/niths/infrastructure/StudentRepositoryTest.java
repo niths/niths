@@ -97,9 +97,31 @@ public class StudentRepositoryTest {
 		
 		assertEquals(1, studentRepo.getById(stud.getId()).getCommittees().size());
 		
+	}
+	
+	@Test
+	@Rollback(true)
+	public void getAllStudentsWithParameter_shouldReturnListOfStudentsMatching(){
+		int size = studentRepo.getAllStudents().size();
+		Student s1 = new Student("John", "Doe");
+		Student s2 = new Student("John", "Doe");
+		Student s3 = new Student("Jane", "Doe");
+		Student s4 = new Student("Foo", "Bar");
+		studentRepo.create(s1);
+		studentRepo.create(s2);
+		studentRepo.create(s3);
+		studentRepo.create(s4);
+		assertEquals(size  + 4, studentRepo.getAllStudents().size());
 		
+		Student toFind = new Student("John", "Doe");		
+		assertEquals(2, studentRepo.getAllStudents(toFind).size());
 		
-
+		toFind = new Student("Jane", "Doe");
+		assertEquals(1, studentRepo.getAllStudents(toFind).size());
+		
+		toFind = new Student("XXX", "Doe");
+		assertEquals(0, studentRepo.getAllStudents(toFind).size());
+		
 		
 	}
 	

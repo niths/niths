@@ -8,6 +8,7 @@ import no.niths.infrastructure.interfaces.StudentRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,28 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return id;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Student> getAllStudents() {
 		return session.getCurrentSession().createQuery("from " + Student.class.getName())
 				.list();
+	}
+	
+	  /**
+     * Find and returns all students which has values equal to
+     * the student sent as parameter. 
+     * 
+     * Ex: Parameter student has first name = "John", will
+     * return all students found with first name = "John"
+     * 
+     * @param Student - The Student that has the values to search for
+     * @return List of students found
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Student> getAllStudents(Student stud) {
+		return session.getCurrentSession()
+    			.createCriteria(Student.class).add(Example.create(stud)).list();
 	}
 
 	/**

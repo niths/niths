@@ -10,6 +10,8 @@ public interface StudentRepository {
 	//Read
 	List<Student> getAllStudents();
 	
+	List<Student> getAllStudents(Student stud);
+	
 	Student getByIdWithCourseAndCommittee(long sid);
 	
 	Student getById(long sid);
