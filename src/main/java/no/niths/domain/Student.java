@@ -53,6 +53,9 @@ public class Student implements Serializable {
 	@Column
 	@StudentGender
 	private Character gender;
+	
+	@Column
+	private String password;
 
 	@Column
 	@Past
@@ -117,7 +120,14 @@ public class Student implements Serializable {
 		this.id = id;
 	}
 
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Date getBirthday() {
 		return birthday;
 	}
