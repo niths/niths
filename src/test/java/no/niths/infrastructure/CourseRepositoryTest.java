@@ -12,6 +12,7 @@ import no.niths.infrastructure.interfaces.CoursesRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,6 +28,24 @@ public class CourseRepositoryTest {
 	
 	@Autowired
 	private CoursesRepository repo;
+	
+	
+	@Test(expected = IllegalArgumentException.class)
+	@Rollback(true)
+	public void whenInsertNull_persistenceShouldFail() {
+		repo.createCourse(null);
+	}
+	
+	@Test
+	@Rollback(true)
+	public void whenInsertCourse_CourseShouldBePersisted(){
+		int size = repo.getAllCourses().size();
+		
+		Course c = new Course("Name", "Desc");
+		repo.createCourse(c);
+		
+		assertEquals(size + 1, repo.getAllCourses().size());
+	}
 	
 	@Test
 	@Rollback(true)
