@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 import no.niths.domain.constraints.StudentGender;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -37,7 +38,7 @@ public class Student implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "first_name")
 	@NotNull
@@ -48,16 +49,18 @@ public class Student implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
 	private String lastName;
-	
-	
+
 	@Column
 	@StudentGender
 	private Character gender;
 
 	@Column
+	private String password;
+
+	@Column
 	@Past
 	private Date birthday;
-	
+
 	@Column
 	@Max(value = 3, message = "Can not be larger then 3")
 	@Min(value = 1, message = "Can not be smaller then 1")
@@ -78,15 +81,15 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Course> courses = new ArrayList<Course>();
 
-	//, mappedBy = "members"
+	// , mappedBy = "members"
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	private List<Committee> committees = new ArrayList<Committee>();;
 
 	public Student() {
 		this("", "");
 	}
-	
-	public Student(long id, String firstName, String lastName){
+
+	public Student(Long id, String firstName, String lastName) {
 		this(firstName, lastName);
 		setId(id);
 	}
@@ -96,8 +99,9 @@ public class Student implements Serializable {
 		setLastName(lastName);
 	}
 
-	public Student(String firstName, String lastName, Character gender, Integer grade, String email,
-		String telephoneNumber, String description) {
+	public Student(String firstName, String lastName, Character gender,
+			Integer grade, String email, String telephoneNumber,
+			String description) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
@@ -109,15 +113,22 @@ public class Student implements Serializable {
 		setGrade(grade);
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -209,6 +220,14 @@ public class Student implements Serializable {
 
 	public void setCommittees(List<Committee> committees) {
 		this.committees = committees;
+	}
+
+	@JsonIgnore
+	public boolean isEmpty() {
+		//Do we need to check for firstName and lastName? They can not be null
+		return (id == null && firstName == null && lastName == null && 
+				gender == null && password == null && email == null && 
+				description == null && birthday == null && birthday == null);
 	}
 
 	@Override

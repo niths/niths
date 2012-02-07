@@ -25,25 +25,23 @@ public class StudentService {
     	Student  s = repo.getById(id);
     	
     	if(s != null){
-    		s.setCommittees(null);
-    		s.setCourses(null);
-//    		s.getCommittees().size();
-//    		s.getCourses().size();
+    		s.getCommittees().size();
+    		s.getCourses().size();
     	}
     	
         return s;
     }
 
-    public Student getStudentByName(String name) {
-
-        // TODO   get Studentdents name
-     
-
-        return null;
+    public List<Student> getStudentByName(String name) {
+        return repo.getByName(name);
     }
 
     public List<Student> getAllStudents() {
         return repo.getAllStudents();
+    }
+    
+    public List<Student> getAllStudents(Student s) {
+    	return repo.getAllStudents(s);
     }
 
     public void updateStudent(Student student) {

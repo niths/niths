@@ -14,6 +14,7 @@ public interface CoursesRepository   {
     Course getCourseByName(String name);
 
     List<Course> getAllCourses();
+    List<Course> getAllCourses(Course c);
 
     void updateCourse(Course course);
 
