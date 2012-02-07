@@ -25,8 +25,10 @@ public class StudentService {
     	Student  s = repo.getById(id);
     	
     	if(s != null){
-    		s.getCommittees().size();
-    		s.getCourses().size();
+    		s.setCommittees(null);
+    		s.setCourses(null);
+//    		s.getCommittees().size();
+//    		s.getCourses().size();
     	}
     	
         return s;
@@ -34,7 +36,7 @@ public class StudentService {
 
     public Student getStudentByName(String name) {
 
-        // TODO   // Implement this
+        // TODO   get Studentdents name
      
 
         return null;

@@ -15,7 +15,8 @@ INSERT INTO students (first_name, last_name) VALUES("Bendik", "Rostad");
 INSERT INTO students (first_name, last_name) VALUES("Liv", "Kolås");
 INSERT INTO students (first_name, last_name) VALUES("Øyvind", "Ødegård");
 
-INSERT INTO committees (name) VALUES("Linx utvalget");
+INSERT INTO committees (name,description) VALUES("Linx utvalget","Fan");
+INSERT INTO committees (name,description) VALUES("flux utvalget","Hello world");
 INSERT INTO committees (name) VALUES("Microsoft utvalget");
 INSERT INTO committees (name) VALUES("KIT");
 INSERT INTO committees (name) VALUES("MDF");

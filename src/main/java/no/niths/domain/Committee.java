@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,8 +27,8 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.COMMITTEES)
 public class Committee implements Serializable {
 
-    @Transient
-    private static final Long serialVersionUID = 2901268519809419196L;
+	@Transient
+	private static final long serialVersionUID = 7191935818417886723L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,7 @@ public class Committee implements Serializable {
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    private List<Student> members = new ArrayList<Student>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
     private List<CommitteeEvent> events = new ArrayList<CommitteeEvent>();
     
@@ -94,6 +95,7 @@ public class Committee implements Serializable {
         this.events = events;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return (id == null && name == null && description == null);
     }
@@ -108,7 +110,7 @@ public class Committee implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return name + " " + description;
     }
 
     @Override
@@ -118,7 +120,8 @@ public class Committee implements Serializable {
         result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
         return result;
     }
-//    @JsonIgnore
+   
+    
 //    public List<Student> getStudents() {
 //        return members;
 //    }
