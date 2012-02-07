@@ -24,10 +24,10 @@ public class StudentService {
     	
     	Student  s = repo.getById(id);
     	
-    	if(s != null){
-    		s.getCommittees().size();
-    		s.getCourses().size();
-    	}
+//    	if(s != null){
+//    		s.getCommittees().size();
+//    		s.getCourses().size();
+//    	}
     	
         return s;
     }
