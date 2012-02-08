@@ -20,6 +20,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
@@ -78,10 +81,10 @@ public class Student implements Serializable {
 	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String description;
 
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Course> courses = new ArrayList<Course>();
 
-	// , mappedBy = "members"
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	private List<Committee> committees = new ArrayList<Committee>();;
 
@@ -121,6 +124,7 @@ public class Student implements Serializable {
 		this.id = id;
 	}
 
+	
 	public String getPassword() {
 		return password;
 	}

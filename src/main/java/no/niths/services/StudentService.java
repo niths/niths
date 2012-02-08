@@ -6,6 +6,7 @@ import java.util.List;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +41,10 @@ public class StudentService {
     public List<Student> getAllStudents() {
     	ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents();
     	for (int i = 0; i < temp.size(); i++){
-    		temp.get(i).setCommittees(null);
-    		temp.get(i).setCourses(null);
+    		temp.get(i).getCommittees().size();
+    		temp.get(i).getCourses().size();
     	}
+    
         return temp;
     }
     
