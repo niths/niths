@@ -9,6 +9,7 @@ import no.niths.infrastructure.interfaces.StudentRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -44,7 +45,6 @@ public class StudentService {
     		temp.get(i).getCommittees().size();
     		temp.get(i).getCourses().size();
     	}
-    
         return temp;
     }
     
