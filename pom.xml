@@ -56,12 +56,6 @@
 			<artifactId>xstream</artifactId>
 			<version>${xstream.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml</groupId>
-			<artifactId>jackson-module-hibernate</artifactId>
-			<version>0.7.0</version>
-		</dependency>
-
 		<!-- persistence -->
 		<dependency>
 			<groupId>org.springframework</groupId>
