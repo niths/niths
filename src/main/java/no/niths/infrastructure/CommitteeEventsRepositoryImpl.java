@@ -9,6 +9,7 @@ import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,4 +48,12 @@ public class CommitteeEventsRepositoryImpl implements CommitteeEventsRepository 
         
         return (1 == query.executeUpdate());
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CommitteeEvent> getAll(CommitteeEvent event) {
+		return  session.getCurrentSession().createCriteria(CommitteeEvent.class).add(Example.create(event)).list();
+	}
+	
+	
 }

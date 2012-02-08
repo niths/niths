@@ -31,7 +31,7 @@ public class CommitteeEvent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
@@ -43,16 +43,16 @@ public class CommitteeEvent implements Serializable {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar DateAndTime;
+    private Calendar dateAndTime;
 
     @ManyToOne
     private Committee committee;
 
     public CommitteeEvent() {
-        this(-1, "foo", "bar", new GregorianCalendar());
+        this(null, null, null, null);
     }
 
-    public CommitteeEvent(long id, String name, String description,
+    public CommitteeEvent(Long id, String name, String description,
             GregorianCalendar dateAndTime) {
         setId(id);
         setName(name);
@@ -62,11 +62,18 @@ public class CommitteeEvent implements Serializable {
 
   
 
-    public long getId() {
+    public CommitteeEvent(String name, String description,
+			GregorianCalendar dateAndTime) {
+    	setName(name);
+        setDescription(description);
+        setDateAndTime(dateAndTime);
+	}
+
+	public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,11 +103,11 @@ public class CommitteeEvent implements Serializable {
     }
 
     public Calendar getDateAndTime() {
-        return DateAndTime;
+        return dateAndTime;
     }
 
     public void setDateAndTime(GregorianCalendar dateAndTime) {
-        DateAndTime = dateAndTime;
+        this.dateAndTime = dateAndTime;
     }
 
     @Override
@@ -111,4 +118,8 @@ public class CommitteeEvent implements Serializable {
         CommitteeEvent s = (CommitteeEvent) obj;
         return s == this ? true : s.getId() == id ? true : false;
     }
+
+	public boolean isEmpty() {
+		return description == null && name == null && id == null && dateAndTime==null ;
+	}
 }

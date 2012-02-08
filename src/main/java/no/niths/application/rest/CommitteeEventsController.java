@@ -19,79 +19,72 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping("events")
-public class CommitteeEventsController implements RESTController<CommitteeEvent> {
-  
-    @Autowired
-    private CommitteeEventsService service;
-    
-    private CommitteeEventList list = new CommitteeEventList();
+public class CommitteeEventsController implements
+		RESTController<CommitteeEvent> {
 
-    @Override
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void create(@RequestBody CommitteeEvent event) {
-        service.create(event);
-    }
+	@Autowired
+	private CommitteeEventsService service;
 
-    @Override
-    @RequestMapping(value = { "?id={id}","{id}" },
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public CommitteeEvent getById(@PathVariable Long id) {
-        return service.getCommitteeEventsById(id);
-    }
+	private CommitteeEventList list = new CommitteeEventList();
 
-    @Override
-    @RequestMapping(
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public ArrayList<CommitteeEvent> getAll(CommitteeEvent committeeEvent,
-            HttpEntity<byte[]> request) {
-        
-        String req = request.getHeaders().getFirst(RESTConstants.ACCEPT);
+	@Override
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.CREATED, reason = "Committe created")
+	public void create(@RequestBody CommitteeEvent event) {
+		service.create(event);
+	}
 
-        if(req.equals(RESTConstants.JSON)){     
-            return (ArrayList<CommitteeEvent>) service.getAll();    
-        }else if (req.equals(RESTConstants.XML)){
-            list.setEventData(service.getAll());
-            return list;
-        }
-        return null;
-    }
-    
+	@Override
+	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public CommitteeEvent getById(@PathVariable Long id) {
+		return service.getCommitteeEventsById(id);
+	}
 
-    /**
-     * 
-     * @param Course The Course to update
-     */
-    @Override
-    @RequestMapping(
-            value  = {"", "{id}"},
-            method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void update(
-            @RequestBody CommitteeEvent event,
-            @PathVariable Long id) {
+	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<CommitteeEvent> getAll(CommitteeEvent committeeEvent,
+			HttpEntity<byte[]> request) {
 
-        // If the ID is only provided through the URL.
-        if (id != null)
-            event.setId(id);
+		final String FIRST = request.getHeaders()
+				.getFirst(RESTConstants.ACCEPT);
 
-        service.update(event);
-    }
+		if (FIRST.equals(RESTConstants.JSON)) {
+			return (ArrayList<CommitteeEvent>) service.getAll(committeeEvent);
+		} else if (FIRST.equals(RESTConstants.XML)) {
+			list.setEventData(service.getAll(committeeEvent));
+			return list;
+		}
 
-    /**
-     * 
-     * @param long The id of the Course to delete
-     */
-    @Override
-    @RequestMapping(
-            value  = "{id}",
-            method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
-    }
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param Course
+	 *            The Course to update
+	 */
+	@Override
+	@RequestMapping(value = { "{id}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK,reason = "Update ok")
+	public void update(@RequestBody CommitteeEvent event, @PathVariable Long id) {
+
+		// If the ID is only provided through the URL.
+		if (id != null)
+			event.setId(id);
+
+		service.update(event);
+	}
+
+	/**
+	 * 
+	 * @param long The id of the Course to delete
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason ="CommitteeEvent deleted")
+	public void delete(@PathVariable Long id) {
+		service.delete(id);
+	}
 }

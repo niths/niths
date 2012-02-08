@@ -11,6 +11,8 @@ public interface CommitteeEventsRepository {
 	//Read
 	List<CommitteeEvent> getAll();
 	
+	List<CommitteeEvent> getAll(CommitteeEvent event);
+	
 	CommitteeEvent getCommitteeEventsById(long ceid);
 	
 	void update(CommitteeEvent committeeEvents);

@@ -33,7 +33,7 @@ public class CommitteeEventTest {
     @Test
     public void testCourseValues() {
 
-        CommitteeEvent committeeEvent = new CommitteeEvent(1, "Spillkveld", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
+        CommitteeEvent committeeEvent = new CommitteeEvent("Spillkveld", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
 
         // Should pass validation
         Set<ConstraintViolation<CommitteeEvent>> constraintViolations = validator
@@ -49,7 +49,7 @@ public class CommitteeEventTest {
         //Prints the error message
         logger.debug(constraintViolations.iterator().next().getMessage());
 
-        CommitteeEvent committeeEvent2 = new CommitteeEvent(1, "SK", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
+        CommitteeEvent committeeEvent2 = new CommitteeEvent("SK", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
         constraintViolations = validator.validate(committeeEvent2);
         assertThat(1, is(equalTo(constraintViolations.size())));
 

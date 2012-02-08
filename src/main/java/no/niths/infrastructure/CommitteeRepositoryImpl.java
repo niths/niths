@@ -2,7 +2,6 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import no.niths.application.rest.lists.CommitteeList;
 import no.niths.domain.Committee;
 import no.niths.infrastructure.interfaces.CommitteesRepository;
 

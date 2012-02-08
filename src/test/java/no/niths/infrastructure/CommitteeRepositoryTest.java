@@ -13,18 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
+@TransactionConfiguration(transactionManager = "transactionManager")  
 public class CommitteeRepositoryTest {
 
 	@Autowired
 	private CommitteesRepository committeeRepo;
 			
 	@Test
-	@Rollback(true)
+	//@Rollback(true)/
 	public void testCRUD() {
 		int size = committeeRepo.getAllCommittees().size();
 		Committee committee = new Committee("LUG", "Linux");
@@ -45,7 +47,7 @@ public class CommitteeRepositoryTest {
 	
 
 	@Test
-	@Rollback(true)
+	//@Rollback(true)
 	public void testGetAllWithCreateCritera(){
 		
 		Committee c1 = new Committee("LUG", "23");
@@ -66,7 +68,7 @@ public class CommitteeRepositoryTest {
 	
 	
 	@Test
-	@Rollback(true)
+	//@Rollback(true)
 	public void testEventJoin(){
 		
 		CommitteeEvent event = new CommitteeEvent();

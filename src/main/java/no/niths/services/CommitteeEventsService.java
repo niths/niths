@@ -24,6 +24,10 @@ public class CommitteeEventsService  {
         return repo.getAll();
     }
     
+    public List<CommitteeEvent> getAll(CommitteeEvent event) {
+        return repo.getAll(event);
+    }
+    
     public CommitteeEvent getCommitteeEventsById(long ceid) {
         return repo.getCommitteeEventsById(ceid);
     }
