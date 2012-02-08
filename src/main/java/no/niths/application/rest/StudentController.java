@@ -75,7 +75,7 @@ public class StudentController implements RESTController<Student>{
      */
 	@Override
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Student created")
 	public void create(@RequestBody Student student) {
 		service.createStudent(student);
 		
@@ -105,7 +105,7 @@ public class StudentController implements RESTController<Student>{
             value   = {"", "{id}"},
             method  = RequestMethod.PUT,
             headers = RESTConstants.CONTENT_TYPE_HEADER)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Update ok")
 	public void update(
             @RequestBody Student student,
             @PathVariable Long id) {
@@ -124,7 +124,7 @@ public class StudentController implements RESTController<Student>{
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
 	public void delete(@PathVariable Long id) {
 		service.deleteStudent(id);
 		
