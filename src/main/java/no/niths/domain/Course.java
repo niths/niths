@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 
 @Entity
@@ -42,6 +44,7 @@ public class Course implements Serializable {
     private String description;
     
     @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.SAVE_UPDATE)
 	private List<Topic> topics = new ArrayList<Topic>();
 
     public Course() {
@@ -66,7 +69,15 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
+    public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
+
+	public String getName() {
         return name;
     }
 
