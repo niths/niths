@@ -13,6 +13,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import no.niths.common.AppConstants;
 import no.niths.domain.constraints.Weekday;
 
@@ -62,6 +64,12 @@ public class Topic implements Serializable {
     	setDescription(description);
     	setStartTime(startTime);
     	setEndTime(endTime);
+    }
+    
+    @JsonIgnore
+    public boolean isEmpty(){
+    	return (id == null && name == null && topicCode == null && description ==  null
+    			&& weekday == null && startTime == null && endTime == null);
     }
 
 	public Long getId() {
