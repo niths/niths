@@ -58,6 +58,16 @@ public class CourseRepositoryTest {
 		assertEquals(numCourses + 1, repo.getAllCourses().size());
 		assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
 		
+		Course res = repo.getCourseById(c1.getId());
+		int numOfTopics = res.getTopics().size();
+		if(numOfTopics > 0){
+			res.getTopics().remove(0);
+			repo.updateCourse(res);
+			
+			assertEquals(numOfTopics - 1, repo.getCourseById(res.getId()).getTopics().size() );
+			assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
+		}
+		
 		
 	}
 	
