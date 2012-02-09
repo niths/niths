@@ -34,7 +34,7 @@ public class Topic implements Serializable {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
     
-    @Column(unique = true)
+    @Column(unique = true, name = "topic_code")
     @Size(min = 2, max = 10, message ="The length of the topic code must be between 2 to 10 letters")
     private String topicCode;
 	
