@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
+import no.niths.domain.Student;
 import no.niths.services.CourseService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.COURSES)
 public class CourseController implements RESTController<Course> {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(CourseController.class);
 
     @Autowired
     private CourseService service;
@@ -64,24 +70,27 @@ public class CourseController implements RESTController<Course> {
             headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
-
-        // When there is no valid query string
-        if (course.isEmpty()) {
-            final String FIRST =
-                    request.getHeaders().getFirst(RESTConstants.ACCEPT);
-
-            if (FIRST.equals(RESTConstants.JSON)) {
-                return (ArrayList<Course>) service.getAllCourses();
-            } else if (FIRST.equals(RESTConstants.XML)) {
-                courseList.setData(service.getAllCourses());
-                return courseList;
-            }
-        } else {
-            // TODO
-            // Find and return the course
-        }
-
-        return null;
+    	logger.info(course.toString());
+    	
+      	 final String FIRST =
+                   request.getHeaders().getFirst(RESTConstants.ACCEPT);
+      	 
+          if (course.isEmpty()) {
+              if (FIRST.equals(RESTConstants.JSON)) {
+                  return (ArrayList<Course>) service.getAllCourses();
+              } else if (FIRST.equals(RESTConstants.XML)) {
+                  courseList.setData(service.getAllCourses());
+                  return courseList;
+              }
+          } else {
+          	 if (FIRST.equals(RESTConstants.JSON)) {
+                   return (ArrayList<Course>) service.getAllCourses(course);
+               } else if (FIRST.equals(RESTConstants.XML)) {
+                   courseList.setData(service.getAllCourses(course));
+                   return courseList;
+               }
+          }
+          return null;
     }
 
     /**
