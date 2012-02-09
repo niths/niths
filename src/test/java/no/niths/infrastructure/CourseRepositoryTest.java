@@ -11,7 +11,9 @@ import java.util.List;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
+import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.CoursesRepository;
+import no.niths.infrastructure.interfaces.TopicsRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +39,37 @@ public class CourseRepositoryTest {
 	@Autowired
 	private CoursesRepository repo;
 	
+	@Autowired
+	private TopicsRepository topicRepo;
+	
+	@Test
+	@Rollback(true)
+	public void whenAddedTopics_CourseShouldHaveThem() {
+		int numTopics = topicRepo.getAllTopics().size();
+		int numCourses = repo.getAllCourses().size();
+
+		Course c1 = new Course("Programmering", "Java, c++");
+		Topic t1 = new Topic();
+		t1.setTopicCode("PG111");
+		c1.getTopics().add(t1);
+		repo.createCourse(c1);
+		
+		
+		assertEquals(numCourses + 1, repo.getAllCourses().size());
+		assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
+		
+		Course res = repo.getCourseById(c1.getId());
+		int numOfTopics = res.getTopics().size();
+		if(numOfTopics > 0){
+			res.getTopics().remove(0);
+			repo.updateCourse(res);
+			
+			assertEquals(numOfTopics - 1, repo.getCourseById(res.getId()).getTopics().size() );
+			assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
+		}
+		
+		
+	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	@Rollback(true)

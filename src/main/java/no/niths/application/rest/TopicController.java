@@ -1,14 +1,15 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import no.niths.application.rest.lists.CourseList;
+import no.niths.application.rest.lists.TopicList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.domain.Topic;
 import no.niths.services.CourseService;
+import no.niths.services.TopicService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +25,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.COURSES)
-public class CourseController implements RESTController<Course> {
+@RequestMapping(AppConstants.TOPICS)
+public class TopicController implements RESTController<Topic> {
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(CourseController.class);
+			.getLogger(TopicController.class);
 
     @Autowired
-    private CourseService service;
+    private TopicService service;
 
-    private CourseList courseList = new CourseList();
+    private TopicList topicList = new TopicList();
 
 
     /**
@@ -42,9 +43,9 @@ public class CourseController implements RESTController<Course> {
      */
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
-    public void create(@RequestBody Course course) {
-        service.createCourse(course);
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Topic created")
+    public void create(@RequestBody Topic topic) {
+        service.createTopic(topic);
     }
 
     /**
@@ -58,24 +59,8 @@ public class CourseController implements RESTController<Course> {
             method  = RequestMethod.GET,
             headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public Course getById(@PathVariable Long id) {
-        return service.getCourseById(id);
-    }
-    
-    /**
-     * Returns all topics inside a course
-     * 
-     * @param id the course id
-     * @return List with topics
-     */
-    @RequestMapping(
-            value   = "topics/{id}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public List<Topic> getCourseTopics(@PathVariable Long id){
-    	Course c = service.getCourseById(id);
-    	return c.getTopics();
+    public Topic getById(@PathVariable Long id) {
+        return service.getTopicById(id);
     }
 
     /**
@@ -87,25 +72,25 @@ public class CourseController implements RESTController<Course> {
             method  = RequestMethod.GET,
             headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
-    	logger.info(course.toString());
+    public ArrayList<Topic> getAll(Topic topic, HttpEntity<byte[]> request) {
+    	logger.info(topic.toString());
     	
       	 final String FIRST =
                    request.getHeaders().getFirst(RESTConstants.ACCEPT);
       	 
-          if (course.isEmpty()) {
+          if (topic.isEmpty()) {
               if (FIRST.equals(RESTConstants.JSON)) {
-                  return (ArrayList<Course>) service.getAllCourses();
+                  return (ArrayList<Topic>) service.getAllTopics();
               } else if (FIRST.equals(RESTConstants.XML)) {
-                  courseList.setData(service.getAllCourses());
-                  return courseList;
+                  topicList.setData(service.getAllTopics());
+                  return topicList;
               }
           } else {
           	 if (FIRST.equals(RESTConstants.JSON)) {
-                   return (ArrayList<Course>) service.getAllCourses(course);
+                   return (ArrayList<Topic>) service.getAllTopics(topic);
                } else if (FIRST.equals(RESTConstants.XML)) {
-                   courseList.setData(service.getAllCourses(course));
-                   return courseList;
+                   topicList.setData(service.getAllTopics(topic));
+                   return topicList;
                }
           }
           return null;
@@ -120,16 +105,16 @@ public class CourseController implements RESTController<Course> {
             value   = {"", "{id}"},
             method  = RequestMethod.PUT,
             headers = RESTConstants.CONTENT_TYPE_HEADER)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Course updated")
+    @ResponseStatus(value = HttpStatus.OK, reason = "Topic updated")
     public void update(
-            @RequestBody Course course,
+            @RequestBody Topic topic,
             @PathVariable Long id) {
 
         // If the ID is only provided through the URL.
         if (id != null)
-            course.setId(id);
+            topic.setId(id);
 
-        service.updateCourse(course);
+        service.updateTopic(topic);
     }
 
     /**
@@ -140,8 +125,8 @@ public class CourseController implements RESTController<Course> {
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
+    @ResponseStatus(value = HttpStatus.OK, reason = "Topic deleted")
     public void delete(@PathVariable Long id) {
-        service.deleteCourse(id);
+        service.deleteTopic(id);
     }
 }
