@@ -3,6 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Course;
+import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,31 @@ public class CourseService {
     }
 
     public Course getCourseById(long id) {
-        return repo.getCourseById(id);
+    	Course res = repo.getCourseById(id);
+    	res.getTopics().size();
+        return res;
    }
 
     public Course getCourseByName(String name) {
-        return repo.getCourseByName(name);
+    	
+        Course c = repo.getCourseByName(name);
+        c.getTopics().size();
+        return c;
     }
 
     public List<Course> getAllCourses() {
-        return repo.getAllCourses();
+    	List<Course> results = repo.getAllCourses();
+    	for (Course c : results){
+    		c.getTopics().size();
+    	}
+        return results;
     }
     public List<Course> getAllCourses(Course c) {
-    	return repo.getAllCourses(c);
+    	List<Course> results = repo.getAllCourses(c);
+    	for (Course cor : results){
+    		cor.getTopics().size();
+    	}
+        return results;
     }
 
     public void updateCourse(Course course) {
