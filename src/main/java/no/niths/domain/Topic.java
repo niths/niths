@@ -2,6 +2,7 @@ package no.niths.domain;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,17 +43,23 @@ public class Topic implements Serializable {
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
     private String description;
     
+    //TODO: add constraint = legal values = monday, tuesday etc
     @Column
-    private Time startTime;
+    private String weekday;
     
-    @Column
-    private Time endTime;
+    @Column(name = "start_time")
+    @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
+    private String startTime;
+    
+    @Column(name = "end_time")
+    @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
+    private String endTime;
     
     public Topic(){
     	//this(null, null, null, null, null);
     }
     
-    public Topic(String name, String topicCode, String description, Time startTime, Time endTime){
+    public Topic(String name, String topicCode, String description, String startTime, String endTime){
     	setName(name);
     	setTopicCode(topicCode);
     	setDescription(description);
@@ -89,21 +99,32 @@ public class Topic implements Serializable {
 		this.description = description;
 	}
 
-	public Time getStartTime() {
+	public String getWeekday() {
+		return weekday;
+	}
+
+	public void setWeekday(String weekday) {
+		this.weekday = weekday;
+	}
+
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+
+	
+
 	
     
 	
