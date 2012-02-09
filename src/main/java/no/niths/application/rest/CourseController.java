@@ -40,7 +40,7 @@ public class CourseController implements RESTController<Course> {
      */
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
     public void create(@RequestBody Course course) {
         service.createCourse(course);
     }
@@ -102,7 +102,7 @@ public class CourseController implements RESTController<Course> {
             value   = {"", "{id}"},
             method  = RequestMethod.PUT,
             headers = RESTConstants.CONTENT_TYPE_HEADER)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Course updated")
     public void update(
             @RequestBody Course course,
             @PathVariable Long id) {
@@ -122,7 +122,7 @@ public class CourseController implements RESTController<Course> {
     @RequestMapping(
             value  = "{id}",
             method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
     public void delete(@PathVariable Long id) {
         service.deleteCourse(id);
     }
