@@ -19,10 +19,15 @@ public class CommitteeList extends ArrayList<Committee>
     private static final long serialVersionUID = -7988084285022242469L;
     
     @XmlElement(name = "committee")
-    private List<Committee> data;
+    private List<Committee> committeeData;
 
     @Override
-    public void setData(List<Committee> data) {
-        this.data = data;
+    public void setData(List<Committee> committeeData) {
+        this.committeeData = committeeData;
     }
+    
+    public List<Committee> getCourseData(){
+    	return committeeData;
+    }
+    
 }

@@ -1,8 +1,10 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import no.niths.application.rest.lists.CommitteeEventList;
+import no.niths.common.AppConstants;
 import no.niths.domain.CommitteeEvent;
 import no.niths.services.CommitteeEventsService;
 
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping("events")
+@RequestMapping(AppConstants.EVENTS)
 public class CommitteeEventsController implements
 		RESTController<CommitteeEvent> {
 
@@ -31,6 +33,7 @@ public class CommitteeEventsController implements
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Committe created")
 	public void create(@RequestBody CommitteeEvent event) {
+	
 		service.create(event);
 	}
 

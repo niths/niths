@@ -7,17 +7,26 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Committee;
 import no.niths.domain.Course;
 
 @XmlRootElement(name = AppConstants.COURSES)
 public class CourseList extends ArrayList<Course>
         implements Exportable<Course> {
 
-    @XmlElement(name = "course")
-    private List<Course> data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8082915037044141181L;
+	@XmlElement(name = "course")
+    private List<Course> courseData;
 
     @Override
     public void setData(List<Course> data) {
-     this.data = data;
+     this.courseData = data;
+    }
+    
+    public List<Course> getCourseData(){
+    	return courseData;
     }
 }

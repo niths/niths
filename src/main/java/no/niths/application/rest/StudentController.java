@@ -25,108 +25,91 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.STUDENTS)
-public class StudentController implements RESTController<Student>{
-	
+public class StudentController implements RESTController<Student> {
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentController.class);
-	
+
 	private StudentList studentList = new StudentList();
 
-    @Autowired
-    private StudentService service;
-    
-    /**
-     * 
-     * @return All courses
-     */
-    @Override
-    @RequestMapping(
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public ArrayList<Student> getAll(Student student, HttpEntity<byte[]> request) {
-    	logger.info(student.toString());
-    	
-   	 final String FIRST =
-                request.getHeaders().getFirst(RESTConstants.ACCEPT);
-   	 
-       if (student.isEmpty()) {
-           if (FIRST.equals(RESTConstants.JSON)) {
-               return (ArrayList<Student>) service.getAllStudents();
-           } else if (FIRST.equals(RESTConstants.XML)) {
-               studentList.setData(service.getAllStudents());
-               return studentList;
-           }
-       } else {
-       	 if (FIRST.equals(RESTConstants.JSON)) {
-                return (ArrayList<Student>) service.getAllStudents(student);
-            } else if (FIRST.equals(RESTConstants.XML)) {
-                studentList.setData(service.getAllStudents(student));
-                return studentList;
-            }
-       }
-       return null;
+	@Autowired
+	private StudentService service;
 
-    }
-
-    /**
-     * 
-     * @param Student The student to be created
-     */
+	/**
+	 * 
+	 * @return All courses
+	 */
 	@Override
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Student created")
-	public void create(@RequestBody Student student) {
-		service.createStudent(student);
-		
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<Student> getAll(Student student, HttpEntity<byte[]> request) {
+		logger.info(student.toString());
+
+		final String FIRST = request.getHeaders()
+				.getFirst(RESTConstants.ACCEPT);
+
+		if (FIRST.equals(RESTConstants.JSON)) {
+			return (ArrayList<Student>) service.getAllStudents(student);
+		} else if (FIRST.equals(RESTConstants.XML)) {
+			studentList.setData(service.getAllStudents(student));
+			return studentList;
+		}
+
+		return null;
+
 	}
 
-    /**
-     * 
-     * @param long The students id
-     * @return The student identified by the id
-     */
+	/**
+	 * 
+	 * @param Student
+	 *            The student to be created
+	 */
 	@Override
-	@RequestMapping(
-            value   = "{id}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.CREATED, reason = "Student created")
+	public void create(@RequestBody Student student) {
+		service.createStudent(student);
+
+	}
+
+	/**
+	 * 
+	 * @param long The students id
+	 * @return The student identified by the id
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		return service.getStudentById(id);
 	}
-	
-    /**
-     * 
-     * @param Student The student to update
-     */
-    @Override
-    @RequestMapping(
-            value   = {"", "{id}"},
-            method  = RequestMethod.PUT,
-            headers = RESTConstants.CONTENT_TYPE_HEADER)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Update ok")
-	public void update(
-            @RequestBody Student student,
-            @PathVariable Long id) {
-		if(id != null){
+
+	/**
+	 * 
+	 * @param Student
+	 *            The student to update
+	 */
+	@Override
+	@RequestMapping(value = { "", "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.CONTENT_TYPE_HEADER)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Update ok")
+	public void update(@RequestBody Student student, @PathVariable Long id) {
+		if (id != null) {
 			student.setId(id);
 		}
 		service.updateStudent(student);
-		
+
 	}
-    
-    /**
-     * 
-     * @param Id The id of the Student to delete
-     */
-    @Override
-    @RequestMapping(
-            value  = "{id}",
-            method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
+
+	/**
+	 * 
+	 * @param Id
+	 *            The id of the Student to delete
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
 	public void delete(@PathVariable Long id) {
 		service.deleteStudent(id);
-		
+
 	}
 }

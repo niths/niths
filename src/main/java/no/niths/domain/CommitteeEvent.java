@@ -17,9 +17,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import no.niths.common.AppConstants;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @XmlRootElement
 @Entity
@@ -92,17 +92,19 @@ public class CommitteeEvent implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    
 
     @JsonIgnore
     public Committee getCommittee() {
         return committee;
     }
-
+    
+    
     public void setCommittee(Committee committee) {
         this.committee = committee;
     }
 
-    public Calendar getDateAndTime() {
+    public Calendar getDateAndTime() {	
         return dateAndTime;
     }
 
@@ -118,7 +120,8 @@ public class CommitteeEvent implements Serializable {
         CommitteeEvent s = (CommitteeEvent) obj;
         return s == this ? true : s.getId() == id ? true : false;
     }
-
+    
+    @JsonIgnore
 	public boolean isEmpty() {
 		return description == null && name == null && id == null && dateAndTime==null ;
 	}

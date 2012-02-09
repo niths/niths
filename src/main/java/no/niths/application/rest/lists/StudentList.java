@@ -14,9 +14,6 @@ import no.niths.domain.Student;
 public class StudentList extends ArrayList<Student>
 implements Exportable<Student>{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 3236993384670095653L;
 	@XmlElement(name = "student")
     private List<Student> data;
@@ -24,6 +21,7 @@ implements Exportable<Student>{
 	@Override
 	public void setData(List<Student> list) {
 		this.data = list;
-		
 	}
+	
+	
 }
