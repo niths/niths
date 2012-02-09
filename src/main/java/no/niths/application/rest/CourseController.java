@@ -1,11 +1,13 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
+import no.niths.domain.Topic;
 import no.niths.services.CourseService;
 
 import org.slf4j.Logger;
@@ -58,6 +60,22 @@ public class CourseController implements RESTController<Course> {
     @ResponseBody
     public Course getById(@PathVariable Long id) {
         return service.getCourseById(id);
+    }
+    
+    /**
+     * Returns all topics inside a course
+     * 
+     * @param id the course id
+     * @return List with topics
+     */
+    @RequestMapping(
+            value   = "topics/{id}",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Topic> getCourseTopics(@PathVariable Long id){
+    	Course c = service.getCourseById(id);
+    	return c.getTopics();
     }
 
     /**
