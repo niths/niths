@@ -49,7 +49,12 @@ public class StudentService {
     }
     
     public List<Student> getAllStudents(Student s) {
-    	return repo.getAllStudents(s);
+    	ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents(s);
+    	for (int i = 0; i < temp.size(); i++){
+    		temp.get(i).getCommittees().size();
+    		temp.get(i).getCourses().size();
+    	}
+        return temp;
     }
 
     public void updateStudent(Student student) {
