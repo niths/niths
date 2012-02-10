@@ -20,7 +20,7 @@ public interface StudentRepository {
 	
 	List<Student> getByStudentsNamedCourse(String courseName);	
 	
-	List<Student> getByName(String name);
+	//List<Student> getByName(String name);
 	
 	List<Student> getStudentsWithCommittees();
 	

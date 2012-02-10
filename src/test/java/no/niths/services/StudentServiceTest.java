@@ -3,9 +3,6 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import javax.validation.constraints.AssertTrue;
-
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Student;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -29,6 +25,32 @@ public class StudentServiceTest {
 	
 	@Autowired
 	private StudentService studService;
+	
+	@Test
+	@Rollback(true)
+	public void shouldReturnAllStudentsWithThatName(){
+		int size = studService.getAllStudents().size();
+		
+		Student s1 = new Student("John", "Doe");		
+		Student s2 = new Student("Vera", "Fine");		
+		Student s3 = new Student("Vera", "Fine");		
+		Student s4 = new Student("Vera", "Fine");		
+		Student s5 = new Student("Vera", "Fine");		
+		studService.createStudent(s1);
+		studService.createStudent(s2);
+		studService.createStudent(s3);
+		studService.createStudent(s4);
+		studService.createStudent(s5);
+		
+		assertEquals(size + 5, studService.getAllStudents().size());
+		
+		String term = "Vera Fine";
+		
+		assertEquals(4, studService.getStudentByName(term).size());
+		
+		
+	}
+	
 	
 	@Test
 	@Rollback(true)

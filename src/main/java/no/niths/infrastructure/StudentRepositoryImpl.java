@@ -53,23 +53,26 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return session.getCurrentSession()
     			.createCriteria(Student.class).add(Example.create(stud)).list();
 	}
+	
+	
+	//UNNEEDED
 
-	/**
-	 * Returns all students that has a name equals or like the search query
-	 * 
-	 * @param name
-	 *            the search query
-	 * @return List with students
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Student> getByName(String name) {
-
-		return session.getCurrentSession()
-				.createQuery(
-						"from " + Student.class.getName()
-								+ " student where student.firstName like :name")
-				.setString("name", "%" + name + "%").list();
-	}
+//	/**
+//	 * Returns all students that has a name equals or like the search query
+//	 * 
+//	 * @param name
+//	 *            the search query
+//	 * @return List with students
+//	 */
+//	@SuppressWarnings("unchecked")
+//	public List<Student> getByName(String name) {
+//
+//		return session.getCurrentSession()
+//				.createQuery(
+//						"from " + Student.class.getName()
+//								+ " student where student.firstName like :name")
+//				.setString("name", "%" + name + "%").list();
+//	}
 
 	/**
 	 * 
