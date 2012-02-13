@@ -149,6 +149,31 @@ public class StudentRepositoryTest {
 //		assertEquals(true, studentRepo.getByName("non").isEmpty());
 		
 	}
+	
+//	@Test
+//	@Rollback(true)
+//	public void shouldReturnAllStudentsWithThatName(){
+//		int size = studentRepo.getAllStudents().size();
+//		
+//		Student s1 = new Student("John", "Doe");		
+//		Student s2 = new Student("Vera", "Fine");		
+//		Student s3 = new Student("Vera", "Fine");		
+//		Student s4 = new Student("Vera", "Fine");		
+//		Student s5 = new Student("Vera", "Fine");		
+//		studentRepo.create(s1);
+//		studentRepo.create(s2);
+//		studentRepo.create(s3);
+//		studentRepo.create(s4);
+//		studentRepo.create(s5);
+//		
+//		assertEquals(size + 5, studentRepo.getAllStudents().size());
+//		
+//		String term = "Vera Fine";
+//		
+//		assertEquals(4, studentRepo.get(term).size());
+//		
+//		
+//	}
 
 
 

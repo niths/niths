@@ -34,7 +34,31 @@ public class StudentController implements RESTController<Student> {
 
 	@Autowired
 	private StudentService service;
+	
+	
 
+	/**
+	 * 
+	 * @return All courses
+	 */
+	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<Student> getAllByName(@PathVariable String name , HttpEntity<byte[]> request) {
+		String[] fullName = name.trim().split(" ");
+		Student stud = new Student();
+		if (fullName.length > 1) {
+			for (int i = 1; i < fullName.length; i++) {
+				if (i != 1){
+					fullName[i] += " ";
+				}
+				stud.setLastName(stud.getLastName() + fullName[i]);	
+			}
+		}
+		stud.setFirstName(fullName[0]);
+		logger.info("Search for students with name: " + stud.toString());
+		return getAll(stud, request);
+		
+	}
 	/**
 	 * 
 	 * @return All courses

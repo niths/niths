@@ -26,30 +26,30 @@ public class StudentServiceTest {
 	@Autowired
 	private StudentService studService;
 	
-	@Test
-	@Rollback(true)
-	public void shouldReturnAllStudentsWithThatName(){
-		int size = studService.getAllStudents().size();
-		
-		Student s1 = new Student("John", "Doe");		
-		Student s2 = new Student("Vera", "Fine");		
-		Student s3 = new Student("Vera", "Fine");		
-		Student s4 = new Student("Vera", "Fine");		
-		Student s5 = new Student("Vera", "Fine");		
-		studService.createStudent(s1);
-		studService.createStudent(s2);
-		studService.createStudent(s3);
-		studService.createStudent(s4);
-		studService.createStudent(s5);
-		
-		assertEquals(size + 5, studService.getAllStudents().size());
-		
-		String term = "Vera Fine";
-		
-		assertEquals(4, studService.getStudentByName(term).size());
-		
-		
-	}
+//	@Test
+//	@Rollback(true)
+//	public void shouldReturnAllStudentsWithThatName(){
+//		int size = studService.getAllStudents().size();
+//		
+//		Student s1 = new Student("John", "Doe");		
+//		Student s2 = new Student("Vera", "Fine");		
+//		Student s3 = new Student("Vera", "Fine");		
+//		Student s4 = new Student("Vera", "Fine");		
+//		Student s5 = new Student("Vera", "Fine");		
+//		studService.createStudent(s1);
+//		studService.createStudent(s2);
+//		studService.createStudent(s3);
+//		studService.createStudent(s4);
+//		studService.createStudent(s5);
+//		
+//		assertEquals(size + 5, studService.getAllStudents().size());
+//		
+//		String term = "Vera Fine";
+//		
+//		assertEquals(4, studService.getStudentByName(term).size());
+//		
+//		
+//	}
 	
 	
 	@Test
