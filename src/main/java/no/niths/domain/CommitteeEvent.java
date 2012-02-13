@@ -16,10 +16,15 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
+import no.niths.common.CalendarAdapter;
+import no.niths.common.JsonDateSerializer;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @XmlRootElement
 @Entity
@@ -43,6 +48,8 @@ public class CommitteeEvent implements Serializable {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")  
+    @XmlJavaTypeAdapter(CalendarAdapter.class)  
     private Calendar dateAndTime;
 
     @ManyToOne
@@ -103,7 +110,8 @@ public class CommitteeEvent implements Serializable {
     public void setCommittee(Committee committee) {
         this.committee = committee;
     }
-
+    
+    @JsonSerialize(using=JsonDateSerializer.class)
     public Calendar getDateAndTime() {	
         return dateAndTime;
     }

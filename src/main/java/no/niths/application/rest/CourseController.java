@@ -6,7 +6,6 @@ import java.util.List;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
-import no.niths.domain.Student;
 import no.niths.domain.Topic;
 import no.niths.services.CourseService;
 

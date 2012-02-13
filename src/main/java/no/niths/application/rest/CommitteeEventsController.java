@@ -1,13 +1,14 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.common.AppConstants;
 import no.niths.domain.CommitteeEvent;
 import no.niths.services.CommitteeEventsService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CommitteeEventsController implements
 		RESTController<CommitteeEvent> {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(CommitteeEventsController.class);
+	
 	@Autowired
 	private CommitteeEventsService service;
 
@@ -41,7 +45,9 @@ public class CommitteeEventsController implements
 	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public CommitteeEvent getById(@PathVariable Long id) {
+		
 		return service.getCommitteeEventsById(id);
+			
 	}
 
 	@Override

@@ -22,7 +22,7 @@ INSERT INTO committees (name) VALUES("KIT");
 INSERT INTO committees (name) VALUES("MDF");
 
 
-INSERT INTO committee_events (name) VALUES("LUG event");
+INSERT INTO committee_events (name,dateAndTime) VALUES("LUG event");
 INSERT INTO committee_events (name) VALUES("FEst");
 INSERT INTO committee_events (name) VALUES("asdasd");
 INSERT INTO committee_events (name) VALUES("23asd");
