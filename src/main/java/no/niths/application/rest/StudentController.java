@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
@@ -122,7 +123,11 @@ public class StudentController implements RESTController<Student> {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
-		return service.getStudentById(id);
+		Student s = service.getStudentById(id);
+		if (s == null){
+			throw new ObjectNotFoundException("No students found for id: " + id);
+		}
+		return s;
 	}
 
 	/**
