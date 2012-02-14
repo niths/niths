@@ -1,6 +1,8 @@
 package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+
+import java.util.Date;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
@@ -12,17 +14,21 @@ import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
 public class StudentRepositoryTest {
+	
+	private static final Logger logger = LoggerFactory
+	.getLogger(StudentRepositoryTest.class); // Replace with test class
 
 	@Autowired
 	private StudentRepository studentRepo;
