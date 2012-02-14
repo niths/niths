@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.common.AppConstants;
 import no.niths.domain.CommitteeEvent;

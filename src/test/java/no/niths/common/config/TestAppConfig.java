@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
 @Configuration
-@ComponentScan( { "no.niths.services"} )
+@ComponentScan( {TestAppConfig.BASE_PACKAGE } )
 public class TestAppConfig {
-
+//"no.niths.services","no.niths.common.config"
     public static final String BASE_PACKAGE      = "no.niths",
                                PERSISTENCE_PROPS = "test-persistence.properties";
     @Bean
