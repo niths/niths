@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.common.AppConstants;
 import no.niths.domain.CommitteeEvent;
@@ -48,7 +49,11 @@ public class CommitteeEventsController implements
 	@ResponseBody
 	public CommitteeEvent getById(@PathVariable Long id) {
 		
-		return service.getCommitteeEventsById(id);
+		CommitteeEvent event = service.getCommitteeEventsById(id);
+		if (event == null) {
+			throw new ObjectNotFoundException("No event with id :" + id);
+		}
+		return event;
 			
 	}
 

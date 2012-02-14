@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 
 @Configuration
-@ComponentScan( {TestAppConfig.BASE_PACKAGE } )
+@ComponentScan( {"no.niths.services" } )
 public class TestAppConfig {
 //"no.niths.services","no.niths.common.config"
     public static final String BASE_PACKAGE      = "no.niths",
