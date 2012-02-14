@@ -43,7 +43,7 @@ public class Course implements Serializable {
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
     private String description;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.SAVE_UPDATE)
 	private List<Topic> topics = new ArrayList<Topic>();
 
