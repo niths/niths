@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -135,7 +136,7 @@ public class CommitteeEvent implements Serializable {
 	}
 
     @JsonSerialize(using=JsonCalendarAdapter.class)
-	public Calendar getEndTime() {
+	public Calendar getEnd() {
 		return endTime;
 	}
 
@@ -144,7 +145,7 @@ public class CommitteeEvent implements Serializable {
 	}
 
 	@JsonSerialize(using=JsonCalendarAdapter.class)
-	public Calendar getStartTime() {
+	public Calendar getStart() {
 		return startTime;
 	}
 

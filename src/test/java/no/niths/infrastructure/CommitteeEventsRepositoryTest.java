@@ -44,7 +44,7 @@ public class CommitteeEventsRepositoryTest {
 		event.setStartTime(newDate);
 		eventRepo.update(event);
 		event = eventRepo.getCommitteeEventsById(event.getId());
-		assertEquals(event.getStartTime(), event.getStartTime());
+		assertEquals(event.getStart(), event.getStart());
 
 		eventRepo.delete(event.getId());
 		assertEquals(size, eventRepo.getAll().size());
