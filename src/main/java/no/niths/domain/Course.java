@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,6 +27,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.COURSES)
 @XmlRootElement
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Course implements Serializable {
 
     @Transient

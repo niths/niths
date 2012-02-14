@@ -29,6 +29,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.COMMITTEE_EVENTS)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class CommitteeEvent implements Serializable {
 
     @Transient

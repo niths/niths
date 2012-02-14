@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.constraints.Weekday;
@@ -21,6 +22,7 @@ import no.niths.domain.constraints.Weekday;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.TOPICS)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Topic implements Serializable {
 
 	@Transient
