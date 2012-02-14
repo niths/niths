@@ -155,7 +155,9 @@ public class StudentController implements RESTController<Student> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
 	public void delete(@PathVariable Long id) {
-		service.deleteStudent(id);
+		if(!service.deleteStudent(id)){
+			throw new ObjectNotFoundException("No students found for id: " + id);
+		}
 
 	}
 }
