@@ -1,5 +1,10 @@
 USE niths;
 
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG111', "Java 1", "Innføring i java", '10:00:00', '11:00:00', "Monday"); 
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG211', "Java 2", "Innføring i java 2", '11:00:00', '12:00:00', "Monday");
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('BU410', "E-Business", "Skolen sparer penger", '10:00:00', '11:00:00', "Tuesday");
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00:00', '17:00:00', "Friday");
+
 INSERT INTO courses (name, description) VALUES("Mobil apputvikling", "Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.");
 INSERT INTO courses (name, description) VALUES("Programmering", "I dag brukes IT og Internett i alt fra handel, kommunikasjon, overvåking og spill til betaling.");
 INSERT INTO courses (name, description) VALUES("Spillprogrammering", "Du som søker dette studiet, ønsker å jobbe med avansert programmering og har interesse for simulerings- og spillopplevelser");
@@ -10,8 +15,18 @@ INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny 
 INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
 
---INSERT INTO students (first_name, last_name,description,email,gender,grade,password,phone_number) VALUES("Andre", "Kristensen","Superkul","mail@mail.no",'M',"encryptedPassword","12312312");
-INSERT INTO students (first_name, last_name) VALUES("Andre", "Kristensen");
+insert into courses_topics values(1,1);
+insert into courses_topics values(1,2);
+insert into courses_topics values(1,3);
+insert into courses_topics values(2,4);
+insert into courses_topics values(2,1);
+insert into courses_topics values(3,1);
+insert into courses_topics values(3,2);
+insert into courses_topics values(3,3);
+insert into courses_topics values(4,4);
+
+
+INSERT INTO students (first_name, last_name, birthday) VALUES("Andre", "Kristensen", '2012-02-02');
 INSERT INTO students (first_name, last_name) VALUES("Bendik", "Rostad");
 INSERT INTO students (first_name, last_name) VALUES("Liv", "Kolås");
 INSERT INTO students (first_name, last_name) VALUES("Øyvind", "Ødegård");
