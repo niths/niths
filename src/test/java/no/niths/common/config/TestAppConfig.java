@@ -16,7 +16,7 @@ public class TestAppConfig {
     public static PropertyPlaceholderConfigurer properties(){
         final PropertyPlaceholderConfigurer ppc =
                 new PropertyPlaceholderConfigurer();
-        FileSystemResource fsr = new FileSystemResource(System.getenv("CREDENTIAL_PATH")+"\\"+PERSISTENCE_PROPS);
+        FileSystemResource fsr = new FileSystemResource(System.getenv("CREDENTIAL_PATH")+"/"+PERSISTENCE_PROPS);
         ppc.setLocation(fsr);  
         ppc.setIgnoreUnresolvablePlaceholders(true);
         return ppc;
