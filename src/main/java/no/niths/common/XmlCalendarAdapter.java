@@ -8,9 +8,9 @@ import java.util.GregorianCalendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 
-public class CalendarAdapter extends XmlAdapter<String, Calendar>{
+public class XmlCalendarAdapter extends XmlAdapter<String, Calendar>{
 
-	private DateFormat df = new SimpleDateFormat("dd/MM/yyyy-HH:mm");  
+	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);  
 	
 	@Override
 	public Calendar unmarshal(String date) throws ParseException {

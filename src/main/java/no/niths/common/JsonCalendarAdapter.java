@@ -10,18 +10,13 @@ import org.codehaus.jackson.map.SerializerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * 
- * Serialize Java.util.Date, which is not a common JSON. type, so we have to
- * create a custom serialize method.
- * 
- */
-public class JsonDateSerializer extends JsonSerializer<Calendar> {
+
+public class JsonCalendarAdapter extends JsonSerializer<Calendar> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(JsonDateSerializer.class);
+			.getLogger(JsonCalendarAdapter.class);
 
-	private DateFormat df = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);
 
 	@Override
 	public void serialize(Calendar calendar, JsonGenerator gen,
