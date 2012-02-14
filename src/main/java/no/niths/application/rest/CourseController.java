@@ -25,122 +25,101 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.COURSES)
 public class CourseController implements RESTController<Course> {
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(CourseController.class);
 
-    @Autowired
-    private CourseService service;
+	@Autowired
+	private CourseService service;
 
-    private CourseList courseList = new CourseList();
+	private CourseList courseList = new CourseList();
 
+	/**
+	 * 
+	 * @param Course
+	 *            The course to be created
+	 */
+	@Override
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
+	public void create(@RequestBody Course course) {
+		service.createCourse(course);
+	}
 
-    /**
-     * 
-     * @param Course The course to be created
-     */
-    @Override
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
-    public void create(@RequestBody Course course) {
-        service.createCourse(course);
-    }
+	/**
+	 * 
+	 * @param long The course's id
+	 * @return The course identified by the id
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public Course getById(@PathVariable Long id) {
+		return service.getCourseById(id);
+	}
 
-    /**
-     * 
-     * @param long The course's id
-     * @return The course identified by the id
-     */
-    @Override
-    @RequestMapping(
-            value   = "{id}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public Course getById(@PathVariable Long id) {
-        return service.getCourseById(id);
-    }
-    
-    /**
-     * Returns all topics inside a course
-     * 
-     * @param id the course id
-     * @return List with topics
-     */
-    @RequestMapping(
-            value   = "topics/{id}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public List<Topic> getCourseTopics(@PathVariable Long id){
-    	Course c = service.getCourseById(id);
-    	return c.getTopics();
-    }
+	/**
+	 * Returns all topics inside a course
+	 * 
+	 * @param id
+	 *            the course id
+	 * @return List with topics
+	 */
+	@RequestMapping(value = "topics/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Topic> getCourseTopics(@PathVariable Long id) {
+		Course c = service.getCourseById(id);
+		return c.getTopics();
+	}
 
-    /**
-     * 
-     * @return All courses
-     */
-    @Override
-    @RequestMapping(
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
-    	logger.info(course.toString());
-    	
-      	 final String FIRST =
-                   request.getHeaders().getFirst(RESTConstants.ACCEPT);
-      	 
-          if (course.isEmpty()) {
-              if (FIRST.equals(RESTConstants.JSON)) {
-                  return (ArrayList<Course>) service.getAllCourses();
-              } else if (FIRST.equals(RESTConstants.XML)) {
-                  courseList.setData(service.getAllCourses());
-                  return courseList;
-              }
-          } else {
-          	 if (FIRST.equals(RESTConstants.JSON)) {
-                   return (ArrayList<Course>) service.getAllCourses(course);
-               } else if (FIRST.equals(RESTConstants.XML)) {
-                   courseList.setData(service.getAllCourses(course));
-                   return courseList;
-               }
-          }
-          return null;
-    }
+	/**
+	 * 
+	 * @return All courses
+	 */
+	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
+		logger.info(course.toString());
 
-    /**
-     * 
-     * @param Course The Course to update
-     */
-    @Override
-    @RequestMapping(
-            value   = {"", "{id}"},
-            method  = RequestMethod.PUT,
-            headers = RESTConstants.CONTENT_TYPE_HEADER)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Course updated")
-    public void update(
-            @RequestBody Course course,
-            @PathVariable Long id) {
+		final String FIRST = request.getHeaders()
+				.getFirst(RESTConstants.ACCEPT);
 
-        // If the ID is only provided through the URL.
-        if (id != null)
-            course.setId(id);
+		if (FIRST.equals(RESTConstants.JSON)) {
+			return (ArrayList<Course>) service.getAllCourses(course);
+		} else if (FIRST.equals(RESTConstants.XML)) {
+			courseList.setData(service.getAllCourses(course));
+			return courseList;
+		}
 
-        service.updateCourse(course);
-    }
+		return null;
+	}
 
-    /**
-     * 
-     * @param long The id of the Course to delete
-     */
-    @Override
-    @RequestMapping(
-            value  = "{id}",
-            method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
-    public void delete(@PathVariable Long id) {
-        service.deleteCourse(id);
-    }
+	/**
+	 * 
+	 * @param Course
+	 *            The Course to update
+	 */
+	@Override
+	@RequestMapping(value = { "", "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.CONTENT_TYPE_HEADER)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Course updated")
+	public void update(@RequestBody Course course, @PathVariable Long id) {
+
+		// If the ID is only provided through the URL.
+		if (id != null)
+			course.setId(id);
+
+		service.updateCourse(course);
+	}
+
+	/**
+	 * 
+	 * @param long The id of the Course to delete
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
+	public void delete(@PathVariable Long id) {
+		service.deleteCourse(id);
+	}
 }

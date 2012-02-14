@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class XmlCalendarAdapter extends XmlAdapter<String, Calendar>{
 
-	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);  
+	private DateFormat df = new SimpleDateFormat(AppConstants.CALENDAR_FORMAT);  
 	
 	@Override
 	public Calendar unmarshal(String date) throws ParseException {

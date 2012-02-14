@@ -22,10 +22,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
+import no.niths.common.JsonDateAdapter;
+import no.niths.common.XmlCharAdapter;
+import no.niths.common.XmlDateAdapter;
 import no.niths.domain.constraints.StudentGender;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -36,6 +39,7 @@ import org.hibernate.validator.constraints.Email;
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@XmlAccessorType(XmlAccessType.FIELD)  
 public class Student implements Serializable {
 
 	@Transient
@@ -57,13 +61,15 @@ public class Student implements Serializable {
 
 	@Column
 	@StudentGender
+	@XmlJavaTypeAdapter(value=XmlCharAdapter.class)
 	private Character gender;
 
 	@Column
 	private String password;
 
-	@Column
+	@Column(name="birthday")
 	@Past
+	@XmlJavaTypeAdapter(XmlDateAdapter.class)
 	private Date birthday;
 
 	@Column
@@ -71,12 +77,13 @@ public class Student implements Serializable {
 	@Min(value = 1, message = "Can not be smaller then 1")
 	private Integer grade;
 
-	@Column
+	@Column(unique=true)
 	@Email(message = "Not a valid email")
 	private String email;
 
-	@Column(name = "phone_number")
-	@Pattern(regexp = "(^$)|([0-9]{8})", message = "Not a valid number")
+	
+	@Column(name = "phone_number",unique=true)
+	@Pattern(regexp = "(^$)|([1-9][0-9]{7})", message = "Not a valid number")
 	private String telephoneNumber;
 
 	@Column
@@ -135,6 +142,7 @@ public class Student implements Serializable {
 		this.password = password;
 	}
 
+	@JsonSerialize(using=JsonDateAdapter.class)
 	public Date getBirthday() {
 		return birthday;
 	}

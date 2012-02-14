@@ -26,10 +26,10 @@ insert into courses_topics values(3,3);
 insert into courses_topics values(4,4);
 
 
-INSERT INTO students (first_name, last_name, birthday) VALUES("Andre", "Kristensen", '2012-02-02');
-INSERT INTO students (first_name, last_name) VALUES("Bendik", "Rostad");
-INSERT INTO students (first_name, last_name) VALUES("Liv", "Kolås");
-INSERT INTO students (first_name, last_name) VALUES("Øyvind", "Ødegård");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Bendik", "Rostad", '2012-02-02',"MMMM@mail.com",'M',"super awesome","81249300",3,"super secret password *******");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Liv", "Kolås", '2012-02-02',"tea@mail.com",'F',"super awesome","15492300",3,"super secret password *******");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Øyvind", "Ødegård",'2012-02-02',"free@mail.com",'M',"super awesome","41549300",3,"super secret password *******");
 
 INSERT INTO committees (name,description) VALUES("Linx utvalget","Linux");
 INSERT INTO committees (name,description) VALUES("Apple utvalget","Apple GOGO");

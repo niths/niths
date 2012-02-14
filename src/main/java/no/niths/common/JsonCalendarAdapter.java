@@ -16,7 +16,7 @@ public class JsonCalendarAdapter extends JsonSerializer<Calendar> {
 	private static final Logger logger = LoggerFactory
 			.getLogger(JsonCalendarAdapter.class);
 
-	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);
+	private DateFormat df = new SimpleDateFormat(AppConstants.CALENDAR_FORMAT);
 
 	@Override
 	public void serialize(Calendar calendar, JsonGenerator gen,

@@ -15,14 +15,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.common.XmlCalendarAdapter;
 import no.niths.common.JsonCalendarAdapter;
+import no.niths.common.XmlCalendarAdapter;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -31,6 +32,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Entity
 @Table(name = AppConstants.COMMITTEE_EVENTS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@XmlAccessorType(XmlAccessType.FIELD) 
 public class CommitteeEvent implements Serializable {
 
     @Transient
@@ -136,7 +138,7 @@ public class CommitteeEvent implements Serializable {
 	}
 
     @JsonSerialize(using=JsonCalendarAdapter.class)
-	public Calendar getEnd() {
+	public Calendar getEndTime() {
 		return endTime;
 	}
 
@@ -145,7 +147,7 @@ public class CommitteeEvent implements Serializable {
 	}
 
 	@JsonSerialize(using=JsonCalendarAdapter.class)
-	public Calendar getStart() {
+	public Calendar getStartTime() {
 		return startTime;
 	}
 
