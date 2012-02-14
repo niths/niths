@@ -31,58 +31,16 @@ public class StudentService {
 		Student s = repo.getById(id);
 
 		if (s != null) {
-			if (s.getCommittees().size() > 0) {
-				s.setCommittees(null);
-			} else {
-				for (int i = 0; i < s.getCommittees().size(); i++) {
-					s.getCommittees().get(i).setEvents(null);
-				}
+			for (int i = 0; i < s.getCommittees().size(); i++) {
+				s.getCommittees().get(i).setEvents(null);
 			}
-			// s.getCourses().size();
-			if (s.getCourses().size() > 0) {
-				s.setCourses(null);
-			} else {
-				for (int i = 0; i < s.getCourses().size(); i++) {
-					s.getCourses().get(i).setTopics(null);
-				}
+
+			for (int i = 0; i < s.getCourses().size(); i++) {
+				s.getCourses().get(i).setTopics(null);
 			}
 		}
-
 		return s;
 	}
-
-	// /**
-	// *
-	// * Returns all student with matching name.
-	// * Splits the parameter into two pieces, first name and last name:
-	// *
-	// * Ex:
-	// * Parameter name = "John Doe"
-	// * First name = John
-	// * Last name = Doe
-	// *
-	// * Parameter name = "John J. Doe"
-	// * First name = John
-	// * Last name = J. Doe
-	// *
-	// * @param name The String containing the name
-	// * @return List of all student matching the name
-	// */
-	// public List<Student> getStudentByName(String name) {
-	// String[] fullName = name.trim().split(" ");
-	// Student stud = new Student();
-	// if (fullName.length > 1) {
-	// for (int i = 1; i < fullName.length; i++) {
-	// if (i != 1){
-	// fullName[i] += " ";
-	// }
-	// stud.setLastName(stud.getLastName() + fullName[i]);
-	// }
-	// }
-	// stud.setFirstName(fullName[0]);
-	// logger.info("Search for students with name: " + stud.toString());
-	// return getAllStudents(stud);
-	// }
 
 	public List<Student> getAllStudents() {
 		ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents();
