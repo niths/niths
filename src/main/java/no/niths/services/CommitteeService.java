@@ -62,7 +62,9 @@ public class CommitteeService  {
 		Committee c = repo.getCommitteeById(cid);
 		
 		if(c != null){
-			c.setEvents(null);
+			if(c.getEvents().size() < 1){
+				c.setEvents(null);
+			}
 		}
 		return c;
 	}
