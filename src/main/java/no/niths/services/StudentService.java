@@ -31,8 +31,14 @@ public class StudentService {
 		Student s = repo.getById(id);
 
 		if (s != null) {
-			s.getCommittees().size();
-			s.getCourses().size();
+			//s.getCommittees().size();
+			for (int i = 0; i < s.getCommittees().size(); i++){
+				s.getCommittees().get(i).setEvents(null);
+			}
+			//s.getCourses().size();
+			for(int i = 0; i < s.getCourses().size(); i++){
+				s.getCourses().get(i).setTopics(null);
+			}
 		}
 
 		return s;
