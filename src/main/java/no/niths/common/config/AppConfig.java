@@ -20,14 +20,6 @@ public class AppConfig {
         ppc.setLocations(resources);
         ppc.setIgnoreUnresolvablePlaceholders(true);
 
-
-//    	 FileSystemResource fsr = new FileSystemResource("/usr/share/credentials/snith/persistence.properties");
-
-    	// Inncomment the line below if you are not a server. :)
-          FileSystemResource fsr = new FileSystemResource(System.getenv("CREDENTIAL_PATH")+"/"+PERSISTENCE_PROPS);
-         ppc.setLocation(fsr);  
-         ppc.setIgnoreUnresolvablePlaceholders(true);
-         return ppc;
-
+        return ppc;
     }
 }
