@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.common.CalendarAdapter;
-import no.niths.common.JsonDateSerializer;
+import no.niths.common.XmlCalendarAdapter;
+import no.niths.common.JsonCalendarAdapter;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -49,7 +49,7 @@ public class CommitteeEvent implements Serializable {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")  
-    @XmlJavaTypeAdapter(CalendarAdapter.class)  
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)  
     private Calendar dateAndTime;
 
     @ManyToOne
@@ -111,7 +111,7 @@ public class CommitteeEvent implements Serializable {
         this.committee = committee;
     }
     
-    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonSerialize(using=JsonCalendarAdapter.class)
     public Calendar getDateAndTime() {	
         return dateAndTime;
     }

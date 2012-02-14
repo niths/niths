@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
-import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.services.StudentService;
 
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,18 +65,38 @@ public class StudentController implements RESTController<Student> {
 	@ResponseBody
 	public ArrayList<Student> getAll(Student student, HttpEntity<byte[]> request) {
 		logger.info(student.toString());
+		
+		final String FIRST =
+                request.getHeaders().getFirst(RESTConstants.ACCEPT);
+   	 
+       if (student.isEmpty()) {
+           if (FIRST.equals(RESTConstants.JSON)) {
+               return (ArrayList<Student>) service.getAllStudents();
+           } else if (FIRST.equals(RESTConstants.XML)) {
+               studentList.setData(service.getAllStudents());
+               return studentList;
+           }
+       } else {
+       	 if (FIRST.equals(RESTConstants.JSON)) {
+                return (ArrayList<Student>) service.getAllStudents(student);
+            } else if (FIRST.equals(RESTConstants.XML)) {
+                studentList.setData(service.getAllStudents(student));
+                return studentList;
+            }
+       }
+       return null;
 
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
-
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Student>) service.getAllStudents(student);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			studentList.setData(service.getAllStudents(student));
-			return studentList;
-		}
-
-		return null;
+//		final String FIRST = request.getHeaders()
+//				.getFirst(RESTConstants.ACCEPT);
+//
+//		if (FIRST.equals(RESTConstants.JSON)) {
+//			return (ArrayList<Student>) service.getAllStudents(student);
+//		} else if (FIRST.equals(RESTConstants.XML)) {
+//			studentList.setData(service.getAllStudents(student));
+//			return studentList;
+//		}
+//
+//		return null;
 
 	}
 
