@@ -10,24 +10,25 @@ INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny 
 INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
 
+--INSERT INTO students (first_name, last_name,description,email,gender,grade,password,phone_number) VALUES("Andre", "Kristensen","Superkul","mail@mail.no",'M',"encryptedPassword","12312312");
 INSERT INTO students (first_name, last_name) VALUES("Andre", "Kristensen");
 INSERT INTO students (first_name, last_name) VALUES("Bendik", "Rostad");
 INSERT INTO students (first_name, last_name) VALUES("Liv", "Kolås");
 INSERT INTO students (first_name, last_name) VALUES("Øyvind", "Ødegård");
 
-INSERT INTO committees (name,description) VALUES("Linx utvalget","Fan");
-INSERT INTO committees (name,description) VALUES("flux utvalget","Hello world");
-INSERT INTO committees (name) VALUES("Microsoft utvalget");
-INSERT INTO committees (name) VALUES("KIT");
-INSERT INTO committees (name) VALUES("MDF");
+INSERT INTO committees (name,description) VALUES("Linx utvalget","Linux");
+INSERT INTO committees (name,description) VALUES("Apple utvalget","Apple GOGO");
+INSERT INTO committees (name,description) VALUES("Microsoft utvalget","Microsoft");
+INSERT INTO committees (name,description) VALUES("KIT", "kvinner og it");
+INSERT INTO committees (name,description) VALUES("MDF", "media design og foto");
 
 
-INSERT INTO committee_events (name,dateAndTime) VALUES("LUG event");
-INSERT INTO committee_events (name) VALUES("FEst");
-INSERT INTO committee_events (name) VALUES("asdasd");
-INSERT INTO committee_events (name) VALUES("23asd");
-INSERT INTO committee_events (name) VALUES("zjkzhck");
-INSERT INTO committee_events (name) VALUES("asdokihju");
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("LUG event"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("Fest i Kroa"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("Workshop"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("Årsmøte"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("Gjesteforelser"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO committee_events (name,description,startTime,endTime) VALUES("AAAA"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
 
 insert into students_committees (students_id, committees_id) values(1, 1);
 insert into students_committees (students_id, committees_id) values(1, 2);

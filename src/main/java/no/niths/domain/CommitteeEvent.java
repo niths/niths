@@ -50,30 +50,38 @@ public class CommitteeEvent implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")  
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)  
-    private Calendar dateAndTime;
+    private Calendar startTime;
 
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")  
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)  
+    private Calendar endTime;
+    
     @ManyToOne
     private Committee committee;
 
     public CommitteeEvent() {
-        this(null, null, null, null);
+        this(null, null, null, null,null);
     }
 
     public CommitteeEvent(Long id, String name, String description,
-            GregorianCalendar dateAndTime) {
+            GregorianCalendar startTime,GregorianCalendar endTime) {
         setId(id);
         setName(name);
         setDescription(description);
-        setDateAndTime(dateAndTime);
+        setEndTime(endTime);
+        setStartTime(startTime);
     }
 
   
 
     public CommitteeEvent(String name, String description,
-			GregorianCalendar dateAndTime) {
+    		 GregorianCalendar startTime,GregorianCalendar endTime) {
     	setName(name);
         setDescription(description);
-        setDateAndTime(dateAndTime);
+        setEndTime(endTime);
+        setStartTime(startTime);
 	}
 
 	public Long getId() {
@@ -111,15 +119,6 @@ public class CommitteeEvent implements Serializable {
         this.committee = committee;
     }
     
-    @JsonSerialize(using=JsonCalendarAdapter.class)
-    public Calendar getDateAndTime() {	
-        return dateAndTime;
-    }
-
-    public void setDateAndTime(GregorianCalendar dateAndTime) {
-        this.dateAndTime = dateAndTime;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof CommitteeEvent)) {
@@ -131,6 +130,24 @@ public class CommitteeEvent implements Serializable {
     
     @JsonIgnore
 	public boolean isEmpty() {
-		return description == null && name == null && id == null && dateAndTime==null ;
+		return description == null && name == null && id == null && endTime==null && startTime == null ;
+	}
+
+    @JsonSerialize(using=JsonCalendarAdapter.class)
+	public Calendar getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Calendar endTime) {
+		this.endTime = endTime;
+	}
+
+	@JsonSerialize(using=JsonCalendarAdapter.class)
+	public Calendar getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Calendar startTime) {
+		this.startTime = startTime;
 	}
 }

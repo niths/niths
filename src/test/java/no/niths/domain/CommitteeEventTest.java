@@ -19,42 +19,46 @@ import static org.junit.Assert.assertThat;
 
 public class CommitteeEventTest {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(StudentTest.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(StudentTest.class);
 
-    private static Validator validator;
+	private static Validator validator;
 
-    @BeforeClass
-    public static void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
+	@BeforeClass
+	public static void setUp() {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
+	}
 
-    @Test
-    public void testCourseValues() {
+	@Test
+	public void testCourseValues() {
 
-        CommitteeEvent committeeEvent = new CommitteeEvent("Spillkveld", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
+		CommitteeEvent committeeEvent = new CommitteeEvent("Spillkveld",
+				"Utvalg for Fantasiske Fritidssysler har brettspillaften",
+				new GregorianCalendar(),null);
 
-        // Should pass validation
-        Set<ConstraintViolation<CommitteeEvent>> constraintViolations = validator
-                .validate(committeeEvent);
+		// Should pass validation
+		Set<ConstraintViolation<CommitteeEvent>> constraintViolations = validator
+				.validate(committeeEvent);
 
-        assertThat(0, is(equalTo(constraintViolations.size())));
+		assertThat(0, is(equalTo(constraintViolations.size())));
 
-        // Should not pass validation
-        committeeEvent.setName("SK");
-        constraintViolations = validator.validate(committeeEvent);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+		// Should not pass validation
+		committeeEvent.setName("SK");
+		constraintViolations = validator.validate(committeeEvent);
+		assertThat(1, is(equalTo(constraintViolations.size())));
 
-        //Prints the error message
-        logger.debug(constraintViolations.iterator().next().getMessage());
+		// Prints the error message
+		logger.debug(constraintViolations.iterator().next().getMessage());
 
-        CommitteeEvent committeeEvent2 = new CommitteeEvent("SK", "Utvalg for Fantasiske Fritidssysler har brettspillaften", new GregorianCalendar());
-        constraintViolations = validator.validate(committeeEvent2);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+		CommitteeEvent committeeEvent2 = new CommitteeEvent("SK",
+				"Utvalg for Fantasiske Fritidssysler har brettspillaften",
+				new GregorianCalendar(),null);
+		constraintViolations = validator.validate(committeeEvent2);
+		assertThat(1, is(equalTo(constraintViolations.size())));
 
-        committeeEvent2.setName("Spillkveld");
-        constraintViolations = validator.validate(committeeEvent2);
-        assertThat(0, is(equalTo(constraintViolations.size())));
-    }
+		committeeEvent2.setName("Spillkveld");
+		constraintViolations = validator.validate(committeeEvent2);
+		assertThat(0, is(equalTo(constraintViolations.size())));
+	}
 }
