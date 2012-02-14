@@ -75,8 +75,8 @@ public class StudentService {
 	public List<Student> getAllStudents() {
 		ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents();
 		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).getCommittees().size();
-			temp.get(i).getCourses().size();
+			temp.get(i).setCommittees(null);
+			temp.get(i).setCourses(null);
 		}
 		return temp;
 	}
@@ -84,8 +84,10 @@ public class StudentService {
 	public List<Student> getAllStudents(Student s) {
 		ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents(s);
 		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).getCommittees().size();
-			temp.get(i).getCourses().size();
+//			temp.get(i).getCommittees().size();
+//			temp.get(i).getCourses().size();
+			temp.get(i).setCommittees(null);
+			temp.get(i).setCourses(null);
 		}
 		return temp;
 	}
