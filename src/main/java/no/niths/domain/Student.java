@@ -29,11 +29,13 @@ import no.niths.common.AppConstants;
 import no.niths.domain.constraints.StudentGender;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Student implements Serializable {
 
 	@Transient
