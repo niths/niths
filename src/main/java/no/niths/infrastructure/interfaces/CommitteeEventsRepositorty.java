@@ -1,6 +1,8 @@
 package no.niths.infrastructure.interfaces;
 
+import no.niths.domain.CommitteeEvent;
 
-public interface CommitteeEventsRepositorty<T> extends GenericRepository<T> {
+
+public interface CommitteeEventsRepositorty extends GenericRepository<CommitteeEvent> {
 
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeService  {
 
 	@Autowired
-	private CommitteeRepositorty<Committee> repo;
+	private CommitteeRepositorty repo;
 
 	/**
 	 * 

@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeEventsRepositoryTest {
 	
 	@Autowired
-	private CommitteeEventsRepositorty<CommitteeEvent> eventRepo;
+	private CommitteeEventsRepositorty eventRepo;
 
 	@Test
 	public void testCRUD() {

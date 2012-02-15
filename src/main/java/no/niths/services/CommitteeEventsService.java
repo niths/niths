@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeEventsService  {
    
     @Autowired
-    private CommitteeEventsRepositorty<CommitteeEvent> repo;
+    private CommitteeEventsRepositorty repo;
 
     public Long create(CommitteeEvent committeeEvents) {
         return repo.create(committeeEvents);

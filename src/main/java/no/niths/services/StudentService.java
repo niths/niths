@@ -20,7 +20,7 @@ public class StudentService {
 			.getLogger(StudentService.class);
 
 	@Autowired
-	private StudentRepository<Student> repo;
+	private StudentRepository repo;
 
 	public void createStudent(Student student) {
 		repo.create(student);

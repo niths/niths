@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeRepositoryTest {
 
 	@Autowired
-	private CommitteeRepositorty<Committee> committeeRepo;
+	private CommitteeRepositorty committeeRepo;
 			
 	@Test
 	//@Rollback(true)/

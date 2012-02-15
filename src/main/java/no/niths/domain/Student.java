@@ -98,7 +98,7 @@ public class Student implements Serializable {
 	private List<Committee> committees = new ArrayList<Committee>();;
 
 	public Student() {
-		this("", "");
+		this(null,null);
 	}
 
 	public Student(Long id, String firstName, String lastName) {

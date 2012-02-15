@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
-		implements StudentRepository<Student> {
+		implements StudentRepository {
 
 	public StudentRepositoryImpl() {
 		super(Student.class);

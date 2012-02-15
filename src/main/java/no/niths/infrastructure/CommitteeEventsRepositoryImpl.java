@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommitteeEventsRepositoryImpl extends
 		GenericRepositoryImpl<CommitteeEvent> implements
-		CommitteeEventsRepositorty<CommitteeEvent> {
+		CommitteeEventsRepositorty {
 
 	public CommitteeEventsRepositoryImpl() {
 		super(CommitteeEvent.class);

@@ -29,7 +29,7 @@ public class TopicRepositoryTest {
 	private Course course = new Course("Programmering", "Programmeringsfaget");
 
 	@Autowired
-	private TopicsRepository<Topic> repo;
+	private TopicsRepository repo;
 
 	@Test(expected = IllegalArgumentException.class)
 	@Rollback(true)

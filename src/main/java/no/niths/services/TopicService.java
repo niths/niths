@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TopicService {
 
     @Autowired
-    private TopicsRepository<Topic> repo;
+    private TopicsRepository repo;
 
     public void createTopic(Topic topic) {
         repo.create(topic);

@@ -1,5 +1,7 @@
 package no.niths.infrastructure.interfaces;
 
-public interface TopicsRepository<T> extends GenericRepository<T> {
+import no.niths.domain.Topic;
+
+public interface TopicsRepository extends GenericRepository<Topic> {
 
 }

@@ -34,10 +34,10 @@ public class CourseRepositoryTest {
 			.getLogger(CourseRepositoryTest.class);
 	
 	@Autowired
-	private CoursesRepository<Course> repo;
+	private CoursesRepository repo;
 	
 	@Autowired
-	private TopicsRepository<Topic> topicRepo;
+	private TopicsRepository topicRepo;
 	
 	@Test
 	@Rollback(true)

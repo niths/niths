@@ -28,13 +28,13 @@ public class StudentRepositoryTest {
 	.getLogger(StudentRepositoryTest.class); // Replace with test class
 
 	@Autowired
-	private StudentRepository<Student> studentRepo;
+	private StudentRepository studentRepo;
 
 	@Autowired
-	private CoursesRepository<Course> courseRepo;
+	private CoursesRepository courseRepo;
 	
 	@Autowired
-	private CommitteeRepositorty<Committee> comRepo;
+	private CommitteeRepositorty comRepo;
 
 	/**
 	 * Testing of basic CRUD functions
@@ -46,7 +46,7 @@ public class StudentRepositoryTest {
 		studentRepo.create(stud);
 		
 		assertEquals(stud, studentRepo.getById(stud.getId()));
-		assertEquals(1, studentRepo.getAll(null).size());
+		assertEquals(1, studentRepo.getAll(new Student()).size());
 		
 		stud.setFirstName("Jane");
 		studentRepo.update(stud);

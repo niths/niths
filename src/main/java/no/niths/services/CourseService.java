@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CourseService {
 
     @Autowired
-    private CoursesRepository<Course> repo;
+    private CoursesRepository repo;
 
     public void createCourse(Course course) {
         repo.create(course);

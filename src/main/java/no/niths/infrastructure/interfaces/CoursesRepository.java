@@ -1,8 +1,10 @@
 package no.niths.infrastructure.interfaces;
 
+import no.niths.domain.Course;
 
 
-public interface CoursesRepository<T>  extends GenericRepository<T> {
+
+public interface CoursesRepository  extends GenericRepository<Course> {
 
   
 }
