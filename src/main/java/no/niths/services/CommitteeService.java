@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommitteeService  {
+public class CommitteeService extends GenericService<Committee> {
 
 	@Autowired
 	private CommitteeRepositorty repo;
@@ -21,8 +21,8 @@ public class CommitteeService  {
 	 * @param committee
 	 * @return
 	 */
-	public Long create(Committee committee) {
-		return repo.create(committee);
+	public void create(Committee committee) {
+		repo.create(committee);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class CommitteeService  {
 	 * @param cid
 	 * @return
 	 */
-	public Committee getCommitteeById(long cid) {
+	public Committee getById(long cid) {
 		Committee c = repo.getById(cid);
 		
 		if(c != null){

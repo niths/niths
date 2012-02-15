@@ -2,17 +2,14 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
 import no.niths.services.CommitteeService;
 
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,38 +20,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
-public class CommitteeController implements RESTController<Committee> {
+public class CommitteeController extends
+		GenericController<Committee, CommitteeService> {
 
 	Logger logger = org.slf4j.LoggerFactory
 			.getLogger(CommitteeController.class);
 
-	@Autowired
-	private CommitteeService service;
-
 	private CommitteeList committeeList = new CommitteeList();
-
-	/**
-	 * 
-	 * @param Committee
-	 *            The committee to be created
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Committe created")
-	public void create(@RequestBody Committee committee) {
-		service.create(committee);
-	}
-
-	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public Committee getById(@PathVariable Long id) {
-		Committee c = service.getCommitteeById(id);
-		if (c == null) {
-			throw new ObjectNotFoundException("No comittees with id :" + id);
-		}
-		return c;
-	}
 
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -66,9 +38,9 @@ public class CommitteeController implements RESTController<Committee> {
 				.getFirst(RESTConstants.ACCEPT);
 
 		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Committee>) service.getAll(committee);
+			return (ArrayList<Committee>) getService().getAll(committee);
 		} else if (FIRST.equals(RESTConstants.XML)) {
-			committeeList.setData(service.getAll(committee));
+			committeeList.setData(getService().getAll(committee));
 			return committeeList;
 		}
 
@@ -90,17 +62,6 @@ public class CommitteeController implements RESTController<Committee> {
 			committee.setId(id);
 		}
 
-		service.update(committee);
-	}
-
-	/**
-	 * 
-	 * @param long The id of the Course to delete
-	 */
-	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Committe deleted")
-	public void delete(@PathVariable Long id) {
-		service.delete(id);
+		getService().update(committee);
 	}
 }

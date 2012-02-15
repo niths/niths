@@ -20,10 +20,6 @@ public class CommitteeEventsService  {
         return repo.create(committeeEvents);
     }
 
-//    public List<CommitteeEvent> getAll() {
-//        return repo.getAll();
-//    }
-    
     public List<CommitteeEvent> getAll(CommitteeEvent event) {
         return repo.getAll(event);
     }

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public abstract class GenericRepositoryImpl<T extends Serializable> implements
+public class GenericRepositoryImpl<T extends Serializable> implements
 		GenericRepository<T> {
 
 	private Class<T> persistentClass;
