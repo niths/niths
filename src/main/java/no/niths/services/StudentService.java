@@ -20,7 +20,7 @@ public class StudentService {
 			.getLogger(StudentService.class);
 
 	@Autowired
-	private StudentRepository repo;
+	private StudentRepository<Student> repo;
 
 	public void createStudent(Student student) {
 		repo.create(student);
@@ -54,17 +54,10 @@ public class StudentService {
 		return s;
 	}
 
-	public List<Student> getAllStudents() {
-		ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents();
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-		}
-		return temp;
-	}
+	
 
 	public List<Student> getAllStudents(Student s) {
-		ArrayList<Student> temp = (ArrayList<Student>) repo.getAllStudents(s);
+		ArrayList<Student> temp = (ArrayList<Student>) repo.getAll(s);
 		for (int i = 0; i < temp.size(); i++) {
 			// temp.get(i).getCommittees().size();
 			// temp.get(i).getCourses().size();

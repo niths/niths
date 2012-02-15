@@ -1,14 +1,11 @@
 package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
-
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
-import no.niths.infrastructure.interfaces.CommitteesRepository;
+import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
@@ -31,13 +28,13 @@ public class StudentRepositoryTest {
 	.getLogger(StudentRepositoryTest.class); // Replace with test class
 
 	@Autowired
-	private StudentRepository studentRepo;
+	private StudentRepository<Student> studentRepo;
 
 	@Autowired
-	private CoursesRepository courseRepo;
+	private CoursesRepository<Course> courseRepo;
 	
 	@Autowired
-	private CommitteesRepository comRepo;
+	private CommitteeRepositorty<Committee> comRepo;
 
 	/**
 	 * Testing of basic CRUD functions
@@ -49,17 +46,17 @@ public class StudentRepositoryTest {
 		studentRepo.create(stud);
 		
 		assertEquals(stud, studentRepo.getById(stud.getId()));
-		assertEquals(1, studentRepo.getAllStudents().size());
+		assertEquals(1, studentRepo.getAll(null).size());
 		
 		stud.setFirstName("Jane");
 		studentRepo.update(stud);
 		
 		assertEquals("Jane", studentRepo.getById(stud.getId()).getFirstName());
 	
-		studentRepo.delete(stud);
-		assertEquals(null, studentRepo.getById(stud.getId()));
+		studentRepo.delete(stud.getId());
+//		assertEquals(null, studentRepo.getById(stud.getId()));
 		
-		assertEquals(true, studentRepo.getAllStudents().isEmpty());
+		assertEquals(true, studentRepo.getAll(null).isEmpty());
 
 	}
 	
@@ -72,10 +69,10 @@ public class StudentRepositoryTest {
 		Course c1 = new Course("PROG", "casd1");
 		Course c2 = new Course("DESIGN", "cdda2");
 		
-		courseRepo.createCourse(c1);
-		courseRepo.createCourse(c2);
+		courseRepo.create(c1);
+		courseRepo.create(c2);
 		//Courses should be persisted
-		assertEquals(2, courseRepo.getAllCourses().size());
+		assertEquals(2, courseRepo.getAll(null).size());
 		
 		
 		Student stud = new Student("John", "Doe");
@@ -90,12 +87,12 @@ public class StudentRepositoryTest {
 		studentRepo.getById(stud.getId()).getCourses().remove(1);
 		assertEquals(1, studentRepo.getById(stud.getId()).getCourses().size());
 		
-		assertEquals(2, courseRepo.getAllCourses().size());
+		assertEquals(2, courseRepo.getAll(null).size());
 		
 		Committee c = new Committee("Utvalg", "desc");
 		
 		comRepo.create(c);
-		assertEquals(1, comRepo.getAllCommittees().size());
+		assertEquals(1, comRepo.getAll(null).size());
 		stud = studentRepo.getById(stud.getId());
 		stud.getCommittees().add(c);
 		
@@ -108,7 +105,7 @@ public class StudentRepositoryTest {
 	@Test
 	@Rollback(true)
 	public void getAllStudentsWithParameter_shouldReturnListOfStudentsMatching(){
-		int size = studentRepo.getAllStudents().size();
+		int size = studentRepo.getAll(null).size();
 		Student s1 = new Student("John", "Doe");
 		Student s2 = new Student("John", "Doe");
 		Student s3 = new Student("Jane", "Doe");
@@ -117,16 +114,16 @@ public class StudentRepositoryTest {
 		studentRepo.create(s2);
 		studentRepo.create(s3);
 		studentRepo.create(s4);
-		assertEquals(size  + 4, studentRepo.getAllStudents().size());
+		assertEquals(size  + 4, studentRepo.getAll(null).size());
 		
 		Student toFind = new Student("John", "Doe");		
-		assertEquals(2, studentRepo.getAllStudents(toFind).size());
+		assertEquals(2, studentRepo.getAll(toFind).size());
 		
 		toFind = new Student("Jane", "Doe");
-		assertEquals(1, studentRepo.getAllStudents(toFind).size());
+		assertEquals(1, studentRepo.getAll(toFind).size());
 		
 		toFind = new Student("XXX", "Doe");
-		assertEquals(0, studentRepo.getAllStudents(toFind).size());
+		assertEquals(0, studentRepo.getAll(toFind).size());
 		
 		
 	}

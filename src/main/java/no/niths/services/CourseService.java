@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class CourseService {
 
     @Autowired
-    private CoursesRepository repo;
+    private CoursesRepository<Course> repo;
 
     public void createCourse(Course course) {
-        repo.createCourse(course);
+        repo.create(course);
     }
 
     public Course getCourseById(long id) {
-    	Course c = repo.getCourseById(id);
+    	Course c = repo.getById(id);
     	if(c != null){
     		c.getTopics().size();
     	}
@@ -29,7 +29,7 @@ public class CourseService {
    }
     
     public List<Course> getAllCourses(Course c) {
-    	List<Course> results = repo.getAllCourses(c);
+    	List<Course> results = repo.getAll(c);
     	for (Course cor : results){
     		cor.getTopics().size();
     	}
@@ -37,10 +37,10 @@ public class CourseService {
     }
 
     public void updateCourse(Course course) {
-        repo.updateCourse(course);
+        repo.update(course);
     }
 
     public void deleteCourse(long id) {
-        repo.deleteCourse(id);
+        repo.delete(id);
     }
 }

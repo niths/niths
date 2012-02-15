@@ -2,7 +2,6 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.Course;
 import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.TopicsRepository;
 
@@ -15,32 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class TopicService {
 
     @Autowired
-    private TopicsRepository repo;
+    private TopicsRepository<Topic> repo;
 
     public void createTopic(Topic topic) {
-        repo.createTopic(topic);
+        repo.create(topic);
     }
 
     public Topic getTopicById(Long id) {
-    	return repo.getTopicById(id);
+    	return repo.getById(id);
    }
 
-    public List<Topic> getCourseByName(String name) {
-    	return repo.getTopicByName(name);
-    }
-
-    public List<Topic> getAllTopics() {
-        return repo.getAllTopics();
-    }
     public List<Topic> getAllTopics(Topic topic) {
-    	return repo.getAllTopics(topic);
+    	return repo.getAll(topic);
     }
 
     public void updateTopic(Topic topic) {
-        repo.updateTopic(topic);
+        repo.update(topic);
     }
 
     public void deleteTopic(Long id) {
-        repo.deleteTopic(id);
+        repo.delete(id);
     }
 }

@@ -1,10 +1,9 @@
 package no.niths.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.domain.Committee;
-import no.niths.infrastructure.interfaces.CommitteesRepository;
+import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeService  {
 
 	@Autowired
-	private CommitteesRepository repo;
+	private CommitteeRepositorty<Committee> repo;
 
 	/**
 	 * 
@@ -30,21 +29,8 @@ public class CommitteeService  {
 	 * <
 	 * @return
 	 */
-	public List<Committee> getAll() {
-		List<Committee> temp = repo.getAllCommittees();
-	
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setEvents(null);
-		}
-		return temp;
-	}
-
-	/**
-	 * <
-	 * @return
-	 */
 	public List<Committee> getAll(Committee committee) {
-		List<Committee> temp = repo.getAllCommittees(committee);
+		List<Committee> temp = repo.getAll(committee);
 	
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setEvents(null);
@@ -59,7 +45,7 @@ public class CommitteeService  {
 	 * @return
 	 */
 	public Committee getCommitteeById(long cid) {
-		Committee c = repo.getCommitteeById(cid);
+		Committee c = repo.getById(cid);
 		
 		if(c != null){
 			if(c.getEvents().size() < 1){
@@ -69,14 +55,7 @@ public class CommitteeService  {
 		return c;
 	}
 
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public Committee getCommitteeByName(String name) {
-		return repo.getCommitteeByName(name);
-	}
+
 
 	/**
 	 * 

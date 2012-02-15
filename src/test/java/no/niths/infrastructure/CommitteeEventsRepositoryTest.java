@@ -7,13 +7,11 @@ import java.util.GregorianCalendar;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.CommitteeEvent;
-import no.niths.domain.CommitteeEvent;
-import no.niths.infrastructure.interfaces.CommitteeEventsRepository;
+import no.niths.infrastructure.interfaces.CommitteeEventsRepositorty;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -27,27 +25,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeEventsRepositoryTest {
 	
 	@Autowired
-	private CommitteeEventsRepository eventRepo;
+	private CommitteeEventsRepositorty<CommitteeEvent> eventRepo;
 
 	@Test
 	public void testCRUD() {
 		// create
-		int size = eventRepo.getAll().size();
+		int size = eventRepo.getAll(null).size();
 		
 		CommitteeEvent event = new CommitteeEvent();
 		eventRepo.create(event);
-		assertEquals(size + 1, eventRepo.getAll().size());
-		assertEquals(event, eventRepo.getCommitteeEventsById(event.getId()));
+		assertEquals(size + 1, eventRepo.getAll(null).size());
+		assertEquals(event, eventRepo.getById(event.getId()));
 
 		// update time
 		GregorianCalendar newDate = new GregorianCalendar(2012, 2, 22, 22, 30);
 		event.setStartTime(newDate);
 		eventRepo.update(event);
-		event = eventRepo.getCommitteeEventsById(event.getId());
+		event = eventRepo.getById(event.getId());
 		assertEquals(event.getStartTime(), event.getStartTime());
 
 		eventRepo.delete(event.getId());
-		assertEquals(size, eventRepo.getAll().size());
+		assertEquals(size, eventRepo.getAll(null).size());
 		
 	}
 

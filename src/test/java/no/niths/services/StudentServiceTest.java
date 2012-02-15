@@ -56,7 +56,7 @@ public class StudentServiceTest {
 	@Rollback(true)
 	public void testCRUD(){
 		
-		assertEquals(true, studService.getAllStudents().isEmpty());
+		assertEquals(true, studService.getAllStudents(null).isEmpty());
 		
 		//Testing create
 		Student s = new Student("John", "Doe");		
@@ -65,7 +65,7 @@ public class StudentServiceTest {
 		studService.createStudent(x);
 		
 		//Testing get
-		assertEquals(2, studService.getAllStudents().size());
+		assertEquals(2, studService.getAllStudents(null).size());
 		assertEquals(s, studService.getStudentById(s.getId()));
 		
 		//Testing update
@@ -81,14 +81,14 @@ public class StudentServiceTest {
 		boolean isDeleted = studService.deleteStudent(s.getId());
 		
 		assertTrue(isDeleted);
-		assertEquals(1, studService.getAllStudents().size());
+		assertEquals(1, studService.getAllStudents(null).size());
 		
 		
 		
 		assertNull(studService.getStudentById(s.getId()));
 	
 		studService.deleteStudent(x.getId());
-		assertEquals(true, studService.getAllStudents().isEmpty());
+		assertEquals(true, studService.getAllStudents(null).isEmpty());
 		
 	}
 

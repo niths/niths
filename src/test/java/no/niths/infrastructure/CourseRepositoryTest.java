@@ -1,7 +1,6 @@
 package no.niths.infrastructure;
 
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
@@ -34,38 +33,36 @@ public class CourseRepositoryTest {
 	private static final Logger logger = LoggerFactory
 			.getLogger(CourseRepositoryTest.class);
 	
-	private Course course = new Course("Programmering","Programmeringsfaget");
+	@Autowired
+	private CoursesRepository<Course> repo;
 	
 	@Autowired
-	private CoursesRepository repo;
-	
-	@Autowired
-	private TopicsRepository topicRepo;
+	private TopicsRepository<Topic> topicRepo;
 	
 	@Test
 	@Rollback(true)
 	public void whenAddedTopics_CourseShouldHaveThem() {
-		int numTopics = topicRepo.getAllTopics().size();
-		int numCourses = repo.getAllCourses().size();
+		int numTopics = topicRepo.getAll(null).size();
+		int numCourses = repo.getAll(null).size();
 
 		Course c1 = new Course("Programmering", "Java, c++");
 		Topic t1 = new Topic();
 		t1.setTopicCode("PG111");
 		c1.getTopics().add(t1);
-		repo.createCourse(c1);
+		repo.create(c1);
 		
 		
-		assertEquals(numCourses + 1, repo.getAllCourses().size());
-		assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
+		assertEquals(numCourses + 1, repo.getAll(null).size());
+		assertEquals(numTopics + 1, topicRepo.getAll(null).size());
 		
-		Course res = repo.getCourseById(c1.getId());
+		Course res = repo.getById(c1.getId());
 		int numOfTopics = res.getTopics().size();
 		if(numOfTopics > 0){
 			res.getTopics().remove(0);
-			repo.updateCourse(res);
+			repo.update(res);
 			
-			assertEquals(numOfTopics - 1, repo.getCourseById(res.getId()).getTopics().size() );
-			assertEquals(numTopics + 1, topicRepo.getAllTopics().size());
+			assertEquals(numOfTopics - 1, repo.getById(res.getId()).getTopics().size() );
+			assertEquals(numTopics + 1, topicRepo.getAll(null).size());
 		}
 		
 		
@@ -74,18 +71,18 @@ public class CourseRepositoryTest {
 	@Test(expected = IllegalArgumentException.class)
 	@Rollback(true)
 	public void whenInsertNull_persistenceShouldFail() {
-		repo.createCourse(null);
+		repo.create(null);
 	}
 	
 	@Test
 	@Rollback(true)
 	public void whenInsertCourse_CourseShouldBePersisted(){
-		int size = repo.getAllCourses().size();
+		int size = repo.getAll(null).size();
 		
 		Course c = new Course("Name", "Desc");
-		repo.createCourse(c);
+		repo.create(c);
 		
-		assertEquals(size + 1, repo.getAllCourses().size());
+		assertEquals(size + 1, repo.getAll(null).size());
 	}
 	
 	
@@ -93,73 +90,80 @@ public class CourseRepositoryTest {
 	@Test
 	@Rollback(true)
 	public void getCoursesByName_shouldReturnListWithCourses(){
-		int  size = repo.getAllCourses().size();
+		int  size = repo.getAll(null).size();
 		Course c1 = new Course("One", "oneDesc");
 		Course c2 = new Course("Two", "oneDesc");// equal desc
 		Course c3 = new Course("Three", "threeDesc");
 		Course c4 = new Course("Four", "fourDesc");
-		repo.createCourse(c1);
-		repo.createCourse(c2);
-		repo.createCourse(c3);
-		repo.createCourse(c4);
-		assertEquals(size + 4, repo.getAllCourses().size());
+		repo.create(c1);
+		repo.create(c2);
+		repo.create(c3);
+		repo.create(c4);
+		assertEquals(size + 4, repo.getAll(null).size());
 		
-		assertEquals(c1, repo.getCourseByName("One"));
-		assertEquals(c2, repo.getCourseByName("Two"));
-		assertEquals(null, repo.getCourseByName("XXX"));
+		Course mockCourse= new Course();
+		mockCourse.setName("One");
+		
+		assertEquals(1, repo.getAll(mockCourse).size());
+		mockCourse.setName("Two");
+		assertEquals(1, repo.getAll(mockCourse).size());
+		mockCourse.setName("*AASDASD");
+		assertEquals(0, repo.getAll(mockCourse).size());
 	}
 	
 	@Test
 	@Rollback(true)
 	public void getCoursesByAttributes_shouldReturnListWithCourses(){
-		int  size = repo.getAllCourses().size();
+		int  size = repo.getAll(null).size();
 		Course c1 = new Course("One", "oneDesc");
 		Course c2 = new Course("Two", "oneDesc");// equal desc
 		Course c3 = new Course("Three", "threeDesc");
 		Course c4 = new Course("Four", "fourDesc");
-		repo.createCourse(c1);
-		repo.createCourse(c2);
-		repo.createCourse(c3);
-		repo.createCourse(c4);
+		repo.create(c1);
+		repo.create(c2);
+		repo.create(c3);
+		repo.create(c4);
 		
-		assertEquals(size + 4, repo.getAllCourses().size());
+		assertEquals(size + 4, repo.getAll(null).size());
 		
 		Course toFind = new Course();
 		toFind.setName("One");
 		
-		List<Course> results = repo.getAllCourses(toFind);
+		List<Course> results = repo.getAll(toFind);
 		assertEquals(1, results.size());
 		
 		toFind = new Course();
 		toFind.setDescription("oneDesc");
-		results = repo.getAllCourses(toFind);
+		results = repo.getAll(toFind);
 		assertEquals(2, results.size());
 
 		toFind = new Course();
 		toFind.setName("x");
-		results = repo.getAllCourses(toFind);
+		results = repo.getAll(toFind);
 		assertEquals(0, results.size());
 	}
 	
 	@Test
 	@Rollback(true)
 	public void testCRUD() {
-		int size = repo.getAllCourses().size();
+		int size = repo.getAll(null).size();
 		Course c = new Course("Name222", "Desc");
-		repo.createCourse(c);
-		assertEquals(size + 1, repo.getAllCourses().size());
+		repo.create(c);
+		assertEquals(size + 1, repo.getAll(null).size());
 		
-		Course c1 = repo.getCourseById(c.getId());
+		Course c1 = repo.getById(c.getId());
 		assertEquals(c1.getId(), c.getId());
 		long id = c1.getId();
 		
-		assertEquals(c1, repo.getCourseByName("Name222"));
+		Course testCourse= new Course();
+		testCourse.setName("name222");
+		assertEquals(c1, repo.getAll(testCourse).get(0));
 		
-		boolean isDeleted = repo.deleteCourse(id);
+		boolean isDeleted = repo.delete(id);
 		assertTrue(isDeleted);
-		assertEquals(size, repo.getAllCourses().size());
+		assertEquals(size, repo.getAll(null).size());
 		
-		assertNull(repo.getCourseByName("Name222"));
+		assertEquals(0,repo.getAll(testCourse).size());
 		
 	}
 	
@@ -171,11 +175,11 @@ public class CourseRepositoryTest {
 		Course courseProg = new Course("Programmering", "programmering er kult");
 
 		// adding course
-		courseProg.setId(repo.createCourse(courseProg));
+		courseProg.setId(repo.create(courseProg));
 	
-		assertNotSame(0, repo.getAllCourses().size());
+		assertNotSame(0, repo.getAll(null).size());
 		
 		// deleting courses
-		repo.deleteCourse(courseProg.getId());
+		repo.delete(courseProg.getId());
 	}
 }

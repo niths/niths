@@ -1,22 +1,8 @@
 package no.niths.infrastructure.interfaces;
 
-import java.util.List;
-
-import no.niths.domain.Course;
 
 
-public interface CoursesRepository   {
+public interface CoursesRepository<T>  extends GenericRepository<T> {
 
-    Long createCourse(Course course);
-
-    Course getCourseById(long id);
-
-    Course getCourseByName(String name);
-
-    List<Course> getAllCourses();
-    List<Course> getAllCourses(Course c);
-
-    void updateCourse(Course course);
-
-    boolean deleteCourse(long id);
+  
 }

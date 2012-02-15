@@ -32,8 +32,6 @@ public class StudentController implements RESTController<Student> {
 
 	@Autowired
 	private StudentService service;
-	
-	
 
 	/**
 	 * 
@@ -41,22 +39,24 @@ public class StudentController implements RESTController<Student> {
 	 */
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Student> getAllByName(@PathVariable String name , HttpEntity<byte[]> request) {
+	public ArrayList<Student> getAllByName(@PathVariable String name,
+			HttpEntity<byte[]> request) {
 		String[] fullName = name.trim().split(" ");
 		Student stud = new Student();
 		if (fullName.length > 1) {
 			for (int i = 1; i < fullName.length; i++) {
-				if (i != 1){
+				if (i != 1) {
 					fullName[i] += " ";
 				}
-				stud.setLastName(stud.getLastName() + fullName[i]);	
+				stud.setLastName(stud.getLastName() + fullName[i]);
 			}
 		}
 		stud.setFirstName(fullName[0]);
 		logger.info("Search for students with name: " + stud.toString());
 		return getAll(stud, request);
-		
+
 	}
+
 	/**
 	 * 
 	 * @return All courses
@@ -66,38 +66,18 @@ public class StudentController implements RESTController<Student> {
 	@ResponseBody
 	public ArrayList<Student> getAll(Student student, HttpEntity<byte[]> request) {
 		logger.info(student.toString());
-		
-		final String FIRST =
-                request.getHeaders().getFirst(RESTConstants.ACCEPT);
-   	 
-       if (student.isEmpty()) {
-           if (FIRST.equals(RESTConstants.JSON)) {
-               return (ArrayList<Student>) service.getAllStudents();
-           } else if (FIRST.equals(RESTConstants.XML)) {
-               studentList.setData(service.getAllStudents());
-               return studentList;
-           }
-       } else {
-       	 if (FIRST.equals(RESTConstants.JSON)) {
-                return (ArrayList<Student>) service.getAllStudents(student);
-            } else if (FIRST.equals(RESTConstants.XML)) {
-                studentList.setData(service.getAllStudents(student));
-                return studentList;
-            }
-       }
-       return null;
 
-//		final String FIRST = request.getHeaders()
-//				.getFirst(RESTConstants.ACCEPT);
-//
-//		if (FIRST.equals(RESTConstants.JSON)) {
-//			return (ArrayList<Student>) service.getAllStudents(student);
-//		} else if (FIRST.equals(RESTConstants.XML)) {
-//			studentList.setData(service.getAllStudents(student));
-//			return studentList;
-//		}
-//
-//		return null;
+		final String FIRST = request.getHeaders()
+				.getFirst(RESTConstants.ACCEPT);
+
+		if (FIRST.equals(RESTConstants.JSON)) {
+			return (ArrayList<Student>) service.getAllStudents(student);
+		} else if (FIRST.equals(RESTConstants.XML)) {
+			studentList.setData(service.getAllStudents(student));
+			return studentList;
+		}
+
+		return null;
 
 	}
 
@@ -124,7 +104,7 @@ public class StudentController implements RESTController<Student> {
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		Student s = service.getStudentById(id);
-		if (s == null){
+		if (s == null) {
 			throw new ObjectNotFoundException("No students found for id: " + id);
 		}
 		return s;
@@ -155,7 +135,7 @@ public class StudentController implements RESTController<Student> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
 	public void delete(@PathVariable Long id) {
-		if(!service.deleteStudent(id)){
+		if (!service.deleteStudent(id)) {
 			throw new ObjectNotFoundException("No students found for id: " + id);
 		}
 
