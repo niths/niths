@@ -239,9 +239,10 @@ public class Student implements Serializable {
 	@JsonIgnore
 	public boolean isEmpty() {
 		//Do we need to check for firstName and lastName? They can not be null
-		return (id == null && firstName.equals("") && lastName.equals("") && 
+		return (id == null && firstName == null && lastName == null && 
 				gender == null && password == null && email == null && 
-				description == null && birthday == null && birthday == null);
+				description == null && birthday == null && telephoneNumber == null
+				&& grade == null);
 	}
 
 	@Override
