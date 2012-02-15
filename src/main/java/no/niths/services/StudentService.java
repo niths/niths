@@ -26,17 +26,29 @@ public class StudentService {
 		repo.create(student);
 	}
 
+	/**
+	 * Finds and returns a student with a given id.
+	 * Returns the student with courses and committees
+	 * 
+	 * @param id ID of student to find
+	 * @return the student
+	 */
 	public Student getStudentById(long id) {
-
 		Student s = repo.getById(id);
-
 		if (s != null) {
-			for (int i = 0; i < s.getCommittees().size(); i++) {
-				s.getCommittees().get(i).setEvents(null);
+			if (s.getCommittees().size() > 0) {
+				for (int i = 0; i < s.getCommittees().size(); i++) {
+					s.getCommittees().get(i).setEvents(null);
+				}
+			}else{
+				s.setCommittees(null);
 			}
-
-			for (int i = 0; i < s.getCourses().size(); i++) {
-				s.getCourses().get(i).setTopics(null);
+			if (s.getCourses().size() > 0) {
+				for (int i = 0; i < s.getCourses().size(); i++) {
+					s.getCourses().get(i).setTopics(null);
+				}
+			}else{
+				s.setCourses(null);
 			}
 		}
 		return s;
