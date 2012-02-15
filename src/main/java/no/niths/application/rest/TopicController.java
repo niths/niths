@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.TopicList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Topic;
@@ -104,6 +105,8 @@ public class TopicController implements RESTController<Topic> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Topic deleted")
 	public void delete(@PathVariable Long id) {
-		service.deleteTopic(id);
+		if(!service.deleteTopic(id)){
+			throw new ObjectNotFoundException();
+		}
 	}
 }

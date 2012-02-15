@@ -32,7 +32,7 @@ public class TopicService {
         repo.update(topic);
     }
 
-    public void deleteTopic(Long id) {
-        repo.delete(id);
+    public boolean deleteTopic(Long id) {
+        return repo.delete(id);
     }
 }

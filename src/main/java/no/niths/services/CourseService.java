@@ -40,7 +40,7 @@ public class CourseService {
         repo.update(course);
     }
 
-    public void deleteCourse(long id) {
-        repo.delete(id);
+    public boolean deleteCourse(long id) {
+        return repo.delete(id);
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommitteeService extends GenericService<Committee> {
+public class CommitteeService  {
 
 	@Autowired
 	private CommitteeRepositorty repo;
@@ -69,8 +69,8 @@ public class CommitteeService extends GenericService<Committee> {
 	 * 
 	 * @param committee
 	 */
-	public void delete(long id) {
-		repo.delete(id);
+	public boolean delete(long id) {
+		return repo.delete(id);
 	}
 	
 

@@ -112,7 +112,7 @@ public class StudentController implements RESTController<Student> {
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student deleted")
 	public void delete(@PathVariable Long id) {
 		if (!service.deleteStudent(id)) {
-			throw new ObjectNotFoundException("No students found for id: " + id);
+			throw new ObjectNotFoundException();
 		}
 
 	}

@@ -40,7 +40,6 @@ public class CommitteeEventsController implements
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Committe created")
 	public void create(@RequestBody CommitteeEvent event) {
-	
 		service.create(event);
 	}
 

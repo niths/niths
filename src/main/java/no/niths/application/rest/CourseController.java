@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
@@ -120,6 +121,8 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
 	public void delete(@PathVariable Long id) {
-		service.deleteCourse(id);
+		if(!service.deleteCourse(id)){
+			throw new ObjectNotFoundException();
+		}
 	}
 }
