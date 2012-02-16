@@ -14,6 +14,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
 public class CourseTest {
@@ -55,5 +56,21 @@ public class CourseTest {
         course2.setName("UVF");
         constraintViolations = validator.validate(course2);
         assertThat(0, is(equalTo(constraintViolations.size())));
+        
+        Course c2 = new Course();
+        constraintViolations = validator.validate(c2);
+        assertEquals(0, constraintViolations.size());
+        
+        c2.setTerm("Winter");
+        constraintViolations = validator.validate(c2);
+        assertEquals(1, constraintViolations.size());
+        
+        c2.setTerm("spring");
+        constraintViolations = validator.validate(c2);
+        assertEquals(0, constraintViolations.size());
+        c2.setTerm("Spring");
+        constraintViolations = validator.validate(c2);
+        assertEquals(0, constraintViolations.size());
+        
     }
 }

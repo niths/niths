@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,6 +43,15 @@ public class Course implements Serializable {
     @Column(unique = true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
     private String name;
+    
+    @Column
+	@Max(value = 3, message = "Can not be larger then 3")
+	@Min(value = 1, message = "Can not be smaller then 1")
+	private Integer grade;
+    
+    @Column
+    @Pattern(regexp = "(^$)|((f|F)all|(s|S)pring)", message = "Must be Spring or Fall")
+    private String term;
 
     @Column(length=500)
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
@@ -95,12 +107,28 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    @JsonIgnore
-    public boolean isEmpty() {
-        return (id == null && name == null && description == null);
-    }
+//    @JsonIgnore
+//    public boolean isEmpty() {
+//        return (id == null && name == null && description == null);
+//    }
 
-    @Override
+    public Integer getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	@Override
     public boolean equals(Object that) {
     	if(!(that instanceof Course)) return false;
         Course course = (Course) that;
