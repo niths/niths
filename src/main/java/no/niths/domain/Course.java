@@ -27,7 +27,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-//uniqueConstraints = {@UniqueConstraint(columnNames={"subject", "year"})}
+
 @Entity
 @Table(
 		name = AppConstants.COURSES, 
@@ -42,8 +42,8 @@ public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-   //@Column(unique = true)
+    
+    @Column
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
     private String name;
     
