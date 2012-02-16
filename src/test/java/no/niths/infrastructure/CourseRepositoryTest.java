@@ -42,6 +42,26 @@ public class CourseRepositoryTest {
 	private TopicsRepository topicRepo;
 	
 	@Test
+	public void testCreateATimeSchedule(){
+		Course c = new Course("Programmering", "Java and the like");
+		c.setGrade(1);
+		c.setTerm("Fall");
+		
+		Topic t1 = new Topic("Java innføring", "PG111", "Lær java", "10:00", "12:00");
+		t1.setWeekday("Monday");
+		topicRepo.create(t1);
+		Topic t2 = new Topic("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
+		t2.setWeekday("Monday");
+		topicRepo.create(t2);
+		
+		c.getTopics().add(t1);
+		c.getTopics().add(t2);
+		repo.create(c);
+		
+		assertEquals(2, repo.getById(c.getId()).getTopics().size());
+	}
+	
+	@Test
 	public void whenAddedTopics_CourseShouldHaveThem() {
 		int numTopics = topicRepo.getAll(null).size();
 		int numCourses = repo.getAll(null).size();
