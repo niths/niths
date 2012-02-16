@@ -133,7 +133,7 @@ public class Student implements Serializable {
 		this.id = id;
 	}
 
-	
+	@JsonIgnore	
 	public String getPassword() {
 		return password;
 	}

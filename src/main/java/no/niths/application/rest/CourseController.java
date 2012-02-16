@@ -13,7 +13,6 @@ import no.niths.services.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,20 +79,13 @@ public class CourseController implements RESTController<Course> {
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Course> getAll(Course course, HttpEntity<byte[]> request) {
-		logger.info(course.toString());
+	public ArrayList<Course> getAll(Course course) {
 
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
+		courseList.clear();
+		courseList.addAll(service.getAllCourses(course));
+		courseList.setData(courseList);
+		return courseList;
 
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Course>) service.getAllCourses(course);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			courseList.setData(service.getAllCourses(course));
-			return courseList;
-		}
-
-		return null;
 	}
 
 	/**
@@ -121,7 +113,7 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
 	public void delete(@PathVariable Long id) {
-		if(!service.deleteCourse(id)){
+		if (!service.deleteCourse(id)) {
 			throw new ObjectNotFoundException();
 		}
 	}

@@ -11,7 +11,6 @@ import no.niths.services.TopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,20 +63,16 @@ public class TopicController implements RESTController<Topic> {
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Topic> getAll(Topic topic, HttpEntity<byte[]> request) {
+	public ArrayList<Topic> getAll(Topic topic) {
 		logger.info(topic.toString());
 
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
-
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Topic>) service.getAllTopics(topic);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			topicList.setData(service.getAllTopics(topic));
-			return topicList;
+		topicList.clear();
+		topicList.addAll(service.getAllTopics(topic));
+		topicList.setData(topicList);
+		if (topicList.size() == 0) {
+			throw new ObjectNotFoundException();
 		}
-
-		return null;
+		return topicList;
 	}
 
 	/**
@@ -105,7 +100,7 @@ public class TopicController implements RESTController<Topic> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Topic deleted")
 	public void delete(@PathVariable Long id) {
-		if(!service.deleteTopic(id)){
+		if (!service.deleteTopic(id)) {
 			throw new ObjectNotFoundException();
 		}
 	}

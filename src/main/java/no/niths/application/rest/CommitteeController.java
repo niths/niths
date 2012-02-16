@@ -26,7 +26,7 @@ public class CommitteeController implements RESTController<Committee> {
 
 	@Autowired
 	private CommitteeService service;
-	
+
 	Logger logger = org.slf4j.LoggerFactory
 			.getLogger(CommitteeController.class);
 
@@ -54,24 +54,18 @@ public class CommitteeController implements RESTController<Committee> {
 		}
 		return c;
 	}
-	
+
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Committee> getAll(Committee committee,
-			HttpEntity<byte[]> request) {
-
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
-
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Committee>) getService().getAll(committee);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			committeeList.setData(getService().getAll(committee));
-			return committeeList;
+	public ArrayList<Committee> getAll(Committee committee) {
+		committeeList.clear();
+		committeeList.addAll(getService().getAll(committee));
+		committeeList.setData(committeeList);
+		if (committeeList.size() == 0) {
+			throw new ObjectNotFoundException();
 		}
-
-		return null;
+		return committeeList;
 	}
 
 	/**
@@ -91,7 +85,7 @@ public class CommitteeController implements RESTController<Committee> {
 
 		getService().update(committee);
 	}
-	
+
 	/**
 	 * 
 	 * @param long The id of the object to delete
@@ -100,7 +94,7 @@ public class CommitteeController implements RESTController<Committee> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Committe deleted")
 	public void delete(@PathVariable Long id) {
-		if(!getService().delete(id)){
+		if (!getService().delete(id)) {
 			throw new ObjectNotFoundException();
 		}
 	}

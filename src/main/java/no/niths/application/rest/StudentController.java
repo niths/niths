@@ -6,6 +6,7 @@ import java.util.List;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
+import no.niths.domain.Student;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.services.StudentService;
@@ -42,21 +43,21 @@ public class StudentController implements RESTController<Student> {
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Student> getAll(Student student, HttpEntity<byte[]> request) {
-		logger.info(student.toString());
-
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
-
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Student>) service.getAllStudents(student);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			studentList.setData(service.getAllStudents(student));
-			return studentList;
+	public ArrayList<Student> getAll(Student student) {
+		studentList.clear();
+		studentList.addAll(getService().getAllStudents(student));
+		studentList.setData(studentList);
+		
+		if (studentList.size() == 0) {
+			throw new ObjectNotFoundException();
 		}
 		
-		throw new ObjectNotFoundException();
+		return studentList;
+	}
 
+	private StudentService getService() {
+
+		return service;
 	}
 
 	/**
@@ -118,22 +119,22 @@ public class StudentController implements RESTController<Student> {
 		}
 
 	}
-	
-	@RequestMapping(value ="course",method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+
+	@RequestMapping(value = "course", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Student> getStudentsWithNamedCourse(Course course , HttpEntity<byte[]> request ){
+	public List<Student> getStudentsWithNamedCourse(Course course) {
 		String name = course.getName();
 		logger.info(name);
-		final String FIRST = request.getHeaders()
-				.getFirst(RESTConstants.ACCEPT);
-
-		if (FIRST.equals(RESTConstants.JSON)) {
-			return (ArrayList<Student>) service.getStudentsWithNamedCourse(name);
-		} else if (FIRST.equals(RESTConstants.XML)) {
-			studentList.setData(service.getStudentsWithNamedCourse(name));
-			return studentList;
+		studentList.clear();
+		studentList.addAll(service.getStudentsWithNamedCourse(name));
+		studentList.setData(studentList); // for xml marshalling
+		
+		if (studentList.size() == 0) {
+			throw new ObjectNotFoundException();
 		}
 		
-		throw new ObjectNotFoundException();
+		return studentList;
+
+		
 	}
 }

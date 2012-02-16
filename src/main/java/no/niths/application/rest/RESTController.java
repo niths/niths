@@ -10,7 +10,7 @@ public interface RESTController<T> {
     
     public T getById(Long id); 
 
-    public ArrayList<T> getAll(T domain, HttpEntity<byte[]> request);
+    public ArrayList<T> getAll(T domain);
 
     public void update(T domain,Long id);
 
