@@ -1,5 +1,9 @@
 package no.niths.infrastructure;
+
 import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
@@ -17,22 +21,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 @Transactional
+@TransactionConfiguration(transactionManager = "transactionManager") 
 public class StudentRepositoryTest {
-	
+
 	private static final Logger logger = LoggerFactory
-	.getLogger(StudentRepositoryTest.class); // Replace with test class
+			.getLogger(StudentRepositoryTest.class); // Replace with test class
 
 	@Autowired
 	private StudentRepository studentRepo;
 
 	@Autowired
 	private CoursesRepository courseRepo;
-	
+
 	@Autowired
 	private CommitteeRepositorty comRepo;
 
@@ -40,144 +46,99 @@ public class StudentRepositoryTest {
 	 * Testing of basic CRUD functions
 	 */
 	@Test
-	@Rollback(true)
-	public void testCRUD(){
+	public void testCRUD() {
 		Student stud = new Student("John", "Doe");
 		studentRepo.create(stud);
-		
+
 		assertEquals(stud, studentRepo.getById(stud.getId()));
 		assertEquals(1, studentRepo.getAll(new Student()).size());
-		
+
 		stud.setFirstName("Jane");
 		studentRepo.update(stud);
-		
+
 		assertEquals("Jane", studentRepo.getById(stud.getId()).getFirstName());
-	
+
 		studentRepo.delete(stud.getId());
-//		assertEquals(null, studentRepo.getById(stud.getId()));
-		
+		// assertEquals(null, studentRepo.getById(stud.getId()));
+
 		assertEquals(true, studentRepo.getAll(null).isEmpty());
 
 	}
-	
+
 	/**
 	 * Tests the course association
 	 */
 	@Test
-	@Rollback(true)
-	public void testStudentWithCourses(){
+	public void testStudentWithCourses() {
 		Course c1 = new Course("PROG", "casd1");
 		Course c2 = new Course("DESIGN", "cdda2");
-		
+
 		courseRepo.create(c1);
 		courseRepo.create(c2);
-		//Courses should be persisted
+		// Courses should be persisted
 		assertEquals(2, courseRepo.getAll(null).size());
-		
-		
+
 		Student stud = new Student("John", "Doe");
 		stud.getCourses().add(c1);
 		stud.getCourses().add(c2);
 
 		studentRepo.create(stud);
 		assertEquals(stud, studentRepo.getById(stud.getId()));
-		//Test if student has courses
+		// Test if student has courses
 		assertEquals(2, studentRepo.getById(stud.getId()).getCourses().size());
-		
+
 		studentRepo.getById(stud.getId()).getCourses().remove(1);
 		assertEquals(1, studentRepo.getById(stud.getId()).getCourses().size());
-		
+
 		assertEquals(2, courseRepo.getAll(null).size());
-		
+
 		Committee c = new Committee("Utvalg", "desc");
-		
+
 		comRepo.create(c);
 		assertEquals(1, comRepo.getAll(null).size());
 		stud = studentRepo.getById(stud.getId());
 		stud.getCommittees().add(c);
-		
+
 		studentRepo.update(stud);
-		
-		assertEquals(1, studentRepo.getById(stud.getId()).getCommittees().size());
-		
+
+		assertEquals(1, studentRepo.getById(stud.getId()).getCommittees()
+				.size());
+
 	}
-	
+
 	@Test
-	@Rollback(true)
-	public void getAllStudentsWithParameter_shouldReturnListOfStudentsMatching(){
+	public void testGetAllStudentsWithParameter_shouldReturnListOfStudentsMatching() {
 		int size = studentRepo.getAll(null).size();
-		Student s1 = new Student("John", "Doe");
-		Student s2 = new Student("John", "Doe");
-		Student s3 = new Student("Jane", "Doe");
-		Student s4 = new Student("Foo", "Bar");
-		studentRepo.create(s1);
-		studentRepo.create(s2);
-		studentRepo.create(s3);
-		studentRepo.create(s4);
-		assertEquals(size  + 4, studentRepo.getAll(null).size());
-		
-		Student toFind = new Student("John", "Doe");		
+		createStudentHelper();
+		assertEquals(size + 4, studentRepo.getAll(null).size());
+
+		Student toFind = new Student("John", "Doe");
 		assertEquals(2, studentRepo.getAll(toFind).size());
-		
+
 		toFind = new Student("Jane", "Doe");
 		assertEquals(1, studentRepo.getAll(toFind).size());
-		
+
 		toFind = new Student("XXX", "Doe");
 		assertEquals(0, studentRepo.getAll(toFind).size());
-		
-		
+
 	}
-	
-	
 
 	@Test
-	@Rollback(true)
-	public void testGetByName() {
-		//Adding 3 students
-		Student s1 = new Student("John", "Doe");
-		Student s2 = new Student("Mando", "Doe");
-		Student s3 = new Student("Jane", "Doe");
-		
-		studentRepo.create(s1);
-		studentRepo.create(s2);
-		studentRepo.create(s3);
-		
-		
-		
-//		assertNotSame(0, studentRepo.getAllStudents().size());		
-//		assertNotSame(0, studentRepo.getByName("").size());		
-//		assertNotSame(0, studentRepo.getByName("John").size());		
-//		assertNotSame(0, studentRepo.getByName("Jo").size());		
-//		assertNotSame(0, studentRepo.getByName("hn").size());		
-//		assertEquals(true, studentRepo.getByName("non").isEmpty());
+	public void testGetStudentsWithNamedCourse(){
 		
 	}
 	
-//	@Test
-//	@Rollback(true)
-//	public void shouldReturnAllStudentsWithThatName(){
-//		int size = studentRepo.getAllStudents().size();
-//		
-//		Student s1 = new Student("John", "Doe");		
-//		Student s2 = new Student("Vera", "Fine");		
-//		Student s3 = new Student("Vera", "Fine");		
-//		Student s4 = new Student("Vera", "Fine");		
-//		Student s5 = new Student("Vera", "Fine");		
-//		studentRepo.create(s1);
-//		studentRepo.create(s2);
-//		studentRepo.create(s3);
-//		studentRepo.create(s4);
-//		studentRepo.create(s5);
-//		
-//		assertEquals(size + 5, studentRepo.getAllStudents().size());
-//		
-//		String term = "Vera Fine";
-//		
-//		assertEquals(4, studentRepo.get(term).size());
-//		
-//		
-//	}
-
-
-
+	private ArrayList<Student>createStudentHelper(){
+		ArrayList<Student> students = new ArrayList<Student>();
+		
+		String [] firstName = {"John","John","Jane","Foo"};
+		String [] lastName = {"Doe","Doe","Doe","Bar"};
+		
+		for (int i = 0; i < lastName.length; i++) {
+			Student s1 = new Student(firstName[i],lastName[i]);
+			studentRepo.create(s1);
+			students.add(s1);
+		}
+		return students;
+	}
 }

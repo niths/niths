@@ -22,12 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
+@TransactionConfiguration(transactionManager = "transactionManager") 
 public class CourseRepositoryTest {
 	
 	private static final Logger logger = LoggerFactory
@@ -40,7 +42,6 @@ public class CourseRepositoryTest {
 	private TopicsRepository topicRepo;
 	
 	@Test
-	@Rollback(true)
 	public void whenAddedTopics_CourseShouldHaveThem() {
 		int numTopics = topicRepo.getAll(null).size();
 		int numCourses = repo.getAll(null).size();
@@ -69,13 +70,11 @@ public class CourseRepositoryTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	@Rollback(true)
 	public void whenInsertNull_persistenceShouldFail() {
 		repo.create(null);
 	}
 	
 	@Test
-	@Rollback(true)
 	public void whenInsertCourse_CourseShouldBePersisted(){
 		int size = repo.getAll(null).size();
 		
@@ -88,7 +87,6 @@ public class CourseRepositoryTest {
 	
 	
 	@Test
-	@Rollback(true)
 	public void getCoursesByName_shouldReturnListWithCourses(){
 		int  size = repo.getAll(null).size();
 		Course c1 = new Course("One", "oneDesc");
@@ -112,7 +110,6 @@ public class CourseRepositoryTest {
 	}
 	
 	@Test
-	@Rollback(true)
 	public void getCoursesByAttributes_shouldReturnListWithCourses(){
 		int  size = repo.getAll(null).size();
 		Course c1 = new Course("One", "oneDesc");
@@ -144,7 +141,6 @@ public class CourseRepositoryTest {
 	}
 	
 	@Test
-	@Rollback(true)
 	public void testCRUD() {
 		int size = repo.getAll(null).size();
 		Course c = new Course("Name222", "Desc");
@@ -169,7 +165,6 @@ public class CourseRepositoryTest {
 	
 	
 	@Test
-	@Rollback(true)
 	public void testRead(){
 		
 		Course courseProg = new Course("Programmering", "programmering er kult");

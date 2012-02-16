@@ -25,7 +25,6 @@ public class CommitteeRepositoryTest {
 	private CommitteeRepositorty committeeRepo;
 			
 	@Test
-	//@Rollback(true)/
 	public void testCRUD() {
 		int size = committeeRepo.getAll(null).size();
 		Committee committee = new Committee("LUG", "Linux");
@@ -46,7 +45,6 @@ public class CommitteeRepositoryTest {
 	
 
 	@Test
-	//@Rollback(true)
 	public void testGetAllWithCreateCritera(){
 		
 		Committee c1 = new Committee("LUG", "23");
@@ -67,7 +65,6 @@ public class CommitteeRepositoryTest {
 	
 	
 	@Test
-	//@Rollback(true)
 	public void testEventJoin(){
 		
 		CommitteeEvent event = new CommitteeEvent();

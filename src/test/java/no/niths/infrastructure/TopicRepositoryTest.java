@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Course;
 import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.TopicsRepository;
 
@@ -13,32 +12,30 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 @Transactional
+@TransactionConfiguration(transactionManager = "transactionManager") 
 public class TopicRepositoryTest {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(TopicRepositoryTest.class);
 
-	private Course course = new Course("Programmering", "Programmeringsfaget");
-
 	@Autowired
 	private TopicsRepository repo;
 
-	@Test(expected = IllegalArgumentException.class)
-	@Rollback(true)
+	@Test(expected = IllegalArgumentException.class)	
 	public void whenInsertNull_persistenceShouldFail() {
 		repo.create(null);
 	}
 
 	@Test
-	@Rollback(true)
+
 	public void whenCreateTopic_topicShouldBePersisted() {
 		int size = repo.getAll(null).size();
 
@@ -50,7 +47,6 @@ public class TopicRepositoryTest {
 	}
 
 	@Test
-	@Rollback(true)
 	public void whenGetById_TopicShouldBeReturned() {
 		int size = repo.getAll(null).size();
 
@@ -67,8 +63,8 @@ public class TopicRepositoryTest {
 		result = repo.getById(new Long(999));
 		assertNull(result);
 	}
+	
 	@Test
-	@Rollback(true)
 	public void whenUpdateTopic_TopicShouldBeUpdatet() {
 		int size = repo.getAll(null).size();
 		
@@ -85,8 +81,8 @@ public class TopicRepositoryTest {
 		assertEquals("PG211", repo.getById(t1.getId()).getTopicCode());
 		
 	}
+	
 	@Test
-	@Rollback(true)
 	public void whenGetAll_allShouldBeReturnedt() {
 		int size = repo.getAll(null).size();
 		
