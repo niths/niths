@@ -78,7 +78,7 @@ public class CourseController implements RESTController<Course> {
 	public Course getCourse(@PathVariable String name, 
 										@PathVariable Integer grade, 
 										@PathVariable String term ) {
-		Course c = service.getAll(name, grade, term);
+		Course c = service.getCourse(name, grade, term);
 		if(c == null)
 			throw new ObjectNotFoundException("Did not find any courses");
 		return c;

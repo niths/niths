@@ -6,6 +6,6 @@ import no.niths.domain.Course;
 
 public interface CoursesRepository  extends GenericRepository<Course> {
 
-	Course getAll(String name, int grade, String term);
+	Course getCourse(String name, int grade, String term);
   
 }

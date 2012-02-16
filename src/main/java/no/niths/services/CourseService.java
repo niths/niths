@@ -29,8 +29,8 @@ public class CourseService {
         return c;
    }
     
-    public Course getAll(String name, int grade, String term){
-    	Course c = repo.getAll(name, grade, term);
+    public Course getCourse(String name, int grade, String term){
+    	Course c = repo.getCourse(name, grade, term);
     	c.getTopics().size();
     	return c;
     }

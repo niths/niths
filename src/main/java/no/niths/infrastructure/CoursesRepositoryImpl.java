@@ -17,7 +17,7 @@ public class CoursesRepositoryImpl extends GenericRepositoryImpl<Course>
 		super(Course.class);
 	}
 
-	public Course getAll(String name, int grade, String term) {
+	public Course getCourse(String name, int grade, String term) {
 		String sql = "from " + Course.class.getSimpleName() + " c " +
 				"where c.name=:name " +
 				"and c.grade=:grade " +
