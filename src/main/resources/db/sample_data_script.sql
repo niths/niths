@@ -1,9 +1,9 @@
 USE niths;
 
-INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG111', "Java 1", "Innføring i java", '10:00:00', '11:00:00', "Monday"); 
-INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG211', "Java 2", "Innføring i java 2", '11:00:00', '12:00:00', "Monday");
-INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('BU410', "E-Business", "Skolen sparer penger", '10:00:00', '11:00:00', "Tuesday");
-INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00:00', '17:00:00', "Friday");
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG111', "Java 1", "Innføring i java", '10:00', '11:00', "Monday"); 
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PG211', "Java 2", "Innføring i java 2", '11:00', '12:00', "Monday");
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('BU410', "E-Business", "Skolen sparer penger", '10:00', '11:00', "Tuesday");
+INSERT INTO topics (topic_code, name, description, start_time, end_time, weekday) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00', '17:00', "Friday");
 
 INSERT INTO courses (name, description) VALUES("Mobil apputvikling", "Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.");
 INSERT INTO courses (name, description) VALUES("Programmering", "I dag brukes IT og Internett i alt fra handel, kommunikasjon, overvåking og spill til betaling.");
