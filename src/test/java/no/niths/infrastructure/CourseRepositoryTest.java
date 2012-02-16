@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
@@ -14,6 +13,7 @@ import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 import no.niths.infrastructure.interfaces.TopicsRepository;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -79,6 +79,36 @@ public class CourseRepositoryTest {
 		repo.create(c);
 		
 		assertEquals(c, repo.getCourse("Programmering", 1, "Fall"));
+		assertEquals(null, repo.getCourse("Programmering", 1, "XXX"));
+	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void testWhenAddCourseWithSameName_gradeCanNotBeEqual(){
+		int size = repo.getAll(null).size();
+		Course c1 = new Course("XXX", "XXX");
+		c1.setGrade(1);
+		repo.create(c1);
+		assertEquals(size + 1, repo.getAll(null).size());
+		//Course with same name and grade
+		//Should throw ConstraintViolationEx
+		Course c2 = new Course("XXX", "XXX");
+		c2.setGrade(1);
+		repo.create(c2);
+	}
+	
+	@Test
+	public void testWhenAddCourseWithSameNameButDifferentGrade(){
+		int size = repo.getAll(null).size();
+		Course c1 = new Course("XXX", "XXX");
+		c1.setGrade(1);
+		repo.create(c1);
+		assertEquals(size + 1, repo.getAll(null).size());
+		//Course with same name and grade
+		//Should throw ConstraintViolationEx
+		Course c2 = new Course("XXX", "XXX");
+		c2.setGrade(2);
+		repo.create(c2);
+		assertEquals(size + 2, repo.getAll(null).size());
 	}
 	
 	@Test

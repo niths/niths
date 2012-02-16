@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
@@ -26,9 +27,11 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-
+//uniqueConstraints = {@UniqueConstraint(columnNames={"subject", "year"})}
 @Entity
-@Table(name = AppConstants.COURSES)
+@Table(
+		name = AppConstants.COURSES, 
+		uniqueConstraints={@UniqueConstraint(columnNames ={"name", "grade"})})
 @XmlRootElement
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Course implements Serializable {
@@ -40,7 +43,7 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+   //@Column(unique = true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
     private String name;
     
