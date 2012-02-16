@@ -42,6 +42,8 @@ public class CommitteeRepositoryTest {
 		
 		assertEquals(1, c1.getLeaders().size());
 		
+		Student s3 = studentRepo.getById(s1.getId());
+		assertEquals(0, s3.getCommittees().size());
 		
 	}
 			
