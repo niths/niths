@@ -71,6 +71,18 @@ public class CourseController implements RESTController<Course> {
 		Course c = service.getCourseById(id);
 		return c.getTopics();
 	}
+	
+
+	@RequestMapping(value = "{name}/{grade}/{term}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public Course getCourse(@PathVariable String name, 
+										@PathVariable Integer grade, 
+										@PathVariable String term ) {
+		Course c = service.getAll(name, grade, term);
+		if(c == null)
+			throw new ObjectNotFoundException("Did not find any courses");
+		return c;
+	}
 
 	/**
 	 * 

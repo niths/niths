@@ -3,6 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Course;
+import no.niths.domain.Topic;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,12 @@ public class CourseService {
     	}
         return c;
    }
+    
+    public Course getAll(String name, int grade, String term){
+    	Course c = repo.getAll(name, grade, term);
+    	c.getTopics().size();
+    	return c;
+    }
     
     public List<Course> getAllCourses(Course c) {
     	List<Course> results = repo.getAll(c);
