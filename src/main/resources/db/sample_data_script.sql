@@ -37,6 +37,7 @@ INSERT INTO committees (name,description) VALUES("Microsoft utvalget","Microsoft
 INSERT INTO committees (name,description) VALUES("KIT", "kvinner og it");
 INSERT INTO committees (name,description) VALUES("MDF", "media design og foto");
 
+INSERT INTO committee_leaders VALUES (1, 1);
 
 INSERT INTO committee_events (name,description,startTime,endTime) VALUES("LUG event"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
 INSERT INTO committee_events (name,description,startTime,endTime) VALUES("Fest i Kroa"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
