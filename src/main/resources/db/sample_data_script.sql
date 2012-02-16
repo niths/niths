@@ -14,6 +14,7 @@ INSERT INTO courses (name, description) VALUES("Interaktivt design", "Det er i d
 INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny generasjon av sosiale elektroniske nettverk gjør Internett til en av våre viktigste kommunikasjonskanaler.");
 INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
+INSERT INTO courses (name, description, grade, term) values ("Spillspilling", "Lær å spille spill", 1, "Fall");
 
 insert into courses_topics values(1,1);
 insert into courses_topics values(1,2);
@@ -24,6 +25,10 @@ insert into courses_topics values(3,1);
 insert into courses_topics values(3,2);
 insert into courses_topics values(3,3);
 insert into courses_topics values(4,4);
+
+insert into courses_topics values(10,1);
+insert into courses_topics values(10,2);
+insert into courses_topics values(10,3);
 
 
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");
