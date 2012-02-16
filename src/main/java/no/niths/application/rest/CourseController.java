@@ -11,11 +11,13 @@ import no.niths.domain.Topic;
 import no.niths.services.CourseService;
 import no.niths.services.TopicService;
 
+import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -142,8 +144,10 @@ public class CourseController implements RESTController<Course> {
 	/**
 	 * Adds a topic to a course
 	 * 
-	 * @param courseId the id of the course
-	 * @param topicId the id of the topic to be added
+	 * @param courseId
+	 *            the id of the course
+	 * @param topicId
+	 *            the id of the topic to be added
 	 */
 	@RequestMapping(value = { "{courseId}/{topicId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Topic added to course")
@@ -155,12 +159,12 @@ public class CourseController implements RESTController<Course> {
 			throw new ObjectNotFoundException("Did not find a course with id: "
 					+ courseId);
 		}
-		
+
 		Topic t = topicService.getTopicById(topicId);
-		if (t == null){
+		if (t == null) {
 			throw new ObjectNotFoundException("Did not find a topic with id: "
 					+ topicId);
-			
+
 		}
 		c.getTopics().add(t);
 		courseService.updateCourse(c);
@@ -177,5 +181,14 @@ public class CourseController implements RESTController<Course> {
 		if (!courseService.deleteCourse(id)) {
 			throw new ObjectNotFoundException();
 		}
+	}
+
+	/**
+	 * Catches constraint violation exceptions
+	 * Ex: Topic already added to course
+	 */
+	@ExceptionHandler(NonUniqueObjectException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
+	public void notUniqueObject() {
 	}
 }
