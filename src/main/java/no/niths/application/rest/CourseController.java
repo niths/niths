@@ -9,6 +9,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Course;
 import no.niths.domain.Topic;
 import no.niths.services.CourseService;
+import no.niths.services.TopicService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,10 @@ public class CourseController implements RESTController<Course> {
 			.getLogger(CourseController.class);
 
 	@Autowired
-	private CourseService service;
+	private CourseService courseService;
+
+	@Autowired
+	private TopicService topicService;
 
 	private CourseList courseList = new CourseList();
 
@@ -43,7 +47,7 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
 	public void create(@RequestBody Course course) {
-		service.createCourse(course);
+		courseService.createCourse(course);
 	}
 
 	/**
@@ -55,7 +59,12 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Course getById(@PathVariable Long id) {
-		return service.getCourseById(id);
+		Course c = courseService.getCourseById(id);
+		if (c == null) {
+			throw new ObjectNotFoundException("Did not find a course with id: "
+					+ id);
+		}
+		return c;
 	}
 
 	/**
@@ -68,18 +77,31 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "topics/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Topic> getCourseTopics(@PathVariable Long id) {
-		Course c = service.getCourseById(id);
+		Course c = courseService.getCourseById(id);
+		if (c == null) {
+			throw new ObjectNotFoundException("Did not find a course with id: "
+					+ id);
+		}
 		return c.getTopics();
 	}
-	
 
+	/**
+	 * Returns a course with topics
+	 * 
+	 * @param name
+	 *            name of course
+	 * @param grade
+	 *            the year 1,2 or 3
+	 * @param term
+	 *            fall or spring
+	 * @return
+	 */
 	@RequestMapping(value = "{name}/{grade}/{term}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public Course getCourse(@PathVariable String name, 
-										@PathVariable Integer grade, 
-										@PathVariable String term ) {
-		Course c = service.getCourse(name, grade, term);
-		if(c == null)
+	public Course getCourse(@PathVariable String name,
+			@PathVariable Integer grade, @PathVariable String term) {
+		Course c = courseService.getCourse(name, grade, term);
+		if (c == null)
 			throw new ObjectNotFoundException("Did not find any courses");
 		return c;
 	}
@@ -94,7 +116,7 @@ public class CourseController implements RESTController<Course> {
 	public ArrayList<Course> getAll(Course course) {
 
 		courseList.clear();
-		courseList.addAll(service.getAllCourses(course));
+		courseList.addAll(courseService.getAllCourses(course));
 		courseList.setData(courseList);
 		return courseList;
 
@@ -114,7 +136,34 @@ public class CourseController implements RESTController<Course> {
 		if (id != null)
 			course.setId(id);
 
-		service.updateCourse(course);
+		courseService.updateCourse(course);
+	}
+
+	/**
+	 * Adds a topic to a course
+	 * 
+	 * @param courseId the id of the course
+	 * @param topicId the id of the topic to be added
+	 */
+	@RequestMapping(value = { "{courseId}/{topicId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Topic added to course")
+	public void addTopicToCourse(@PathVariable Long courseId,
+			@PathVariable Long topicId) {
+
+		Course c = courseService.getCourseById(courseId);
+		if (c == null) {
+			throw new ObjectNotFoundException("Did not find a course with id: "
+					+ courseId);
+		}
+		
+		Topic t = topicService.getTopicById(topicId);
+		if (t == null){
+			throw new ObjectNotFoundException("Did not find a topic with id: "
+					+ topicId);
+			
+		}
+		c.getTopics().add(t);
+		courseService.updateCourse(c);
 	}
 
 	/**
@@ -125,7 +174,7 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
 	public void delete(@PathVariable Long id) {
-		if (!service.deleteCourse(id)) {
+		if (!courseService.deleteCourse(id)) {
 			throw new ObjectNotFoundException();
 		}
 	}
