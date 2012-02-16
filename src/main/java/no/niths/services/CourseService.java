@@ -31,7 +31,9 @@ public class CourseService {
     
     public Course getCourse(String name, int grade, String term){
     	Course c = repo.getCourse(name, grade, term);
-    	c.getTopics().size();
+    	if(c != null){
+    		c.getTopics().size();    		
+    	}
     	return c;
     }
     
