@@ -1,10 +1,12 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
+import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.services.StudentService;
 
@@ -52,8 +54,8 @@ public class StudentController implements RESTController<Student> {
 			studentList.setData(service.getAllStudents(student));
 			return studentList;
 		}
-
-		return null;
+		
+		throw new ObjectNotFoundException();
 
 	}
 
@@ -115,5 +117,23 @@ public class StudentController implements RESTController<Student> {
 			throw new ObjectNotFoundException();
 		}
 
+	}
+	
+	@RequestMapping(value ="course",method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Student> getStudentsWithNamedCourse(Course course , HttpEntity<byte[]> request ){
+		String name = course.getName();
+		logger.info(name);
+		final String FIRST = request.getHeaders()
+				.getFirst(RESTConstants.ACCEPT);
+
+		if (FIRST.equals(RESTConstants.JSON)) {
+			return (ArrayList<Student>) service.getStudentsWithNamedCourse(name);
+		} else if (FIRST.equals(RESTConstants.XML)) {
+			studentList.setData(service.getStudentsWithNamedCourse(name));
+			return studentList;
+		}
+		
+		throw new ObjectNotFoundException();
 	}
 }

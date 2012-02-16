@@ -3,6 +3,7 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -18,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -125,6 +126,24 @@ public class StudentRepositoryTest {
 
 	@Test
 	public void testGetStudentsWithNamedCourse(){
+		List<Student> students =createStudentHelper();
+		
+		String name ="prog";
+		Course c = new Course(name, "ProgProg");
+		courseRepo.create(c);
+		
+		ArrayList<Course> cs = new ArrayList<Course>();
+		cs.add(c);
+		
+		for (int i = 0; i < students.size()-1; i++) {
+			students.get(i).setCourses(cs);
+			studentRepo.update(students.get(i));
+		}
+		
+		students.clear();
+		students = studentRepo.getStudentsWithNamedCourse(name);
+		
+		assertEquals(3, students.size());
 		
 	}
 	

@@ -54,8 +54,6 @@ public class StudentService {
 		return s;
 	}
 
-	
-
 	public List<Student> getAllStudents(Student s) {
 		ArrayList<Student> temp = (ArrayList<Student>) repo.getAll(s);
 		for (int i = 0; i < temp.size(); i++) {
@@ -73,5 +71,15 @@ public class StudentService {
 
 	public boolean deleteStudent(long id) {
 		return repo.delete(id);
+	}
+	
+	public List<Student> getStudentsWithNamedCourse(String name){
+		
+		ArrayList<Student> temp = (ArrayList<Student>) repo.getStudentsWithNamedCourse(name);
+		for (int i = 0; i < temp.size(); i++) {
+			temp.get(i).setCommittees(null);
+			temp.get(i).setCourses(null);
+		}
+		return temp;
 	}
 }
