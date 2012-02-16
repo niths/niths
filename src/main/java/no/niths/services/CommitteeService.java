@@ -3,6 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Committee;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class CommitteeService  {
 	
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setEvents(null);
+			temp.get(i).setLeaders(null);
+			//If we want leaders to show aswell
+//			List<Student> leaders = temp.get(i).getLeaders();
+//			for(int j = 0; j < leaders.size(); j++){
+//				leaders.get(j).setCourses(null);			
+//				leaders.get(j).setCommittees(null);			
+//			}
 		}
 		return temp;
 	}
@@ -48,6 +56,11 @@ public class CommitteeService  {
 		Committee c = repo.getById(cid);
 		
 		if(c != null){
+			List<Student> leaders = c.getLeaders();
+			for (int i = 0; i < leaders.size(); i++){
+				leaders.get(i).setCommittees(null);
+				leaders.get(i).setCourses(null);
+			}
 			if(c.getEvents().size() < 1){
 				c.setEvents(null);
 			}

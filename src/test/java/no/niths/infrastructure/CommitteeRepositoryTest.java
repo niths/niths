@@ -5,7 +5,9 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
+import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,25 @@ public class CommitteeRepositoryTest {
 
 	@Autowired
 	private CommitteeRepositorty committeeRepo;
+	
+	@Autowired
+	private StudentRepository studentRepo;
+	
+	@Test
+	public void testAddLeader(){
+		Student s1 = new Student("John", "Doe");
+		Student s2 = new Student("Jane", "Doe");
+		studentRepo.create(s1);
+		studentRepo.create(s2);
+		
+		Committee c1 = new Committee("Linux", "1337");
+		c1.getLeaders().add(s1);
+		committeeRepo.create(c1);
+		
+		assertEquals(1, c1.getLeaders().size());
+		
+		
+	}
 			
 	@Test
 	public void testCRUD() {

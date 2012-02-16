@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -44,8 +46,9 @@ public class Committee implements Serializable {
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
     private String description;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private List<Student> members = new ArrayList<Student>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="committee_leaders")
+    private List<Student> leaders = new ArrayList<Student>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
@@ -124,12 +127,12 @@ public class Committee implements Serializable {
     }
    
     
-//    public List<Student> getStudents() {
-//        return members;
-//    }
-//
-//    public void setStudents(List<Student> students) {
-//        this.members = students;
-//    }
+    public List<Student> getLeaders() {
+        return leaders;
+    }
+
+    public void setLeaders(List<Student> students) {
+        this.leaders = students;
+    }
 
 }
