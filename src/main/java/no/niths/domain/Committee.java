@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -47,7 +48,8 @@ public class Committee implements Serializable {
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="committee_leaders")
+    @JoinTable(
+    		name="committee_leaders", uniqueConstraints={@UniqueConstraint(columnNames ={"committees_id", "leaders_id"})} )
     private List<Student> leaders = new ArrayList<Student>();
 
     @ManyToMany(fetch = FetchType.LAZY)

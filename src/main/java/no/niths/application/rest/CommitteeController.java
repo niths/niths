@@ -13,6 +13,7 @@ import no.niths.services.StudentService;
 import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -138,7 +139,7 @@ public class CommitteeController implements RESTController<Committee> {
 	 * Catches constraint violation exceptions
 	 * Ex: Leader already added to committee
 	 */
-	@ExceptionHandler(NonUniqueObjectException.class)
+	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
 	public void notUniqueObject() {
 	}
