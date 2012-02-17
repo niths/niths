@@ -6,13 +6,17 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Committee;
+import no.niths.domain.Student;
 import no.niths.services.CommitteeService;
+import no.niths.services.StudentService;
 
+import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +29,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CommitteeController implements RESTController<Committee> {
 
 	@Autowired
-	private CommitteeService service;
+	private CommitteeService committeeService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	Logger logger = org.slf4j.LoggerFactory
 			.getLogger(CommitteeController.class);
@@ -85,6 +92,26 @@ public class CommitteeController implements RESTController<Committee> {
 
 		getService().update(committee);
 	}
+	/**
+	 * Adds a leader to a committee
+	 * 
+	 * @param committeeId The id of the committee to add leader to
+	 * @param studentId The id of the student to add as leader
+	 */
+	@RequestMapping(value = { "addLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
+	public void addLeader(@PathVariable Long committeeId, @PathVariable Long studentId) {
+		Committee c = committeeService.getById(committeeId);
+		if(c == null){
+			throw new ObjectNotFoundException("Could not find committee with id: " + committeeId);
+		}
+		Student s = studentService.getStudentById(studentId);
+		if(s == null){
+			throw new ObjectNotFoundException("Could not find a student with id: " + studentId);
+		}
+		c.getLeaders().add(s);
+		committeeService.update(c);
+	}
 
 	/**
 	 * 
@@ -100,10 +127,19 @@ public class CommitteeController implements RESTController<Committee> {
 	}
 
 	public CommitteeService getService() {
-		return service;
+		return committeeService;
 	}
 
 	public void setService(CommitteeService service) {
-		this.service = service;
+		this.committeeService = service;
+	}
+	
+	/**
+	 * Catches constraint violation exceptions
+	 * Ex: Leader already added to committee
+	 */
+	@ExceptionHandler(NonUniqueObjectException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
+	public void notUniqueObject() {
 	}
 }
