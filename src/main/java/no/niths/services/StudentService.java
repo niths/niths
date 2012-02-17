@@ -39,6 +39,7 @@ public class StudentService {
 			if (s.getCommittees().size() > 0) {
 				for (int i = 0; i < s.getCommittees().size(); i++) {
 					s.getCommittees().get(i).setEvents(null);
+					s.getCommittees().get(i).setLeaders(null);
 				}
 			}else{
 				s.setCommittees(null);
