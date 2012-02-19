@@ -6,6 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
+	<!-- First use basic authentication, if not provided, use digest -->
 	<http create-session="stateless" entry-point-ref="digestEntryPoint">
 		<intercept-url pattern="/students/**" access="ROLE_ADMIN" />
 		<!-- basic header: -->
@@ -19,6 +20,20 @@
 			
 			-->
 		<http-basic />
+		
+		<!-- digest header 
+		
+			Accept: application/xml
+			Authorization: Digest username="admin", 
+							realm="Contacts Realm via Digest Authentication", 
+							nonce="MTMyOTY3Njk0NDM3Mjo0YWNmNzkwZmExOTYyYmZkZjc5MmMwMGYzNmQ3MjlhNQ==", 
+							uri="/niths/students", 
+							response="0a3b7d8346468c67d400e6fef18924f0", 
+							qop=auth, nc=00000001, 
+							cnonce="381b644a1a6dcc4b2719a7c002ea2166"
+
+		-->
+		
 		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
 	</http>
 
