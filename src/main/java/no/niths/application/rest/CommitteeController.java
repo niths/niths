@@ -113,6 +113,29 @@ public class CommitteeController implements RESTController<Committee> {
 		c.getLeaders().add(s);
 		committeeService.update(c);
 	}
+	/**
+	 * Removes a leader from a committee
+	 * 
+	 * @param committeeId The id of the committee to remove leader from
+	 * @param studentId The id of the student to remove
+	 */
+	@RequestMapping(value = { "removeLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
+	public void removeLeader(@PathVariable Long committeeId, @PathVariable Long studentId) {
+		Committee c = committeeService.getById(committeeId);
+		if(c == null){
+			throw new ObjectNotFoundException("Could not find committee with id: " + committeeId);
+		}
+		Student s = studentService.getStudentById(studentId);
+		if(s == null){
+			throw new ObjectNotFoundException("Could not find a student with id: " + studentId);
+		}
+		if(!(c.getLeaders().contains(s))){
+			throw new ObjectNotFoundException("Student is not a leader in the committee");
+		}
+		c.getLeaders().remove(s);
+		committeeService.update(c);
+	}
 
 	/**
 	 * 
