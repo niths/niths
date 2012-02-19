@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@ComponentScan(AppConfig.BASE_PACKAGE)
+@ComponentScan("no.niths.application.rest")
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
