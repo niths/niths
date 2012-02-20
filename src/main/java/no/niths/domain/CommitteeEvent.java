@@ -33,7 +33,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Table(name = AppConstants.COMMITTEE_EVENTS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD) 
-public class CommitteeEvent implements Serializable {
+public class CommitteeEvent implements Serializable{
 
     @Transient
     private static final long serialVersionUID = 1878727682733503699L;

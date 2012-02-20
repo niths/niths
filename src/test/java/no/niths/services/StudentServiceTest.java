@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Student;
+import no.niths.services.interfaces.StudentService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,39 +57,39 @@ public class StudentServiceTest {
 	@Rollback(true)
 	public void testCRUD(){
 		
-		assertEquals(true, studService.getAllStudents(null).isEmpty());
+		assertEquals(true, studService.getAll(null).isEmpty());
 		
 		//Testing create
 		Student s = new Student("John", "Doe");		
 		Student x = new Student("Vera", "Fine");		
-		studService.createStudent(s);
-		studService.createStudent(x);
+		studService.create(s);
+		studService.create(x);
 		
 		//Testing get
-		assertEquals(2, studService.getAllStudents(null).size());
-		assertEquals(s, studService.getStudentById(s.getId()));
+		assertEquals(2, studService.getAll(null).size());
+		assertEquals(s, studService.getById(s.getId()));
 		
 		//Testing update
 		s.setEmail("john@doe.com");
 		
-		assertEquals(null, studService.getStudentById(s.getId()).getEmail());
+		assertEquals(null, studService.getById(s.getId()).getEmail());
 		
-		studService.updateStudent(s);
-		assertEquals("john@doe.com", studService.getStudentById(s.getId()).getEmail());
+		studService.update(s);
+		assertEquals("john@doe.com", studService.getById(s.getId()).getEmail());
 		
 		
 		//Testing delete
-		boolean isDeleted = studService.deleteStudent(s.getId());
+		boolean isDeleted = studService.delete(s.getId());
 		
 		assertTrue(isDeleted);
-		assertEquals(1, studService.getAllStudents(null).size());
+		assertEquals(1, studService.getAll(null).size());
 		
 		
 		
-		assertNull(studService.getStudentById(s.getId()));
+		assertNull(studService.getById(s.getId()));
 	
-		studService.deleteStudent(x.getId());
-		assertEquals(true, studService.getAllStudents(null).isEmpty());
+		studService.delete(x.getId());
+		assertEquals(true, studService.getAll(null).isEmpty());
 		
 	}
 

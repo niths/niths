@@ -54,11 +54,11 @@ public class CourseRepositoryTest {
 		t2.setWeekday("Monday");
 		topicRepo.create(t2);
 		
-		c.getTopics().add(t1);
-		c.getTopics().add(t2);
+		c.getSubjects().add(t1);
+		c.getSubjects().add(t2);
 		repo.create(c);
 		
-		assertEquals(2, repo.getById(c.getId()).getTopics().size());
+		assertEquals(2, repo.getById(c.getId()).getSubjects().size());
 	}
 	
 	@Test
@@ -74,8 +74,8 @@ public class CourseRepositoryTest {
 		t2.setWeekday("Monday");
 		topicRepo.create(t2);
 		
-		c.getTopics().add(t1);
-		c.getTopics().add(t2);
+		c.getSubjects().add(t1);
+		c.getSubjects().add(t2);
 		repo.create(c);
 		
 		assertEquals(c, repo.getCourse("Programmering", 1, "Fall"));
@@ -119,7 +119,7 @@ public class CourseRepositoryTest {
 		Course c1 = new Course("Programmering", "Java, c++");
 		Subject t1 = new Subject();
 		t1.setTopicCode("PG111");
-		c1.getTopics().add(t1);
+		c1.getSubjects().add(t1);
 		repo.create(c1);
 		
 		
@@ -127,12 +127,12 @@ public class CourseRepositoryTest {
 		assertEquals(numTopics + 1, topicRepo.getAll(null).size());
 		
 		Course res = repo.getById(c1.getId());
-		int numOfTopics = res.getTopics().size();
+		int numOfTopics = res.getSubjects().size();
 		if(numOfTopics > 0){
-			res.getTopics().remove(0);
+			res.getSubjects().remove(0);
 			repo.update(res);
 			
-			assertEquals(numOfTopics - 1, repo.getById(res.getId()).getTopics().size() );
+			assertEquals(numOfTopics - 1, repo.getById(res.getId()).getSubjects().size() );
 			assertEquals(numTopics + 1, topicRepo.getAll(null).size());
 		}
 		

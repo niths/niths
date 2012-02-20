@@ -1,16 +1,17 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.interfaces.CourseController;
 import no.niths.application.rest.lists.CourseList;
+import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.Course;
 import no.niths.domain.Subject;
-import no.niths.services.CourseService;
-import no.niths.services.TopicService;
+import no.niths.services.interfaces.CourseService;
+import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.SubjectService;
 
 import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,61 +28,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.COURSES)
-public class CourseController implements RESTController<Course> {
+public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> implements CourseController{
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(CourseController.class);
+			.getLogger(CourseControllerImpl.class);
 
 	@Autowired
 	private CourseService courseService;
 
 	@Autowired
-	private TopicService topicService;
+	private SubjectService subjectService;
 
 	private CourseList courseList = new CourseList();
 
-	/**
-	 * 
-	 * @param Course
-	 *            The course to be created
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Course created")
-	public void create(@RequestBody Course course) {
-		courseService.createCourse(course);
-	}
-
-	/**
-	 * 
-	 * @param long The course's id
-	 * @return The course identified by the id
-	 */
-	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public Course getById(@PathVariable Long id) {
-		Course course = courseService.getCourseById(id);
-		ValidationHelper.isObjectNull(course);
-		return course;
-	}
 
 	/**
 	 * Returns all topics inside a course
 	 * 
 	 * @param id
 	 *            the course id
-	 * @return List with topics
+	 * @return List with subject
 	 */
-	@RequestMapping(value = "topics/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "subject/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Subject> getCourseTopics(@PathVariable Long id) {
-		Course c = courseService.getCourseById(id);
+	public List<Subject> getCourseSubjects(@PathVariable Long id) {
+		Course c = courseService.getById(id);
 		if (c == null) {
 			throw new ObjectNotFoundException("Did not find a course with id: "
 					+ id);
 		}
-		return c.getTopics();
+		return c.getSubjects();
 	}
 
 	/**
@@ -106,38 +81,8 @@ public class CourseController implements RESTController<Course> {
 		return c;
 	}
 
-	/**
-	 * 
-	 * @return All courses
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public ArrayList<Course> getAll(Course course) {
 
-		courseList.clear();
-		courseList.addAll(courseService.getAllCourses(course));
-		courseList.setData(courseList);
-		return courseList;
 
-	}
-
-	/**
-	 * 
-	 * @param Course
-	 *            The Course to update
-	 */
-	@Override
-	@RequestMapping(value = { "", "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.CONTENT_TYPE_HEADER)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Course updated")
-	public void update(@RequestBody Course course, @PathVariable Long id) {
-
-		// If the ID is only provided through the URL.
-		if (id != null)
-			course.setId(id);
-
-		courseService.updateCourse(course);
-	}
 
 	/**
 	 * Adds a topic to a course
@@ -152,34 +97,22 @@ public class CourseController implements RESTController<Course> {
 	public void addTopicToCourse(@PathVariable Long courseId,
 			@PathVariable Long topicId) {
 
-		Course c = courseService.getCourseById(courseId);
+		Course c = courseService.getById(courseId);
 		if (c == null) {
 			throw new ObjectNotFoundException("Did not find a course with id: "
 					+ courseId);
 		}
 
-		Subject t = topicService.getById(topicId);
+		Subject t = subjectService.getById(topicId);
 		if (t == null) {
 			throw new ObjectNotFoundException("Did not find a topic with id: "
 					+ topicId);
 
 		}
-		c.getTopics().add(t);
-		courseService.updateCourse(c);
+		c.getSubjects().add(t);
+		courseService.update(c);
 	}
 
-	/**
-	 * 
-	 * @param long The id of the Course to delete
-	 */
-	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Course deleted")
-	public void delete(@PathVariable Long id) {
-		if (!courseService.deleteCourse(id)) {
-			throw new ObjectNotFoundException();
-		}
-	}
 
 	/**
 	 * Catches constraint violation exceptions
@@ -188,5 +121,15 @@ public class CourseController implements RESTController<Course> {
 	@ExceptionHandler(NonUniqueObjectException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
 	public void notUniqueObject() {
+	}
+
+	@Override
+	public GenericService<Course> getService() {
+		return courseService;
+	}
+
+	@Override
+	public ListAdapter<Course> getList() {
+		return courseList;
 	}
 }

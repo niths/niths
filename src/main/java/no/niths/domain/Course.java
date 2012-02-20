@@ -86,7 +86,7 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public List<Subject> getTopics() {
+    public List<Subject> getSubjects() {
 		return topics;
 	}
 

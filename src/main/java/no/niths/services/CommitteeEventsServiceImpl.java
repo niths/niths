@@ -4,6 +4,7 @@ import java.util.List;
 
 import no.niths.domain.CommitteeEvent;
 import no.niths.infrastructure.interfaces.CommitteeEventsRepositorty;
+import no.niths.services.interfaces.CommitteeEventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommitteeEventsService  {
+public class CommitteeEventsServiceImpl implements CommitteeEventsService  {
    
     @Autowired
     private CommitteeEventsRepositorty repo;
@@ -24,7 +25,7 @@ public class CommitteeEventsService  {
         return repo.getAll(event);
     }
     
-    public CommitteeEvent getCommitteeEventsById(long ceid) {
+    public CommitteeEvent getById(long ceid) {
         return repo.getById(ceid);
     }
     

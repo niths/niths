@@ -1,10 +1,8 @@
-package no.niths.application.rest;
+package no.niths.application.rest.interfaces;
 
 import java.util.ArrayList;
 
-import org.springframework.http.HttpEntity;
-
-public interface RESTController<T> {
+public interface GenericRESTController<T> {
  
     public void create( T domain) ;
     
@@ -12,7 +10,7 @@ public interface RESTController<T> {
 
     public ArrayList<T> getAll(T domain);
 
-    public void update(T domain,Long id);
+    public void update(T domain);
 
     public void delete(Long id);
 }

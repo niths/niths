@@ -3,8 +3,8 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Course;
-import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.CoursesRepository;
+import no.niths.services.interfaces.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,44 +12,48 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CourseService {
+public class CourseServiceImpl implements CourseService{
 
     @Autowired
     private CoursesRepository repo;
 
-    public void createCourse(Course course) {
-        repo.create(course);
+    public Long create(Course course) {
+        return repo.create(course);
     }
 
-    public Course getCourseById(long id) {
+    public Course getById(long id) {
     	Course c = repo.getById(id);
     	if(c != null){
-    		c.getTopics().size();
+    		c.getSubjects().size();
     	}
         return c;
    }
     
-    public Course getCourse(String name, int grade, String term){
-    	Course c = repo.getCourse(name, grade, term);
-    	if(c != null){
-    		c.getTopics().size();    		
-    	}
-    	return c;
-    }
-    
-    public List<Course> getAllCourses(Course c) {
+    public List<Course> getAll(Course c) {
     	List<Course> results = repo.getAll(c);
     	for (Course cor : results){
-    		cor.getTopics().size();
+    		cor.getSubjects().size();
     	}
         return results;
     }
 
-    public void updateCourse(Course course) {
+    public void update(Course course) {
         repo.update(course);
     }
 
-    public boolean deleteCourse(long id) {
+    public boolean delete(long id) {
         return repo.delete(id);
     }
+
+	@Override
+	public Course getCourse(String name, Integer grade, String term) {
+			
+		Course course = repo.getCourse(name, grade, term);
+		if(course !=null){
+			course.getSubjects().size();
+			
+		}
+		return course;
+	}
+
 }

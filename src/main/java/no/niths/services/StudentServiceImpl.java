@@ -5,6 +5,7 @@ import java.util.List;
 
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.services.interfaces.StudentService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class StudentService {
+public class StudentServiceImpl implements StudentService {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(StudentService.class);
+			.getLogger(StudentServiceImpl.class);
 
 	@Autowired
 	private StudentRepository repo;
 
-	public void createStudent(Student student) {
-		repo.create(student);
+	public Long create(Student student) {
+		return repo.create(student);
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class StudentService {
 	 * @param id ID of student to find
 	 * @return the student
 	 */
-	public Student getStudentById(long id) {
+	public Student getById(long id) {
 		Student s = repo.getById(id);
 		if (s != null) {
 			if (s.getCommittees().size() > 0) {
@@ -55,7 +56,7 @@ public class StudentService {
 		return s;
 	}
 
-	public List<Student> getAllStudents(Student s) {
+	public List<Student> getAll(Student s) {
 		ArrayList<Student> temp = (ArrayList<Student>) repo.getAll(s);
 		for (int i = 0; i < temp.size(); i++) {
 			// temp.get(i).getCommittees().size();
@@ -66,11 +67,11 @@ public class StudentService {
 		return temp;
 	}
 
-	public void updateStudent(Student student) {
+	public void update(Student student) {
 		repo.update(student);
 	}
 
-	public boolean deleteStudent(long id) {
+	public boolean delete(long id) {
 		return repo.delete(id);
 	}
 	

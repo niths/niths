@@ -5,6 +5,7 @@ import java.util.List;
 import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
+import no.niths.services.interfaces.CommitteeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommitteeService  {
+public class CommitteeServiceImpl implements CommitteeService {
 
 	@Autowired
 	private CommitteeRepositorty repo;
@@ -22,8 +23,8 @@ public class CommitteeService  {
 	 * @param committee
 	 * @return
 	 */
-	public void create(Committee committee) {
-		repo.create(committee);
+	public Long create(Committee committee) {
+		return repo.create(committee);
 	}
 
 	/**
@@ -36,12 +37,6 @@ public class CommitteeService  {
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setEvents(null);
 			temp.get(i).setLeaders(null);
-			//If we want leaders to show aswell
-//			List<Student> leaders = temp.get(i).getLeaders();
-//			for(int j = 0; j < leaders.size(); j++){
-//				leaders.get(j).setCourses(null);			
-//				leaders.get(j).setCommittees(null);			
-//			}
 		}
 		return temp;
 	}

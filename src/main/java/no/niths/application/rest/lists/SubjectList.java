@@ -1,18 +1,15 @@
 package no.niths.application.rest.lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Course;
 import no.niths.domain.Subject;
 
 @XmlRootElement(name = AppConstants.SUBJECTS)
-public class SubjectList extends ArrayList<Subject>
-        implements Exportable<Subject> {
+public class SubjectList extends ListAdapter<Subject>{
 
     @XmlElement(name = "course")
     private List<Subject> data;
