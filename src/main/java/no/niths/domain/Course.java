@@ -62,7 +62,7 @@ public class Course implements Serializable {
     
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.SAVE_UPDATE)
-	private List<Topic> topics = new ArrayList<Topic>();
+	private List<Subject> topics = new ArrayList<Subject>();
 
     public Course() {
         this(null, null, null);
@@ -86,11 +86,11 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public List<Topic> getTopics() {
+    public List<Subject> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(List<Subject> topics) {
 		this.topics = topics;
 	}
 

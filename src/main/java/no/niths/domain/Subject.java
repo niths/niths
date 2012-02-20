@@ -23,7 +23,7 @@ import no.niths.domain.constraints.Weekday;
 @Entity
 @Table(name = AppConstants.TOPICS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Topic implements Serializable {
+public class Subject implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 3477975219659800316L;
@@ -56,11 +56,11 @@ public class Topic implements Serializable {
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
     private String endTime;
     
-    public Topic(){
+    public Subject(){
     	//this(null, null, null, null, null);
     }
     
-    public Topic(String name, String topicCode, String description, String startTime, String endTime){
+    public Subject(String name, String topicCode, String description, String startTime, String endTime){
     	setName(name);
     	setTopicCode(topicCode);
     	setDescription(description);

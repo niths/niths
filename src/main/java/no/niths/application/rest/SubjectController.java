@@ -3,9 +3,9 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.lists.TopicList;
+import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
-import no.niths.domain.Topic;
+import no.niths.domain.Subject;
 import no.niths.services.TopicService;
 
 import org.slf4j.Logger;
@@ -22,15 +22,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.TOPICS)
-public class TopicController implements RESTController<Topic> {
+public class SubjectController implements RESTController<Subject> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(TopicController.class);
+			.getLogger(SubjectController.class);
 
 	@Autowired
 	private TopicService service;
 
-	private TopicList topicList = new TopicList();
+	private SubjectList topicList = new SubjectList();
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class TopicController implements RESTController<Topic> {
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Topic created")
-	public void create(@RequestBody Topic topic) {
+	public void create(@RequestBody Subject topic) {
 		service.createTopic(topic);
 	}
 
@@ -52,7 +52,7 @@ public class TopicController implements RESTController<Topic> {
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public Topic getById(@PathVariable Long id) {
+	public Subject getById(@PathVariable Long id) {
 		return service.getTopicById(id);
 	}
 
@@ -63,7 +63,7 @@ public class TopicController implements RESTController<Topic> {
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ArrayList<Topic> getAll(Topic topic) {
+	public ArrayList<Subject> getAll(Subject topic) {
 		logger.info(topic.toString());
 
 		topicList.clear();
@@ -83,7 +83,7 @@ public class TopicController implements RESTController<Topic> {
 	@Override
 	@RequestMapping(value = { "", "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.CONTENT_TYPE_HEADER)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Topic updated")
-	public void update(@RequestBody Topic topic, @PathVariable Long id) {
+	public void update(@RequestBody Subject topic, @PathVariable Long id) {
 
 		// If the ID is only provided through the URL.
 		if (id != null)

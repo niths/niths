@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Topic;
-import no.niths.infrastructure.interfaces.TopicsRepository;
+import no.niths.domain.Subject;
+import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ public class TopicRepositoryTest {
 			.getLogger(TopicRepositoryTest.class);
 
 	@Autowired
-	private TopicsRepository repo;
+	private SubjectRepository repo;
 
 	@Test(expected = IllegalArgumentException.class)	
 	public void whenInsertNull_persistenceShouldFail() {
@@ -39,7 +39,7 @@ public class TopicRepositoryTest {
 	public void whenCreateTopic_topicShouldBePersisted() {
 		int size = repo.getAll(null).size();
 
-		Topic t1 = new Topic();
+		Subject t1 = new Subject();
 		t1.setTopicCode("PG111");
 		repo.create(t1);
 
@@ -50,14 +50,14 @@ public class TopicRepositoryTest {
 	public void whenGetById_TopicShouldBeReturned() {
 		int size = repo.getAll(null).size();
 
-		Topic t1 = new Topic();
+		Subject t1 = new Subject();
 		t1.setName("Java 1");
 		t1.setTopicCode("PG111");
 		repo.create(t1);
 
 		assertEquals(size + 1, repo.getAll(null).size());
 		
-		Topic result = repo.getById(t1.getId());
+		Subject result = repo.getById(t1.getId());
 		assertEquals(result, t1);
 		
 		result = repo.getById(new Long(999));
@@ -68,7 +68,7 @@ public class TopicRepositoryTest {
 	public void whenUpdateTopic_TopicShouldBeUpdatet() {
 		int size = repo.getAll(null).size();
 		
-		Topic t1 = new Topic();
+		Subject t1 = new Subject();
 		t1.setName("Java 1");
 		t1.setTopicCode("PG111");
 		repo.create(t1);
@@ -86,13 +86,13 @@ public class TopicRepositoryTest {
 	public void whenGetAll_allShouldBeReturnedt() {
 		int size = repo.getAll(null).size();
 		
-		Topic t1 = new Topic();
+		Subject t1 = new Subject();
 		t1.setName("Java 1");
 		repo.create(t1);
-		Topic t2 = new Topic();
+		Subject t2 = new Subject();
 		t2.setName("Java 2");
 		repo.create(t2);
-		Topic t3 = new Topic();
+		Subject t3 = new Subject();
 		t3.setName("Java 3");
 		repo.create(t3);
 		

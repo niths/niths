@@ -2,8 +2,8 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.Topic;
-import no.niths.infrastructure.interfaces.TopicsRepository;
+import no.niths.domain.Subject;
+import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,21 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class TopicService {
 
     @Autowired
-    private TopicsRepository repo;
+    private SubjectRepository repo;
 
-    public void createTopic(Topic topic) {
+    public void createTopic(Subject topic) {
         repo.create(topic);
     }
 
-    public Topic getTopicById(Long id) {
+    public Subject getTopicById(Long id) {
     	return repo.getById(id);
    }
 
-    public List<Topic> getAllTopics(Topic topic) {
+    public List<Subject> getAllTopics(Subject topic) {
     	return repo.getAll(topic);
     }
 
-    public void updateTopic(Topic topic) {
+    public void updateTopic(Subject topic) {
         repo.update(topic);
     }
 

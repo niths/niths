@@ -3,7 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Course;
-import no.niths.domain.Topic;
+import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.CoursesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

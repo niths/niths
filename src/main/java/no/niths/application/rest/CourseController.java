@@ -7,7 +7,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
-import no.niths.domain.Topic;
+import no.niths.domain.Subject;
 import no.niths.services.CourseService;
 import no.niths.services.TopicService;
 
@@ -78,7 +78,7 @@ public class CourseController implements RESTController<Course> {
 	 */
 	@RequestMapping(value = "topics/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Topic> getCourseTopics(@PathVariable Long id) {
+	public List<Subject> getCourseTopics(@PathVariable Long id) {
 		Course c = courseService.getCourseById(id);
 		if (c == null) {
 			throw new ObjectNotFoundException("Did not find a course with id: "
@@ -160,7 +160,7 @@ public class CourseController implements RESTController<Course> {
 					+ courseId);
 		}
 
-		Topic t = topicService.getTopicById(topicId);
+		Subject t = topicService.getTopicById(topicId);
 		if (t == null) {
 			throw new ObjectNotFoundException("Did not find a topic with id: "
 					+ topicId);

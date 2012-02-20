@@ -1,16 +1,16 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Topic;
-import no.niths.infrastructure.interfaces.TopicsRepository;
+import no.niths.domain.Subject;
+import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TopicsRepositoryImpl extends GenericRepositoryImpl<Topic>
-		implements TopicsRepository {
+public class TopicsRepositoryImpl extends GenericRepositoryImpl<Subject>
+		implements SubjectRepository {
 
 	public TopicsRepositoryImpl() {
-		super(Topic.class);
+		super(Subject.class);
 	}
 
 	

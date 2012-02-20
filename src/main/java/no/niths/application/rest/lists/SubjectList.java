@@ -8,17 +8,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Course;
-import no.niths.domain.Topic;
+import no.niths.domain.Subject;
 
 @XmlRootElement(name = AppConstants.TOPICS)
-public class TopicList extends ArrayList<Topic>
-        implements Exportable<Topic> {
+public class SubjectList extends ArrayList<Subject>
+        implements Exportable<Subject> {
 
     @XmlElement(name = "course")
-    private List<Topic> data;
+    private List<Subject> data;
 
     @Override
-    public void setData(List<Topic> data) {
+    public void setData(List<Subject> data) {
      this.data = data;
     }
 }

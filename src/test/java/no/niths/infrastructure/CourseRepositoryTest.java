@@ -9,9 +9,9 @@ import java.util.List;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
-import no.niths.domain.Topic;
+import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.CoursesRepository;
-import no.niths.infrastructure.interfaces.TopicsRepository;
+import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class CourseRepositoryTest {
 	private CoursesRepository repo;
 	
 	@Autowired
-	private TopicsRepository topicRepo;
+	private SubjectRepository topicRepo;
 	
 	@Test
 	public void testCreateATimeSchedule(){
@@ -47,10 +47,10 @@ public class CourseRepositoryTest {
 		c.setGrade(1);
 		c.setTerm("Fall");
 		
-		Topic t1 = new Topic("Java innføring", "PG111", "Lær java", "10:00", "12:00");
+		Subject t1 = new Subject("Java innføring", "PG111", "Lær java", "10:00", "12:00");
 		t1.setWeekday("Monday");
 		topicRepo.create(t1);
-		Topic t2 = new Topic("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
+		Subject t2 = new Subject("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
 		t2.setWeekday("Monday");
 		topicRepo.create(t2);
 		
@@ -67,10 +67,10 @@ public class CourseRepositoryTest {
 		c.setGrade(1);
 		c.setTerm("Fall");
 		
-		Topic t1 = new Topic("Java innføring", "PG111", "Lær java", "10:00", "12:00");
+		Subject t1 = new Subject("Java innføring", "PG111", "Lær java", "10:00", "12:00");
 		t1.setWeekday("Monday");
 		topicRepo.create(t1);
-		Topic t2 = new Topic("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
+		Subject t2 = new Subject("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
 		t2.setWeekday("Monday");
 		topicRepo.create(t2);
 		
@@ -117,7 +117,7 @@ public class CourseRepositoryTest {
 		int numCourses = repo.getAll(null).size();
 
 		Course c1 = new Course("Programmering", "Java, c++");
-		Topic t1 = new Topic();
+		Subject t1 = new Subject();
 		t1.setTopicCode("PG111");
 		c1.getTopics().add(t1);
 		repo.create(c1);
