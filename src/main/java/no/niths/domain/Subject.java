@@ -21,7 +21,7 @@ import no.niths.domain.constraints.Weekday;
 
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.TOPICS)
+@Table(name = AppConstants.SUBJECTS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Subject implements Serializable {
 
