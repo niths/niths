@@ -48,6 +48,10 @@ public class Subject implements Serializable {
     @Weekday
     private String weekday;
     
+    @Column(name="room_number")
+    @Size(min = 1, max = 10, message ="The length of the room number must be between 2 to 10 letters")
+    private String roomNumber;
+    
     @Column(name = "start_time")
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
     private String startTime;
@@ -73,6 +77,15 @@ public class Subject implements Serializable {
     	return (id == null && name == null && topicCode == null && description ==  null
     			&& weekday == null && startTime == null && endTime == null);
     }
+
+    
+	public String getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
+	}
 
 	public Long getId() {
 		return id;
