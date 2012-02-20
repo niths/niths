@@ -6,6 +6,7 @@ import java.util.List;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
@@ -48,9 +49,7 @@ public class StudentController implements RESTController<Student> {
 		studentList.addAll(getService().getAllStudents(student));
 		studentList.setData(studentList);
 		
-		if (studentList.size() == 0) {
-			throw new ObjectNotFoundException();
-		}
+		ValidationHelper.isListEmpty(studentList);
 		
 		return studentList;
 	}
@@ -82,11 +81,9 @@ public class StudentController implements RESTController<Student> {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
-		Student s = service.getStudentById(id);
-		if (s == null) {
-			throw new ObjectNotFoundException("No students found for id: " + id);
-		}
-		return s;
+		Student student = service.getStudentById(id);
+		ValidationHelper.isObjectNull(student);
+		return student;
 	}
 
 	/**
@@ -129,9 +126,7 @@ public class StudentController implements RESTController<Student> {
 		studentList.addAll(service.getStudentsWithNamedCourse(name));
 		studentList.setData(studentList); // for xml marshalling
 		
-		if (studentList.size() == 0) {
-			throw new ObjectNotFoundException();
-		}
+		ValidationHelper.isListEmpty(studentList);
 		
 		return studentList;
 

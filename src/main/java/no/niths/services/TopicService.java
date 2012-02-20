@@ -20,7 +20,7 @@ public class TopicService {
         repo.create(topic);
     }
 
-    public Subject getTopicById(Long id) {
+    public Subject getById(Long id) {
     	return repo.getById(id);
    }
 

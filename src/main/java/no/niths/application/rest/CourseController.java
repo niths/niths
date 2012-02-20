@@ -6,6 +6,7 @@ import java.util.List;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Course;
 import no.niths.domain.Subject;
 import no.niths.services.CourseService;
@@ -61,12 +62,9 @@ public class CourseController implements RESTController<Course> {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Course getById(@PathVariable Long id) {
-		Course c = courseService.getCourseById(id);
-		if (c == null) {
-			throw new ObjectNotFoundException("Did not find a course with id: "
-					+ id);
-		}
-		return c;
+		Course course = courseService.getCourseById(id);
+		ValidationHelper.isObjectNull(course);
+		return course;
 	}
 
 	/**
@@ -160,7 +158,7 @@ public class CourseController implements RESTController<Course> {
 					+ courseId);
 		}
 
-		Subject t = topicService.getTopicById(topicId);
+		Subject t = topicService.getById(topicId);
 		if (t == null) {
 			throw new ObjectNotFoundException("Did not find a topic with id: "
 					+ topicId);

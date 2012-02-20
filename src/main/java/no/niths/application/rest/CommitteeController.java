@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.services.CommitteeService;
 import no.niths.services.StudentService;
 
-import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,14 +23,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * 	This class provides CRUD actions in RESTstyle <br />
+ * 
+ * 	Mapping :<br />
+ * 	host:port/committees<br />
+ * 	
+ *	Headers : <br />
+ *	Accept:application/json<br />
+ *	Content-Type:appilcation/json <br />
+ *	Accept:application/xml<br />
+ *	Content-Type:appilcation/xml<br />
+ *	
+ */
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
 public class CommitteeController implements RESTController<Committee> {
 
 	@Autowired
 	private CommitteeService committeeService;
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -52,17 +63,27 @@ public class CommitteeController implements RESTController<Committee> {
 		getService().create(domain);
 	}
 
+	/**
+	 * Returns the committee by a given id
+	 * @param Long id
+	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Committee getById(@PathVariable Long id) {
-		Committee c = getService().getById(id);
-		if (c == null) {
-			throw new ObjectNotFoundException();
-		}
-		return c;
+		Committee committee = getService().getById(id);
+		ValidationHelper.isObjectNull(committee);
+		return committee;
 	}
 
+	/**
+	 * Return all committees if no parameters is given. 
+	 * Accepted URLs
+	 * (?name=name), (?description=a description) and (?name=name&description=description)<br />
+	 * If the URLs is provided and matches the fields in @See no.niths.domain.Committee Committee.class 
+	 * The result will be narrowed down to the search criteria
+	 * @param committee 
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -70,16 +91,17 @@ public class CommitteeController implements RESTController<Committee> {
 		committeeList.clear();
 		committeeList.addAll(getService().getAll(committee));
 		committeeList.setData(committeeList);
-		if (committeeList.size() == 0) {
-			throw new ObjectNotFoundException();
-		}
+		
+		ValidationHelper.isListEmpty(committeeList);
+		
 		return committeeList;
 	}
 
 	/**
 	 * 
-	 * @param Course
-	 *            The Course to update
+	 * @param committee
+	 *            The committee to update
+	 * @param id The id to the selected committee
 	 */
 	@Override
 	@RequestMapping(value = { "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
@@ -93,48 +115,49 @@ public class CommitteeController implements RESTController<Committee> {
 
 		getService().update(committee);
 	}
+
 	/**
 	 * Adds a leader to a committee
 	 * 
-	 * @param committeeId The id of the committee to add leader to
-	 * @param studentId The id of the student to add as leader
+	 * @param committeeId
+	 *            The id of the committee to add leader to
+	 * @param studentId
+	 *            The id of the student to add as leader
 	 */
 	@RequestMapping(value = { "addLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
-	public void addLeader(@PathVariable Long committeeId, @PathVariable Long studentId) {
-		Committee c = committeeService.getById(committeeId);
-		if(c == null){
-			throw new ObjectNotFoundException("Could not find committee with id: " + committeeId);
-		}
-		Student s = studentService.getStudentById(studentId);
-		if(s == null){
-			throw new ObjectNotFoundException("Could not find a student with id: " + studentId);
-		}
-		c.getLeaders().add(s);
-		committeeService.update(c);
+	public void addLeader(@PathVariable Long committeeId,
+			@PathVariable Long studentId) {
+		Committee committee = committeeService.getById(committeeId);
+		
+		ValidationHelper.isObjectNull(committee);
+		Student student = studentService.getStudentById(studentId);
+		ValidationHelper.isObjectNull(student);
+		committee.getLeaders().add(student);
+		committeeService.update(committee);
 	}
+
 	/**
 	 * Removes a leader from a committee
 	 * 
-	 * @param committeeId The id of the committee to remove leader from
-	 * @param studentId The id of the student to remove
+	 * @param committeeId
+	 *            The id of the committee to remove leader from
+	 * @param studentId
+	 *            The id of the student to remove
 	 */
 	@RequestMapping(value = { "removeLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
-	public void removeLeader(@PathVariable Long committeeId, @PathVariable Long studentId) {
-		Committee c = committeeService.getById(committeeId);
-		if(c == null){
-			throw new ObjectNotFoundException("Could not find committee with id: " + committeeId);
-		}
-		Student s = studentService.getStudentById(studentId);
-		if(s == null){
-			throw new ObjectNotFoundException("Could not find a student with id: " + studentId);
-		}
-		if(!(c.getLeaders().contains(s))){
-			throw new ObjectNotFoundException("Student is not a leader in the committee");
-		}
-		c.getLeaders().remove(s);
-		committeeService.update(c);
+	public void removeLeader(@PathVariable Long committeeId,
+			@PathVariable Long studentId) {
+		Committee committee = committeeService.getById(committeeId);
+
+		ValidationHelper.isObjectNull(committee);
+
+		Student studentLeader = studentService.getStudentById(studentId);
+		ValidationHelper.isObjectNull(studentLeader);
+		ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
+		committee.getLeaders().remove(studentLeader);
+		committeeService.update(committee);
 	}
 
 	/**
@@ -150,20 +173,30 @@ public class CommitteeController implements RESTController<Committee> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public CommitteeService getService() {
 		return committeeService;
 	}
 
+	/**
+	 * 
+	 * @param service
+	 */
 	public void setService(CommitteeService service) {
 		this.committeeService = service;
 	}
-	
+
 	/**
-	 * Catches constraint violation exceptions
-	 * Ex: Leader already added to committee
+	 * Catches constraint violation exceptions Ex: Leader already added to
+	 * committee
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
 	public void notUniqueObject() {
 	}
+
+	
 }

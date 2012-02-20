@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Subject;
 import no.niths.services.TopicService;
 
@@ -30,7 +31,7 @@ public class SubjectController implements RESTController<Subject> {
 	@Autowired
 	private TopicService service;
 
-	private SubjectList topicList = new SubjectList();
+	private SubjectList subjectList = new SubjectList();
 
 	/**
 	 * 
@@ -53,7 +54,9 @@ public class SubjectController implements RESTController<Subject> {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Subject getById(@PathVariable Long id) {
-		return service.getTopicById(id);
+		Subject subject = service.getById(id);
+		ValidationHelper.isObjectNull(subject);
+		return subject;
 	}
 
 	/**
@@ -66,35 +69,31 @@ public class SubjectController implements RESTController<Subject> {
 	public ArrayList<Subject> getAll(Subject topic) {
 		logger.info(topic.toString());
 
-		topicList.clear();
-		topicList.addAll(service.getAllTopics(topic));
-		topicList.setData(topicList);
-		if (topicList.size() == 0) {
-			throw new ObjectNotFoundException();
-		}
-		return topicList;
+		subjectList.clear();
+		subjectList.addAll(service.getAllTopics(topic));
+		subjectList.setData(subjectList);
+		ValidationHelper.isListEmpty(subjectList);
+		return subjectList;
 	}
 
-	/**
-	 * 
-	 * @param Course
-	 *            The Course to update
-	 */
+
 	@Override
 	@RequestMapping(value = { "", "{id}" }, method = RequestMethod.PUT, headers = RESTConstants.CONTENT_TYPE_HEADER)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Topic updated")
 	public void update(@RequestBody Subject topic, @PathVariable Long id) {
 
 		// If the ID is only provided through the URL.
-		if (id != null)
+		if (id != null){
 			topic.setId(id);
+		}
+		
 
 		service.updateTopic(topic);
 	}
 
 	/**
 	 * 
-	 * @param long The id of the Course to delete
+	 * @param id The id of the Subject to delete
 	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)

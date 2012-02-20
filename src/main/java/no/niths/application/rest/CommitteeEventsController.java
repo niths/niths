@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.CommitteeEvent;
 import no.niths.services.CommitteeEventsService;
 
@@ -49,9 +50,7 @@ public class CommitteeEventsController implements
 	public CommitteeEvent getById(@PathVariable Long id) {
 
 		CommitteeEvent event = service.getCommitteeEventsById(id);
-		if (event == null) {
-			throw new ObjectNotFoundException("No event with id :" + id);
-		}
+		ValidationHelper.isObjectNull(event);
 		return event;
 
 	}
@@ -65,9 +64,7 @@ public class CommitteeEventsController implements
 		list.addAll(service.getAll(committeeEvent));
 		list.setEventData(list);
 
-		if (list.size() == 0) {
-			throw new ObjectNotFoundException();
-		}
+		ValidationHelper.isListEmpty(list);
 
 		return list;
 	}
@@ -83,8 +80,10 @@ public class CommitteeEventsController implements
 	public void update(@RequestBody CommitteeEvent event, @PathVariable Long id) {
 
 		// If the ID is only provided through the URL.
-		if (id != null)
+		if (id != null){
 			event.setId(id);
+		}
+		
 
 		service.update(event);
 	}
