@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.TOPICS)
+@RequestMapping(AppConstants.SUBJECTS)
 public class SubjectController implements RESTController<Subject> {
 
 	private static final Logger logger = LoggerFactory

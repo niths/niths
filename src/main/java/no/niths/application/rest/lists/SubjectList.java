@@ -10,7 +10,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Course;
 import no.niths.domain.Subject;
 
-@XmlRootElement(name = AppConstants.TOPICS)
+@XmlRootElement(name = AppConstants.SUBJECTS)
 public class SubjectList extends ArrayList<Subject>
         implements Exportable<Subject> {
 
