@@ -33,7 +33,27 @@
 			<artifactId>spring-oxm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+		<!-- Spring social -->
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>${spring-social.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>${spring-social.version}</version>
+		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-google</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- security -->
 
 		<dependency>
@@ -252,6 +272,7 @@
 		<spring-security.version>3.1.0.RELEASE</spring-security.version>
 		<spring.version>3.1.0.RELEASE</spring.version> <!-- 3.1.0.BUILD-SNAPSHOT -->
 		<spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
+		<spring-social.version>1.0.2.RELEASE</spring-social.version>
 
 
 
