@@ -48,13 +48,15 @@
 			<version>${spring-social.version}</version>
 		</dependency>
 		
-	<!-- Provided on class path  	
+	<!-- Provided on class path  -->	
 	
 	<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-google</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>-->
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/spring-social-google-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
 
 		<!-- security -->
 
