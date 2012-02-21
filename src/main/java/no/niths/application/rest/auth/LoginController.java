@@ -15,21 +15,21 @@
  */
 package no.niths.application.rest.auth;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import no.niths.common.ValidationHelper;
+import no.niths.services.AuthenticationServiceImpl;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.ExpiredAuthorizationException;
-import org.springframework.social.google.api.Google;
-import org.springframework.social.google.api.impl.GoogleTemplate;
-import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Controller
 @RequestMapping("google")
@@ -37,25 +37,26 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-
-//	private final Google google;
-//	
-//	@Autowired
-//	public HomeController(Google google) {
-//		this.google = google;
-//	}
 	
-//	@ExceptionHandler(ExpiredAuthorizationException.class)
-//	public void handleExpiredToken() {
-//		throw new RuntimeException("Gjør meg om til et exception");
-//	}
+	@Autowired
+	private AuthenticationServiceImpl service;
 
 	@RequestMapping(method=RequestMethod.POST)
+	@ResponseBody
 	public String home(@RequestParam String token) {
-		Google google = new GoogleTemplate(token);
-		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-		logger.debug("Er jeg innlogget? : " + profile.getEmail());
-		return profile.getEmail();
+		ValidationHelper.isObjectNull(token);
+		
+		String response = service.login(token);
+		logger.debug(response);
+		//logger.debug("USER SIGNED IN: " + SecurityContext.getCurrentUser().getId());
+		return response;
+	}
+	
+	
+	@ExceptionHandler(HttpClientErrorException.class)
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "You do not have access")
+	public void nonAccess() {
+		logger.info("User tried to log in, but failed");
 	}
 	
 }

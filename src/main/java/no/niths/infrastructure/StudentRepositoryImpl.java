@@ -23,4 +23,13 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 		return getSession().getCurrentSession().createQuery(sql).setString("name", name)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	public Student getStudentByEmail(String email){
+		String sql = "from " + Student.class.getSimpleName()
+				+ " s where s.email=:email";
+		return (Student) getSession().getCurrentSession()
+				.createQuery(sql)
+				.setString("email", email)
+				.uniqueResult();
+	}
 }
