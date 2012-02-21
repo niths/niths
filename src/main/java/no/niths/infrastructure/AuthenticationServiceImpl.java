@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,11 @@ public class AuthenticationServiceImpl {
 		Google google = new GoogleTemplate(googleToken);
 		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
 		String userEmail = profile.getEmail();
+		
 		logger.debug("User logging in: " + userEmail);
-		if(userEmail.endsWith("nith.no")){
-			logger.debug("Name: " + profile.getName());
+		if(userEmail != null && userEmail.endsWith("nith.no")){
+			logger.debug("Name: " + profile.getName() + " " + profile.getLastName());
+			logger.debug("Gender: " + profile.getGender());
 			
 			Student s = studentRepo.getStudentByEmail(userEmail);
 			if(s == null){
@@ -37,8 +40,6 @@ public class AuthenticationServiceImpl {
 				logger.debug("User not registrated, creating user");
 				studentRepo.create(temp);
 			}
-			
-			//SecurityContext.setCurrentUser(new User(userEmail));
 
 			return "logged in: " + userEmail;
 		}else{
