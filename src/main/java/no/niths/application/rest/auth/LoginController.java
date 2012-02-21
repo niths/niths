@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("google")
-public class HomeController {
+public class LoginController {
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
+			.getLogger(LoginController.class);
 
 //	private final Google google;
 //	
