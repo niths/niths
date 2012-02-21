@@ -6,3 +6,4 @@ doc
 src/main/java/no/niths/common/config/AppConfig.java
 target
 /configuration.properties
+/.clover
