@@ -3,7 +3,9 @@ package no.niths.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.domain.Mentor;
 import no.niths.domain.Student;
+import no.niths.infrastructure.interfaces.MentorRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
@@ -23,6 +25,9 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentRepository repo;
 
+	@Autowired
+	private MentorRepository mentorRepo;
+	
 	public Long create(Student student) {
 		return repo.create(student);
 	}
@@ -83,5 +88,24 @@ public class StudentServiceImpl implements StudentService {
 			temp.get(i).setCourses(null);
 		}
 		return temp;
+	}
+
+	@Override
+	public void addStudentToMentor(Student student, int groupId) {
+		Mentor mentor = new Mentor(groupId);
+		mentor.getMentors().add(student);
+		mentorRepo.create(mentor);		
+	}
+
+	@Override
+	public List<Student> getAllMentors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Student> getMentorsByGroupe(int groupId) {
+	
+		return null;
 	}
 }

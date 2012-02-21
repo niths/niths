@@ -21,10 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager") 
-public class TopicRepositoryTest {
+public class SubjectRepositoryTest {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(TopicRepositoryTest.class);
+			.getLogger(SubjectRepositoryTest.class);
 
 	@Autowired
 	private SubjectRepository repo;

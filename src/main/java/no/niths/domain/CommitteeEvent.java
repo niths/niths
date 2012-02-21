@@ -16,7 +16,7 @@ public class CommitteeEvent extends Event {
 	private Committee committee;
 	
 	public CommitteeEvent(){
-		
+		super(null,null,null,null);
 	}
 	
 	public CommitteeEvent(String name, String description,

@@ -35,7 +35,7 @@ public class Mentor implements Serializable {
 	private int groupId;
 	
 	@OneToMany(targetEntity=Student.class)
-	List<Student> mentors = new ArrayList<Student>();
+	private List<Student> mentors = new ArrayList<Student>();
 	
 	public Mentor() {
 		this(0);
@@ -60,4 +60,14 @@ public class Mentor implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public List<Student> getMentors() {
+		return mentors;
+	}
+
+	public void setMentors(List<Student> mentors) {
+		this.mentors = mentors;
+	}
+	
+	
 }

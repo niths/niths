@@ -8,4 +8,10 @@ import no.niths.domain.Student;
 public interface StudentController extends GenericRESTController<Student> {
 
 	public List<Student> getStudentsWithNamedCourse(Course course);
+	
+	public void addStudentToMentor(long studentId,int groupId);
+	
+	public List<Student> getAllMentors();
+	
+	public List<Student> getMentorsByGroupe(int groupId);
 }

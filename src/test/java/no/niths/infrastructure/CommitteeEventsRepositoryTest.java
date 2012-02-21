@@ -36,6 +36,7 @@ public class CommitteeEventsRepositoryTest {
 		int size = eventRepo.getAll(null).size();
 		
 		CommitteeEvent event = new CommitteeEvent();
+		event.setName("Joe");
 		eventRepo.create(event);
 		assertEquals(size + 1, eventRepo.getAll(null).size());
 		assertEquals(event, eventRepo.getById(event.getId()));
