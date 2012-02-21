@@ -27,6 +27,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -48,10 +50,9 @@ public class LoginController {
 //		throw new RuntimeException("Gjør meg om til et exception");
 //	}
 
-	@RequestMapping(value="/", method=GET)
-	@ResponseBody
-	public String home() {
-		Google google = new GoogleTemplate("1/eX9p_8xMmFzwh8MkawUp92BvhNHGeiwt4Any4qVI_IQ");
+	@RequestMapping(method=RequestMethod.POST)
+	public String home(@RequestParam String token) {
+		Google google = new GoogleTemplate(token);
 		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
 		logger.debug("Er jeg innlogget? : " + profile.getEmail());
 		return profile.getEmail();
