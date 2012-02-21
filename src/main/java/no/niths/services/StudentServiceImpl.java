@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
 			}
 			if (s.getCourses().size() > 0) {
 				for (int i = 0; i < s.getCourses().size(); i++) {
-					s.getCourses().get(i).setTopics(null);
+					s.getCourses().get(i).setSubjects(null);
 				}
 			}else{
 				s.setCourses(null);

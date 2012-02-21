@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Event;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

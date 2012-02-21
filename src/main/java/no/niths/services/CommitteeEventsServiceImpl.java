@@ -3,7 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.CommitteeEvent;
-import no.niths.infrastructure.interfaces.CommitteeEventsRepositorty;
+import no.niths.infrastructure.interfaces.CommitteeEventRepositorty;
 import no.niths.services.interfaces.CommitteeEventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +15,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeEventsServiceImpl implements CommitteeEventsService  {
    
     @Autowired
-    private CommitteeEventsRepositorty repo;
+    private CommitteeEventRepositorty repo;
 
     public Long create(CommitteeEvent committeeEvents) {
         return repo.create(committeeEvents);
     }
 
     public List<CommitteeEvent> getAll(CommitteeEvent event) {
-        return repo.getAll(event);
+    	List<CommitteeEvent> events = repo.getAll(event);
+
+    	for (int i = 0; i < events.size(); i++) {
+    		events.get(i).setCommittee(null);
+		}
+        return events;
     }
     
-    public CommitteeEvent getById(long ceid) {
-        return repo.getById(ceid);
+    public CommitteeEvent getById(long id) {
+    	CommitteeEvent event = repo.getById(id);
+    
+    	if(event != null){
+    		event.getCommittee();
+    	}
+    	
+        return event;
     }
     
     public void update(CommitteeEvent committeeEvents) {

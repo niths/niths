@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
-import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Event;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.StudentRepository;
@@ -90,7 +90,7 @@ public class CommitteeRepositoryTest {
 	@Test
 	public void testEventJoin(){
 		
-		CommitteeEvent event = new CommitteeEvent();
+		Event event = new Event();
 		Committee committee = new Committee("LUG", "Linux");
 		committee.getEvents().add(event);
 		
