@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.services;
 
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;

@@ -16,7 +16,7 @@
 package no.niths.application.rest.auth;
 
 import no.niths.common.ValidationHelper;
-import no.niths.infrastructure.AuthenticationServiceImpl;
+import no.niths.services.AuthenticationServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
