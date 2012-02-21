@@ -16,9 +16,14 @@
 package no.niths.application.rest.auth;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import no.niths.infrastructure.AuthenticationServiceImpl;
+import no.niths.user.SecurityContext;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
@@ -37,25 +42,17 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginController.class);
-
-//	private final Google google;
-//	
-//	@Autowired
-//	public HomeController(Google google) {
-//		this.google = google;
-//	}
 	
-//	@ExceptionHandler(ExpiredAuthorizationException.class)
-//	public void handleExpiredToken() {
-//		throw new RuntimeException("Gjør meg om til et exception");
-//	}
+	@Autowired
+	private AuthenticationServiceImpl service;
 
 	@RequestMapping(method=RequestMethod.POST)
+	@ResponseBody
 	public String home(@RequestParam String token) {
-		Google google = new GoogleTemplate(token);
-		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-		logger.debug("Er jeg innlogget? : " + profile.getEmail());
-		return profile.getEmail();
+		String response = service.login(token);
+		logger.debug(response);
+		logger.debug("USER SIGNED IN: " + SecurityContext.getCurrentUser().getId());
+		return response;
 	}
 	
 }

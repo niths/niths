@@ -2,27 +2,13 @@ package no.niths.common.config;
 
 import javax.sql.DataSource;
 
-//import no.niths.user.SecurityContext;
-//import no.niths.user.SimpleConnectionSignUp;
-//import no.niths.user.SimpleSignInAdapter;
-//import no.niths.user.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
-import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.connect.NotConnectedException;
-import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
-import org.springframework.social.connect.web.ProviderSignInController;
-import org.springframework.social.google.api.Google;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 
@@ -59,7 +45,7 @@ public class SocialConfig {
 //		repository.setConnectionSignUp(new SimpleConnectionSignUp());
 //		return repository;
 //	}
-	
+//	
 //	/**
 //	 * Request-scoped data access object providing access to the current user's connections.
 //	 */
@@ -69,7 +55,7 @@ public class SocialConfig {
 //	    User user = SecurityContext.getCurrentUser();
 //	    return usersConnectionRepository().createConnectionRepository(user.getId());
 //	}
-	
+//	
 //	/**
 //	 * A proxy to a request-scoped object representing the current user's primary Facebook account.
 //	 * @throws NotConnectedException if the user is not connected to facebook.
