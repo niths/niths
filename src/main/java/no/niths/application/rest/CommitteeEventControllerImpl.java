@@ -31,11 +31,17 @@ public class CommitteeEventControllerImpl extends
 	
 	private CommitteeEventList committeeEventList = new CommitteeEventList();
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericService<CommitteeEvent> getService() {
 		return service;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ListAdapter<CommitteeEvent> getList() {
 		return committeeEventList;

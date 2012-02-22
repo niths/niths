@@ -103,11 +103,17 @@ public class CommitteeControllerImpl extends
 	public void notUniqueObject() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericService<Committee> getService() {
 		return committeeService;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ListAdapter<Committee> getList() {
 		return committeeList;
