@@ -11,12 +11,14 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import no.niths.common.AppConstants;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 
 @XmlRootElement
 @Entity
-@Table(name ="mentors")
+@Table(name =AppConstants.MENTORS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Mentor implements Serializable {
 

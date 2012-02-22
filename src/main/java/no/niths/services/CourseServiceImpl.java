@@ -31,8 +31,8 @@ public class CourseServiceImpl implements CourseService{
     
     public List<Course> getAll(Course c) {
     	List<Course> results = repo.getAll(c);
-    	for (Course cor : results){
-    		cor.getSubjects().size();
+    	for (int i = 0; i < results.size(); i++){
+    		results.get(i).setSubjects(null);
     	}
         return results;
     }

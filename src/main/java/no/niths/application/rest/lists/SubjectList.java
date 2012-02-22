@@ -11,7 +11,11 @@ import no.niths.domain.Subject;
 @XmlRootElement(name = AppConstants.SUBJECTS)
 public class SubjectList extends ListAdapter<Subject>{
 
-    @XmlElement(name = "course")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7386282831236634626L;
+	@XmlElement(name = "subject")
     private List<Subject> data;
 
     @Override

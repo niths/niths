@@ -6,7 +6,9 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Course;
 import no.niths.domain.Subject;
 import no.niths.services.interfaces.CourseService;
@@ -40,6 +42,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	private SubjectService subjectService;
 
 	private CourseList courseList = new CourseList();
+	
+	private SubjectList subjectList = new SubjectList();
 
 	/**
 	 * Returns all topics inside a course
@@ -52,10 +56,12 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	@ResponseBody
 	public List<Subject> getCourseSubjects(@PathVariable Long id) {
 		Course course = courseService.getById(id);
-		if (course == null) {
-			throw new ObjectNotFoundException();
-		}
-		return course.getSubjects();
+		ValidationHelper.isObjectNull(course);
+		subjectList.clear();
+		subjectList.addAll(course.getSubjects());
+		subjectList.setData(course.getSubjects());
+		ValidationHelper.isListEmpty(subjectList);
+		return subjectList;
 	}
 
 	/**

@@ -40,7 +40,7 @@ public class SubjectRepositoryTest {
 		int size = repo.getAll(null).size();
 
 		Subject t1 = new Subject();
-		t1.setTopicCode("PG111");
+		t1.setSubjectCode("PG111");
 		repo.create(t1);
 
 		assertEquals(size + 1, repo.getAll(null).size());
@@ -52,7 +52,7 @@ public class SubjectRepositoryTest {
 
 		Subject t1 = new Subject();
 		t1.setName("Java 1");
-		t1.setTopicCode("PG111");
+		t1.setSubjectCode("PG111");
 		repo.create(t1);
 
 		assertEquals(size + 1, repo.getAll(null).size());
@@ -70,15 +70,15 @@ public class SubjectRepositoryTest {
 		
 		Subject t1 = new Subject();
 		t1.setName("Java 1");
-		t1.setTopicCode("PG111");
+		t1.setSubjectCode("PG111");
 		repo.create(t1);
 		
 		assertEquals(size + 1, repo.getAll(null).size());
 		
-		t1.setTopicCode("PG211");
+		t1.setSubjectCode("PG211");
 		repo.update(t1);
 		
-		assertEquals("PG211", repo.getById(t1.getId()).getTopicCode());
+		assertEquals("PG211", repo.getById(t1.getId()).getSubjectCode());
 		
 	}
 	
