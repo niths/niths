@@ -30,7 +30,7 @@ public class UserAuthFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private AuthenticationServiceImpl authService;
-
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
@@ -41,39 +41,31 @@ public class UserAuthFilter extends OncePerRequestFilter {
 			String token = req.getHeader("token");
 			if (token != null) {
 				logger.info("Calling the service with a token");
+				
 				logger.info("Response from service: "
 						+ authService.login(token));
+				
 				//TODO: SET USER AS AUTHENTICATED
+				//Its done in the catch block now
+			
 			} else {
 				logger.info("A token was not provided");
 			}
-
+		
+		//If token is provided, but not correct			
 		} catch (HttpClientErrorException httpe) {
+			//Creates a user and log it in (for test purposes)
+			User u = new User();
+			Authentication auth = 
+					new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());
+			//Set user as authenticated
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			
 			logger.warn("Not a valid token");
 		}
-		//DOES NOT WORK
-		doAutoLogin("tom", "jane");
-		
-		//IGNORE:
-		//Set user as authenticated, no matter what...
-		//TODO: Based on response from service, set user false or true
-		//SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
-//		UserAuth user = new UserAuth();
-//		user.setAuthenticated(true);
-//		SecurityContextHolder.getContext().setAuthentication(user);
-		//END IGNORE
-		
-		
 		// Will we continue the security chain?
-		// That means continue to another verification process
-		//chain.doFilter(req, res);
+		chain.doFilter(req, res);
 	}
 	
-	private void doAutoLogin(String username, String password) {
-
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password );
-	    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-	}
 
 }

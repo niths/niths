@@ -34,7 +34,7 @@
 							cnonce="381b644a1a6dcc4b2719a7c002ea2166"
 
 		-->
-		<custom-filter ref="authfilter" after="FILTER_SECURITY_INTERCEPTOR"/>
+		<custom-filter ref="authfilter" after="BASIC_AUTH_FILTER"/>
 	</http>
 	
 	
