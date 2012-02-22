@@ -57,13 +57,11 @@ public class Student implements Serializable {
 	private Long id;
 
 	@Column(name = "first_name")
-	//@NotNull
-	@Size(min = 0, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
 	private String firstName;
 
 	@Column(name = "last_name")
-//	@NotNull
-	@Size(min = 0, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
 	private String lastName;
 
 	@Column
