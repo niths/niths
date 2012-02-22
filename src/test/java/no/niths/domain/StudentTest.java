@@ -7,7 +7,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -135,7 +134,7 @@ public class StudentTest {
 	}
         
         @Test
-	public void testValidationOfincorectStudentValues() {
+	public void testValidationOfIncorectStudentValues() {
 		Student student = new Student(FIRST_NAME, LAST_NAME, 'K', 5, EMAIL,
 				PHONE_NUMBER, DESCRIPTION);
 
