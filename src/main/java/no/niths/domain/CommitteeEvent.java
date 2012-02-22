@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
 @Entity
 public class CommitteeEvent extends Event {
 
