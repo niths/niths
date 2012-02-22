@@ -36,6 +36,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Autowired
 	private StudentService service;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@RequestMapping(value = "course", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Student> getStudentsWithNamedCourse(Course course) {
@@ -50,16 +53,25 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		return studentList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericService<Student> getService() {
 		return service;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ListAdapter<Student> getList() {
 		return studentList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = { 
 			"mentors/{studentId}/{groupId}" }, method = RequestMethod.POST)
@@ -73,6 +85,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		service.addStudentToMentor(student, groupId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = "mentors", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -85,6 +100,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		return studentList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = "mentors/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -98,6 +116,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		return studentList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = "mentors/{studentId}/{groupId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
@@ -109,6 +130,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		service.removeStudentFromMentorGroup(student, groupId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = "mentors/{studentId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
