@@ -25,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * Controller for course
+ *
+ */
 @Controller
 @RequestMapping(AppConstants.COURSES)
 public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> implements CourseController{
