@@ -58,7 +58,7 @@ public class CommitteeControllerImpl extends
 	 * @param studentId
 	 *            The id of the student to add as leader
 	 */
-	@RequestMapping(value = { "addLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "leaders/{committeeId}/{studentId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
 	public void addLeader(@PathVariable Long committeeId,
 			@PathVariable Long studentId) {
@@ -78,8 +78,8 @@ public class CommitteeControllerImpl extends
 	 * @param studentId
 	 *            The id of the student to remove
 	 */
-	@RequestMapping(value = { "removeLeader/{committeeId}/{studentId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
+	@RequestMapping(value = { "leaders/{committeeId}/{studentId}" }, method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeLeader(@PathVariable Long committeeId,
 			@PathVariable Long studentId) {
 		Committee committee = committeeService.getById(committeeId);
@@ -91,7 +91,7 @@ public class CommitteeControllerImpl extends
 		ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
 		committee.getLeaders().remove(studentLeader);
 		committeeService.update(committee);
-	}
+	}	
 
 	/**
 	 * Catches constraint violation exceptions Ex: Leader already added to

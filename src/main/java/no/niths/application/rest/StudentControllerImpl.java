@@ -1,6 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.interfaces.StudentController;
@@ -63,7 +62,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
 	@Override
 	@RequestMapping(value = { 
-			"mentors/add/{studentId}/{groupId}" }, method = RequestMethod.POST)
+			"mentors/{studentId}/{groupId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
 	public void addStudentToMentor(@PathVariable long studentId,
 			@PathVariable int groupId) {
@@ -100,8 +99,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	}
 
 	@Override
-	@RequestMapping(value = "mentors/remove/{studentId}/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
+	@RequestMapping(value = "mentors/{studentId}/{groupId}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeStudentFromMentorGroup(@PathVariable long studentId,
 			@PathVariable int groupId) {
 		Student student = getById(studentId);
@@ -111,8 +110,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	}
 
 	@Override
-	@RequestMapping(value = "mentors/remove/{studentId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
+	@RequestMapping(value = "mentors/{studentId}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeStudentFromAllMentorGroups(@PathVariable long studentId) {
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
