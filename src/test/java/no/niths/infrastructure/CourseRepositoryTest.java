@@ -62,57 +62,22 @@ public class CourseRepositoryTest {
 		assertEquals(2, repo.getById(c.getId()).getSubjects().size());
 	}
 	
-	@Test
-	public void testGetCourseWithTopics_whenParametersAreGradeTermName(){
-		Course c = new Course("Programmering", "Java and the like");
-//		c.setGrade(1);
-//		c.setTerm("Fall");
-		
-		Subject t1 = new Subject("Java innføring", "PG111", "Lær java", "10:00", "12:00");
-		t1.setWeekday("Monday");
-		topicRepo.create(t1);
-		Subject t2 = new Subject("Java viderekomne", "PG211", "Lær java", "12:00", "14:00");
-		t2.setWeekday("Monday");
-		topicRepo.create(t2);
-		
-		c.getSubjects().add(t1);
-		c.getSubjects().add(t2);
-		repo.create(c);
-		
-		assertEquals(c, repo.getCourse("Programmering", 1, "Fall"));
-		assertEquals(null, repo.getCourse("Programmering", 1, "XXX"));
-	}
+
 	
 	@Ignore
 	@Test(expected=ConstraintViolationException.class)
-	public void testWhenAddCourseWithSameName_gradeCanNotBeEqual(){
+	public void testWhenAddCourseWithSameName(){
 		int size = repo.getAll(null).size();
 		Course c1 = new Course("XXX", "XXX");
-//		c1.setGrade(1);
+
 		repo.create(c1);
 		assertEquals(size + 1, repo.getAll(null).size());
 		//Course with same name and grade
 		//Should throw ConstraintViolationEx
 		Course c2 = new Course("XXX", "XXX");
-//		c2.setGrade(1);
 		repo.create(c2);
 	}
 	
-	@Ignore
-	@Test
-	public void testWhenAddCourseWithSameNameButDifferentGrade(){
-		int size = repo.getAll(null).size();
-		Course c1 = new Course("XXX", "XXX");
-//		c1.setGrade(1);
-		repo.create(c1);
-		assertEquals(size + 1, repo.getAll(null).size());
-		//Course with same name and grade
-		//Should throw ConstraintViolationEx
-		Course c2 = new Course("XXX", "XXX");
-//		c2.setGrade(2);
-		repo.create(c2);
-		assertEquals(size + 2, repo.getAll(null).size());
-	}
 	
 	@Test
 	public void whenAddedTopics_CourseShouldHaveThem() {

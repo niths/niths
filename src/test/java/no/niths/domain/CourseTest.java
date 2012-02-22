@@ -2,6 +2,7 @@ package no.niths.domain;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -95,6 +96,7 @@ public class CourseTest {
         assertThat(0, is(equalTo(constraintViolations.size())));		
     }
 
+    @Ignore
     @Test
     public void testValidationOfIncorectStudentValues() {
         Course course = new Course(NAME, DESCRIPTION);
@@ -107,7 +109,7 @@ public class CourseTest {
         assertThat(1, is(equalTo(constraintViolations.size())));		
     }
 
-    @Ignore
+    
     @Test
     public void testGettingSubjectFromCourse() {
         Subject subject = new Subject();
@@ -118,27 +120,13 @@ public class CourseTest {
         Course course = new Course();
         course.setSubjects(subjectList);
 
-//        course2.setName("UVF");
-//        constraintViolations = validator.validate(course2);
-//        assertThat(0, is(equalTo(constraintViolations.size())));
-//        
-//        Course c2 = new Course();
-//        constraintViolations = validator.validate(c2);
-//        assertEquals(0, constraintViolations.size());
+        course.setName("UVF");
+        Set<ConstraintViolation<Course>>  constraintViolations = validator.validate(course);
+        assertThat(0, is(equalTo(constraintViolations.size())));
         
-//        c2.setTerm("Winter");
-//        constraintViolations = validator.validate(c2);
-//        assertEquals(1, constraintViolations.size());
-//        
-//        c2.setTerm("spring");
-//        constraintViolations = validator.validate(c2);
-//        assertEquals(0, constraintViolations.size());
-//        c2.setTerm("Spring");
-//        constraintViolations = validator.validate(c2);
-//        assertEquals(0, constraintViolations.size());
+        Course c2 = new Course();
+        constraintViolations = validator.validate(c2);
+        assertEquals(0, constraintViolations.size());
         
-//=======
-//        assertThat(subject, is(equalTo(course.getSubjects().get(0))));
-//>>>>>>> branch 'master' of https://AndreKristensen@github.com/niths/niths.git
     }
 }
