@@ -19,8 +19,8 @@ public class AuthenticationServiceImpl {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthenticationServiceImpl.class);
 	
-	@Autowired
-	private StudentRepository studentRepo;
+//	@Autowired
+//	private StudentRepository studentRepo;
 	
 	public String login(String googleToken){
 		
@@ -33,13 +33,13 @@ public class AuthenticationServiceImpl {
 			logger.debug("Name: " + profile.getName() + " " + profile.getLastName());
 			logger.debug("Gender: " + profile.getGender());
 			
-			Student s = studentRepo.getStudentByEmail(userEmail);
-			if(s == null){
-				Student temp = new Student();
-				temp.setEmail(userEmail);
-				logger.debug("User not registrated, creating user");
-				studentRepo.create(temp);
-			}
+//			Student s = studentRepo.getStudentByEmail(userEmail);
+//			if(s == null){
+//				Student temp = new Student();
+//				temp.setEmail(userEmail);
+//				logger.debug("User not registrated, creating user");
+//				studentRepo.create(temp);
+//			}
 
 			return "logged in: " + userEmail;
 		}else{
