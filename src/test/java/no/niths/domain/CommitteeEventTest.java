@@ -13,7 +13,7 @@ public class CommitteeEventTest {
 			.getLogger(CommitteeEventTest.class);
 
 	@Test
-	public void testCourseValues() {
+	public void testGettingCommitteeFromCommitteeEvent() {
                 Committee committee = new Committee();
             
                 CommitteeEvent committeeEvent = new CommitteeEvent();

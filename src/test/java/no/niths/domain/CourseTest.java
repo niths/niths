@@ -1,26 +1,29 @@
 package no.niths.domain;
 
-import no.niths.domain.Course;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertThat;
-
 public class CourseTest {
-
+    private static final Long ID = 1L;
+    private static final String NAME = "Programmering";
+    private static final Integer GRADE = 1;
+    private static final String TERM = "Spring";
+    private static final String DESCRIPTION = "Programmeringsfaget";
+    
     private static final Logger logger = LoggerFactory
-            .getLogger(StudentTest.class);
+            .getLogger(CourseTest.class);
 
     private static Validator validator;
 
@@ -29,48 +32,87 @@ public class CourseTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+    
+    @Test
+    public void testShouldGenerateNewCourse() {
+        Course course = new Course();
+        course.setName(NAME);
+        course.setGrade(GRADE);
+        course.setTerm(TERM);
+        course.setDescription(DESCRIPTION);
+
+        assertThat(NAME, is(equalTo(course.getName())));
+        assertThat(GRADE, is(equalTo(course.getGrade())));
+        assertThat(TERM, is(equalTo(course.getTerm())));
+        assertThat(DESCRIPTION, is(equalTo(course.getDescription())));
+    }
 
     @Test
-    public void testCourseValues() {
+    public void testTwoEqualCourses() {
+        Course course = new Course(ID, NAME, DESCRIPTION);
 
-        Course course = new Course("Programmering", "Programmeringsfaget");
+        Course equalCourse = course;
 
-        // Should pass validation
+        assertThat(true, is(equalTo(course.equals(equalCourse))));
+    }
+
+    @Test
+    public void testTwoCoursesWhichIsNotEqual() {
+        Course course = new Course(ID, NAME, DESCRIPTION);
+
+        Course notEqualCourse = new Course(NAME, DESCRIPTION);
+
+        assertThat(false, is(equalTo(course.equals(notEqualCourse))));
+    }
+
+    @Test
+    public void testEqualsBetweenNotEqualObjects() {
+        Course course = new Course(ID, NAME, DESCRIPTION);
+
+        Student student = new Student();
+
+        assertThat(false, is(equalTo(course.equals(student))));
+    }
+
+    @Test
+    public void testCourseToString() {
+        Course course = new Course(ID, NAME, DESCRIPTION);
+
+        assertThat(ID + " - " + NAME + " - " + DESCRIPTION, is(equalTo(course.toString())));
+    }
+
+    @Test
+    public void testValidationOfCorectStudentValues() {
+        Course course = new Course(NAME, DESCRIPTION);
+
         Set<ConstraintViolation<Course>> constraintViolations = validator
-                .validate(course);
+                        .validate(course);
 
-        assertThat(0, is(equalTo(constraintViolations.size())));
+        assertThat(0, is(equalTo(constraintViolations.size())));		
+    }
 
-        // Should not pass validation
-        course.setName("P");
+    @Test
+    public void testValidationOfIncorectStudentValues() {
+        Course course = new Course(NAME, DESCRIPTION);
+        course.setTerm("Winter");
+
+        Set<ConstraintViolation<Course>> constraintViolations = validator
+                        .validate(course);
+
         constraintViolations = validator.validate(course);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+        assertThat(1, is(equalTo(constraintViolations.size())));		
+    }
 
-        //Prints the error message
-        logger.debug(constraintViolations.iterator().next().getMessage());
+    @Test
+    public void testGettingSubjectFromCourse() {
+        Subject subject = new Subject();
+        
+        List<Subject> subjectList = new ArrayList<Subject>();
+        subjectList.add(subject);
 
-        Course course2 = new Course("VF", "Fag med valideringsfeil");
-        constraintViolations = validator.validate(course2);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+        Course course = new Course();
+        course.setSubjects(subjectList);
 
-        course2.setName("UVF");
-        constraintViolations = validator.validate(course2);
-        assertThat(0, is(equalTo(constraintViolations.size())));
-        
-        Course c2 = new Course();
-        constraintViolations = validator.validate(c2);
-        assertEquals(0, constraintViolations.size());
-        
-        c2.setTerm("Winter");
-        constraintViolations = validator.validate(c2);
-        assertEquals(1, constraintViolations.size());
-        
-        c2.setTerm("spring");
-        constraintViolations = validator.validate(c2);
-        assertEquals(0, constraintViolations.size());
-        c2.setTerm("Spring");
-        constraintViolations = validator.validate(c2);
-        assertEquals(0, constraintViolations.size());
-        
+        assertThat(subject, is(equalTo(course.getSubjects().get(0))));
     }
 }
