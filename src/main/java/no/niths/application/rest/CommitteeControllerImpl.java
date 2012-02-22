@@ -55,7 +55,6 @@ public class CommitteeControllerImpl extends
 	 * Adds a leader to a committee
 	 * 
 	 * @param committeeId
-	 *            The id of the committee to add leader to
 	 * @param studentId
 	 *            The id of the student to add as leader
 	 */
@@ -64,7 +63,6 @@ public class CommitteeControllerImpl extends
 	public void addLeader(@PathVariable Long committeeId,
 			@PathVariable Long studentId) {
 		Committee committee = committeeService.getById(committeeId);
-
 		ValidationHelper.isObjectNull(committee);
 		Student student = studentService.getById(studentId);
 		ValidationHelper.isObjectNull(student);
@@ -101,8 +99,7 @@ public class CommitteeControllerImpl extends
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject() {
-	}
+	public void notUniqueObject() {	}
 
 	@Override
 	public GenericService<Committee> getService() {

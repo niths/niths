@@ -41,7 +41,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 
 	private CourseList courseList = new CourseList();
 
-
 	/**
 	 * Returns all topics inside a course
 	 * 
@@ -52,12 +51,11 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	@RequestMapping(value = "subject/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Subject> getCourseSubjects(@PathVariable Long id) {
-		Course c = courseService.getById(id);
-		if (c == null) {
-			throw new ObjectNotFoundException("Did not find a course with id: "
-					+ id);
+		Course course = courseService.getById(id);
+		if (course == null) {
+			throw new ObjectNotFoundException();
 		}
-		return c.getSubjects();
+		return course.getSubjects();
 	}
 
 	/**
@@ -75,42 +73,39 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	@ResponseBody
 	public Course getCourse(@PathVariable String name,
 			@PathVariable Integer grade, @PathVariable String term) {
-		Course c = courseService.getCourse(name, grade, term);
-		if (c == null)
+		Course course = courseService.getCourse(name, grade, term);
+		if (course == null)
 			throw new ObjectNotFoundException("Did not find any courses");
-		return c;
+		return course;
 	}
-
-
-
 
 	/**
 	 * Adds a topic to a course
 	 * 
 	 * @param courseId
 	 *            the id of the course
-	 * @param topicId
+	 * @param subjectId
 	 *            the id of the topic to be added
 	 */
-	@RequestMapping(value = { "{courseId}/{topicId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Topic added to course")
-	public void addTopicToCourse(@PathVariable Long courseId,
-			@PathVariable Long topicId) {
+	@RequestMapping(value = { "{courseId}/{subjectId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
+	public void addSubjectToCourse(@PathVariable Long courseId,
+			@PathVariable Long subjectId) {
 
-		Course c = courseService.getById(courseId);
-		if (c == null) {
+		Course course = courseService.getById(courseId);
+		if (course == null) {
 			throw new ObjectNotFoundException("Did not find a course with id: "
 					+ courseId);
 		}
 
-		Subject t = subjectService.getById(topicId);
-		if (t == null) {
+		Subject subject = subjectService.getById(subjectId);
+		if (subject == null) {
 			throw new ObjectNotFoundException("Did not find a topic with id: "
-					+ topicId);
+					+ subjectId);
 
 		}
-		c.getSubjects().add(t);
-		courseService.update(c);
+		course.getSubjects().add(subject);
+		courseService.update(course);
 	}
 
 

@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -62,7 +61,7 @@ public class Course implements Serializable {
     
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.SAVE_UPDATE)
-	private List<Subject> topics = new ArrayList<Subject>();
+	private List<Subject> subjects = new ArrayList<Subject>();
 
     public Course() {
         this(null, null, null);
@@ -87,11 +86,11 @@ public class Course implements Serializable {
     }
 
     public List<Subject> getSubjects() {
-		return topics;
+		return subjects;
 	}
 
-	public void setTopics(List<Subject> topics) {
-		this.topics = topics;
+	public void setSubjects(List<Subject> topics) {
+		this.subjects = topics;
 	}
 
 	public String getName() {

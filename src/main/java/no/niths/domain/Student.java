@@ -101,7 +101,7 @@ public class Student implements Serializable {
 	private List<Committee> committees = new ArrayList<Committee>();;
 
 	public Student() {
-		this(null,null);
+		this(null,null,null,null,null,null,null);
 	}
 
 	public Student(Long id, String firstName, String lastName) {
@@ -110,8 +110,11 @@ public class Student implements Serializable {
 	}
 
 	public Student(String firstName, String lastName) {
-		setFirstName(firstName);
-		setLastName(lastName);
+		this(firstName,lastName,null,null,null,null,null);
+	}
+	
+	public Student(String firstName, String lastName,String email, String number ) {
+		this(firstName,lastName,null,null,email,number,null);
 	}
 
 	public Student(String firstName, String lastName, Character gender,
@@ -122,8 +125,6 @@ public class Student implements Serializable {
 		setEmail(email);
 		setTelephoneNumber(telephoneNumber);
 		setDescription(description);
-		setCourses(new ArrayList<Course>());
-		setCommittees(new ArrayList<Committee>());
 		setGender(gender);
 		setGrade(grade);
 	}

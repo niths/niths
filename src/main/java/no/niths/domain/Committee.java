@@ -53,7 +53,7 @@ public class Committee implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    private List<CommitteeEvent> events = new ArrayList<CommitteeEvent>();
+    private List<Event> events = new ArrayList<Event>();
     
     public Committee() {
         this(null, null);
@@ -93,11 +93,11 @@ public class Committee implements Serializable {
         this.description = description;
     }
 
-    public List<CommitteeEvent> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<CommitteeEvent> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
     }
 

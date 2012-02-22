@@ -7,7 +7,8 @@ import java.util.GregorianCalendar;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.CommitteeEvent;
-import no.niths.infrastructure.interfaces.CommitteeEventsRepositorty;
+import no.niths.domain.Event;
+import no.niths.infrastructure.interfaces.CommitteeEventRepositorty;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,18 +22,21 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager")  
+
+//@TransactionConfiguration(transactionManager = "transactionManager")  
 public class CommitteeEventsRepositoryTest {
 	
 	@Autowired
-	private CommitteeEventsRepositorty eventRepo;
+	private CommitteeEventRepositorty eventRepo;
 
 	@Test
+	
 	public void testCRUD() {
 		// create
 		int size = eventRepo.getAll(null).size();
 		
 		CommitteeEvent event = new CommitteeEvent();
+		event.setName("Joe");
 		eventRepo.create(event);
 		assertEquals(size + 1, eventRepo.getAll(null).size());
 		assertEquals(event, eventRepo.getById(event.getId()));

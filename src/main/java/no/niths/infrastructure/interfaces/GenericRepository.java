@@ -1,15 +1,7 @@
 package no.niths.infrastructure.interfaces;
 
-import java.util.List;
+import no.niths.common.GenericCRUDActions;
 
-public interface GenericRepository<T> {
-	Long create(T domain);
+public interface GenericRepository<T> extends GenericCRUDActions<T>{
 
-	List<T> getAll(T domain);
-
-	T getById(long id);
-
-	void update(T domain);
-
-	boolean delete(long id);
 }

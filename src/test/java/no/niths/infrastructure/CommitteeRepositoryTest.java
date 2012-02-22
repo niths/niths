@@ -91,6 +91,7 @@ public class CommitteeRepositoryTest {
 	public void testEventJoin(){
 		
 		CommitteeEvent event = new CommitteeEvent();
+		event.setName("Joe");
 		Committee committee = new Committee("LUG", "Linux");
 		committee.getEvents().add(event);
 		

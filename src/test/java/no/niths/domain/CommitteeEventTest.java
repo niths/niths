@@ -1,6 +1,6 @@
 package no.niths.domain;
 
-import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Event;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -33,12 +33,12 @@ public class CommitteeEventTest {
 	@Test
 	public void testCourseValues() {
 
-		CommitteeEvent committeeEvent = new CommitteeEvent("Spillkveld",
+		Event committeeEvent = new Event("Spillkveld",
 				"Utvalg for Fantasiske Fritidssysler har brettspillaften",
 				new GregorianCalendar(),null);
 
 		// Should pass validation
-		Set<ConstraintViolation<CommitteeEvent>> constraintViolations = validator
+		Set<ConstraintViolation<Event>> constraintViolations = validator
 				.validate(committeeEvent);
 
 		assertThat(0, is(equalTo(constraintViolations.size())));
@@ -51,7 +51,7 @@ public class CommitteeEventTest {
 		// Prints the error message
 		logger.debug(constraintViolations.iterator().next().getMessage());
 
-		CommitteeEvent committeeEvent2 = new CommitteeEvent("SK",
+		Event committeeEvent2 = new Event("SK",
 				"Utvalg for Fantasiske Fritidssysler har brettspillaften",
 				new GregorianCalendar(),null);
 		constraintViolations = validator.validate(committeeEvent2);
