@@ -11,6 +11,7 @@ import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 @Transactional
@@ -22,8 +23,7 @@ public class AuthenticationServiceImpl {
 //	@Autowired
 //	private StudentRepository studentRepo;
 	
-	public String login(String googleToken){
-		
+	public String login(String googleToken) {
 		Google google = new GoogleTemplate(googleToken);
 		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
 		String userEmail = profile.getEmail();
