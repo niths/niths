@@ -13,7 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * Controller for subjects
+ *
+ */
 @Controller
 @RequestMapping(AppConstants.SUBJECTS)
 public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> implements SubjectController{
@@ -26,11 +29,17 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
 
 	private SubjectList subjectList = new SubjectList();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericService<Subject> getService() {
 		return service;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ListAdapter<Subject> getList() {
 		return subjectList;
