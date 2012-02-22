@@ -1,5 +1,7 @@
 package no.niths.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import no.niths.domain.Committee;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,9 +19,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class CommitteeTest {
-
+    private static final Long ID = 1L;
+    private static final String NAME = "UFF";
+    private static final String DESCRIPTION = "Utvalg for Fantasiske Fritidssysler";
+    
     private static final Logger logger = LoggerFactory
-            .getLogger(StudentTest.class);
+            .getLogger(CommitteeTest.class);
 
     private static Validator validator;
 
@@ -28,32 +33,104 @@ public class CommitteeTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+    
+    @Test
+    public void testShouldGenerateNewCommittee() {
+        Committee committee = new Committee();
+        committee.setName(NAME);
+        committee.setDescription(DESCRIPTION);
+
+        assertThat(NAME, is(equalTo(committee.getName())));
+        assertThat(DESCRIPTION, is(equalTo(committee.getDescription())));
+        
+        assertThat(false, is(equalTo(committee.isEmpty())));
+    }
 
     @Test
-    public void testCommitteeValues() {
+    public void testTwoEqualCommittees() {
+        Committee committee = new Committee(ID, NAME, DESCRIPTION);
 
-        Committee committee = new Committee("UFF", "Utvalg for Fantasiske Fritidssysler");
+        Committee equalCommittee = committee;
 
-        // Should pass validation
+        assertThat(true, is(equalTo(committee.equals(equalCommittee))));
+    }
+
+    @Test
+    public void testTwoCommitteesWhichIsNotEqual() {
+        Committee committee = new Committee(ID, NAME, DESCRIPTION);
+
+        Committee notEqualCommittee = new Committee(NAME, DESCRIPTION);
+
+        assertThat(false, is(equalTo(committee.equals(notEqualCommittee))));
+    }
+
+    @Test
+    public void testEqualsBetweenNotEqualObjects() {
+        Committee committee = new Committee(ID, NAME, DESCRIPTION);
+
+        Student student = new Student();
+
+        assertThat(false, is(equalTo(committee.equals(student))));
+    }
+    
+    @Test
+    public void testEmptyCommitteeObject() {
+        Committee committee = new Committee();
+
+        assertThat(true, is(equalTo(committee.isEmpty())));
+    }
+
+    @Test
+    public void testCommitteeToString() {
+        Committee committee = new Committee(ID, NAME, DESCRIPTION);
+
+        assertThat(NAME + " " + DESCRIPTION, is(equalTo(committee.toString())));
+    }
+
+    @Test
+    public void testValidationOfCorectCommitteeValues() {
+        Committee committee = new Committee(NAME, DESCRIPTION);
+
         Set<ConstraintViolation<Committee>> constraintViolations = validator
-                .validate(committee);
+                        .validate(committee);
 
-        assertThat(0, is(equalTo(constraintViolations.size())));
+        assertThat(0, is(equalTo(constraintViolations.size())));		
+    }
 
-        // Should not pass validation
-        committee.setName("UF");
+    @Test
+    public void testValidationOfIncorectStudentValues() {
+        Committee committee = new Committee("UF", DESCRIPTION);
+
+        Set<ConstraintViolation<Committee>> constraintViolations = validator
+                        .validate(committee);
+
         constraintViolations = validator.validate(committee);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+        assertThat(1, is(equalTo(constraintViolations.size())));		
+    }
 
-        //Prints the error message
-        logger.debug(constraintViolations.iterator().next().getMessage());
+    @Test
+    public void testGettingEventFromCommittee() {
+        Event event = new Event();
+        
+        List<Event> eventList = new ArrayList<Event>();
+        eventList.add(event);
 
-        Committee committee2 = new Committee("VF", "Utvalg med valideringsfeil");
-        constraintViolations = validator.validate(committee2);
-        assertThat(1, is(equalTo(constraintViolations.size())));
+        Committee committee = new Committee();
+        committee.setEvents(eventList);
 
-        committee2.setName("UUV");
-        constraintViolations = validator.validate(committee2);
-        assertThat(0, is(equalTo(constraintViolations.size())));
+        assertThat(event, is(equalTo(committee.getEvents().get(0))));
+    }
+    
+    @Test
+    public void testGettingStudentLeaderFromCommittee() {
+        Student leader = new Student();
+        
+        List<Student> leaderList = new ArrayList<Student>();
+        leaderList.add(leader);
+
+        Committee committee = new Committee();
+        committee.setLeaders(leaderList);
+
+        assertThat(leader, is(equalTo(committee.getLeaders().get(0))));
     }
 }

@@ -2,7 +2,6 @@ package no.niths.domain;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -23,8 +22,6 @@ import org.slf4j.LoggerFactory;
 public class CourseTest {
     private static final Long ID = 1L;
     private static final String NAME = "Programmering";
-    private static final Integer GRADE = 1;
-    private static final String TERM = "Spring";
     private static final String DESCRIPTION = "Programmeringsfaget";
     
     private static final Logger logger = LoggerFactory
@@ -42,13 +39,9 @@ public class CourseTest {
     public void testShouldGenerateNewCourse() {
         Course course = new Course();
         course.setName(NAME);
-//        course.setGrade(GRADE);
-//        course.setTerm(TERM);
         course.setDescription(DESCRIPTION);
 
         assertThat(NAME, is(equalTo(course.getName())));
-//        assertThat(GRADE, is(equalTo(course.getGrade())));
-//        assertThat(TERM, is(equalTo(course.getTerm())));
         assertThat(DESCRIPTION, is(equalTo(course.getDescription())));
     }
 
@@ -96,11 +89,9 @@ public class CourseTest {
         assertThat(0, is(equalTo(constraintViolations.size())));		
     }
 
-    @Ignore
     @Test
     public void testValidationOfIncorectStudentValues() {
-        Course course = new Course(NAME, DESCRIPTION);
-//        course.setTerm("Winter");
+        Course course = new Course("KM", DESCRIPTION);
 
         Set<ConstraintViolation<Course>> constraintViolations = validator
                         .validate(course);
@@ -109,7 +100,6 @@ public class CourseTest {
         assertThat(1, is(equalTo(constraintViolations.size())));		
     }
 
-    
     @Test
     public void testGettingSubjectFromCourse() {
         Subject subject = new Subject();
@@ -119,14 +109,5 @@ public class CourseTest {
 
         Course course = new Course();
         course.setSubjects(subjectList);
-
-        course.setName("UVF");
-        Set<ConstraintViolation<Course>>  constraintViolations = validator.validate(course);
-        assertThat(0, is(equalTo(constraintViolations.size())));
-        
-        Course c2 = new Course();
-        constraintViolations = validator.validate(c2);
-        assertEquals(0, constraintViolations.size());
-        
     }
 }

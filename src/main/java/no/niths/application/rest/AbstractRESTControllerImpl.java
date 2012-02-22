@@ -19,13 +19,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * Abstract class that holds logic for CRUD operations
+ * on a given domain type
+ * 
+ * @param <T> The type parameter
+ */
 public abstract class AbstractRESTControllerImpl<T> implements
 		GenericRESTController<T> {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AbstractRESTControllerImpl.class);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
@@ -34,6 +42,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		getService().create(domain);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = { "{id}" }, 
 		method = RequestMethod.GET, 
@@ -46,6 +57,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		return domain;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -60,6 +74,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		return getList();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Update ok")
@@ -74,6 +91,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
@@ -84,8 +104,18 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	}
 
+	/**
+	 * Represents the service
+	 * 
+	 * @return the service of a given type
+	 */
 	public abstract GenericService<T> getService();
 
+	/**
+	 * Adapter for xml presentation of a list
+	 * 
+	 * @return Arraylist of a given type
+	 */
 	public abstract ListAdapter<T> getList();
 
 }
