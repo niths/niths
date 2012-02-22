@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.common.JsonDateAdapter;
-import no.niths.common.XmlCharAdapter;
-import no.niths.common.XmlDateAdapter;
+import no.niths.domain.adapter.JsonDateAdapter;
+import no.niths.domain.adapter.XmlCharAdapter;
+import no.niths.domain.adapter.XmlDateAdapter;
 import no.niths.domain.constraints.StudentGender;
 
 import org.codehaus.jackson.annotate.JsonIgnore;

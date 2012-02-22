@@ -1,8 +1,10 @@
-package no.niths.common;
+package no.niths.domain.adapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.JsonSerializer;

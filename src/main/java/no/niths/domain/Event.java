@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.common.JsonCalendarAdapter;
-import no.niths.common.XmlCalendarAdapter;
+import no.niths.domain.adapter.JsonCalendarAdapter;
+import no.niths.domain.adapter.XmlCalendarAdapter;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;

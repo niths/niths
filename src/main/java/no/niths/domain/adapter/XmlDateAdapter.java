@@ -1,10 +1,12 @@
-package no.niths.common;
+package no.niths.domain.adapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import no.niths.common.AppConstants;
 
 public class XmlDateAdapter extends XmlAdapter<String,Date>{
 

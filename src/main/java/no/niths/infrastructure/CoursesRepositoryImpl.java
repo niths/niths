@@ -4,14 +4,14 @@ import java.util.List;
 
 import no.niths.domain.Course;
 import no.niths.domain.Student;
-import no.niths.infrastructure.interfaces.CoursesRepository;
+import no.niths.infrastructure.interfaces.CourseRepository;
 
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CoursesRepositoryImpl extends GenericRepositoryImpl<Course>
-		implements CoursesRepository {
+		implements CourseRepository {
 
 	public CoursesRepositoryImpl() {
 		super(Course.class);

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CommitteeEventsServiceImpl implements CommitteeEventsService  {
+public class CommitteeEventServiceImpl implements CommitteeEventsService  {
    
     @Autowired
     private CommitteeEventRepositorty repo;

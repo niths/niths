@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.domain.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

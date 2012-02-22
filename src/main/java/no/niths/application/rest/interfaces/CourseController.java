@@ -7,10 +7,9 @@ import no.niths.domain.Subject;
 
 public interface CourseController extends GenericRESTController<Course> {
 
-	List<Subject> getCourseSubjects(Long id);
-	public Course getCourse(String name,
-			Integer grade, String term);
-	
-	public void addSubjectToCourse(Long courseId,Long subjectId);
-	public void notUniqueObject() ;
+	public List<Subject> getCourseSubjects(Long id);
+
+	public void addSubjectToCourse(Long courseId, Long subjectId);
+
+	public void notUniqueObject();
 }
