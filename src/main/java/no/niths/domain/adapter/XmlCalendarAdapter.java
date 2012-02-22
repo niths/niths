@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.domain.adapter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import no.niths.common.AppConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

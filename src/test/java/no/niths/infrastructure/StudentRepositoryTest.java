@@ -12,7 +12,7 @@ import no.niths.domain.Course;
 import no.niths.domain.Mentor;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
-import no.niths.infrastructure.interfaces.CoursesRepository;
+import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class StudentRepositoryTest {
 	private StudentRepository studentRepo;
 
 	@Autowired
-	private CoursesRepository courseRepo;
+	private CourseRepository courseRepo;
 
 	@Autowired
 	private CommitteeRepositorty comRepo;

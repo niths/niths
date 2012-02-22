@@ -38,7 +38,7 @@ public class Subject implements Serializable {
     
     @Column(unique = true, name = "topic_code")
     @Size(min = 2, max = 10, message ="The length of the topic code must be between 2 to 10 letters")
-    private String topicCode;
+    private String subjectCode;
 	
     @Column(length=500)
     @Size(max = 500, message ="The length of the description must not exceed 500 letters")
@@ -74,7 +74,7 @@ public class Subject implements Serializable {
     
     @JsonIgnore
     public boolean isEmpty(){
-    	return (id == null && name == null && topicCode == null && description ==  null
+    	return (id == null && name == null && subjectCode == null && description ==  null
     			&& weekday == null && startTime == null && endTime == null);
     }
 
@@ -104,11 +104,11 @@ public class Subject implements Serializable {
 	}
 
 	public String getTopicCode() {
-		return topicCode;
+		return subjectCode;
 	}
 
 	public void setTopicCode(String topicCode) {
-		this.topicCode = topicCode;
+		this.subjectCode = topicCode;
 	}
 
 	public String getDescription() {

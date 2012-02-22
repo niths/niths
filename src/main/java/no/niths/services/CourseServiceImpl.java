@@ -3,7 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Course;
-import no.niths.infrastructure.interfaces.CoursesRepository;
+import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.services.interfaces.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CourseServiceImpl implements CourseService{
 
     @Autowired
-    private CoursesRepository repo;
+    private CourseRepository repo;
 
     public Long create(Course course) {
         return repo.create(course);
@@ -44,16 +44,5 @@ public class CourseServiceImpl implements CourseService{
     public boolean delete(long id) {
         return repo.delete(id);
     }
-
-	@Override
-	public Course getCourse(String name, Integer grade, String term) {
-			
-		Course course = repo.getCourse(name, grade, term);
-		if(course !=null){
-			course.getSubjects().size();
-			
-		}
-		return course;
-	}
 
 }

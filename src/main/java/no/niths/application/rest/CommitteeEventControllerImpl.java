@@ -1,6 +1,6 @@
 package no.niths.application.rest;
 
-import no.niths.application.rest.interfaces.CommitteeEventsController;
+import no.niths.application.rest.interfaces.CommitteeEventController;
 import no.niths.application.rest.lists.CommitteeEventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(AppConstants.EVENTS)
-public class CommitteeEventsControllerImpl extends
+public class CommitteeEventControllerImpl extends
 		AbstractRESTControllerImpl<CommitteeEvent>
-		implements CommitteeEventsController {
+		implements CommitteeEventController {
 
 	@Autowired
 	private CommitteeEventsService service;
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(CommitteeEventsControllerImpl.class);
+			.getLogger(CommitteeEventControllerImpl.class);
 	
 	private CommitteeEventList committeeEventList = new CommitteeEventList();
 	

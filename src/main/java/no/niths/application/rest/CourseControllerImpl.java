@@ -59,27 +59,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	}
 
 	/**
-	 * Returns a course with topics
-	 * 
-	 * @param name
-	 *            name of course
-	 * @param grade
-	 *            the year 1,2 or 3
-	 * @param term
-	 *            fall or spring
-	 * @return
-	 */
-	@RequestMapping(value = "{name}/{grade}/{term}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public Course getCourse(@PathVariable String name,
-			@PathVariable Integer grade, @PathVariable String term) {
-		Course course = courseService.getCourse(name, grade, term);
-		if (course == null)
-			throw new ObjectNotFoundException("Did not find any courses");
-		return course;
-	}
-
-	/**
 	 * Adds a topic to a course
 	 * 
 	 * @param courseId
