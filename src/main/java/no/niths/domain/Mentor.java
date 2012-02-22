@@ -1,15 +1,12 @@
 package no.niths.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,15 +24,11 @@ public class Mentor implements Serializable {
 	private static final long serialVersionUID = -3434555328809873472L;
 	
 	@Id
-	@Column(name="identifier")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 		
-	@Column(nullable=false,name="group_id")
+	@Column(name="group_id")
 	private int groupId;
-	
-	@OneToMany(targetEntity=Student.class)
-	private List<Student> mentors = new ArrayList<Student>();
 	
 	public Mentor() {
 		this(0);
@@ -61,13 +54,4 @@ public class Mentor implements Serializable {
 		this.id = id;
 	}
 
-	public List<Student> getMentors() {
-		return mentors;
-	}
-
-	public void setMentors(List<Student> mentors) {
-		this.mentors = mentors;
-	}
-	
-	
 }

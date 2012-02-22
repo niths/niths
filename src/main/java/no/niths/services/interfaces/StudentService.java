@@ -13,4 +13,8 @@ public interface StudentService extends GenericService<Student> {
 	public List<Student> getAllMentors();
 	
 	public List<Student> getMentorsByGroupe(int groupId);
+	
+	public void removeStudentFromMentorGroup(Student student,int groupId);
+	
+	public void removeStudentFromAllMentorGroups(Student student);
 }

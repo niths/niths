@@ -32,4 +32,22 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 				.setString("email", email)
 				.uniqueResult();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Student> getAllMentors() {
+		String sql = "from " + Student.class.getSimpleName()
+				+ " s join fetch s.mentors";
+		return getSession().getCurrentSession().createQuery(sql)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Student> getMentorsByGroupe(int groupId) {
+		String sql = "from " + Student.class.getSimpleName()
+				+ " s join fetch s.mentors m where m.groupId=:gid";
+		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
 }

@@ -7,7 +7,11 @@ import no.niths.domain.Student;
 
 public interface StudentRepository extends GenericRepository<Student>{
 
-	List<Student> getStudentsWithNamedCourse(String name);
+	public List<Student> getStudentsWithNamedCourse(String name);
 	
-	Student getStudentByEmail(String email);
+	public Student getStudentByEmail(String email);
+	
+	public List<Student> getAllMentors();
+
+	public List<Student> getMentorsByGroupe(int groupId) ;
 }

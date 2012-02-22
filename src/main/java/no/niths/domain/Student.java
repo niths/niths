@@ -11,12 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -34,6 +37,9 @@ import no.niths.domain.constraints.StudentGender;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -94,11 +100,18 @@ public class Student implements Serializable {
 	private String description;
 
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
 	private List<Course> courses = new ArrayList<Course>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	private List<Committee> committees = new ArrayList<Committee>();;
+	
+	@ManyToMany(fetch = FetchType.LAZY,targetEntity = Mentor.class)
+	@Cascade(CascadeType.ALL)
+    @JoinTable(
+    		name="students_mentors",
+    		uniqueConstraints={@UniqueConstraint(columnNames ={"mentors_id", "students_id"})} )
+	private List<Mentor> mentors = new ArrayList<Mentor>();
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
@@ -256,5 +269,13 @@ public class Student implements Serializable {
 		String s = "{\"name\":\"" + firstName + "\",\"id\"";
 
 		return s;
+	}
+
+	public List<Mentor> getMentors() {
+		return mentors;
+	}
+
+	public void setMentors(List<Mentor> mentors) {
+		this.mentors = mentors;
 	}
 }

@@ -9,6 +9,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
+import no.niths.domain.Mentor;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CoursesRepository;
@@ -19,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -147,6 +147,31 @@ public class StudentRepositoryTest {
 		
 	}
 	
+	@Test
+	public void testGetAllStudentMentors(){
+		List<Student> studs = createStudentHelper();
+				
+		studs.get(0).getMentors().add(new Mentor(1));
+		studs.get(0).getMentors().add(new Mentor(2));
+		studs.get(0).getMentors().add(new Mentor(3));
+		studs.get(1).getMentors().add(new Mentor(2));
+		
+		studentRepo.update(studs.get(0));
+		studentRepo.update(studs.get(1));
+		
+		
+		List<Student> students = studentRepo.getAllMentors();
+		
+		assertEquals(2, students.size());
+		assertEquals(3,students.get(0).getMentors().size());
+		
+		System.out.println(students.get(0).getFirstName());
+		
+		students = studentRepo.getMentorsByGroupe(2);
+
+		assertEquals(2, students.size());	
+	}
+	
 	private ArrayList<Student>createStudentHelper(){
 		ArrayList<Student> students = new ArrayList<Student>();
 		
@@ -160,4 +185,6 @@ public class StudentRepositoryTest {
 		}
 		return students;
 	}
+	
+	
 }
