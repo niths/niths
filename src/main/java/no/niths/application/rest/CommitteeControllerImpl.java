@@ -55,6 +55,7 @@ public class CommitteeControllerImpl extends
 	 * Adds a leader to a committee
 	 * 
 	 * @param committeeId
+	 *            The id of the committee
 	 * @param studentId
 	 *            The id of the student to add as leader
 	 */
@@ -91,7 +92,7 @@ public class CommitteeControllerImpl extends
 		ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
 		committee.getLeaders().remove(studentLeader);
 		committeeService.update(committee);
-	}	
+	}
 
 	/**
 	 * Catches constraint violation exceptions Ex: Leader already added to
@@ -99,7 +100,8 @@ public class CommitteeControllerImpl extends
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject() {	}
+	public void notUniqueObject() {
+	}
 
 	@Override
 	public GenericService<Committee> getService() {
