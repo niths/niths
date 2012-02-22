@@ -1,9 +1,15 @@
 USE niths;
 
-INSERT INTO subjects (topic_code, name, description, start_time, end_time, weekday) values('PG111', "Java 1", "Innføring i java", '10:00', '11:00', "Monday"); 
-INSERT INTO subjects (topic_code, name, description, start_time, end_time, weekday) values('PG211', "Java 2", "Innføring i java 2", '11:00', '12:00', "Monday");
-INSERT INTO subjects (topic_code, name, description, start_time, end_time, weekday) values('BU410', "E-Business", "Skolen sparer penger", '10:00', '11:00', "Tuesday");
-INSERT INTO subjects (topic_code, name, description, start_time, end_time, weekday) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00', '17:00', "Friday");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', "Java 1", "Innføring i java", '10:00', '11:00', "Monday","81"); 
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', "Java 2", "Innføring i java 2", '11:00', '12:00', "Monday","43");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('BU410', "E-Business", "Skolen sparer penger", '10:00', '11:00', "Tuesday","12");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('DB110', "Database 01", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PB210', "Database 02", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG650', "J2E del 01", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG660', "J2E del 02", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ600', "Hovedprosjekt", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+
 
 INSERT INTO courses (name, description) VALUES("Mobil apputvikling", "Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.");
 INSERT INTO courses (name, description) VALUES("Programmering", "I dag brukes IT og Internett i alt fra handel, kommunikasjon, overvåking og spill til betaling.");
@@ -14,7 +20,7 @@ INSERT INTO courses (name, description) VALUES("Interaktivt design", "Det er i d
 INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny generasjon av sosiale elektroniske nettverk gjør Internett til en av våre viktigste kommunikasjonskanaler.");
 INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
-INSERT INTO courses (name, description, grade, term) values ("Spillspilling", "Lær å spille spill", 1, "Fall");
+
 
 insert into courses_subjects values(1,1);
 insert into courses_subjects values(1,2);
@@ -25,9 +31,10 @@ insert into courses_subjects values(3,1);
 insert into courses_subjects values(3,2);
 insert into courses_subjects values(3,3);
 insert into courses_subjects values(4,4);
-insert into courses_subjects values(10,1);
-insert into courses_subjects values(10,2);
-insert into courses_subjects values(10,3);
+insert into courses_subjects values(4,1);
+insert into courses_subjects values(4,2);
+insert into courses_subjects values(4,3);
+insert into courses_subjects values(4,5);
 
 
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");

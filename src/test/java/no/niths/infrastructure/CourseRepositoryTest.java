@@ -86,7 +86,7 @@ public class CourseRepositoryTest {
 
 		Course c1 = new Course("Programmering", "Java, c++");
 		Subject t1 = new Subject();
-		t1.setTopicCode("PG111");
+		t1.setSubjectCode("PG111");
 		c1.getSubjects().add(t1);
 		repo.create(c1);
 		

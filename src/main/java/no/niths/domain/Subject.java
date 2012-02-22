@@ -36,7 +36,7 @@ public class Subject implements Serializable {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
     
-    @Column(unique = true, name = "topic_code")
+    @Column(unique = true, name = "subject_code")
     @Size(min = 2, max = 10, message ="The length of the topic code must be between 2 to 10 letters")
     private String subjectCode;
 	
@@ -66,7 +66,7 @@ public class Subject implements Serializable {
     
     public Subject(String name, String topicCode, String description, String startTime, String endTime){
     	setName(name);
-    	setTopicCode(topicCode);
+    	setSubjectCode(topicCode);
     	setDescription(description);
     	setStartTime(startTime);
     	setEndTime(endTime);
@@ -77,8 +77,7 @@ public class Subject implements Serializable {
     	return (id == null && name == null && subjectCode == null && description ==  null
     			&& weekday == null && startTime == null && endTime == null);
     }
-
-    
+ 
 	public String getRoomNumber() {
 		return roomNumber;
 	}
@@ -103,12 +102,12 @@ public class Subject implements Serializable {
 		this.name = name;
 	}
 
-	public String getTopicCode() {
+	public String getSubjectCode() {
 		return subjectCode;
 	}
 
-	public void setTopicCode(String topicCode) {
-		this.subjectCode = topicCode;
+	public void setSubjectCode(String code) {
+		this.subjectCode = code;
 	}
 
 	public String getDescription() {
