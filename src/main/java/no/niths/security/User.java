@@ -5,10 +5,17 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+/**
+ * Simple wrapper class for authenticated user
+ *
+ */
 public class User implements UserDetails{
 
-	private boolean isAuth;
+	private static final long serialVersionUID = -4668876556049860936L;
+	
+	private String roleName = "ROLE_USER";
+	
+	@SuppressWarnings("serial")
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
         //make everyone ROLE_USER
@@ -16,12 +23,17 @@ public class User implements UserDetails{
         GrantedAuthority grantedAuthority = new GrantedAuthority() {
             //anonymous inner type
             public String getAuthority() {
-                return "ROLE_ADMIN";
+                return roleName;
             }
         }; 
         grantedAuthorities.add(grantedAuthority);
         return grantedAuthorities;
     }
+	
+	public void setRoleName(String roleName){
+		this.roleName = roleName;
+	}
+	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

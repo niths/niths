@@ -2,6 +2,7 @@ package no.niths.services;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.User;
 import no.niths.services.interfaces.AuthenticationService;
@@ -44,18 +45,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		
 		String userEmail = profile.getEmail();
 		logger.debug("User trying to log in with email: " + userEmail);
-		
+		User user = new User();
 		if(isUserValid(userEmail)){
 			Student temp = studentRepo.getStudentByEmail(userEmail);
 			if(temp == null){
 				logger.info("Student does not exsist, creating a new student");
 				temp = createStudentWithEmail(userEmail);
 			}
-			//TODO: Get ROLE of student
-			return new User();
-		}else{
-			return null;
+			//Getting the role of the student
+			Role role = temp.getRole();
+			if(role != null){
+				logger.info("Student logging in has role: " + role.getRoleName());
+				user.setRoleName(role.getRoleName());
+			}
 		}
+		return user;
 	}
 	
 	//Persist a student with an email
