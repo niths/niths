@@ -39,7 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return getUser(profile);
 	}
 	
-	//Get the user from DB, persists if non excisting and if valid email
+	//Get the user from DB, persists if non existing and if valid email
 	private User getUser(LegacyGoogleProfile profile){
 		
 		String userEmail = profile.getEmail();
