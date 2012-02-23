@@ -26,7 +26,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>no.niths</param-value>
+		<param-value>no.niths.common.config</param-value>
 	</context-param>
 	<!-- <context-param> <param-name>spring.profiles.active</param-name> <param-value>jpa</param-value> 
 		</context-param> -->
@@ -44,7 +44,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>no.niths.common.config</param-value>
+			<param-value>no.niths.application</param-value>
 		</init-param>
 
 		<load-on-startup>1</load-on-startup>

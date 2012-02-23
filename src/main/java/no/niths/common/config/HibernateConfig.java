@@ -5,6 +5,8 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"no.niths.domain", "no.niths.infrastructure"})
+@ComponentScan({"no.niths.services", "no.niths.infrastructure"})
 public class HibernateConfig{
 
     private final String DRIVER       = "jdbc.driver.class_name",
@@ -90,5 +92,10 @@ public class HibernateConfig{
    @Bean
    public PersistenceExceptionTranslator exceptionTranslator() {
 	   return new HibernateExceptionTranslator();
+   }
+   
+   @Bean
+   public ApplicationListener<ApplicationEvent> appListener(){
+	   return new AppStartupDatabasePopulator();
    }
 }
