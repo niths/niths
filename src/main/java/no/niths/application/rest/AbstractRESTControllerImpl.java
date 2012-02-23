@@ -10,9 +10,12 @@ import no.niths.common.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
 import org.hibernate.TransientObjectException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -115,5 +118,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * @return Arraylist of a given type
 	 */
 	public abstract ListAdapter<T> getList();
+	
+	/**
+	 * Catches constraint violation exceptions Ex: Leader already added to
+	 * committee
+	 */
+	@ExceptionHandler(ConstraintViolationException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
+	public void notUniqueObject() {
+	}
 
 }
