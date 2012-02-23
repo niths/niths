@@ -37,8 +37,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
-	public void create(T domain) { 	
-		logger.info("method used");
+	public void create(@RequestBody T domain) { 	
 		getService().create(domain);
 	}
 
@@ -64,7 +63,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public ArrayList<T> getAll(T domain) {
-		logger.info("method used");
 		getList().clear();
 		getList().addAll(getService().getAll(domain));
 		getList().setData(getList());

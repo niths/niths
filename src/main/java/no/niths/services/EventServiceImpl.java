@@ -6,46 +6,61 @@ import no.niths.domain.Event;
 import no.niths.infrastructure.interfaces.EventRepositorty;
 import no.niths.services.interfaces.EventsService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class EventServiceImpl implements EventsService  {
-   
-    @Autowired
-    private EventRepositorty repo;
+public class EventServiceImpl implements EventsService {
+	private static final Logger logger = LoggerFactory
+			.getLogger(EventServiceImpl.class);
 
-    public Long create(Event committeeEvents) {
-        return repo.create(committeeEvents);
-    }
+	@Autowired
+	private EventRepositorty repo;
 
-    public List<Event> getAll(Event event) {
-    	List<Event> events = repo.getAll(event);
+	public Long create(Event committeeEvents) {
+		return repo.create(committeeEvents);
+	}
 
-    	for (int i = 0; i < events.size(); i++) {
-    		events.get(i).setCommittee(null);
+	public List<Event> getAll(Event event) {
+		List<Event> events = repo.getAll(event);
+
+		for (int i = 0; i < events.size(); i++) {
+			events.get(i).setCommittee(null);
 		}
-        return events;
-    }
-    
-    public Event getById(long id) {
-    	Event event = repo.getById(id);
-    
-    	if(event != null){
-    		event.getCommittee();
-    	}
-    	
-        return event;
-    }
-    
-    public void update(Event committeeEvents) {
-        repo.update(committeeEvents);
-        
-    }
-   
-    public boolean delete(long eid) {
-        return repo.delete(eid);
-    }
+		return events;
+	}
+
+	public Event getById(long id) {
+		Event event = repo.getById(id);
+
+		if (event != null) {
+			event.getCommittee();
+		}
+
+		return event;
+	}
+
+	public void update(Event committeeEvents) {
+		repo.update(committeeEvents);
+
+	}
+
+	public boolean delete(long eid) {
+		return repo.delete(eid);
+	}
+
+	@Override
+	public List<Event> getEventsByTag(String tag) {
+		List<Event> events = repo.getEventsByTag(tag);
+		for (int i = 0; i < events.size(); i++) {
+			events.get(i).setCommittee(null);
+		}
+		
+		logger.debug(""+events.size());
+		return events;
+	}
 }

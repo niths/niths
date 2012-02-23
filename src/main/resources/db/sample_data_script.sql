@@ -53,12 +53,13 @@ INSERT INTO committee_leaders VALUES (2, 2);
 INSERT INTO committee_leaders VALUES (3, 3);
 INSERT INTO committee_leaders VALUES (4, 4);
 
-INSERT INTO events (name,description,startTime,endTime,dtype) VALUES("LUG event"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"CommitteeEvent");
-INSERT INTO events (name,description,startTime,endTime) VALUES("Fest i Kroa"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
-INSERT INTO events (name,description,startTime,endTime) VALUES("Workshop"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
-INSERT INTO events (name,description,startTime,endTime) VALUES("Årsmøte"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
-INSERT INTO events (name,description,startTime,endTime) VALUES("Gjesteforelser"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
-INSERT INTO events (name,description,startTime,endTime) VALUES("AAAA"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32'"Android, workshop");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke");
 
 insert into students_committees (students_id, committees_id) values(1, 1);
 insert into students_committees (students_id, committees_id) values(1, 2);

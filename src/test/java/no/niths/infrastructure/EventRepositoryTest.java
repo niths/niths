@@ -3,10 +3,10 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Event;
 import no.niths.domain.Event;
 import no.niths.infrastructure.interfaces.EventRepositorty;
 
@@ -15,22 +15,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
-
-//@TransactionConfiguration(transactionManager = "transactionManager")  
 public class EventRepositoryTest {
 	
 	@Autowired
 	private EventRepositorty eventRepo;
 
 	@Test
-	
 	public void testCRUD() {
 		// create
 		int size = eventRepo.getAll(null).size();
@@ -53,9 +49,8 @@ public class EventRepositoryTest {
 		
 	}
 
-	
 	@Test
-	public void testGetAllWithCreateCritera(){
+	public void testGetAllWithParams(){
 		
 		GregorianCalendar cal = new GregorianCalendar(2012,11,23,22,21,23);
 		Event c1 = new Event("LUG Party", "Linux", null,null);
@@ -75,5 +70,29 @@ public class EventRepositoryTest {
 		assertEquals(1, eventRepo.getAll(c4).size());
 		
 		assertEquals(3, eventRepo.getAll(new Event()).size());
+	}
+	
+	@Test
+	public void testGetEventsByTag(){
+		GregorianCalendar cal = new GregorianCalendar(2012,11,23,22,21,23);
+		Event c1 = new Event("LUG Party", "Linux", null,null);
+		Event c2 = new Event("Halloween Fest", "Skummelt selskap", null,null);
+		Event c3 = new Event("Party", "Rock on brah", cal,null);
+		
+		c1.setTags("Linux, FUDORA, KROA");
+		c2.setTags("FadderUKA, Kroa");
+		c3.setTags("LAX");
+		eventRepo.create(c1);
+		eventRepo.create(c2);
+		eventRepo.create(c3);
+		
+		List<Event> e = eventRepo.getEventsByTag("L");
+		assertEquals(2, e.size());
+		
+		e = eventRepo.getEventsByTag("Kroa&U");
+		assertEquals(2, e.size());
+		
+		e = eventRepo.getEventsByTag("a");
+		assertEquals(3, e.size());
 	}
 }
