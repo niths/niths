@@ -6,9 +6,9 @@ import java.util.GregorianCalendar;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.CommitteeEvent;
 import no.niths.domain.Event;
-import no.niths.infrastructure.interfaces.CommitteeEventRepositorty;
+import no.niths.domain.Event;
+import no.niths.infrastructure.interfaces.EventRepositorty;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,10 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 
 //@TransactionConfiguration(transactionManager = "transactionManager")  
-public class CommitteeEventsRepositoryTest {
+public class EventRepositoryTest {
 	
 	@Autowired
-	private CommitteeEventRepositorty eventRepo;
+	private EventRepositorty eventRepo;
 
 	@Test
 	
@@ -35,7 +35,7 @@ public class CommitteeEventsRepositoryTest {
 		// create
 		int size = eventRepo.getAll(null).size();
 		
-		CommitteeEvent event = new CommitteeEvent();
+		Event event = new Event();
 		event.setName("Joe");
 		eventRepo.create(event);
 		assertEquals(size + 1, eventRepo.getAll(null).size());
@@ -58,9 +58,9 @@ public class CommitteeEventsRepositoryTest {
 	public void testGetAllWithCreateCritera(){
 		
 		GregorianCalendar cal = new GregorianCalendar(2012,11,23,22,21,23);
-		CommitteeEvent c1 = new CommitteeEvent("LUG Party", "Linux", null,null);
-		CommitteeEvent c2 = new CommitteeEvent("Halloween Fest", "Skummelt selskap", null,null);
-		CommitteeEvent c3 = new CommitteeEvent("Party", "Rock on brah", cal,null);
+		Event c1 = new Event("LUG Party", "Linux", null,null);
+		Event c2 = new Event("Halloween Fest", "Skummelt selskap", null,null);
+		Event c3 = new Event("Party", "Rock on brah", cal,null);
 		
 		eventRepo.create(c1);
 		eventRepo.create(c2);
@@ -70,10 +70,10 @@ public class CommitteeEventsRepositoryTest {
 		c1.setDescription(null);
 		assertEquals(1, eventRepo.getAll(c1).size());
 	
-		CommitteeEvent c4 = new CommitteeEvent();
+		Event c4 = new Event();
 		c4.setStartTime(cal);
 		assertEquals(1, eventRepo.getAll(c4).size());
 		
-		assertEquals(3, eventRepo.getAll(new CommitteeEvent()).size());
+		assertEquals(3, eventRepo.getAll(new Event()).size());
 	}
 }

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +35,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Table(name = AppConstants.EVENTS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE )
 public class Event implements Serializable {
 
 	@Transient
@@ -64,6 +64,14 @@ public class Event implements Serializable {
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar endTime;
 
+	@Column(name="tags")
+	private String tags;
+	
+	@ManyToOne
+	private Committee committee;
+	
+	
+	
 	public Event() {
 		this(null, null, null, null, null);
 	}
@@ -142,5 +150,21 @@ public class Event implements Serializable {
 
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
+	}
+
+	public Committee getCommittee() {
+		return committee;
+	}
+
+	public void setCommittee(Committee committee) {
+		this.committee = committee;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }

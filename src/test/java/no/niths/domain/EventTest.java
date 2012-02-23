@@ -15,12 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EventTest {
-        private static final Long ID = 1L;
-        private static final String NAME = "Spillkveld";
-        private static final String DESCRIPTION = "Utvalg for Fantasiske Fritidssysler har brettspillaften";
-        private static final GregorianCalendar START_TIME = new GregorianCalendar();
-        private static final GregorianCalendar END_TIME = new GregorianCalendar();
-	
+	private static final Long ID = 1L;
+	private static final String NAME = "Spillkveld";
+	private static final String DESCRIPTION = "Utvalg for Fantasiske Fritidssysler har brettspillaften";
+	private static final GregorianCalendar START_TIME = new GregorianCalendar();
+	private static final GregorianCalendar END_TIME = new GregorianCalendar();
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(EventTest.class);
 
@@ -31,56 +31,56 @@ public class EventTest {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-        
-        @Test
-        public void testShouldGenerateNewEvent() {
-                Event event = new Event();
-                event.setName(NAME);
-                event.setDescription(DESCRIPTION);
-                event.setStartTime(START_TIME);
-                event.setEndTime(END_TIME);
 
-                assertThat(NAME, is(equalTo(event.getName())));
-                assertThat(DESCRIPTION, is(equalTo(event.getDescription())));
-                assertThat(START_TIME, is(equalTo(event.getStartTime())));
-                assertThat(END_TIME, is(equalTo(event.getEndTime())));
-                
-                assertThat(false, is(equalTo(event.isEmpty())));
-        }
-        
-        @Test
-        public void testTwoEqualEvents() {
-                Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
-                
-                Event equalEvent = event;
-                
-                assertThat(true, is(equalTo(event.equals(equalEvent))));
-        }
-        
-        @Test
-        public void testTwoEventsWhichIsNotEqual() {
-                Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
-                
-                Event notEqualEvent = new Event(NAME, DESCRIPTION, START_TIME, END_TIME);
-                
-                assertThat(false, is(equalTo(event.equals(notEqualEvent))));
-        }
-        
-        @Test
-        public void testEqualsBetweenNotEqualObjects() {
-                Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
-                
-                Course course = new Course();
-                
-                assertThat(false, is(equalTo(event.equals(course))));
-        }
-        
-        @Test
-        public void testEmptyEventObject() {
-                Event event = new Event();
-                
-                assertThat(true, is(equalTo(event.isEmpty())));
-        }
+	@Test
+	public void testShouldGenerateNewEvent() {
+		Event event = new Event();
+		event.setName(NAME);
+		event.setDescription(DESCRIPTION);
+		event.setStartTime(START_TIME);
+		event.setEndTime(END_TIME);
+
+		assertThat(NAME, is(equalTo(event.getName())));
+		assertThat(DESCRIPTION, is(equalTo(event.getDescription())));
+		assertThat(START_TIME, is(equalTo(event.getStartTime())));
+		assertThat(END_TIME, is(equalTo(event.getEndTime())));
+
+		assertThat(false, is(equalTo(event.isEmpty())));
+	}
+
+	@Test
+	public void testTwoEqualEvents() {
+		Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
+
+		Event equalEvent = event;
+
+		assertThat(true, is(equalTo(event.equals(equalEvent))));
+	}
+
+	@Test
+	public void testTwoEventsWhichIsNotEqual() {
+		Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
+
+		Event notEqualEvent = new Event(NAME, DESCRIPTION, START_TIME, END_TIME);
+
+		assertThat(false, is(equalTo(event.equals(notEqualEvent))));
+	}
+
+	@Test
+	public void testEqualsBetweenNotEqualObjects() {
+		Event event = new Event(ID, NAME, DESCRIPTION, START_TIME, END_TIME);
+
+		Course course = new Course();
+
+		assertThat(false, is(equalTo(event.equals(course))));
+	}
+
+	@Test
+	public void testEmptyEventObject() {
+		Event event = new Event();
+
+		assertThat(true, is(equalTo(event.isEmpty())));
+	}
 
 	@Test
 	public void testValidationOfCorectEventValues() {
@@ -88,11 +88,11 @@ public class EventTest {
 
 		Set<ConstraintViolation<Event>> constraintViolations = validator
 				.validate(event);
-                
-                assertThat(0, is(equalTo(constraintViolations.size())));		
+
+		assertThat(0, is(equalTo(constraintViolations.size())));
 	}
-        
-        @Test
+
+	@Test
 	public void testValidationOfIncorectEventValues() {
 		Event event = new Event("SK", DESCRIPTION, START_TIME, END_TIME);
 
@@ -100,6 +100,16 @@ public class EventTest {
 				.validate(event);
 
 		constraintViolations = validator.validate(event);
-		assertThat(1, is(equalTo(constraintViolations.size())));		
+		assertThat(1, is(equalTo(constraintViolations.size())));
+	}
+
+	@Test
+	public void testGettingCommitteeFromCommitteeEvent() {
+		Committee committee = new Committee();
+
+		Event committeeEvent = new Event();
+		committeeEvent.setCommittee(committee);
+
+		assertThat(committee, is(equalTo(committeeEvent.getCommittee())));
 	}
 }
