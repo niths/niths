@@ -7,4 +7,6 @@ public final class AppConstants {
 			STUDENTS = "students", SUBJECTS = "subjects", EVENTS = "events",
 			CALENDAR_FORMAT= "dd/MM/yyyy-HH:mm",DATE_FORMAT="dd/MM/yyyy",EVENT="event",MENTORS="mentors";
 	
+	public static final String VALID_EMAIL_DOMAIN = "nith.no";
+	
 }
