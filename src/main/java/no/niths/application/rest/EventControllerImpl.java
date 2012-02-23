@@ -1,11 +1,11 @@
 package no.niths.application.rest;
 
-import no.niths.application.rest.interfaces.CommitteeEventController;
-import no.niths.application.rest.lists.CommitteeEventList;
+import no.niths.application.rest.interfaces.EventController;
+import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
-import no.niths.domain.CommitteeEvent;
-import no.niths.services.interfaces.CommitteeEventsService;
+import no.niths.domain.Event;
+import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
 
 import org.slf4j.Logger;
@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping(AppConstants.EVENTS)
-public class CommitteeEventControllerImpl extends
-		AbstractRESTControllerImpl<CommitteeEvent>
-		implements CommitteeEventController {
+public class EventControllerImpl extends
+		AbstractRESTControllerImpl<Event>
+		implements EventController {
 
 	@Autowired
-	private CommitteeEventsService service;
+	private EventsService service;
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(CommitteeEventControllerImpl.class);
+			.getLogger(EventControllerImpl.class);
 	
-	private CommitteeEventList committeeEventList = new CommitteeEventList();
+	private EventList committeeEventList = new EventList();
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GenericService<CommitteeEvent> getService() {
+	public GenericService<Event> getService() {
 		return service;
 	}
 
@@ -43,7 +43,7 @@ public class CommitteeEventControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ListAdapter<CommitteeEvent> getList() {
+	public ListAdapter<Event> getList() {
 		return committeeEventList;
 	}
 }

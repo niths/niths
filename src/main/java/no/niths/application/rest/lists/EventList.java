@@ -8,22 +8,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.CommitteeEvent;
+import no.niths.domain.Event;
 
 @XmlRootElement(name = AppConstants.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CommitteeEventList extends ListAdapter<CommitteeEvent>{
+public class EventList extends ListAdapter<Event>{
     private static final long serialVersionUID = 3045223036129251886L;
     
     @XmlElement(name="event")
-    private List<CommitteeEvent> eventData;
+    private List<Event> eventData;
 
     @Override
-    public void setData(List<CommitteeEvent> data) {
+    public void setData(List<Event> data) {
         this.eventData = data;
     }
     
-    public List<CommitteeEvent> getData(){
+    public List<Event> getData(){
     	return eventData;
     }
 }
