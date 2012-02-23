@@ -72,7 +72,6 @@ public class AdminControllerImpl extends AbstractRESTControllerImpl<Role> implem
 	 */
 	@Override
 	public GenericService<Role> getService() {
-		// TODO Auto-generated method stub
 		return roleService;
 	}
 	
@@ -81,7 +80,6 @@ public class AdminControllerImpl extends AbstractRESTControllerImpl<Role> implem
 	 */
 	@Override
 	public ListAdapter<Role> getList() {
-		// TODO Auto-generated method stub
 		return roleList;
 	}
 

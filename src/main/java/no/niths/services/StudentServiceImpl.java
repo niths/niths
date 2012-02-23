@@ -1,6 +1,5 @@
 package no.niths.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.domain.Mentor;
@@ -39,21 +38,20 @@ public class StudentServiceImpl implements StudentService {
 	public Student getById(long id) {
 		Student s = repo.getById(id);
 		if (s != null) {
-			if (s.getCommittees().size() > 0) {
-				for (int i = 0; i < s.getCommittees().size(); i++) {
+			int committeeSize = s.getCommittees().size();
+			if (committeeSize > 0) {
+				for (int i = 0; i < committeeSize; i++) {
 					s.getCommittees().get(i).setEvents(null);
 					s.getCommittees().get(i).setLeaders(null);
 				}
-			} else {
-				s.setCommittees(null);
-			}
-			if (s.getCourses().size() > 0) {
-				for (int i = 0; i < s.getCourses().size(); i++) {
+			} 
+			
+			int courseSize = s.getCourses().size();
+			if (courseSize > 0) {
+				for (int i = 0; i < courseSize; i++) {
 					s.getCourses().get(i).setSubjects(null);
 				}
-			} else {
-				s.setCourses(null);
-			}
+			} 
 			
 			s.getMentors().size();
 		}
@@ -63,8 +61,6 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> getAll(Student s) {
 		List<Student> temp = repo.getAll(s);
 		for (int i = 0; i < temp.size(); i++) {
-			// temp.get(i).getCommittees().size();
-			// temp.get(i).getCourses().size();
 			temp.get(i).setCommittees(null);
 			temp.get(i).setCourses(null);
 			temp.get(i).setMentors(null);
