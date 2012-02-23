@@ -1,4 +1,5 @@
 USE niths;
+
 INSERT INTO roles(role_name) values("ROLE_ADMIN");
 INSERT INTO roles(role_name) values("ROLE_USER");
 insert into students(email, role_id) values('degyvi09@nith.no', 1);
@@ -56,7 +57,7 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Strickland@nith.no','Curran','Mcintosh','1978-09-23','41738341','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Caldwell@nith.no','Jared','Austin','1970-04-19','24624683','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Shepherd@nith.no','Kennan','Hale','1988-03-01','32901065','1');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Horne@nith.no','Sheila','Burks','1971-04-14','84225427','3');
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Horne@nith.no','Sheila','Burks','1971-04-14','84225427','3');	
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Vincent@nith.no','Amery','Hale','1987-06-15','58726950','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Larsen@nith.no','Cullen','Harris','1993-02-18','57982890','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Cohen@nith.no','Keith','Shields','1975-06-04','65664609','2');
@@ -166,7 +167,7 @@ INSERT INTO committee_leaders VALUES (3, 55);
 
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Android, workshop");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
@@ -174,7 +175,7 @@ INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke p
 
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro2"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa3","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshopxx"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Android, workshop");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshopxx"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte4"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte4","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke5 kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
@@ -183,42 +184,86 @@ INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke5 
 
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distrod"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroad","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg, hjerte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop2x"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Android, workshop,ruben");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop2x"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop,ruben");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte2x"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte,bøker");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte3x","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte, alkoholfritt");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukezx3 kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukex3 party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, fest");
 
 
-insert into students_committees (students_id, committees_id) values(1, 1);
-insert into students_committees (students_id, committees_id) values(1, 2);
-insert into students_committees (students_id, committees_id) values(2, 1);
-insert into students_committees (students_id, committees_id) values(3, 1);
+insert into mentors (group_id) values(1);
+insert into mentors (group_id) values(2);
+insert into mentors (group_id) values(3);
+insert into mentors (group_id) values(4);
+insert into mentors (group_id) values(5);
+insert into mentors (group_id) values(1);
+insert into mentors (group_id) values(2);
+insert into mentors (group_id) values(3);
+insert into mentors (group_id) values(4);
+insert into mentors (group_id) values(5);
 
-insert into students_committees (students_id, committees_id) values(7, 1);
-insert into students_committees (students_id, committees_id) values(6, 2);
-insert into students_committees (students_id, committees_id) values(5, 1);
-insert into students_committees (students_id, committees_id) values(4, 1);
+insert into mentors (group_id) values(1);
+insert into mentors (group_id) values(2);
+insert into mentors (group_id) values(3);
+insert into mentors (group_id) values(4);
+insert into mentors (group_id) values(5);
+insert into mentors (group_id) values(1);
+insert into mentors (group_id) values(2);
+insert into mentors (group_id) values(3);
+insert into mentors (group_id) values(4);
+insert into mentors (group_id) values(5);
 
-insert into students_committees (students_id, committees_id) values(8, 4);
-insert into students_committees (students_id, committees_id) values(9, 2);
-insert into students_committees (students_id, committees_id) values(10, 3);
-insert into students_committees (students_id, committees_id) values(12, 1);
+insert into students_mentors (students_id, mentors_id) values(1, 1);
+insert into students_mentors (students_id, mentors_id) values(2, 2);
+insert into students_mentors (students_id, mentors_id) values(3, 3);
+insert into students_mentors (students_id, mentors_id) values(4, 4);
+insert into students_mentors (students_id, mentors_id) values(5, 5);
+insert into students_mentors (students_id, mentors_id) values(6, 6);
+insert into students_mentors (students_id, mentors_id) values(7, 7);
+insert into students_mentors (students_id, mentors_id) values(8, 8);
+insert into students_mentors (students_id, mentors_id) values(9, 9);
+insert into students_mentors (students_id, mentors_id) values(10, 10);
+
+insert into students_mentors (students_id, mentors_id) values(10, 11);
+insert into students_mentors (students_id, mentors_id) values(22, 12);
+insert into students_mentors (students_id, mentors_id) values(13, 13);
+insert into students_mentors (students_id, mentors_id) values(44, 14);
+insert into students_mentors (students_id, mentors_id) values(15, 15);
+insert into students_mentors (students_id, mentors_id) values(36, 16);
+insert into students_mentors (students_id, mentors_id) values(37, 17);
+insert into students_mentors (students_id, mentors_id) values(48, 18);
+insert into students_mentors (students_id, mentors_id) values(39, 19);
+insert into students_mentors (students_id, mentors_id) values(32, 20);
+
+insert into students_committees values(1, 1);
+insert into students_committees values(1, 2);
+insert into students_committees values(2, 1);
+insert into students_committees values(3, 1);
+
+insert into students_committees values(7, 1);
+insert into students_committees values(6, 2);
+insert into students_committees values(5, 1);
+insert into students_committees values(4, 1);
+
+insert into students_committees values(8, 4);
+insert into students_committees values(9, 2);
+insert into students_committees values(10, 3);
+insert into students_committees values(12, 1);
 
 
-insert into students_committees (students_id, committees_id) values(71, 3);
-insert into students_committees (students_id, committees_id) values(16, 2);
-insert into students_committees (students_id, committees_id) values(25, 5);
-insert into students_committees (students_id, committees_id) values(24, 3);
+insert into students_committees values(71, 3);
+insert into students_committees values(16, 2);
+insert into students_committees values(25, 5);
+insert into students_committees values(24, 3);
 
-insert into students_courses (students_id, courses_id) values(1, 1);
-insert into students_courses (students_id, courses_id) values(2, 2);
-insert into students_courses (students_id, courses_id) values(3, 1);
-insert into students_courses (students_id, courses_id) values(4, 3);
+insert into students_courses values(1, 1);
+insert into students_courses values(2, 2);
+insert into students_courses values(3, 1);
+insert into students_courses values(4, 3);
 
-insert into committees_events (committees_id, events_id) values(1, 1);
-insert into committees_events (committees_id, events_id) values(1, 2);
-insert into committees_events (committees_id, events_id) values(1, 3);
-insert into committees_events (committees_id, events_id) values(1, 4);
-insert into committees_events (committees_id, events_id) values(2, 5);
-insert into committees_events (committees_id, events_id) values(2, 6);
+insert into committees_events values(1, 1);
+insert into committees_events values(1, 2);
+insert into committees_events values(1, 3);
+insert into committees_events values(1, 4);
+insert into committees_events values(2, 5);
+insert into committees_events values(2, 6);
