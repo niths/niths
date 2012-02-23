@@ -93,9 +93,4 @@ public class HibernateConfig{
    public PersistenceExceptionTranslator exceptionTranslator() {
 	   return new HibernateExceptionTranslator();
    }
-   
-   @Bean
-   public ApplicationListener<ApplicationEvent> appListener(){
-	   return new AppStartupDatabasePopulator();
-   }
 }
