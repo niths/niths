@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -73,9 +74,9 @@ public class Student implements Serializable {
 	@XmlTransient
 	private String password;
 
-	@Column
 	@JsonIgnore
 	@XmlTransient
+	@OneToOne(fetch = FetchType.EAGER, targetEntity=Role.class)
 	private Role role;
 
 	@Column(name="birthday")

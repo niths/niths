@@ -28,8 +28,8 @@ public class Role implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
-	private String role;
+	@Column(unique = true, name="role_name")
+	private String roleName;
 
 	public Long getId() {
 		return id;
@@ -39,12 +39,12 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	
 	@Override
@@ -56,10 +56,15 @@ public class Role implements Serializable {
 		if( this.getClass() != obj.getClass() )
 			return false;
 		final Role other = (Role) obj;
-		if(role.equals(other.role)){
+		if(roleName.equals(other.roleName)){
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "Role: " + roleName;
 	}
 
 }
