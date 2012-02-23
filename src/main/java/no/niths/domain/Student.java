@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -32,6 +33,7 @@ import no.niths.domain.adapter.JsonDateAdapter;
 import no.niths.domain.adapter.XmlCharAdapter;
 import no.niths.domain.adapter.XmlDateAdapter;
 import no.niths.domain.constraints.StudentGender;
+import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -70,6 +72,11 @@ public class Student implements Serializable {
 	@JsonIgnore
 	@XmlTransient
 	private String password;
+
+	@Column
+	@JsonIgnore
+	@XmlTransient
+	private Role role;
 
 	@Column(name="birthday")
 	@Past
@@ -248,6 +255,14 @@ public class Student implements Serializable {
 
 	public void setCommittees(List<Committee> committees) {
 		this.committees = committees;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@JsonIgnore
