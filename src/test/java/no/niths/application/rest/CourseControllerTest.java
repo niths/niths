@@ -50,8 +50,6 @@ public class CourseControllerTest {
         Course firstCourse = getRandomCourse();
         controller.create(firstCourse);
 
-        assertEquals(originalCount + 1, controller.getAll(null).size());
-
         // Delete the same course
         Course secondCourse = controller.getAll(firstCourse).get(0);
         controller.delete(secondCourse.getId());
