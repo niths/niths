@@ -155,7 +155,7 @@ public class StudentRepositoryTest {
 	}
 	
 	@Test
-	public void testGetAllStudentMentors(){
+	public void testGetAllStudentInAnOrientationGroup(){
 		List<Student> studs = createStudentHelper();
 				
 		studs.get(0).getOrientationGroup().add(new StudentOrientationGroup(1));
@@ -167,14 +167,14 @@ public class StudentRepositoryTest {
 		studentRepo.update(studs.get(1));
 		
 		
-		List<Student> students = studentRepo.getAllMentors();
+		List<Student> students = studentRepo.getAllStudentsInAnOrientationGroup();
 		
 		assertEquals(2, students.size());
 		assertEquals(3,students.get(0).getOrientationGroup().size());
 		
 		System.out.println(students.get(0).getFirstName());
 		
-		students = studentRepo.getMentorsByGroupe(2);
+		students = studentRepo.getStudentInOrientationGroup(2);
 
 		assertEquals(2, students.size());	
 	}
