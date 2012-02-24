@@ -1,8 +1,6 @@
 package no.niths.application.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import static org.junit.Assert.*;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -26,48 +24,11 @@ public class CourseControllerTest {
 
     @Test
     @Rollback(true)
-    public void testGetAndCreateCourse() {
-        Course firstCourse = getRandomCourse();
+    public void testGetCourse() {
+        final Course firstCourse = new Course("foo", "bar");
         controller.create(firstCourse);
-
-        Course secondCourse = controller.getAll(firstCourse).get(0);
+        final Course secondCourse = controller.getAll(firstCourse).get(0);
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
-    }
-
-    @Test
-    @Rollback(true)
-    public void testDeleteCourse() {
-        final int originalCount = controller.getAll(null).size();
-
-        // Persist a course
-        Course firstCourse = getRandomCourse();
-        controller.create(firstCourse);
-
-        assertEquals(originalCount + 1, controller.getAll(null).size());
-
-        // Delete the same course
-        Course secondCourse = controller.getAll(firstCourse).get(0);
-        controller.delete(secondCourse.getId());
-
-        assertEquals(originalCount, controller.getAll(null).size());
-    }
-
-    @Test
-    @Rollback(true)
-    public void testUpdateCourse() {
-        Course firstCourse = new Course("foo", "bar");
-        controller.create(firstCourse);
-
-        firstCourse.setName("corge");
-        controller.update(firstCourse);
-
-        assertEquals(firstCourse.getName(),
-                controller.getAll(firstCourse).get(0).getName());
-    }
-
-    // Helper method for creating a Course
-    private Course getRandomCourse() {
-        return new Course("foo", "bar");
     }
 }

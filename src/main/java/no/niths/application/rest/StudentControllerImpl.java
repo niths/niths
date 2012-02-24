@@ -74,7 +74,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 */
 	@Override
 	@RequestMapping(value = { 
-			"mentors/{studentId}/{groupId}" }, method = RequestMethod.POST)
+			"{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
 	public void addStudentToMentor(@PathVariable long studentId,
 			@PathVariable int groupId) {
@@ -89,7 +89,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "mentors", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "orientation-group", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Student> getAllMentors() {
 		studentList.clear();
@@ -104,7 +104,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "mentors/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Student> getMentorsByGroupe(@PathVariable int groupId) {
 		
@@ -120,7 +120,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "mentors/{studentId}/{groupId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{studentId}/orientation-group/{groupId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeStudentFromMentorGroup(@PathVariable long studentId,
 			@PathVariable int groupId) {
@@ -134,7 +134,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "mentors/{studentId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{studentId}/orientation-group", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeStudentFromAllMentorGroups(@PathVariable long studentId) {
 		Student student = getById(studentId);
