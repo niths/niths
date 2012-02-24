@@ -26,7 +26,6 @@ public class CourseControllerTest {
     private CourseController controller;
 
     @Test
-    @Rollback(true)
     public void testCreateAndGetCourse() {
         Course firstCourse = getRandomCourse();
         controller.create(firstCourse);
@@ -37,7 +36,6 @@ public class CourseControllerTest {
     }
 
     @Test
-    @Rollback(true)
     public void testDeleteCourse() {
 
         // Persist two courses to ensure the database is not empty
@@ -62,7 +60,6 @@ public class CourseControllerTest {
     }
 
     @Test
-    @Rollback(true)
     public void testUpdateCourse() {
         Course firstCourse = new Course("foo", "bar");
         controller.create(firstCourse);
