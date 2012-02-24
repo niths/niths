@@ -45,13 +45,9 @@ public class UserAuthFilter extends OncePerRequestFilter {
 		chain.doFilter(req, res);
 	}
 	
-	//TODO: Set user as anonymous if not authenticated
-	//		prolly best to do so in authservice
-	//		Not return null, rather a ano user
 	private void setCurrentAuthenticatedUser(User u){
 		if(u == null){
-			logger.debug("User was not valid, auth anyway");
-			u = new User();
+			u = new User(); //Role = ROLE_USER
 		}		
 		Authentication auth = 
 				new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());

@@ -20,7 +20,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Entity
 @Table(name =AppConstants.MENTORS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Mentor implements Serializable {
+public class StudentOrientationGroup implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = -3434555328809873472L;
@@ -32,11 +32,11 @@ public class Mentor implements Serializable {
 	@Column(name="group_id")
 	private int groupId;
 	
-	public Mentor() {
+	public StudentOrientationGroup() {
 		this(0);
 	}
 	
-	public Mentor(int grupeId) {
+	public StudentOrientationGroup(int grupeId) {
 		setGroupId(grupeId);
 	}
 
