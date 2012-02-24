@@ -48,11 +48,12 @@ public class StudentRepositoryTest {
 	 */
 	@Test
 	public void testCRUD() {
+		int size = studentRepo.getAll(null).size();
 		Student stud = new Student("John", "Doe");
 		studentRepo.create(stud);
 
 		assertEquals(stud, studentRepo.getById(stud.getId()));
-		assertEquals(1, studentRepo.getAll(new Student()).size());
+		assertEquals(size + 1, studentRepo.getAll(null).size());
 
 		stud.setFirstName("Jane");
 		studentRepo.update(stud);
@@ -62,7 +63,7 @@ public class StudentRepositoryTest {
 		studentRepo.delete(stud.getId());
 		// assertEquals(null, studentRepo.getById(stud.getId()));
 
-		assertEquals(true, studentRepo.getAll(null).isEmpty());
+		assertEquals(size, studentRepo.getAll(null).size());
 
 	}
 
@@ -71,13 +72,16 @@ public class StudentRepositoryTest {
 	 */
 	@Test
 	public void testStudentWithCourses() {
+		int cSize = courseRepo.getAll(null).size();
+		int sSize = studentRepo.getAll(null).size();
+		
 		Course c1 = new Course("PROG", "casd1");
 		Course c2 = new Course("DESIGN", "cdda2");
 
 		courseRepo.create(c1);
 		courseRepo.create(c2);
 		// Courses should be persisted
-		assertEquals(2, courseRepo.getAll(null).size());
+		assertEquals(cSize + 2, courseRepo.getAll(null).size());
 
 		Student stud = new Student("John", "Doe");
 		stud.getCourses().add(c1);
@@ -91,12 +95,12 @@ public class StudentRepositoryTest {
 		studentRepo.getById(stud.getId()).getCourses().remove(1);
 		assertEquals(1, studentRepo.getById(stud.getId()).getCourses().size());
 
-		assertEquals(2, courseRepo.getAll(null).size());
+		assertEquals(cSize + 2, courseRepo.getAll(null).size());
 
 		Committee c = new Committee("Utvalg", "desc");
 
 		comRepo.create(c);
-		assertEquals(1, comRepo.getAll(null).size());
+		assertEquals(cSize + 1, comRepo.getAll(null).size());
 		stud = studentRepo.getById(stud.getId());
 		stud.getCommittees().add(c);
 
@@ -126,7 +130,9 @@ public class StudentRepositoryTest {
 
 	@Test
 	public void testGetStudentsWithNamedCourse(){
+		int size = studentRepo.getAll(null).size();
 		List<Student> students =createStudentHelper();
+		assertEquals(size + 4, studentRepo.getAll(null).size());
 		
 		String name ="prog";
 		Course c = new Course(name, "ProgProg");

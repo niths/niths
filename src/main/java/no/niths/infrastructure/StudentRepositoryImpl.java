@@ -37,7 +37,7 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 	@Override
 	public List<Student> getAllMentors() {
 		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.mentors";
+				+ " s join fetch s.orientationGroup";
 		return getSession().getCurrentSession().createQuery(sql)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -46,7 +46,7 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 	@Override
 	public List<Student> getMentorsByGroupe(int groupId) {
 		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.mentors m where m.groupId=:gid";
+				+ " s join fetch s.orientationGroup m where m.groupId=:gid";
 		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
