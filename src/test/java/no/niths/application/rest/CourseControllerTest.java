@@ -27,8 +27,9 @@ public class CourseControllerTest {
     @Test
     @Rollback(true)
     public void testGetAndCreateCourse() {
-        Course firstCourse = new Course("foo", "bar");
+        Course firstCourse = getRandomCourse();
         controller.create(firstCourse);
+
         Course secondCourse = controller.getAll(firstCourse).get(0);
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
@@ -40,7 +41,7 @@ public class CourseControllerTest {
         final int originalCount = controller.getAll(null).size();
 
         // Persist a course
-        Course firstCourse = new Course("foo", "bar");
+        Course firstCourse = getRandomCourse();
         controller.create(firstCourse);
 
         assertEquals(originalCount + 1, controller.getAll(null).size());
@@ -50,5 +51,23 @@ public class CourseControllerTest {
         controller.delete(secondCourse.getId());
 
         assertEquals(originalCount, controller.getAll(null).size());
+    }
+
+    @Test
+    @Rollback(true)
+    public void testUpdateCourse() {
+        Course firstCourse = new Course("foo", "bar");
+        controller.create(firstCourse);
+
+        firstCourse.setName("corge");
+        controller.update(firstCourse);
+
+        assertEquals(firstCourse.getName(),
+                controller.getAll(firstCourse).get(0).getName());
+    }
+
+    // Helper method for creating a Course
+    private Course getRandomCourse() {
+        return new Course("foo", "bar");
     }
 }
