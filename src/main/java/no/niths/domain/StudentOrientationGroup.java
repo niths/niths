@@ -15,7 +15,11 @@ import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-
+/**
+ * Class that holds information about a student orientation group 
+ *
+ *
+ */
 @XmlRootElement
 @Entity
 @Table(name =AppConstants.STUDENT_ORIENTATION_GROUPS)
