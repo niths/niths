@@ -89,13 +89,13 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void addStudentToMentor(Student student, int groupId) {
+	public void addStudentToOrientationGroup(Student student, int groupId) {
 		student.getOrientationGroup().add(new StudentOrientationGroup(groupId));
 		update(student);
 	}
 
 	@Override
-	public List<Student> getAllMentors() {
+	public List<Student> getAllStudentsInAnOrientationGroup() {
 		List<Student> temp =  repo.getAllStudentsInAnOrientationGroup();
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setCommittees(null);
@@ -105,7 +105,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getMentorsByGroupe(int groupId) {
+	public List<Student> getAllStudentsInAOrientationGroup(int groupId) {
 		List<Student> mentors =  repo.getStudentsInOrientationGroup(groupId);
 		for (int i = 0; i < mentors.size(); i++) {
 			mentors.get(i).setCommittees(null);
@@ -115,7 +115,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void removeStudentFromMentorGroup(Student student, int groupId) {
+	public void removeStudentFromOrientationGroup(Student student, int groupId) {
 
 		if (!student.getOrientationGroup().isEmpty()) {
 			for (int i = 0; i < student.getOrientationGroup().size();i++) {
@@ -128,7 +128,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void removeStudentFromAllMentorGroups(Student student) {
+	public void removeStudentFromAllOrientationGroups(Student student) {
 		if (!student.getOrientationGroup().isEmpty()) {
 			student.setOrientationGroup(null);
 			update(student);

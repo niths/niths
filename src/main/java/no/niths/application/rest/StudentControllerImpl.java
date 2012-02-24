@@ -82,7 +82,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		logger.info(studentId +  " " + groupId);
 		Student student = service.getById(studentId);
 		ValidationHelper.isObjectNull(student);
-		service.addStudentToMentor(student, groupId);
+		service.addStudentToOrientationGroup(student, groupId);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@ResponseBody
 	public List<Student> getAllOrientationGroups() {
 		studentList.clear();
-		studentList.addAll(service.getAllMentors());
+		studentList.addAll(service.getAllStudentsInAnOrientationGroup());
 		studentList.setData(studentList); // for xml marshalling
 		ValidationHelper.isListEmpty(studentList);
 
@@ -109,7 +109,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	public List<Student> getStudentsInOrientationGroup(@PathVariable int groupId) {
 		
 		studentList.clear();
-		studentList.addAll(service.getMentorsByGroupe(groupId));
+		studentList.addAll(service.getAllStudentsInAOrientationGroup(groupId));
 		studentList.setData(studentList); // for xml marshalling
 		ValidationHelper.isListEmpty(studentList);
 
@@ -127,7 +127,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
 
-		service.removeStudentFromMentorGroup(student, groupId);
+		service.removeStudentFromOrientationGroup(student, groupId);
 	}
 
 	/**
@@ -139,6 +139,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	public void removeStudentFromAllOrientationGroups(@PathVariable long studentId) {
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
-		service.removeStudentFromAllMentorGroups(student);
+		service.removeStudentFromAllOrientationGroups(student);
 	}
 }
