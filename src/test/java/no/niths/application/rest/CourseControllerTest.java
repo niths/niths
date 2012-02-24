@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
+@Transactional
 public class CourseControllerTest {
 
     @Autowired
@@ -23,10 +24,8 @@ public class CourseControllerTest {
 
     @Test
     @Rollback(true)
-    @Transactional
     public void testGetCourse() {
         final Course firstCourse = new Course("foo", "bar");
-
         controller.create(firstCourse);
         final Course secondCourse = controller.getAll(firstCourse).get(0);
 
