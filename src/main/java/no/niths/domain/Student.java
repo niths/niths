@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -90,6 +91,7 @@ public class Student implements Serializable {
 	private Integer grade;
 
 	@Column(unique=true)
+	@NotNull
 	@Email(message = "Not a valid email")
 	private String email;
 
@@ -123,6 +125,11 @@ public class Student implements Serializable {
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
+	}
+	
+	public Student(String email){
+		this(null,null,null,null,null,null,null);
+		this.email = email;
 	}
 
 	public Student(Long id, String firstName, String lastName) {
