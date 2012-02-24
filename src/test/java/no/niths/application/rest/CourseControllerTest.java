@@ -1,6 +1,8 @@
 package no.niths.application.rest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -24,11 +26,29 @@ public class CourseControllerTest {
 
     @Test
     @Rollback(true)
-    public void testGetCourse() {
-        final Course firstCourse = new Course("foo", "bar");
+    public void testGetAndCreateCourse() {
+        Course firstCourse = new Course("foo", "bar");
         controller.create(firstCourse);
-        final Course secondCourse = controller.getAll(firstCourse).get(0);
+        Course secondCourse = controller.getAll(firstCourse).get(0);
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
+    }
+
+    @Test
+    @Rollback(true)
+    public void testDeleteCourse() {
+        final int originalCount = controller.getAll(null).size();
+
+        // Persist a course
+        Course firstCourse = new Course("foo", "bar");
+        controller.create(firstCourse);
+
+        assertEquals(originalCount + 1, controller.getAll(null).size());
+
+        // Delete the same course
+        Course secondCourse = controller.getAll(firstCourse).get(0);
+        controller.delete(secondCourse.getId());
+
+        assertEquals(originalCount, controller.getAll(null).size());
     }
 }
