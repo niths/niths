@@ -50,6 +50,7 @@ public class StudentRepositoryTest {
 	public void testCRUD() {
 		int size = studentRepo.getAll(null).size();
 		Student stud = new Student("John", "Doe");
+		stud.setEmail("mail@mail.com");
 		studentRepo.create(stud);
 
 		assertEquals(stud, studentRepo.getById(stud.getId()));
@@ -85,6 +86,7 @@ public class StudentRepositoryTest {
 		assertEquals(cSize + 2, courseRepo.getAll(null).size());
 
 		Student stud = new Student("John", "Doe");
+		stud.setEmail("mail@mail.com");
 		stud.getCourses().add(c1);
 		stud.getCourses().add(c2);
 
@@ -192,6 +194,7 @@ public class StudentRepositoryTest {
 		
 		for (int i = 0; i < lastName.length; i++) {
 			Student s1 = new Student(firstName[i],lastName[i]);
+			s1.setEmail("mail" + i + "@mail.com");
 			studentRepo.create(s1);
 			students.add(s1);
 		}

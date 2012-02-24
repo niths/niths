@@ -61,7 +61,10 @@ public class StudentServiceTest {
 		
 		//Testing create
 		Student s = new Student("John", "Doe");		
-		Student x = new Student("Vera", "Fine");		
+		Student x = new Student("Vera", "Fine");
+		s.setEmail("mail@mail.com");
+		x.setEmail("mail2@mail.com");
+		
 		studService.create(s);
 		studService.create(x);
 		
@@ -72,7 +75,7 @@ public class StudentServiceTest {
 		//Testing update
 		s.setEmail("john@doe.com");
 		
-		assertEquals(null, studService.getById(s.getId()).getEmail());
+		assertEquals("mail@mail.com", studService.getById(s.getId()).getEmail());
 		
 		studService.update(s);
 		assertEquals("john@doe.com", studService.getById(s.getId()).getEmail());
