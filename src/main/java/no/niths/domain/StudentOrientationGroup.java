@@ -18,7 +18,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @XmlRootElement
 @Entity
-@Table(name =AppConstants.MENTORS)
+@Table(name =AppConstants.STUDENT_ORIENTATION_GROUPS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class StudentOrientationGroup implements Serializable {
 
