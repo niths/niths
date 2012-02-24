@@ -13,5 +13,5 @@ public interface StudentRepository extends GenericRepository<Student>{
 	
 	public List<Student> getAllStudentsInAnOrientationGroup();
 
-	public List<Student> getStudentInOrientationGroup(int groupId) ;
+	public List<Student> getStudentsInOrientationGroup(int groupId) ;
 }

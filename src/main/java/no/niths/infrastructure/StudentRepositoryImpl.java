@@ -44,7 +44,7 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Student> getStudentInOrientationGroup(int groupId) {
+	public List<Student> getStudentsInOrientationGroup(int groupId) {
 		String sql = "from " + Student.class.getSimpleName()
 				+ " s join fetch s.orientationGroup m where m.groupId=:gid";
 		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
