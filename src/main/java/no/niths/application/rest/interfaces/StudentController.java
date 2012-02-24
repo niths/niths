@@ -24,21 +24,21 @@ public interface StudentController extends GenericRESTController<Student> {
 	 * @param studentId The id of the student
 	 * @param groupId The group id of the mentor
 	 */
-	public void addStudentToMentor(long studentId,int groupId);
+	public void addStudentToOrientationGroup(long studentId,int groupId);
 	
 	/**
 	 * Return all mentors
 	 * 
 	 * @return list of all mentors
 	 */
-	public List<Student> getAllMentors();
+	public List<Student> getAllOrientationGroups();
 	/**
 	 * Returns all mentors in a group
 	 * 
 	 * @param groupId id of the group
 	 * @return list of all mentors
 	 */
-	public List<Student> getMentorsByGroupe(int groupId);
+	public List<Student> getStudentsInOrientationGroup(int groupId);
 	
 	/**
 	 * Removes a mentor from a group
@@ -46,12 +46,12 @@ public interface StudentController extends GenericRESTController<Student> {
 	 * @param studentId Id of the mentor
 	 * @param groupId id of the group
 	 */
-	public void removeStudentFromMentorGroup(long studentId,int groupId);
+	public void removeStudentFromOrientationGroup(long studentId,int groupId);
 	
 	/**
 	 * Removes a mentor from all groups
 	 * 
 	 * @param studentId id of the mentor to remove
 	 */
-	public void removeStudentFromAllMentorGroups(long studentId);
+	public void removeStudentFromAllOrientationGroups(long studentId);
 }
