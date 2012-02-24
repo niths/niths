@@ -22,7 +22,11 @@ public class CourseServiceImpl implements CourseService{
     }
 
     public Course getById(long id) {
-        return repo.getById(id);
+    	Course c = repo.getById(id);
+    	if(c != null){
+    		c.getSubjects().size();
+    	}
+        return c;
    }
     
     public List<Course> getAll(Course c) {

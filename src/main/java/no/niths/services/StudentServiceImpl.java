@@ -2,8 +2,8 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.StudentOrientationGroup;
 import no.niths.domain.Student;
+import no.niths.domain.StudentOrientationGroup;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
