@@ -112,7 +112,7 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = StudentOrientationGroup.class)
 	@Cascade(CascadeType.ALL)
     @JoinTable(
-    		name="students_mentors",
+    		name="students_student_orientation_groups",
     		uniqueConstraints={@UniqueConstraint(columnNames ={"mentors_id", "students_id"})} )
 	private List<StudentOrientationGroup> mentors = new ArrayList<StudentOrientationGroup>();
 
