@@ -109,7 +109,7 @@ public class Student implements Serializable {
 	private List<Course> courses = new ArrayList<Course>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
-	private List<Committee> committees = new ArrayList<Committee>();;
+	private List<Committee> committees = new ArrayList<Committee>();
 	
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = StudentOrientationGroup.class)
 	@Cascade(CascadeType.ALL)
