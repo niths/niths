@@ -39,6 +39,11 @@ public class CourseControllerTest {
     @Test
     @Rollback(true)
     public void testDeleteCourse() {
+        Course foo = new Course("grault", "garply");
+        Course bar = new Course("baz", "qux");
+        controller.create(foo);
+        controller.create(bar);
+
         final int originalCount = controller.getAll(null).size();
 
         // Persist a course
