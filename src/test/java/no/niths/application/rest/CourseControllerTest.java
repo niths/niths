@@ -1,8 +1,6 @@
 package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -14,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 @Transactional
+@TransactionConfiguration(
+        transactionManager = TestAppConfig.TRANSACTION_MANAGER)
 public class CourseControllerTest {
 
     @Autowired
