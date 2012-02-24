@@ -9,7 +9,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
-import no.niths.domain.Mentor;
+import no.niths.domain.StudentOrientationGroup;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CourseRepository;
@@ -151,10 +151,10 @@ public class StudentRepositoryTest {
 	public void testGetAllStudentMentors(){
 		List<Student> studs = createStudentHelper();
 				
-		studs.get(0).getMentors().add(new Mentor(1));
-		studs.get(0).getMentors().add(new Mentor(2));
-		studs.get(0).getMentors().add(new Mentor(3));
-		studs.get(1).getMentors().add(new Mentor(2));
+		studs.get(0).getMentors().add(new StudentOrientationGroup(1));
+		studs.get(0).getMentors().add(new StudentOrientationGroup(2));
+		studs.get(0).getMentors().add(new StudentOrientationGroup(3));
+		studs.get(1).getMentors().add(new StudentOrientationGroup(2));
 		
 		studentRepo.update(studs.get(0));
 		studentRepo.update(studs.get(1));

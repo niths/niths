@@ -2,7 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.Mentor;
+import no.niths.domain.StudentOrientationGroup;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
@@ -90,7 +90,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public void addStudentToMentor(Student student, int groupId) {
-		student.getMentors().add(new Mentor(groupId));
+		student.getMentors().add(new StudentOrientationGroup(groupId));
 		update(student);
 	}
 
