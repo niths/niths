@@ -15,6 +15,8 @@ public class User implements UserDetails{
 	
 	private String roleName = "ROLE_USER";
 	
+	private String googleToken;
+	
 	@SuppressWarnings("serial")
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
@@ -69,5 +71,15 @@ public class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public String getGoogleToken() {
+		return googleToken;
+	}
+
+	public void setGoogleToken(String googleToken) {
+		this.googleToken = googleToken;
+	}
+	
+	
 
 }

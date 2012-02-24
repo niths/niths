@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 @Configuration
-//@ComponentScan( "no.niths.application.rest" )
+@ComponentScan( "no.niths.security" )
 @ImportResource( { "classpath*:springSecurityConfig.xml" } )
 public class SecurityConfig{
 	

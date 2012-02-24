@@ -4,6 +4,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.security.GoogleProfileFetcher;
 import no.niths.security.User;
 import no.niths.services.interfaces.AuthenticationService;
 
@@ -29,24 +30,30 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private StudentRepository studentRepo;
 	
+	@Autowired
+	private GoogleProfileFetcher profileFetcher;
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public User login(String googleToken) {
 		logger.debug("Trying to log in with token: " + googleToken);
-		Google google = new GoogleTemplate(googleToken);
-		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-		return getUser(profile);
+//		Google google = new GoogleTemplate(googleToken);
+//		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
+//		return getUser(profile, googleToken);
+		
+		return getUser(profileFetcher.getProfile(googleToken), googleToken );
 	}
 	
 	//Get the user from DB, persists if non existing and if valid email
-	private User getUser(LegacyGoogleProfile profile){
+	private User getUser(LegacyGoogleProfile profile, String token){
 		
 		String userEmail = profile.getEmail();
 		logger.debug("User trying to log in with email: " + userEmail);
 		User user = new User();
 		if(isUserValid(userEmail)){
+			user.setGoogleToken(token);
 			Student temp = studentRepo.getStudentByEmail(userEmail);
 			if(temp == null){
 				logger.info("Student does not exsist, creating a new student");
