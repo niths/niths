@@ -56,6 +56,18 @@ public class CommitteeControllerTest {
         assertEquals(originalCount, controller.getAll(null).size());
     }
 
+    @Test
+    public void testUpdateCommitteeController() {
+        Committee firstCommittee = new Committee("foo", "bar");
+        controller.create(firstCommittee);
+
+        firstCommittee.setName("xyzzy");
+        controller.update(firstCommittee);
+
+        assertEquals(firstCommittee.getName(),
+                controller.getAll(firstCommittee).get(0).getName());
+    }
+
     public Committee getRandomCommittee() {
         return new Committee("foo", "bar");
     }
