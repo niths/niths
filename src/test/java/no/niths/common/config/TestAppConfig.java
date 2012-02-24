@@ -9,9 +9,10 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 @ComponentScan({ AppConfig.SERVICES_PACKAGE, AppConfig.REST_PACKAGE })
 public class TestAppConfig {
-//"no.niths.services","no.niths.common.config"
-    public static final String BASE_PACKAGE      = "no.niths",
-                               PERSISTENCE_PROPS = "test-persistence.properties";
+    public static final String PERSISTENCE_PROPS =
+            "test-persistence.properties";
+    public static final String TRANSACTION_MANAGER = "transactionManager";
+
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
     	final PropertyPlaceholderConfigurer ppc =
