@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -66,11 +63,6 @@ public class Event implements Serializable {
 
 	@Column(name="tags")
 	private String tags;
-	
-	@ManyToOne
-	private Committee committee;
-	
-	
 	
 	public Event() {
 		this(null, null, null, null, null);
@@ -151,15 +143,7 @@ public class Event implements Serializable {
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
-
-	public Committee getCommittee() {
-		return committee;
-	}
-
-	public void setCommittee(Committee committee) {
-		this.committee = committee;
-	}
-
+	
 	public String getTags() {
 		return tags;
 	}

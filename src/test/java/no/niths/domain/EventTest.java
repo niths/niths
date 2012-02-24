@@ -102,14 +102,4 @@ public class EventTest {
 		constraintViolations = validator.validate(event);
 		assertThat(1, is(equalTo(constraintViolations.size())));
 	}
-
-	@Test
-	public void testGettingCommitteeFromCommitteeEvent() {
-		Committee committee = new Committee();
-
-		Event committeeEvent = new Event();
-		committeeEvent.setCommittee(committee);
-
-		assertThat(committee, is(equalTo(committeeEvent.getCommittee())));
-	}
 }

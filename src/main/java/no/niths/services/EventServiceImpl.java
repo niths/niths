@@ -27,20 +27,11 @@ public class EventServiceImpl implements EventsService {
 
 	public List<Event> getAll(Event event) {
 		List<Event> events = repo.getAll(event);
-
-		for (int i = 0; i < events.size(); i++) {
-			events.get(i).setCommittee(null);
-		}
 		return events;
 	}
 
 	public Event getById(long id) {
 		Event event = repo.getById(id);
-
-		if (event != null) {
-			event.getCommittee();
-		}
-
 		return event;
 	}
 
@@ -56,11 +47,6 @@ public class EventServiceImpl implements EventsService {
 	@Override
 	public List<Event> getEventsByTag(String tag) {
 		List<Event> events = repo.getEventsByTag(tag);
-		for (int i = 0; i < events.size(); i++) {
-			events.get(i).setCommittee(null);
-		}
-		
-		logger.debug(""+events.size());
 		return events;
 	}
 }

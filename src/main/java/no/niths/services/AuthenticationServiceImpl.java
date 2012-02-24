@@ -4,7 +4,6 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
-import no.niths.security.GoogleProfileFetcher;
 import no.niths.security.User;
 import no.niths.services.interfaces.AuthenticationService;
 
@@ -30,8 +29,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private StudentRepository studentRepo;
 	
-	@Autowired
-	private GoogleProfileFetcher profileFetcher;
+//	@Autowired
+//	private GoogleProfileFetcher profileFetcher;
 	
 	/**
 	 * {@inheritDoc}
@@ -39,11 +38,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public User login(String googleToken) {
 		logger.debug("Trying to log in with token: " + googleToken);
-//		Google google = new GoogleTemplate(googleToken);
-//		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-//		return getUser(profile, googleToken);
+		Google google = new GoogleTemplate(googleToken);
+		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
+		return getUser(profile, googleToken);
 		
-		return getUser(profileFetcher.getProfile(googleToken), googleToken );
+//		return getUser(profileFetcher.getProfile(googleToken), googleToken );
 	}
 	
 	//Get the user from DB, persists if non existing and if valid email

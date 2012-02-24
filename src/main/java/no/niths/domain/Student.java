@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -111,10 +112,16 @@ public class Student implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = StudentOrientationGroup.class)
 	@Cascade(CascadeType.ALL)
-    @JoinTable(
-    		name="students_mentors",
-    		uniqueConstraints={@UniqueConstraint(columnNames ={"mentors_id", "students_id"})} )
-	private List<StudentOrientationGroup> mentors = new ArrayList<StudentOrientationGroup>();
+//    @JoinTable(
+//    		name="students_student_orientation_groups")
+//	@JoinTable(
+//			name="students_student_orientation_groups",
+//			
+//			inverseJoinColumns={@JoinColumn(name="orientation_group_id")})
+	@JoinTable(
+			name="students_student_orientation_groups",
+			uniqueConstraints={@UniqueConstraint(columnNames ={"orientationGroup_id", "students_id"})} )
+	private List<StudentOrientationGroup> orientationGroup = new ArrayList<StudentOrientationGroup>();
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
@@ -282,11 +289,11 @@ public class Student implements Serializable {
 		return s;
 	}
 
-	public List<StudentOrientationGroup> getMentors() {
-		return mentors;
+	public List<StudentOrientationGroup> getOrientationGroup() {
+		return orientationGroup;
 	}
 
-	public void setMentors(List<StudentOrientationGroup> mentors) {
-		this.mentors = mentors;
+	public void setOrientationGroup(List<StudentOrientationGroup> orientationGroup) {
+		this.orientationGroup = orientationGroup;
 	}
 }
