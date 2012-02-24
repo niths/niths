@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -22,11 +23,12 @@ public class CourseControllerTest {
 
     @Test
     @Rollback(true)
+    @Transactional
     public void testGetCourse() {
         final Course firstCourse = new Course("foo", "bar");
 
         controller.create(firstCourse);
-        final Course secondCourse = controller.getAll(firstCourse).get(1);
+        final Course secondCourse = controller.getAll(firstCourse).get(0);
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
     }
