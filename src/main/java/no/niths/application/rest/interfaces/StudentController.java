@@ -33,15 +33,15 @@ public interface StudentController extends GenericRESTController<Student> {
 	 */
 	public List<Student> getAllOrientationGroups();
 	/**
-	 * Returns all stduents in a specific group
+	 * Returns all students in a specific group
 	 * 
 	 * @param groupId id of the group
-	 * @return list of all stduents
+	 * @return list of all students
 	 */
 	public List<Student> getStudentsInOrientationGroup(int groupId);
 	
 	/**
-	 * Removes a stduent from a group
+	 * Removes a student from a group
 	 * 
 	 * @param studentId Id of the student
 	 * @param groupId id of the group
