@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
 				}
 			} 
 			
-			s.getMentors().size();
+			s.getOrientationGroup().size();
 		}
 		return s;
 	}
@@ -63,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setCommittees(null);
 			temp.get(i).setCourses(null);
-			temp.get(i).setMentors(null);
+			temp.get(i).setOrientationGroup(null);
 		}
 		return temp;
 	}
@@ -83,14 +83,14 @@ public class StudentServiceImpl implements StudentService {
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setCommittees(null);
 			temp.get(i).setCourses(null);
-			temp.get(i).setMentors(null);
+			temp.get(i).setOrientationGroup(null);
 		}
 		return temp;
 	}
 
 	@Override
 	public void addStudentToMentor(Student student, int groupId) {
-		student.getMentors().add(new StudentOrientationGroup(groupId));
+		student.getOrientationGroup().add(new StudentOrientationGroup(groupId));
 		update(student);
 	}
 
@@ -117,10 +117,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public void removeStudentFromMentorGroup(Student student, int groupId) {
 
-		if (!student.getMentors().isEmpty()) {
-			for (int i = 0; i < student.getMentors().size();i++) {
-				if (student.getMentors().get(i).getGroupId() == groupId) {
-					student.getMentors().remove(i);
+		if (!student.getOrientationGroup().isEmpty()) {
+			for (int i = 0; i < student.getOrientationGroup().size();i++) {
+				if (student.getOrientationGroup().get(i).getGroupId() == groupId) {
+					student.getOrientationGroup().remove(i);
 				}
 			}
 			update(student);
@@ -129,8 +129,8 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public void removeStudentFromAllMentorGroups(Student student) {
-		if (!student.getMentors().isEmpty()) {
-			student.setMentors(null);
+		if (!student.getOrientationGroup().isEmpty()) {
+			student.setOrientationGroup(null);
 			update(student);
 		}
 	}

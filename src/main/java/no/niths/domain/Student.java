@@ -116,6 +116,7 @@ public class Student implements Serializable {
 //    		name="students_student_orientation_groups")
 //	@JoinTable(
 //			name="students_student_orientation_groups",
+//			
 //			inverseJoinColumns={@JoinColumn(name="orientation_group_id")})
 	@JoinTable(
 			name="students_student_orientation_groups",
@@ -288,11 +289,11 @@ public class Student implements Serializable {
 		return s;
 	}
 
-	public List<StudentOrientationGroup> getMentors() {
+	public List<StudentOrientationGroup> getOrientationGroup() {
 		return orientationGroup;
 	}
 
-	public void setMentors(List<StudentOrientationGroup> mentors) {
-		this.orientationGroup = mentors;
+	public void setOrientationGroup(List<StudentOrientationGroup> orientationGroup) {
+		this.orientationGroup = orientationGroup;
 	}
 }
