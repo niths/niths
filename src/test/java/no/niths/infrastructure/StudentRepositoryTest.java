@@ -74,6 +74,7 @@ public class StudentRepositoryTest {
 	public void testStudentWithCourses() {
 		int cSize = courseRepo.getAll(null).size();
 		int sSize = studentRepo.getAll(null).size();
+		int comSize = comRepo.getAll(null).size();
 		
 		Course c1 = new Course("PROG", "casd1");
 		Course c2 = new Course("DESIGN", "cdda2");
@@ -100,7 +101,7 @@ public class StudentRepositoryTest {
 		Committee c = new Committee("Utvalg", "desc");
 
 		comRepo.create(c);
-		assertEquals(cSize + 1, comRepo.getAll(null).size());
+		assertEquals(comSize + 1, comRepo.getAll(null).size());
 		stud = studentRepo.getById(stud.getId());
 		stud.getCommittees().add(c);
 
