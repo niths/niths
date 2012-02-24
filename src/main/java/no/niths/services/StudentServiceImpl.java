@@ -96,7 +96,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getAllMentors() {
-		List<Student> temp =  repo.getAllMentors();
+		List<Student> temp =  repo.getAllStudentsInAnOrientationGroup();
 		for (int i = 0; i < temp.size(); i++) {
 			temp.get(i).setCommittees(null);
 			temp.get(i).setCourses(null);
@@ -106,7 +106,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getMentorsByGroupe(int groupId) {
-		List<Student> mentors =  repo.getMentorsByGroupe(groupId);
+		List<Student> mentors =  repo.getStudentInOrientationGroup(groupId);
 		for (int i = 0; i < mentors.size(); i++) {
 			mentors.get(i).setCommittees(null);
 			mentors.get(i).setCourses(null);
