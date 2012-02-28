@@ -19,34 +19,16 @@
 		<!-- basic header: -->
 		<!--
 			Header ex for basic:
-			
 			Accept: application/xml
 			Authorization: Basic YWRtaW46YWRtaW4= 
-			
 			//(YWRta... = base64 of admin:admin)
-			
 			-->
 		<http-basic />
-		
-		<!-- digest header 
-		
-			Accept: application/xml
-			Authorization: Digest username="admin", 
-							realm="Contacts Realm via Digest Authentication", 
-							nonce="MTMyOTY3Njk0NDM3Mjo0YWNmNzkwZmExOTYyYmZkZjc5MmMwMGYzNmQ3MjlhNQ==", 
-							uri="/niths/students", 
-							response="0a3b7d8346468c67d400e6fef18924f0", 
-							qop=auth, nc=00000001, 
-							cnonce="381b644a1a6dcc4b2719a7c002ea2166"
-
-		-->
 		<custom-filter ref="authfilter" after="BASIC_AUTH_FILTER"/>
 	</http>
 	
-	
 	<beans:bean id="authfilter"
-				class="no.niths.security.UserAuthFilter"
-	> 
+				class="no.niths.security.UserAuthFilter"> 
 	</beans:bean>
 
 	<authentication-manager>
