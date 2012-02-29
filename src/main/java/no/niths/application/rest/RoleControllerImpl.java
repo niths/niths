@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import no.niths.application.rest.interfaces.AdminController;
+import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
 import no.niths.common.AppConstants;
@@ -22,11 +22,11 @@ import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
 
 @Controller
-@RequestMapping(AppConstants.ADMIN)
-public class AdminControllerImpl extends AbstractRESTControllerImpl<Role> implements AdminController{
+@RequestMapping(AppConstants.ROLES)
+public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> implements RoleController{
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(AdminControllerImpl.class);
+			.getLogger(RoleControllerImpl.class);
 
 	@Autowired
 	private RoleService roleService;
@@ -44,27 +44,35 @@ public class AdminControllerImpl extends AbstractRESTControllerImpl<Role> implem
 	@RequestMapping(value = { 
 			"setRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
-	public void setStudentRole(@PathVariable Long studentId, @PathVariable Long roleId) {
+	public void addStudentRole(@PathVariable Long studentId, @PathVariable Long roleId) {
 		Student stud = studentService.getById(studentId);
 		ValidationHelper.isObjectNull(stud);
+		
 		Role role = roleService.getById(roleId);
 		ValidationHelper.isObjectNull(role);
-		stud.setRole(role);
+		
+		stud.getRoles().add(role);
 		studentService.update(stud);
-		logger.debug("Added role to student");
+		
+		logger.debug("Added role to student: " + role.getRoleName());
 	}
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { "removeRole/{studentId}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "removeRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role removed")
-	public void removeStudentRole(Long studId) {
+	public void removeStudentRole(Long studId, Long roleId) {
 		Student stud = studentService.getById(studId);
 		ValidationHelper.isObjectNull(stud);
-		stud.setRole(null);
-		studentService.update(stud);			
-		logger.debug("Removed role from student");
+		
+		Role role = roleService.getById(roleId);
+		ValidationHelper.isObjectNull(role);
+		
+		stud.getRoles().remove(role);
+		studentService.update(stud);
+		
+		logger.debug("Removed role from student: " + role.getRoleName());
 	}
 	
 	/**

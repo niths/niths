@@ -1,5 +1,7 @@
 package no.niths.services;
 
+import java.util.List;
+
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
@@ -50,7 +52,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		
 		String userEmail = profile.getEmail();
 		logger.debug("User trying to log in with email: " + userEmail);
-		User user = new User();
+		User user = new User(userEmail);
+		
 		if(isUserValid(userEmail)){
 			user.setGoogleToken(token);
 			Student temp = studentRepo.getStudentByEmail(userEmail);
@@ -58,11 +61,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				logger.info("Student does not exsist, creating a new student");
 				temp = createStudentWithEmail(userEmail);
 			}
-			//Getting the role of the student
-			Role role = temp.getRole();
-			if(role != null){
-				logger.info("Student logging in has role: " + role.getRoleName());
-				user.setRoleName(role.getRoleName());
+			//Getting the role(s) of the student
+			List<Role> roles = temp.getRoles();
+			if(!(roles.isEmpty())){
+				String loggerText = "Student logging in has role(s): ";
+				for (Role role: roles){
+					loggerText += role.getRoleName() + " ";
+					user.addRoleName(role.getRoleName());
+				}
+				logger.info(loggerText);
 			}
 		}
 		return user;
