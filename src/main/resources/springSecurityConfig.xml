@@ -6,8 +6,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 <!-- ADD TO PERSISTENCE:PROPERTIES FILE:
+	EXCHANGE:
 	google.clientId=1052169777876.apps.googleusercontent.com
 	google.clientSecret=i4QqNZH8lhD5gtBU114yeZIw
+	WITH NEW:
+	google.clientId=1064171706637.apps.googleusercontent.com
+	google.clientSecret=2FXD-f6o2IXtU7SyYeWbsNeH
 
  -->
 
