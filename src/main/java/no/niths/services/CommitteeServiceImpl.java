@@ -55,7 +55,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 			for (int i = 0; i < leaders.size(); i++){
 				leaders.get(i).setCommittees(null);
 				leaders.get(i).setCourses(null);
-				leaders.get(i).setOrientationGroup(null);
+				leaders.get(i).setFadderUka(null);
 			}
 			if(c.getEvents().size() < 1){
 				c.setEvents(null);

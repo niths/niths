@@ -35,18 +35,18 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Student> getAllStudentsInAnOrientationGroup() {
+	public List<Student> getAllStudentsInAFadderUka() {
 		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.orientationGroup";
+				+ " s join fetch s.fadderUka";
 		return getSession().getCurrentSession().createQuery(sql)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Student> getStudentsInOrientationGroup(int groupId) {
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId) {
 		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.orientationGroup m where m.groupId=:gid";
+				+ " s join fetch s.fadderUka m where m.groupId=:gid";
 		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}

@@ -3,7 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Student;
-import no.niths.domain.StudentOrientationGroup;
+import no.niths.domain.FadderUka;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
 				}
 			} 
 			
-			s.getOrientationGroup().size();
+			s.getFadderUka().size();
 		}
 		return s;
 	}
@@ -79,28 +79,28 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void addStudentToOrientationGroup(Student student, int groupId) {
-		student.getOrientationGroup().add(new StudentOrientationGroup(groupId));
+	public void addStudentToFadderUka(Student student, int groupId) {
+		student.getFadderUka().add(new FadderUka(groupId));
 		update(student);
 	}
 
 	@Override
-	public List<Student> getAllStudentsInAnOrientationGroup() {
-		return repo.getAllStudentsInAnOrientationGroup();
+	public List<Student> getAllStudentsInAFadderUka() {
+		return repo.getAllStudentsInAFadderUka();
 	}
 
 	@Override
-	public List<Student> getAllStudentsInAOrientationGroup(int groupId) {
-		return repo.getStudentsInOrientationGroup(groupId);
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId) {
+		return repo.getAllStudentsInFadderUkaBelongingToAGroup(groupId);
 	}
 
 	@Override
-	public void removeStudentFromOrientationGroup(Student student, int groupId) {
+	public void removeStudentFromFadderUka(Student student, int groupId) {
 
-		if (!student.getOrientationGroup().isEmpty()) {
-			for (int i = 0; i < student.getOrientationGroup().size();i++) {
-				if (student.getOrientationGroup().get(i).getGroupId() == groupId) {
-					student.getOrientationGroup().remove(i);
+		if (!student.getFadderUka().isEmpty()) {
+			for (int i = 0; i < student.getFadderUka().size();i++) {
+				if (student.getFadderUka().get(i).getGroupId() == groupId) {
+					student.getFadderUka().remove(i);
 				}
 			}
 			update(student);
@@ -108,9 +108,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void removeStudentFromAllOrientationGroups(Student student) {
-		if (!student.getOrientationGroup().isEmpty()) {
-			student.setOrientationGroup(null);
+	public void removeStudentFromAllOfFadderUka(Student student) {
+		if (!student.getFadderUka().isEmpty()) {
+			student.setFadderUka(null);
 			update(student);
 		}
 	}
