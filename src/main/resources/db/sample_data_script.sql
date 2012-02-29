@@ -164,7 +164,11 @@ INSERT INTO committee_leaders VALUES (5, 20);
 INSERT INTO committee_leaders VALUES (5, 10);
 INSERT INTO committee_leaders VALUES (3, 55);
 
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
+INSERT INTO events (name,description,startTime,endTime,tags, latitude, longitude) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg", 50.50, 50.50);
+INSERT INTO events (name,description,startTime,endTime,tags, latitude, longitude) VALUES("aug Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg", 50.50, 50.50);
+INSERT INTO events (name,description,startTime,endTime,tags, latitude, longitude) VALUES("foo Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg", 50.50, 50.50);
+INSERT INTO events (name,description,startTime,endTime,tags, latitude, longitude) VALUES("bar Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg", 50.50, 50.50);
+INSERT INTO events (name,description,startTime,endTime,tags, latitude, longitude) VALUES("baz Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg", 50.50, 50.50);
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Android, workshop");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");

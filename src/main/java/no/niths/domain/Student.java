@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -77,8 +78,8 @@ public class Student implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@OneToOne(fetch = FetchType.EAGER, targetEntity=Role.class)
-	private Role role;
+	@OneToMany(fetch = FetchType.EAGER, targetEntity=Role.class)
+	private List<Role> roles = new ArrayList<Role>();
 
 	@Column(name="birthday")
 	@Past
@@ -270,12 +271,12 @@ public class Student implements Serializable {
 		this.committees = committees;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<Role> getRoles() {
+		return roles;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	@JsonIgnore
