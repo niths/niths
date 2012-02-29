@@ -10,8 +10,8 @@
 	<form method="get" >
 		<input name="query" id="query" />
 		<input type="submit" value="søk" />
-
 	</form>
+
 	<table>
 		<tr>
 			<th>First Name</th>
