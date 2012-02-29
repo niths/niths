@@ -25,6 +25,11 @@ public class EventRepositoryImpl extends GenericRepositoryImpl<Event> implements
 		return queryGen.whereQuery(tag, COLUMNAME , getSession().getCurrentSession());
 	}
 
-	
+	@Override
+	public void hibernateDelete(long id) {
+		Event  e = new Event();
+		e.setId(id);
+		getSession().getCurrentSession().delete(e);
+	}
 	
 }

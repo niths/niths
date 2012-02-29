@@ -15,6 +15,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -86,13 +87,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
+	 * @deprecated
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+	@Deprecated
 	public void delete(@PathVariable Long id) {
-		if (!getService().delete(id)) {
+		if(!getService().delete(id)){
 			throw new ObjectNotFoundException();
 		}
 	}
@@ -107,6 +108,20 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		ValidationHelper.isListEmpty(getList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+	public void hibernateDelete(@PathVariable long id){
+		try{
+			getService().hibernateDelete(id);
+		}catch(HibernateOptimisticLockingFailureException e){
+			throw new ObjectNotFoundException();
+		}
+	}
+	
 	/**
 	 * Represents the service
 	 * 

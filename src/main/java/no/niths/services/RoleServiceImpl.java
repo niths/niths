@@ -39,4 +39,9 @@ public class RoleServiceImpl implements RoleService{
     public boolean delete(long id) {
         return repo.delete(id);
     }
+
+	@Override
+	public void hibernateDelete(long id) {
+		repo.hibernateDelete(id);
+	}
 }

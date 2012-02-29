@@ -13,4 +13,6 @@ public interface GenericCRUDActions<T> {
 	void update(T domain);
 
 	boolean delete(long id);
+	
+	void hibernateDelete(long id);
 }

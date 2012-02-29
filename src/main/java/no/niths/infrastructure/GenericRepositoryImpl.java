@@ -79,4 +79,9 @@ public class GenericRepositoryImpl<T extends Serializable> implements
 	public SessionFactory getSession() {
 		return session;
 	}
+
+	@Override
+	public void hibernateDelete(long id) {
+		
+	}
 }

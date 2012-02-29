@@ -12,5 +12,12 @@ public class CommitteeRepositoryImpl extends GenericRepositoryImpl<Committee>
 	public CommitteeRepositoryImpl() {
 		super(Committee.class);
 	}
+	
+	@Override
+	public void hibernateDelete(long id) {
+		Committee  c = new Committee();
+		c.setId(id);
+		getSession().getCurrentSession().delete(c);
+	}
 
 }

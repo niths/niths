@@ -13,5 +13,11 @@ public class SubjectRepositoryImpl extends GenericRepositoryImpl<Subject>
 		super(Subject.class);
 	}
 
-	
+	@Override
+	public void hibernateDelete(long id) {
+		Subject s = new Subject();
+		s.setId(id);
+		getSession().getCurrentSession().delete(s);
+		
+	}
 }

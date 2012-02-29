@@ -114,4 +114,9 @@ public class StudentServiceImpl implements StudentService {
 			update(student);
 		}
 	}
+
+	@Override
+	public void hibernateDelete(long id) {
+		repo.hibernateDelete(id);
+	}
 }

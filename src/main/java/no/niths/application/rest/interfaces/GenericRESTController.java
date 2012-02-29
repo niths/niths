@@ -47,6 +47,12 @@ public interface GenericRESTController<T> {
     public void delete(Long id);
     
     /**
+     * 
+     * @param id
+     */
+    public void hibernateDelete(long id);
+    
+    /**
      * Clears the old list, fill the new list and checks if is empty.
      * @param list
      */

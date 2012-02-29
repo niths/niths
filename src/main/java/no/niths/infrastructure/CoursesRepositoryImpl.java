@@ -13,4 +13,10 @@ public class CoursesRepositoryImpl extends GenericRepositoryImpl<Course>
 		super(Course.class);
 	}
 
+	@Override
+	public void hibernateDelete(long id) {
+		Course  c = new Course();
+		c.setId(id);
+		getSession().getCurrentSession().delete(c);
+	}
 }

@@ -12,4 +12,10 @@ public class FadderUkaRepositoryImpl extends GenericRepositoryImpl<FadderUka> im
 		super(FadderUka.class);
 	}
 
+	@Override
+	public void hibernateDelete(long id) {
+		FadderUka f = new FadderUka();
+		f.setId(id);
+		getSession().getCurrentSession().delete(f);
+	}
 }

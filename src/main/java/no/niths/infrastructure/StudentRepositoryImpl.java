@@ -3,6 +3,7 @@ package no.niths.infrastructure;
 import java.util.List;
 
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.hibernate.Criteria;
@@ -49,5 +50,13 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 				+ " s join fetch s.fadderUka m where m.groupId=:gid";
 		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
+	@Override
+	public void hibernateDelete(long id) {
+		Student s = new Student();
+		s.setId(id);
+		
+		getSession().getCurrentSession().delete(s);
 	}
 }

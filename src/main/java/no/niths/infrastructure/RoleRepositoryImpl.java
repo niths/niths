@@ -13,4 +13,10 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role>
 		super(Role.class);
 	}
 
+	@Override
+	public void hibernateDelete(long id) {
+		Role r = new Role();
+		r.setId(id);
+		getSession().getCurrentSession().delete(r);
+	}
 }

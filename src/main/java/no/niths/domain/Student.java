@@ -79,6 +79,7 @@ public class Student implements Serializable {
 	@JsonIgnore
 	@XmlTransient
 	@OneToMany(fetch = FetchType.EAGER, targetEntity=Role.class)
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Role> roles = new ArrayList<Role>();
 
 	@Column(name="birthday")
@@ -107,9 +108,11 @@ public class Student implements Serializable {
 
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@Cascade(CascadeType.ALL)
 	private List<Course> courses = new ArrayList<Course>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
+	@Cascade(CascadeType.ALL)
 	private List<Committee> committees = new ArrayList<Committee>();
 	
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderUka.class)

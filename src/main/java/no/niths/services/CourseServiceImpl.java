@@ -41,4 +41,10 @@ public class CourseServiceImpl implements CourseService{
         return repo.delete(id);
     }
 
+	@Override
+	public void hibernateDelete(long id) {
+		repo.hibernateDelete(id);
+		
+	}
+
 }

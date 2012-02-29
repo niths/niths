@@ -49,4 +49,9 @@ public class EventServiceImpl implements EventsService {
 		List<Event> events = repo.getEventsByTag(tag);
 		return events;
 	}
+
+	@Override
+	public void hibernateDelete(long id) {
+		repo.hibernateDelete(id);
+	}
 }
