@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -115,7 +114,7 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committees = new ArrayList<Committee>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderUka.class)
+	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderGroup.class)
 	@Cascade(CascadeType.ALL)
 	@JoinTable(
 			name="students_student_orientation_groups",
@@ -125,7 +124,7 @@ public class Student implements Serializable {
 //	@JoinTable(
 //			name="students_student_orientation_groups",
 //			uniqueConstraints={@UniqueConstraint(columnNames ={"orientationGroup_id", "students_id"})} )
-	private List<FadderUka> fadderUka = new ArrayList<FadderUka>();
+	private List<FadderGroup> fadderGroup = new ArrayList<FadderGroup>();
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
@@ -298,11 +297,11 @@ public class Student implements Serializable {
 		return s;
 	}
 
-	public List<FadderUka> getFadderUka() {
-		return fadderUka;
+	public List<FadderGroup> getFadderGroup() {
+		return fadderGroup;
 	}
 
-	public void setFadderUka(List<FadderUka> fadderUkaListe) {
-		this.fadderUka = fadderUkaListe;
+	public void setFadderGroup(List<FadderGroup> fadderGroupListe) {
+		this.fadderGroup = fadderGroupListe;
 	}
 }

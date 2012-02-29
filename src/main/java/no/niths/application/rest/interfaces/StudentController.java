@@ -24,21 +24,21 @@ public interface StudentController extends GenericRESTController<Student> {
 	 * @param studentId The id of the student
 	 * @param groupId The group id of the orientation group
 	 */
-	public void addStudentToFadderUka(long studentId, int groupId);
+	public void addStudentToFadderGroup(long studentId, int groupId);
 	
 	/**
 	 * Return all students in an orientation group
 	 * 
 	 * @return list of all students in an orientation group
 	 */
-	public List<Student> getAllStudentsInAFadderUka();
+	public List<Student> getAllStudentsInFadderGroup();
 	/**
 	 * Returns all students in a specific group
 	 * 
 	 * @param groupId id of the group
 	 * @return list of all students
 	 */
-	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId);
+	public List<Student> getAllStudentsInAFadderGroupWithId(int groupId);
 	
 	/**
 	 * Removes a student from a group
@@ -46,12 +46,12 @@ public interface StudentController extends GenericRESTController<Student> {
 	 * @param studentId Id of the student
 	 * @param groupId id of the group
 	 */
-	public void removeStudentFromFadderUka(long studentId, int groupId);
+	public void removeStudentFromFadderGroup(long studentId, int groupId);
 	
 	/**
 	 * Removes a student from all groups he/she is a member of
 	 * 
 	 * @param studentId id of the students to remove
 	 */
-	public void removeStudentFromAllOfFadderUka(long studentId);
+	public void removeStudentFromAllFadderGroups(long studentId);
 }

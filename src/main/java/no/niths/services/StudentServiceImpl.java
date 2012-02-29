@@ -2,7 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.FadderUka;
+import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
@@ -40,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-			s.getFadderUka().size();
+			s.getFadderGroup().size();
 		}
 		return s;
 	}
@@ -65,28 +65,28 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void addStudentToFadderUka(Student student, int groupId) {
-		student.getFadderUka().add(new FadderUka(groupId));
+	public void addStudentToFadderGroup(Student student, int groupId) {
+		student.getFadderGroup().add(new FadderGroup(groupId));
 		update(student);
 	}
 
 	@Override
-	public List<Student> getAllStudentsInAFadderUka() {
-		return repo.getAllStudentsInAFadderUka();
+	public List<Student> getAllStudentsInFadderGroup() {
+		return repo.getAllStudentsInFadderGroups();
 	}
 
 	@Override
-	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId) {
-		return repo.getAllStudentsInFadderUkaBelongingToAGroup(groupId);
+	public List<Student> getAllStudentsInAFadderGroupWithId(int groupId) {
+		return repo.getAllStudentsInAFadderGroupWithId(groupId);
 	}
 
 	@Override
-	public void removeStudentFromFadderUka(Student student, int groupId) {
+	public void removeStudentFromFadderGroup(Student student, int groupId) {
 
-		if (!student.getFadderUka().isEmpty()) {
-			for (int i = 0; i < student.getFadderUka().size(); i++) {
-				if (student.getFadderUka().get(i).getGroupId() == groupId) {
-					student.getFadderUka().remove(i);
+		if (!student.getFadderGroup().isEmpty()) {
+			for (int i = 0; i < student.getFadderGroup().size(); i++) {
+				if (student.getFadderGroup().get(i).getGroupId() == groupId) {
+					student.getFadderGroup().remove(i);
 				}
 			}
 			update(student);
@@ -94,9 +94,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void removeStudentFromAllOfFadderUka(Student student) {
-		if (!student.getFadderUka().isEmpty()) {
-			student.setFadderUka(null);
+	public void removeStudentFromAllFadderGroups(Student student) {
+		if (!student.getFadderGroup().isEmpty()) {
+			student.setFadderGroup(null);
 			update(student);
 		}
 	}

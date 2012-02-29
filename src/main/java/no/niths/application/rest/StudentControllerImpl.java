@@ -53,7 +53,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				student.getCourses().get(i).setSubjects(null);
 			}
 
-			student.getFadderUka().size();
+			student.getFadderGroup().size();
 		}
 		return student;
 	}
@@ -66,7 +66,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			studentList.get(i).setFadderUka(null);
+			studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}
@@ -85,7 +85,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			studentList.get(i).setFadderUka(null);
+			studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}
@@ -112,13 +112,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = { "{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
-	public void addStudentToFadderUka(@PathVariable long studentId,
-			@PathVariable int groupId) {
+	public void addStudentToFadderGroup(@PathVariable long studentId,
+                                        @PathVariable int groupId) {
 
 		logger.info(studentId + " " + groupId);
 		Student student = service.getById(studentId);
 		ValidationHelper.isObjectNull(student);
-		service.addStudentToFadderUka(student, groupId);
+		service.addStudentToFadderGroup(student, groupId);
 	}
 
 	/**
@@ -127,9 +127,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = "orientation-group", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Student> getAllStudentsInAFadderUka() {
+	public List<Student> getAllStudentsInFadderGroup() {
 		studentList.clear();
-		studentList.addAll(service.getAllStudentsInAFadderUka());
+		studentList.addAll(service.getAllStudentsInFadderGroup());
 		studentList.setData(studentList); // for xml marshalling
 		ValidationHelper.isListEmpty(studentList);
 
@@ -142,9 +142,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(
-			@PathVariable int groupId) {
-		renewList(service.getAllStudentsInFadderUkaBelongingToAGroup(groupId));
+	public List<Student> getAllStudentsInAFadderGroupWithId(
+            @PathVariable int groupId) {
+		renewList(service.getAllStudentsInAFadderGroupWithId(groupId));
 
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
@@ -160,12 +160,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = "{studentId}/orientation-group/{groupId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void removeStudentFromFadderUka(@PathVariable long studentId,
-			@PathVariable int groupId) {
+	public void removeStudentFromFadderGroup(@PathVariable long studentId,
+                                             @PathVariable int groupId) {
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
 
-		service.removeStudentFromFadderUka(student, groupId);
+		service.removeStudentFromFadderGroup(student, groupId);
 	}
 
 	/**
@@ -174,9 +174,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = "{studentId}/orientation-group", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void removeStudentFromAllOfFadderUka(@PathVariable long studentId) {
+	public void removeStudentFromAllFadderGroups(@PathVariable long studentId) {
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
-		service.removeStudentFromAllOfFadderUka(student);
+		service.removeStudentFromAllFadderGroups(student);
 	}
 }

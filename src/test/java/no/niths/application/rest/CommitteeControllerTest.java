@@ -1,6 +1,8 @@
 package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
+
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -25,9 +27,17 @@ public class CommitteeControllerTest {
     private CommitteeController controller;
 
     @Test
-    public void testCreateAndGetCommittee() {        
+    public void testCreateAndGetCommittee() {
+        int size = 0;
+        try{
+            size = controller.getAll(null).size();
+        }catch(ObjectNotFoundException e){
+        }
+
         Committee firstCommittee = new Committee("qux", "corge");
         controller.create(firstCommittee);
+
+        assertEquals(size + 1, controller.getAll(null).size());
 
         assertEquals(
                 controller.getAll(firstCommittee).get(0).getName(),

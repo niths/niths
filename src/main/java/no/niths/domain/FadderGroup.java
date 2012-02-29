@@ -22,9 +22,9 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
  */
 @XmlRootElement
 @Entity
-@Table(name =AppConstants.FADDER_UKA)
+@Table(name =AppConstants.FADDER_GROUP)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class FadderUka implements Serializable {
+public class FadderGroup implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = -3434555328809873472L;
@@ -36,11 +36,11 @@ public class FadderUka implements Serializable {
 	@Column(name="group_id")
 	private int groupId;
 	
-	public FadderUka() {
+	public FadderGroup() {
 		this(0);
 	}
 	
-	public FadderUka(int grupeId) {
+	public FadderGroup(int grupeId) {
 		setGroupId(grupeId);
 	}
 

@@ -67,7 +67,7 @@ public class CommitteeControllerImpl extends
 			for (int i = 0; i < leaders.size(); i++){
 				leaders.get(i).setCommittees(null);
 				leaders.get(i).setCourses(null);
-				leaders.get(i).setFadderUka(null);
+				leaders.get(i).setFadderGroup(null);
 			}
 			if(c.getEvents().isEmpty()){
 				c.setEvents(null);
