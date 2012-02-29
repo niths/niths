@@ -196,6 +196,13 @@ INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukezx
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukex3 party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, fest");
 
 
+INSERT INTO fadder_groups(id, group_number) values (1, 1);
+INSERT INTO fadder_groups(id, group_number) values (2, 2);
+INSERT INTO fadder_groups(id, group_number) values (3, 3);
+INSERT INTO fadder_groups(id, group_number) values (4, 4);
+
+--INSERT INTO fadder_groups_students values (1,1,1);
+
 --insert into student_orientation_groups (group_id) values(1);
 --insert into student_orientation_groups (group_id) values(2);
 --insert into student_orientation_groups (group_id) values(3);

@@ -1,13 +1,14 @@
 package no.niths.infrastructure;
 
 import no.niths.domain.FadderGroup;
-import org.springframework.stereotype.Repository;
-
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class FadderGroupRepositoryImpl extends GenericRepositoryImpl<FadderGroup> implements FadderGroupRepository {
 
+	
 	public FadderGroupRepositoryImpl() {
 		super(FadderGroup.class);
 	}

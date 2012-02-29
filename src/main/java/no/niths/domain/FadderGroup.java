@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
@@ -34,6 +36,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name =AppConstants.FADDER_GROUP)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@XmlAccessorType(XmlAccessType.FIELD)  
 public class FadderGroup implements Serializable {
 
 	@Transient
@@ -43,24 +46,29 @@ public class FadderGroup implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 		
-	@Column(name="group_id", unique=true)
-	private int groupId;
+	@Column(name="group_number")
+	private Integer groupNumber;
 	
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = Student.class)
 	@Cascade(CascadeType.ALL)
 //	@JoinTable(
-//			name="fadder_group_student_orientation_groups",
-//					 joinColumns = @JoinColumn(name = "orientation_groups_id")
+//			name="leaders_fadder_groups",
+//					 joinColumns = @JoinColumn(name = "leaders_id")
 //            ,inverseJoinColumns = @JoinColumn(name = "students_id"),
-//		            uniqueConstraints={@UniqueConstraint(columnNames ={"orientation_groups_id", "students_id"})} )
+//		            uniqueConstraints={@UniqueConstraint(columnNames ={"leaders_id", "students_id"})} )
 	private List<Student> leaders = new ArrayList<Student>();
 	
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@Cascade(CascadeType.ALL)
 	private List<Student> fadderChildren = new ArrayList<Student>();
 	
+	
 	public FadderGroup() {
 		this(0);
+	}
+	
+	public FadderGroup(int groupId) {
+		this.groupNumber = groupId;
 	}
 	
 	public List<Student> getLeaders() {
@@ -79,16 +87,13 @@ public class FadderGroup implements Serializable {
 		this.fadderChildren = fadderChildren;
 	}
 
-	public FadderGroup(int grupeId) {
-		setGroupId(grupeId);
+
+	public Integer getGroupNumber() {
+		return groupNumber;
 	}
 
-	public int getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
+	public void setGroupNumber(Integer groupId) {
+		this.groupNumber = groupId;
 	}
 
 	public Long getId() {
@@ -97,6 +102,15 @@ public class FadderGroup implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof FadderGroup)) {
+			return false;
+		}
+		FadderGroup s = (FadderGroup) obj;
+		return s == this ? true : s.getId() == id ? true : false;
 	}
 
 }

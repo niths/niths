@@ -18,9 +18,9 @@ public class FadderGroupTest {
     public void testShouldGenerateNewFadderGroup() {
         FadderGroup fadderGroup = new FadderGroup();
         fadderGroup.setId(ID);
-        fadderGroup.setGroupId(GROUP_ID);
+        fadderGroup.setGroupNumber(GROUP_ID);
 
         assertThat(ID, is(equalTo(fadderGroup.getId())));
-        assertThat(GROUP_ID, is(equalTo(fadderGroup.getGroupId())));
+        assertThat(GROUP_ID, is(equalTo(fadderGroup.getGroupNumber())));
     }
 }

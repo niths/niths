@@ -1,22 +1,22 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
+
 import no.niths.application.rest.interfaces.FadderGroupController;
-import no.niths.application.rest.interfaces.SubjectController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
 import no.niths.domain.FadderGroup;
-import no.niths.domain.Subject;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.SubjectService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Controller for subjects
  *
@@ -32,7 +32,32 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 	private FadderGroupService service;
 
 	private FadderGroupList fadderGroupList = new FadderGroupList();
-
+	
+	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<FadderGroup> getAll(FadderGroup domain) {
+		logger.debug("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+		fadderGroupList = (FadderGroupList) super.getAll(domain);
+		for (int i = 0; i < fadderGroupList.size(); i++){
+			fadderGroupList.get(i).setFadderChildren(null);
+			fadderGroupList.get(i).setLeaders(null);
+		}
+		return fadderGroupList;
+	}
+	
+	@Override
+	public void addLeaderToAGroup(Long groupId, Long studId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void removeLeaderFromAGroup(Long groupId, Long studId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -48,6 +73,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 	public ListAdapter<FadderGroup> getList() {
 		return fadderGroupList;
 	}
+
 
 
 }

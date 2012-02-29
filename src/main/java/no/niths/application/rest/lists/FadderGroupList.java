@@ -23,4 +23,8 @@ public class FadderGroupList extends ListAdapter<FadderGroup>{
     public void setData(List<FadderGroup> data) {
      this.data = data;
     }
+    
+    public List<FadderGroup> getData(){
+    	return data;
+    }
 }
