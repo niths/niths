@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -48,6 +49,15 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	
 	private SubjectList subjectList = new SubjectList();
 
+	
+	@Override
+	public ArrayList<Course> getAll(Course domain) {
+		courseList = (CourseList) super.getAll(domain);
+    	for (int i = 0; i < courseList.size(); i++){
+    		courseList.get(i).setSubjects(null);
+    	}
+		return courseList;
+	}
 	/**
 	 * Returns all topics inside a course
 	 * 
