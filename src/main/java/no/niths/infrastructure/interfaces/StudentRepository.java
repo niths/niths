@@ -11,7 +11,7 @@ public interface StudentRepository extends GenericRepository<Student>{
 	
 	public Student getStudentByEmail(String email);
 	
-	public List<Student> getAllStudentsInAnOrientationGroup();
+	public List<Student> getAllStudentsInAFadderUka();
 
-	public List<Student> getStudentsInOrientationGroup(int groupId) ;
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId) ;
 }

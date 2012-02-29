@@ -32,13 +32,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 	 * @return
 	 */
 	public List<Committee> getAll(Committee committee) {
-		List<Committee> temp = repo.getAll(committee);
-	
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setEvents(null);
-			temp.get(i).setLeaders(null);
-		}
-		return temp;
+		return repo.getAll(committee);
 	}
 	
 	
@@ -55,7 +49,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 			for (int i = 0; i < leaders.size(); i++){
 				leaders.get(i).setCommittees(null);
 				leaders.get(i).setCourses(null);
-				leaders.get(i).setOrientationGroup(null);
+				leaders.get(i).setFadderUka(null);
 			}
 			if(c.getEvents().size() < 1){
 				c.setEvents(null);

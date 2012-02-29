@@ -1,5 +1,7 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
+
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -51,6 +53,16 @@ public class CommitteeControllerImpl extends
 
 	private CommitteeList committeeList = new CommitteeList();
 
+	@Override
+	public ArrayList<Committee> getAll(Committee domain) {
+		committeeList = (CommitteeList) super.getAll(domain);
+		for (int i = 0; i < committeeList.size(); i++) {
+			committeeList.get(i).setEvents(null);
+			committeeList.get(i).setLeaders(null);
+		}
+		return committeeList;
+	}
+	
 	/**
 	 * Adds a leader to a committee
 	 * 
