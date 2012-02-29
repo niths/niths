@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @TransactionConfiguration(
         transactionManager = TestAppConfig.TRANSACTION_MANAGER)
-public class AdminControllerTest {
+public class RoleControllerTest {
 	
 	@Autowired
 	private RoleController roleController;
