@@ -37,8 +37,30 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Autowired
 	private StudentService service;
 
-	
 	@Override
+	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public Student getById(@PathVariable Long id) {
+		Student student = super.getById(id);
+		if (student != null) {
+
+			for (int i = 0; i < student.getCommittees().size(); i++) {
+				student.getCommittees().get(i).setEvents(null);
+				student.getCommittees().get(i).setLeaders(null);
+			}
+
+			for (int i = 0; i < student.getCourses().size(); i++) {
+				student.getCourses().get(i).setSubjects(null);
+			}
+
+			student.getFadderUka().size();
+		}
+		return student;
+	}
+
+	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
 	public ArrayList<Student> getAll(Student domain) {
 		studentList = (StudentList) super.getAll(domain);
 		for (int i = 0; i < studentList.size(); i++) {
@@ -48,7 +70,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		}
 		return studentList;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -67,8 +89,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		}
 		return studentList;
 	}
-
-	
 
 	/**
 	 * {@inheritDoc}
@@ -90,13 +110,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { 
-			"{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
 	public void addStudentToFadderUka(@PathVariable long studentId,
-                                      @PathVariable int groupId) {
-		
-		logger.info(studentId +  " " + groupId);
+			@PathVariable int groupId) {
+
+		logger.info(studentId + " " + groupId);
 		Student student = service.getById(studentId);
 		ValidationHelper.isObjectNull(student);
 		service.addStudentToFadderUka(student, groupId);
@@ -123,14 +142,15 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(@PathVariable int groupId) {
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(
+			@PathVariable int groupId) {
 		renewList(service.getAllStudentsInFadderUkaBelongingToAGroup(groupId));
-		
+
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
 		}
-		
+
 		return studentList;
 	}
 
@@ -141,7 +161,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@RequestMapping(value = "{studentId}/orientation-group/{groupId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeStudentFromFadderUka(@PathVariable long studentId,
-                                           @PathVariable int groupId) {
+			@PathVariable int groupId) {
 		Student student = getById(studentId);
 		ValidationHelper.isObjectNull(student);
 

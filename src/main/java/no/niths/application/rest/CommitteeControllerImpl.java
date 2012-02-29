@@ -1,6 +1,7 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.lists.CommitteeList;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -54,6 +56,29 @@ public class CommitteeControllerImpl extends
 	private CommitteeList committeeList = new CommitteeList();
 
 	@Override
+	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public Committee getById(@PathVariable Long id) {
+		logger.debug(id+"");
+		Committee c = super.getById(id);
+		
+		if(c != null){
+			List<Student> leaders = c.getLeaders();
+			for (int i = 0; i < leaders.size(); i++){
+				leaders.get(i).setCommittees(null);
+				leaders.get(i).setCourses(null);
+				leaders.get(i).setFadderUka(null);
+			}
+			if(c.getEvents().isEmpty()){
+				c.setEvents(null);
+			}
+		}
+		return c;
+	}
+	
+	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
 	public ArrayList<Committee> getAll(Committee domain) {
 		committeeList = (CommitteeList) super.getAll(domain);
 		for (int i = 0; i < committeeList.size(); i++) {
