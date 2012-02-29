@@ -2,6 +2,7 @@ USE niths;
 
 INSERT INTO roles(role_name) values("ROLE_ADMIN");
 INSERT INTO roles(role_name) values("ROLE_USER");
+INSERT INTO roles(role_name) values("ROLE_COMMITTEE_LEADER");
 --insert into students(email, role_id) values('degyvi09@nith.no', 1);
 --insert into students(email, role_id) values('kriand09@nith.no', 1);
 
@@ -42,10 +43,14 @@ insert into courses_subjects values(4,3);
 insert into courses_subjects values(4,5);
 
 
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Øyvind", "Ødegård",'2012-02-02',"degyvi09@nith.no",'M',"super awesome","41549300",3,"super secret password *******");
+INSERT INTO students_roles(students_id, roles_id) values(1, 1);
+INSERT INTO students_roles(students_id, roles_id) values(1, 3);
+
+
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Bendik", "Rostad", '2012-02-02',"MMMM@mail.com",'M',"super awesome","81249300",3,"super secret password *******");
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Liv", "Kolås", '2012-02-02',"tea@mail.com",'F',"super awesome","15492300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Øyvind", "Ødegård",'2012-02-02',"free@mail.com",'M',"super awesome","41549300",3,"super secret password *******");
 
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Wolfe@nith.no','Abraham','Branch','1986-06-08','12003434','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('rallii09@nith.no','Xavier','Rodgers','1979-05-21','88501167','3');
