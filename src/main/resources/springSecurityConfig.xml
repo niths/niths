@@ -14,7 +14,7 @@
 	google.clientSecret=2FXD-f6o2IXtU7SyYeWbsNeH
 
  -->
-
+<global-method-security pre-post-annotations="enabled" proxy-target-class="true"/>
 <!-- First use basic authentication, if not provided, use digest -->
 	<http create-session="stateless" >
 		<!--  <intercept-url pattern="/students/**" access="ROLE_ADMIN" />-->
@@ -40,6 +40,7 @@
 			<user-service id="userService">
 				<user name="admin" password="admin" authorities="ROLE_ADMIN" />
 				<user name="user" password="user" authorities="ROLE_USER" />
+				<user name="test" password="test" authorities="ROLE_TEST" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
