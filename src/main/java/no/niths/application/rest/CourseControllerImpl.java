@@ -51,6 +51,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 
 	
 	@Override
+	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
 	public ArrayList<Course> getAll(Course domain) {
 		courseList = (CourseList) super.getAll(domain);
     	for (int i = 0; i < courseList.size(); i++){

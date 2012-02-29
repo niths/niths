@@ -3,7 +3,6 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Committee;
-import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.services.interfaces.CommitteeService;
 
@@ -29,13 +28,13 @@ public class CommitteeServiceImpl implements CommitteeService {
 
 	/**
 	 * <
+	 * 
 	 * @return
 	 */
 	public List<Committee> getAll(Committee committee) {
 		return repo.getAll(committee);
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param cid
@@ -43,22 +42,13 @@ public class CommitteeServiceImpl implements CommitteeService {
 	 */
 	public Committee getById(long cid) {
 		Committee c = repo.getById(cid);
-		
-		if(c != null){
-			List<Student> leaders = c.getLeaders();
-			for (int i = 0; i < leaders.size(); i++){
-				leaders.get(i).setCommittees(null);
-				leaders.get(i).setCourses(null);
-				leaders.get(i).setFadderUka(null);
-			}
-			if(c.getEvents().size() < 1){
-				c.setEvents(null);
-			}
+
+		if (c != null) {
+			c.getLeaders().size();
+			c.getEvents().size();
 		}
 		return c;
 	}
-
-
 
 	/**
 	 * 
@@ -67,7 +57,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 	public void update(Committee committee) {
 		repo.update(committee);
 	}
-	
+
 	/**
 	 * 
 	 * @param committee
@@ -79,8 +69,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 	@Override
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
-		
+
 	}
-	
 
 }

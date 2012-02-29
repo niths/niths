@@ -2,8 +2,8 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.Student;
 import no.niths.domain.FadderUka;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
@@ -38,21 +38,8 @@ public class StudentServiceImpl implements StudentService {
 	public Student getById(long id) {
 		Student s = repo.getById(id);
 		if (s != null) {
-			int committeeSize = s.getCommittees().size();
-			if (committeeSize > 0) {
-				for (int i = 0; i < committeeSize; i++) {
-					s.getCommittees().get(i).setEvents(null);
-					s.getCommittees().get(i).setLeaders(null);
-				}
-			} 
-			
-			int courseSize = s.getCourses().size();
-			if (courseSize > 0) {
-				for (int i = 0; i < courseSize; i++) {
-					s.getCourses().get(i).setSubjects(null);
-				}
-			} 
-			
+			s.getCommittees().size();
+			s.getCourses().size();
 			s.getFadderUka().size();
 		}
 		return s;
@@ -72,9 +59,8 @@ public class StudentServiceImpl implements StudentService {
 
 	public List<Student> getStudentsWithNamedCourse(String name) {
 
-		List<Student> temp = repo
-				.getStudentsWithNamedCourse(name);
-	
+		List<Student> temp = repo.getStudentsWithNamedCourse(name);
+
 		return temp;
 	}
 
@@ -98,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
 	public void removeStudentFromFadderUka(Student student, int groupId) {
 
 		if (!student.getFadderUka().isEmpty()) {
-			for (int i = 0; i < student.getFadderUka().size();i++) {
+			for (int i = 0; i < student.getFadderUka().size(); i++) {
 				if (student.getFadderUka().get(i).getGroupId() == groupId) {
 					student.getFadderUka().remove(i);
 				}

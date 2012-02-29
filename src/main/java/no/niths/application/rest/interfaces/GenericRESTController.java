@@ -43,7 +43,9 @@ public interface GenericRESTController<T> {
      * Deletes the domain object with the given id
      * 
      * @param id the if of the domain object to be deleted
+     * @deprecated
      */
+	@Deprecated
     public void delete(Long id);
     
     /**
