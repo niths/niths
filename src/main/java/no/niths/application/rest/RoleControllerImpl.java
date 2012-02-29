@@ -79,6 +79,24 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * {@inheritDoc}
 	 */
 	@Override
+	@RequestMapping(value = { "removeRoles/{studentId}" }, method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
+	public void removeAllRolesFromStudent(Long studId) {
+		Student stud = studentService.getById(studId);
+		ValidationHelper.isObjectNull(stud);
+
+		stud.getRoles().clear();
+		studentService.update(stud);
+
+		logger.debug("All roles removed from student");
+	}
+	
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public GenericService<Role> getService() {
 		return roleService;
 	}
