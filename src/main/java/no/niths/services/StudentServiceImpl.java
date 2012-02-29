@@ -59,13 +59,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public List<Student> getAll(Student s) {
-		List<Student> temp = repo.getAll(s);
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-			temp.get(i).setOrientationGroup(null);
-		}
-		return temp;
+		return repo.getAll(s);
 	}
 
 	public void update(Student student) {
@@ -80,11 +74,7 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Student> temp = repo
 				.getStudentsWithNamedCourse(name);
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-			temp.get(i).setOrientationGroup(null);
-		}
+	
 		return temp;
 	}
 
@@ -96,22 +86,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getAllStudentsInAnOrientationGroup() {
-		List<Student> temp =  repo.getAllStudentsInAnOrientationGroup();
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-		}
-		return temp;
+		return repo.getAllStudentsInAnOrientationGroup();
 	}
 
 	@Override
 	public List<Student> getAllStudentsInAOrientationGroup(int groupId) {
-		List<Student> mentors =  repo.getStudentsInOrientationGroup(groupId);
-		for (int i = 0; i < mentors.size(); i++) {
-			mentors.get(i).setCommittees(null);
-			mentors.get(i).setCourses(null);
-		}
-		return mentors;
+		return repo.getStudentsInOrientationGroup(groupId);
 	}
 
 	@Override

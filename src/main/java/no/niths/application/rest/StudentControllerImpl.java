@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.interfaces.StudentController;
@@ -36,6 +37,18 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Autowired
 	private StudentService service;
 
+	
+	@Override
+	public ArrayList<Student> getAll(Student domain) {
+		studentList = (StudentList) super.getAll(domain);
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setCommittees(null);
+			studentList.get(i).setCourses(null);
+			studentList.get(i).setOrientationGroup(null);
+		}
+		return studentList;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -44,14 +57,18 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	public List<Student> getStudentsWithNamedCourse(Course course) {
 		String name = course.getName();
 		logger.info(name);
-		studentList.clear();
-		studentList.addAll(service.getStudentsWithNamedCourse(name));
-		studentList.setData(studentList); // for xml marshalling
 
-		ValidationHelper.isListEmpty(studentList);
+		renewList(service.getStudentsWithNamedCourse(name));
 
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setCommittees(null);
+			studentList.get(i).setCourses(null);
+			studentList.get(i).setOrientationGroup(null);
+		}
 		return studentList;
 	}
+
+	
 
 	/**
 	 * {@inheritDoc}
@@ -92,11 +109,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@RequestMapping(value = "orientation-group", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Student> getAllOrientationGroups() {
-		studentList.clear();
-		studentList.addAll(service.getAllStudentsInAnOrientationGroup());
-		studentList.setData(studentList); // for xml marshalling
-		ValidationHelper.isListEmpty(studentList);
-
+		renewList(service.getAllStudentsInAnOrientationGroup());
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setCommittees(null);
+			studentList.get(i).setCourses(null);
+		}
+		
 		return studentList;
 	}
 
@@ -107,12 +125,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Student> getStudentsInOrientationGroup(@PathVariable int groupId) {
+		renewList(service.getAllStudentsInAOrientationGroup(groupId));
 		
-		studentList.clear();
-		studentList.addAll(service.getAllStudentsInAOrientationGroup(groupId));
-		studentList.setData(studentList); // for xml marshalling
-		ValidationHelper.isListEmpty(studentList);
-
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setCommittees(null);
+			studentList.get(i).setCourses(null);
+		}
+		
 		return studentList;
 	}
 

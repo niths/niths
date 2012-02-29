@@ -1,6 +1,7 @@
 package no.niths.application.rest.interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Generic interface for Controllers
  *
@@ -44,4 +45,11 @@ public interface GenericRESTController<T> {
      * @param id the if of the domain object to be deleted
      */
     public void delete(Long id);
+    
+    /**
+     * Clears the old list, fill the new list and checks if is empty.
+     * @param list
+     */
+    public void renewList(List<T> list);
+    
 }
