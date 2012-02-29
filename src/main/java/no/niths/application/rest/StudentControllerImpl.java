@@ -53,7 +53,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				student.getCourses().get(i).setSubjects(null);
 			}
 
-			student.getFadderGroup().size();
+			//student.getFadderGroup().size();
 		}
 		return student;
 	}
@@ -66,7 +66,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			studentList.get(i).setFadderGroup(null);
+			//studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}
@@ -85,7 +85,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			studentList.get(i).setFadderGroup(null);
+			//studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}
@@ -106,77 +106,77 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		return studentList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = { "{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
-	public void addStudentToFadderGroup(@PathVariable long studentId,
-                                        @PathVariable int groupId) {
-
-		logger.info(studentId + " " + groupId);
-		Student student = service.getById(studentId);
-		ValidationHelper.isObjectNull(student);
-		service.addStudentToFadderGroup(student, groupId);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "orientation-group", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Student> getAllStudentsInFadderGroup() {
-		studentList.clear();
-		studentList.addAll(service.getAllStudentsInFadderGroup());
-		studentList.setData(studentList); // for xml marshalling
-		ValidationHelper.isListEmpty(studentList);
-
-		return studentList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Student> getAllStudentsInAFadderGroupWithId(
-            @PathVariable int groupId) {
-		renewList(service.getAllStudentsInAFadderGroupWithId(groupId));
-
-		for (int i = 0; i < studentList.size(); i++) {
-			studentList.get(i).setCommittees(null);
-			studentList.get(i).setCourses(null);
-		}
-
-		return studentList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "{studentId}/orientation-group/{groupId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void removeStudentFromFadderGroup(@PathVariable long studentId,
-                                             @PathVariable int groupId) {
-		Student student = getById(studentId);
-		ValidationHelper.isObjectNull(student);
-
-		service.removeStudentFromFadderGroup(student, groupId);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "{studentId}/orientation-group", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void removeStudentFromAllFadderGroups(@PathVariable long studentId) {
-		Student student = getById(studentId);
-		ValidationHelper.isObjectNull(student);
-		service.removeStudentFromAllFadderGroups(student);
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	@RequestMapping(value = { "{studentId}/orientation-group/{groupId}" }, method = RequestMethod.POST)
+//	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
+//	public void addStudentToFadderGroup(@PathVariable long studentId,
+//                                        @PathVariable int groupId) {
+//
+//		logger.info(studentId + " " + groupId);
+//		Student student = service.getById(studentId);
+//		ValidationHelper.isObjectNull(student);
+//		service.addStudentToFadderGroup(student, groupId);
+//	}
+//
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	@RequestMapping(value = "orientation-group", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+//	@ResponseBody
+//	public List<Student> getAllStudentsInFadderGroup() {
+//		studentList.clear();
+//		studentList.addAll(service.getAllStudentsInFadderGroup());
+//		studentList.setData(studentList); // for xml marshalling
+//		ValidationHelper.isListEmpty(studentList);
+//
+//		return studentList;
+//	}
+//
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	@RequestMapping(value = "orientation-group/{groupId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+//	@ResponseBody
+//	public List<Student> getAllStudentsInAFadderGroupWithId(
+//            @PathVariable int groupId) {
+//		renewList(service.getAllStudentsInAFadderGroupWithId(groupId));
+//
+//		for (int i = 0; i < studentList.size(); i++) {
+//			studentList.get(i).setCommittees(null);
+//			studentList.get(i).setCourses(null);
+//		}
+//
+//		return studentList;
+//	}
+//
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	@RequestMapping(value = "{studentId}/orientation-group/{groupId}", method = RequestMethod.DELETE)
+//	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+//	public void removeStudentFromFadderGroup(@PathVariable long studentId,
+//                                             @PathVariable int groupId) {
+//		Student student = getById(studentId);
+//		ValidationHelper.isObjectNull(student);
+//
+//		service.removeStudentFromFadderGroup(student, groupId);
+//	}
+//
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	@RequestMapping(value = "{studentId}/orientation-group", method = RequestMethod.DELETE)
+//	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+//	public void removeStudentFromAllFadderGroups(@PathVariable long studentId) {
+//		Student student = getById(studentId);
+//		ValidationHelper.isObjectNull(student);
+//		service.removeStudentFromAllFadderGroups(student);
+//	}
 }

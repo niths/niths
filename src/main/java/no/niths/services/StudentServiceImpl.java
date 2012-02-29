@@ -40,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-			s.getFadderGroup().size();
+			//s.getFadderGroup().size();
 		}
 		return s;
 	}
@@ -64,42 +64,42 @@ public class StudentServiceImpl implements StudentService {
 		return temp;
 	}
 
-	@Override
-	public void addStudentToFadderGroup(Student student, int groupId) {
-		student.getFadderGroup().add(new FadderGroup(groupId));
-		update(student);
-	}
+//	@Override
+//	public void addStudentToFadderGroup(Student student, int groupId) {
+//		student.getFadderGroup().add(new FadderGroup(groupId));
+//		update(student);
+//	}
+//
+//	@Override
+//	public List<Student> getAllStudentsInFadderGroup() {
+//		return repo.getAllStudentsInFadderGroups();
+//	}
+//
+//	@Override
+//	public List<Student> getAllStudentsInAFadderGroupWithId(int groupId) {
+//		return repo.getAllStudentsInAFadderGroupWithId(groupId);
+//	}
 
-	@Override
-	public List<Student> getAllStudentsInFadderGroup() {
-		return repo.getAllStudentsInFadderGroups();
-	}
-
-	@Override
-	public List<Student> getAllStudentsInAFadderGroupWithId(int groupId) {
-		return repo.getAllStudentsInAFadderGroupWithId(groupId);
-	}
-
-	@Override
-	public void removeStudentFromFadderGroup(Student student, int groupId) {
-
-		if (!student.getFadderGroup().isEmpty()) {
-			for (int i = 0; i < student.getFadderGroup().size(); i++) {
-				if (student.getFadderGroup().get(i).getGroupId() == groupId) {
-					student.getFadderGroup().remove(i);
-				}
-			}
-			update(student);
-		}
-	}
-
-	@Override
-	public void removeStudentFromAllFadderGroups(Student student) {
-		if (!student.getFadderGroup().isEmpty()) {
-			student.setFadderGroup(null);
-			update(student);
-		}
-	}
+//	@Override
+//	public void removeStudentFromFadderGroup(Student student, int groupId) {
+//
+//		if (!student.getFadderGroup().isEmpty()) {
+//			for (int i = 0; i < student.getFadderGroup().size(); i++) {
+//				if (student.getFadderGroup().get(i).getGroupId() == groupId) {
+//					student.getFadderGroup().remove(i);
+//				}
+//			}
+//			update(student);
+//		}
+//	}
+//
+//	@Override
+//	public void removeStudentFromAllFadderGroups(Student student) {
+//		if (!student.getFadderGroup().isEmpty()) {
+//			student.setFadderGroup(null);
+//			update(student);
+//		}
+//	}
 
 	@Override
 	public void hibernateDelete(long id) {

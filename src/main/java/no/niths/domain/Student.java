@@ -114,17 +114,17 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committees = new ArrayList<Committee>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderGroup.class)
-	@Cascade(CascadeType.ALL)
-	@JoinTable(
-			name="students_student_orientation_groups",
-					 joinColumns = @JoinColumn(name = "orientation_groups_id")
-            ,inverseJoinColumns = @JoinColumn(name = "students_id"),
-		            uniqueConstraints={@UniqueConstraint(columnNames ={"orientation_groups_id", "students_id"})} )
+//	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderGroup.class)
+//	@Cascade(CascadeType.ALL)
 //	@JoinTable(
 //			name="students_student_orientation_groups",
-//			uniqueConstraints={@UniqueConstraint(columnNames ={"orientationGroup_id", "students_id"})} )
-	private List<FadderGroup> fadderGroup = new ArrayList<FadderGroup>();
+//					 joinColumns = @JoinColumn(name = "orientation_groups_id")
+//            ,inverseJoinColumns = @JoinColumn(name = "students_id"),
+//		            uniqueConstraints={@UniqueConstraint(columnNames ={"orientation_groups_id", "students_id"})} )
+////	@JoinTable(
+////			name="students_student_orientation_groups",
+////			uniqueConstraints={@UniqueConstraint(columnNames ={"orientationGroup_id", "students_id"})} )
+//	private List<FadderGroup> fadderGroup = new ArrayList<FadderGroup>();
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
@@ -297,11 +297,11 @@ public class Student implements Serializable {
 		return s;
 	}
 
-	public List<FadderGroup> getFadderGroup() {
-		return fadderGroup;
-	}
-
-	public void setFadderGroup(List<FadderGroup> fadderGroupListe) {
-		this.fadderGroup = fadderGroupListe;
-	}
+//	public List<FadderGroup> getFadderGroup() {
+//		return fadderGroup;
+//	}
+//
+//	public void setFadderGroup(List<FadderGroup> fadderGroupListe) {
+//		this.fadderGroup = fadderGroupListe;
+//	}
 }
