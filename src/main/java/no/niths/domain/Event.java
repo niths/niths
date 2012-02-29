@@ -34,121 +34,143 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event implements Serializable {
 
-	@Transient
-	private static final long serialVersionUID = 1878727682733503699L;
+    @Transient
+    private static final long serialVersionUID = 1878727682733503699L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(unique = true,nullable=false)
-	@Size(min = 3, max = 30, message = "The length of the name must be between 3 to 30 letters")
-	private String name;
+    @Column(unique = true, nullable=false)
+    @Size(min = 3, max = 30, message = "The length of the name must be between 3 to 30 letters")
+    private String name;
 
-	@Column(length = 500)
-	@Size(max = 500, message = "The length of the description must not exceed 500 letters")
-	private String description;
+    @Column(length = 500)
+    @Size(max = 500, message = "The length of the description must not exceed 500 letters")
+    private String description;
 
-	@Column(name = "startTime")
-	@Temporal(TemporalType.TIMESTAMP)
-	@XmlSchemaType(name = "date")
-	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	private Calendar startTime;
+    @Column(name = "startTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+    private Calendar startTime;
 
-	@Column(name = "endTime")
-	@Temporal(TemporalType.TIMESTAMP)
-	@XmlSchemaType(name = "date")
-	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	private Calendar endTime;
+    @Column(name = "endTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+    private Calendar endTime;
 
-	@Column(name="tags")
-	private String tags;
-	
-	public Event() {
-		this(null, null, null, null, null);
-	}
+    @Column(name = "latitude")
+    private Double latitude;
+    
+    @Column(name = "longitude")
+    private Double longitude;
+ 
+    @Column(name="tags")
+    private String tags;
 
-	public Event(Long id, String name, String description,
-			GregorianCalendar startTime, GregorianCalendar endTime) {
-		setId(id);
-		setName(name);
-		setDescription(description);
-		setEndTime(endTime);
-		setStartTime(startTime);
-	}
+    public Event() {
+        this(null, null, null, null, null);
+    }
 
-	public Event(String name, String description,
-			GregorianCalendar startTime, GregorianCalendar endTime) {
-		setName(name);
-		setDescription(description);
-		setEndTime(endTime);
-		setStartTime(startTime);
-	}
+    public Event(Long id, String name, String description,
+            GregorianCalendar startTime, GregorianCalendar endTime) {
+        setId(id);
+        setName(name);
+        setDescription(description);
+        setEndTime(endTime);
+        setStartTime(startTime);
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Event(String name, String description,
+            GregorianCalendar startTime, GregorianCalendar endTime) {
+        setName(name);
+        setDescription(description);
+        setEndTime(endTime);
+        setStartTime(startTime);
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
 
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Event)) {
-			return false;
-		}
-		Event s = (Event) obj;
-		return s == this ? true : s.getId() == id ? true : false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event s = (Event) obj;
+        return s == this ? true : s.getId() == id ? true : false;
+    }
 
-	@JsonIgnore
-	public boolean isEmpty() {
-		return description == null && name == null && id == null
-				&& endTime == null && startTime == null;
-	}
+    @JsonIgnore
+    public boolean isEmpty() {
+        return description == null && name == null && id == null
+                && endTime == null && startTime == null;
+    }
 
-	@JsonSerialize(using = JsonCalendarAdapter.class)
-	public Calendar getEndTime() {
-		return endTime;
-	}
+    @JsonSerialize(using = JsonCalendarAdapter.class)
+    public Calendar getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(Calendar endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Calendar endTime) {
+        this.endTime = endTime;
+    }
 
-	@JsonSerialize(using = JsonCalendarAdapter.class)
-	public Calendar getStartTime() {
-		return startTime;
-	}
+    @JsonSerialize(using = JsonCalendarAdapter.class)
+    public Calendar getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(Calendar startTime) {
-		this.startTime = startTime;
-	}
-	
-	public String getTags() {
-		return tags;
-	}
+    public void setStartTime(Calendar startTime) {
+        this.startTime = startTime;
+    }
+    
+    public String getTags() {
+        return tags;
+    }
 
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }
