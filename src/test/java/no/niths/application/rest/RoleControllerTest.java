@@ -38,15 +38,13 @@ public class RoleControllerTest {
 		
 		assertEquals(true, fetched.getRoles().isEmpty());
 		
-		int roleSize = roleController.getAll(null).size();
-		
 		//Test of add
 		Role role = new Role();
 		role.setRoleName("ROLE_TEST");
 		
 		roleController.create(role);
 		
-		assertEquals(roleSize + 1, roleController.getAll(null).size());
+		assertEquals(role.getRoleName(), roleController.getAll(null).get(0).getRoleName());
 		
 		roleController.addStudentRole(stud.getId(), role.getId());
 		
