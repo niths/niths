@@ -8,13 +8,13 @@ public interface StudentService extends GenericService<Student> {
 
 	public List<Student> getStudentsWithNamedCourse(String name);
 	
-	public void addStudentToOrientationGroup(Student student,int groupId);
+	public void addStudentToFadderUka(Student student, int groupId);
 	
-	public List<Student> getAllStudentsInAnOrientationGroup();
+	public List<Student> getAllStudentsInAFadderUka();
 	
-	public List<Student> getAllStudentsInAOrientationGroup(int groupId);
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId);
 	
-	public void removeStudentFromOrientationGroup(Student student,int groupId);
+	public void removeStudentFromFadderUka(Student student, int groupId);
 	
-	public void removeStudentFromAllOrientationGroups(Student student);
+	public void removeStudentFromAllOfFadderUka(Student student);
 }

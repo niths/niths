@@ -112,7 +112,7 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	private List<Committee> committees = new ArrayList<Committee>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,targetEntity = StudentOrientationGroup.class)
+	@ManyToMany(fetch = FetchType.LAZY,targetEntity = FadderUka.class)
 	@Cascade(CascadeType.ALL)
 	@JoinTable(
 			name="students_student_orientation_groups",
@@ -122,7 +122,7 @@ public class Student implements Serializable {
 //	@JoinTable(
 //			name="students_student_orientation_groups",
 //			uniqueConstraints={@UniqueConstraint(columnNames ={"orientationGroup_id", "students_id"})} )
-	private List<StudentOrientationGroup> orientationGroup = new ArrayList<StudentOrientationGroup>();
+	private List<FadderUka> fadderUka = new ArrayList<FadderUka>();
 
 	public Student() {
 		this(null,null,null,null,null,null,null);
@@ -295,11 +295,11 @@ public class Student implements Serializable {
 		return s;
 	}
 
-	public List<StudentOrientationGroup> getOrientationGroup() {
-		return orientationGroup;
+	public List<FadderUka> getFadderUka() {
+		return fadderUka;
 	}
 
-	public void setOrientationGroup(List<StudentOrientationGroup> orientationGroup) {
-		this.orientationGroup = orientationGroup;
+	public void setFadderUka(List<FadderUka> fadderUkaListe) {
+		this.fadderUka = fadderUkaListe;
 	}
 }

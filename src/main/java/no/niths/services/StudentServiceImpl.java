@@ -3,7 +3,7 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.Student;
-import no.niths.domain.StudentOrientationGroup;
+import no.niths.domain.FadderUka;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
@@ -53,19 +53,13 @@ public class StudentServiceImpl implements StudentService {
 				}
 			} 
 			
-			s.getOrientationGroup().size();
+			s.getFadderUka().size();
 		}
 		return s;
 	}
 
 	public List<Student> getAll(Student s) {
-		List<Student> temp = repo.getAll(s);
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-			temp.get(i).setOrientationGroup(null);
-		}
-		return temp;
+		return repo.getAll(s);
 	}
 
 	public void update(Student student) {
@@ -80,47 +74,33 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Student> temp = repo
 				.getStudentsWithNamedCourse(name);
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-			temp.get(i).setOrientationGroup(null);
-		}
+	
 		return temp;
 	}
 
 	@Override
-	public void addStudentToOrientationGroup(Student student, int groupId) {
-		student.getOrientationGroup().add(new StudentOrientationGroup(groupId));
+	public void addStudentToFadderUka(Student student, int groupId) {
+		student.getFadderUka().add(new FadderUka(groupId));
 		update(student);
 	}
 
 	@Override
-	public List<Student> getAllStudentsInAnOrientationGroup() {
-		List<Student> temp =  repo.getAllStudentsInAnOrientationGroup();
-		for (int i = 0; i < temp.size(); i++) {
-			temp.get(i).setCommittees(null);
-			temp.get(i).setCourses(null);
-		}
-		return temp;
+	public List<Student> getAllStudentsInAFadderUka() {
+		return repo.getAllStudentsInAFadderUka();
 	}
 
 	@Override
-	public List<Student> getAllStudentsInAOrientationGroup(int groupId) {
-		List<Student> mentors =  repo.getStudentsInOrientationGroup(groupId);
-		for (int i = 0; i < mentors.size(); i++) {
-			mentors.get(i).setCommittees(null);
-			mentors.get(i).setCourses(null);
-		}
-		return mentors;
+	public List<Student> getAllStudentsInFadderUkaBelongingToAGroup(int groupId) {
+		return repo.getAllStudentsInFadderUkaBelongingToAGroup(groupId);
 	}
 
 	@Override
-	public void removeStudentFromOrientationGroup(Student student, int groupId) {
+	public void removeStudentFromFadderUka(Student student, int groupId) {
 
-		if (!student.getOrientationGroup().isEmpty()) {
-			for (int i = 0; i < student.getOrientationGroup().size();i++) {
-				if (student.getOrientationGroup().get(i).getGroupId() == groupId) {
-					student.getOrientationGroup().remove(i);
+		if (!student.getFadderUka().isEmpty()) {
+			for (int i = 0; i < student.getFadderUka().size();i++) {
+				if (student.getFadderUka().get(i).getGroupId() == groupId) {
+					student.getFadderUka().remove(i);
 				}
 			}
 			update(student);
@@ -128,9 +108,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void removeStudentFromAllOrientationGroups(Student student) {
-		if (!student.getOrientationGroup().isEmpty()) {
-			student.setOrientationGroup(null);
+	public void removeStudentFromAllOfFadderUka(Student student) {
+		if (!student.getFadderUka().isEmpty()) {
+			student.setFadderUka(null);
 			update(student);
 		}
 	}

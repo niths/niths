@@ -9,7 +9,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
-import no.niths.domain.StudentOrientationGroup;
+import no.niths.domain.FadderUka;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CourseRepository;
@@ -157,31 +157,31 @@ public class StudentRepositoryTest {
 	}
 	
 	@Test
-	public void testGetAllStudentInAnOrientationGroup(){
+	public void testGetAllStudentInAFadderUka(){
 		
-		int size = studentRepo.getAllStudentsInAnOrientationGroup().size();
+		int size = studentRepo.getAllStudentsInAFadderUka().size();
 		
 		List<Student> studs = createStudentHelper();
 				
-		studs.get(0).getOrientationGroup().add(new StudentOrientationGroup(1));
-		studs.get(0).getOrientationGroup().add(new StudentOrientationGroup(2));
-		studs.get(0).getOrientationGroup().add(new StudentOrientationGroup(3));
-		studs.get(1).getOrientationGroup().add(new StudentOrientationGroup(2));
+		studs.get(0).getFadderUka().add(new FadderUka(1));
+		studs.get(0).getFadderUka().add(new FadderUka(2));
+		studs.get(0).getFadderUka().add(new FadderUka(3));
+		studs.get(1).getFadderUka().add(new FadderUka(2));
 		
 		studentRepo.update(studs.get(0));
 		studentRepo.update(studs.get(1));
 		
 		
-		List<Student> students = studentRepo.getAllStudentsInAnOrientationGroup();
+		List<Student> students = studentRepo.getAllStudentsInAFadderUka();
 		
 		assertEquals(size + 2, students.size());
 		
 		
-		assertEquals(3,students.get(0).getOrientationGroup().size());
+		assertEquals(3,students.get(0).getFadderUka().size());
 		
 		System.out.println(students.get(0).getFirstName());
 		
-		students = studentRepo.getStudentsInOrientationGroup(2);
+		students = studentRepo.getAllStudentsInFadderUkaBelongingToAGroup(2);
 
 		assertEquals(2, students.size());	
 	}

@@ -25,13 +25,9 @@ public class CommitteeControllerTest {
     private CommitteeController controller;
 
     @Test
-    public void testCreateAndGetCommittee() {
-        int originalCount = controller.getAll(null).size();
-        
+    public void testCreateAndGetCommittee() {        
         Committee firstCommittee = new Committee("qux", "corge");
         controller.create(firstCommittee);
-
-        assertEquals(originalCount + 1, controller.getAll(null).size());
 
         assertEquals(
                 controller.getAll(firstCommittee).get(0).getName(),
