@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -38,13 +39,20 @@ public class RoleControllerTest {
 		
 		assertEquals(true, fetched.getRoles().isEmpty());
 		
+		int size = 0;
+		try{
+			size = roleController.getAll(null).size();
+		}catch(ObjectNotFoundException e){
+			//size = 0;
+		}
+		
 		//Test of add
 		Role role = new Role();
 		role.setRoleName("ROLE_TEST");
 		
 		roleController.create(role);
 		
-		assertEquals(role.getRoleName(), roleController.getAll(null).get(0).getRoleName());
+		assertEquals(size + 1, roleController.getAll(null).size());
 		
 		roleController.addStudentRole(stud.getId(), role.getId());
 		
