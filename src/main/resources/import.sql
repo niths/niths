@@ -201,6 +201,10 @@ INSERT INTO fadder_groups(id, group_number) values (2, 2);
 INSERT INTO fadder_groups(id, group_number) values (3, 3);
 INSERT INTO fadder_groups(id, group_number) values (4, 4);
 
+INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(1, 1, 3);
+INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(1, 2, 4);
+INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(2, 5, 6);
+
 --INSERT INTO fadder_groups_students values (1,1,1);
 
 --insert into student_orientation_groups (group_id) values(1);
