@@ -25,11 +25,18 @@ public class FadderGroupServiceImpl implements FadderGroupService{
     }
 
     public FadderGroup getById(long id) {
-    	return repo.getById(id);
+    	FadderGroup group = repo.getById(id);
+    	group.getFadderChildren().size();
+    	group.getLeaders().size();
+    	return group;
    }
 
     public List<FadderGroup> getAll(FadderGroup group) {
-    	return repo.getAll(group);
+    	List<FadderGroup> all = repo.getAll(group);
+    	for (FadderGroup gr : all){
+    		gr.getLeaders().size();
+    	}
+    	return all;
     }
 
     public void update(FadderGroup group) {

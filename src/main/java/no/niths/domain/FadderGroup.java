@@ -46,7 +46,7 @@ public class FadderGroup implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 		
-	@Column(name="group_number")
+	@Column(name="group_number", unique=true)
 	private Integer groupNumber;
 	
 	@ManyToMany(fetch = FetchType.LAZY,targetEntity = Student.class)
@@ -64,11 +64,11 @@ public class FadderGroup implements Serializable {
 	
 	
 	public FadderGroup() {
-		this(0);
+		this(null);
 	}
 	
-	public FadderGroup(int groupId) {
-		this.groupNumber = groupId;
+	public FadderGroup(Integer groupNumber) {
+		this.groupNumber = groupNumber;
 	}
 	
 	public List<Student> getLeaders() {

@@ -44,33 +44,33 @@ public class FadderGroupRepositoryTest {
 		group.setGroupNumber(1337);
 		fadderRepo.update(group);
 		
-	//	assertEquals(1337, fadderRepo.getById(group.getId()).getGroupId());
+		assertEquals(new Integer(1337), fadderRepo.getById(group.getId()).getGroupNumber());
 		
 	}
 	
 	//TODO: Write a proper test
-	@Test
-	public void testAddAndRemoveLeaders(){
-		
-		int studSize = studRepo.getAll(null).size();
-		
-		Student s1 = new Student("mail@nith.no");
-		Student s2 = new Student("mail2@nith.no");
-		Student s3 = new Student("mail3@nith.no");
-		Student s4 = new Student("mail4@nith.no");
-		
-		FadderGroup group = new FadderGroup(924);
-		group.getLeaders().add(s1);
-		group.getLeaders().add(s2);
-		fadderRepo.create(group);
-		
-		assertEquals(false, fadderRepo.getById(group.getId()).getLeaders().isEmpty());
-		
-		assertEquals(studSize, studRepo.getAll(null).size());
-		
-		
-		
-		
-	}
+//	@Test
+//	public void testAddAndRemoveLeaders(){
+//		
+//		int studSize = studRepo.getAll(null).size();
+//		
+//		Student s1 = new Student("mail@nith.no");
+//		Student s2 = new Student("mail2@nith.no");
+//		Student s3 = new Student("mail3@nith.no");
+//		Student s4 = new Student("mail4@nith.no");
+//		
+//		FadderGroup group = new FadderGroup(924);
+//		group.getLeaders().add(s1);
+//		group.getLeaders().add(s2);
+//		fadderRepo.create(group);
+//		
+//		assertEquals(false, fadderRepo.getById(group.getId()).getLeaders().isEmpty());
+//		
+//		assertEquals(studSize, studRepo.getAll(null).size());
+//		
+//		
+//		
+//		
+//	}
 
 }
