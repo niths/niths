@@ -37,12 +37,6 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 
     public List<FadderGroup> getAll(FadderGroup group) {
     	List<FadderGroup> all = repo.getAll(group);
-//    	for (FadderGroup gr : all){
-//    		gr.getLeaders().size();
-//    		for(Student stud :gr.getLeaders()){
-//    			stud.getCommittees()
-//    		}
-//    	}
     	return all;
     }
 
