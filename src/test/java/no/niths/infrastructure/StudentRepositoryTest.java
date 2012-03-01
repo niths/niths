@@ -1,6 +1,7 @@
 package no.niths.infrastructure;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +10,11 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
-import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CourseRepository;
+import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.junit.Test;
@@ -42,6 +44,9 @@ public class StudentRepositoryTest {
 
 	@Autowired
 	private CommitteeRepositorty comRepo;
+	
+	@Autowired
+	private RoleRepository roleRepo;
 
 	/**
 	 * Testing of basic CRUD functions
@@ -202,4 +207,32 @@ public class StudentRepositoryTest {
 	}
 	
 	
+	
+	@Test
+	public void testAddRoles(){
+		Student s1 = new Student("J","D");
+		s1.setEmail("mailai@mail.com");
+		studentRepo.create(s1);
+		
+		long [] arr = {1,2};
+		
+		List<Role> roles = roleRepo.getAll(null);
+		s1.getRoles().clear();
+		for(Role r: roles){
+			
+			for(long l: arr){
+				if(r.getId() == l){
+					s1.getRoles().add(r);
+				}
+			}
+		
+		}
+		studentRepo.update(s1);
+		
+		s1 = studentRepo.getAll(null).get(0);
+		
+		assertNotNull(s1);
+		
+		assertEquals(2, s1.getRoles().size());
+	}
 }

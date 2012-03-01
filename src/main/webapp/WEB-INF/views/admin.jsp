@@ -25,8 +25,9 @@
 	<%-- 				</c:forEach> --%>
 	<!-- 			</tr> -->
 	<!-- 				</table> -->
-	<form method="post">
 		<c:forEach items="${studentList}" var="student">
+		<form method="post">
+			<input type="hidden" value="${student.id}" id=studentId name="studentId">
 			<table>
 				<tr>
 					<td><c:out value="${student.id}" /></td>
@@ -42,25 +43,22 @@
 								%>
 								<c:forEach items="${student.roles}" var="studRoles">
 									<%
-										if (counter == 1) {
-
-																break;
-															}
+										if (counter == 1) {break;}
 									%>
 									<c:if test="${studRoles.id == roles.id}">
-										<td><input type="checkbox" name=${student.email}Roles
-											checked="checked"> <c:out
-												value="${roles.trimedRoleName}" /></td>
+										<td><input type="checkbox" name=checkedRoles
+											checked="checked" id="checkedRoles" value="${roles.id}">
+											 <c:out	value="${roles.trimedRoleName}" /></td>
 										<%
 											counter++;
 										%>
 									</c:if>
-									
+
 								</c:forEach>
-									<%
+								<%
 										if (counter == 0) {
 
-									out.print("<td><input type='checkbox' name=${student.email}Roles>" +
+									out.print("<td><input type='checkbox' name=checkedRoles id=checkedRoles value='${roles.trimedRoleName}' >" +
 																		"<c:out value='${roles.trimedRoleName} ' /></td>");
 															}
 									%>
@@ -78,9 +76,10 @@
 				</tr>
 
 			</table>
-			<input type="button" value="Oppdater Roller" id="${student.email}" />
-		</c:forEach>
-	</form>
+
+			<input type="submit" value="Oppdater Roller" />
+		</form>
+	</c:forEach>
 
 
 	<%-- 	</form> --%>
