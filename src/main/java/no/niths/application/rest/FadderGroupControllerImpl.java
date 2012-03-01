@@ -188,7 +188,9 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "{id}/get-all-children", method = RequestMethod.GET)
     @ResponseBody
