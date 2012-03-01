@@ -66,5 +66,10 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public void removeAllLeadersFromAGroup(Long groupId);
 
+    /**
+     * Gets all the students in a given fadder group
+     * @param The id of the FadderGroup
+     * @return List of students
+     */
     public List<Student> getAllStudentsFromFadderGroup(Long id);
 }
