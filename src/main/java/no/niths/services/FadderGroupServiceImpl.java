@@ -1,8 +1,10 @@
 package no.niths.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.domain.FadderGroup;
+import no.niths.domain.Student;
 import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
 import no.niths.infrastructure.interfaces.SubjectRepository;
@@ -26,8 +28,10 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 
     public FadderGroup getById(long id) {
     	FadderGroup group = repo.getById(id);
-    	group.getFadderChildren().size();
-    	group.getLeaders().size();
+    	if(group != null){
+    		group.getFadderChildren().size();
+    		group.getLeaders().size();    		
+    	}
     	return group;
    }
 
@@ -51,4 +55,69 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeAChildrenFromAGroup(Student child, FadderGroup group) {
+		if(group.getFadderChildren().remove(child)){
+			//repo.update(group);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeALeaderFromAGroup(Student leader, FadderGroup group) {
+		if(group.getLeaders().remove(leader)){
+			//repo.update(group);
+		}
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeAllChildrenFromGroup(FadderGroup group) {
+		if(!(group.getFadderChildren().isEmpty())){
+			group.setFadderChildren(new ArrayList<Student>());
+			//repo.update(group);
+		}
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeAllLeadersFromGroup(FadderGroup group) {
+		if(!(group.getLeaders().isEmpty())){
+			group.setLeaders(new ArrayList<Student>());
+			//repo.update(group);
+		}
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addLeaderToGroup(Student leader, FadderGroup group) {
+		group.getLeaders().add(leader);
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addChildrenToGroup(Student child, FadderGroup group) {
+		group.getFadderChildren().add(child);
+		
+	}
+
+
 }
