@@ -31,6 +31,9 @@ public class Role implements Serializable {
 	@Column(unique = true, name="role_name")
 	private String roleName;
 
+	@Transient
+	private String trimedRoleName;
+	
 	public Long getId() {
 		return id;
 	}
@@ -65,6 +68,14 @@ public class Role implements Serializable {
 	@Override
 	public String toString() {
 		return "Role: " + roleName;
+	}
+
+	public String getTrimedRoleName() {
+		return roleName.replace("ROLE_", "");
+	}
+
+	public void setTrimedRoleName(String trimedRoleName) {
+		this.trimedRoleName = trimedRoleName;
 	}
 
 }

@@ -20,6 +20,7 @@
 	<logger name="org.springframework.transaction" level="WARN" />
 	<logger name="org.springframework.security" level="DEBUG" />
 	<logger	name="org.springframework.web" level="DEBUG" />
+	<logger	name="org.apache.jasper.compiler.TldLocationsCache" level="DEBUG" />
 	
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />

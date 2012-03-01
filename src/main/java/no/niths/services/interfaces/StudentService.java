@@ -7,5 +7,5 @@ import no.niths.domain.Student;
 public interface StudentService extends GenericService<Student> {
 
 	public List<Student> getStudentsWithNamedCourse(String name);
-
+	public List<Student> getStudentsAndRoles(Student s);
 }

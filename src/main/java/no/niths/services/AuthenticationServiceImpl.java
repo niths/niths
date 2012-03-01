@@ -31,9 +31,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private StudentRepository studentRepo;
 	
-//	@Autowired
-//	private GoogleProfileFetcher profileFetcher;
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -43,8 +40,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		Google google = new GoogleTemplate(googleToken);
 		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
 		return getUser(profile, googleToken);
-		
-//		return getUser(profileFetcher.getProfile(googleToken), googleToken );
 	}
 	
 	//Get the user from DB, persists if non existing and if valid email

@@ -46,8 +46,8 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value></param-value>
 		</init-param>
-
 		<load-on-startup>1</load-on-startup>
+		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>niths</servlet-name>
@@ -57,7 +57,7 @@
 	<!-- Disables servlet container welcome file handling. Needed for compatibility 
 		with Servlet 3.0 and Tomcat 7.0 -->
 	<welcome-file-list>
-		<welcome-file />
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>

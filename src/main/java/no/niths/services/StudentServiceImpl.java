@@ -2,7 +2,6 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
@@ -67,5 +66,17 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
+	}
+
+	@Override
+	public List<Student> getStudentsAndRoles(Student s) {
+		List <Student> list = repo.getAll(s);
+		
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setCommittees(null);
+			list.get(i).setCourses(null);
+			list.get(i).getRoles().size();
+		}
+		return list;
 	}
 }
