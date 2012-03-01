@@ -77,7 +77,9 @@ public class Student implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity=Role.class)
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity=Role.class)
+    @JoinTable(
+    		name="students_roles", uniqueConstraints={@UniqueConstraint(columnNames ={"students_id", "roles_id"})} )
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Role> roles = new ArrayList<Role>();
 
