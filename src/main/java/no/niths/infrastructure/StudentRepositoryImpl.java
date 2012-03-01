@@ -33,24 +33,6 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 				.setString("email", email)
 				.uniqueResult();
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Student> getAllStudentsInFadderGroups() {
-		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.fadderGroup";
-		return getSession().getCurrentSession().createQuery(sql)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Student> getAllStudentsInAFadderGroupWithId(int groupId) {
-		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.fadderGroup m where m.groupId=:gid";
-		return getSession().getCurrentSession().createQuery(sql).setInteger("gid", groupId)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-	}
 	
 	@Override
 	public void hibernateDelete(long id) {
