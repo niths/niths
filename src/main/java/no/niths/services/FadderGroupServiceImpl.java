@@ -61,9 +61,7 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	 */
 	@Override
 	public void removeAChildrenFromAGroup(Student child, FadderGroup group) {
-		if(group.getFadderChildren().remove(child)){
-			//repo.update(group);
-		}
+		group.getFadderChildren().remove(child);
 	}
 
 	/**
@@ -71,10 +69,7 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	 */
 	@Override
 	public void removeALeaderFromAGroup(Student leader, FadderGroup group) {
-		if(group.getLeaders().remove(leader)){
-			//repo.update(group);
-		}
-		
+		group.getLeaders().remove(leader);
 	}
 
 	/**
@@ -84,7 +79,6 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	public void removeAllChildrenFromGroup(FadderGroup group) {
 		if(!(group.getFadderChildren().isEmpty())){
 			group.setFadderChildren(new ArrayList<Student>());
-			//repo.update(group);
 		}
 		
 	}
@@ -96,7 +90,6 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	public void removeAllLeadersFromGroup(FadderGroup group) {
 		if(!(group.getLeaders().isEmpty())){
 			group.setLeaders(new ArrayList<Student>());
-			//repo.update(group);
 		}
 		
 	}
