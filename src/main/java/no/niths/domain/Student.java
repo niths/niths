@@ -77,7 +77,7 @@ public class Student implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@OneToMany(fetch = FetchType.EAGER, targetEntity=Role.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity=Role.class)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private List<Role> roles = new ArrayList<Role>();
 
