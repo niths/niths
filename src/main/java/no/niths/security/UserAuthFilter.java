@@ -47,7 +47,7 @@ public class UserAuthFilter extends OncePerRequestFilter {
 		} catch (HttpClientErrorException httpe) {			
 			logger.warn("Not a valid token");
 		}
-		//Continue the security filter chain //TODO: Test if this is really needed.
+		//Continue the security filter chain
 		chain.doFilter(req, res);
 	}
 //	@Override

@@ -1,10 +1,13 @@
 package no.niths.services.auth;
 
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
@@ -28,6 +31,9 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 	
 	@Autowired
 	private StudentRepository studRepo;
+	
+	@Value("${jasypt.password}")
+	private String encryptionPassword;
 	
 	@Override
 	public String login(String token) {
@@ -56,11 +62,22 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 		
 		return generatedToken;
 	}
-	//Generates a token
-	//TODO: hash, and generate a real token
+	
+	//Generates a random token and encrypts it with Jasypt (http://www.jasypt.org/)
 	private String generateToken(Long userId){
+		//Create a token consisting of 128bit random string + user id + current time
 		long tokenIssued = new GregorianCalendar().getTimeInMillis();
-		return "t-id:" + Long.toString(userId) + "-time:" + Long.toString(tokenIssued);
+		String generatedToken = UUID.randomUUID().toString().toUpperCase()
+				+ "|" + Long.toString(userId) + "|" + Long.toString(tokenIssued);
+		//Encrypt the token
+		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
+		jasypt.setPassword(encryptionPassword);
+		String encryptedToked = jasypt.encrypt(generatedToken);
+		
+		logger.debug("Generated token before encryption: " + generatedToken);
+		logger.debug("Generated token after encryption: " + encryptedToked);
+		
+		return encryptedToked;
 	}
 	
 	//Check if the email of the user is valid

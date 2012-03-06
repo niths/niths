@@ -5,6 +5,7 @@ import java.util.Map;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.interfaces.auth.RestLoginController;
+import no.niths.common.AppConstants;
 import no.niths.domain.security.Token;
 import no.niths.services.interfaces.auth.GoogleAuthenticationService;
 
@@ -21,9 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
-
+/**
+ * Google authorization controller
+ *
+ */
 @Controller
-@RequestMapping("auth")
+@RequestMapping(AppConstants.AUTH)
 public class RestLoginControllerImpl implements RestLoginController{
 	
 	Logger logger = org.slf4j.LoggerFactory
@@ -32,6 +36,13 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@Autowired
 	private GoogleAuthenticationService service;
 
+	/**
+	 * Authorize the user. Use the returned session token for future requests
+	 * 
+	 * @param token The token issued from google
+	 * @return encrypted session token valid for (See AppConstants.SESSION_VALID_TIME)
+	 * 
+	 */
 	@Override
 	@RequestMapping(value = { "/{token:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -43,7 +54,6 @@ public class RestLoginControllerImpl implements RestLoginController{
 			temp.setToken(service.login(token));
 		}
 		return temp;
-		//return "Token not provided";
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
