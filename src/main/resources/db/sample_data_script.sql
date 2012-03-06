@@ -1,8 +1,8 @@
 USE niths;
 INSERT INTO roles(role_name) values("ROLE_ADMIN");
 INSERT INTO roles(role_name) values("ROLE_USER");
-insert into students(email, role_id) values('degyvi09@nith.no', 1);
-insert into students(email, role_id) values('kriand09@nith.no', 1);
+INSERT into students(email, role_id) values('degyvi09@nith.no', 1);
+INSERT into students(email, role_id) values('kriand09@nith.no', 1);
 
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', "Java 1", "Innføring i java", '10:00', '11:00', "Monday","81"); 
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', "Java 2", "Innføring i java 2", '11:00', '12:00', "Monday","43");
@@ -26,25 +26,19 @@ INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mange
 INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
 
 
-insert into courses_subjects values(1,1);
-insert into courses_subjects values(1,2);
-insert into courses_subjects values(1,3);
-insert into courses_subjects values(2,4);
-insert into courses_subjects values(2,1);
-insert into courses_subjects values(3,1);
-insert into courses_subjects values(3,2);
-insert into courses_subjects values(3,3);
-insert into courses_subjects values(4,4);
-insert into courses_subjects values(4,1);
-insert into courses_subjects values(4,2);
-insert into courses_subjects values(4,3);
-insert into courses_subjects values(4,5);
-
-
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Bendik", "Rostad", '2012-02-02',"MMMM@mail.com",'M',"super awesome","81249300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Liv", "Kolås", '2012-02-02',"tea@mail.com",'F',"super awesome","15492300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Øyvind", "Ødegård",'2012-02-02',"free@mail.com",'M',"super awesome","41549300",3,"super secret password *******");
+INSERT into courses_subjects values(1,1);
+INSERT into courses_subjects values(1,2);
+INSERT into courses_subjects values(1,3);
+INSERT into courses_subjects values(2,4);
+INSERT into courses_subjects values(2,1);
+INSERT into courses_subjects values(3,1);
+INSERT into courses_subjects values(3,2);
+INSERT into courses_subjects values(3,3);
+INSERT into courses_subjects values(4,4);
+INSERT into courses_subjects values(4,1);
+INSERT into courses_subjects values(4,2);
+INSERT into courses_subjects values(4,3);
+INSERT into courses_subjects values(4,5);
 
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Wolfe@nith.no','Abraham','Branch','1986-06-08','12003434','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('rallii09@nith.no','Xavier','Rodgers','1979-05-21','88501167','3');
@@ -194,35 +188,35 @@ INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukezx
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukex3 party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, fest");
 
 
-insert into students_committees (students_id, committees_id) values(1, 1);
-insert into students_committees (students_id, committees_id) values(1, 2);
-insert into students_committees (students_id, committees_id) values(2, 1);
-insert into students_committees (students_id, committees_id) values(3, 1);
+INSERT into students_committees (students_id, committees_id) values(1, 1);
+INSERT into students_committees (students_id, committees_id) values(1, 2);
+INSERT into students_committees (students_id, committees_id) values(2, 1);
+INSERT into students_committees (students_id, committees_id) values(3, 1);
 
-insert into students_committees (students_id, committees_id) values(7, 1);
-insert into students_committees (students_id, committees_id) values(6, 2);
-insert into students_committees (students_id, committees_id) values(5, 1);
-insert into students_committees (students_id, committees_id) values(4, 1);
+INSERT into students_committees (students_id, committees_id) values(7, 1);
+INSERT into students_committees (students_id, committees_id) values(6, 2);
+INSERT into students_committees (students_id, committees_id) values(5, 1);
+INSERT into students_committees (students_id, committees_id) values(4, 1);
 
-insert into students_committees (students_id, committees_id) values(8, 4);
-insert into students_committees (students_id, committees_id) values(9, 2);
-insert into students_committees (students_id, committees_id) values(10, 3);
-insert into students_committees (students_id, committees_id) values(12, 1);
+INSERT into students_committees (students_id, committees_id) values(8, 4);
+INSERT into students_committees (students_id, committees_id) values(9, 2);
+INSERT into students_committees (students_id, committees_id) values(10, 3);
+INSERT into students_committees (students_id, committees_id) values(12, 1);
 
 
-insert into students_committees (students_id, committees_id) values(71, 3);
-insert into students_committees (students_id, committees_id) values(16, 2);
-insert into students_committees (students_id, committees_id) values(25, 5);
-insert into students_committees (students_id, committees_id) values(24, 3);
+INSERT into students_committees (students_id, committees_id) values(71, 3);
+INSERT into students_committees (students_id, committees_id) values(16, 2);
+INSERT into students_committees (students_id, committees_id) values(25, 5);
+INSERT into students_committees (students_id, committees_id) values(24, 3);
 
-insert into students_courses (students_id, courses_id) values(1, 1);
-insert into students_courses (students_id, courses_id) values(2, 2);
-insert into students_courses (students_id, courses_id) values(3, 1);
-insert into students_courses (students_id, courses_id) values(4, 3);
+INSERT into students_courses (students_id, courses_id) values(1, 1);
+INSERT into students_courses (students_id, courses_id) values(2, 2);
+INSERT into students_courses (students_id, courses_id) values(3, 1);
+INSERT into students_courses (students_id, courses_id) values(4, 3);
 
-insert into committees_events (committees_id, events_id) values(1, 1);
-insert into committees_events (committees_id, events_id) values(1, 2);
-insert into committees_events (committees_id, events_id) values(1, 3);
-insert into committees_events (committees_id, events_id) values(1, 4);
-insert into committees_events (committees_id, events_id) values(2, 5);
-insert into committees_events (committees_id, events_id) values(2, 6);
+INSERT into committees_events (committees_id, events_id) values(1, 1);
+INSERT into committees_events (committees_id, events_id) values(1, 2);
+INSERT into committees_events (committees_id, events_id) values(1, 3);
+INSERT into committees_events (committees_id, events_id) values(1, 4);
+INSERT into committees_events (committees_id, events_id) values(2, 5);
+INSERT into committees_events (committees_id, events_id) values(2, 6);
