@@ -35,7 +35,7 @@ public class AdminController {
 	private List<Role> listOfRoles;
 
 	private List<Student> students;
-	
+
 	private List<Role> newRoles = new ArrayList<Role>();
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -74,13 +74,13 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
-	public ModelAndView delete(@RequestParam(value="studId") Long studentId) {
+	public String delete(@RequestParam(value = "studId") Long studentId) {
 		try {
 			logger.debug("delete.-------------------------------------------------------------");
 			logger.debug(studentId + " ");
-			
-			if(studentId != null){
-				
+
+			if (studentId != null) {
+
 				service.hibernateDelete(studentId);
 			}
 		} catch (Exception e) {
@@ -88,35 +88,36 @@ public class AdminController {
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
-		ModelAndView view = new ModelAndView(ADMIN);
-		return view;
+		
+		return "";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getAllStudents(@RequestParam(value="columName", defaultValue="no") String columName,
+	public ModelAndView getAllStudents(
+			@RequestParam(value = "columName", defaultValue = "FIRST") String columName,
 			@RequestParam(value = "query", required = false, defaultValue = "") String query) {
 		ModelAndView view = new ModelAndView(ADMIN);
 
-		logger.debug(query
-				+ "  _--------------------------------------------------------");
+		logger.debug("Method name: getAllStudents columnmae " + columName
+				+ " Query: " + query);
+		if (!columName.equals("FIRST")) {
+			if (!(query.equals(""))) {
+				Student s = new Student();
+				s.setFirstName(query);
+				students = service.getStudentsAndRoles(s);
+			} else {
+				students = service.getStudentsAndRoles(null);
+			}
 
-		if (!(query.equals(""))) {
-			Student s = new Student();
-			s.setFirstName(query);
-			students = service.getStudentsAndRoles(s);
-		} else {
-			students = service.getStudentsAndRoles(null);
+			for (int i = 0; i < students.size(); i++) {
+				students.get(i).setCommittees(null);
+				students.get(i).setCourses(null);
+			}
+
+			getRolesSetSize();
+			view.addObject("studentList", students);
+			view.addObject("listOfRoles", listOfRoles);
 		}
-
-		for (int i = 0; i < students.size(); i++) {
-			students.get(i).setCommittees(null);
-			students.get(i).setCourses(null);
-			// studentList.get(i).setFadderGroup(null);
-		}
-
-		getRolesSetSize();
-		view.addObject("studentList", students);
-		view.addObject("listOfRoles", listOfRoles);
 		return view;
 	}
 

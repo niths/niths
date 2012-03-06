@@ -11,6 +11,7 @@
 </head>
 <body>
 
+<h1>Admin Panel</h1>
 	<form method="get">
 	<input type="radio" value="first_name" name="columName" checked="checked"> Fornavn
 	<input type="radio" value="last_name" name="columName"> Etternavn

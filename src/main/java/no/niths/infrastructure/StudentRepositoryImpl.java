@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
+import no.niths.common.QueryGenerator;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
@@ -12,8 +13,12 @@ import org.springframework.stereotype.Repository;
 public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 		implements StudentRepository {
 
+	
+	private QueryGenerator<Student> queryGen;
+	
 	public StudentRepositoryImpl() {
 		super(Student.class);
+		queryGen = new QueryGenerator<>(Student.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,6 +53,12 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 		s.setId(id);
 
 		getSession().getCurrentSession().delete(s);
+	}
+
+	@Override
+	public List<Student> getStudentByColumn(String column, String criteria) {
+		
+		return queryGen.whereQuery(criteria, column, getSession().getCurrentSession());
 	}
 
 }

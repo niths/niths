@@ -12,12 +12,12 @@ import org.springframework.stereotype.Repository;
 public class EventRepositoryImpl extends GenericRepositoryImpl<Event> implements
 		EventRepositorty {
 
-	private QueryGenerator queryGen;
+	private QueryGenerator<Event> queryGen;
 	private final String COLUMNAME ="tags";
 	
 	public EventRepositoryImpl() {
 		super(Event.class);
-		queryGen= new QueryGenerator();
+		queryGen= new QueryGenerator<Event>(Event.class);
 	}
 
 	@Override

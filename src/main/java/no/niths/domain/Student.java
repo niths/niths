@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -106,7 +105,10 @@ public class Student implements Serializable {
 	@JsonIgnore
 	@XmlTransient
     @ManyToMany(fetch = FetchType.LAZY, targetEntity=Committee.class)
-	@JoinTable(name="committee_leaders")
+	
+	@JoinTable(name = "committee_leaders",
+	        joinColumns = @JoinColumn(name="leaders_id"),
+	        inverseJoinColumns = @JoinColumn(name="committees_id"))
     private List<Committee> committesLeader = new ArrayList<Committee>();
 	
 	@Column(name = "phone_number",unique=true)

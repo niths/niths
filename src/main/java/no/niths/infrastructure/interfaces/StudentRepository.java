@@ -12,5 +12,7 @@ public interface StudentRepository extends GenericRepository<Student>{
 	Student getStudentByEmail(String email);
 
 	Student getStudentBySessionToken(String sessionToken);
+	
+	List<Student> getStudentByColumn(String column, String criteria);
 
 }

@@ -2,12 +2,10 @@ package no.niths.common;
 
 import java.util.List;
 
-import no.niths.domain.Event;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class QueryGenerator {
+public class QueryGenerator<T> {
 
 	private final String SPLITT = "&";
 	private final String PRE = "e";
@@ -15,8 +13,14 @@ public class QueryGenerator {
 	private final String FROM = "from ";
 	private final String WHERE = " where ";
 
+	private Class<T> persistentClass;
+	
+	public QueryGenerator(Class<T> persistentClass) {
+		setPersistentClass(persistentClass);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public List<Event> whereQuery(String criteria, String columnName,
+	public List<T> whereQuery(String criteria, String columnName,
 			Session session) {
 		String[] conditionBuilder = splittingCriteria(criteria);
 		String condition = condition(columnName, conditionBuilder);
@@ -28,7 +32,7 @@ public class QueryGenerator {
 			String condition) {
 		Query query = null;
 
-		query = session.createQuery(FROM + Event.class.getSimpleName() + " "
+		query = session.createQuery(FROM + persistentClass.getSimpleName() + " "
 				+ PRE + WHERE + condition);
 
 		for (int i = 0; i < conditionBuilder.length; i++) {
@@ -61,5 +65,13 @@ public class QueryGenerator {
 			conditionBuilder = criteria.replaceAll(" ", "").split(SPLITT);
 		}
 		return conditionBuilder;
+	}
+
+	public Class<T> getPersistentClass() {
+		return persistentClass;
+	}
+
+	public void setPersistentClass(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
 	}
 }
