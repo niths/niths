@@ -2,6 +2,7 @@ package no.niths.services.interfaces;
 
 import no.niths.security.User;
 
+@Deprecated
 public interface AuthenticationService {
 
 	/**

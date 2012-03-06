@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.niths.services.interfaces.AuthenticationService;
+import no.niths.services.interfaces.auth.RequestAuthenticationService;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,20 +21,23 @@ public class UserAuthFilter extends OncePerRequestFilter {
 
 	Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthFilter.class);
 
+//	@Autowired
+//	private AuthenticationService authService;
+	
 	@Autowired
-	private AuthenticationService authService;
+	private RequestAuthenticationService service;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
 
-		logger.info("Checking for token and calling Google to verify");
+		logger.info("Checking for session token");
 		try {
-			String token = req.getHeader("token");
+			String token = req.getHeader("session-token");
 			if (token != null) {
 				logger.info("Token was provided");
-				User u = authService.login(token);
+				User u = service.authenticate(token);
 				setCurrentAuthenticatedUser(u);
 			} else {
 				logger.info("A token was not provided");
@@ -42,8 +47,31 @@ public class UserAuthFilter extends OncePerRequestFilter {
 		} catch (HttpClientErrorException httpe) {			
 			logger.warn("Not a valid token");
 		}
+		//Continue the security filter chain //TODO: Test if this is really needed.
 		chain.doFilter(req, res);
 	}
+//	@Override
+//	protected void doFilterInternal(HttpServletRequest req,
+//			HttpServletResponse res, FilterChain chain)
+//					throws ServletException, IOException {
+//		
+//		logger.info("Checking for token and calling Google to verify");
+//		try {
+//			String token = req.getHeader("token");
+//			if (token != null) {
+//				logger.info("Token was provided");
+//				User u = authService.login(token);
+//				setCurrentAuthenticatedUser(u);
+//			} else {
+//				logger.info("A token was not provided");
+//			}
+//			
+//			//If token is provided, but not correct			
+//		} catch (HttpClientErrorException httpe) {			
+//			logger.warn("Not a valid token");
+//		}
+//		chain.doFilter(req, res);
+//	}
 	
 	private void setCurrentAuthenticatedUser(User u){
 		if(u == null){

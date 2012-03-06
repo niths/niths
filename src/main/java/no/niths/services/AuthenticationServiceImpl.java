@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Service that handles login with Google
  *
  */
+@Deprecated
 @Service
 @Transactional
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -50,7 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		User user = new User(userEmail);
 		
 		if(isUserValid(userEmail)){
-			user.setGoogleToken(token);
+			//user.setGoogleToken(token);
 			Student temp = studentRepo.getStudentByEmail(userEmail);
 			if(temp == null){
 				logger.info("Student does not exsist, creating a new student");

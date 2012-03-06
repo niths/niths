@@ -20,7 +20,7 @@ public class User implements UserDetails {
 	// private String roleName = "ROLE_USER";
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
-	private String googleToken;
+//	private String sessionToken;
 
 	public User() {
 		this("Not provided");
@@ -98,13 +98,13 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	public String getGoogleToken() {
-		return googleToken;
-	}
-
-	public void setGoogleToken(String googleToken) {
-		this.googleToken = googleToken;
-	}
+//	public String getSessionToken() {
+//		return sessionToken;
+//	}
+//
+//	public void setSessionToken(String googleToken) {
+//		this.sessionToken = googleToken;
+//	}
 
 	public String getUserName() {
 		return userName;
