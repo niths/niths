@@ -33,6 +33,16 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 	}
 
 	@Override
+	public Student getStudentBySessionToken(String sessionToken) {
+		String sql = "from " + Student.class.getSimpleName()
+				+ " s where s.sessionToken=:token";
+		return (Student) getSession().getCurrentSession()
+				.createQuery(sql)
+				.setString("token", sessionToken)
+				.uniqueResult();
+	}
+	
+	@Override
 	public void hibernateDelete(long id) {
 		Student s = new Student();
 		s.setId(id);

@@ -74,6 +74,11 @@ public class Student implements Serializable {
 	@JsonIgnore
 	@XmlTransient
 	private String password;
+	
+	@Column(name = "session_token")
+	@JsonIgnore
+	@XmlTransient
+	private String sessionToken;
 
 	@JsonIgnore
 	@XmlTransient
@@ -269,6 +274,14 @@ public class Student implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getSessionToken() {
+		return sessionToken;
+	}
+
+	public void setSessionToken(String sessionToken) {
+		this.sessionToken = sessionToken;
 	}
 
 	@JsonIgnore

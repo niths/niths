@@ -161,35 +161,18 @@ public class StudentRepositoryTest {
 		
 	}
 	
-//	@Test
-//	public void testGetAllStudentInAFadderGroup(){
-//		
-//		int size = studentRepo.getAllStudentsInFadderGroups().size();
-//		
-//		List<Student> studs = createStudentHelper();
-//				
-//		studs.get(0).getFadderGroup().add(new FadderGroup(1));
-//		studs.get(0).getFadderGroup().add(new FadderGroup(2));
-//		studs.get(0).getFadderGroup().add(new FadderGroup(3));
-//		studs.get(1).getFadderGroup().add(new FadderGroup(2));
-//		
-//		studentRepo.update(studs.get(0));
-//		studentRepo.update(studs.get(1));
-//		
-//		
-//		List<Student> students = studentRepo.getAllStudentsInFadderGroups();
-//		
-//		assertEquals(size + 2, students.size());
-//		
-//		
-//		assertEquals(3,students.get(0).getFadderGroup().size());
-//		
-//		System.out.println(students.get(0).getFirstName());
-//		
-//		students = studentRepo.getAllStudentsInAFadderGroupWithId(2);
-//
-//		assertEquals(2, students.size());	
-//	}
+	@Test
+	public void testGetStudentBySessionToken(){
+		Student s1 = new Student("mail@nith.no");
+		s1.setSessionToken("aToken");
+		studentRepo.create(s1);
+		Student s2 = new Student("mail2@nith.no");
+		s2.setSessionToken("bToken");
+		studentRepo.create(s2);
+		
+		assertEquals(s1, studentRepo.getStudentBySessionToken("aToken"));
+		assertEquals(null, studentRepo.getStudentBySessionToken("cToken"));
+	}
 	
 	private ArrayList<Student>createStudentHelper(){
 		ArrayList<Student> students = new ArrayList<Student>();
