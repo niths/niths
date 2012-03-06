@@ -89,7 +89,7 @@ public class AdminController {
 			logger.debug(e.getMessage(), e);
 		}
 		
-		return "";
+		return "admin";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -101,14 +101,12 @@ public class AdminController {
 		logger.debug("Method name: getAllStudents columnmae " + columName
 				+ " Query: " + query);
 		if (!columName.equals("FIRST")) {
-			if (!(query.equals(""))) {
-				Student s = new Student();
-				s.setFirstName(query);
-				students = service.getStudentsAndRoles(s);
-			} else {
+			if(query.equals("")){
 				students = service.getStudentsAndRoles(null);
+			}else{
+				students = service.getStudentByColumn(columName,query);
 			}
-
+	
 			for (int i = 0; i < students.size(); i++) {
 				students.get(i).setCommittees(null);
 				students.get(i).setCourses(null);

@@ -77,4 +77,14 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Student> getStudentByColumn(String column, String criteria) {
+		List <Student> list = repo.getStudentByColumn(column, criteria);
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).getRoles().size();
+		}
+		
+		return list;
+	}
 }

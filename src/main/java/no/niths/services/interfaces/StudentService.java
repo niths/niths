@@ -6,6 +6,9 @@ import no.niths.domain.Student;
 
 public interface StudentService extends GenericService<Student> {
 
-	public List<Student> getStudentsWithNamedCourse(String name);
-	public List<Student> getStudentsAndRoles(Student s);
+	List<Student> getStudentsWithNamedCourse(String name);
+	
+	List<Student> getStudentsAndRoles(Student s);
+	
+	List<Student> getStudentByColumn(String column, String criteria);
 }

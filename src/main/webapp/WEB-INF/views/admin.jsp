@@ -13,8 +13,8 @@
 
 <h1>Admin Panel</h1>
 	<form method="get">
-	<input type="radio" value="first_name" name="columName" checked="checked"> Fornavn
-	<input type="radio" value="last_name" name="columName"> Etternavn
+	<input type="radio" value="firstName" name="columName" checked="checked"> Fornavn
+	<input type="radio" value="lastName" name="columName"> Etternavn
 	<input type="radio" value="email" name="columName">Email
 		<input name="query" id="query" /> <input type="submit" value="Søk" />
 	</form>
@@ -80,7 +80,8 @@
 			</div>
 		</form>
 		<form action="/niths/admin/delete" method="post">
-			<input type="hidden" value="${student.id}" name="studId"/> <input type="submit">
+			<input type="hidden" value="${student.id}" name="studId"/>
+			 <input type="submit" value="SlettBruker">
 		</form>
 
 	</c:forEach>

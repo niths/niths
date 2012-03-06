@@ -109,6 +109,7 @@ public class Student implements Serializable {
 	@JoinTable(name = "committee_leaders",
 	        joinColumns = @JoinColumn(name="leaders_id"),
 	        inverseJoinColumns = @JoinColumn(name="committees_id"))
+	@Cascade(CascadeType.ALL)
     private List<Committee> committesLeader = new ArrayList<Committee>();
 	
 	@Column(name = "phone_number",unique=true)
