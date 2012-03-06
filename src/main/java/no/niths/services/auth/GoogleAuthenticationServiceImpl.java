@@ -35,6 +35,14 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 	@Value("${jasypt.password}")
 	private String encryptionPassword;
 	
+	/**
+	 * Authenticates user against Google.
+	 * Returns a session token valid for (see AppConstants.SESSION_VALID_TIME) minutes
+	 * Use this session token for future requests against the API
+	 * 
+	 * @param token the token issued from google
+	 * @return session token to use in future request
+	 */
 	@Override
 	public String login(String token) {
 		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
