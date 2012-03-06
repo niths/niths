@@ -73,8 +73,6 @@ public class StudentServiceImpl implements StudentService {
 		List <Student> list = repo.getAll(s);
 		
 		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCommittees(null);
-			list.get(i).setCourses(null);
 			list.get(i).getRoles().size();
 		}
 		return list;

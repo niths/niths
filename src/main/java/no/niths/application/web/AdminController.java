@@ -1,5 +1,6 @@
 package no.niths.application.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.CommitteeControllerImpl;
@@ -8,12 +9,9 @@ import no.niths.domain.security.Role;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
 
-import org.omg.PortableServer.Servant;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +27,7 @@ public class AdminController {
 			.getLogger(CommitteeControllerImpl.class);
 
 	@Autowired
-	private StudentService serice;
+	private StudentService service;
 
 	@Autowired
 	private RoleService roles;
@@ -37,6 +35,7 @@ public class AdminController {
 	private List<Role> listOfRoles;
 
 	private List<Student> students;
+	private List<Role> newRoles = new ArrayList<Role>();
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateRoles(
@@ -44,28 +43,29 @@ public class AdminController {
 			@RequestParam(value = "checkedRoles", defaultValue = "") Long[] checkedRoles) {
 		try {
 
-			Student student = null;
+			newRoles.clear();
+			logger.debug("updateRoles");
+			logger.debug("student id " + studentId);
+			logger.debug("CheckedRoles size " + checkedRoles.length);
 
-			for (Student s : students) {
-				if (s.getId() == studentId) {
-					student = s;
-					break;
-				}
-			}
-
+			Student student = service.getById(studentId);
+			logger.debug("Found student = " + (student != null));
 			if (student != null) {
-				student.getRoles().clear();
+				student.setRoles(null);
 				for (int i = 0; i < listOfRoles.size(); i++) {
 					for (long roles : checkedRoles) {
 						if (listOfRoles.get(i).getId() == roles) {
-							student.getRoles().add(listOfRoles.get(i));
+							newRoles.add(listOfRoles.get(i));
 						}
 					}
 				}
-				serice.update(student);
+				student.setRoles(newRoles);
+				service.update(student);
 			}
 
 		} catch (Exception e) {
+			logger.info(e.getMessage(), e);
+			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
 		return "admin";
@@ -82,9 +82,15 @@ public class AdminController {
 		if (!(query.equals(""))) {
 			Student s = new Student();
 			s.setFirstName(query);
-			students = serice.getStudentsAndRoles(s);
+			students = service.getStudentsAndRoles(s);
 		} else {
-			students = serice.getStudentsAndRoles(null);
+			students = service.getStudentsAndRoles(null);
+		}
+
+		for (int i = 0; i < students.size(); i++) {
+			students.get(i).setCommittees(null);
+			students.get(i).setCourses(null);
+			// studentList.get(i).setFadderGroup(null);
 		}
 
 		getRolesSetSize();

@@ -1,7 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,78 +13,68 @@
 	<form method="get">
 		<input name="query" id="query" /> <input type="submit" value="Søk" />
 	</form>
-	<%-- 	<form method="post"> --%>
-	<!-- 			<table> -->
-	<!-- 			<tr> -->
-	<!-- 				<th>Fornavn</th> -->
-	<!-- 				<th>Etternavn</th> -->
-	<!-- 				<th>email</th> -->
+<hr />
+	<c:forEach items="${studentList}" var="student">
 
-	<%-- 				<c:forEach items="${listOfRoles}" var="roles"> --%>
-	<%-- 					<th><c:out value="${roles.trimedRoleName} " /></th> --%>
-	<%-- 				</c:forEach> --%>
-	<!-- 			</tr> -->
-	<!-- 				</table> -->
-		<c:forEach items="${studentList}" var="student">
 		<form method="post">
-			<input type="hidden" value="${student.id}" id=studentId name="studentId">
-			<table>
-				<tr>
-					<td><c:out value="${student.id}" /></td>
-					<td><c:out value="${student.firstName}" /></td>
-					<td><c:out value="${student.lastName}" /></td>
-					<td><c:out value="${student.email}" /></td>
+			<input type="hidden" value="${student.id}" id=studentId
+				name="studentId">
+			<div>
+				<c:out value="${student.id}" />
+				<c:out value="${student.firstName}" />
+				<c:out value="${student.lastName}" />
+				<c:out value="${student.email}" />
 
-					<c:choose>
-						<c:when test="${!student.roles.isEmpty()}">
-							<c:forEach items="${listOfRoles}" var="roles">
+
+				<c:choose>
+					<c:when test="${!student.roles.isEmpty()}">
+
+						<c:forEach items="${listOfRoles}" var="roles">
+							<%
+								boolean temp = false;
+												pageContext.setAttribute("temp", temp);
+							%>
+							<c:forEach items="${student.roles}" var="studRoles">
 								<%
-									int counter = 0;
+									if (temp) {
+															break;
+														}
 								%>
-								<c:forEach items="${student.roles}" var="studRoles">
+								<c:if test="${studRoles.id == roles.id}">
+									<input type="checkbox" name=checkedRoles checked="checked"
+										id="checkedRoles" value="${roles.id}">
+									<c:out value="${roles.trimedRoleName}" />
 									<%
-										if (counter == 1) {break;}
+										temp = true;
+																pageContext.setAttribute("temp", temp);
 									%>
-									<c:if test="${studRoles.id == roles.id}">
-										<td><input type="checkbox" name=checkedRoles
-											checked="checked" id="checkedRoles" value="${roles.id}">
-											 <c:out	value="${roles.trimedRoleName}" /></td>
-										<%
-											counter++;
-										%>
-									</c:if>
+								</c:if>
 
-								</c:forEach>
-								<%
-										if (counter == 0) {
-
-									out.print("<td><input type='checkbox' name=checkedRoles id=checkedRoles value='${roles.trimedRoleName}' >" +
-																		"<c:out value='${roles.trimedRoleName} ' /></td>");
-															}
-									%>
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${listOfRoles}" var="roles">
-								<td><input type="checkbox" name=${student.email}Roles>
-									<c:out value="${roles.trimedRoleName} " /></td>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
 
+							<c:if test="${!temp}">
+								<input type="checkbox" name=checkedRoles id="checkedRoles"
+									value="${roles.id}">
+								<c:out value="${roles.trimedRoleName}" />
+							</c:if>
 
-				</tr>
+						</c:forEach>
 
-			</table>
+					</c:when>
+					<c:otherwise>
 
+						<c:forEach items="${listOfRoles}" var="roles">
+							<input type="checkbox" name=checkedRoles id="checkedRoles"
+								value="${roles.id}">
+							<c:out value="${roles.trimedRoleName}" />
+						</c:forEach>
+
+					</c:otherwise>
+				</c:choose>
 			<input type="submit" value="Oppdater Roller" />
+			</div>
 		</form>
 	</c:forEach>
-
-
-	<%-- 	</form> --%>
-
-
 </body>
 </html>
 
