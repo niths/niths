@@ -6,7 +6,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import no.niths.services.interfaces.AuthenticationService;
+
 import no.niths.services.interfaces.auth.RequestAuthenticationService;
 
 import org.slf4j.Logger;
@@ -16,17 +16,27 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+/**
+ * Security filter that checks for session token and validates user
+ *
+ */
 public class UserAuthFilter extends OncePerRequestFilter {
 
 	Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthFilter.class);
-
-//	@Autowired
-//	private AuthenticationService authService;
 	
 	@Autowired
 	private RequestAuthenticationService service;
 	
+	/**
+	 * Handles the verification process
+	 * Checks for "session-token" in the HTTP request header
+	 * and authenticates the user
+	 * 
+	 * @param req the HttpServletRequest
+	 * @param res the HttpServletResponse
+	 * @param chain the Security filter chain
+	 * @throws ServletException, IOException
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
@@ -50,29 +60,9 @@ public class UserAuthFilter extends OncePerRequestFilter {
 		//Continue the security filter chain
 		chain.doFilter(req, res);
 	}
-//	@Override
-//	protected void doFilterInternal(HttpServletRequest req,
-//			HttpServletResponse res, FilterChain chain)
-//					throws ServletException, IOException {
-//		
-//		logger.info("Checking for token and calling Google to verify");
-//		try {
-//			String token = req.getHeader("token");
-//			if (token != null) {
-//				logger.info("Token was provided");
-//				User u = authService.login(token);
-//				setCurrentAuthenticatedUser(u);
-//			} else {
-//				logger.info("A token was not provided");
-//			}
-//			
-//			//If token is provided, but not correct			
-//		} catch (HttpClientErrorException httpe) {			
-//			logger.warn("Not a valid token");
-//		}
-//		chain.doFilter(req, res);
-//	}
-	
+
+	//Sets the current authenticated user
+	//If user did not pass security check, user get role ROLE_USER
 	private void setCurrentAuthenticatedUser(User u){
 		if(u == null){
 			u = new User(); //Role = ROLE_USER
