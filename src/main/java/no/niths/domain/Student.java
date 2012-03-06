@@ -85,7 +85,7 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity=Role.class)
     @JoinTable(
     		name="students_roles", uniqueConstraints={@UniqueConstraint(columnNames ={"students_id", "roles_id"})} )
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 
 	@Column(name="birthday")
@@ -103,6 +103,11 @@ public class Student implements Serializable {
 	@Email(message = "Not a valid email")
 	private String email;
 
+	@JsonIgnore
+	@XmlTransient
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity=Committee.class)
+	@JoinTable(name="committee_leaders")
+    private List<Committee> committesLeader = new ArrayList<Committee>();
 	
 	@Column(name = "phone_number",unique=true)
 	@Pattern(regexp = "(^$)|([1-9][0-9]{7})", message = "Not a valid number")
@@ -298,6 +303,14 @@ public class Student implements Serializable {
 		String s = "{\"name\":\"" + firstName + "\",\"id\"";
 
 		return s;
+	}
+
+	public List<Committee> getCommittesLeader() {
+		return committesLeader;
+	}
+
+	public void setCommittesLeader(List<Committee> committesLeader) {
+		this.committesLeader = committesLeader;
 	}
 
 }

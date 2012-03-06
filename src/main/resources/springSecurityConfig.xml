@@ -40,7 +40,7 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service id="userService">
-				<user name="admin" password="admin" authorities="ROLE_ADMIN" />
+				<user name="admin" password="admin" authorities="ROLE_ADMIN" />	
 				<user name="user" password="user" authorities="ROLE_USER" />
 				<user name="test" password="test" authorities="ROLE_TEST" />
 			</user-service>
