@@ -35,6 +35,7 @@ public class AdminController {
 	private List<Role> listOfRoles;
 
 	private List<Student> students;
+	
 	private List<Role> newRoles = new ArrayList<Role>();
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -68,11 +69,31 @@ public class AdminController {
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
-		return "admin";
+		// getAllStudents("");
+		return "redirect:admin";
+	}
+
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam(value="studId") Long studentId) {
+		try {
+			logger.debug("delete.-------------------------------------------------------------");
+			logger.debug(studentId + " ");
+			
+			if(studentId != null){
+				
+				service.hibernateDelete(studentId);
+			}
+		} catch (Exception e) {
+			logger.info(e.getMessage(), e);
+			e.printStackTrace();
+			logger.debug(e.getMessage(), e);
+		}
+		ModelAndView view = new ModelAndView(ADMIN);
+		return view;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getAllStudents(
+	public ModelAndView getAllStudents(@RequestParam(value="columName", defaultValue="no") String columName,
 			@RequestParam(value = "query", required = false, defaultValue = "") String query) {
 		ModelAndView view = new ModelAndView(ADMIN);
 

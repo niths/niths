@@ -1,8 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,9 +12,12 @@
 <body>
 
 	<form method="get">
+	<input type="radio" value="first_name" name="columName" checked="checked"> Fornavn
+	<input type="radio" value="last_name" name="columName"> Etternavn
+	<input type="radio" value="email" name="columName">Email
 		<input name="query" id="query" /> <input type="submit" value="Søk" />
 	</form>
-<hr />
+	<hr />
 	<c:forEach items="${studentList}" var="student">
 
 		<form method="post">
@@ -71,9 +75,13 @@
 
 					</c:otherwise>
 				</c:choose>
-			<input type="submit" value="Oppdater Roller" />
+				<input type="submit" value="Oppdater Roller" />
 			</div>
 		</form>
+		<form action="/niths/admin/delete" method="post">
+			<input type="hidden" value="${student.id}" name="studId"/> <input type="submit">
+		</form>
+
 	</c:forEach>
 </body>
 </html>
