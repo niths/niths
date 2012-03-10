@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import no.niths.common.AppConstants;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.services.interfaces.auth.GoogleAuthenticationService;
 import no.niths.services.interfaces.auth.RestLoginService;
 
 @Service
@@ -31,6 +32,9 @@ public class RestLoginServiceImpl implements RestLoginService{
 	
 	@Autowired
 	private StudentRepository studRepo;
+	
+	@Autowired
+	private GoogleAuthenticationService googleService;
 	
 	@Value("${jasypt.password}")
 	private String encryptionPassword;
@@ -47,9 +51,12 @@ public class RestLoginServiceImpl implements RestLoginService{
 	public String login(String token) {
 		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
 		//Authenticate via Google
-		Google google = new GoogleTemplate(token);
-		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-		String userEmail = profile.getEmail();
+//		Google google = new GoogleTemplate(token);
+//		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
+//		String userEmail = profile.getEmail();
+		
+		String userEmail = googleService.authenticateAndGetEmail(token);
+		
 		//Check if user has valid email ("nith.no")
 		if(isUserValid(userEmail)){
 			
