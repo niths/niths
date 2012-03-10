@@ -7,7 +7,7 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.interfaces.auth.RestLoginController;
 import no.niths.common.AppConstants;
 import no.niths.domain.security.Token;
-import no.niths.services.interfaces.auth.GoogleAuthenticationService;
+import no.niths.services.interfaces.auth.RestLoginService;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class RestLoginControllerImpl implements RestLoginController{
 			.getLogger(RestLoginControllerImpl.class);
 	
 	@Autowired
-	private GoogleAuthenticationService service;
+	private RestLoginService service;
 
 	/**
 	 * Authorize the user. Use the returned session token for future requests
