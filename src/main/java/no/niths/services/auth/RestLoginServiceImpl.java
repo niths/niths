@@ -50,11 +50,8 @@ public class RestLoginServiceImpl implements RestLoginService{
 	@Override
 	public String login(String token) {
 		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
-		//Authenticate via Google
-//		Google google = new GoogleTemplate(token);
-//		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-//		String userEmail = profile.getEmail();
 		
+		//Authenticate via Google
 		String userEmail = googleService.authenticateAndGetEmail(token);
 		
 		//Check if user has valid email ("nith.no")
