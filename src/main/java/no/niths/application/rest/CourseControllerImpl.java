@@ -93,17 +93,11 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 			@PathVariable Long subjectId) {
 
 		Course course = courseService.getById(courseId);
-		if (course == null) {
-			throw new ObjectNotFoundException("Did not find a course with id: "
-					+ courseId);
-		}
+		ValidationHelper.isObjectNull(course);
 
 		Subject subject = subjectService.getById(subjectId);
-		if (subject == null) {
-			throw new ObjectNotFoundException("Did not find a topic with id: "
-					+ subjectId);
+		ValidationHelper.isObjectNull(subject);
 
-		}
 		course.getSubjects().add(subject);
 		courseService.update(course);
 	}
