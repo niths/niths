@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("admin/")
 public class AdminController {
 
 	private static final String ADMIN = "admin";
@@ -33,11 +33,16 @@ public class AdminController {
 	private RoleService roles;
 
 	private List<Role> listOfRoles;
-
 	private List<Student> students;
-
 	private List<Role> newRoles = new ArrayList<Role>();
 
+	private String query;
+	private String columnName;
+
+	public void setLastQuery(String columnName, String query){
+		this.columnName = columnName;
+		this.query = query;
+	}
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateRoles(
 			@RequestParam(value = "studentId") Long studentId,
@@ -69,8 +74,7 @@ public class AdminController {
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
-		// getAllStudents("");
-		return "redirect:admin";
+		return "redirect:?columnName="+columnName+"&query=" + query;
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
@@ -88,25 +92,26 @@ public class AdminController {
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
-		
-		return "admin";
+
+		return "redirect:?columnName="+columnName+"&query=" + query;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAllStudents(
-			@RequestParam(value = "columName", defaultValue = "FIRST") String columName,
+			@RequestParam(value = "columnName", defaultValue = "FIRST") String columnName,
 			@RequestParam(value = "query", required = false, defaultValue = "") String query) {
 		ModelAndView view = new ModelAndView(ADMIN);
 
-		logger.debug("Method name: getAllStudents columnmae " + columName
+		columnName = validColumName(columnName);
+		logger.debug("Method name: getAllStudents columnmae " + columnName
 				+ " Query: " + query);
-		if (!columName.equals("FIRST")) {
-			if(query.equals("")){
+		if (!columnName.equals("FIRST")) {
+			if (query.equals("")) {
 				students = service.getStudentsAndRoles(null);
-			}else{
-				students = service.getStudentByColumn(columName,query);
+			} else {
+				students = service.getStudentByColumn(columnName, query);
 			}
-	
+
 			for (int i = 0; i < students.size(); i++) {
 				students.get(i).setCommittees(null);
 				students.get(i).setCourses(null);
@@ -115,11 +120,22 @@ public class AdminController {
 			getRolesSetSize();
 			view.addObject("studentList", students);
 			view.addObject("listOfRoles", listOfRoles);
+			
+			setLastQuery(columnName,query);
 		}
 		return view;
 	}
 
 	private void getRolesSetSize() {
 		listOfRoles = roles.getAll(null);
+	}
+	
+	
+	public String validColumName(String columnName){
+		if(columnName.equals("lastName")||columnName.equals("email")||columnName.equals("FIRST")){
+			return columnName;
+		}
+		
+		return "firstName";
 	}
 }

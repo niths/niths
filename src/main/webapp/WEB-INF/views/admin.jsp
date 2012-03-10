@@ -11,16 +11,17 @@
 </head>
 <body>
 
-<h1>Admin Panel</h1>
+	<h1>Admin Panel</h1>
 	<form method="get">
-	<input type="radio" value="firstName" name="columName" checked="checked"> Fornavn
-	<input type="radio" value="lastName" name="columName"> Etternavn
-	<input type="radio" value="email" name="columName">Email
-		<input name="query" id="query" /> <input type="submit" value="Søk" />
+		<input type="radio" value="firstName" name="columnName"
+			checked="checked"> Fornavn <input type="radio"
+			value="lastName" name="columnName"> Etternavn <input
+			type="radio" value="email" name="columnName">Email <input
+			name="query" id="query" /> <input type="submit" value="Søk" />
 	</form>
 	<hr />
-	<c:forEach items="${studentList}" var="student">
 
+	<c:forEach items="${studentList}" var="student">
 		<form method="post">
 			<input type="hidden" value="${student.id}" id=studentId
 				name="studentId">
@@ -29,35 +30,27 @@
 				<c:out value="${student.firstName}" />
 				<c:out value="${student.lastName}" />
 				<c:out value="${student.email}" />
-
-
 				<c:choose>
 					<c:when test="${!student.roles.isEmpty()}">
-
 						<c:forEach items="${listOfRoles}" var="roles">
-							<%
-								boolean temp = false;
-												pageContext.setAttribute("temp", temp);
-							%>
+							<c:set value="false" var="temp" />
 							<c:forEach items="${student.roles}" var="studRoles">
-								<%
-									if (temp) {
-															break;
-														}
-								%>
-								<c:if test="${studRoles.id == roles.id}">
-									<input type="checkbox" name=checkedRoles checked="checked"
-										id="checkedRoles" value="${roles.id}">
-									<c:out value="${roles.trimedRoleName}" />
-									<%
-										temp = true;
-																pageContext.setAttribute("temp", temp);
-									%>
-								</c:if>
-
+								<c:choose>
+									<c:when test="${temp == 'true'}">
+										<!-- do nothing -->
+									</c:when>
+									<c:otherwise>
+										<c:if test="${studRoles.id == roles.id}">
+											<input type="checkbox" name=checkedRoles checked="checked"
+												id="checkedRoles" value="${roles.id}">
+											<c:out value="${roles.trimedRoleName}" />
+											<c:set value="true" var="temp" />
+										</c:if>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 
-							<c:if test="${!temp}">
+							<c:if test="${temp == 'false'}">
 								<input type="checkbox" name=checkedRoles id="checkedRoles"
 									value="${roles.id}">
 								<c:out value="${roles.trimedRoleName}" />
@@ -67,21 +60,19 @@
 
 					</c:when>
 					<c:otherwise>
-
 						<c:forEach items="${listOfRoles}" var="roles">
 							<input type="checkbox" name=checkedRoles id="checkedRoles"
 								value="${roles.id}">
 							<c:out value="${roles.trimedRoleName}" />
 						</c:forEach>
-
 					</c:otherwise>
 				</c:choose>
 				<input type="submit" value="Oppdater Roller" />
 			</div>
 		</form>
-		<form action="/niths/admin/delete" method="post">
-			<input type="hidden" value="${student.id}" name="studId"/>
-			 <input type="submit" value="SlettBruker">
+		<form action="delete" method="post">
+			<input type="hidden" value="${student.id}" name="studId" /> <input
+				type="submit" value="SlettBruker">
 		</form>
 
 	</c:forEach>
