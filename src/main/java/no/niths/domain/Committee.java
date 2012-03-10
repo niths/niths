@@ -53,8 +53,10 @@ public class Committee implements Serializable {
     				columnNames ={"committees_id", "leaders_id"})} )
     private List<Student> leaders = new ArrayList<Student>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
     @Cascade(CascadeType.ALL)
+    @JoinTable(name = "committees_events", 
+    		uniqueConstraints = {@UniqueConstraint(columnNames={"committees_id","events_id"})})
     private List<Event> events = new ArrayList<Event>();
     
     public Committee() {

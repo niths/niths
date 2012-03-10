@@ -262,4 +262,3 @@ insert into committees_events values(1, 2);
 insert into committees_events values(1, 3);
 insert into committees_events values(1, 4);
 insert into committees_events values(2, 5);
-insert into committees_events values(2, 6);
