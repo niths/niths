@@ -102,4 +102,13 @@ public class RestLoginServiceImpl implements RestLoginService{
 		return false;
 	}
 
+	public String getEncryptionPassword() {
+		return encryptionPassword;
+	}
+
+	public void setEncryptionPassword(String encryptionPassword) {
+		this.encryptionPassword = encryptionPassword;
+	}
+	
+
 }
