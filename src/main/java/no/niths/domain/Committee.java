@@ -48,7 +48,9 @@ public class Committee implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-    		name="committee_leaders", uniqueConstraints={@UniqueConstraint(columnNames ={"committees_id", "leaders_id"})} )
+    		name="committee_leaders", 
+    		uniqueConstraints={@UniqueConstraint(
+    				columnNames ={"committees_id", "leaders_id"})} )
     private List<Student> leaders = new ArrayList<Student>();
 
     @ManyToMany(fetch = FetchType.LAZY)

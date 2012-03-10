@@ -5,12 +5,10 @@ import java.util.List;
 
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
-import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
 import no.niths.services.interfaces.FadderGroupService;
-import no.niths.services.interfaces.SubjectService;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FadderGroupServiceImpl implements FadderGroupService{
 
+	Logger logger = org.slf4j.LoggerFactory.getLogger(FadderGroupServiceImpl.class);
+	
     @Autowired
     private FadderGroupRepository repo;
 
@@ -52,62 +52,4 @@ public class FadderGroupServiceImpl implements FadderGroupService{
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removeAChildrenFromAGroup(Student child, FadderGroup group) {
-		group.getFadderChildren().remove(child);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removeALeaderFromAGroup(Student leader, FadderGroup group) {
-		group.getLeaders().remove(leader);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removeAllChildrenFromGroup(FadderGroup group) {
-		if(!(group.getFadderChildren().isEmpty())){
-			group.setFadderChildren(new ArrayList<Student>());
-		}
-		
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removeAllLeadersFromGroup(FadderGroup group) {
-		if(!(group.getLeaders().isEmpty())){
-			group.setLeaders(new ArrayList<Student>());
-		}
-		
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addLeaderToGroup(Student leader, FadderGroup group) {
-		group.getLeaders().add(leader);
-		
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addChildrenToGroup(Student child, FadderGroup group) {
-		group.getFadderChildren().add(child);
-		
-	}
-
-
 }

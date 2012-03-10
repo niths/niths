@@ -210,55 +210,26 @@ INSERT INTO fadder_groups(id, group_number) values (2, 2);
 INSERT INTO fadder_groups(id, group_number) values (3, 3);
 INSERT INTO fadder_groups(id, group_number) values (4, 4);
 
-INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(1, 1, 3);
-INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(1, 2, 4);
-INSERT INTO fadder_groups_students(fadder_groups_id, leaders_id, fadderChildren_id) values(2, 5, 6);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(1, 1);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(1, 2);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(2, 4);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(12, 3);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(34, 4);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(24, 4);
+insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(14, 1);
 
---INSERT INTO fadder_groups_students values (1,1,1);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 54);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 43);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 23);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 12);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 15);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 56);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 11);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 13);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 14);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 21);
+insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 31);
 
---insert into student_orientation_groups (group_id) values(1);
---insert into student_orientation_groups (group_id) values(2);
---insert into student_orientation_groups (group_id) values(3);
---insert into student_orientation_groups (group_id) values(4);
---insert into student_orientation_groups (group_id) values(5);
---insert into student_orientation_groups (group_id) values(1);
---insert into student_orientation_groups (group_id) values(2);
---insert into student_orientation_groups (group_id) values(3);
---insert into student_orientation_groups (group_id) values(4);
---insert into student_orientation_groups (group_id) values(5);
---
---insert into student_orientation_groups (group_id) values(1);
---insert into student_orientation_groups (group_id) values(2);
---insert into student_orientation_groups (group_id) values(3);
---insert into student_orientation_groups (group_id) values(4);
---insert into student_orientation_groups (group_id) values(5);
---insert into student_orientation_groups (group_id) values(1);
---insert into student_orientation_groups (group_id) values(2);
---insert into student_orientation_groups (group_id) values(3);
---insert into student_orientation_groups (group_id) values(4);
---insert into student_orientation_groups (group_id) values(5);
---
---insert into students_student_orientation_groups  values(1, 1);
---insert into students_student_orientation_groups  values(2, 2);
---insert into students_student_orientation_groups  values(3, 3);
---insert into students_student_orientation_groups  values(4, 4);
---insert into students_student_orientation_groups  values(5, 5);
---insert into students_student_orientation_groups  values(6, 6);
---insert into students_student_orientation_groups  values(7, 7);
---insert into students_student_orientation_groups  values(8, 8);
---insert into students_student_orientation_groups  values(9, 9);
---insert into students_student_orientation_groups  values(10, 10);
---
---insert into students_student_orientation_groups  values(10, 11);
---insert into students_student_orientation_groups  values(22, 12);
---insert into students_student_orientation_groups  values(13, 13);
---insert into students_student_orientation_groups  values(44, 14);
---insert into students_student_orientation_groups  values(15, 15);
---insert into students_student_orientation_groups  values(36, 16);
---insert into students_student_orientation_groups  values(37, 17);
---insert into students_student_orientation_groups  values(48, 18);
---insert into students_student_orientation_groups  values(39, 19);
---insert into students_student_orientation_groups  values(32, 20);
 
 insert into students_committees values(1, 1);
 insert into students_committees values(1, 2);

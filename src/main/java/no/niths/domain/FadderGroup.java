@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -49,17 +48,16 @@ public class FadderGroup implements Serializable {
 	@Column(name="group_number", unique=true)
 	private Integer groupNumber;
 	
-	@ManyToMany(fetch = FetchType.LAZY,targetEntity = Student.class)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@Cascade(CascadeType.ALL)
-//	@JoinTable(
-//			name="leaders_fadder_groups",
-//					 joinColumns = @JoinColumn(name = "leaders_id")
-//            ,inverseJoinColumns = @JoinColumn(name = "students_id"),
-//		            uniqueConstraints={@UniqueConstraint(columnNames ={"leaders_id", "students_id"})} )
+	@JoinTable(	name="fadder_leaders_students", 
+	uniqueConstraints={@UniqueConstraint(columnNames ={"fadder_groups_id", "leaders_id"})} )
 	private List<Student> leaders = new ArrayList<Student>();
 	
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
+	@OneToMany(fetch = FetchType.LAZY)
 	@Cascade(CascadeType.ALL)
+	@JoinTable(	name="fadder_children_students", 
+	uniqueConstraints={@UniqueConstraint(columnNames ={"fadder_groups_id", "fadderChildren_id"})} )
 	private List<Student> fadderChildren = new ArrayList<Student>();
 	
 	

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -45,8 +46,8 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-@XmlAccessorType(XmlAccessType.FIELD)  
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Student implements Serializable {
 
 	@Transient
@@ -66,28 +67,20 @@ public class Student implements Serializable {
 
 	@Column
 	@StudentGender
-	@XmlJavaTypeAdapter(value=XmlCharAdapter.class)
+	@XmlJavaTypeAdapter(value = XmlCharAdapter.class)
 	private Character gender;
 
 	@Column
 	@JsonIgnore
 	@XmlTransient
 	private String password;
-	
+
 	@Column(name = "session_token")
 	@JsonIgnore
 	@XmlTransient
 	private String sessionToken;
 
-	@JsonIgnore
-	@XmlTransient
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity=Role.class)
-    @JoinTable(
-    		name="students_roles", uniqueConstraints={@UniqueConstraint(columnNames ={"students_id", "roles_id"})} )
-	@Cascade(CascadeType.ALL)
-	private List<Role> roles = new ArrayList<Role>();
-
-	@Column(name="birthday")
+	@Column(name = "birthday")
 	@Past
 	@XmlJavaTypeAdapter(XmlDateAdapter.class)
 	private Date birthday;
@@ -97,22 +90,12 @@ public class Student implements Serializable {
 	@Min(value = 1, message = "Can not be smaller then 1")
 	private Integer grade;
 
-	@Column(unique=true)
+	@Column(unique = true)
 	@NotNull
 	@Email(message = "Not a valid email")
 	private String email;
 
-	@JsonIgnore
-	@XmlTransient
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity=Committee.class)
-	
-	@JoinTable(name = "committee_leaders",
-	        joinColumns = @JoinColumn(name="leaders_id"),
-	        inverseJoinColumns = @JoinColumn(name="committees_id"))
-	@Cascade(CascadeType.ALL)
-    private List<Committee> committesLeader = new ArrayList<Committee>();
-	
-	@Column(name = "phone_number",unique=true)
+	@Column(name = "phone_number", unique = true)
 	@Pattern(regexp = "(^$)|([1-9][0-9]{7})", message = "Not a valid number")
 	private String telephoneNumber;
 
@@ -120,21 +103,57 @@ public class Student implements Serializable {
 	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String description;
 
-
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@JsonIgnore
+	@XmlTransient
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
+	@JoinTable(name = "students_roles", uniqueConstraints = 
+{ @UniqueConstraint(columnNames = {
+			"students_id", "roles_id" }) })
 	@Cascade(CascadeType.ALL)
-	private List<Course> courses = new ArrayList<Course>();
+	private List<Role> roles = new ArrayList<Role>();
+
+	@JsonIgnore
+	@XmlTransient
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
+	@JoinTable(name = "committee_leaders", 
+		joinColumns = @JoinColumn(name = "leaders_id"), 
+		inverseJoinColumns = @JoinColumn(name = "committees_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Committee> committesLeader = new ArrayList<Committee>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committees = new ArrayList<Committee>();
-
-	public Student() {
-		this(null,null,null,null,null,null,null);
-	}
 	
-	public Student(String email){
-		this(null,null,null,null,null,null,null);
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@Cascade(CascadeType.ALL)
+	private List<Course> courses = new ArrayList<Course>();
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
+	@JoinTable(name = "fadder_leaders_students", 
+		joinColumns = @JoinColumn(name = "leaders_id"), 
+		inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
+	@Cascade(CascadeType.ALL)
+	private List<FadderGroup> groupLeaders = new ArrayList<FadderGroup>();
+	
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
+	@JoinTable(name = "fadder_children_students", 
+		joinColumns = @JoinColumn(name = "fadderChildren_id"), 
+		inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
+	@Cascade(CascadeType.ALL)
+	private FadderGroup fadderGroup;
+	
+	public Student() {
+		this(null, null, null, null, null, null, null);
+	}
+
+	public Student(String email) {
+		this(null, null, null, null, null, null, null);
 		this.email = email;
 	}
 
@@ -144,11 +163,12 @@ public class Student implements Serializable {
 	}
 
 	public Student(String firstName, String lastName) {
-		this(firstName,lastName,null,null,null,null,null);
+		this(firstName, lastName, null, null, null, null, null);
 	}
-	
-	public Student(String firstName, String lastName,String email, String number ) {
-		this(firstName,lastName,null,null,email,number,null);
+
+	public Student(String firstName, String lastName, String email,
+			String number) {
+		this(firstName, lastName, null, null, email, number, null);
 	}
 
 	public Student(String firstName, String lastName, Character gender,
@@ -163,17 +183,14 @@ public class Student implements Serializable {
 		setGrade(grade);
 	}
 
-
 	public Long getId() {
 		return id;
 	}
-	
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	
 	public String getPassword() {
 		return password;
 	}
@@ -182,7 +199,7 @@ public class Student implements Serializable {
 		this.password = password;
 	}
 
-	@JsonSerialize(using=JsonDateAdapter.class)
+	@JsonSerialize(using = JsonDateAdapter.class)
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -294,11 +311,11 @@ public class Student implements Serializable {
 
 	@JsonIgnore
 	public boolean isEmpty() {
-		//Do we need to check for firstName and lastName? They can not be null
-		return (id == null && firstName == null && lastName == null && 
-				gender == null && password == null && email == null && 
-				description == null && birthday == null && telephoneNumber == null
-				&& grade == null);
+		// Do we need to check for firstName and lastName? They can not be null
+		return (id == null && firstName == null && lastName == null
+				&& gender == null && password == null && email == null
+				&& description == null && birthday == null
+				&& telephoneNumber == null && grade == null);
 	}
 
 	@Override
@@ -314,6 +331,22 @@ public class Student implements Serializable {
 
 	public void setCommittesLeader(List<Committee> committesLeader) {
 		this.committesLeader = committesLeader;
+	}
+
+	public FadderGroup getFadderGroup() {
+		return fadderGroup;
+	}
+
+	public void setFadderGroup(FadderGroup fadderGroup) {
+		this.fadderGroup = fadderGroup;
+	}
+
+	public List<FadderGroup> getGroupLeaders() {
+		return groupLeaders;
+	}
+
+	public void setGroupLeaders(List<FadderGroup> groupLeaders) {
+		this.groupLeaders = groupLeaders;
 	}
 
 }

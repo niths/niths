@@ -101,7 +101,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "addLeader/{groupId}/{studId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "addLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
     public void addLeaderToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
@@ -109,30 +109,34 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud);
         
-        service.addLeaderToGroup(stud, group);
+        group.getLeaders().add(stud);
+        service.update(group);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "removeLeader/{groupId}/{studId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "removeLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
     public void removeLeaderFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
         ValidationHelper.isObjectNull(group);
         Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud);
+  
         
-        service.removeALeaderFromAGroup(stud, group);
-        
+        if(group.getLeaders().contains(stud)){
+        	group.getLeaders().remove(stud);
+        	service.update(group);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "addChild/{groupId}/{studId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "addChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
     public void addChildToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
@@ -140,15 +144,16 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud);
         
-        service.addChildrenToGroup(stud, group);
         
+        group.getFadderChildren().add(stud);
+        service.update(group);       
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "removeChild/{groupId}/{studId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "removeChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
     public void removeChildFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
@@ -156,7 +161,12 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud);
         
-        service.removeAChildrenFromAGroup(stud, group);
+        if(group.getFadderChildren().contains(stud)){
+        	group.getFadderChildren().remove(stud);
+        	service.update(group);
+        }else{
+        	logger.debug("student was not found in the group no update was performed");
+        }
         
     }
 
@@ -164,27 +174,37 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "removeAllChildren/{groupId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "removeAllChildren/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildrenFromAGroup(@PathVariable Long groupId) {
         FadderGroup group = service.getById(groupId);
         ValidationHelper.isObjectNull(group);
         
-        service.removeAllChildrenFromGroup(group);
-        
+        if(!group.getFadderChildren().isEmpty()){
+        	group.getFadderChildren().clear();
+        	service.update(group);
+        }else{
+        	logger.debug("list was empty no need for update");
+        }
+      
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = { "removeAllLeaders/{groupId}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "removeAllLeaders/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeadersFromAGroup(@PathVariable Long groupId) {
         FadderGroup group = service.getById(groupId);
         ValidationHelper.isObjectNull(group);
         
-        service.removeAllLeadersFromGroup(group);
+        if(!group.getLeaders().isEmpty()){
+        	group.getLeaders().clear();
+        	service.update(group);
+        }else{
+        	logger.debug("list was empty no need for update");
+        }
         
     }
 
