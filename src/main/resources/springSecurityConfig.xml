@@ -20,7 +20,7 @@
 <!-- First use basic authentication, if not provided, use digest -->
 	<http create-session="stateless" >
 		<!--  <intercept-url pattern="/students/**" access="ROLE_ADMIN" />-->
-		<intercept-url pattern="/committees/**" access="ROLE_ADMIN" />
+		<!-- <intercept-url pattern="/committees/**" access="ROLE_ADMIN" /> -->
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<!-- basic header: -->
 		<!--

@@ -9,8 +9,10 @@ import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
+import no.niths.domain.Event;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
+import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
@@ -46,6 +48,9 @@ public class CommitteeControllerImpl extends
 
 	@Autowired
 	private CommitteeService committeeService;
+	
+	@Autowired
+	private EventsService eventService;
 
 	@Autowired
 	private StudentService studentService;
@@ -130,6 +135,40 @@ public class CommitteeControllerImpl extends
 		committee.getLeaders().remove(studentLeader);
 		committeeService.update(committee);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+    @RequestMapping(value = { "addEvent/{committeeId}/{eventId}" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Event added")
+	public void addEvent(@PathVariable Long committeeId, @PathVariable Long eventId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee);
+		Event event = eventService.getById(eventId);
+		ValidationHelper.isObjectNull(event);
+		committee.getEvents().add(event);
+		committeeService.update(committee);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = { "removeEvent/{committeeId}/{eventId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
+	public void removeEvent(@PathVariable Long committeeId,@PathVariable Long eventId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee);
+		Event event = eventService.getById(eventId);
+		ValidationHelper.isObjectNull(event);
+		
+		if(committee.getEvents().contains(event)){
+			committee.getEvents().remove(event);
+			committeeService.update(committee);			
+		}
+	}
+	
 
 	/**
 	 * Catches constraint violation exceptions Ex: Leader already added to

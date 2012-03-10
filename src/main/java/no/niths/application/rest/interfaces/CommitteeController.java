@@ -26,6 +26,22 @@ public interface CommitteeController extends GenericRESTController<Committee> {
 	 *            the id of the student
 	 */
 	public void removeLeader(Long committeeId, Long studentId);
+	
+	/**
+	 * Ads an event to a committee
+	 * 
+	 * @param committeeId id of the committee
+	 * @param eventId if of the event
+	 */
+	public void addEvent(Long committeeId, Long eventId);
+	
+	/**
+	 * Removes an event from a committee
+	 * 
+	 * @param committeeId id of the committee
+	 * @param eventId if of the event
+	 */
+	public void removeEvent(Long committeeId, Long eventId);
 
 	/**
 	 * Catches constraint violation exceptions Ex: Leader already added to
