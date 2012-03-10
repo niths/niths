@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import no.niths.application.rest.auth.RestLoginControllerImpl;
 import no.niths.application.rest.interfaces.auth.RestLoginController;
 import no.niths.domain.security.Token;
-import no.niths.services.interfaces.auth.GoogleAuthenticationService;
+import no.niths.services.interfaces.auth.RestLoginService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class RestLoginControllerTest {
 	
 	@Mock
-	private GoogleAuthenticationService service;
+	private RestLoginService service;
 	
 	@InjectMocks
 	private RestLoginController controller = new RestLoginControllerImpl();
