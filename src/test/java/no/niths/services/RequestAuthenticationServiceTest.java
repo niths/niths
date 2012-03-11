@@ -41,6 +41,12 @@ public class RequestAuthenticationServiceTest {
 		
 		u = service.authenticate(token);
 		assertEquals(1, u.getAuthorities().size());
+		
+		u = service.authenticate(null);
+		assertEquals(1, u.getAuthorities().size());
+
+		u = service.authenticate("token");
+		assertEquals(1, u.getAuthorities().size());
 	}
 	
 	private String getExpiredToken(){
