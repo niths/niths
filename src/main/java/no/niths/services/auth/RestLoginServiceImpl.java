@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.auth.GoogleAuthenticationService;
@@ -60,16 +61,15 @@ public class RestLoginServiceImpl implements RestLoginService{
 			Student authenticatedStudent = studRepo.getStudentByEmail(userEmail);
 			
 			if(authenticatedStudent == null){ //First time user, persist!
-				//TODO: Catch errors if email not valid
 				authenticatedStudent = new Student(userEmail);
 				Long id = studRepo.create(authenticatedStudent);
-				authenticatedStudent.setId(id); //Unneeded? TODO: test!
+				authenticatedStudent.setId(id); 
 			}
 			
 			//Generate "session token" that student uses from now on
 			generatedToken = generateToken(authenticatedStudent.getId());
 			authenticatedStudent.setSessionToken(generatedToken);
-			studRepo.update(authenticatedStudent);//Unneeded? TODO: test!
+			studRepo.update(authenticatedStudent);
 		}
 		
 		return generatedToken;
@@ -92,11 +92,12 @@ public class RestLoginServiceImpl implements RestLoginService{
 		return encryptedToked;
 	}
 	
-	//Check if the email of the user is valid
+	//Check if the email of the user is valid(nith.no) and passes bean validation
 	private boolean isUserValid(String email){
-		if(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)){
+		if(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)
+				&& ValidationHelper.hasObjectValidAttributes(new Student(email))){
 			logger.debug("Email is valid: " + email);
-			return true;
+			return true;				
 		}
 		logger.debug("Email is NOT valid: " + email);
 		return false;
