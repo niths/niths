@@ -3,7 +3,6 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.mockito.Mockito.when;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.auth.RestLoginServiceImpl;

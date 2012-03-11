@@ -97,4 +97,13 @@ public class RequestAuthenticationServiceImpl implements
 		return false; // Not valid token
 	}
 
+	public String getDecryptionPassword() {
+		return decryptionPassword;
+	}
+
+	public void setDecryptionPassword(String decryptionPassword) {
+		this.decryptionPassword = decryptionPassword;
+	}
+	
+
 }
