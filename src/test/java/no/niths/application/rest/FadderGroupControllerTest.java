@@ -28,8 +28,8 @@ public class FadderGroupControllerTest {
 	
 	@Test
 	public void testAddAndRemoveLeaders(){
-		Student s1 = new Student("mail@mail.com");
-		Student s2 = new Student("mail2@mail.com");
+		Student s1 = new Student("mail@nith.com");
+		Student s2 = new Student("mail2@nith.no");
 
 		
 		FadderGroup g1 = new FadderGroup(123);
@@ -67,8 +67,8 @@ public class FadderGroupControllerTest {
 	
 	@Test
 	public void testAddAndRemoveChildren(){
-		Student s1 = new Student("mail@mail.com");
-		Student s2 = new Student("mail2@mail.com");
+		Student s1 = new Student("mail@ds.com");
+		Student s2 = new Student("mail2@mail.sdm");
 
 		
 		FadderGroup g1 = new FadderGroup(123);
