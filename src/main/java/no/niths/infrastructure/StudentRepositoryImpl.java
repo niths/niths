@@ -18,7 +18,7 @@ public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
 	
 	public StudentRepositoryImpl() {
 		super(Student.class);
-		queryGen = new QueryGenerator<>(Student.class);
+		queryGen = new QueryGenerator<Student>(Student.class);
 	}
 
 	@SuppressWarnings("unchecked")
