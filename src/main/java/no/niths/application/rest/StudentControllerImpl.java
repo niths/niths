@@ -38,7 +38,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private StudentService service;
 
 	@Override
-	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "","{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		Student student = super.getById(id);
@@ -52,8 +52,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			for (int i = 0; i < student.getCourses().size(); i++) {
 				student.getCourses().get(i).setSubjects(null);
 			}
-
-			//student.getFadderGroup().size();
 		}
 		return student;
 	}

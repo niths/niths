@@ -17,9 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-@Transactional
-@TransactionConfiguration(
-        transactionManager = TestAppConfig.TRANSACTION_MANAGER)
 public class CourseControllerTest {
 
     @Autowired
@@ -52,7 +49,7 @@ public class CourseControllerTest {
 
         // Delete the same course
         Course secondCourse = controller.getAll(firstCourse).get(0);
-        controller.delete(secondCourse.getId());
+        controller.hibernateDelete(secondCourse.getId());
 
         assertEquals(originalCount, controller.getAll(null).size());
     }

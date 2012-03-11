@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import static org.junit.Assert.assertEquals;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.interfaces.StudentController;
@@ -7,18 +8,12 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
-import no.niths.infrastructure.interfaces.FadderGroupRepository;
-import no.niths.infrastructure.interfaces.StudentRepository;
-import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -109,27 +104,27 @@ public class FadderGroupControllerTest {
 		}
 	}
 	
-//	@Test
-//	public void testCRUD(){
-//		int size = 0;
-//		try{
-//			size = fadderController.getAll(null).size();
-//		}catch(ObjectNotFoundException e){
-//			//Do nothing
-//		}
-//		
-//		FadderGroup group = new FadderGroup(1337);
-//		
-//		fadderController.create(group);
-//		
-//		assertEquals(size + 1, fadderController.getAll(null).size());
-//		
-//		assertEquals(1, fadderController.getAll(group).size());
-//		
-//		group.setGroupNumber(1338);
-//		fadderController.update(group);
-//		
-//		assertEquals(new Integer(1338), fadderController.getAll(group).get(0).getGroupNumber());
-//	}
+	@Test
+	public void testCRUD(){
+		int size = 0;
+		try{
+			size = fadderController.getAll(null).size();
+		}catch(ObjectNotFoundException e){
+			//Do nothing
+		}
+		
+		FadderGroup group = new FadderGroup(1337);
+		
+		fadderController.create(group);
+		
+		assertEquals(size + 1, fadderController.getAll(null).size());
+		
+		assertEquals(1, fadderController.getAll(group).size());
+		
+		group.setGroupNumber(1338);
+		fadderController.update(group);
+		
+		assertEquals(new Integer(1338), fadderController.getAll(group).get(0).getGroupNumber());
+	}
 	
 }

@@ -39,6 +39,7 @@ public class StudentServiceImpl implements StudentService {
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
+			s.getRoles().size();
 			//s.getFadderGroup().size();
 		}
 		return s;

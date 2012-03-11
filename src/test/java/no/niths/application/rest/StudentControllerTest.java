@@ -9,7 +9,6 @@ import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Student;
-import no.niths.services.StudentServiceImpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-@Transactional
-@TransactionConfiguration(transactionManager = TestAppConfig.TRANSACTION_MANAGER)
 public class StudentControllerTest {
 
 	private static final Logger logger = LoggerFactory
@@ -54,7 +49,7 @@ public class StudentControllerTest {
 		
 		assertEquals(size + 1, studController.getAll(null).size());
 		
-		studController.delete(s.getId());
+		studController.hibernateDelete(s.getId());
 		int currentSize = 0;
 		try {
 			currentSize  = studController.getAll(null).size();
@@ -68,7 +63,7 @@ public class StudentControllerTest {
 	
 	@Test(expected = ObjectNotFoundException.class)
 	public void testDeleteWithUnvalidId(){
-		studController.delete(new Long(9391));
+		studController.hibernateDelete(new Long(9391));
 	}
 	
 	@Test
