@@ -31,13 +31,27 @@ public class APIEventRepositoryTest {
 		
 		assertEquals(size + 1, repo.getAll(null).size());
 		
-		event.setTitle("xxxx");		
-		repo.update(event);
-		
+		event.setTitle("xxxx");
+
 		assertEquals("xxxx", repo.getById(event.getId()).getTitle());
 		
 		repo.delete(event.getId());
 		assertEquals(size, repo.getAll(null).size());
+		
+		APIEvent e1 = new APIEvent();
+		APIEvent e2 = new APIEvent();
+		APIEvent e3 = new APIEvent();
+		repo.create(e1);
+		repo.create(e2);
+		repo.create(e3);
+		
+		assertEquals(size + 3, repo.getAll(null).size());
+		
+	}
+	
+	@Test
+	public void testSome(){
+		assertEquals(0, repo.getAll(null).size());
 	}
 	
 }
