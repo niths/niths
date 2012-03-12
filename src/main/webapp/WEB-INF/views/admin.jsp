@@ -20,7 +20,6 @@
 			name="query" id="query" /> <input type="submit" value="Søk" />
 	</form>
 	<hr />
-
 	<c:forEach items="${studentList}" var="student">
 		<form method="post">
 			<input type="hidden" value="${student.id}" id=studentId
@@ -32,7 +31,7 @@
 				<c:out value="${student.lastName}" />
 				<c:out value="${student.email}" />
 				<c:choose>
-					<c:when test="${!student.roles.isEmpty}">
+					<c:when test="${!student.roles.isEmpty()}">
 						<c:forEach items="${listOfRoles}" var="roles">
 							<c:set value="false" var="temp" />
 							<c:forEach items="${student.roles}" var="studRoles">

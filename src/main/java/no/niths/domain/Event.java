@@ -39,8 +39,8 @@ import org.hibernate.annotations.CascadeType;
 @XmlRootElement(name = AppConstants.EVENT)
 @Entity
 @Table(name = AppConstants.EVENTS)
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Event implements Serializable {
 
 	@Transient

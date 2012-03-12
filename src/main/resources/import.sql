@@ -139,7 +139,7 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Rice@nith.no','Simone','Moon','1992-11-05','84858801','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Salazar@nith.no','Arsenio','Fields','1991-12-11','54825008','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Hicks@nith.no','Yen','Cohen','1975-08-08','52270138','2');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Conrad@nith.no','Alexandra','Hughes','1985-11-11','05693628','1');
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Conrad@nith.no','Alexandra','Hughes','1985-11-11','35693628','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Alvarez@nith.no','Cyrus','Nash','1990-03-21','01475491','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Dalton@nith.no','Rowan','Roberson','1980-10-16','32694045','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Bishop@nith.no','Anne','Warren','1980-10-30','76886947','1');
