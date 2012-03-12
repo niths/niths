@@ -94,11 +94,6 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-//    @JsonIgnore
-//    public boolean isEmpty() {
-//        return (id == null && name == null && description == null);
-//    }
-
 	@Override
     public boolean equals(Object that) {
     	if(!(that instanceof Course)) return false;
@@ -110,6 +105,6 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s - %s - %s", id, name, description);
+        return String.format("[%s][%s][%s]", id, name, description);
     }
 }
