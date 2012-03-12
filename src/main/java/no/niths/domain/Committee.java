@@ -120,7 +120,7 @@ public class Committee implements Serializable {
 
     @Override
     public String toString() {
-        return name + " " + description;
+    	return String.format("[%s][%s][%s]", id, name, description);
     }
 
     @Override

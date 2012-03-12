@@ -1,4 +1,4 @@
-package no.niths.services.interfaces.auth;
+package no.niths.services.auth.interfaces;
 
 public interface RestLoginService {
 

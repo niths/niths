@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.auth.RestLoginServiceImpl;
-import no.niths.services.interfaces.auth.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

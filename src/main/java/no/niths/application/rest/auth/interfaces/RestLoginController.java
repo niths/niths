@@ -1,4 +1,4 @@
-package no.niths.application.rest.interfaces.auth;
+package no.niths.application.rest.auth.interfaces;
 
 import no.niths.domain.security.Token;
 

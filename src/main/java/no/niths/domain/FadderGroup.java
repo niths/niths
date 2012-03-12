@@ -110,5 +110,11 @@ public class FadderGroup implements Serializable {
 		FadderGroup s = (FadderGroup) obj;
 		return s == this ? true : s.getId() == id ? true : false;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("[%s][%d]", id, groupNumber);
+	}
 
 }
