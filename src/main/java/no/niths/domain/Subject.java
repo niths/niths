@@ -77,6 +77,11 @@ public class Subject implements Serializable {
     	return (id == null && name == null && subjectCode == null && description ==  null
     			&& weekday == null && startTime == null && endTime == null);
     }
+    
+    @Override
+    public String toString() {
+    	return String.format("[%s][%s][%s]", id, name, description);
+    }
  
 	public String getRoomNumber() {
 		return roomNumber;

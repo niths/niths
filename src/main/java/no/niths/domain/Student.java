@@ -320,9 +320,7 @@ public class Student implements Serializable {
 
 	@Override
 	public String toString() {
-		String s = "{\"name\":\"" + firstName + "\",\"id\"";
-
-		return s;
+		return String.format("[%s][%s]", id, email);
 	}
 
 	public List<Committee> getCommittesLeader() {
