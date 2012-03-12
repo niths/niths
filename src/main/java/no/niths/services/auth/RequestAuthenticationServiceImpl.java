@@ -46,17 +46,16 @@ public class RequestAuthenticationServiceImpl implements
 	public User authenticate(String sessionToken) {
 		logger.debug("User trying to log in with session token: "
 				+ sessionToken);
-
-		Student wantAccess = studentRepo.getStudentBySessionToken(sessionToken);
 		User authenticatedUser = new User(); // ROLE_USER
 
-		if (wantAccess != null) { // User with session token found
-			if (verifySessionToken(sessionToken)) {
+		if (verifySessionToken(sessionToken)) {
+			Student wantAccess = studentRepo
+					.getStudentBySessionToken(sessionToken);
 
+			if (wantAccess != null) { // User with session token found
 				// For access to authenticated users email if any future
 				// implementations needs this.
 				authenticatedUser.setUserName(wantAccess.getEmail());
-
 				// Checking roles of student and adding them to User wrapper
 				// object
 				List<Role> roles = wantAccess.getRoles();
@@ -70,11 +69,10 @@ public class RequestAuthenticationServiceImpl implements
 				}
 			}
 		}
-
 		return authenticatedUser;
 	}
 
-	//Verifies the session token from the HTTP request
+	// Verifies the session token from the HTTP request
 	private boolean verifySessionToken(String token) {
 		logger.info("Verifying format of token: " + token);
 		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
@@ -104,6 +102,5 @@ public class RequestAuthenticationServiceImpl implements
 	public void setDecryptionPassword(String decryptionPassword) {
 		this.decryptionPassword = decryptionPassword;
 	}
-	
 
 }
