@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"no.niths.services", "no.niths.infrastructure"})
+@ComponentScan({"no.niths.services", "no.niths.infrastructure", "no.niths.aop"})
 public class HibernateConfig{
 
     private final String DRIVER       = "jdbc.driver.class_name",
