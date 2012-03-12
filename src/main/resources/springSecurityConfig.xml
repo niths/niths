@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
+<beans:beans xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
@@ -9,26 +9,26 @@
 	<!-- ADD TO PERSISTENCE:PROPERTIES FILE: EXCHANGE: google.clientId=1052169777876.apps.googleusercontent.com 
 		google.clientSecret=i4QqNZH8lhD5gtBU114yeZIw WITH NEW: google.clientId=1064171706637.apps.googleusercontent.com 
 		google.clientSecret=2FXD-f6o2IXtU7SyYeWbsNeH jasypt.password=niths -->
-	<global-method-security pre-post-annotations="enabled"
+	<security:global-method-security pre-post-annotations="enabled"
 		proxy-target-class="true" />
 	<!-- First use basic authentication, if not provided, use digest -->
-	<http create-session="stateless">
-		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+	<security:http create-session="stateless">
+		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<!-- basic header: -->
 		<!-- Header ex for basic: Accept: application/xml 
 		Authorization: Basic YWRtaW46bml0aHNfYWRtaW4= //(YWRta... = base64 of admin:niths_admin) -->
-		<http-basic />
-		<custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
-	</http>
+		<security:http-basic />
+		<security:custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
+	</security:http>
 
 	<beans:bean id="authfilter" class="no.niths.security.UserAuthFilter">
 	</beans:bean>
 
-	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
-			<password-encoder ref="passwordEncoder" />
-		</authentication-provider>
-	</authentication-manager>
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetailsService">
+			<security:password-encoder ref="passwordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 	<beans:bean
 		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
@@ -37,9 +37,9 @@
 	</beans:bean>
 
 	<!-- Security roles -->
-	<user-service id="userDetailsService">
-		<user name="admin" password="eb744e642692319a16da42b058e6e76c7c7e253ec37ef08e8200f80a68de03ee52eff70fc973398da526aad2dbe2c8833aa3dd21caa630cba95d47b002eeeac1" authorities="ROLE_ADMIN" />
-		<user name="user" password="b14361404c078ffd549c03db443c3fede2f3e534d73f78f77301ed97d4a436a9fd9db05ee8b325c0ad36438b43fec8510c204fc1c1edb21d0941c00e9e2c1ce2" authorities="ROLE_USER" />
-		<user name="test" password="ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff" authorities="ROLE_TEST" />
-	</user-service>
+	<security:user-service id="userDetailsService">
+		<security:user name="admin" password="eb744e642692319a16da42b058e6e76c7c7e253ec37ef08e8200f80a68de03ee52eff70fc973398da526aad2dbe2c8833aa3dd21caa630cba95d47b002eeeac1" authorities="ROLE_ADMIN" />
+		<security:user name="user" password="b14361404c078ffd549c03db443c3fede2f3e534d73f78f77301ed97d4a436a9fd9db05ee8b325c0ad36438b43fec8510c204fc1c1edb21d0941c00e9e2c1ce2" authorities="ROLE_USER" />
+		<security:user name="test" password="ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff" authorities="ROLE_TEST" />
+	</security:user-service>
 </beans:beans>
