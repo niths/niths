@@ -48,7 +48,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     
     
     @Override
-    @RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public FadderGroup getById(@PathVariable Long id) {
         FadderGroup group = super.getById(id);
