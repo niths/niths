@@ -43,8 +43,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
-public class CommitteeControllerImpl extends
-        AbstractRESTControllerImpl<Committee> implements CommitteeController {
+public class CommitteeControllerImpl
+        extends AbstractRESTControllerImpl<Committee>
+        implements CommitteeController {
 
     @Autowired
     private CommitteeService committeeService;
@@ -68,20 +69,22 @@ public class CommitteeControllerImpl extends
     @ResponseBody
     public Committee getById(@PathVariable Long id) {
         logger.debug(id+"");
-        Committee c = super.getById(id);
+        Committee committee = super.getById(id);
 
-        if(c != null){
-            List<Student> leaders = c.getLeaders();
-            for (int i = 0; i < leaders.size(); i++){
-                leaders.get(i).setCommittees(null);
-                leaders.get(i).setCourses(null);
-                //leaders.get(i).setFadderGroup(null);
+        if(committee != null){
+            List<Student> leaders = committee.getLeaders();
+
+            for (Student leader : leaders) {
+                leader.setCommittees(null);
+                leader.setCourses(null);
+                // leaders.get(i).setFadderGroup(null);
             }
-            if(c.getEvents().isEmpty()){
-                c.setEvents(null);
+
+            if(committee.getEvents().isEmpty()){
+                committee.setEvents(null);
             }
         }
-        return c;
+        return committee;
     }
 
     @Override
@@ -91,9 +94,10 @@ public class CommitteeControllerImpl extends
     @ResponseBody
     public ArrayList<Committee> getAll(Committee domain) {
         committeeList = (CommitteeList) super.getAll(domain);
-        for (int i = 0; i < committeeList.size(); i++) {
-            committeeList.get(i).setEvents(null);
-            committeeList.get(i).setLeaders(null);
+
+        for (Committee committee : committeeList) {
+            committee.setEvents(null);
+            committee.setLeaders(null);
         }
         return committeeList;
     }
@@ -136,9 +140,7 @@ public class CommitteeControllerImpl extends
     public void removeLeader(@PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
-
         ValidationHelper.isObjectNull(committee);
-
         Student studentLeader = studentService.getById(studentId);
         ValidationHelper.isObjectNull(studentLeader);
         ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
@@ -193,8 +195,7 @@ public class CommitteeControllerImpl extends
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-    public void notUniqueObject() {
-    }
+    public void notUniqueObject() {}
 
     /**
      * {@inheritDoc}
