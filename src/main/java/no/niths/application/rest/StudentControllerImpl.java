@@ -38,7 +38,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private StudentService service;
 
 	@Override
-	@RequestMapping(value = { "","{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		Student student = super.getById(id);
