@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.infrastructure;
 
 import java.util.List;
 

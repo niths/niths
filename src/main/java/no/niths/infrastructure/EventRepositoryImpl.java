@@ -2,7 +2,6 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import no.niths.common.QueryGenerator;
 import no.niths.domain.Event;
 import no.niths.infrastructure.interfaces.EventRepositorty;
 
