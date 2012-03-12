@@ -15,8 +15,8 @@
 	<http create-session="stateless">
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<!-- basic header: -->
-		<!-- Header ex for basic: Accept: application/xml Authorization: Basic 
-			YWRtaW46YWRtaW4= //(YWRta... = base64 of admin:admin) -->
+		<!-- Header ex for basic: Accept: application/xml 
+		Authorization: Basic YWRtaW46bml0aHNfYWRtaW4= //(YWRta... = base64 of admin:niths_admin) -->
 		<http-basic />
 		<custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
 	</http>
