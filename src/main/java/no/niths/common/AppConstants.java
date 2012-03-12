@@ -13,6 +13,7 @@ public final class AppConstants {
     public static final String ROOMS = "rooms";
     public static final String STUDENTS = "students";
     public static final String SUBJECTS = "subjects";
+    public static final String APPLICATIONS = "applications";
 
     public static final String ROLES = "roles";
     public static final String ADMIN = "admin";
