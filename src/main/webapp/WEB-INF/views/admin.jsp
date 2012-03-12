@@ -32,7 +32,7 @@
 				<c:out value="${student.lastName}" />
 				<c:out value="${student.email}" />
 				<c:choose>
-					<c:when test="${!student.roles.isEmpty()}">
+					<c:when test="${!student.roles.isEmpty}">
 						<c:forEach items="${listOfRoles}" var="roles">
 							<c:set value="false" var="temp" />
 							<c:forEach items="${student.roles}" var="studRoles">
