@@ -50,7 +50,7 @@ public class Event implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable=false)
 	@Size(min = 3, max = 30, message = "The length of the name must be between 3 to 30 letters")
 	private String name;
 
@@ -146,6 +146,11 @@ public class Event implements Serializable {
 	public boolean isEmpty() {
 		return description == null && name == null && id == null
 				&& endTime == null && startTime == null;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("[%s][%s][%s]", id, name, description);
 	}
 
 	@JsonSerialize(using = JsonCalendarAdapter.class)
