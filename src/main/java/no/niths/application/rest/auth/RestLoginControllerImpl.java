@@ -1,15 +1,11 @@
 package no.niths.application.rest.auth;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
 import no.niths.domain.security.Token;
 import no.niths.services.auth.interfaces.RestLoginService;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
