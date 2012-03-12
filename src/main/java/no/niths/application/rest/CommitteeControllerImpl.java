@@ -110,7 +110,8 @@ public class CommitteeControllerImpl extends
             value ="leaders/{committeeId}/{studentId}",
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
-    public void addLeader(@PathVariable Long committeeId,
+    public void addLeader(
+            @PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
         ValidationHelper.isObjectNull(committee);
