@@ -1,0 +1,125 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: verdana;
+	font-size: 10pt;
+}
+
+body {
+	background-image: url(./gradient.jpg);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-attachment: fixed;
+	background-color: #7D7D7D;
+}
+
+#container {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 900px;
+	display: block;
+	background-color: #FFF;
+	padding: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+#content a,#content visited {
+	text-decoration: none;
+}
+
+#content a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 20pt;
+	colo: #F0F;
+/* 	color: #292929; */
+	font-weight: bold;
+	margin: 0 0 10px 0;
+}
+
+h2 {
+	margin-top: 15px;
+	font-size: 13pt;
+	color: #292929;
+}
+
+.tagline {
+	font-style: italic;
+}
+
+#menu {
+	margin: 0 0 10px 0;
+	display: block;
+	clear: both;
+	height: auto;
+	padding: 2px 2px;
+	background-color: #9FCBE3;
+}
+
+#menu a,#menu visited {
+	text-decoration: none;
+	padding: 2px 9px;
+	margin: 1px 2px 1px 2px;
+	color: #292929;
+	font-weight: bold;
+	font-size: 9pt;
+}
+
+#menu a:hover {
+	background-color: #CADDE8;
+}
+
+#menu form {
+	float: right;
+}
+
+#searchFormErrorList,#searchFormErrorList li {
+	list-style-type: none;
+}
+
+#searchFormErrorList {
+	display: block;
+	clear: both;
+	width: 100%;
+	background-color: #D98B93;
+}
+
+#searchFormErrorList li {
+	padding: 10px;
+}
+
+.pagingNext,.pagingPrev {
+	border: 1px solid #c0c0c0;
+	padding: 2px 9px;
+	margin: 1px 2px 1px 2px;
+	background-color: #9FCBE3;
+	color: #000;
+}
+
+
+#searcher input {
+	background-color: #FFF;
+	padding: 2px;
+	border: 1px solid #c0c0c0;
+	margin-bottom: 2px;
+	margin-right: 5px;
+}
+
+#searcher input[type="radio"] {
+	margin-right: 0px;
+}
+
+#searcher label {
+	margin-right: 5px;
+}
+
+#technologyForm label {
+    width: 75px;
+    float: left;
+}

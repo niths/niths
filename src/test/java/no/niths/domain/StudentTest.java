@@ -9,6 +9,7 @@ import javax.validation.ValidatorFactory;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +111,7 @@ public class StudentTest {
                 assertThat(true, is(equalTo(student.isEmpty())));
         }
         
+        @Ignore
         @Test
         public void testStudentToString() {
                 Student student = new Student(ID, FIRST_NAME, LAST_NAME);
