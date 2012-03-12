@@ -48,7 +48,7 @@ public class RequestAuthenticationServiceImpl implements
 				+ sessionToken);
 		User authenticatedUser = new User(); // ROLE_USER
 
-		if (verifySessionToken(sessionToken)) {
+		if (sessionToken != null && verifySessionToken(sessionToken)) {
 			Student wantAccess = studentRepo
 					.getStudentBySessionToken(sessionToken);
 
