@@ -2,6 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
+import no.niths.aop.ApiEvent;
 import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.SubjectRepository;
 import no.niths.services.interfaces.SubjectService;
@@ -17,6 +18,7 @@ public class SubjectServiceImpl implements SubjectService{
     @Autowired
     private SubjectRepository repo;
 
+    @ApiEvent(title = "Subject created")
     public Long create(Subject topic) {
         return repo.create(topic);
     }
@@ -29,6 +31,7 @@ public class SubjectServiceImpl implements SubjectService{
     	return repo.getAll(topic);
     }
 
+    @ApiEvent(title = "Subject updated")
     public void update(Subject topic) {
         repo.update(topic);
     }

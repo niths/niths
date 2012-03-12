@@ -3,6 +3,7 @@ package no.niths.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.aop.ApiEvent;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
@@ -22,6 +23,7 @@ public class FadderGroupServiceImpl implements FadderGroupService{
     @Autowired
     private FadderGroupRepository repo;
 
+    @ApiEvent(title = "Faddergroup created")
     public Long create(FadderGroup group) {
         return repo.create(group);
     }
@@ -40,6 +42,7 @@ public class FadderGroupServiceImpl implements FadderGroupService{
     	return all;
     }
 
+    @ApiEvent(title = "Faddergroup updated")
     public void update(FadderGroup group) {
         repo.update(group);
     }
