@@ -84,10 +84,15 @@ public class StudentControllerTest {
 		
 		assertEquals(size + 3, studController.getAll(null).size());
 		
-		logger.debug("DDDDDDDDDDDD" + s1.getId());
+		assertEquals(s1, studController.getById(s1.getId()));
+		
 		assertEquals(1, studController.getAll(s1).size());
 		
+		s1.setEmail("xxx@mail.com");
+		assertEquals("mail1@mail.com", studController.getById(s1.getId()).getEmail());
 		
+		studController.update(s1);
+		assertEquals("xxx@mail.com", studController.getById(s1.getId()).getEmail());
 	}
 	
 

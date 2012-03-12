@@ -2,6 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
+import no.niths.aop.ApiEvent;
 import no.niths.domain.Course;
 import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.services.interfaces.CourseService;
@@ -17,6 +18,7 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private CourseRepository repo;
 
+    @ApiEvent(title = "Course created")
     public Long create(Course course) {
         return repo.create(course);
     }
@@ -33,6 +35,7 @@ public class CourseServiceImpl implements CourseService{
     	return repo.getAll(c);
     }
 
+    @ApiEvent(title = "Course updated")
     public void update(Course course) {
         repo.update(course);
     }

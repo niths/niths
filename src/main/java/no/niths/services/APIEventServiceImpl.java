@@ -2,9 +2,11 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.aop.ApiEvent;
+import no.niths.domain.APIEvent;
 import no.niths.domain.Subject;
+import no.niths.infrastructure.interfaces.APIEventRepository;
 import no.niths.infrastructure.interfaces.SubjectRepository;
+import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.SubjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class SubjectServiceImpl implements SubjectService{
+public class APIEventServiceImpl implements APIEventService{
 
     @Autowired
-    private SubjectRepository repo;
+    private APIEventRepository repo;
 
-    @ApiEvent(title = "Subject created")
-    public Long create(Subject topic) {
-        return repo.create(topic);
+    public Long create(APIEvent event) {
+        return repo.create(event);
     }
 
-    public Subject getById(long id) {
+    public APIEvent getById(long id) {
     	return repo.getById(id);
    }
 
-    public List<Subject> getAll(Subject topic) {
-    	return repo.getAll(topic);
+    public List<APIEvent> getAll(APIEvent event) {
+    	return repo.getAll(event);
     }
 
-    @ApiEvent(title = "Subject updated")
-    public void update(Subject topic) {
-        repo.update(topic);
+    public void update(APIEvent event) {
+        repo.update(event);
     }
 
     public boolean delete(long id) {

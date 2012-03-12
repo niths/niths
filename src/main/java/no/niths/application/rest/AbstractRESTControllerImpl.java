@@ -30,117 +30,122 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @param <T>
  *            The type parameter
  */
-public abstract class AbstractRESTControllerImpl<T> implements
-		GenericRESTController<T> {
+public abstract class AbstractRESTControllerImpl<T>
+        implements GenericRESTController<T> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AbstractRESTControllerImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(AbstractRESTControllerImpl.class);
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
-	public void create(@RequestBody T domain) {
-		getService().create(domain);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
+    public void create(@RequestBody T domain) {
+        getService().create(domain);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = { "{id}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public T getById(@PathVariable Long id) {
-		logger.info("method used");
-		T domain = getService().getById(id);
-		ValidationHelper.isObjectNull(domain);
-		return domain;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+            value = "{id}",
+            method = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public T getById(@PathVariable Long id) {
+        logger.info("method used");
+        T domain = getService().getById(id);
+        ValidationHelper.isObjectNull(domain);
+        return domain;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public ArrayList<T> getAll(T domain) {
-		renewList(getService().getAll(domain));	
-		return getList();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+            method = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public ArrayList<T> getAll(T domain) {
+        renewList(getService().getAll(domain));
+        return getList();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Update ok")
-	public void update(@RequestBody T domain) {
-		logger.info("method used");
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(
+            value = HttpStatus.OK,
+            reason = "Update OK")
+    public void update(@RequestBody T domain) {
+        logger.info("method used");
 
-		try {
-			getService().update(domain);
-		} catch (TransientObjectException e) {
-			throw new IdentifierNullException();
-		}
-	}
+        try {
+            getService().update(domain);
+        } catch (TransientObjectException e) {
+            throw new IdentifierNullException();
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(@PathVariable Long id) {
-		if(!getService().delete(id)){
-			throw new ObjectNotFoundException();
-		}
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public void renewList(List<T> list) {
-		getList().clear();
-		getList().addAll(list);
-		getList().setData(getList()); // for xml marshalling
-		ValidationHelper.isListEmpty(getList());
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(@PathVariable Long id) {
+        if(!getService().delete(id)){
+            throw new ObjectNotFoundException();
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void hibernateDelete(@PathVariable long id){
-		try{
-			getService().hibernateDelete(id);
-		}catch(HibernateOptimisticLockingFailureException e){
-			throw new ObjectNotFoundException();
-		}
-	}
-	
-	/**
-	 * Represents the service
-	 * 
-	 * @return the service of a given type
-	 */
-	public abstract GenericService<T> getService();
+    /**
+     * {@inheritDoc}
+     */
+    public void renewList(List<T> list) {
+        getList().clear();
+        getList().addAll(list);
+        getList().setData(getList()); // Used for XML marshalling
+        ValidationHelper.isListEmpty(getList());
+    }
 
-	/**
-	 * Adapter for xml presentation of a list
-	 * 
-	 * @return Arraylist of a given type
-	 */
-	public abstract ListAdapter<T> getList();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+    public void hibernateDelete(@PathVariable long id){
+        try{
+            getService().hibernateDelete(id);
+        }catch(HibernateOptimisticLockingFailureException e){
+            throw new ObjectNotFoundException();
+        }
+    }
 
-	/**
-	 * Catches constraint violation exceptions Ex: Leader already added to
-	 * committee
-	 */
-	@ExceptionHandler(ConstraintViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject() {
-	}
+    /**
+     * Represents the service
+     * 
+     * @return the service of a given type
+     */
+    public abstract GenericService<T> getService();
 
+    /**
+     * Adapter for xml presentation of a list
+     * 
+     * @return Arraylist of a given type
+     */
+    public abstract ListAdapter<T> getList();
+
+    /**
+     * Catches constraint violation exceptions Ex: Leader already added to
+     * committee
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
+    public void notUniqueObject() { }
 }
