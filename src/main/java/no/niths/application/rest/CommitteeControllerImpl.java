@@ -83,7 +83,7 @@ public class CommitteeControllerImpl extends
         }
         return c;
     }
-    
+
     @Override
     @RequestMapping(
             method = RequestMethod.GET,
@@ -97,7 +97,7 @@ public class CommitteeControllerImpl extends
         }
         return committeeList;
     }
-    
+
     /**
      * Adds a leader to a committee
      * 
@@ -163,7 +163,7 @@ public class CommitteeControllerImpl extends
         committee.getEvents().add(event);
         committeeService.update(committee);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -179,10 +179,10 @@ public class CommitteeControllerImpl extends
         ValidationHelper.isObjectNull(committee);
         Event event = eventService.getById(eventId);
         ValidationHelper.isObjectNull(event);
-        
+
         if(committee.getEvents().contains(event)){
             committee.getEvents().remove(event);
-            committeeService.update(committee);            
+            committeeService.update(committee);
         }
     }
 
