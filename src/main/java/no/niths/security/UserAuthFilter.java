@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.services.interfaces.auth.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.RequestAuthenticationService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

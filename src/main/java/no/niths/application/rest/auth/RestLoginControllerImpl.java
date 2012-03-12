@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import no.niths.application.rest.RESTConstants;
-import no.niths.application.rest.interfaces.auth.RestLoginController;
+import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
 import no.niths.domain.security.Token;
-import no.niths.services.interfaces.auth.RestLoginService;
+import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;

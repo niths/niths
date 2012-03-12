@@ -18,8 +18,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
-import no.niths.services.interfaces.auth.GoogleAuthenticationService;
-import no.niths.services.interfaces.auth.RestLoginService;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.RestLoginService;
 
 @Service
 @Transactional

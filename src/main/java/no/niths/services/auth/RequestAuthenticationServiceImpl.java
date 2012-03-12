@@ -7,7 +7,7 @@ import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.User;
-import no.niths.services.interfaces.auth.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.RequestAuthenticationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;

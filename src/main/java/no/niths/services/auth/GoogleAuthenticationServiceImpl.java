@@ -5,7 +5,7 @@ import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
 import org.springframework.stereotype.Service;
 
-import no.niths.services.interfaces.auth.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 
 @Service
 public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationService{
