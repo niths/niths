@@ -104,7 +104,7 @@ public class AdminControllerImpl implements AdminController {
 	 * Request mapping: GET
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getAllStudents(
+	public ModelAndView getStudents(
 			@RequestParam(value = "columnName", defaultValue = "FIRST") String columnName,
 			@RequestParam(value = "query", required = false, defaultValue = "") String query) {
 		ModelAndView view = new ModelAndView(ADMIN);
@@ -127,7 +127,7 @@ public class AdminControllerImpl implements AdminController {
 				students.get(i).setCourses(null);
 			}
 
-			getRolesSetSize();
+			getRoles();
 			view.addObject("studentList", students);
 			view.addObject("listOfRoles", listOfRoles);
 			
@@ -139,7 +139,7 @@ public class AdminControllerImpl implements AdminController {
 	/**
 	 * Helper method for getting all roles 
 	 */
-	private void getRolesSetSize() {
+	private void getRoles() {
 		listOfRoles.clear();
 		listOfRoles.addAll(roles.getAll(null));
 	}

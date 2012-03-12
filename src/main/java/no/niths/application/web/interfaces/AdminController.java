@@ -28,6 +28,6 @@ public interface AdminController {
 	 * @param query
 	 * @return
 	 */
-	public ModelAndView getAllStudents(String columnName, String query);
+	public ModelAndView getStudents(String columnName, String query);
 
 }
