@@ -50,15 +50,12 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-
 							<c:if test="${temp == 'false'}">
 								<input type="checkbox" name=checkedRoles id="checkedRoles"
 									value="${roles.id}">
 								<c:out value="${roles.trimedRoleName}" />
 							</c:if>
-
 						</c:forEach>
-
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${listOfRoles}" var="roles">
@@ -75,7 +72,6 @@
 			<input type="hidden" value="${student.id}" name="studId" /> <input
 				type="submit" value="SlettBruker">
 		</form>
-
 	</c:forEach>
 </body>
 </html>

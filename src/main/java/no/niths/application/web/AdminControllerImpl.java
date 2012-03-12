@@ -3,7 +3,7 @@ package no.niths.application.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.CommitteeControllerImpl;
+import no.niths.application.web.interfaces.AdminController;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.RoleService;
@@ -19,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("admin/")
-public class AdminController {
+public class AdminControllerImpl implements AdminController {
 
 	private static final String ADMIN = "admin";
 
 	private Logger logger = org.slf4j.LoggerFactory
-			.getLogger(CommitteeControllerImpl.class);
+			.getLogger(AdminControllerImpl.class);
 
 	@Autowired
 	private StudentService service;
@@ -32,17 +32,19 @@ public class AdminController {
 	@Autowired
 	private RoleService roles;
 
-	private List<Role> listOfRoles;
-	private List<Student> students;
+	private List<Role> listOfRoles = new ArrayList<Role>();
+	private List<Student> students = new ArrayList<Student>();
 	private List<Role> newRoles = new ArrayList<Role>();
 
-	private String query;
-	private String columnName;
+	private String query="";
+	private String columnName="firstName";
 
-	public void setLastQuery(String columnName, String query){
-		this.columnName = columnName;
-		this.query = query;
-	}
+	
+	/**
+	 * {@inheritDoc}
+	 * <br />
+	 * Request mapping POST
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateRoles(
 			@RequestParam(value = "studentId") Long studentId,
@@ -50,10 +52,9 @@ public class AdminController {
 		try {
 
 			newRoles.clear();
-			logger.debug("updateRoles");
-			logger.debug("student id " + studentId);
-			logger.debug("CheckedRoles size " + checkedRoles.length);
-
+	
+			logger.debug("updateRoles: student id " + studentId +  " CheckedRoles size " + checkedRoles.length);
+		
 			Student student = service.getById(studentId);
 			logger.debug("Found student = " + (student != null));
 			if (student != null) {
@@ -70,25 +71,26 @@ public class AdminController {
 			}
 
 		} catch (Exception e) {
-			logger.info(e.getMessage(), e);
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
 		return "redirect:?columnName="+columnName+"&query=" + query;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <br />
+	 * Path: /delete<br />
+	 * Request mapping: POST
+	 */
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public String delete(@RequestParam(value = "studId") Long studentId) {
 		try {
-			logger.debug("delete.-------------------------------------------------------------");
-			logger.debug(studentId + " ");
-
+			logger.debug("delete: Student id = " + studentId);
 			if (studentId != null) {
-
 				service.hibernateDelete(studentId);
 			}
 		} catch (Exception e) {
-			logger.info(e.getMessage(), e);
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
@@ -96,6 +98,11 @@ public class AdminController {
 		return "redirect:?columnName="+columnName+"&query=" + query;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <br />
+	 * Request mapping: GET
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAllStudents(
 			@RequestParam(value = "columnName", defaultValue = "FIRST") String columnName,
@@ -103,15 +110,18 @@ public class AdminController {
 		ModelAndView view = new ModelAndView(ADMIN);
 
 		columnName = validColumName(columnName);
-		logger.debug("Method name: getAllStudents columnmae " + columnName
+		logger.debug("Method name: getAllStudents columnName " + columnName
 				+ " Query: " + query);
+		
 		if (!columnName.equals("FIRST")) {
+			students.clear();
 			if (query.equals("")) {
-				students = service.getStudentsAndRoles(null);
+				students.addAll(service.getStudentsAndRoles(null));
 			} else {
-				students = service.getStudentByColumn(columnName, query);
+				students.addAll(service.getStudentByColumn(columnName, query));
 			}
 
+			// Detach students committees and courses
 			for (int i = 0; i < students.size(); i++) {
 				students.get(i).setCommittees(null);
 				students.get(i).setCourses(null);
@@ -126,16 +136,35 @@ public class AdminController {
 		return view;
 	}
 
+	/**
+	 * Helper method for getting all roles 
+	 */
 	private void getRolesSetSize() {
-		listOfRoles = roles.getAll(null);
+		listOfRoles.clear();
+		listOfRoles.addAll(roles.getAll(null));
 	}
 	
+	/**
+	 * Helper method for setting variables
+	 * @param columnName
+	 * @param query
+	 */
+	private void setLastQuery(String columnName, String query){
+		this.columnName = columnName;
+		this.query = query;
+	}
 	
-	public String validColumName(String columnName){
+	/**
+	 * Helper method for validating if the given column name is
+	 * valid
+	 * @param columnName
+	 * @return
+	 */
+	private String validColumName(String columnName){
+		logger.debug("validColumn: columnName " + columnName);
 		if(columnName.equals("lastName")||columnName.equals("email")||columnName.equals("FIRST")){
 			return columnName;
-		}
-		
+		}	
 		return "firstName";
 	}
 }
