@@ -4,6 +4,7 @@ import no.niths.application.rest.interfaces.APIEventController;
 import no.niths.application.rest.lists.APIEventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.GenericService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 /**
- * Controller for subjects
+ * Controller for handling API events
  *
  */
 @Controller
@@ -33,28 +34,28 @@ public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent>
 	private APIEventList subjectList = new APIEventList();
 	
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void create(@RequestBody APIEvent domain) {
 		// TODO Auto-generated method stub
 		super.create(domain);
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void delete(@PathVariable Long id) {
 		// TODO Auto-generated method stub
 		super.delete(id);
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void hibernateDelete(@PathVariable long id) {
 		// TODO Auto-generated method stub
 		super.hibernateDelete(id);
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void update(@RequestBody APIEvent domain) {
 		// TODO Auto-generated method stub
 		super.update(domain);

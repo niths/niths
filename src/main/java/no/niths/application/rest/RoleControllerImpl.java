@@ -1,11 +1,15 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,13 +18,17 @@ import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
-
+/**
+ * Controller for handling roles
+ *
+ */
 @Controller
 @RequestMapping(AppConstants.ROLES)
 public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> implements RoleController{
@@ -36,11 +44,57 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	
 	private RoleList roleList = new RoleList();
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public void create(@RequestBody Role domain) {
+		// TODO Auto-generated method stub
+		super.create(domain);
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public void update(@RequestBody Role domain) {
+		// TODO Auto-generated method stub
+		super.update(domain);
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public void hibernateDelete(@PathVariable long id) {
+		// TODO Auto-generated method stub
+		super.hibernateDelete(id);
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public Role getById(@PathVariable Long id) {
+		// TODO Auto-generated method stub
+		return super.getById(id);
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public ArrayList<Role> getAll(Role domain) {
+		// TODO Auto-generated method stub
+		return super.getAll(domain);
+	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { 
 			"setRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
@@ -60,6 +114,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * {@inheritDoc}
 	 */
 	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "removeRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role removed")
 	public void removeStudentRole(Long studId, Long roleId) {
@@ -79,6 +134,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * {@inheritDoc}
 	 */
 	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "removeRoles/{studentId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
 	public void removeAllRolesFromStudent(Long studId) {
