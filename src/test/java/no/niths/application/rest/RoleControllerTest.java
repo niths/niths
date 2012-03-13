@@ -1,6 +1,9 @@
 package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
+
+import javax.validation.ConstraintViolationException;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.interfaces.StudentController;
@@ -74,6 +77,14 @@ public class RoleControllerTest {
 		assertEquals(true, stud.getRoles().isEmpty());
 
 		
+	}
+	
+	@Test(expected=org.hibernate.exception.ConstraintViolationException.class)
+	public void testConstraint(){
+		Role r1 = new Role("ROLE_NAME");
+		roleController.create(r1);
+		Role r2 = new Role("ROLE_NAME");
+		roleController.create(r2);
 	}
 
 }
