@@ -7,11 +7,12 @@ import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 public class AppConfig {
-    public static final String BASE_PACKAGE = "no.niths";
-    public static final String SERVICES_PACKAGE = BASE_PACKAGE + ".services";
-    public static final String REST_PACKAGE = BASE_PACKAGE +
-            ".application.rest";
-    public static final String PERSISTENCE_PROPS = "persistence.properties";
+
+    public static final String BASE_PACKAGE = "no.niths",
+                               SERVICES_PACKAGE = BASE_PACKAGE + ".services",
+                               REST_PACKAGE = BASE_PACKAGE +
+                                   ".application.rest",
+                               PERSISTENCE_PROPS = "persistence.properties";
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
