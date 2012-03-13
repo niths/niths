@@ -2,7 +2,10 @@ package no.niths.services;
 
 import java.util.List;
 
+import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
+import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
 
@@ -21,8 +24,17 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentRepository repo;
+	
+	@Autowired
+	private RoleRepository roleRepo;
 
 	public Long create(Student student) {
+		Role r = new Role(SecurityConstants.R_STUDENT);
+		List<Role> roles = roleRepo.getAll(r);
+		if(!roles.isEmpty() && roles.size() == 1){
+			logger.debug("Role given to created student: " + roles.get(0).getRoleName());
+			student.getRoles().add(roles.get(0));
+		}		
 		return repo.create(student);
 	}
 

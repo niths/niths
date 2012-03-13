@@ -106,9 +106,12 @@ public class Student implements Serializable {
 	@JsonIgnore
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
-	@JoinTable(name = "students_roles", uniqueConstraints = 
-{ @UniqueConstraint(columnNames = {
-			"students_id", "roles_id" }) })
+	@JoinTable(name = "students_roles", 
+	joinColumns = @JoinColumn(name = "students_id"), 
+	inverseJoinColumns = @JoinColumn(name = "roles_id"))
+//	@JoinTable(name = "students_roles", uniqueConstraints = 
+//{ @UniqueConstraint(columnNames = {
+//			"students_id", "roles_id" }) })
 	@Cascade(CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 

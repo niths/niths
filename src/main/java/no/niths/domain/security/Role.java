@@ -1,19 +1,31 @@
 package no.niths.domain.security;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Committee;
+import no.niths.domain.Student;
 
 @XmlRootElement
 @Entity
@@ -33,6 +45,22 @@ public class Role implements Serializable {
 
 	@Transient
 	private String trimedRoleName;
+	
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
+	@JoinTable(name = "students_roles", 
+		joinColumns = @JoinColumn(name = "roles_id"), 
+		inverseJoinColumns = @JoinColumn(name = "students_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Student> students = new ArrayList<Student>();
+	
+	public Role(){}
+	
+	public Role(String roleName){
+		this.roleName = roleName;
+	}
 	
 	public Long getId() {
 		return id;
@@ -76,6 +104,14 @@ public class Role implements Serializable {
 
 	public void setTrimedRoleName(String trimedRoleName) {
 		this.trimedRoleName = trimedRoleName;
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 }

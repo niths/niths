@@ -9,6 +9,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.application.rest.interfaces.FadderGroupController;
+import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -16,6 +17,7 @@ import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +45,9 @@ public class CascadeControllerTest {
 	
 	@Autowired
 	private FadderGroupController fadderGroupController;
+	
+	@Autowired
+	private RoleController roleController;
 	
 	@Test
 	public void testCascadeOperationsOnStudent(){
@@ -75,6 +80,11 @@ public class CascadeControllerTest {
 		committeeController.create(com);
 		//Add as a member
 		s1.getCommittees().add(com);
+		
+		//Add some roles
+		Role role = new Role("ROLE_SOME");
+		s1.getRoles().add(role);
+		
 		studController.update(s1);
 		//Delete the student
 		studController.hibernateDelete(s1.getId());
@@ -89,6 +99,7 @@ public class CascadeControllerTest {
 		committeeController.hibernateDelete(com.getId());
 		courseController.hibernateDelete(c.getId());
 		fadderGroupController.hibernateDelete(g.getId());
+		roleController.hibernateDelete(role.getId());
 		
 	}
 	

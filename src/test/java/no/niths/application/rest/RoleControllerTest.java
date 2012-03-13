@@ -32,8 +32,8 @@ public class RoleControllerTest {
 		
 		Student fetched = studenntController.getById(stud.getId());
 		assertEquals(stud, fetched);
-		
-		assertEquals(true, fetched.getRoles().isEmpty());
+		//Student has one role when created: ROLE_STDUENT
+		assertEquals(false, fetched.getRoles().isEmpty());
 		
 		int size = 0;
 		try{
@@ -53,7 +53,7 @@ public class RoleControllerTest {
 		roleController.addStudentRole(stud.getId(), role.getId());
 		
 		stud = studenntController.getById(stud.getId());
-		assertEquals(1, stud.getRoles().size());
+		assertEquals(2, stud.getRoles().size());
 		
 		Role role2 = new Role();
 		role.setRoleName("ROLE_TEST2");
@@ -62,12 +62,12 @@ public class RoleControllerTest {
 		roleController.addStudentRole(stud.getId(), role2.getId());
 		
 		stud = studenntController.getById(stud.getId());
-		assertEquals(2, stud.getRoles().size());
+		assertEquals(3, stud.getRoles().size());
 		
 		//Test of remove
 		roleController.removeStudentRole(stud.getId(), role.getId());
 		stud = studenntController.getById(stud.getId());
-		assertEquals(1, stud.getRoles().size());
+		assertEquals(2, stud.getRoles().size());
 		
 		roleController.removeAllRolesFromStudent(stud.getId());
 		stud = studenntController.getById(stud.getId());

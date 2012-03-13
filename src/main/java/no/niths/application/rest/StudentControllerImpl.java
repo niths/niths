@@ -40,13 +40,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private StudentService service;
 
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and #principal.getStudentId == returnObject.getId)")
+	@PreAuthorize(SecurityConstants.ONLY_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		Student student = super.getById(id);
 		if (student != null) {
-
 			for (int i = 0; i < student.getCommittees().size(); i++) {
 				student.getCommittees().get(i).setEvents(null);
 				student.getCommittees().get(i).setLeaders(null);
