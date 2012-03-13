@@ -16,4 +16,5 @@ public final class SecurityConstants {
     public static final String ONLY_ADMIN = "hasRole('ROLE_ADMIN')";
     public static final String ADMIN_AND_SR = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR')";
     public static final String ADMIN_AND_SR_AND_STUDENT = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_STUDENT')";
+    public static final String ADMIN_SR_COMMITTEE_LEADER = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_COMMITTEE_LEADER')";
 }
