@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Course;
 import no.niths.domain.Student;
+import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.StudentService;
 
 import org.junit.Test;
@@ -23,8 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-@Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+//@Transactional
+//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class StudentServiceTest {
 
 	private static final Logger logger = LoggerFactory
@@ -32,6 +34,9 @@ public class StudentServiceTest {
 
 	@Autowired
 	private StudentService studService;
+	
+	@Autowired
+	private CourseService courseService;
 
 	@Test
 	@Rollback(true)
@@ -39,7 +44,7 @@ public class StudentServiceTest {
 
 		ArrayList<Student> students = (ArrayList<Student>) studService.getAll(null);
 		for (int i = 0; i < students.size(); i++) {
-			studService.delete(students.get(i).getId());
+			studService.hibernateDelete(students.get(i).getId());
 		}
 
 		
@@ -64,18 +69,41 @@ public class StudentServiceTest {
 		assertEquals("mail@mil.com", studService.getById(s.getId()).getEmail());
 
 		s.setEmail("john@doe.com");
-		// studService.update(s);
+		studService.update(s);
 		assertEquals("john@doe.com", studService.getById(s.getId()).getEmail());
 
 		// Testing delete //Don't work in same transaction
-//		boolean isDeleted = studService.delete(s.getId());
-//
-//		assertTrue(isDeleted);
-//		assertEquals(1, studService.getAll(null).size());
-		
-//		studService.delete(x.getId());
-//		assertEquals(true, studService.getAll(null).isEmpty());
+		studService.hibernateDelete(s.getId());
 
+		//assertTrue(isDeleted);
+		assertEquals(1, studService.getAll(null).size());
+		
+		studService.hibernateDelete(x.getId());
+		assertEquals(true, studService.getAll(null).isEmpty());
+	}
+	
+	@Test
+	public void testStudentCoursesRelationship(){
+		Course c = new Course("Navn", "Desc");
+		courseService.create(c);
+		Course c2 = new Course("Navaa", "Descen");
+		courseService.create(c2);
+		
+		Student s = new Student("xxxx@nith.no");
+		s.getCourses().add(c);
+		s.getCourses().add(c2);
+		studService.create(s);
+		assertEquals(2, studService.getById(s.getId()).getCourses().size());
+		
+		//Delete one course
+		courseService.hibernateDelete(c.getId());
+		//Course should be deleted on student
+		assertEquals(1, studService.getById(s.getId()).getCourses().size());
+		//Delete the student
+		studService.hibernateDelete(s.getId());
+		//Course should still be there
+		assertEquals(c2, courseService.getById(c2.getId()));
+		
 	}
 
 }

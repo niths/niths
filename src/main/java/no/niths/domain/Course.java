@@ -10,14 +10,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -47,6 +51,16 @@ public class Course implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
 	private List<Subject> subjects = new ArrayList<Subject>();
+	
+    @JsonIgnore
+	@XmlTransient
+    @ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "students_courses", 
+		joinColumns = @JoinColumn(name = "courses_id"), 
+		inverseJoinColumns = @JoinColumn(name = "students_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Student> students = new ArrayList<Student>();
+
 
     public Course() {
         this(null, null, null);
@@ -107,4 +121,12 @@ public class Course implements Serializable {
     public String toString() {
         return String.format("[%s][%s][%s]", id, name, description);
     }
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
 }
