@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -58,6 +59,13 @@ public class Committee implements Serializable {
     @JoinTable(name = "committees_events", 
     		uniqueConstraints = {@UniqueConstraint(columnNames={"committees_id","events_id"})})
     private List<Event> events = new ArrayList<Event>();
+    
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
+    @Cascade(CascadeType.ALL)
+	@JoinTable(name = "students_committees", 
+		joinColumns = @JoinColumn(name = "committees_id"), 
+		inverseJoinColumns = @JoinColumn(name = "students_id"))
+    private List<Student> members = new ArrayList<Student>();
     
     public Committee() {
         this(null, null);
@@ -139,5 +147,14 @@ public class Committee implements Serializable {
     public void setLeaders(List<Student> students) {
         this.leaders = students;
     }
+
+	public List<Student> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Student> members) {
+		this.members = members;
+	}
+    
 
 }
