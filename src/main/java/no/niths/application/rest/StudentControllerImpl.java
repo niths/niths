@@ -73,7 +73,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	}
 	
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
 	}
