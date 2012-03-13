@@ -72,14 +72,6 @@ public class CourseTest {
         assertThat(false, is(equalTo(course.equals(student))));
     }
 
-    @Ignore
-    @Test
-    public void testCourseToString() {
-        Course course = new Course(ID, NAME, DESCRIPTION);
-
-        assertThat(ID + " - " + NAME + " - " + DESCRIPTION, is(equalTo(course.toString())));
-    }
-
     @Test
     public void testValidationOfCorectStudentValues() {
         Course course = new Course(NAME, DESCRIPTION);

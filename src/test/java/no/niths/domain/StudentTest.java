@@ -110,19 +110,6 @@ public class StudentTest {
                 
                 assertThat(true, is(equalTo(student.isEmpty())));
         }
-        
-        @Ignore
-        @Test
-        public void testStudentToString() {
-                Student student = new Student(ID, FIRST_NAME, LAST_NAME);
-                student.setGender(GENDER);
-                student.setGrade(GRADE);
-                student.setEmail(EMAIL);
-                student.setTelephoneNumber(PHONE_NUMBER);
-                student.setDescription(DESCRIPTION);
-                
-                assertThat("{\"name\":\"" + FIRST_NAME + "\",\"id\"", is(equalTo(student.toString())));
-        }
 
 	@Test
 	public void testValidationOfCorectStudentValues() {
