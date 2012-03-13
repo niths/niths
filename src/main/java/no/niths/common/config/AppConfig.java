@@ -9,12 +9,13 @@ import org.springframework.core.io.ClassPathResource;
 public class AppConfig {
 
     public static final String BASE_PACKAGE = "no.niths",
-                               PERSISTENCE_PROPS = "persistence.properties",
                                REST_PACKAGE = BASE_PACKAGE +
                                    ".application.rest",
                                SERVICES_PACKAGE = BASE_PACKAGE + ".services",
                                WEB_PACKAGE = BASE_PACKAGE +
-                                   ".application.web";
+                                   ".application.web",
+                                   
+                               PERSISTENCE_PROPS = "persistence.properties";
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
