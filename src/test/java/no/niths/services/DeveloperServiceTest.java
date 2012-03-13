@@ -64,15 +64,18 @@ public class DeveloperServiceTest {
 		//Delete an app
 		appService.hibernateDelete(app.getId());
 		assertEquals(appSize + 1, appService.getAll(null).size());
+		
 		//App should be removed from dev
 		fetched = devService.getById(dev.getId());
 		assertEquals(1, fetched.getApps().size());
 		
-		//TODO: FIX relationship
+		for (Application a : fetched.getApps()){
+			appService.hibernateDelete(a.getId());			
+		}
 //		//Delete dev, apps should also be deleted
-//		devService.hibernateDelete(dev.getId());
-//		assertEquals(devSize, devService.getAll(null).size());
-//		assertEquals(appSize, appService.getAll(null).size());
+		devService.hibernateDelete(dev.getId());
+		assertEquals(devSize, devService.getAll(null).size());
+		assertEquals(appSize, appService.getAll(null).size());
 	}
 
 }

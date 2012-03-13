@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -43,7 +44,7 @@ public class Developer implements Serializable{
     @Size(min = 3, max = 30, message = "Length min = 3, max = 30")
     private String name;
     
-    @OneToMany(mappedBy = "developer")
+    @OneToMany(mappedBy = "developer", targetEntity=Application.class)
     @Cascade(CascadeType.ALL)
     List<Application> apps = new ArrayList<Application>();
 
