@@ -14,11 +14,11 @@ public class QueryGenerator<T> {
 	private final String WHERE = " where ";
 
 	private Class<T> persistentClass;
-	
+
 	public QueryGenerator(Class<T> persistentClass) {
 		setPersistentClass(persistentClass);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> whereQuery(String criteria, String columnName,
 			Session session) {
@@ -32,8 +32,8 @@ public class QueryGenerator<T> {
 			String condition) {
 		Query query = null;
 
-		query = session.createQuery(FROM + persistentClass.getSimpleName() + " "
-				+ PRE + WHERE + condition);
+		query = session.createQuery(FROM + persistentClass.getSimpleName()
+				+ " " + PRE + WHERE + condition);
 
 		for (int i = 0; i < conditionBuilder.length; i++) {
 			query.setParameter("a" + i, "%" + conditionBuilder[i] + "%");
@@ -59,9 +59,14 @@ public class QueryGenerator<T> {
 	private String[] splittingCriteria(String criteria) {
 		String[] conditionBuilder;
 
+//		if (criteria.length() > 0 && (SPLITT.equals(criteria.charAt(0)))) {
+//			conditionBuilder = new String[] { criteria };
+//		} else
+			
 		if (!criteria.contains(SPLITT)) {
 			conditionBuilder = new String[] { criteria };
 		} else {
+
 			conditionBuilder = criteria.replaceAll(" ", "").split(SPLITT);
 		}
 		return conditionBuilder;

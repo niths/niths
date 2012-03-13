@@ -1,5 +1,6 @@
 package no.niths.application.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +37,11 @@ public class AdminControllerImpl implements AdminController {
 	private List<Student> students = new ArrayList<Student>();
 	private List<Role> newRoles = new ArrayList<Role>();
 
-	private String query="";
-	private String columnName="firstName";
+	private String query = "";
+	private String columnName = "firstName";
 
-	
 	/**
-	 * {@inheritDoc}
-	 * <br />
+	 * {@inheritDoc} <br />
 	 * Request mapping POST
 	 */
 	@RequestMapping(method = RequestMethod.POST)
@@ -52,9 +51,10 @@ public class AdminControllerImpl implements AdminController {
 		try {
 
 			newRoles.clear();
-	
-			logger.debug("updateRoles: student id " + studentId +  " CheckedRoles size " + checkedRoles.length);
-		
+
+			logger.debug("updateRoles: student id " + studentId
+					+ " CheckedRoles size " + checkedRoles.length);
+
 			Student student = service.getById(studentId);
 			logger.debug("Found student = " + (student != null));
 			if (student != null) {
@@ -74,12 +74,11 @@ public class AdminControllerImpl implements AdminController {
 			e.printStackTrace();
 			logger.debug(e.getMessage(), e);
 		}
-		return "redirect:?columnName="+columnName+"&query=" + query;
+		return "redirect:?columnName=" + columnName + "&query=" + query;
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * <br />
+	 * {@inheritDoc} <br />
 	 * Path: /delete<br />
 	 * Request mapping: POST
 	 */
@@ -95,12 +94,11 @@ public class AdminControllerImpl implements AdminController {
 			logger.debug(e.getMessage(), e);
 		}
 
-		return "redirect:?columnName="+columnName+"&query=" + query;
+		return "redirect:?columnName=" + columnName + "&query=" + query;
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * <br />
+	 * {@inheritDoc} <br />
 	 * Request mapping: GET
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -110,9 +108,13 @@ public class AdminControllerImpl implements AdminController {
 		ModelAndView view = new ModelAndView(ADMIN);
 
 		columnName = validColumName(columnName);
+		String[] temp = convertToUTF(query);
+		query = temp[0];
+		String errorMessage = temp[1];
+
 		logger.debug("Method name: getAllStudents columnName " + columnName
 				+ " Query: " + query);
-		
+
 		if (!columnName.equals("FIRST")) {
 			students.clear();
 			if (query.equals("")) {
@@ -128,43 +130,60 @@ public class AdminControllerImpl implements AdminController {
 			}
 
 			getRoles();
+
+			// add students and roles to MaV
 			view.addObject("studentList", students);
 			view.addObject("listOfRoles", listOfRoles);
+			view.addObject("exception",errorMessage);
 			
-			setLastQuery(columnName,query);
+			setLastQuery(columnName, query);
 		}
 		return view;
 	}
 
+	private String[] convertToUTF(String query) {
+		String errorMessage = null;
+		try {
+			byte[] in = query.getBytes("iso-8859-1");
+			query = new String(in, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			errorMessage = e.getMessage();
+		}
+
+		return new String[] { query, errorMessage };
+	}
+
 	/**
-	 * Helper method for getting all roles 
+	 * Helper method for getting all roles
 	 */
 	private void getRoles() {
 		listOfRoles.clear();
 		listOfRoles.addAll(roles.getAll(null));
 	}
-	
+
 	/**
 	 * Helper method for setting variables
+	 * 
 	 * @param columnName
 	 * @param query
 	 */
-	private void setLastQuery(String columnName, String query){
+	private void setLastQuery(String columnName, String query) {
 		this.columnName = columnName;
 		this.query = query;
 	}
-	
+
 	/**
-	 * Helper method for validating if the given column name is
-	 * valid
+	 * Helper method for validating if the given column name is valid
+	 * 
 	 * @param columnName
 	 * @return
 	 */
-	private String validColumName(String columnName){
+	private String validColumName(String columnName) {
 		logger.debug("validColumn: columnName " + columnName);
-		if(columnName.equals("lastName")||columnName.equals("email")||columnName.equals("FIRST")){
+		if (columnName.equals("lastName") || columnName.equals("email")
+				|| columnName.equals("FIRST")) {
 			return columnName;
-		}	
+		}
 		return "firstName";
 	}
 }

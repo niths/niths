@@ -18,14 +18,13 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import no.niths.common.AppConstants;
+import no.niths.domain.Student;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
-import no.niths.common.AppConstants;
-import no.niths.domain.Committee;
-import no.niths.domain.Student;
 
 @XmlRootElement
 @Entity
@@ -99,12 +98,11 @@ public class Role implements Serializable {
 	}
 
 	public String getTrimedRoleName() {
-		return roleName.replace("ROLE_", "");
+		String role = roleName.replace("ROLE_", "");
+		role = role.charAt(0) + role.substring(1, role.length()).toLowerCase() +"";
+		return role;
 	}
 
-	public void setTrimedRoleName(String trimedRoleName) {
-		this.trimedRoleName = trimedRoleName;
-	}
 
 	public List<Student> getStudents() {
 		return students;

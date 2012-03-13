@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<%@ page contentType="text/html; charset=UTF-8"%> 
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,13 +37,13 @@ body {
 	border-radius: 20px;
 }
 
-#content a,#content visited {
-	text-decoration: none;
+#content input[type="submit"]{
+	padding: 3px;
+	margin-bottom: 2px;
+	margin-right: 5px;
 }
 
-#content a:hover {
-	text-decoration: underline;
-}
+
 
 h1 {
 	font-size: 20pt;
@@ -60,47 +58,6 @@ h2 {
 	color: #292929;
 }
 
-.tagline {
-	font-style: italic;
-}
-
-#menu {
-	margin: 0 0 10px 0;
-	display: block;
-	clear: both;
-	height: auto;
-	padding: 2px 2px;
-	background-color: #9FCBE3;
-}
-
-#menu a,#menu visited {
-	text-decoration: none;
-	padding: 2px 9px;
-	margin: 1px 2px 1px 2px;
-	color: #292929;
-	font-weight: bold;
-	font-size: 9pt;
-}
-
-#menu a:hover {
-	background-color: #CADDE8;
-}
-
-#menu form {
-	float: right;
-}
-
-#searchFormErrorList,#searchFormErrorList li {
-	list-style-type: none;
-}
-
-#searchFormErrorList {
-	display: block;
-	clear: both;
-	width: 100%;
-	background-color: #D98B93;
-}
-
 #searcher input {
 	background-color: #FFF;
 	padding: 3px;
@@ -113,48 +70,62 @@ h2 {
 	margin-right: 1px;
 }
 
+
 #searcher label {
 	margin-right: 5px;
 }
 
-#technologyForm label {
-    width: 75px;
-    float: left;
+.list{
+	list-style: none;
+	padding: 5px;
+	margin: 3px;
+	
 }
+
 </style>
 </head>
 <body>
+
+
 	<div id="container">
 		<h1>NITHs Admin Panel</h1>
 		<div id="content">
 			<div id="searcher">
-				<form method="get">
-					<input type="radio" value="firstName" name="columnName"
-						checked="checked"> Fornavn <input type="radio"
-						value="lastName" name="columnName"> Etternavn <input
-						type="radio" value="email" name="columnName">Email <input
-						name="query" id="query" /> <input type="submit" value="Søk" />
+				<form method="get" >
+					<input type="radio" value="firstName" name="columnName" checked="checked" id="r1"><label for="r1">Fornavn</label>
+					<input type="radio" value="lastName" name="columnName"  id="r2"> <label for="r2">Etternavn</label>
+					<input type="radio" value="email" name="columnName"  id="r3"> <label for="r3">Email</label>
+					<input name="query" id= "query" /> 
+					<input type="submit" value="Søk" />
 				</form>
 			</div>
 			<hr />
-			<c:forEach items="${studentList}" var="student">
-				<form method="post">
-					<input type="hidden" value="${student.id}" id=studentId
-						name="studentId">
-					<div>
-						<c:out value="${student.id}" />
-						<c:out value="${student.firstName}" />
-						<c:out value="${student.lastName}" />
-						<c:out value="${student.email}" />
+			
+			<c:if test="${exception != null}" >
+				is null yeah
+			</c:if>
+				<c:forEach items="${studentList}" var="student">
+					<form method="post">
+						<input type="hidden" value="${student.id}" id=studentId
+							name="studentId"> <b> <c:out value="${student.id}" />
+							<c:out value="${student.firstName}" /> <c:out
+								value="${student.lastName}" /> <c:out value="${student.email}" />
+						</b> <br />
+						
 						<c:choose>
 							<c:when test="${!student.roles.isEmpty()}">
+							
+							<ul class="list">
 								<c:forEach items="${listOfRoles}" var="roles">
+								<li>
 									<c:set value="false" var="temp" />
+									
 									<c:forEach items="${student.roles}" var="studRoles">
 										<c:choose>
 											<c:when test="${temp == 'true'}">
 												<!-- do nothing -->
 											</c:when>
+											
 											<c:otherwise>
 												<c:if test="${studRoles.id == roles.id}">
 													<input type="checkbox" name=checkedRoles checked="checked"
@@ -170,25 +141,30 @@ h2 {
 											value="${roles.id}">
 										<c:out value="${roles.trimedRoleName}" />
 									</c:if>
+								</li>
 								</c:forEach>
+							</ul>
 							</c:when>
 							<c:otherwise>
+							
 								<c:forEach items="${listOfRoles}" var="roles">
 									<input type="checkbox" name=checkedRoles id="checkedRoles"
 										value="${roles.id}">
 									<c:out value="${roles.trimedRoleName}" />
 								</c:forEach>
+								
 							</c:otherwise>
 						</c:choose>
 						<input type="submit" value="Oppdater Roller" />
-					</div>
-				</form>
-				<form action="delete" method="post">
-					<input type="hidden" value="${student.id}" name="studId" /> <input
-						type="submit" value="Slett bruker">
-				</form>
-			</c:forEach>
-		</div>
+					</form>
+					<form action="delete" method="post">
+						<input type="hidden" value="${student.id}" name="studId" /> <input
+							type="submit" value="Slett bruker">
+					</form>
+					<br />
+				</c:forEach>
+			</div>
+		
 		<br style="clear: both" />
 		<div id="footer">&copy; NITHs 2012</div>
 	</div>
