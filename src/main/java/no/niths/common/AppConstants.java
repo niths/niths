@@ -12,7 +12,8 @@ public final class AppConstants {
     public static final String DEVELOPERS = "developers";
     public static final String EVENT = "event";
     public static final String EVENTS = "events";
-    public static final String FADDER_GROUP = "fadder_groups";
+    public static final String FADDER = "fadder";
+    public static final String FADDER_GROUPS = "fadder_groups";
     public static final String ROOMS = "rooms";
     public static final String STUDENTS = "students";
     public static final String SUBJECTS = "subjects";

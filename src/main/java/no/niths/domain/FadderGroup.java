@@ -33,7 +33,7 @@ import org.hibernate.annotations.CascadeType;
  */
 @XmlRootElement
 @Entity
-@Table(name =AppConstants.FADDER_GROUP)
+@Table(name =AppConstants.FADDER_GROUPS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)  
 public class FadderGroup implements Serializable {

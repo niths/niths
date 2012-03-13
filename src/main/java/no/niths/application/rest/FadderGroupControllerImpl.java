@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  */
 @Controller
-@RequestMapping(AppConstants.FADDER_GROUP)
+@RequestMapping(AppConstants.FADDER)
 public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<FadderGroup> implements FadderGroupController{
 
     private static final Logger logger = LoggerFactory

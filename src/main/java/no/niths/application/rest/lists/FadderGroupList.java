@@ -9,7 +9,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Subject;
 
-@XmlRootElement(name = AppConstants.FADDER_GROUP)
+@XmlRootElement(name = AppConstants.FADDER)
 public class FadderGroupList extends ListAdapter<FadderGroup>{
 
     /**
