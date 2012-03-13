@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +41,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private StudentService service;
 
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
@@ -58,8 +59,28 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		}
 		return student;
 	}
+	
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
+	public void update(@RequestBody Student domain) {
+		super.update(domain);
+	}
+	
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void create(@RequestBody Student domain) {
+		super.create(domain);
+	}
+	
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void hibernateDelete(@PathVariable long id) {
+		super.hibernateDelete(id);
+	}
+	
 
 	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public ArrayList<Student> getAll(Student domain) {
@@ -75,9 +96,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	/**
 	 * {@inheritDoc}
 	 */
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "course", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Student> getStudentsWithNamedCourse(Course course) {
+	public List<Student> getStudentsWithNamedCourse(@RequestBody Course course) {
 		String name = course.getName();
 		logger.info(name);
 

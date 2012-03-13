@@ -41,7 +41,24 @@ public class UserAuthFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
+		
+		//////////////////////////
+		//FOR EASIER TEST: Add roles if needed
+		///////////////////////////
+//		logger.debug("TEST MODE AUTH!");
+//		
+//		User uu = new User("rosben09@nith.no");
+//		uu.setStudentId(new Long(3));
+//		uu.addRoleName("ROLE_STUDENT");
+//		setCurrentAuthenticatedUser(uu);
+//		
+//		chain.doFilter(req, res);
+		///////////////////////////////
+		//TEST MODE: OUTCOMMENT ALL BELOW
+		////////////////////////////
 
+		
+		
 		logger.info("Checking for session token");
 		try {
 			String token = req.getHeader("session-token");

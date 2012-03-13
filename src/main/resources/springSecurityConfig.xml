@@ -18,7 +18,7 @@
 		<!-- Header ex for basic: Accept: application/xml 
 		Authorization: Basic YWRtaW46bml0aHNfYWRtaW4= //(YWRta... = base64 of admin:niths_admin) -->
 		<security:http-basic />
-		<security:custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
+		<security:custom-filter ref="authfilter" before="BASIC_AUTH_FILTER" />
 	</security:http>
 
 	<beans:bean id="authfilter" class="no.niths.security.UserAuthFilter">
