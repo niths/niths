@@ -53,9 +53,9 @@ public class RequestAuthenticationServiceImpl implements
 					.getStudentBySessionToken(sessionToken);
 
 			if (wantAccess != null) { // User with session token found
-				// For access to authenticated users email if any future
-				// implementations needs this.
+				//Add some security info to the user
 				authenticatedUser.setUserName(wantAccess.getEmail());
+				authenticatedUser.setStudentId(wantAccess.getId());
 				// Checking roles of student and adding them to User wrapper
 				// object
 				List<Role> roles = wantAccess.getRoles();

@@ -21,6 +21,8 @@ public class User implements UserDetails {
 
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
+	private Long studentId;
+
 
 	public User() {
 		this("Not provided");
@@ -28,6 +30,14 @@ public class User implements UserDetails {
 
 	public User(String userName) {
 		this.userName = userName;
+	}
+	
+	public Long getStudentId() {
+		return studentId;
+	}
+	
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
 	}
 
 	//TODO: FIX DRY!
