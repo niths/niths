@@ -69,7 +69,7 @@ public class DeveloperServiceTest {
 		assertEquals(1, fetched.getApps().size());
 		
 		//TODO: FIX relationship
-		//Delete dev, apps should also be deleted
+//		//Delete dev, apps should also be deleted
 //		devService.hibernateDelete(dev.getId());
 //		assertEquals(devSize, devService.getAll(null).size());
 //		assertEquals(appSize, appService.getAll(null).size());
