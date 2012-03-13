@@ -17,10 +17,8 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = -4668876556049860936L;
 
-	// private String roleName = "ROLE_USER";
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
-//	private String sessionToken;
 
 	public User() {
 		this("Not provided");
