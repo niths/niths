@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
 @XmlRootElement
@@ -42,6 +44,7 @@ public class Developer implements Serializable{
     private String name;
     
     @OneToMany(mappedBy = "developer")
+    @Cascade(CascadeType.ALL)
     List<Application> apps = new ArrayList<Application>();
 
     

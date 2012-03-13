@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
 import no.niths.common.AppConstants;
@@ -63,6 +64,7 @@ public class Application implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "developer_id")
+    @Cascade(CascadeType.ALL)
     private Developer developer;
     
     public Application(){
