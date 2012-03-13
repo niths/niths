@@ -1,12 +1,9 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-
 import no.niths.application.rest.interfaces.APIEventController;
 import no.niths.application.rest.lists.APIEventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
-import no.niths.common.SecurityConstants;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.GenericService;
@@ -34,13 +31,6 @@ public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent>
 	private APIEventService service;
 
 	private APIEventList subjectList = new APIEventList();
-	
-	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public ArrayList<APIEvent> getAll(APIEvent domain) {
-		// TODO Auto-generated method stub
-		return super.getAll(domain);
-	}
 	
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
