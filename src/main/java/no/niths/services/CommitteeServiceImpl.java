@@ -46,6 +46,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 		if (c != null) {
 			c.getLeaders().size();
 			c.getEvents().size();
+			c.getMembers().size();
 		}
 		return c;
 	}

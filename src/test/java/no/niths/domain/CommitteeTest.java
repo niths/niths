@@ -81,13 +81,6 @@ public class CommitteeTest {
         assertThat(true, is(equalTo(committee.isEmpty())));
     }
 
-    @Ignore
-    @Test
-    public void testCommitteeToString() {
-        Committee committee = new Committee(ID, NAME, DESCRIPTION);
-
-        assertThat(NAME + " " + DESCRIPTION, is(equalTo(committee.toString())));
-    }
 
     @Test
     public void testValidationOfCorectCommitteeValues() {

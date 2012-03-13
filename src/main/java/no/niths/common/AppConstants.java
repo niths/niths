@@ -1,7 +1,7 @@
 package no.niths.common;
 
 public final class AppConstants {
-
+	//Tables names and URLs
     public static final String ACCESS_FIELDS = "access_fields";
     public static final String ACCESS_POINTS = "access_points";
     public static final String API_EVENTS = "api_events";
@@ -14,12 +14,23 @@ public final class AppConstants {
     public static final String STUDENTS = "students";
     public static final String SUBJECTS = "subjects";
     public static final String APPLICATIONS = "applications";
-
     public static final String ROLES = "roles";
     public static final String ADMIN = "admin";
     public static final String AUTH = "auth";
+    
+    //Shared constants
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
     public static final String CALENDAR_FORMAT = "dd/MM/yyyy-HH:mm";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final long SESSION_VALID_TIME = 360000; //1 hour
+    
+    //Roles
+    public static final String R_ANONYMOUS = "ROLE_ANONYMOUS";
+    public static final String R_STUDENT = "ROLE_STUDENT";
+    public static final String R_ADMIN = "ROLE_ADMIN";
+    public static final String R_COMMITTEE_LEADER = "ROLE_COMMITEE_LEADER";
+    public static final String R_FADDER_LEADER = "ROLE_FADDER_LEADER";
+    public static final String R_SR = "ROLE_SR";
+    public static final String R_DEVELOPER = "ROLE_DEVELOPER";
+    
 }

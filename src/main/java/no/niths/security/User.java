@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import no.niths.common.AppConstants;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,10 +19,8 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = -4668876556049860936L;
 
-	// private String roleName = "ROLE_USER";
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
-//	private String sessionToken;
 
 	public User() {
 		this("Not provided");
@@ -38,7 +38,7 @@ public class User implements UserDetails {
 		if (roleNames.isEmpty()) {
 			GrantedAuthority grantedAuthority = new GrantedAuthority() {
 				public String getAuthority() {
-					return "ROLE_USER";
+					return AppConstants.R_ANONYMOUS;
 				}
 			};
 			grantedAuthorities.add(grantedAuthority);
@@ -59,52 +59,37 @@ public class User implements UserDetails {
 
 	public void addRoleName(String roleName) {
 		roleNames.add(roleName);
-		// this.roleName = roleName;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return userName;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
-//	public String getSessionToken() {
-//		return sessionToken;
-//	}
-//
-//	public void setSessionToken(String googleToken) {
-//		this.sessionToken = googleToken;
-//	}
 
 	public String getUserName() {
 		return userName;

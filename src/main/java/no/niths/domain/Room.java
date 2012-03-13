@@ -3,6 +3,7 @@ package no.niths.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,28 +30,29 @@ public class Room implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "room_name")
     private String roomName;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private List<AccessField> accessFields;
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getId() { 
+    public Long getId() { 
         return id;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomName = roomNumber;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
-    public String getRoomNumber() {
+    public String getRoomName() {
         return roomName;
     }
 
@@ -61,5 +63,4 @@ public class Room implements Serializable {
     public List<AccessField> getAccessFields() {
         return accessFields;
     }
-
 }
