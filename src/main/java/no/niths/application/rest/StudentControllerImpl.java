@@ -7,6 +7,7 @@ import no.niths.application.rest.interfaces.StudentController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +40,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private StudentService service;
 
 	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and #principal.getStudentId == returnObject.getId)")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
@@ -47,6 +50,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			for (int i = 0; i < student.getCommittees().size(); i++) {
 				student.getCommittees().get(i).setEvents(null);
 				student.getCommittees().get(i).setLeaders(null);
+				student.getCommittees().get(i).setMembers(null);
 			}
 
 			for (int i = 0; i < student.getCourses().size(); i++) {
