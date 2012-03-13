@@ -24,7 +24,11 @@ public class DeveloperServiceImpl implements DeveloperService{
     }
 
     public Developer getById(long id) {
-    	return repo.getById(id);
+    	Developer dev = repo.getById(id);
+    	if(dev != null) {
+    		dev.getApps().size();
+    	}
+    	return dev;
    }
 
     public List<Developer> getAll(Developer dev) {

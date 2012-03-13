@@ -63,7 +63,6 @@ public class Application implements Serializable {
     private Boolean isValid;
     
     @ManyToOne
-    @JoinColumn(name = "developer_id")
     @Cascade(CascadeType.ALL)
     private Developer developer;
     
