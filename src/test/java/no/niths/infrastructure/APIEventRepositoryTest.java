@@ -1,6 +1,10 @@
 package no.niths.infrastructure;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.GregorianCalendar;
+
+import no.niths.aop.APIEventLogger;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.APIEvent;
@@ -8,6 +12,8 @@ import no.niths.infrastructure.interfaces.APIEventRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional 
 public class APIEventRepositoryTest {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(APIEventRepositoryTest.class);
 	@Autowired
 	private APIEventRepository repo;
 	
@@ -26,11 +34,11 @@ public class APIEventRepositoryTest {
 		
 		int size = repo.getAll(null).size();
 		
-		APIEvent event = new APIEvent("Title", "description");
+		APIEvent event = new APIEvent("Title", "description", new GregorianCalendar(2012, 2, 22, 22, 30));
 		repo.create(event);
 		
 		assertEquals(size + 1, repo.getAll(null).size());
-		
+		logger.debug(event.toString());
 		event.setTitle("xxxx");
 
 		assertEquals("xxxx", repo.getById(event.getId()).getTitle());

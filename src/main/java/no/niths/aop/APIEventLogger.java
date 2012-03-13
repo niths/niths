@@ -1,5 +1,7 @@
 package no.niths.aop;
 
+import java.util.GregorianCalendar;
+
 import no.niths.common.ValidationHelper;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
@@ -50,7 +52,7 @@ public class APIEventLogger {
 	private void loggAPIEvent(String title, Object obj){
 		logger.debug("Saving api event to db: " + title + ":" + obj.toString());
 
-		APIEvent event = new APIEvent(title, obj.toString());
+		APIEvent event = new APIEvent(title, obj.toString(), new GregorianCalendar());
 		if(ValidationHelper.hasObjectValidAttributes(event)){
 			service.create(event);			
 		}else{
