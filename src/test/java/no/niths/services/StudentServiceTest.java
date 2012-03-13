@@ -127,8 +127,8 @@ public class StudentServiceTest {
 		int studentRoles = fetched.getRoles().size();
 		int numOfRoles = roleService.getAll(null).size();
 		
-		Role r1 = new Role("ROLE_TEST");
-		Role r2 = new Role("ROLE_TEST2");
+		Role r1 = new Role("ROLE_XXX");
+		Role r2 = new Role("ROLE_XXX2");
 		roleService.create(r1);
 		roleService.create(r2);
 		assertEquals(numOfRoles + 2,  roleService.getAll(null).size());
