@@ -62,10 +62,10 @@ public class UserAuthFilter extends OncePerRequestFilter {
 	}
 
 	//Sets the current authenticated user
-	//If user did not pass security check, user get role ROLE_USER
+	//If user did not pass security check, user is anonymous
 	private void setCurrentAuthenticatedUser(User u){
 		if(u == null){
-			u = new User(); //Role = ROLE_USER
+			u = new User(); //Role = ROLE_ANONYMOUS
 		}		
 		Authentication auth = 
 				new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());
