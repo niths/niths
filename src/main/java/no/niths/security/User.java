@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,7 +49,7 @@ public class User implements UserDetails {
 		if (roleNames.isEmpty()) {
 			GrantedAuthority grantedAuthority = new GrantedAuthority() {
 				public String getAuthority() {
-					return AppConstants.R_ANONYMOUS;
+					return SecurityConstants.R_ANONYMOUS;
 				}
 			};
 			grantedAuthorities.add(grantedAuthority);
