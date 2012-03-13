@@ -190,7 +190,7 @@ public class CourseRepositoryTest {
 		long id = c1.getId();
 		
 		Course testCourse= new Course();
-		testCourse.setName("name222");
+		testCourse.setName("Name222");
 		assertEquals(c1, repo.getAll(testCourse).get(0));
 		
 		boolean isDeleted = repo.delete(id);
