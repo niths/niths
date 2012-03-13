@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
+import no.niths.services.interfaces.CommitteeService;
 import no.niths.services.interfaces.CourseService;
+import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
 
 import org.junit.Test;
@@ -37,6 +41,12 @@ public class StudentServiceTest {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private CommitteeService comService;
 
 	@Test
 	@Rollback(true)
@@ -104,6 +114,80 @@ public class StudentServiceTest {
 		//Course should still be there
 		assertEquals(c2, courseService.getById(c2.getId()));
 		
+		courseService.hibernateDelete(c2.getId());
+		
 	}
-
+	
+	@Test
+	public void testStudentRoleRelationship(){
+		Student s = new Student("xxxxx@nith.no");
+		studService.create(s);
+		Student fetched = studService.getById(s.getId());
+		assertEquals(s, fetched);
+		int studentRoles = fetched.getRoles().size();
+		int numOfRoles = roleService.getAll(null).size();
+		
+		Role r1 = new Role("ROLE_TEST");
+		Role r2 = new Role("ROLE_TEST2");
+		roleService.create(r1);
+		roleService.create(r2);
+		assertEquals(numOfRoles + 2,  roleService.getAll(null).size());
+		
+		fetched.getRoles().add(r1);
+		fetched.getRoles().add(r2);
+		studService.update(fetched);
+		fetched = studService.getById(s.getId());
+		assertEquals(studentRoles + 2, fetched.getRoles().size());
+		
+		//Delete a ROLE
+		roleService.hibernateDelete(r1.getId());
+		//Should be removed from student!
+		fetched = studService.getById(s.getId());
+		assertEquals(studentRoles + 1, fetched.getRoles().size());
+		
+		//Delete the student
+		studService.hibernateDelete(s.getId());
+		//Role should still exist!
+		Role r2Copy = roleService.getById(r2.getId());
+		assertEquals(r2, r2Copy);
+		
+		//Cleanup
+		roleService.hibernateDelete(r2.getId());
+		
+		assertEquals(numOfRoles,  roleService.getAll(null).size());
+	}
+	
+	@Test
+	public void testStudentCommitteesRelationship(){
+		Student s = new Student("xxx@nith.no");
+		studService.create(s);
+		int comSize = comService.getAll(null).size();
+		Committee c1 = new Committee();
+		Committee c2 = new Committee();
+		comService.create(c1);
+		comService.create(c2);
+		assertEquals(comSize + 2, comService.getAll(null).size());
+		
+		Student fetched = studService.getById(s.getId());
+		fetched.getCommittees().add(c1);
+		fetched.getCommittees().add(c2);
+		studService.update(fetched);
+		fetched = studService.getById(s.getId());
+		assertEquals(2, fetched.getCommittees().size());
+		
+		//Delete a committee
+		comService.hibernateDelete(c1.getId());
+		assertEquals(comSize + 1, comService.getAll(null).size());
+		//Should be removed from student
+		fetched = studService.getById(s.getId());
+		assertEquals(1, fetched.getCommittees().size());
+		
+		//Delete student
+		studService.hibernateDelete(s.getId());
+		//Course should still exist
+		assertEquals(c2, comService.getById(c2.getId()));
+		
+		comService.hibernateDelete(c2.getId());
+		assertEquals(comSize, comService.getAll(null).size());
+	}
 }
