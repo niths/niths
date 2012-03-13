@@ -8,7 +8,7 @@ public interface StudentService extends GenericService<Student> {
 
 	List<Student> getStudentsWithNamedCourse(String name);
 	
-	List<Student> getStudentsAndRoles(Student s);
+	List<Student> getStudentsAndRoles(Student student);
 	
 	List<Student> getStudentByColumn(String column, String criteria);
 }
