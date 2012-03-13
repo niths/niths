@@ -79,6 +79,11 @@ public class CommitteeControllerImpl
                 leader.setCourses(null);
                 // leaders.get(i).setFadderGroup(null);
             }
+            List<Student> members = committee.getMembers();
+            for(Student member: members) {
+            	member.setCommittees(null);
+            	member.setCourses(null);
+            }
 
             if(committee.getEvents().isEmpty()){
                 committee.setEvents(null);
@@ -98,6 +103,7 @@ public class CommitteeControllerImpl
         for (Committee committee : committeeList) {
             committee.setEvents(null);
             committee.setLeaders(null);
+            committee.setMembers(null);
         }
         return committeeList;
     }
