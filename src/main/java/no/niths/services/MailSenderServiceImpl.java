@@ -13,12 +13,8 @@ import org.springframework.stereotype.Service;
 //@Transactional --> TODO: Add persist developer
 public class MailSenderServiceImpl implements MailSenderService {
 
-	private MailSender mailSender;
-	
 	@Autowired(required=false)
-	public MailSenderServiceImpl(MailSender mailSender){
-		this.mailSender = mailSender;
-	}
+	private MailSender mailSender;
 	
 	private SimpleMailMessage composeMail(String email){
 		SimpleMailMessage message = new SimpleMailMessage();
