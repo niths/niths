@@ -1,20 +1,29 @@
 package no.niths.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.constraints.Weekday;
@@ -59,6 +68,15 @@ public class Subject implements Serializable {
     @Column(name = "end_time")
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
     private String endTime;
+    
+    @JsonIgnore
+   	@XmlTransient
+   	@ManyToMany(fetch = FetchType.LAZY, targetEntity= Course.class)
+	@JoinTable(name = "courses_subjects", 
+		joinColumns = @JoinColumn(name = "subjects_id"), 
+		inverseJoinColumns = @JoinColumn(name = "courses_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Course> courses = new ArrayList<Course>();
     
     public Subject(){
     	//this(null, null, null, null, null);
@@ -147,6 +165,22 @@ public class Subject implements Serializable {
 		this.endTime = endTime;
 	}
 
+	@Override
+    public boolean equals(Object that) {
+    	if(!(that instanceof Subject)) return false;
+    	Subject sub = (Subject) that;
+
+        return sub == this ? true : sub.getId() == id
+                ? true : false;
+    }
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
 	
 
 	

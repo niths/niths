@@ -49,7 +49,7 @@ public class Course implements Serializable {
     private String description;
     
     @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @Cascade(CascadeType.ALL)
 	private List<Subject> subjects = new ArrayList<Subject>();
 	
     @JsonIgnore
