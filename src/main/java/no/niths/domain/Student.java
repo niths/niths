@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -107,11 +108,8 @@ public class Student implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
 	@JoinTable(name = "students_roles", 
 	joinColumns = @JoinColumn(name = "students_id"), 
-	inverseJoinColumns = @JoinColumn(name = "roles_id"))
-//	@JoinTable(name = "students_roles", uniqueConstraints = 
-//{ @UniqueConstraint(columnNames = {
-//			"students_id", "roles_id" }) })
-	//TODO: TEST BETTER
+	inverseJoinColumns = @JoinColumn(name = "roles_id"), 
+	uniqueConstraints = @UniqueConstraint(columnNames = {"students_id","roles_id"}))
 	//@Cascade(CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 

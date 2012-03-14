@@ -14,6 +14,7 @@ import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -219,6 +220,27 @@ public class StudentServiceTest {
 		
 		studService.hibernateDelete(temp2.getId());
 		roleService.hibernateDelete(r2.getId());
+	}
+	
+	//Will fail as we want it to
+	//On ignore due to transaction, will effect the other tests when DataIntegrityVioEx is throwed
+	@Ignore
+	@Test
+	public void testAddSameRoleToStudent(){
+		Student s1= new Student("swish@mailed.com");
+		studService.create(s1);
+		Role r1 = new Role("SWISH");
+		roleService.create(r1);
+		
+		s1 = studService.getById(s1.getId());
+		int size = s1.getRoles().size();
+		s1.getRoles().add(r1);
+		s1.getRoles().add(r1);
+		studService.update(s1);
+		
+		s1 = studService.getById(s1.getId());
+		assertEquals(size + 2, s1.getRoles().size());
+		
 	}
 	
 	@Test
