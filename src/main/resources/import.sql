@@ -99,46 +99,26 @@ INSERT INTO access_points(address) VALUES("00:17:df:a7:7a:b0");
 INSERT INTO access_points(address) VALUES("00:24:97:f2:93:60");
 INSERT INTO access_points(address) VALUES("00:23:04:88:c1:20");
 
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(53, 64, 1);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(52, 65, 2);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(63, 75, 3);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(59, 65, 3);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(58, 76, 4);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(55, 70, 5);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(62, 71, 6);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(48, 66, 7);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(47, 62, 8);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(65, 73, 9);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(46, 62, 9);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(52, 72, 9);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(43, 65, 10);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(38, 59, 11);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(51, 62, 12);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(59, 76, 13);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(61, 71, 14);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(61, 80, 15);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(61, 70, 16);
-INSERT INTO access_fields(min_range, max_range, access_point_id)
-    VALUES(61, 71, 17);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(53, 64, 1);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(52, 65, 2);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(63, 75, 3);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(59, 65, 3);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(58, 76, 4);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(55, 70, 5);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(62, 71, 6);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(48, 66, 7);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(47, 62, 8);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(65, 73, 9);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(46, 62, 9);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(52, 72, 9);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(43, 65, 10);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(38, 59, 11);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(51, 62, 12);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(59, 76, 13);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 71, 14);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 80, 15);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 70, 16);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 71, 17);
 
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(1, 1);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(2, 2);
@@ -277,7 +257,7 @@ INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 40);
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 30);
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 20);
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 10);
-INSERT INTO committee_leaders (committees_id, leaders_id)VALUES (3, 55);
+INSERT INTO committee_leaders (committees_id, leaders_id) VALUES (3, 55);
 
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
@@ -331,26 +311,25 @@ insert into fadder_children_students (fadder_groups_id, fadderChildren_id) value
 insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 31);
 
 
-insert into students_committees values(1, 1);
-insert into students_committees values(1, 2);
-insert into students_committees values(2, 1);
-insert into students_committees values(3, 1);
+insert into students_committees(students_id, committees_id) values(1, 1);
+insert into students_committees(students_id, committees_id) values(1, 2);
+insert into students_committees(students_id, committees_id) values(2, 1);
+insert into students_committees(students_id, committees_id) values(3, 1);
 
-insert into students_committees values(7, 1);
-insert into students_committees values(6, 2);
-insert into students_committees values(5, 1);
-insert into students_committees values(4, 1);
+insert into students_committees(students_id, committees_id) values(7, 1);
+insert into students_committees(students_id, committees_id) values(6, 2);
+insert into students_committees(students_id, committees_id) values(5, 1);
+insert into students_committees(students_id, committees_id) values(4, 1);
 
-insert into students_committees values(8, 4);
-insert into students_committees values(9, 2);
-insert into students_committees values(10, 3);
-insert into students_committees values(12, 1);
+insert into students_committees(students_id, committees_id) values(8, 4);
+insert into students_committees(students_id, committees_id) values(9, 2);
+insert into students_committees(students_id, committees_id) values(10, 3);
+insert into students_committees(students_id, committees_id) values(12, 1);
 
-
-insert into students_committees values(71, 3);
-insert into students_committees values(16, 2);
-insert into students_committees values(25, 5);
-insert into students_committees values(24, 3);
+insert into students_committees(students_id, committees_id) values(71, 3);
+insert into students_committees(students_id, committees_id) values(16, 2);
+insert into students_committees(students_id, committees_id) values(25, 5);
+insert into students_committees(students_id, committees_id) values(24, 3);
 
 insert into students_courses values(1, 1);
 insert into students_courses values(2, 2);
