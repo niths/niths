@@ -103,7 +103,13 @@ public class APIEvent implements Serializable{
 		this.eventTime = eventTime;
 	}
     
-	
+    @Override
+    public boolean equals(Object that) {
+        if (!(that instanceof APIEvent))	
+            return false;
+        APIEvent s = (APIEvent) that;
+        return s == this ? true : s.getId() == id ? true : false;
+    }
 	
 	
 	
