@@ -80,6 +80,7 @@ INSERT INTO rooms(room_name) VALUES("Battlestation");
 INSERT INTO rooms(room_name) VALUES("Biblioteket");
 INSERT INTO rooms(room_name) VALUES("Kantina");
 INSERT INTO rooms(room_name) VALUES("Vrimleområdet");
+INSERT INTO rooms(room_name) VALUES("Fagstab");
 
 INSERT INTO access_points(address) VALUES("00:21:51:60:e7:d0");
 INSERT INTO access_points(address) VALUES("00:24:97:f2:92:e0");
@@ -98,6 +99,8 @@ INSERT INTO access_points(address) VALUES("00:23:04:88:d4:c0");
 INSERT INTO access_points(address) VALUES("00:17:df:a7:7a:b0");
 INSERT INTO access_points(address) VALUES("00:24:97:f2:93:60");
 INSERT INTO access_points(address) VALUES("00:23:04:88:c1:20");
+INSERT INTO access_points(address) VALUES("00:19:07:07:79:80");
+INSERT INTO access_points(address) VALUES("00:24:97:f2:93:40");
 
 INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(53, 64, 1);
 INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(52, 65, 2);
@@ -119,6 +122,8 @@ INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 71, 
 INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 80, 15);
 INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 70, 16);
 INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(61, 71, 17);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(55, 62, 18);
+INSERT INTO access_fields(min_range, max_range, access_point_id) VALUES(50, 69, 19);
 
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(1, 1);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(2, 2);
@@ -140,6 +145,8 @@ INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(17, 18);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(18, 18);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(19, 18);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(20, 18);
+INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(21, 16);
+INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(22, 19);
 
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Wolfe@nith.no','Abraham','Branch','1986-06-08','12003434','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('rallii09@nith.no','Xavier','Rodgers','1979-05-21','88501167','3');
