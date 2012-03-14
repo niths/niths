@@ -7,6 +7,7 @@ import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.services.interfaces.ApplicationService;
 import no.niths.services.interfaces.DeveloperService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

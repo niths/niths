@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

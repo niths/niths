@@ -1,12 +1,11 @@
 package no.niths.services;
 
+import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.APIEvent;
 import no.niths.domain.Event;
-import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.EventsService;
-import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
