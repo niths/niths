@@ -63,7 +63,7 @@ public class RestDeveloperRequestAccessControllerImpl implements
 			//Sende mail til dev med du er enabled
 			
 			
-			mailService.sendAMail(email);
+			mailService.composeAndSend(email);
 			return "Valid email provided, check your inbox!";
 		}
 		logger.debug("not a valid email");
