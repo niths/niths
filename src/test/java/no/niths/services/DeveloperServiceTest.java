@@ -59,13 +59,60 @@ public class DeveloperServiceTest {
 		fetched = devService.getById(dev.getId());
 		assertEquals(1, fetched.getApps().size());
 		
-		for (Application a : fetched.getApps()){
-			appService.hibernateDelete(a.getId());			
-		}
-//		//Delete dev, apps should also be deleted
+//		for (Application a : fetched.getApps()){
+//			appService.hibernateDelete(a.getId());			
+//		}
+//		//Delete dev
 		devService.hibernateDelete(dev.getId());
 		assertEquals(devSize, devService.getAll(null).size());
+		//App should still exist
+		assertEquals(appSize + 1, appService.getAll(null).size());
+		
+		appService.hibernateDelete(app2.getId());
 		assertEquals(appSize, appService.getAll(null).size());
+	}
+	
+	@Test
+	public void testAppDevRelation(){
+		Developer d1 = new Developer();
+		devService.create(d1);
+		Application a1 = new Application();
+		Application a2 = new Application();
+		appService.create(a1);
+		appService.create(a2);
+		
+		Developer temp = devService.getById(d1.getId());
+		temp.getApps().add(a1);
+		temp.getApps().add(a2);
+		devService.update(temp);
+		//Did developer get apps?
+		temp = devService.getById(d1.getId());
+		assertEquals(2, temp.getApps().size());
+		//Did app get developer?
+		Application appTemp = appService.getById(a1.getId());
+		assertEquals(temp, appTemp.getDeveloper());
+		
+		//Remove dev from app
+		appTemp.setDeveloper(null);
+		appService.update(appTemp);
+		//App should be removed from dev
+		temp = devService.getById(d1.getId());
+		assertEquals(1, temp.getApps().size());
+		//Set it back
+		appTemp.setDeveloper(temp);
+		appService.update(appTemp);
+		//Dev should get the app back
+		temp = devService.getById(d1.getId());
+		assertEquals(2, temp.getApps().size());
+		
+		//Delete dev
+		devService.hibernateDelete(temp.getId());
+		//Apps should still be there but with null dev
+		appTemp = appService.getById(a1.getId());
+		assertEquals(null, appTemp.getDeveloper());
+		
+		appService.hibernateDelete(a1.getId());
+		appService.hibernateDelete(a2.getId());
 	}
 
 }
