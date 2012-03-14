@@ -31,7 +31,29 @@ public class CourseServiceTest {
 	private SubjectService sService;
 	
 	@Test
-	public void testCRUD(){
+	public void testCrud(){
+		int size = cService.getAll(null).size();
+		Course c1 = new Course();
+		cService.create(c1);
+		assertEquals(size + 1, cService.getAll(null).size());
+		
+		c1.setName("The name is this");
+		cService.update(c1);
+		
+		assertEquals("The name is this", cService.getById(c1.getId()).getName());
+		
+		Course temp = new Course();
+		temp.setName("XXXsssXXX");
+		assertEquals(true, cService.getAll(temp).isEmpty());
+		temp.setName("The name is this");
+		assertEquals(1, cService.getAll(temp).size());
+		
+		cService.hibernateDelete(c1.getId());
+		
+	}
+	
+	@Test
+	public void testSubjectRelations(){
 		int subSize = sService.getAll(null).size();
 		Course c1 = new Course();
 		cService.create(c1);
