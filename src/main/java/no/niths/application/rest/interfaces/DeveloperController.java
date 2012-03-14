@@ -6,5 +6,10 @@ import no.niths.domain.Developer;
  *
  */
 public interface DeveloperController extends GenericRESTController<Developer> {
-
+	/**
+	 * Method
+	 * @param email
+	 * @return
+	 */
+	String requestAccess(String email);
 }

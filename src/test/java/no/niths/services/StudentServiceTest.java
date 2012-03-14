@@ -1,6 +1,7 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
