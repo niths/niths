@@ -17,7 +17,7 @@ public class ApplicationList extends ListAdapter<Application>{
 	 * 
 	 */
 	private static final long serialVersionUID = 7176343871162986392L;
-	@XmlElement(name = "Application")
+	@XmlElement(name = "application")
     private List<Application> data;
 
     @Override
