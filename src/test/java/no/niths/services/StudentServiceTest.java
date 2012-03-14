@@ -14,6 +14,7 @@ import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -25,8 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-//@Transactional
-//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class StudentServiceTest {
 
 	private static final Logger logger = LoggerFactory
@@ -168,6 +167,79 @@ public class StudentServiceTest {
 		roleService.hibernateDelete(aRole.getId());
 		studService.hibernateDelete(aStud1.getId());
 		studService.hibernateDelete(aStud2.getId());
+		
+	}
+	
+	@Test
+	public void testRoleCascadeOperations() {
+		Student s1= new Student("swish@mailed.com");
+		Student s2= new Student("swosh@mailed.com");
+		studService.create(s1);
+		studService.create(s2);
+		
+		Role r1 = new Role("SWISH");
+		Role r2 = new Role("SWOSH");
+		roleService.create(r1);
+		roleService.create(r2);
+		
+		Student temp = studService.getById(s1.getId());
+		Student temp2 = studService.getById(s2.getId());
+		int st = temp.getRoles().size();
+		int st2 = temp.getRoles().size();
+		temp.getRoles().add(r1);
+		temp.getRoles().add(r2);
+		temp2.getRoles().add(r1);
+		temp2.getRoles().add(r2);
+		
+		studService.update(temp);
+		studService.update(temp2);
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st + 2, temp.getRoles().size());
+		assertEquals(st2 + 2, temp2.getRoles().size());
+		
+		roleService.hibernateDelete(r1.getId());
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st + 1, temp.getRoles().size());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		temp.getRoles().remove(r2);
+		studService.update(temp);
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st, temp.getRoles().size());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		studService.hibernateDelete(temp.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		studService.hibernateDelete(temp2.getId());
+		roleService.hibernateDelete(r2.getId());
+	}
+	
+	//Will fail as we want it to
+	//On ignore due to transaction, will effect the other tests when DataIntegrityVioEx is throwed
+	@Ignore
+	@Test
+	public void testAddSameRoleToStudent(){
+		Student s1= new Student("swish@mailed.com");
+		studService.create(s1);
+		Role r1 = new Role("SWISH");
+		roleService.create(r1);
+		
+		s1 = studService.getById(s1.getId());
+		int size = s1.getRoles().size();
+		s1.getRoles().add(r1);
+		s1.getRoles().add(r1);
+		studService.update(s1);
+		
+		s1 = studService.getById(s1.getId());
+		assertEquals(size + 2, s1.getRoles().size());
 		
 	}
 	
