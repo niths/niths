@@ -8,6 +8,13 @@
 	<name>niths</name>
 
 	<dependencies>
+	
+	<dependency>
+	<groupId>commons-validator</groupId>
+	<artifactId>commons-validator</artifactId>
+	<version>1.4.0</version>
+</dependency>
+            
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>

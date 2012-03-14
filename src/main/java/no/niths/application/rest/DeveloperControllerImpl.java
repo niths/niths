@@ -16,6 +16,7 @@ import no.niths.services.interfaces.DeveloperService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.MailSenderService;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,26 +46,25 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	@Autowired
 	private MailSenderService mailService;
 	
-	private Pattern pattern;
-	private Matcher matcher;
-
-	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-	@PostConstruct
-	public void init() {
-		pattern = Pattern.compile(EMAIL_PATTERN);
-	}
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	@RequestMapping(value = { "/gimme/{email:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "/gimme/{email}/{developerName}" }, 
+					method = RequestMethod.GET, 
+					headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public String requestAccess(@PathVariable String email) {
-		logger.debug("A developer requests access: " + email);
-		if(validateEmail(email)){
+	public String requestAccess(@PathVariable String email, @PathVariable String developerName) {
+		logger.debug("A developer requests access: email: " + email + " : " + developerName);
 			logger.debug("valid email");
-			
+			EmailValidator validator = EmailValidator.getInstance();
+			if (validator.isValid(email)){
+				
+				mailService.composeAndSend(email);
+				return "Valid email provided, check your inbox!";
+			}
 			//generere token
-			//opprette en developer med den token
+			//opprette en developer med den token -->Flere parametre enn email?
 			//sette boolean devEnabled til false (Developer har en bool enabled kanskje)
 			//sende token til dev på mail
 			
@@ -72,21 +72,11 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 			//sende token tilbake til APIet
 			//verifisere tokenen
 			//sette dev til enabled
-			//Sende mail til dev med du er enabled
-			
-			
-			mailService.composeAndSend(email);
-			return "Valid email provided, check your inbox!";
-		}
+			//Sende mail til dev med du er enabled og ny token
 		logger.debug("not a valid email");
 		return "Not a valid email";
 	}
 
-	private boolean validateEmail(String email) {
-		matcher = pattern.matcher(email);
-		return matcher.matches();
-	}
-	
 	@Override
 	public ArrayList<Developer> getAll(Developer domain) {
 		developerList = (DeveloperList) super.getAll(domain);
