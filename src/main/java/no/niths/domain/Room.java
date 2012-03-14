@@ -1,6 +1,7 @@
 package no.niths.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,9 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,12 +39,11 @@ public class Room implements Serializable {
     @Column(name = "room_name", unique = true)
     private String roomName;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     @JoinTable(
-            joinColumns =        @JoinColumn(name = "room_id"),
-            inverseJoinColumns = @JoinColumn(name = "access_field_id"))
-    private List<AccessField> accessFields;
+    		name="rooms_access_fields")
+    private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     public void setId(Long id) {
         this.id = id;

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,52 +24,51 @@ import org.hibernate.annotations.CascadeType;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AccessField implements Serializable {
 
-    private static final long serialVersionUID = 2425345455743938142L;
+	private static final long serialVersionUID = 2425345455743938142L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "min_range")
-    private Integer minRange;
+	@Column(name = "min_range")
+	private Integer minRange;
 
-    @Column(name = "max_range")
-    private Integer maxRange;
+	@Column(name = "max_range")
+	private Integer maxRange;
 
-    @ManyToOne
-    @JoinColumn(name = "access_point_id")
-    @Cascade(CascadeType.ALL)
-    private AccessPoint accessPoint;
+	@OneToOne(fetch = FetchType.EAGER)
+	@Cascade(CascadeType.ALL)
+	private AccessPoint accessPoint;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setAccessPoint(AccessPoint accessPoint) {
-        this.accessPoint = accessPoint;
-    }
+	public void setMinRange(Integer minRange) {
+		this.minRange = minRange;
+	}
 
-    public AccessPoint getAccessPoint() {
-        return accessPoint;
-    }
+	public Integer getMinRange() {
+		return minRange;
+	}
 
-    public void setMinRange(Integer minRange) {
-        this.minRange = minRange;
-    }
+	public void setMaxRange(Integer maxRange) {
+		this.maxRange = maxRange;
+	}
 
-    public Integer getMinRange() {
-        return minRange;
-    }
+	public Integer getMaxRange() {
+		return maxRange;
+	}
 
-    public void setMaxRange(Integer maxRange) {
-        this.maxRange = maxRange;
-    }
+	public AccessPoint getAccessPoint() {
+		return accessPoint;
+	}
 
-    public Integer getMaxRange() {
-        return maxRange;
-    }
+	public void setAccessPoint(AccessPoint accessPoint) {
+		this.accessPoint = accessPoint;
+	}
 }

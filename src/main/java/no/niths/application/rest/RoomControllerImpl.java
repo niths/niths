@@ -42,13 +42,13 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> {
         final int roomListSize = roomList.size();
 
         // Temporary dirty fix to remove duplicates
-        for (int i = roomListSize - 1; i >= 1; i--) {
-            Room r = roomList.get(i);
-            
-            if (r.getId() == roomList.get(i - 1).getId()) {
-                roomList.remove(i);
-            }
-        }
+//        for (int i = roomListSize - 1; i >= 1; i--) {
+//            Room r = roomList.get(i);
+//            
+//            if (r.getId() == roomList.get(i - 1).getId()) {
+//                roomList.remove(i);
+//            }
+//        }
 
         return roomList;
     }
