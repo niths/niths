@@ -1,10 +1,7 @@
 package no.niths.infrastructure;
 
 import no.niths.domain.Application;
-import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.ApplicationRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
-
 import org.springframework.stereotype.Repository;
 
 @Repository

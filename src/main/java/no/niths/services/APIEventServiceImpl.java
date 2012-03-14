@@ -3,12 +3,8 @@ package no.niths.services;
 import java.util.List;
 
 import no.niths.domain.APIEvent;
-import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.APIEventRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
 import no.niths.services.interfaces.APIEventService;
-import no.niths.services.interfaces.SubjectService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

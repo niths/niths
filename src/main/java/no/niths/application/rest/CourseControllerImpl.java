@@ -3,7 +3,6 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;

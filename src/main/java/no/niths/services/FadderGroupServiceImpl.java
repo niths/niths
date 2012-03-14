@@ -1,11 +1,9 @@
 package no.niths.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.aop.ApiEvent;
 import no.niths.domain.FadderGroup;
-import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
 import no.niths.services.interfaces.FadderGroupService;
 

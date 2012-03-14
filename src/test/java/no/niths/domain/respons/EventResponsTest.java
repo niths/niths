@@ -3,7 +3,6 @@ package no.niths.domain.respons;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.io.ObjectStreamException;
 import java.io.StringWriter;
 import java.util.GregorianCalendar;
 
@@ -12,16 +11,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.transform.stream.StreamResult;
 
-import no.niths.application.rest.lists.EventList;
 import no.niths.domain.Event;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.thoughtworks.xstream.MarshallingStrategy;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.XStreamer;
 
 public class EventResponsTest {
 

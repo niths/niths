@@ -1,7 +1,5 @@
 package no.niths.application.rest;
 
-import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
-import org.springframework.web.context.support.ServletConfigPropertySource;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public abstract class BaseWebApplicationContextTests implements

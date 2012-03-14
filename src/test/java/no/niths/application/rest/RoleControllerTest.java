@@ -2,8 +2,6 @@ package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.validation.ConstraintViolationException;
-
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.interfaces.StudentController;

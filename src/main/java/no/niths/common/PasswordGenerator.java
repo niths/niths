@@ -1,7 +1,6 @@
 package no.niths.common;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 public class PasswordGenerator {
 

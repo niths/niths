@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.GregorianCalendar;
 
-import no.niths.aop.APIEventLogger;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.APIEvent;

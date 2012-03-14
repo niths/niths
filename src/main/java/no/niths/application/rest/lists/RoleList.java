@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Subject;
 import no.niths.domain.security.Role;
 
 @XmlRootElement(name = AppConstants.ROLES)
