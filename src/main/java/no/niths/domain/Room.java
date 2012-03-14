@@ -9,12 +9,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.signaling.AccessField;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -33,11 +36,14 @@ public class Room implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "room_name")
+    @Column(name = "room_name", unique = true)
     private String roomName;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
+    @JoinTable(
+            joinColumns =        @JoinColumn(name = "room_id"),
+            inverseJoinColumns = @JoinColumn(name = "access_field_id"))
     private List<AccessField> accessFields;
 
     public void setId(Long id) {
