@@ -151,6 +151,24 @@ public class StudentServiceTest {
 		roleService.hibernateDelete(r2.getId());
 		
 		assertEquals(numOfRoles,  roleService.getAll(null).size());
+		
+		Student aStud1 = new Student("testing@test.com");
+		Student aStud2 = new Student("testing2@test.com");
+		studService.create(aStud1);
+		studService.create(aStud2);
+		
+		Role aRole = new Role("ROLE_WWWW");
+		roleService.create(aRole);
+		
+		aStud1.getRoles().add(aRole);
+		studService.update(aStud1);
+		aStud2.getRoles().add(aRole);
+		studService.update(aStud2);
+		
+		roleService.hibernateDelete(aRole.getId());
+		studService.hibernateDelete(aStud1.getId());
+		studService.hibernateDelete(aStud2.getId());
+		
 	}
 	
 	@Test
