@@ -73,7 +73,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public ArrayList<FadderGroup> getAll(FadderGroup domain) {
-        fadderGroupList = (FadderGroupList) super.getAll(null);
+        fadderGroupList = (FadderGroupList) super.getAll(domain);
         for (int i = 0; i < fadderGroupList.size(); i++){
             fadderGroupList.get(i).setFadderChildren(null);
             fadderGroupList.get(i).setLeaders(null);
