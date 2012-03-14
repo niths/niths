@@ -111,7 +111,8 @@ public class Student implements Serializable {
 //	@JoinTable(name = "students_roles", uniqueConstraints = 
 //{ @UniqueConstraint(columnNames = {
 //			"students_id", "roles_id" }) })
-	@Cascade(CascadeType.ALL)
+	//TODO: TEST BETTER
+	//@Cascade(CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 
 	@JsonIgnore
