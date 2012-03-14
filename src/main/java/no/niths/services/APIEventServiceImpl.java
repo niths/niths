@@ -8,7 +8,18 @@ import no.niths.services.interfaces.APIEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Service class for APIEvents
+ * To persist the event,  annotate any public method with @ApiEvent(title = "title).
+ * 
+ * The method must be public and take one parameter.
+ * 
+ * How to use:
+ * @ApiEvent(title="Something happened")
+ * public void anyMethod(Object obj){}
+ * 
+ *
+ */
 @Service
 @Transactional
 public class APIEventServiceImpl implements APIEventService{

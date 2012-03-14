@@ -50,6 +50,19 @@ public class RestDeveloperRequestAccessControllerImpl implements
 		logger.debug("A developer requests access: " + email);
 		if(validateEmail(email)){
 			logger.debug("valid email");
+			
+			//generere token
+			//opprette en developer med den token
+			//sette boolean devEnabled til false (Developer har en bool enabled kanskje)
+			//sende token til dev på mail
+			
+			//Dev mottar denne på mail
+			//sende token tilbake til APIet
+			//verifisere tokenen
+			//sette dev til enabled
+			//Sende mail til dev med du er enabled
+			
+			
 			mailService.sendAMail(email);
 			return "Valid email provided, check your inbox!";
 		}

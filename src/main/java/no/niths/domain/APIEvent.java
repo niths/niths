@@ -25,7 +25,21 @@ import no.niths.domain.adapter.JsonCalendarAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-
+/**
+ * Domain class for APIEvents
+ * To persist the event,  annotate any public method with @ApiEvent(title = "title).
+ * 
+ * The method must be public and take one parameter.
+ * 
+ * Title = the title from the annotation 
+ * Description = the objects toString()
+ * 
+ * How to use:
+ * @ApiEvent(title="Something happened")
+ * public void anyMethod(Object obj){}
+ * 
+ *
+ */
 @XmlRootElement(name = AppConstants.API_EVENTS)
 @Entity
 @Table(name = AppConstants.API_EVENTS)
