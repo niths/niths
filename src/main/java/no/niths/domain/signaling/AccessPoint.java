@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
@@ -17,6 +18,7 @@ import no.niths.common.AppConstants;
 @Table(name = AppConstants.ACCESS_POINTS)
 public class AccessPoint implements Serializable {
 
+	@Transient
 	private static final long serialVersionUID = 8118983219932188402L;
 
 	@Id
