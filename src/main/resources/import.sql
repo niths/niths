@@ -1,33 +1,33 @@
-USE niths;
+--USE niths;
 
-INSERT INTO roles(role_name) values("ROLE_ADMIN");
-INSERT INTO roles(role_name) values("ROLE_SR");
-INSERT INTO roles(role_name) values("ROLE_COMMITTEE_LEADER");
-INSERT INTO roles(role_name) values("ROLE_FADDER_LEADER");
-INSERT INTO roles(role_name) values("ROLE_ANONYMOUS");
-INSERT INTO roles(role_name) values("ROLE_STUDENT");
-INSERT INTO roles(role_name) values("ROLE_DEVELOPER");
+INSERT INTO roles(role_name) values('ROLE_ADMIN');
+INSERT INTO roles(role_name) values('ROLE_SR');
+INSERT INTO roles(role_name) values('ROLE_COMMITTEE_LEADER');
+INSERT INTO roles(role_name) values('ROLE_FADDER_LEADER');
+INSERT INTO roles(role_name) values('ROLE_ANONYMOUS');
+INSERT INTO roles(role_name) values('ROLE_STUDENT');
+INSERT INTO roles(role_name) values('ROLE_DEVELOPER');
 
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', "Java 1", "Innføring i java", '10:00', '11:00', "Monday","81"); 
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', "Java 2", "Innføring i java 2", '11:00', '12:00', "Monday","43");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('BU410', "E-Business", "Skolen sparer penger", '10:00', '11:00', "Tuesday","12");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ111', "Gruppearbeid", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('DB110', "Database 01", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PB210', "Database 02", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG650', "J2E del 01", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG660', "J2E del 02", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ600', "Hovedprosjekt", "Arbeid i grupper", '14:00', '17:00', "Friday","34");
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday','81'); 
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday','43');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday','12');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
 
 
-INSERT INTO courses (name, description) VALUES("Mobil apputvikling", "Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.");
-INSERT INTO courses (name, description) VALUES("Programmering", "I dag brukes IT og Internett i alt fra handel, kommunikasjon, overvåking og spill til betaling.");
-INSERT INTO courses (name, description) VALUES("Spillprogrammering", "Du som søker dette studiet, ønsker å jobbe med avansert programmering og har interesse for simulerings- og spillopplevelser");
-INSERT INTO courses (name, description) VALUES("Spilldesign", "En spilldesigner spesialiserer seg på å skape interaktive opplevelser, og har ansvar for spillets regler og mekanikker. ");
-INSERT INTO courses (name, description) VALUES("3D-grafikk", "3D-modeller benyttes blant annet i film, spill, reklame, kunst, design og visualisering.");
-INSERT INTO courses (name, description) VALUES("Interaktivt design", "Det er i dag viktig å ha brukervennlige webløsninger som tilfredsstiller brukernes behov og forventninger.");
-INSERT INTO courses (name, description) VALUES("Digital markedsføring", "En ny generasjon av sosiale elektroniske nettverk gjør Internett til en av våre viktigste kommunikasjonskanaler.");
-INSERT INTO courses (name, description) VALUES("E-business", "Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.");
-INSERT INTO courses (name, description) VALUES("Industribachelor", "Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.");
+INSERT INTO courses (name, description) VALUES('Mobil apputvikling', 'Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.');
+INSERT INTO courses (name, description) VALUES('Programmering', 'I dag brukes IT og Internett i alt fra handel, kommunikasjon, overvåking og spill til betaling.');
+INSERT INTO courses (name, description) VALUES('Spillprogrammering', 'Du som søker dette studiet, ønsker å jobbe med avansert programmering og har interesse for simulerings- og spillopplevelser');
+INSERT INTO courses (name, description) VALUES('Spilldesign', 'En spilldesigner spesialiserer seg på å skape interaktive opplevelser, og har ansvar for spillets regler og mekanikker. ');
+INSERT INTO courses (name, description) VALUES('3D-grafikk', '3D-modeller benyttes blant annet i film, spill, reklame, kunst, design og visualisering.');
+INSERT INTO courses (name, description) VALUES('Interaktivt design', 'Det er i dag viktig å ha brukervennlige webløsninger som tilfredsstiller brukernes behov og forventninger.');
+INSERT INTO courses (name, description) VALUES('Digital markedsføring', 'En ny generasjon av sosiale elektroniske nettverk gjør Internett til en av våre viktigste kommunikasjonskanaler.');
+INSERT INTO courses (name, description) VALUES('E-business', 'Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.');
+INSERT INTO courses (name, description) VALUES('Industribachelor', 'Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.');
 
 
 insert into courses_subjects values(1,1);
@@ -45,15 +45,15 @@ insert into courses_subjects values(4,3);
 insert into courses_subjects values(4,5);
 
 
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Øyvind", "Ødegård",'2012-02-02',"degyvi09@nith.no",'M',"super awesome","41549300",3,"super secret password *******");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Øyvind', 'Ødegård','2012-02-02','degyvi09@nith.no','M','super awesome','41549300',3,'super secret password *******');
 INSERT INTO students_roles(students_id, roles_id) values(1, 1);
 INSERT INTO students_roles(students_id, roles_id) values(1, 2);
 INSERT INTO students_roles(students_id, roles_id) values(1, 3);
 
 
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Andre", "Kristensen", '2012-02-02',"mail@mail.com",'M',"super awesome","81549300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Bendik", "Rostad", '2012-02-02',"rosben09@nith.no",'M',"super awesome","81249300",3,"super secret password *******");
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES("Liv", "Kolås", '2012-02-02',"tea@mail.com",'F',"super awesome","15492300",3,"super secret password *******");
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Andre', 'Kristensen', '2012-02-02','mail@mail.com','M','super awesome','81549300',3,'super secret password *******');
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3,'super secret password *******');
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3,'super secret password *******');
 
 INSERT INTO students_roles(students_id, roles_id) values(2, 1);
 INSERT INTO students_roles(students_id, roles_id) values(2, 2);
@@ -62,45 +62,45 @@ INSERT INTO students_roles(students_id, roles_id) values(3, 3);
 
 INSERT INTO students_roles(students_id, roles_id) values(4, 1);
 
-INSERT INTO rooms(room_name) VALUES("38");
-INSERT INTO rooms(room_name) VALUES("39");
-INSERT INTO rooms(room_name) VALUES("40");
-INSERT INTO rooms(room_name) VALUES("41");
-INSERT INTO rooms(room_name) VALUES("43 / 44");
-INSERT INTO rooms(room_name) VALUES("45");
-INSERT INTO rooms(room_name) VALUES("77");
-INSERT INTO rooms(room_name) VALUES("78");
-INSERT INTO rooms(room_name) VALUES("79 / 80");
-INSERT INTO rooms(room_name) VALUES("81");
-INSERT INTO rooms(room_name) VALUES("82");
-INSERT INTO rooms(room_name) VALUES("Stillerom");
-INSERT INTO rooms(room_name) VALUES("84");
-INSERT INTO rooms(room_name) VALUES("Auditoriet");
-INSERT INTO rooms(room_name) VALUES("Battlestation");
-INSERT INTO rooms(room_name) VALUES("Biblioteket");
-INSERT INTO rooms(room_name) VALUES("Kantina");
-INSERT INTO rooms(room_name) VALUES("Vrimleområdet");
-INSERT INTO rooms(room_name) VALUES("Fagstab");
+INSERT INTO rooms(room_name) VALUES('38');
+INSERT INTO rooms(room_name) VALUES('39');
+INSERT INTO rooms(room_name) VALUES('40');
+INSERT INTO rooms(room_name) VALUES('41');
+INSERT INTO rooms(room_name) VALUES('43 / 44');
+INSERT INTO rooms(room_name) VALUES('45');
+INSERT INTO rooms(room_name) VALUES('77');
+INSERT INTO rooms(room_name) VALUES('78');
+INSERT INTO rooms(room_name) VALUES('79 / 80');
+INSERT INTO rooms(room_name) VALUES('81');
+INSERT INTO rooms(room_name) VALUES('82');
+INSERT INTO rooms(room_name) VALUES('Stillerom');
+INSERT INTO rooms(room_name) VALUES('84');
+INSERT INTO rooms(room_name) VALUES('Auditoriet');
+INSERT INTO rooms(room_name) VALUES('Battlestation');
+INSERT INTO rooms(room_name) VALUES('Biblioteket');
+INSERT INTO rooms(room_name) VALUES('Kantina');
+INSERT INTO rooms(room_name) VALUES('Vrimleområdet');
+INSERT INTO rooms(room_name) VALUES('Fagstab');
 
-INSERT INTO access_points(address) VALUES("00:21:51:60:e7:d0");
-INSERT INTO access_points(address) VALUES("00:24:97:f2:92:e0");
-INSERT INTO access_points(address) VALUES("00:24:97:f2:91:70");
-INSERT INTO access_points(address) VALUES("00:18:74:d3:4b:90");
-INSERT INTO access_points(address) VALUES("00:26:cd:d1:2e:10");
-INSERT INTO access_points(address) VALUES("00:26:cb:d1:2d:a0");
-INSERT INTO access_points(address) VALUES("00:17:0f:e7:2d:60");
-INSERT INTO access_points(address) VALUES("00:21:55.60.e6:10");
-INSERT INTO access_points(address) VALUES("dc:7b:94:34:94:90");
-INSERT INTO access_points(address) VALUES("00:17:df:a6:c8:80");
-INSERT INTO access_points(address) VALUES("00:17:df:a7:7c:50");
-INSERT INTO access_points(address) VALUES("dc:7b:94:a4:2e:80");
-INSERT INTO access_points(address) VALUES("00:26:cb:d1:2b:40");
-INSERT INTO access_points(address) VALUES("00:23:04:88:d4:c0");
-INSERT INTO access_points(address) VALUES("00:17:df:a7:7a:b0");
-INSERT INTO access_points(address) VALUES("00:24:97:f2:93:60");
-INSERT INTO access_points(address) VALUES("00:23:04:88:c1:20");
-INSERT INTO access_points(address) VALUES("00:19:07:07:79:80");
-INSERT INTO access_points(address) VALUES("00:24:97:f2:93:40");
+INSERT INTO access_points(address) VALUES('00:21:51:60:e7:d0');
+INSERT INTO access_points(address) VALUES('00:24:97:f2:92:e0');
+INSERT INTO access_points(address) VALUES('00:24:97:f2:91:70');
+INSERT INTO access_points(address) VALUES('00:18:74:d3:4b:90');
+INSERT INTO access_points(address) VALUES('00:26:cd:d1:2e:10');
+INSERT INTO access_points(address) VALUES('00:26:cb:d1:2d:a0');
+INSERT INTO access_points(address) VALUES('00:17:0f:e7:2d:60');
+INSERT INTO access_points(address) VALUES('00:21:55.60.e6:10');
+INSERT INTO access_points(address) VALUES('dc:7b:94:34:94:90');
+INSERT INTO access_points(address) VALUES('00:17:df:a6:c8:80');
+INSERT INTO access_points(address) VALUES('00:17:df:a7:7c:50');
+INSERT INTO access_points(address) VALUES('dc:7b:94:a4:2e:80');
+INSERT INTO access_points(address) VALUES('00:26:cb:d1:2b:40');
+INSERT INTO access_points(address) VALUES('00:23:04:88:d4:c0');
+INSERT INTO access_points(address) VALUES('00:17:df:a7:7a:b0');
+INSERT INTO access_points(address) VALUES('00:24:97:f2:93:60');
+INSERT INTO access_points(address) VALUES('00:23:04:88:c1:20');
+INSERT INTO access_points(address) VALUES('00:19:07:07:79:80');
+INSERT INTO access_points(address) VALUES('00:24:97:f2:93:40');
 
 INSERT INTO access_fields(min_range, max_range, accessPoint_id) VALUES(53, 64, 1);
 INSERT INTO access_fields(min_range, max_range, accessPoint_id) VALUES(52, 65, 2);
@@ -252,11 +252,11 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Barnes@nith.no','Angela','Daugherty','1980-04-04','70190019','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Summers@nith.no','Malik','Fischer','1987-12-18','21412731','3');
 
-INSERT INTO committees (name,description) VALUES("Linx utvalget","Linux");
-INSERT INTO committees (name,description) VALUES("Apple utvalget","Apple GOGO");
-INSERT INTO committees (name,description) VALUES("Microsoft utvalget","Microsoft");
-INSERT INTO committees (name,description) VALUES("KIT", "kvinner og it");
-INSERT INTO committees (name,description) VALUES("MDF", "media design og foto");
+INSERT INTO committees (name,description) VALUES('Linx utvalget','Linux');
+INSERT INTO committees (name,description) VALUES('Apple utvalget','Apple GOGO');
+INSERT INTO committees (name,description) VALUES('Microsoft utvalget','Microsoft');
+INSERT INTO committees (name,description) VALUES('KIT', 'kvinner og it');
+INSERT INTO committees (name,description) VALUES('MDF', 'media design og foto');
 
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (1, 1);
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (2, 2);
@@ -269,30 +269,30 @@ INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 20);
 INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 10);
 INSERT INTO committee_leaders (committees_id, leaders_id) VALUES (3, 55);
 
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distro',' distro fest','2012-03-09 11:05:32','2012-03-09 11:05:32','Linux, utvalg');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa','Valentine party','2012-03-09 11:05:32','2012-03-09 11:05:32','kroa, utvalg');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop',' Android workshop','2012-03-09 11:05:32','2012-03-09 11:05:32','Androworkshop');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte',' Obligatorisk','2012-03-09 11:05:32','2012-03-09 11:05:32','årsmøte, møte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte','Damenes møte','2012-03-09 11:05:32','2012-03-09 11:05:32','kit, møte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke kickoff','kickoff fest','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, kroa');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke party','party','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke');
 
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distro2"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroa3","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshopxx"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte4"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte4","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke5 kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderuke5 party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distro2',' distro fest','2012-03-09 11:05:32','2012-03-09 11:05:32','Linux, utvalg');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa3','Valentine party','2012-03-09 11:05:32','2012-03-09 11:05:32','kroa, utvalg');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshopxx',' Android workshop','2012-03-09 11:05:32','2012-03-09 11:05:32','Androworkshop');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte4',' Obligatorisk','2012-03-09 11:05:32','2012-03-09 11:05:32','årsmøte, møte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte4','Damenes møte','2012-03-09 11:05:32','2012-03-09 11:05:32','kit, møte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 kickoff','kickoff fest','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, kroa');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 party','party','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke');
 
 
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("LUG Distrod"," distro fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Linux, utvalg");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fest i Kroad","Valentine party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kroa, utvalg, hjerte");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Workshop2x"," Android workshop",'2012-03-09 11:05:32','2012-03-09 11:05:32',"Androworkshop,ruben");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Årsmøte2x"," Obligatorisk",'2012-03-09 11:05:32','2012-03-09 11:05:32',"årsmøte, møte,bøker");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("KIT-møte3x","Damenes møte",'2012-03-09 11:05:32','2012-03-09 11:05:32',"kit, møte, alkoholfritt");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukezx3 kickoff","kickoff fest",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, kroa");
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES("Fadderukex3 party","party",'2012-03-09 11:05:32','2012-03-09 11:05:32',"fadderuke, fest");
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distrod',' distro fest','2012-03-09 11:05:32','2012-03-09 11:05:32','Linux, utvalg');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroad','Valentine party','2012-03-09 11:05:32','2012-03-09 11:05:32','kroa, utvalg, hjerte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop2x',' Android workshop','2012-03-09 11:05:32','2012-03-09 11:05:32','Androworkshop,ruben');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte2x',' Obligatorisk','2012-03-09 11:05:32','2012-03-09 11:05:32','årsmøte, møte,bøker');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte3x','Damenes møte','2012-03-09 11:05:32','2012-03-09 11:05:32','kit, møte, alkoholfritt');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukezx3 kickoff','kickoff fest','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, kroa');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukex3 party','party','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, fest');
 
 
 INSERT INTO fadder_groups(id, group_number) values (1, 1);
@@ -352,15 +352,15 @@ insert into committees_events values(1, 3);
 insert into committees_events values(1, 4);
 insert into committees_events values(2, 5);
 
-insert into developers(id, name, email) values (1, "Urtegata", "urter@mail.com");
-insert into developers(id, name, email) values (2, "Knut sine apps", "knut@mail.com");
-insert into developers(id, name, email) values (3, "Apps AS", "apps@mail.com");
-insert into developers(id, name, email) values (4, "Android etc", "android@mail.com");
+insert into developers(id, name, email) values (1, 'Urtegata', 'urter@mail.com');
+insert into developers(id, name, email) values (2, 'Knut sine apps', 'knut@mail.com');
+insert into developers(id, name, email) values (3, 'Apps AS', 'apps@mail.com');
+insert into developers(id, name, email) values (4, 'Android etc', 'android@mail.com');
 
-insert into applications(id, title) values(1, "Appen");
-insert into applications(id, title) values(2, "Den andre appen");
-insert into applications(id, title) values(3, "Angry Birds");
-insert into applications(id, title) values(4, "Drawsome");
+insert into applications(id, title) values(1, 'Appen');
+insert into applications(id, title) values(2, 'Den andre appen');
+insert into applications(id, title) values(3, 'Angry Birds');
+insert into applications(id, title) values(4, 'Drawsome');
 
 insert into developers_applications(developers_id, applications_id) values (1, 1);
 insert into developers_applications(developers_id, applications_id) values (1, 2);
