@@ -45,7 +45,15 @@ public class Room implements Serializable {
     		name="rooms_access_fields")
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
-    public void setId(Long id) {
+    public Room(String roomName) {
+		setRoomName(roomName);
+	}
+
+	public Room() {
+		this(null);
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,5 +75,10 @@ public class Room implements Serializable {
 
     public List<AccessField> getAccessFields() {
         return accessFields;
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format("[%s][%s]", id, roomName);
     }
 }

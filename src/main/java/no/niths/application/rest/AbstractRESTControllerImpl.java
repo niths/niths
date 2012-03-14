@@ -110,7 +110,7 @@ public abstract class AbstractRESTControllerImpl<T>
     public void renewList(List<T> list) {
         getList().clear();
         getList().addAll(list);
-        getList().setData(getList()); // Used for XML marshalling
+        getList().setData(getList()); // Used for XML marshaling
         ValidationHelper.isListEmpty(getList());
     }
 

@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.interfaces.RoomController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoomList;
 import no.niths.common.AppConstants;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(AppConstants.ROOMS)
-public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> {
+public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> implements RoomController{
 
     private static final Logger logger = LoggerFactory
             .getLogger(RoomControllerImpl.class);
@@ -38,8 +39,11 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> {
             headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public ArrayList<Room> getAll(Room room) {
-        roomList = (RoomList) super.getAll(room);
-        final int roomListSize = roomList.size();
+    	
+    	ArrayList<Room> rooms = super.getAll(room);
+    	logger.debug("room-size =" + rooms.size());
+//        roomList = (RoomList) 
+//        final int roomListSize = roomList.size();
 
         // Temporary dirty fix to remove duplicates
 //        for (int i = roomListSize - 1; i >= 1; i--) {
@@ -50,7 +54,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> {
 //            }
 //        }
 
-        return roomList;
+        return rooms;
     }
 
     @Override
