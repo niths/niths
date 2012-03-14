@@ -5,7 +5,7 @@ package no.niths.application.rest.auth.interfaces;
  * Rest controller for developers that want access to the API
  * 
  */
-public interface RestDeveloperAuthController {
+public interface RestDeveloperRequestAccessController {
 
 	/**
 	 * Takes a developer email and sends an email with further instructions

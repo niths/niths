@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 
 import no.niths.application.rest.RESTConstants;
-import no.niths.application.rest.auth.interfaces.RestDeveloperAuthController;
+import no.niths.application.rest.auth.interfaces.RestDeveloperRequestAccessController;
 import no.niths.common.AppConstants;
 import no.niths.services.interfaces.MailSenderService;
 
@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(AppConstants.AUTH)
-public class RestDeveloperAuthControllerImpl implements
-		RestDeveloperAuthController {
+public class RestDeveloperRequestAccessControllerImpl implements
+		RestDeveloperRequestAccessController {
 
 	Logger logger = org.slf4j.LoggerFactory
-			.getLogger(RestDeveloperAuthControllerImpl.class);
+			.getLogger(RestDeveloperRequestAccessControllerImpl.class);
 
 	@Autowired
 	private MailSenderService mailService;
