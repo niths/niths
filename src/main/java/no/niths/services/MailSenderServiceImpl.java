@@ -1,6 +1,6 @@
 package no.niths.services;
 
-import javax.inject.Inject;
+import no.niths.services.interfaces.MailSenderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -8,16 +8,17 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import no.niths.services.interfaces.MailSenderService;
 
 @Service
 //@Transactional --> TODO: Add persist developer
 public class MailSenderServiceImpl implements MailSenderService {
 
-	@Autowired(required=false)
 	private MailSender mailSender;
+	
+	@Autowired(required=false)
+	public MailSenderServiceImpl(MailSender mailSender){
+		this.mailSender = mailSender;
+	}
 	
 	private SimpleMailMessage composeMail(String email){
 		SimpleMailMessage message = new SimpleMailMessage();
