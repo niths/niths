@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Constraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
@@ -27,6 +28,12 @@ public class AccessPoint implements Serializable {
 
     @Column(unique = true)
     private String address;
+
+    public AccessPoint() {}
+
+    public AccessPoint(String address) {
+        this.address = address;
+    }
 
     public void setId(Long id) {
         this.id = id;
