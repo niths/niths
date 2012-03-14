@@ -170,6 +170,58 @@ public class StudentServiceTest {
 	}
 	
 	@Test
+	public void testRoleCascadeOperations() {
+		Student s1= new Student("swish@mailed.com");
+		Student s2= new Student("swosh@mailed.com");
+		studService.create(s1);
+		studService.create(s2);
+		
+		Role r1 = new Role("SWISH");
+		Role r2 = new Role("SWOSH");
+		roleService.create(r1);
+		roleService.create(r2);
+		
+		Student temp = studService.getById(s1.getId());
+		Student temp2 = studService.getById(s2.getId());
+		int st = temp.getRoles().size();
+		int st2 = temp.getRoles().size();
+		temp.getRoles().add(r1);
+		temp.getRoles().add(r2);
+		temp2.getRoles().add(r1);
+		temp2.getRoles().add(r2);
+		
+		studService.update(temp);
+		studService.update(temp2);
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st + 2, temp.getRoles().size());
+		assertEquals(st2 + 2, temp2.getRoles().size());
+		
+		roleService.hibernateDelete(r1.getId());
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st + 1, temp.getRoles().size());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		temp.getRoles().remove(r2);
+		studService.update(temp);
+		
+		temp = studService.getById(s1.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st, temp.getRoles().size());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		studService.hibernateDelete(temp.getId());
+		temp2 = studService.getById(s2.getId());
+		assertEquals(st2 + 1, temp2.getRoles().size());
+		
+		studService.hibernateDelete(temp2.getId());
+		roleService.hibernateDelete(r2.getId());
+	}
+	
+	@Test
 	public void testStudentCommitteesRelationship(){
 		Student s = new Student("xxx@nith.no");
 		studService.create(s);
