@@ -82,7 +82,7 @@ INSERT INTO rooms(room_name) VALUES('Kantina');
 INSERT INTO rooms(room_name) VALUES('Vrimleområdet');
 INSERT INTO rooms(room_name) VALUES('Fagstab');
 
-INSERT INTO access_points(address) VALUES('00:21:51:60:e7:d0');
+INSERT INTO access_points(address) VALUES('00:21:55:60:e7:d0');
 INSERT INTO access_points(address) VALUES('00:24:97:f2:92:e0');
 INSERT INTO access_points(address) VALUES('00:24:97:f2:91:70');
 INSERT INTO access_points(address) VALUES('00:18:74:d3:4b:90');
