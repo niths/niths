@@ -97,6 +97,7 @@ public abstract class AbstractRESTControllerImpl<T>
      * {@inheritDoc}
      */
     @Override
+    @Deprecated
     public void delete(@PathVariable Long id) {
         if(!getService().delete(id)){
             throw new ObjectNotFoundException();
