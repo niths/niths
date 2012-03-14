@@ -125,6 +125,8 @@ public class FadderGroupControllerTest {
 		fadderController.update(group);
 		
 		assertEquals(new Integer(1338), fadderController.getAll(group).get(0).getGroupNumber());
+		
+		fadderController.hibernateDelete(group.getId());
 	}
 	
 }
