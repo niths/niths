@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -43,8 +45,11 @@ public class Developer implements Serializable{
     @Size(min = 3, max = 30, message = "Length min = 3, max = 30")
     private String name;
     
-    @OneToMany(mappedBy = "developer", targetEntity=Application.class)
+//    @OneToMany(mappedBy = "developer", targetEntity=Application.class)
     @Cascade(CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name = "developers_applications", joinColumns =  @JoinColumn(name = "developers_id"),
+    inverseJoinColumns= @JoinColumn(name="applications_id"))
     List<Application> apps = new ArrayList<Application>();
 
     

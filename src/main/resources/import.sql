@@ -355,7 +355,11 @@ insert into developers(id, name, email) values (2, "Knut sine apps", "knut@mail.
 insert into developers(id, name, email) values (3, "Apps AS", "apps@mail.com");
 insert into developers(id, name, email) values (4, "Android etc", "android@mail.com");
 
-insert into applications(id, title, developer_id) values(1, "Appen", 1);
-insert into applications(id, title, developer_id) values(2, "Den andre appen", 1);
-insert into applications(id, title, developer_id) values(3, "Angry Birds", 2);
-insert into applications(id, title, developer_id) values(4, "Drawsome", 3);
+insert into applications(id, title) values(1, "Appen");
+insert into applications(id, title) values(2, "Den andre appen");
+insert into applications(id, title) values(3, "Angry Birds");
+insert into applications(id, title) values(4, "Drawsome");
+
+insert into developers_applications(developers_id, applications_id) values (1, 1);
+insert into developers_applications(developers_id, applications_id) values (1, 2);
+insert into developers_applications(developers_id, applications_id) values (2, 3);
