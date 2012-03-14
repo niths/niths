@@ -45,7 +45,7 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	}
 	
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(@RequestBody Developer domain) {
 		// TODO Auto-generated method stub
 		super.create(domain);
@@ -53,21 +53,21 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void delete(@PathVariable Long id) {
 		// TODO Auto-generated method stub
 		super.delete(id);
 	}
 	
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void hibernateDelete(@PathVariable long id) {
 		// TODO Auto-generated method stub
 		super.hibernateDelete(id);
 	}
 	
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Developer domain) {
 		// TODO Auto-generated method stub
 		super.update(domain);
