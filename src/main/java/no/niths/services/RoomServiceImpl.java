@@ -34,16 +34,17 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void update(Room domain) {
+    	repo.update(domain);
     }
 
     @Override
     public boolean delete(long id) {
-        return false;
+        return repo.delete(id);
     }
 
     @Override
     public void hibernateDelete(long id) {
-        
+        repo.hibernateDelete(id);
     }
 
 }
