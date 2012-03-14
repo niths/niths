@@ -91,6 +91,10 @@ public class Event implements Serializable {
 	public Event() {
 		this(null, null, null, null, null);
 	}
+	
+	public Event(String name){
+		this.name = name;
+	}
 
 	public Event(Long id, String name, String description,
 			GregorianCalendar startTime, GregorianCalendar endTime) {
