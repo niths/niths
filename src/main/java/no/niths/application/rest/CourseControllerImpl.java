@@ -57,6 +57,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		courseList = (CourseList) super.getAll(domain);
     	for (int i = 0; i < courseList.size(); i++){
     		courseList.get(i).setSubjects(null);
+    		courseList.get(i).setStudents(null);
     	}
 		return courseList;
 	}
