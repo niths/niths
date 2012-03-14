@@ -16,7 +16,7 @@ public class DeveloperList extends ListAdapter<Developer>{
 	 * 
 	 */
 	private static final long serialVersionUID = 7176343871162986392L;
-	@XmlElement(name = "Developer")
+	@XmlElement(name = "developer")
     private List<Developer> data;
 
     @Override
