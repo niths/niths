@@ -2,18 +2,6 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
@@ -25,6 +13,18 @@ import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.interfaces.StudentService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Controller for handling roles
  *
@@ -50,44 +50,47 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void create(@RequestBody Role domain) {
-		// TODO Auto-generated method stub
 		super.create(domain);
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void update(@RequestBody Role domain) {
-		// TODO Auto-generated method stub
 		super.update(domain);
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void hibernateDelete(@PathVariable long id) {
-		// TODO Auto-generated method stub
 		super.hibernateDelete(id);
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public Role getById(@PathVariable Long id) {
-		// TODO Auto-generated method stub
 		return super.getById(id);
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public ArrayList<Role> getAll(Role domain) {
-		// TODO Auto-generated method stub
-		return super.getAll(domain);
+		ArrayList<Role> roles = super.getAll(domain);
+		for (Role r: roles) {
+			r.setStudents(null);
+		}
+		return roles;
 	}
 	
 	/**

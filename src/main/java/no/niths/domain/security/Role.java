@@ -42,12 +42,14 @@ public class Role implements Serializable {
 	@Column(unique = true, name="role_name")
 	private String roleName;
 
+	@JsonIgnore
+	@XmlTransient
 	@Transient
+	@SuppressWarnings("unused")
 	private String trimedRoleName;
 	
 	
-	@JsonIgnore
-	@XmlTransient
+
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@JoinTable(name = "students_roles", 
 		joinColumns = @JoinColumn(name = "roles_id"), 
@@ -103,7 +105,8 @@ public class Role implements Serializable {
 		return role;
 	}
 
-
+	@JsonIgnore
+	@XmlTransient
 	public List<Student> getStudents() {
 		return students;
 	}
