@@ -14,8 +14,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 /**
- * Saves API events to API event feed
- *
+ * Persists API events.
+ * 
+ * To persist an event,  annotate any public method with @ApiEvent(title = "title).
+ * The method must be public and take one parameter.
+ * 
+ * Will persist an APIEvent like this:
+ * Title = the title from the annotation 
+ * Description = the objects toString()
+ * 
+ * How to use:
+ * @ApiEvent(title="Something happened")
+ * public void anyMethod(Object obj){}
  */
 @Aspect
 @Component
@@ -28,6 +38,7 @@ public class APIEventLogger {
  
 	/**
 	 * Executes after all public methods annotated with @ApiEvent
+	 * and persists the api event
 	 * 
 	 * @param pjp The method parameter
 	 * @param apiEvent The annotation
