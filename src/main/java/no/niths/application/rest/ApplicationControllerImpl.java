@@ -44,7 +44,6 @@ public class ApplicationControllerImpl extends AbstractRESTControllerImpl<Applic
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(@RequestBody Application domain) {
-		// TODO Auto-generated method stub
 		super.create(domain);
 	}
 	
@@ -52,21 +51,18 @@ public class ApplicationControllerImpl extends AbstractRESTControllerImpl<Applic
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void delete(@PathVariable Long id) {
-		// TODO Auto-generated method stub
 		super.delete(id);
 	}
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void hibernateDelete(@PathVariable long id) {
-		// TODO Auto-generated method stub
 		super.hibernateDelete(id);
 	}
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Application domain) {
-		// TODO Auto-generated method stub
 		super.update(domain);
 	}
 
