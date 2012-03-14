@@ -10,7 +10,7 @@ import no.niths.services.interfaces.MailSenderService;
 @Service
 public class MailSenderServiceImpl implements MailSenderService {
 
-	@Autowired
+	// @Autowired
 	private MailSender mailSender;
 	
 	
