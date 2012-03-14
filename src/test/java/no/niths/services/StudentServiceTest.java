@@ -25,8 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-//@Transactional
-//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class StudentServiceTest {
 
 	private static final Logger logger = LoggerFactory
