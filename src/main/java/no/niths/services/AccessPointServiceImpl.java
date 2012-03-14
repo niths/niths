@@ -29,7 +29,7 @@ public class AccessPointServiceImpl implements AccessPointService {
 
     @Override
     public AccessPoint getById(long id) {
-        return null;
+        return repo.getById(id);
     }
 
     @Override
