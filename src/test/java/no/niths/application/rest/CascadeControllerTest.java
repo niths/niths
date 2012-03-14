@@ -80,6 +80,7 @@ public class CascadeControllerTest {
 		
 		//Add some roles
 		Role role = new Role("ROLE_SOME");
+		roleController.create(role);
 		s1.getRoles().add(role);
 		
 		studController.update(s1);
