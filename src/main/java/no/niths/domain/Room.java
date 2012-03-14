@@ -29,8 +29,8 @@ import org.hibernate.annotations.CascadeType;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Room implements Serializable {
 
-    @Transient
-    private static final long serialVersionUID = 1L;
+	@Transient
+	private static final long serialVersionUID = -664567726655902624L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Room implements Serializable {
     @Column(name = "room_name", unique = true)
     private String roomName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
     @JoinTable(
     		name="rooms_access_fields")

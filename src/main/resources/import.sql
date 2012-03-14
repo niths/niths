@@ -134,19 +134,21 @@ INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(5, 5);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(6, 6);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(7, 7);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(8, 8);
+
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(9, 10);
-INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(10, 12);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(11, 11);
+INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(10, 12);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(12, 13);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(13, 14);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(14, 14);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(15, 14);
+
+INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(21, 16);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(16, 17);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(17, 18);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(18, 18);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(19, 18);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(20, 18);
-INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(21, 16);
 INSERT INTO rooms_access_fields(accessFields_id, rooms_id) VALUES(22, 19);
 
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Wolfe@nith.no','Abraham','Branch','1986-06-08','12003434','1');
