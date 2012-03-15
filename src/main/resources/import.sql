@@ -102,7 +102,6 @@ INSERT INTO access_points(address) VALUES('00:23:04:88:c1:20');
 INSERT INTO access_points(address) VALUES('00:19:07:07:79:80');
 INSERT INTO access_points(address) VALUES('00:24:97:f2:93:40');
 
-
 INSERT INTO access_fields(min_range, max_range) VALUES(53, 64);
 INSERT INTO access_fields(min_range, max_range) VALUES(52, 65);
 INSERT INTO access_fields(min_range, max_range) VALUES(63, 75);
@@ -142,9 +141,12 @@ insert into access_fields_access_points (access_point_id, access_field_id) value
 insert into access_fields_access_points (access_point_id, access_field_id) values(11, 14);
 insert into access_fields_access_points (access_point_id, access_field_id) values(12, 15);
 insert into access_fields_access_points (access_point_id, access_field_id) values(13, 16);
-insert into access_fields_access_points (access_point_id, access_field_id) values(14, 17);
+insert into access_fields_access_points (access_point_id, access_field_id) values(17, 17);
 insert into access_fields_access_points (access_point_id, access_field_id) values(15, 18);
 insert into access_fields_access_points (access_point_id, access_field_id) values(16, 19);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) values(14, 20);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) values(18, 21);
+insert into access_fields_access_points (access_point_id, access_field_id) values(19, 22);
 
 
 
@@ -164,7 +166,7 @@ INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(12, 13);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(13, 14);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(14, 14);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(15, 14);
-
+-- 15
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(21, 16);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(16, 17);
 INSERT INTO rooms_access_fields(access_field_id, room_id) VALUES(17, 18);
