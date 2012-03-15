@@ -1,12 +1,16 @@
 package no.niths.services.auth;
 
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.User;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.RequestAuthenticationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -30,9 +34,47 @@ public class RequestAuthenticationServiceImpl implements
 
 	@Autowired
 	private StudentRepository studentRepo;
+	
+	@Autowired
+	private GoogleAuthenticationService googleService;
 
 	@Value("${jasypt.password}")
-	private String decryptionPassword;
+	private String cryptionPassword;
+	
+	/**
+	 * Authenticates user against Google.
+	 * Returns a session token valid for (see AppConstants.SESSION_VALID_TIME) minutes
+	 * Use this session token for future requests against the API
+	 * 
+	 * @param token the token issued from google
+	 * @return session token to use in future request
+	 */
+	@Override
+	public String login(String token) {
+		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
+		
+		//Authenticate via Google
+		String userEmail = googleService.authenticateAndGetEmail(token);
+		
+		//Check if user has valid email ("nith.no")
+		if(isUserValid(userEmail)){
+			
+			Student authenticatedStudent = studentRepo.getStudentByEmail(userEmail);
+			
+			if(authenticatedStudent == null){ //First time user, persist!
+				authenticatedStudent = new Student(userEmail);
+				Long id = studentRepo.create(authenticatedStudent);
+				authenticatedStudent.setId(id); 
+			}
+			
+			//Generate "session token" that student uses from now on
+			generatedToken = generateToken(authenticatedStudent.getId());
+			authenticatedStudent.setSessionToken(generatedToken);
+			studentRepo.update(authenticatedStudent);
+		}
+		
+		return generatedToken;
+	}
 
 	/**
 	 * Fetch student that belongs to session token and returns a user object
@@ -76,7 +118,7 @@ public class RequestAuthenticationServiceImpl implements
 	private boolean verifySessionToken(String token) {
 		logger.info("Verifying format of token: " + token);
 		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword(decryptionPassword);
+		jasypt.setPassword(cryptionPassword);
 		String decryptedToken = jasypt.decrypt(token);
 
 		logger.debug("Token after decryption: " + decryptedToken);
@@ -94,13 +136,41 @@ public class RequestAuthenticationServiceImpl implements
 
 		return false; // Not valid token
 	}
-
-	public String getDecryptionPassword() {
-		return decryptionPassword;
+	
+	//Generates a random token and encrypts it with Jasypt (http://www.jasypt.org/)
+	private String generateToken(Long userId){
+		//Create a token consisting of 128bit random string + user id + current time
+		long tokenIssued = new GregorianCalendar().getTimeInMillis();
+		String generatedToken = UUID.randomUUID().toString().toUpperCase()
+				+ "|" + Long.toString(userId) + "|" + Long.toString(tokenIssued);
+		//Encrypt the token
+		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
+		jasypt.setPassword(cryptionPassword);
+		String encryptedToked = jasypt.encrypt(generatedToken);
+		
+		logger.debug("Generated token before encryption: " + generatedToken);
+		logger.debug("Generated token after encryption: " + encryptedToked);
+		
+		return encryptedToked;
+	}
+	
+	//Check if the email of the user is valid(nith.no) and passes bean validation
+	private boolean isUserValid(String email){
+		if(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)
+				&& ValidationHelper.hasObjectValidAttributes(new Student(email))){
+			logger.debug("Email is valid: " + email);
+			return true;				
+		}
+		logger.debug("Email is NOT valid: " + email);
+		return false;
 	}
 
-	public void setDecryptionPassword(String decryptionPassword) {
-		this.decryptionPassword = decryptionPassword;
+	public String getCryptionPassword() {
+		return cryptionPassword;
+	}
+
+	public void setCryptionPassword(String decryptionPassword) {
+		this.cryptionPassword = decryptionPassword;
 	}
 
 }

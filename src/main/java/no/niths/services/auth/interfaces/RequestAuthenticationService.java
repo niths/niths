@@ -14,4 +14,6 @@ public interface RequestAuthenticationService {
 	 * @return a user object with roles
 	 */
 	User authenticate(String sessionToken);
+	
+	String login(String token);
 }

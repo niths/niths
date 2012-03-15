@@ -4,7 +4,8 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
 import no.niths.security.Token;
-import no.niths.services.auth.interfaces.RestLoginService;
+import no.niths.services.auth.interfaces.RequestAuthenticationService;
+//import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,9 @@ public class RestLoginControllerImpl implements RestLoginController{
 			.getLogger(RestLoginControllerImpl.class);
 	
 	@Autowired
-	private RestLoginService service;
+	private RequestAuthenticationService service;
+//	@Autowired
+//	private RestLoginService service;
 
 	/**
 	 * Authorize the user. Use the returned session token for future requests
