@@ -1,4 +1,4 @@
-package no.niths.domain.security;
+package no.niths.security;
 
 import javax.xml.bind.annotation.XmlRootElement;
 /**

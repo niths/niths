@@ -1,6 +1,6 @@
 package no.niths.application.rest.auth.interfaces;
 
-import no.niths.domain.security.Token;
+import no.niths.security.Token;
 
 /**
  * Login controller for Google login
