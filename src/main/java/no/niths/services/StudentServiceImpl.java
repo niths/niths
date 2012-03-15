@@ -37,21 +37,26 @@ public class StudentServiceImpl implements StudentService {
 		}		
 		return repo.create(student);
 	}
-	
+	@Override
 	public Student getStudentByEmail(String email){
 		Student s = new Student(email);
 		List<Student> all = getAll(s);
 		if(!all.isEmpty()){
-			return all.get(0);
+			Student s2 = all.get(0);
+			s2.getRoles().size();
+			return s2;
 		}
 		return null;
 	}
+	@Override
 	public Student getStudentBySessionToken(String token){
 		Student s = new Student();
 		s.setSessionToken(token);
 		List<Student> all = getAll(s);
 		if(!all.isEmpty()){
-			return all.get(0);
+			Student s2 = all.get(0);
+			s2.getRoles().size();
+			return s2;
 		}
 		return null;
 	}
