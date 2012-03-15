@@ -16,8 +16,8 @@ public class AccessPointRepositoryImpl
 
     @Override
     public void hibernateDelete(long id) {
-    	AccessPoint ap = new AccessPoint();
-		ap.setId(id);
-		getSession().getCurrentSession().delete(ap);	
+        AccessPoint accessPoint = new AccessPoint();
+        accessPoint.setId(id);
+        getSession().getCurrentSession().delete(accessPoint);
     }
 }
