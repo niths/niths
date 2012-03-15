@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.signaling;
 
 import java.io.Serializable;
 

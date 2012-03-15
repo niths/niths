@@ -4,7 +4,7 @@ import no.niths.application.rest.interfaces.AccessPointController;
 import no.niths.application.rest.lists.AccessPointList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
-import no.niths.domain.AccessPoint;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.services.interfaces.AccessPointService;
 import no.niths.services.interfaces.GenericService;
 

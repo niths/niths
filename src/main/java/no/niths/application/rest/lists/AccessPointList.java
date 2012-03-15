@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.AccessPoint;
+import no.niths.domain.signaling.AccessPoint;
 
 @XmlRootElement(name = AppConstants.ACCESS_POINTS)
 public class AccessPointList extends ListAdapter<AccessPoint> {

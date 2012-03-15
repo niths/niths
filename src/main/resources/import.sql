@@ -7,7 +7,7 @@ INSERT INTO roles(role_name) values('ROLE_FADDER_LEADER');
 INSERT INTO roles(role_name) values('ROLE_ANONYMOUS');
 INSERT INTO roles(role_name) values('ROLE_STUDENT');
 INSERT INTO roles(role_name) values('ROLE_DEVELOPER');
-
+	
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday','81'); 
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday','43');
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday','12');

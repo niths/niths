@@ -2,7 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.AccessPoint;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
 import no.niths.services.interfaces.AccessPointService;
 

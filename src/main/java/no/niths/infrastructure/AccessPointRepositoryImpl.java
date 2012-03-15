@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.AccessPoint;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
 
 import org.springframework.stereotype.Repository;

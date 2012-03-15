@@ -3,7 +3,7 @@ package no.niths.infrastructure;
 import static org.junit.Assert.*;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.AccessPoint;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
 
 import org.junit.Test;
