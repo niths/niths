@@ -1,11 +1,13 @@
 package no.niths.infrastructure;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -30,6 +32,15 @@ public class AccessPointRepositoryTest {
 
     @Autowired
     private AccessPointRepository repo;
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testCreateAccessPointWithDuplicateName() {
+        AccessPoint accessPoint1 = new AccessPoint("00:00:00:00:00:00");
+        repo.create(accessPoint1);
+
+        AccessPoint accessPoint2 = new AccessPoint("00:00:00:00:00:00");
+        repo.create(accessPoint2);
+    }
 
     @Test
     public void testCRUD() {
