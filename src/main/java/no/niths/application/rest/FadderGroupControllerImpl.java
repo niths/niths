@@ -8,6 +8,7 @@ import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
@@ -19,8 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +49,36 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 
     private StudentList studentList = new StudentList();
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    public void create(@RequestBody FadderGroup domain) {
+    	super.create(domain);
+    }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    public void update(@RequestBody FadderGroup domain) {
+    	super.update(domain);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    public void hibernateDelete(@PathVariable long id) {
+    	super.hibernateDelete(id);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
@@ -101,6 +133,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "addLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
     public void addLeaderToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
@@ -117,6 +150,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "removeLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
     public void removeLeaderFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
@@ -136,6 +170,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "addChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
     public void addChildToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
@@ -153,6 +188,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "removeChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
     public void removeChildFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
@@ -174,6 +210,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "removeAllChildren/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildrenFromAGroup(@PathVariable Long groupId) {
@@ -193,6 +230,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = { "removeAllLeaders/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeadersFromAGroup(@PathVariable Long groupId) {

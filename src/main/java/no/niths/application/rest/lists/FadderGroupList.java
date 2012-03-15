@@ -15,7 +15,7 @@ public class FadderGroupList extends ListAdapter<FadderGroup>{
 	 * 
 	 */
 	private static final long serialVersionUID = 7386282831236634626L;
-	@XmlElement(name = "faddergruppe")
+	@XmlElement(name = "fadderGroup")
     private List<FadderGroup> data;
 
     @Override
