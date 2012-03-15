@@ -29,23 +29,23 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
-	@Override
-	public Student getStudentByEmail(String email) {
-		String sql = "from " + Student.class.getSimpleName()
-				+ " s where s.email=:email";
-		return (Student) getSession().getCurrentSession().createQuery(sql)
-				.setString("email", email).uniqueResult();
-	}
-
-	@Override
-	public Student getStudentBySessionToken(String sessionToken) {
-		String sql = "from " + Student.class.getSimpleName()
-				+ " s where s.sessionToken=:token";
-		return (Student) getSession().getCurrentSession()
-				.createQuery(sql)
-				.setString("token", sessionToken)
-				.uniqueResult();
-	}
+//	@Override
+//	public Student getStudentByEmail(String email) {
+//		String sql = "from " + Student.class.getSimpleName()
+//				+ " s where s.email=:email";
+//		return (Student) getSession().getCurrentSession().createQuery(sql)
+//				.setString("email", email).uniqueResult();
+//	}
+//
+//	@Override
+//	public Student getStudentBySessionToken(String sessionToken) {
+//		String sql = "from " + Student.class.getSimpleName()
+//				+ " s where s.sessionToken=:token";
+//		return (Student) getSession().getCurrentSession()
+//				.createQuery(sql)
+//				.setString("token", sessionToken)
+//				.uniqueResult();
+//	}
 	
 	@Override
 	public void hibernateDelete(long id) {

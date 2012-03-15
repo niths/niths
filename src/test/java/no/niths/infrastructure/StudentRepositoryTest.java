@@ -165,18 +165,18 @@ public class StudentRepositoryTest {
 		
 	}
 	
-	@Test
-	public void testGetStudentBySessionToken(){
-		Student s1 = new Student("mail@nith.no");
-		s1.setSessionToken("aToken");
-		studentRepo.create(s1);
-		Student s2 = new Student("mail2@nith.no");
-		s2.setSessionToken("bToken");
-		studentRepo.create(s2);
-		
-		assertEquals(s1, studentRepo.getStudentBySessionToken("aToken"));
-		assertEquals(null, studentRepo.getStudentBySessionToken("cToken"));
-	}
+//	@Test
+//	public void testGetStudentBySessionToken(){
+//		Student s1 = new Student("mail@nith.no");
+//		s1.setSessionToken("aToken");
+//		studentRepo.create(s1);
+//		Student s2 = new Student("mail2@nith.no");
+//		s2.setSessionToken("bToken");
+//		studentRepo.create(s2);
+//		
+//		assertEquals(s1, studentRepo.getStudentBySessionToken("aToken"));
+//		assertEquals(null, studentRepo.getStudentBySessionToken("cToken"));
+//	}
 	
 	private ArrayList<Student>createStudentHelper(){
 		ArrayList<Student> students = new ArrayList<Student>();

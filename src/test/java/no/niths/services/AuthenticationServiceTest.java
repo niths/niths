@@ -13,6 +13,7 @@ import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.interfaces.StudentService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Test;
@@ -25,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class AuthenticationServiceTest {
 
 	@Mock
-	private StudentRepository studRepo;
+	private StudentService studRepo;
 	
 	@Mock
 	private GoogleAuthenticationService authService;
@@ -37,13 +38,13 @@ public class AuthenticationServiceTest {
 	public void testAuthenticate(){
 		service.setCryptionPassword("password");
 		String token = getNormalToken();
-		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
+		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));
 		
 		User u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		
 		token = getExpiredToken();
-		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
+		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));
 		
 		u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
