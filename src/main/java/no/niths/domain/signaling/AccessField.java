@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.common.AppConstants;
 import no.niths.domain.Room;
 
@@ -54,15 +55,21 @@ public class AccessField implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "access_point_id"))
     private AccessPoint accessPoint;
 
-    public AccessField(){
-        this(null,null);
+    public AccessField() {}
+
+    public AccessField(Integer min, Integer max) {
+        this.maxRange = max;
+        this.minRange = min;
+        validateRanges();
     }
-    
-    public AccessField(Integer min, Integer max){
-        setMaxRange(max);
-        setMinRange(min);
+
+    private void validateRanges() {
+        if (minRange != null && maxRange != null && minRange > maxRange) {
+            throw new BadRequestException(
+                    "Min range is greater than max range");
+        }
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -73,6 +80,7 @@ public class AccessField implements Serializable {
 
     public void setMinRange(Integer minRange) {
         this.minRange = minRange;
+        validateRanges();
     }
 
     public Integer getMinRange() {
@@ -81,6 +89,7 @@ public class AccessField implements Serializable {
 
     public void setMaxRange(Integer maxRange) {
         this.maxRange = maxRange;
+        validateRanges();
     }
 
     public Integer getMaxRange() {
