@@ -1,5 +1,6 @@
 package no.niths.services.auth.interfaces;
 
+import no.niths.security.SessionToken;
 import no.niths.security.User;
 /**
  * Authenticates user trying to request a resource
@@ -15,5 +16,5 @@ public interface AuthenticationService {
 	 */
 	User authenticateSessionToken(String sessionToken);
 	
-	String authenticateAtGoogle(String token);
+	SessionToken authenticateAtGoogle(String token);
 }

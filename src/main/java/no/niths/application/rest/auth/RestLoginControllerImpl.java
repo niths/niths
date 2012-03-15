@@ -47,11 +47,10 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@ResponseBody
 	public SessionToken login(@PathVariable String token) {
 		logger.info("A user wants to be authenticated with token: " + token);
-		SessionToken temp = new SessionToken(); //Wrapper class for response to user
 		if(token != null){
-			temp.setToken(service.authenticateAtGoogle(token));
+			return service.authenticateAtGoogle(token);
 		}
-		return temp;
+		return new SessionToken();
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)

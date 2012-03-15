@@ -9,6 +9,7 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.AuthenticationService;
@@ -42,7 +43,10 @@ public class AuthenticationServiceImpl implements
 	private String cryptionPassword;
 	
 	/**
-	 * Authenticates user against Google.
+	 * Authenticates a student via Google. If authentication succeeds,
+	 * student is either fetched from DB or if the student is a first time user, 
+	 * he/she gets persisted.
+	 * 
 	 * Returns a session token valid for (see AppConstants.SESSION_VALID_TIME) minutes
 	 * Use this session token for future requests against the API
 	 * 
@@ -50,54 +54,49 @@ public class AuthenticationServiceImpl implements
 	 * @return session token to use in future request
 	 */
 	@Override
-	public String authenticateAtGoogle(String googleToken) {
-		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
-		//Authenticate via Google
+	public SessionToken authenticateAtGoogle(String googleToken) {
+		SessionToken sessionToken = new SessionToken(); //Wrapper class
+		//Authenticate user from Google, and then check to see if the email is valid
 		String userEmail = googleService.authenticateAndGetEmail(googleToken);
-		//Check if user has valid email ("nith.no")
 		if(isUserValid(userEmail)){
-			
+			//Fetches the student from DB, if first time user, he/she gets persisted
 			Student authenticatedStudent = studentRepo.getStudentByEmail(userEmail);
-			
 			if(authenticatedStudent == null){ //First time user, persist!
 				authenticatedStudent = new Student(userEmail);
 				Long id = studentRepo.create(authenticatedStudent);
 				authenticatedStudent.setId(id); 
 			}
-			
-			//Generate "session token" that student uses from now on
-			generatedToken = generateToken(authenticatedStudent.getId());
+			//Generate "session token" that the app will use from now on
+			String generatedToken = generateToken(authenticatedStudent.getId());
 			authenticatedStudent.setSessionToken(generatedToken);
 			studentRepo.update(authenticatedStudent);
+			sessionToken.setToken(generatedToken);
 		}
-		
-		return generatedToken;
+		return sessionToken;
 	}
 
 	/**
-	 * Fetch student that belongs to session token and returns a user object
-	 * with roles of the student
+	 * Authenticates the session token from a request
+	 * Verifies the format of the token, then fetches belonging student 
+	 * from DB. We then create a User wrapper object with roles from the student
+	 * and return that object to the class responsible for setting the
+	 * authenticated user. 
 	 * 
-	 * @param sessionToken
-	 *            access token
-	 * @return a user object with roles
+	 * @param sessionToken the token to verify
+	 * @return a user object with roles from student belonging to the session token
 	 */
 	@Override
 	public User authenticateSessionToken(String sessionToken) {
-		logger.debug("User trying to log in with session token: "
-				+ sessionToken);
-		User authenticatedUser = new User(); // ROLE_USER
-
+		logger.debug("Request with session token: " + sessionToken);
+		User authenticatedUser = new User(); // ROLE_ANONYMOUS
 		if (sessionToken != null && verifySessionToken(sessionToken)) {
 			Student wantAccess = studentRepo
 					.getStudentBySessionToken(sessionToken);
-
 			if (wantAccess != null) { // User with session token found
 				//Add some security info to the user
 				authenticatedUser.setUserName(wantAccess.getEmail());
 				authenticatedUser.setStudentId(wantAccess.getId());
 				// Checking roles of student and adding them to User wrapper
-				// object
 				List<Role> roles = wantAccess.getRoles();
 				if (!(roles.isEmpty())) {
 					String loggerText = "Student logging in has role(s): ";

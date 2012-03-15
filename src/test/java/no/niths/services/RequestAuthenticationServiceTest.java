@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
@@ -62,8 +63,8 @@ public class RequestAuthenticationServiceTest {
 		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
 		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(s);
 				
-		String genToken = service.authenticateAtGoogle("token");
-		assertNotSame("Not a valid token provided", genToken);
+		SessionToken genToken = service.authenticateAtGoogle("token");
+		assertNotSame("Not a valid token provided", genToken.getToken());
 		
 		//Not a valid email
 		s.setEmail("mail@mail.no");
@@ -71,7 +72,7 @@ public class RequestAuthenticationServiceTest {
 		when(studRepo.getStudentByEmail("mail@mail.no")).thenReturn(s);
 		
 		genToken = service.authenticateAtGoogle("token");
-		assertEquals("Not a valid token provided", genToken);
+		assertEquals("Not a valid token provided", genToken.getToken());
 		
 		//Not a registrated user
 		s.setEmail("mail@nith.no");
@@ -80,7 +81,7 @@ public class RequestAuthenticationServiceTest {
 		when(studRepo.create(new Student("mail@nith.no"))).thenReturn(new Long(1));
 		
 		genToken = service.authenticateAtGoogle("token");
-		assertNotSame("Not a valid token provided", genToken);
+		assertNotSame("Not a valid token provided", genToken.getToken());
 	}
 	
 	private String getExpiredToken(){
