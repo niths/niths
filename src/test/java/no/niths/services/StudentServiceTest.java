@@ -45,7 +45,6 @@ public class StudentServiceTest {
 	private CommitteeService comService;
 
 	@Test
-	@Rollback(true)
 	public void testCRUD() {
 
 		ArrayList<Student> students = (ArrayList<Student>) studService.getAll(null);

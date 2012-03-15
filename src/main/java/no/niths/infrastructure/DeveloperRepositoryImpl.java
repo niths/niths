@@ -6,7 +6,7 @@ import no.niths.infrastructure.interfaces.DeveloperRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DeveloperRepositoryImpl extends GenericRepositoryImpl<Developer>
+public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Developer>
 		implements DeveloperRepository {
 
 	public DeveloperRepositoryImpl() {

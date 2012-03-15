@@ -6,7 +6,7 @@ import no.niths.infrastructure.interfaces.SubjectRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SubjectRepositoryImpl extends GenericRepositoryImpl<Subject>
+public class SubjectRepositoryImpl extends AbstractGenericRepositoryImpl<Subject>
 		implements SubjectRepository {
 
 	public SubjectRepositoryImpl() {

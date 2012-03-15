@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RoomRepositoryImpl extends GenericRepositoryImpl<Room> implements
+public class RoomRepositoryImpl extends AbstractGenericRepositoryImpl<Room> implements
 		RoomRepository {
 
 	private Logger logger = LoggerFactory.getLogger(RoomRepositoryImpl.class);

@@ -2,6 +2,7 @@ package no.niths.services;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Room;
 import no.niths.services.interfaces.RoomService;
 
 import org.junit.Test;
@@ -16,6 +17,10 @@ public class RoomServiceTest {
 
 	@Autowired
 	private RoomService service;
+	
+	
+	private Room room;
+
 	
 	@Test
 	public void testRoomService(){

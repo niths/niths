@@ -6,7 +6,7 @@ import no.niths.infrastructure.interfaces.RoleRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RoleRepositoryImpl extends GenericRepositoryImpl<Role>
+public class RoleRepositoryImpl extends AbstractGenericRepositoryImpl<Role>
 		implements RoleRepository{
 
 	public RoleRepositoryImpl() {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AccessPointRepositoryImpl
-        extends GenericRepositoryImpl<AccessPoint>
+        extends AbstractGenericRepositoryImpl<AccessPoint>
         implements AccessPointRepository {
 
     public AccessPointRepositoryImpl() {
@@ -16,6 +16,8 @@ public class AccessPointRepositoryImpl
 
     @Override
     public void hibernateDelete(long id) {
-        
+    	AccessPoint ap = new AccessPoint();
+		ap.setId(id);
+		getSession().getCurrentSession().delete(ap);	
     }
 }

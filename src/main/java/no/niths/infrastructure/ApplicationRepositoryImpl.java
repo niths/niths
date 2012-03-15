@@ -5,7 +5,7 @@ import no.niths.infrastructure.interfaces.ApplicationRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ApplicationRepositoryImpl extends GenericRepositoryImpl<Application>
+public class ApplicationRepositoryImpl extends AbstractGenericRepositoryImpl<Application>
 		implements ApplicationRepository {
 
 	public ApplicationRepositoryImpl() {

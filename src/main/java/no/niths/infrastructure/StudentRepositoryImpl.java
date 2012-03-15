@@ -9,7 +9,7 @@ import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StudentRepositoryImpl extends GenericRepositoryImpl<Student>
+public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student>
 		implements StudentRepository {
 
 	

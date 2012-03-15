@@ -8,7 +8,7 @@ import no.niths.infrastructure.interfaces.EventRepositorty;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EventRepositoryImpl extends GenericRepositoryImpl<Event> implements
+public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event> implements
 		EventRepositorty {
 
 	private QueryGenerator<Event> queryGen;

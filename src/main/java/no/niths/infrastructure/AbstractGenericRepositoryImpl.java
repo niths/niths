@@ -11,12 +11,12 @@ import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public class GenericRepositoryImpl<T extends Serializable> implements
+public abstract class AbstractGenericRepositoryImpl<T extends Serializable> implements
 		GenericRepository<T> {
 
 	private Class<T> persistentClass;
 
-	public GenericRepositoryImpl(Class<T> persistentClass) {
+	public AbstractGenericRepositoryImpl(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
 	}
 
@@ -31,9 +31,6 @@ public class GenericRepositoryImpl<T extends Serializable> implements
 	/**
 	 * Find and returns all objects which has values equal to the object sent as
 	 * parameter.
-	 * 
-	 * 
-	 * 
 	 * @param domain
 	 *            - The object that has the values to search for
 	 * @return List of objects found
@@ -78,8 +75,6 @@ public class GenericRepositoryImpl<T extends Serializable> implements
 		return session;
 	}
 
-	@Override
-	public void hibernateDelete(long id) {
-		
-	}
+
+	public abstract void  hibernateDelete(long id);
 }
