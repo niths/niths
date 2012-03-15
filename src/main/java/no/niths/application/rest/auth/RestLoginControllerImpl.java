@@ -7,6 +7,7 @@ import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
 //import no.niths.services.auth.interfaces.RestLoginService;
 
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,6 @@ public class RestLoginControllerImpl implements RestLoginController{
 	
 	@Autowired
 	private AuthenticationService service;
-//	@Autowired
-//	private RestLoginService service;
 
 	/**
 	 * Authorize the user. Use the returned session token for future requests

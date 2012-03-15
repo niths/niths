@@ -9,18 +9,25 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
+import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
-import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.interfaces.StudentService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Authenticates user trying to request a resource
@@ -30,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthenticationServiceImpl.class);
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -90,18 +97,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
 		// First check the format of the token
 		if (verifySessionTokenFormat(sessionToken)) {
-			//Fetch student owning the session token
-			Student wantAccess = studentService.getStudentBySessionToken(sessionToken);
-			//Then we verify the last login time of the student
-			if (wantAccess != null && verifyLastLogonTime(wantAccess.getLastLogon())) {
-				
-				//The information added here is used in the @Security annotations
-				//This enables us to fine grain the security checks like this:
-				//@PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId == #id)
-				//principal = authenticatedUser, #id = methodparam(must match the name!)
+			// Fetch student owning the session token
+			Student wantAccess = studentService
+					.getStudentBySessionToken(sessionToken);
+			// Then we verify the last login time of the student
+			if (wantAccess != null
+					&& verifyLastLogonTime(wantAccess.getLastLogon())) {
+
+				// The information added here is used in the @Security
+				// annotations
+				// This enables us to fine grain the security checks like this:
+				// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId
+				// == #id)
+				// principal = authenticatedUser, #id = methodparam(must match
+				// the name!)
 				authenticatedUser.setUserName(wantAccess.getEmail());
 				authenticatedUser.setStudentId(wantAccess.getId());
-				
+
 				// Checking roles of student and adding them to User wrapper
 				List<Role> roles = wantAccess.getRoles();
 				if (!(roles.isEmpty())) {
@@ -134,22 +146,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private boolean verifySessionTokenFormat(String token) {
 		if (token != null) {
 			logger.info("Verifying format of token: " + token);
-			StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-			jasypt.setPassword(cryptionPassword);
-			String decryptedToken = jasypt.decrypt(token);
-
-			logger.debug("Token after decryption: " + decryptedToken);
-			String[] splittet = decryptedToken.split("[|]");
-			if (splittet.length == 3) {
-				try {
-					long issuedAt = Long.parseLong(splittet[2]);
-					if (System.currentTimeMillis() - issuedAt <= SecurityConstants.MAX_SESSION_VALID_TIME) {
-						return true;
+//			try {
+				StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
+				jasypt.setPassword(cryptionPassword);
+				String decryptedToken = jasypt.decrypt(token);
+				logger.debug("Token after decryption: " + decryptedToken);
+				String[] splittet = decryptedToken.split("[|]");
+				if (splittet.length == 3) {
+					try {
+						long issuedAt = Long.parseLong(splittet[2]);
+						if (System.currentTimeMillis() - issuedAt <= SecurityConstants.MAX_SESSION_VALID_TIME) {
+							return true;
+						}
+					} catch (NumberFormatException e) {
+						// Do nothing...
 					}
-				} catch (NumberFormatException e) {
-					// Do nothing...
 				}
-			}
+//			} catch (EncryptionOperationNotPossibleException ee) {
+//
+//			}
 		}
 		return false; // Not valid token
 	}

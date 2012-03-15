@@ -388,4 +388,4 @@ INSERT INTO applications(id, title) VALUES(4, 'Drawsome');
 
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1);
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2);
-INSERT + developers_applications(developers_id, applications_id) VALUES (2, 3);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3);
