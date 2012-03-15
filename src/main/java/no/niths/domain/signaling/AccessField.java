@@ -1,6 +1,8 @@
 package no.niths.domain.signaling;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,15 +10,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Room;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = AppConstants.ACCESS_FIELDS)
@@ -36,8 +42,12 @@ public class AccessField implements Serializable {
 	@Column(name = "max_range")
 	private Integer maxRange;
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "rooms_access_fields", joinColumns = @JoinColumn(name = "accessFields_id"), inverseJoinColumns = @JoinColumn(name = "rooms_id"))
+	private List<Room> rooms = new ArrayList<Room>();
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Cascade(CascadeType.ALL)
+	@JoinTable(name = "af_ap", joinColumns = @JoinColumn(name = "accessFields_id"), inverseJoinColumns = @JoinColumn(name = "accessPoint_id"))
 	private AccessPoint accessPoint;
 
 	public void setId(Long id) {
@@ -70,5 +80,15 @@ public class AccessField implements Serializable {
 
 	public void setAccessPoint(AccessPoint accessPoint) {
 		this.accessPoint = accessPoint;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
 	}
 }

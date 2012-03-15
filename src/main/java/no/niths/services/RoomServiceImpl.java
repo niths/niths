@@ -16,47 +16,47 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoomServiceImpl implements RoomService {
 
-    private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 
-    @Autowired
-    private RoomRepository repo;
+	@Autowired
+	private RoomRepository repo;
 
-    @Override
-    public Long create(Room domain) {
-        return repo.create(domain);
-    }
+	@Override
+	public Long create(Room domain) {
+		return repo.create(domain);
+	}
 
-    @Override
-    public List<Room> getAll(Room domain) {
-        List<Room> rooms = repo.getAll(null);
-        for (Room r : rooms) {
-            r.getAccessFields().size();
-        }
+	@Override
+	public List<Room> getAll(Room domain) {
+		List<Room> rooms = repo.getAll(null);
+		for (Room r : rooms) {
+			r.getAccessFields().size();
+		}
+		return rooms;
+	}
 
-        return rooms;
-    }
+	@Override
+	public Room getById(long id) {
+		Room room = repo.getById(id);
+		if (room != null) {
+			room.getAccessFields().size();
+		}
+		return room;
+	}
 
-    @Override
-    public Room getById(long id) {
-        Room room = repo.getById(id);
-        room.getAccessFields().size();
+	@Override
+	public void update(Room domain) {
+		repo.update(domain);
+	}
 
-        return room;
-    }
+	@Override
+	public boolean delete(long id) {
+		return repo.delete(id);
+	}
 
-    @Override
-    public void update(Room domain) {
-        repo.update(domain);
-    }
-
-    @Override
-    public boolean delete(long id) {
-        return repo.delete(id);
-    }
-
-    @Override
-    public void hibernateDelete(long id) {
-        repo.hibernateDelete(id);
-    }
+	@Override
+	public void hibernateDelete(long id) {
+		repo.hibernateDelete(id);
+	}
 
 }
