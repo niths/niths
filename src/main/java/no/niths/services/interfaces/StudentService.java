@@ -11,4 +11,8 @@ public interface StudentService extends GenericService<Student> {
 	List<Student> getStudentsAndRoles(Student student);
 	
 	List<Student> getStudentByColumn(String column, String criteria);
+	
+	Student getStudentBySessionToken(String token);
+	
+	Student getStudentByEmail(String email);
 }

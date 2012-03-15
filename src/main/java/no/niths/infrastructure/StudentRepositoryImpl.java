@@ -29,6 +29,7 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
+	@Override
 	public Student getStudentByEmail(String email) {
 		String sql = "from " + Student.class.getSimpleName()
 				+ " s where s.email=:email";

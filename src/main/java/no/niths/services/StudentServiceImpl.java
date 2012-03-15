@@ -37,6 +37,25 @@ public class StudentServiceImpl implements StudentService {
 		}		
 		return repo.create(student);
 	}
+	
+	public Student getStudentByEmail(String email){
+		Student s = new Student(email);
+		List<Student> all = getAll(s);
+		if(!all.isEmpty()){
+			return all.get(0);
+		}
+		return null;
+	}
+	public Student getStudentBySessionToken(String token){
+		Student s = new Student();
+		s.setSessionToken(token);
+		List<Student> all = getAll(s);
+		if(!all.isEmpty()){
+			return all.get(0);
+		}
+		return null;
+	}
+	
 
 	/**
 	 * Finds and returns a student with a given id. Returns the student with
