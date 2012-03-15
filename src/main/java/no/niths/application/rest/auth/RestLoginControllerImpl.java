@@ -3,7 +3,7 @@ package no.niths.application.rest.auth;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
-import no.niths.security.Token;
+import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
 //import no.niths.services.auth.interfaces.RestLoginService;
 
@@ -45,9 +45,9 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@Override
 	@RequestMapping(value = { "/{token:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public Token login(@PathVariable String token) {
+	public SessionToken login(@PathVariable String token) {
 		logger.info("A user wants to be authenticated with token: " + token);
-		Token temp = new Token(); //Wrapper class for response to user
+		SessionToken temp = new SessionToken(); //Wrapper class for response to user
 		if(token != null){
 			temp.setToken(service.authenticateAtGoogle(token));
 		}

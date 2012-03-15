@@ -6,15 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class Token {
+public class SessionToken {
 	
 	private String token;
 	
-	public Token(){
+	public SessionToken(){
 		token = "Not provided";
 	}
 	
-	public Token(String token){
+	public SessionToken(String token){
 		this.token = token;
 	}
 
