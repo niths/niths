@@ -45,37 +45,37 @@ public class UserAuthFilter extends OncePerRequestFilter {
 		//////////////////////////
 		//FOR EASIER TEST: Add roles if needed
 		///////////////////////////
-		logger.debug("TEST MODE AUTH!");
-		
-		User uu = new User("rosben09@nith.no");
-		uu.setStudentId(new Long(3));
-		uu.addRoleName("ROLE_STUDENT");
-		setCurrentAuthenticatedUser(uu);
-		
-		chain.doFilter(req, res);
+//		logger.debug("TEST MODE AUTH!");
+//		
+//		User uu = new User("rosben09@nith.no");
+//		uu.setStudentId(new Long(3));
+//		uu.addRoleName("ROLE_STUDENT");
+//		setCurrentAuthenticatedUser(uu);
+//		
+//		chain.doFilter(req, res);
 		///////////////////////////////
 		//TEST MODE: OUTCOMMENT ALL BELOW
 		////////////////////////////
 
 		
 		
-//		logger.info("Checking for session token");
-//		try {
-//			String token = req.getHeader("session-token");
-//			if (token != null) {
-//				logger.info("Token was provided");
-//				User u = service.authenticate(token);
-//				setCurrentAuthenticatedUser(u);
-//			} else {
-//				logger.info("A token was not provided");
-//			}
-//		
-//		//If token is provided, but not correct			
-//		} catch (HttpClientErrorException httpe) {			
-//			logger.warn("Not a valid token");
-//		}
-//		//Continue the security filter chain
-//		chain.doFilter(req, res);
+		logger.info("Checking for session token");
+		try {
+			String token = req.getHeader("session-token");
+			if (token != null) {
+				logger.info("Token was provided");
+				User u = service.authenticate(token);
+				setCurrentAuthenticatedUser(u);
+			} else {
+				logger.info("A token was not provided");
+			}
+		
+		//If token is provided, but not correct			
+		} catch (HttpClientErrorException httpe) {			
+			logger.warn("Not a valid token");
+		}
+		//Continue the security filter chain
+		chain.doFilter(req, res);
 	}
 
 	//Sets the current authenticated user

@@ -7,6 +7,7 @@ import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
 import no.niths.domain.Event;
@@ -20,9 +21,11 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,6 +110,27 @@ public class CommitteeControllerImpl
         }
         return committeeList;
     }
+    
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void hibernateDelete(@PathVariable long id) {
+    	// TODO Auto-generated method stub
+    	super.hibernateDelete(id);
+    }
+    
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void create(@RequestBody Committee domain) {
+    	// TODO Auto-generated method stub
+    	super.create(domain);
+    }
+    
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void update(Committee domain) {
+    	// TODO Auto-generated method stub
+    	super.update(domain);
+    }
 
     /**
      * Adds a leader to a committee
@@ -116,6 +140,8 @@ public class CommitteeControllerImpl
      * @param studentId
      *            The id of the student to add as leader
      */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     @RequestMapping(
             value ="leaders/{committeeId}/{studentId}",
             method = RequestMethod.POST)
@@ -139,6 +165,8 @@ public class CommitteeControllerImpl
      * @param studentId
      *            The id of the student to remove
      */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     @RequestMapping(
             value = "leaders/{committeeId}/{studentId}",
             method = RequestMethod.DELETE)
@@ -158,6 +186,7 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     @RequestMapping(
             value = "addEvent/{committeeId}/{eventId}",
             method = RequestMethod.PUT)
@@ -177,6 +206,7 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     @RequestMapping(
             value = "removeEvent/{committeeId}/{eventId}",
             method = RequestMethod.PUT)
