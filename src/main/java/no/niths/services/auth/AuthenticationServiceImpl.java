@@ -59,21 +59,21 @@ public class AuthenticationServiceImpl implements
 		//Authenticate user from Google, and then check to see if the email is valid
 		String userEmail = googleService.authenticateAndGetEmail(googleToken);
 		if(isUserValid(userEmail)){
-			//Fetches the student from DB, if first time user, he/she gets persisted
-			Student authenticatedStudent = studentRepo.getStudentByEmail(userEmail);
-			if(authenticatedStudent == null){ //First time user, persist!
-				authenticatedStudent = new Student(userEmail);
-				Long id = studentRepo.create(authenticatedStudent);
-				authenticatedStudent.setId(id); 
-			}
+			Student authenticatedStudent = getStudent(userEmail);
 			//Generate "session token" that the app will use from now on
 			String generatedToken = generateToken(authenticatedStudent.getId());
+			//Add the generated token to the student
 			authenticatedStudent.setSessionToken(generatedToken);
+			//Update last login time
+			authenticatedStudent.setLastLogon(getCurrentTime());
 			studentRepo.update(authenticatedStudent);
+			
 			sessionToken.setToken(generatedToken);
 		}
 		return sessionToken;
 	}
+	
+
 
 	/**
 	 * Authenticates the session token from a request
@@ -151,6 +151,24 @@ public class AuthenticationServiceImpl implements
 		return encryptedToked;
 	}
 	
+	/**
+	 * Fetches student from DB. If no student matches the email,
+	 * a new student will be created and persisted
+	 * 
+	 * @param userEmail the email to the student
+	 * @return Student with the email, existing or newly created
+	 */
+	private Student getStudent(String userEmail){
+			//Fetches the student from DB, if first time user, he/she gets persisted
+			Student student = studentRepo.getStudentByEmail(userEmail);
+			if(student == null){ //First time user, persist!
+				student = new Student(userEmail);
+				Long id = studentRepo.create(student);
+				student.setId(id); 
+			}
+			return student;
+	}
+	
 	//Check if the email of the user is valid(nith.no) and passes bean validation
 	private boolean isUserValid(String email){
 		if(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)
@@ -168,6 +186,10 @@ public class AuthenticationServiceImpl implements
 
 	public void setCryptionPassword(String decryptionPassword) {
 		this.cryptionPassword = decryptionPassword;
+	}
+	
+	private long getCurrentTime() {
+		return new GregorianCalendar().getTimeInMillis();
 	}
 
 }

@@ -22,7 +22,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RequestAuthenticationServiceTest {
+public class AuthenticationServiceTest {
 
 	@Mock
 	private StudentRepository studRepo;

@@ -11,7 +11,7 @@ public class SessionToken {
 	private String token;
 	
 	public SessionToken(){
-		token = "Not provided";
+		token = "Not a valid token provided";
 	}
 	
 	public SessionToken(String token){
