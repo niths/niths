@@ -10,9 +10,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Simple wrapper class for authenticated user
+ * Simple wrapper class for authenticated user.
+ * We set the current authenticated user to an instance of this class.
+ * Spring security then uses the instance to determine if it has the 
+ * roles and attributes needed
  * 
- * Holds the users authorities (roles), user name and google token
+ * The attributes in this class is used to fine grain the security checks.
+ * 
+ * Ex: The student id can be used together with the role like this:
+ * 
+ * @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId == #id)
+ * public void anyMethod(Long id) {...}
+ * 
+ * principal = the authenticated user
  * 
  */
 public class User implements UserDetails {

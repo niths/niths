@@ -9,11 +9,10 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
-import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
-import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.AuthenticationService;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.interfaces.StudentService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -21,22 +20,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Authenticates user trying to request a resource
  */
 @Service
-//@Transactional
 public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthenticationServiceImpl.class);
-
-//	@Autowired
-//	private StudentRepository studentRepo;
 	
 	@Autowired
 	private StudentService studentService;
@@ -73,9 +66,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			authenticatedStudent.setSessionToken(generatedToken);
 			// Update last login time
 			authenticatedStudent.setLastLogon(getCurrentTime());
-			////////////////////////
-			///////////////////////////
-//			studentRepo.update(authenticatedStudent);
+
 			studentService.update(authenticatedStudent);
 			sessionToken.setToken(generatedToken);
 		}
@@ -100,11 +91,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// First check the format of the token
 		if (verifySessionTokenFormat(sessionToken)) {
 			//Fetch student owning the session token
-//			Student wantAccess = studentRepo.getStudentBySessionToken(sessionToken);
 			Student wantAccess = studentService.getStudentBySessionToken(sessionToken);
 			//Then we verify the last login time of the student
 			if (wantAccess != null && verifyLastLogonTime(wantAccess.getLastLogon())) {
-				logger.debug("Session token was valid");
+				
 				//The information added here is used in the @Security annotations
 				//This enables us to fine grain the security checks like this:
 				//@PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId == #id)
@@ -124,9 +114,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				}
 				// Update last login time
 				wantAccess.setLastLogon(getCurrentTime());
-////////////////////////
-		///////////////////////////
-				//studentRepo.update(wantAccess);
 				studentService.update(wantAccess);
 			}
 		}
@@ -134,7 +121,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	private boolean verifyLastLogonTime(long lastLogon) {
+		logger.debug("Verifying last login time...");
 		if (System.currentTimeMillis() - lastLogon <= SecurityConstants.SESSION_VALID_TIME) {
+			logger.debug("Session token was valid");
 			return true;
 		}
 		logger.debug("token was not valid");
@@ -197,11 +186,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// Fetches the student from DB, if first time user, he/she gets
 		// persisted
 		Student student = studentService.getStudentByEmail(userEmail);
-//		Student student = studentRepo.getStudentByEmail(userEmail);
 		if (student == null) { // First time user, persist!
 			student = new Student(userEmail);
 			Long id = studentService.create(student);
-//			Long id = studentRepo.create(student);
 			student.setId(id);
 		}
 		return student;
