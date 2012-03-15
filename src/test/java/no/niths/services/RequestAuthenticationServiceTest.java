@@ -1,6 +1,7 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.mockito.Mockito.when;
 
 import java.util.GregorianCalendar;
@@ -8,8 +9,10 @@ import java.util.UUID;
 
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.security.SessionToken;
 import no.niths.security.User;
-import no.niths.services.auth.RequestAuthenticationServiceImpl;
+import no.niths.services.auth.AuthenticationServiceImpl;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Test;
@@ -24,27 +27,61 @@ public class RequestAuthenticationServiceTest {
 	@Mock
 	private StudentRepository studRepo;
 	
+	@Mock
+	private GoogleAuthenticationService authService;
+	
 	@InjectMocks
-	private RequestAuthenticationServiceImpl service = new RequestAuthenticationServiceImpl();
+	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
 	
 	@Test
 	public void testAuthenticate(){
-		service.setDecryptionPassword("password");
+		service.setCryptionPassword("password");
 		String token = getNormalToken();
 		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
 		
-		User u = service.authenticate(token);
+		User u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		
 		token = getExpiredToken();
 		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
 		
-		u = service.authenticate(token);
+		u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		
-		u = service.authenticate(null);
+		u = service.authenticateSessionToken(null);
 		assertEquals(1, u.getAuthorities().size());
 
+	}
+	
+	@Test
+	public void testLogin(){
+		Student s = new Student("mail@nith.no");
+		s.setId(new Long(1));
+		service.setCryptionPassword("password");
+
+		//Valid email
+		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
+		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(s);
+				
+		SessionToken genToken = service.authenticateAtGoogle("token");
+		assertNotSame("Not a valid token provided", genToken.getToken());
+		
+		//Not a valid email
+		s.setEmail("mail@mail.no");
+		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@mail.no");
+		when(studRepo.getStudentByEmail("mail@mail.no")).thenReturn(s);
+		
+		genToken = service.authenticateAtGoogle("token");
+		assertEquals("Not a valid token provided", genToken.getToken());
+		
+		//Not a registrated user
+		s.setEmail("mail@nith.no");
+		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
+		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(null);
+		when(studRepo.create(new Student("mail@nith.no"))).thenReturn(new Long(1));
+		
+		genToken = service.authenticateAtGoogle("token");
+		assertNotSame("Not a valid token provided", genToken.getToken());
 	}
 	
 	private String getExpiredToken(){

@@ -3,8 +3,9 @@ package no.niths.application.rest.auth;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
-import no.niths.security.Token;
-import no.niths.services.auth.interfaces.RestLoginService;
+import no.niths.security.SessionToken;
+import no.niths.services.auth.interfaces.AuthenticationService;
+//import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,9 @@ public class RestLoginControllerImpl implements RestLoginController{
 			.getLogger(RestLoginControllerImpl.class);
 	
 	@Autowired
-	private RestLoginService service;
+	private AuthenticationService service;
+//	@Autowired
+//	private RestLoginService service;
 
 	/**
 	 * Authorize the user. Use the returned session token for future requests
@@ -42,14 +45,12 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@Override
 	@RequestMapping(value = { "/{token:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public Token login(@PathVariable String token) {
-		logger.info("A user wants to be authenticated");
-		logger.debug("WITH TOKEN: " + token);
-		Token temp = new Token();
+	public SessionToken login(@PathVariable String token) {
+		logger.info("A user wants to be authenticated with token: " + token);
 		if(token != null){
-			temp.setToken(service.login(token));
+			return service.authenticateAtGoogle(token);
 		}
-		return temp;
+		return new SessionToken();
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
