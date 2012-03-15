@@ -27,7 +27,7 @@ public class RestLoginControllerTest {
 	
 	@Test
 	public void testLogin(){
-		when(service.login("token")).thenReturn("returned");
+		when(service.authenticateAtGoogle("token")).thenReturn("returned");
 		assertEquals("returned", controller.login("token").getToken());
 		
 		Token t = new Token();

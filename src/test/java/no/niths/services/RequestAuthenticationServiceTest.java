@@ -38,16 +38,16 @@ public class RequestAuthenticationServiceTest {
 		String token = getNormalToken();
 		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
 		
-		User u = service.authenticate(token);
+		User u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		
 		token = getExpiredToken();
 		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no"));
 		
-		u = service.authenticate(token);
+		u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		
-		u = service.authenticate(null);
+		u = service.authenticateSessionToken(null);
 		assertEquals(1, u.getAuthorities().size());
 
 	}
@@ -62,7 +62,7 @@ public class RequestAuthenticationServiceTest {
 		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
 		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(s);
 				
-		String genToken = service.login("token");
+		String genToken = service.authenticateAtGoogle("token");
 		assertNotSame("Not a valid token provided", genToken);
 		
 		//Not a valid email
@@ -70,7 +70,7 @@ public class RequestAuthenticationServiceTest {
 		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@mail.no");
 		when(studRepo.getStudentByEmail("mail@mail.no")).thenReturn(s);
 		
-		genToken = service.login("token");
+		genToken = service.authenticateAtGoogle("token");
 		assertEquals("Not a valid token provided", genToken);
 		
 		//Not a registrated user
@@ -79,7 +79,7 @@ public class RequestAuthenticationServiceTest {
 		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(null);
 		when(studRepo.create(new Student("mail@nith.no"))).thenReturn(new Long(1));
 		
-		genToken = service.login("token");
+		genToken = service.authenticateAtGoogle("token");
 		assertNotSame("Not a valid token provided", genToken);
 	}
 	

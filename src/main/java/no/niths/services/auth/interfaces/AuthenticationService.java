@@ -13,7 +13,7 @@ public interface AuthenticationService {
 	 * @param sessionToken access token
 	 * @return a user object with roles
 	 */
-	User authenticate(String sessionToken);
+	User authenticateSessionToken(String sessionToken);
 	
-	String login(String token);
+	String authenticateAtGoogle(String token);
 }

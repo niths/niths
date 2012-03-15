@@ -50,12 +50,10 @@ public class AuthenticationServiceImpl implements
 	 * @return session token to use in future request
 	 */
 	@Override
-	public String login(String token) {
+	public String authenticateAtGoogle(String token) {
 		String generatedToken = "Not a valid token provided"; //Token parameter was not valid!
-		
 		//Authenticate via Google
 		String userEmail = googleService.authenticateAndGetEmail(token);
-		
 		//Check if user has valid email ("nith.no")
 		if(isUserValid(userEmail)){
 			
@@ -85,7 +83,7 @@ public class AuthenticationServiceImpl implements
 	 * @return a user object with roles
 	 */
 	@Override
-	public User authenticate(String sessionToken) {
+	public User authenticateSessionToken(String sessionToken) {
 		logger.debug("User trying to log in with session token: "
 				+ sessionToken);
 		User authenticatedUser = new User(); // ROLE_USER

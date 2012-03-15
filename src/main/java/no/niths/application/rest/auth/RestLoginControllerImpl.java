@@ -49,7 +49,7 @@ public class RestLoginControllerImpl implements RestLoginController{
 		logger.info("A user wants to be authenticated with token: " + token);
 		Token temp = new Token(); //Wrapper class for response to user
 		if(token != null){
-			temp.setToken(service.login(token));
+			temp.setToken(service.authenticateAtGoogle(token));
 		}
 		return temp;
 	}

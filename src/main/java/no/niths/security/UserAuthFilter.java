@@ -64,7 +64,7 @@ public class UserAuthFilter extends OncePerRequestFilter {
 			String token = req.getHeader("session-token");
 			if (token != null) {
 				logger.info("Token was provided");
-				User u = service.authenticate(token);
+				User u = service.authenticateSessionToken(token);
 				setCurrentAuthenticatedUser(u);
 			} else {
 				logger.info("A token was not provided");
