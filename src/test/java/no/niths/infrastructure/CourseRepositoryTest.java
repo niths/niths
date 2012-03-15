@@ -30,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager") 
 public class CourseRepositoryTest {
 	
 	private static final Logger logger = LoggerFactory

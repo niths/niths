@@ -1,22 +1,22 @@
 --USE niths;
 
-INSERT INTO roles(role_name) values('ROLE_ADMIN');
-INSERT INTO roles(role_name) values('ROLE_SR');
-INSERT INTO roles(role_name) values('ROLE_COMMITTEE_LEADER');
-INSERT INTO roles(role_name) values('ROLE_FADDER_LEADER');
-INSERT INTO roles(role_name) values('ROLE_ANONYMOUS');
-INSERT INTO roles(role_name) values('ROLE_STUDENT');
-INSERT INTO roles(role_name) values('ROLE_DEVELOPER');
+INSERT INTO roles(role_name) VALUES('ROLE_ADMIN');
+INSERT INTO roles(role_name) VALUES('ROLE_SR');
+INSERT INTO roles(role_name) VALUES('ROLE_COMMITTEE_LEADER');
+INSERT INTO roles(role_name) VALUES('ROLE_FADDER_LEADER');
+INSERT INTO roles(role_name) VALUES('ROLE_ANONYMOUS');
+INSERT INTO roles(role_name) VALUES('ROLE_STUDENT');
+INSERT INTO roles(role_name) VALUES('ROLE_DEVELOPER');
 	
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday','81'); 
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday','43');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday','12');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) values('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday','81'); 
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday','43');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday','12');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
 
 
 INSERT INTO courses (name, description) VALUES('Mobil apputvikling', 'Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.');
@@ -30,37 +30,37 @@ INSERT INTO courses (name, description) VALUES('E-business', 'Det er i dag mange
 INSERT INTO courses (name, description) VALUES('Industribachelor', 'Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.');
 
 
-insert into courses_subjects values(1,1);
-insert into courses_subjects values(1,2);
-insert into courses_subjects values(1,3);
-insert into courses_subjects values(2,4);
-insert into courses_subjects values(2,1);
-insert into courses_subjects values(3,1);
-insert into courses_subjects values(3,2);
-insert into courses_subjects values(3,3);
-insert into courses_subjects values(4,4);
-insert into courses_subjects values(4,1);
-insert into courses_subjects values(4,2);
-insert into courses_subjects values(4,3);
-insert into courses_subjects values(4,5);
+INSERT INTO courses_subjects VALUES(1,1);
+INSERT INTO courses_subjects VALUES(1,2);
+INSERT INTO courses_subjects VALUES(1,3);
+INSERT INTO courses_subjects VALUES(2,4);
+INSERT INTO courses_subjects VALUES(2,1);
+INSERT INTO courses_subjects VALUES(3,1);
+INSERT INTO courses_subjects VALUES(3,2);
+INSERT INTO courses_subjects VALUES(3,3);
+INSERT INTO courses_subjects VALUES(4,4);
+INSERT INTO courses_subjects VALUES(4,1);
+INSERT INTO courses_subjects VALUES(4,2);
+INSERT INTO courses_subjects VALUES(4,3);
+INSERT INTO courses_subjects VALUES(4,5);
 
 
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Øyvind', 'Ødegård','2012-02-02','degyvi09@nith.no','M','super awesome','41549300',3,'super secret password *******');
-INSERT INTO students_roles(students_id, roles_id) values(1, 1);
-INSERT INTO students_roles(students_id, roles_id) values(1, 2);
-INSERT INTO students_roles(students_id, roles_id) values(1, 3);
+INSERT INTO students_roles(students_id, roles_id) VALUES(1, 1);
+INSERT INTO students_roles(students_id, roles_id) VALUES(1, 2);
+INSERT INTO students_roles(students_id, roles_id) VALUES(1, 3);
 
 
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Andre', 'Kristensen', '2012-02-02','mail@mail.com','M','super awesome','81549300',3,'super secret password *******');
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3,'super secret password *******');
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3,'super secret password *******');
 
-INSERT INTO students_roles(students_id, roles_id) values(2, 1);
-INSERT INTO students_roles(students_id, roles_id) values(2, 2);
-INSERT INTO students_roles(students_id, roles_id) values(3, 1);
-INSERT INTO students_roles(students_id, roles_id) values(3, 3);
+INSERT INTO students_roles(students_id, roles_id) VALUES(2, 1);
+INSERT INTO students_roles(students_id, roles_id) VALUES(2, 2);
+INSERT INTO students_roles(students_id, roles_id) VALUES(3, 1);
+INSERT INTO students_roles(students_id, roles_id) VALUES(3, 3);
 
-INSERT INTO students_roles(students_id, roles_id) values(4, 1);
+INSERT INTO students_roles(students_id, roles_id) VALUES(4, 1);
 
 INSERT INTO rooms(room_name) VALUES('38');
 INSERT INTO rooms(room_name) VALUES('39');
@@ -125,28 +125,28 @@ INSERT INTO access_fields(min_range, max_range) VALUES(61, 71);
 INSERT INTO access_fields(min_range, max_range) VALUES(55, 62);
 INSERT INTO access_fields(min_range, max_range) VALUES(50, 69);
 
-insert into access_fields_access_points (access_point_id, access_field_id) values(1, 1);
-insert into access_fields_access_points (access_point_id, access_field_id) values(2, 2);
-insert into access_fields_access_points (access_point_id, access_field_id) values(3, 3);
-insert into access_fields_access_points (access_point_id, access_field_id) values(3, 4);
-insert into access_fields_access_points (access_point_id, access_field_id) values(4, 5);
-insert into access_fields_access_points (access_point_id, access_field_id) values(5, 6);
-insert into access_fields_access_points (access_point_id, access_field_id) values(6, 7);
-insert into access_fields_access_points (access_point_id, access_field_id) values(7, 8);
-insert into access_fields_access_points (access_point_id, access_field_id) values(8, 9);
-insert into access_fields_access_points (access_point_id, access_field_id) values(9, 10);
-insert into access_fields_access_points (access_point_id, access_field_id) values(9, 11);
-insert into access_fields_access_points (access_point_id, access_field_id) values(9, 12);
-insert into access_fields_access_points (access_point_id, access_field_id) values(10, 13);
-insert into access_fields_access_points (access_point_id, access_field_id) values(11, 14);
-insert into access_fields_access_points (access_point_id, access_field_id) values(12, 15);
-insert into access_fields_access_points (access_point_id, access_field_id) values(13, 16);
-insert into access_fields_access_points (access_point_id, access_field_id) values(17, 17);
-insert into access_fields_access_points (access_point_id, access_field_id) values(15, 18);
-insert into access_fields_access_points (access_point_id, access_field_id) values(16, 19);
-INSERT INTO access_fields_access_points (access_point_id, access_field_id) values(14, 20);
-INSERT INTO access_fields_access_points (access_point_id, access_field_id) values(18, 21);
-insert into access_fields_access_points (access_point_id, access_field_id) values(19, 22);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(1, 1);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(2, 2);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(3, 3);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(3, 4);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(4, 5);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(5, 6);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(6, 7);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(7, 8);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(8, 9);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(9, 10);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(9, 11);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(9, 12);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(10, 13);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(11, 14);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(12, 15);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(13, 16);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(17, 17);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(15, 18);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(16, 19);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(14, 20);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(18, 21);
+INSERT INTO access_fields_access_points (access_point_id, access_field_id) VALUES(19, 22);
 
 
 
@@ -182,7 +182,7 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Oliver@nith.no','Cally','Burks','1991-04-22','81859501','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Norris@nith.no','Dora','Chase','1988-12-24','20606126','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Tran@nith.no','Teagan','Mccullough','1991-02-04','90087505','3');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Strickland@nith.no','Curran','Mcintosh','1978-09-23','41738341','2');
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Strickland@nith.no','Curran','McINTOsh','1978-09-23','41738341','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Caldwell@nith.no','Jared','Austin','1970-04-19','24624683','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Shepherd@nith.no','Kennan','Hale','1988-03-01','32901065','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Horne@nith.no','Sheila','Burks','1971-04-14','84225427','3');	
@@ -199,7 +199,7 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Oneil@nith.no','Tanek','Cohen','1972-01-18','90422830','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Calderon@nith.no','Roth','Vazquez','1986-11-08','44160310','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Cortez@nith.no','Simone','Weaver','1972-02-18','34191510','2');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Mcintosh@nith.no','Mufutau','Savage','1988-02-08','46808292','2');
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('McINTOsh@nith.no','Mufutau','Savage','1988-02-08','46808292','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Boyle@nith.no','Sandra','Puckett','1973-07-23','40732736','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Hunt@nith.no','Georgia','Greene','1975-08-08','97453748','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('Fletcher@nith.no','Naida','Drake','1975-04-02','57518493','2');
@@ -319,73 +319,73 @@ INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukezx
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukex3 party','party','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, fest');
 
 
-INSERT INTO fadder_groups(id, group_number) values (1, 1);
-INSERT INTO fadder_groups(id, group_number) values (2, 2);
-INSERT INTO fadder_groups(id, group_number) values (3, 3);
-INSERT INTO fadder_groups(id, group_number) values (4, 4);
+INSERT INTO fadder_groups(id, group_number) VALUES (1, 1);
+INSERT INTO fadder_groups(id, group_number) VALUES (2, 2);
+INSERT INTO fadder_groups(id, group_number) VALUES (3, 3);
+INSERT INTO fadder_groups(id, group_number) VALUES (4, 4);
 
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(1, 1);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(1, 2);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(2, 4);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(12, 3);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(34, 4);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(24, 4);
-insert into fadder_leaders_students (leaders_id, fadder_groups_id) values(14, 1);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 1);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 2);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(2, 4);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(12, 3);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(34, 4);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(24, 4);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(14, 1);
 
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 54);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 43);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 23);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 12);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 15);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(1, 56);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 11);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 13);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 14);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 21);
-insert into fadder_children_students (fadder_groups_id, fadderChildren_id) values(2, 31);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 54);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 43);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 23);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 12);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 15);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 56);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 11);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 13);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 14);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 21);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 31);
 
 
-insert into students_committees(students_id, committees_id) values(1, 1);
-insert into students_committees(students_id, committees_id) values(1, 2);
-insert into students_committees(students_id, committees_id) values(2, 1);
-insert into students_committees(students_id, committees_id) values(3, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(1, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(1, 2);
+INSERT INTO students_committees(students_id, committees_id) VALUES(2, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(3, 1);
 
-insert into students_committees(students_id, committees_id) values(7, 1);
-insert into students_committees(students_id, committees_id) values(6, 2);
-insert into students_committees(students_id, committees_id) values(5, 1);
-insert into students_committees(students_id, committees_id) values(4, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(7, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(6, 2);
+INSERT INTO students_committees(students_id, committees_id) VALUES(5, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(4, 1);
 
-insert into students_committees(students_id, committees_id) values(8, 4);
-insert into students_committees(students_id, committees_id) values(9, 2);
-insert into students_committees(students_id, committees_id) values(10, 3);
-insert into students_committees(students_id, committees_id) values(12, 1);
+INSERT INTO students_committees(students_id, committees_id) VALUES(8, 4);
+INSERT INTO students_committees(students_id, committees_id) VALUES(9, 2);
+INSERT INTO students_committees(students_id, committees_id) VALUES(10, 3);
+INSERT INTO students_committees(students_id, committees_id) VALUES(12, 1);
 
-insert into students_committees(students_id, committees_id) values(71, 3);
-insert into students_committees(students_id, committees_id) values(16, 2);
-insert into students_committees(students_id, committees_id) values(25, 5);
-insert into students_committees(students_id, committees_id) values(24, 3);
+INSERT INTO students_committees(students_id, committees_id) VALUES(71, 3);
+INSERT INTO students_committees(students_id, committees_id) VALUES(16, 2);
+INSERT INTO students_committees(students_id, committees_id) VALUES(25, 5);
+INSERT INTO students_committees(students_id, committees_id) VALUES(24, 3);
 
-insert into students_courses values(1, 1);
-insert into students_courses values(2, 2);
-insert into students_courses values(3, 1);
-insert into students_courses values(4, 3);
+INSERT INTO students_courses VALUES(1, 1);
+INSERT INTO students_courses VALUES(2, 2);
+INSERT INTO students_courses VALUES(3, 1);
+INSERT INTO students_courses VALUES(4, 3);
 
-insert into committees_events values(1, 1);
-insert into committees_events values(1, 2);
-insert into committees_events values(1, 3);
-insert into committees_events values(1, 4);
-insert into committees_events values(2, 5);
+INSERT INTO committees_events VALUES(1, 1);
+INSERT INTO committees_events VALUES(1, 2);
+INSERT INTO committees_events VALUES(1, 3);
+INSERT INTO committees_events VALUES(1, 4);
+INSERT INTO committees_events VALUES(2, 5);
 
-insert into developers(id, name, email) values (1, 'Urtegata', 'urter@mail.com');
-insert into developers(id, name, email) values (2, 'Knut sine apps', 'knut@mail.com');
-insert into developers(id, name, email) values (3, 'Apps AS', 'apps@mail.com');
-insert into developers(id, name, email) values (4, 'Android etc', 'android@mail.com');
+INSERT INTO developers(id, name, email) VALUES (1, 'Urtegata', 'urter@mail.com');
+INSERT INTO developers(id, name, email) VALUES (2, 'Knut sine apps', 'knut@mail.com');
+INSERT INTO developers(id, name, email) VALUES (3, 'Apps AS', 'apps@mail.com');
+INSERT INTO developers(id, name, email) VALUES (4, 'Android etc', 'android@mail.com');
 
-insert into applications(id, title) values(1, 'Appen');
-insert into applications(id, title) values(2, 'Den andre appen');
-insert into applications(id, title) values(3, 'Angry Birds');
-insert into applications(id, title) values(4, 'Drawsome');
+INSERT INTO applications(id, title) VALUES(1, 'Appen');
+INSERT INTO applications(id, title) VALUES(2, 'Den andre appen');
+INSERT INTO applications(id, title) VALUES(3, 'Angry Birds');
+INSERT INTO applications(id, title) VALUES(4, 'Drawsome');
 
-insert into developers_applications(developers_id, applications_id) values (1, 1);
-insert into developers_applications(developers_id, applications_id) values (1, 2);
-insert into developers_applications(developers_id, applications_id) values (2, 3);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2);
+INSERT + developers_applications(developers_id, applications_id) VALUES (2, 3);
