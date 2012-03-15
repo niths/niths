@@ -18,8 +18,8 @@ public class AccessPointServiceImpl implements AccessPointService {
     private AccessPointRepository repo;
 
     @Override
-    public Long create(AccessPoint domain) {
-        return null;
+    public Long create(AccessPoint accessPoint) {
+        return repo.create(accessPoint);
     }
 
     @Override
@@ -33,17 +33,17 @@ public class AccessPointServiceImpl implements AccessPointService {
     }
 
     @Override
-    public void update(AccessPoint domain) {
-        
+    public void update(AccessPoint accessPoint) {
+        repo.update(accessPoint);
     }
 
     @Override
     public boolean delete(long id) {
-        return false;
+        return repo.delete(id);
     }
 
     @Override
     public void hibernateDelete(long id) {
-        
+        repo.hibernateDelete(id);
     }
 }
