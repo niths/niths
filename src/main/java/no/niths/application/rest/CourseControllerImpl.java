@@ -51,7 +51,9 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	
 	private SubjectList subjectList = new SubjectList();
 
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -63,6 +65,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
     	}
 		return courseList;
 	}
+	
 	/**
 	 * Returns all topics inside a course
 	 * 

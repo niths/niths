@@ -173,7 +173,9 @@ public class Subject implements Serializable {
         return sub == this ? true : sub.getId() == id
                 ? true : false;
     }
-
+	
+	@JsonIgnore
+	@XmlTransient
 	public List<Course> getCourses() {
 		return courses;
 	}

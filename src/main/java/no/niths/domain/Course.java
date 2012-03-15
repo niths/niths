@@ -122,6 +122,8 @@ public class Course implements Serializable {
         return String.format("[%s][%s][%s]", id, name, description);
     }
 
+    @JsonIgnore
+	@XmlTransient
 	public List<Student> getStudents() {
 		return students;
 	}
