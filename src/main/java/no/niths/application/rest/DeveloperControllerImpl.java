@@ -1,10 +1,6 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.PostConstruct;
 
 import no.niths.application.rest.interfaces.DeveloperController;
 import no.niths.application.rest.lists.DeveloperList;
