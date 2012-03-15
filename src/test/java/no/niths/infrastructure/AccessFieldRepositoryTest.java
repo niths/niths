@@ -41,7 +41,7 @@ public class AccessFieldRepositoryTest {
         
         AccessField accessField3 = new AccessField();
         accessField3.setMaxRange(maxRange);
-        assertEquals(accessField1, repo.getAll(null).get(0));
+        assertEquals(accessField1, repo.getAll(accessField3).get(0));
 
         // Delete
         assertTrue(repo.delete(accessField1Id));
