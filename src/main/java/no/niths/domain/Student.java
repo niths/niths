@@ -102,6 +102,11 @@ public class Student implements Serializable {
 	@Column
 	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String description;
+	
+	@JsonIgnore
+	@XmlTransient
+	@Column(name = "last_logon")
+	private Long lastLogon;
 
 	@JsonIgnore
 	@XmlTransient
@@ -154,8 +159,12 @@ public class Student implements Serializable {
 	}
 
 	public Student(String email) {
-		this(null, null, null, null, null, null, null);
 		this.email = email;
+	}
+	
+	public Student(String email, Long lastLogon){
+		this(email);
+		this.lastLogon = lastLogon;
 	}
 
 	public Student(Long id, String firstName, String lastName) {
@@ -356,6 +365,16 @@ public class Student implements Serializable {
 
 	public void setGroupLeaders(List<FadderGroup> groupLeaders) {
 		this.groupLeaders = groupLeaders;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public Long getLastLogon() {
+		return lastLogon;
+	}
+
+	public void setLastLogon(Long lastLogon) {
+		this.lastLogon = lastLogon;
 	}
 
 }
