@@ -43,11 +43,15 @@ public class AccessField implements Serializable {
 	private Integer maxRange;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "rooms_access_fields", joinColumns = @JoinColumn(name = "accessFields_id"), inverseJoinColumns = @JoinColumn(name = "rooms_id"))
+	@JoinTable(name = "rooms_access_fields",
+	    joinColumns =        @JoinColumn(name = "access_field_id"),
+	    inverseJoinColumns = @JoinColumn(name = "room_id"))
 	private List<Room> rooms = new ArrayList<Room>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinTable(name = "af_ap", joinColumns = @JoinColumn(name = "accessFields_id"), inverseJoinColumns = @JoinColumn(name = "accessPoint_id"))
+	@JoinTable(name = "access_fields_access_points",
+	    joinColumns =        @JoinColumn(name = "access_field_id"),
+	    inverseJoinColumns = @JoinColumn(name = "access_point_id"))
 	private AccessPoint accessPoint;
 
 	public void setId(Long id) {

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -41,7 +42,9 @@ public class Room implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    @JoinTable(name="rooms_access_fields")
+    @JoinTable(name="rooms_access_fields",
+        joinColumns        = @JoinColumn(name = "room_id"),
+        inverseJoinColumns = @JoinColumn(name = "access_field_id"))
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     public Room(String roomName) {

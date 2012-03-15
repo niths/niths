@@ -40,7 +40,9 @@ public class AccessPoint implements Serializable {
 	private String address;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "af_ap", joinColumns = @JoinColumn(name = "accessPoint_id"), inverseJoinColumns = @JoinColumn(name = "accessFields_id"))
+	@JoinTable(name = "access_fields_access_points",
+	    joinColumns =        @JoinColumn(name = "access_point_id"),
+	    inverseJoinColumns = @JoinColumn(name = "access_field_id"))
 	@Cascade(CascadeType.ALL)
 	private List<AccessField> accessFields = new ArrayList<AccessField>();
 
