@@ -6,6 +6,7 @@ import no.niths.application.rest.interfaces.EventController;
 import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Event;
 import no.niths.services.interfaces.EventsService;
@@ -14,8 +15,10 @@ import no.niths.services.interfaces.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +38,33 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			.getLogger(EventControllerImpl.class);
 
 	private EventList eventList = new EventList();
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void create(@RequestBody Event domain) {
+		super.create(domain);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void update(@RequestBody Event domain) {
+		super.update(domain);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void hibernateDelete(@PathVariable long id) {
+		super.hibernateDelete(id);
+	}
 
 	/**
 	 * {@inheritDoc}
