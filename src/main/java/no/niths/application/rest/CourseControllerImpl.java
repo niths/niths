@@ -8,6 +8,7 @@ import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Course;
 import no.niths.domain.Subject;
@@ -20,9 +21,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,6 +70,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	 *            the course id
 	 * @return List with subject
 	 */
+	@Override
 	@RequestMapping(value = "subject/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Subject> getCourseSubjects(@PathVariable Long id) {
@@ -78,7 +82,32 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		ValidationHelper.isListEmpty(subjectList);
 		return subjectList;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void create(@RequestBody Course domain) {
+		super.create(domain);
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void update(@RequestBody Course domain) {
+		super.update(domain);
+	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public void hibernateDelete(@PathVariable long id) {
+		super.hibernateDelete(id);
+	}
 	/**
 	 * Adds a topic to a course
 	 * 
@@ -87,6 +116,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	 * @param subjectId
 	 *            the id of the topic to be added
 	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{courseId}/{subjectId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
 	public void addSubjectToCourse(@PathVariable Long courseId,
