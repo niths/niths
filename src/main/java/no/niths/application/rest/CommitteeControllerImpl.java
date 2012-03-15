@@ -64,6 +64,9 @@ public class CommitteeControllerImpl
 
     private CommitteeList committeeList = new CommitteeList();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(
             value = "{id}",
@@ -95,6 +98,9 @@ public class CommitteeControllerImpl
         return committee;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(
             method = RequestMethod.GET,
@@ -111,24 +117,30 @@ public class CommitteeControllerImpl
         return committeeList;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     public void hibernateDelete(@PathVariable long id) {
-    	// TODO Auto-generated method stub
     	super.hibernateDelete(id);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     public void create(@RequestBody Committee domain) {
-    	// TODO Auto-generated method stub
     	super.create(domain);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     public void update(Committee domain) {
-    	// TODO Auto-generated method stub
     	super.update(domain);
     }
 
