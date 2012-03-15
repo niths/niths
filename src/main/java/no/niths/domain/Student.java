@@ -294,6 +294,8 @@ public class Student implements Serializable {
 		this.committees = committees;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -302,6 +304,8 @@ public class Student implements Serializable {
 		this.roles = roles;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public String getSessionToken() {
 		return sessionToken;
 	}
@@ -324,6 +328,8 @@ public class Student implements Serializable {
 		return String.format("[%s][%s]", id, email);
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public List<Committee> getCommittesLeader() {
 		return committesLeader;
 	}
@@ -332,6 +338,8 @@ public class Student implements Serializable {
 		this.committesLeader = committesLeader;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public FadderGroup getFadderGroup() {
 		return fadderGroup;
 	}
@@ -340,6 +348,8 @@ public class Student implements Serializable {
 		this.fadderGroup = fadderGroup;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public List<FadderGroup> getGroupLeaders() {
 		return groupLeaders;
 	}
