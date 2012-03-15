@@ -43,9 +43,8 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@RequestMapping(value = { "/{token:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Token login(@PathVariable String token) {
-		logger.info("A user wants to be authenticated");
-		logger.debug("WITH TOKEN: " + token);
-		Token temp = new Token();
+		logger.info("A user wants to be authenticated with token: " + token);
+		Token temp = new Token(); //Wrapper class for response to user
 		if(token != null){
 			temp.setToken(service.login(token));
 		}
