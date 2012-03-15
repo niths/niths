@@ -9,7 +9,6 @@ public class AccessFieldTest {
 
     @Test(expected = BadRequestException.class)
     public void testCreateAccessFieldWithInvalidRanges() {
-
         AccessField accessField = new AccessField();
         accessField.setMinRange(2);
         accessField.setMaxRange(1);
