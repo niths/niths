@@ -24,10 +24,10 @@ public class AccessFieldRepositoryTest {
     @Test
     public void testCRUD() {
         final int size = repo.getAll(null).size();
-        final Integer maxRange = 2;
+        final Integer exampleMaxRange = 2;
 
         // Create
-        AccessField accessField1 = new AccessField(1, maxRange);
+        AccessField accessField1 = new AccessField(1, exampleMaxRange);
         repo.create(accessField1);
         assertEquals(size + 1, repo.getAll(null).size());
 
@@ -38,9 +38,8 @@ public class AccessFieldRepositoryTest {
         assertEquals(accessField1Id, accessField2.getId());
 
         // Update
-        
         AccessField accessField3 = new AccessField();
-        accessField3.setMaxRange(maxRange);
+        accessField3.setMaxRange(exampleMaxRange);
         assertEquals(accessField1, repo.getAll(accessField3).get(0));
 
         // Delete
