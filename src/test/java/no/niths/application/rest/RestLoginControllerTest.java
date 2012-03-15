@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import no.niths.application.rest.auth.RestLoginControllerImpl;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.security.Token;
-import no.niths.services.auth.interfaces.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.AuthenticationService;
 //import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.junit.Test;
@@ -18,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class RestLoginControllerTest {
 	
 	@Mock
-	private RequestAuthenticationService service;
+	private AuthenticationService service;
 //	@Mock
 //	private RestLoginService service;
 	

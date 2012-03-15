@@ -4,7 +4,7 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
 import no.niths.security.Token;
-import no.niths.services.auth.interfaces.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.AuthenticationService;
 //import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class RestLoginControllerImpl implements RestLoginController{
 			.getLogger(RestLoginControllerImpl.class);
 	
 	@Autowired
-	private RequestAuthenticationService service;
+	private AuthenticationService service;
 //	@Autowired
 //	private RestLoginService service;
 

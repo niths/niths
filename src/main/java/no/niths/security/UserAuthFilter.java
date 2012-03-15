@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.services.auth.interfaces.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.AuthenticationService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserAuthFilter extends OncePerRequestFilter {
 	Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthFilter.class);
 	
 	@Autowired
-	private RequestAuthenticationService service;
+	private AuthenticationService service;
 	
 	/**
 	 * Handles the verification process

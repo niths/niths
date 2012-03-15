@@ -11,7 +11,7 @@ import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.User;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
-import no.niths.services.auth.interfaces.RequestAuthenticationService;
+import no.niths.services.auth.interfaces.AuthenticationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class RequestAuthenticationServiceImpl implements
-		RequestAuthenticationService {
+public class AuthenticationServiceImpl implements
+		AuthenticationService {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(RequestAuthenticationServiceImpl.class);
+			.getLogger(AuthenticationServiceImpl.class);
 
 	@Autowired
 	private StudentRepository studentRepo;

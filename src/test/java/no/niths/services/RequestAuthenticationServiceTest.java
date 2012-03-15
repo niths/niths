@@ -10,7 +10,7 @@ import java.util.UUID;
 import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.User;
-import no.niths.services.auth.RequestAuthenticationServiceImpl;
+import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -30,7 +30,7 @@ public class RequestAuthenticationServiceTest {
 	private GoogleAuthenticationService authService;
 	
 	@InjectMocks
-	private RequestAuthenticationServiceImpl service = new RequestAuthenticationServiceImpl();
+	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
 	
 	@Test
 	public void testAuthenticate(){

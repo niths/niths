@@ -4,7 +4,7 @@ import no.niths.security.User;
 /**
  * Authenticates user trying to request a resource
  */
-public interface RequestAuthenticationService {
+public interface AuthenticationService {
 
 	/**
 	 * Fetch student that belongs to session token
