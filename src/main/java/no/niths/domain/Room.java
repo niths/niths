@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
@@ -38,6 +39,7 @@ public class Room implements Serializable {
     private Long id;
 
     @Column(name = "room_name", unique = true)
+    @Pattern(regexp = "^(foobar)$", message = "Invalid room name")
     private String roomName;
 
     @ManyToMany(fetch = FetchType.LAZY)
