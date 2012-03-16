@@ -27,7 +27,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Entity
 @Table(name = AppConstants.ACCESS_FIELDS)
-@XmlRootElement
+@XmlRootElement(name = "accessfield")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AccessField implements Serializable {
 
@@ -44,15 +44,15 @@ public class AccessField implements Serializable {
     private Integer maxRange;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "rooms_access_fields",
-        joinColumns =        @JoinColumn(name = "access_field_id"),
+    @JoinTable(name = "rooms_accessfields",
+        joinColumns =        @JoinColumn(name = "accessfield_id"),
         inverseJoinColumns = @JoinColumn(name = "room_id"))
     private List<Room> rooms = new ArrayList<Room>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "access_fields_access_points",
-        joinColumns =        @JoinColumn(name = "access_field_id"),
-        inverseJoinColumns = @JoinColumn(name = "access_point_id"))
+    @JoinTable(name = "accessfields_accesspoints",
+        joinColumns =        @JoinColumn(name = "accessfield_id"),
+        inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
     private AccessPoint accessPoint;
 
     public AccessField() {}

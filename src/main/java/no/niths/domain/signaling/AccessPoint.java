@@ -24,7 +24,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement
+@XmlRootElement(name = "accesspoint")
 @Entity
 @Table(name = AppConstants.ACCESS_POINTS)
 public class AccessPoint implements Serializable {
@@ -40,9 +40,9 @@ public class AccessPoint implements Serializable {
 	private String address;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "access_fields_access_points",
-	    joinColumns =        @JoinColumn(name = "access_point_id"),
-	    inverseJoinColumns = @JoinColumn(name = "access_field_id"))
+	@JoinTable(name = "accessfields_accesspoints",
+	    joinColumns =        @JoinColumn(name = "accesspoint_id"),
+	    inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
 	@Cascade(CascadeType.ALL)
 	private List<AccessField> accessFields = new ArrayList<AccessField>();
 

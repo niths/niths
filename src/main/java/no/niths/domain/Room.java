@@ -44,9 +44,9 @@ public class Room implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    @JoinTable(name="rooms_access_fields",
+    @JoinTable(name="rooms_accessfields",
         joinColumns        = @JoinColumn(name = "room_id"),
-        inverseJoinColumns = @JoinColumn(name = "access_field_id"))
+        inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     public Room(String roomName) {

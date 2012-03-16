@@ -2,8 +2,8 @@ package no.niths.common;
 
 public final class AppConstants {
 	//Tables names and URLs
-    public static final String ACCESS_FIELDS = "access_fields";
-    public static final String ACCESS_POINTS = "access_points";
+    public static final String ACCESS_FIELDS = "accessfields";
+    public static final String ACCESS_POINTS = "accesspoints";
     public static final String API_EVENTS = "api_events";
     public static final String APPLICATIONS = "applications";
     public static final String AUTH = "auth";
