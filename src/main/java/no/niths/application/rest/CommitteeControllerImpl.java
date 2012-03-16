@@ -17,6 +17,7 @@ import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -140,7 +141,7 @@ public class CommitteeControllerImpl
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void update(Committee domain) {
+    public void update(@RequestBody Committee domain) {
     	super.update(domain);
     }
 
@@ -236,14 +237,6 @@ public class CommitteeControllerImpl
             committeeService.update(committee);
         }
     }
-
-    /**
-     * Catches constraint violation exceptions Ex: Leader already added to
-     * committee
-     */
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-    public void notUniqueObject() {}
 
     /**
      * {@inheritDoc}

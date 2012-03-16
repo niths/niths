@@ -17,6 +17,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -143,11 +144,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 
 	 * How to retrieve the reason in a client:
 	 * 
-	 * } catch (HttpClientErrorException e) { 
-	 * 		assertEquals(HttpStatus.NOT_FOUND,e.getStatusCode()); 
-	 * } catch(Exception e) {
-	 * 		fail("this isn't the expected exception: "+e.getMessage()); 
-	 * }
+	 * } catch (HttpClientErrorException e) {
+	 * assertEquals(HttpStatus.NOT_FOUND,e.getStatusCode()); } catch(Exception
+	 * e) { fail("this isn't the expected exception: "+e.getMessage()); }
 	 * 
 	 */
 
@@ -159,9 +158,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, but i think the object is already added")
 	public void notUniqueObject() {
 	}
+
 	/**
-	 * Catches illegal arguments
-	 * Ex: When you try to insert a subject into a committee
+	 * Catches illegal arguments Ex: When you try to insert a subject into a
+	 * committee
 	 */
 	@ExceptionHandler(java.lang.IllegalArgumentException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Sorry, illegal arguments")
@@ -176,18 +176,29 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void notAValidToken() {
 		logger.warn("HAX");
 	}
-	
+
 	/**
-	 * Catches unvalid email requests 
+	 * Catches unvalid email requests
 	 */
 	@ExceptionHandler(UnvalidEmailException.class)
 	@ResponseStatus(value = HttpStatus.EXPECTATION_FAILED, reason = "That is not a correct email...")
-	public void unvalidEmail() {}
-	
+	public void unvalidEmail() {
+	}
+
 	/**
-	 * Catches unvalid email requests 
+	 * Catches unvalid email requests
 	 */
 	@ExceptionHandler(ExpiredTokenException.class)
 	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Your token has expired")
-	public void tokenExpired() {}
+	public void tokenExpired() {
+	}
+
+	/**
+	 * Catches constraint violation exceptions Ex: Leader already added to
+	 * committee
+	 */
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
+	public void notUniqueObject2() {
+	}
 }
