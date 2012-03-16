@@ -159,6 +159,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, but i think the object is already added")
 	public void notUniqueObject() {
 	}
+	/**
+	 * Catches illegal arguments
+	 * Ex: When you try to insert a subject into a committee
+	 */
+	@ExceptionHandler(java.lang.IllegalArgumentException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Sorry, illegal arguments")
+	public void notValidParams() {
+	}
 
 	/**
 	 * Catches Jsypt exceptions
