@@ -44,7 +44,7 @@ public class AccessPoint implements Serializable {
 	    joinColumns =        @JoinColumn(name = "accesspoint_id"),
 	    inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
 	@Cascade(CascadeType.ALL)
-	private List<AccessField> accessFields = new ArrayList<AccessField>();
+	private List<AccessField> accessfields = new ArrayList<AccessField>();
 
 	public AccessPoint() {
 	}
@@ -72,10 +72,10 @@ public class AccessPoint implements Serializable {
 	@JsonIgnore
 	@XmlTransient
 	public List<AccessField> getAccessFields() {
-		return accessFields;
+		return accessfields;
 	}
 
 	public void setAccessFields(List<AccessField> accessFields) {
-		this.accessFields = accessFields;
+		this.accessfields = accessFields;
 	}
 }

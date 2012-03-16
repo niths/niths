@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -53,7 +54,7 @@ public class AccessField implements Serializable {
     @JoinTable(name = "accessfields_accesspoints",
         joinColumns =        @JoinColumn(name = "accessfield_id"),
         inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
-    private AccessPoint accessPoint;
+    private AccessPoint accesspoint;
 
     public AccessField() {}
 
@@ -97,11 +98,11 @@ public class AccessField implements Serializable {
     }
 
     public AccessPoint getAccessPoint() {
-        return accessPoint;
+        return accesspoint;
     }
 
     public void setAccessPoint(AccessPoint accessPoint) {
-        this.accessPoint = accessPoint;
+        this.accesspoint = accessPoint;
     }
 
     @JsonIgnore
