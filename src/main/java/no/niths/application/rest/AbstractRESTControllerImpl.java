@@ -151,12 +151,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 
 	/**
+	 * PUT
 	 * Catches constraint violation exceptions Ex: Leader already added to
 	 * committee
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, but i think the object is already added")
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
 	public void notUniqueObject() {
+	}
+	
+	/**
+	 * POST
+	 * Catches constraint violation exceptions Ex: Leader already added to
+	 * committee
+	 */
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
+	public void notUniqueObject2() {
 	}
 
 	/**
@@ -193,12 +204,5 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void tokenExpired() {
 	}
 
-	/**
-	 * Catches constraint violation exceptions Ex: Leader already added to
-	 * committee
-	 */
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject2() {
-	}
+
 }
