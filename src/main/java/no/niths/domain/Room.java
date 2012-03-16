@@ -39,7 +39,7 @@ public class Room implements Serializable {
     private Long id;
 
     @Column(name = "room_name", unique = true)
-    @Pattern(regexp = "^(foobar)$", message = "Invalid room name")
+    // @Pattern(regexp = "^(foobar)$", message = "Invalid room name")
     private String roomName;
 
     @ManyToMany(fetch = FetchType.LAZY)

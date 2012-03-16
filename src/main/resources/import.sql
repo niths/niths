@@ -93,8 +93,7 @@ INSERT INTO access_points(address) VALUES('00:21:55.60.e6:10');
 INSERT INTO access_points(address) VALUES('dc:7b:94:34:94:90');
 INSERT INTO access_points(address) VALUES('00:17:df:a6:c8:80');
 INSERT INTO access_points(address) VALUES('00:17:df:a7:7c:50');
-INSERT INTO access_points(address) VALUES('dc:7b:94:a4:2e:80');
-INSERT INTO access_points(address) VALUES('00:26:cb:d1:2b:40');
+INSERT INTO access_points(address) VALUES('dc:7b:94:a4:2e:80'); INSERT INTO access_points(address) VALUES('00:26:cb:d1:2b:40');
 INSERT INTO access_points(address) VALUES('00:23:04:88:d4:c0');
 INSERT INTO access_points(address) VALUES('00:17:df:a7:7a:b0');
 INSERT INTO access_points(address) VALUES('00:24:97:f2:93:60');
@@ -388,4 +387,4 @@ INSERT INTO applications(id, title) VALUES(4, 'Drawsome');
 
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1);
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2);
-INSERT + developers_applications(developers_id, applications_id) VALUES (2, 3);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3);

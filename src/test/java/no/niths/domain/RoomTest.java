@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolation;
 
 import org.hibernate.validator.HibernateValidator;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -21,7 +22,8 @@ private LocalValidatorFactoryBean localValidatorFactory;
         localValidatorFactory.setProviderClass(HibernateValidator.class);
         localValidatorFactory.afterPropertiesSet();
     }
-    
+
+    @Ignore
     @Test
     public void testCreateRoomWithInvalidName() {
         Room r = new Room();
