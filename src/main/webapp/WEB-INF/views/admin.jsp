@@ -17,13 +17,13 @@
   <body>
     <section id="container">
       <h1>NITHs Admin Panel</h1>
-      <div id="content">
+      <section id="content">
         <div id="searcher">
           <form method="get">
             <input type="radio" value="firstName" name="columnName" checked="checked" id="r1"><label for="r1">Fornavn</label>
             <input type="radio" value="lastName" name="columnName"  id="r2"> <label for="r2">Etternavn</label>
             <input type="radio" value="email" name="columnName"  id="r3"> <label for="r3">Email</label>
-            <input name="query" id= "query"/> 
+            <input type="text" name="query" id= "query" placeholder="Søkeord..."/> 
             <input type="submit" value="Søk"/>
           </form>
         </div>
@@ -91,8 +91,7 @@
           </form>
           <br />
         </c:forEach>
-      </div>
-    
+      </section>
     <br style="clear: both" />
     <div id="footer">&copy; NITHs 2012</div>
   </section>

@@ -12,24 +12,6 @@ body {
   background-color: #CCCCCC;
 }
 
-#container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 900px;
-  display: block;
-  background-color: #FFF;
-  padding: 20px;
-  border-radius: 20px;
-}
-
-#content input[type="submit"]{
-  padding: 3px;
-  margin-bottom: 2px;
-  margin-right: 5px;
-}
-
 h1 {
   font-size: 20pt;
   color: #292929;
@@ -43,12 +25,40 @@ h2 {
   color: #292929;
 }
 
+hr {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 900px;
+  display: block;
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+#content input[type="submit"] {
+  cursor: pointer;
+  padding: 3px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+}
+
 #searcher input {
   background-color: #FFF;
   padding: 3px;
   border: 1px solid #c0c0c0;
   margin-bottom: 2px;
   margin-right: 5px;
+}
+
+#searcher input[type="submit"]:hover {
+  outline: 1px solid #000;
 }
 
 #searcher input[type="radio"] {
@@ -62,5 +72,5 @@ h2 {
 .list{
   list-style: none;
   padding: 5px;
-  margin: 3px;
+  margin: 3px;  
 }
