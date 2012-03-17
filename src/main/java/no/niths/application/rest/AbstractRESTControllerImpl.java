@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -169,6 +170,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
 	public void notUniqueObject2() {
 	}
+	
+	@ExceptionHandler(org.hibernate.NonUniqueObjectException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, that object has is already added to the other object")
+	public void notUniqueObject3() {
+	}
+	
+	
 
 	/**
 	 * Catches illegal arguments Ex: When you try to insert a subject into a
@@ -202,6 +210,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ExceptionHandler(ExpiredTokenException.class)
 	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Your token has expired")
 	public void tokenExpired() {
+	}
+	/**
+	 * Catches unvalid email requests
+	 */
+	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Your token has expired")
+	public void tokenExpired2() {
 	}
 
 
