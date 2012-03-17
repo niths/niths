@@ -7,85 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Admin panel</title>
 <!-- <link rel="stylesheet" href="../stylesheet/main.css" type="text/css"/> -->
+
+
 <style type="text/css">
-* {
-	margin: 0;
-	padding: 0;
-	font-family: verdana;
-	font-size: 10pt;
-}
-
-body {
-
-	background-repeat: repeat-x;
-	background-position: top;
-	background-attachment: fixed;
-	background-color: #CCCCCC;
-}
-
-#container {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	width: 900px;
-	display: block;
-	background-color: #FFF;
-	padding: 20px;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-}
-
-#content input[type="submit"]{
-	padding: 3px;
-	margin-bottom: 2px;
-	margin-right: 5px;
-}
-
-
-
-h1 {
-	font-size: 20pt;
- 	color: #292929;
-	font-weight: bold;
-	margin: 0 0 10px 0;
-}
-
-h2 {
-	margin-top: 15px;
-	font-size: 13pt;
-	color: #292929;
-}
-
-#searcher input {
-	background-color: #FFF;
-	padding: 3px;
-	border: 1px solid #c0c0c0;
-	margin-bottom: 2px;
-	margin-right: 5px;
-}
-
-#searcher input[type="radio"] {
-	margin-right: 1px;
-}
-
-
-#searcher label {
-	margin-right: 5px;
-}
-
-.list{
-	list-style: none;
-	padding: 5px;
-	margin: 3px;
-	
-}
-
+    <%@include file='assets/stylesheets/admin.css'%>
 </style>
+<script type="text/javascript">
+    <%@include file='assets/javascripts/jquery.js'%>
+    <%@include file='assets/javascripts/admin.js'%>
+</script>
 </head>
 <body>
-
 
 	<div id="container">
 		<h1>NITHs Admin Panel</h1>
