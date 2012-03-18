@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * Generic interface for Controllers
+ * 
+ * @see AbstractRESTControllerImpl.java for instructions on how to use
  *
  * @param <T> The type parameter
  */
@@ -42,15 +44,15 @@ public interface GenericRESTController<T> {
     /**
      * Deletes the domain object with the given id
      * 
-     * @param id the if of the domain object to be deleted
+     * @param id the id of the domain object to be deleted
      * @deprecated
      */
 	@Deprecated
     public void delete(Long id);
     
     /**
-     * 
-     * @param id
+     * Deletes the domain object with the given id
+     * @param id the id of the domain object to be deleted
      */
     public void hibernateDelete(long id);
     

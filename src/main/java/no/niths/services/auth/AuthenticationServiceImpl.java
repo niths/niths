@@ -12,11 +12,10 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
-import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
-import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.AuthenticationService;
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.interfaces.StudentService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -25,13 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Authenticates user trying to request a resource
@@ -100,13 +94,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throws AuthenticationException {
 		logger.debug("Will autheticate: " + sessionToken);
 		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
-		//
-		// User uu = new User("rosben09@nith.no");
-		// uu.setStudentId(new Long(3));
-		// uu.addRoleName("ROLE_STUDENT");
-		// if(uu != null)
-		// return uu;
-		//
 
 		// First check the format of the token
 		verifySessionTokenFormat(sessionToken);
@@ -150,6 +137,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return authenticatedUser;
 	}
 
+	/**
+	 * Verifies the last login time against the {@link SecurityConstants.SESSION_VALID_TIME} 
+	 * 
+	 * @param lastLogon time student had last login
+	 * @throws AuthenticationException
+	 */
 	private void verifyLastLogonTime(long lastLogon)
 			throws AuthenticationException {
 		logger.debug("Verifying last login time...");
@@ -232,8 +225,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return student;
 	}
 
-	// Check if the email of the user is valid(nith.no) and passes bean
-	// validation
+	/**
+	 * Check if the email of the user is valid(nith.no) and passes bean validation
+	 * @param email email to check
+	 * @throws UnvalidEmailException
+	 */
 	private void isUserValid(String email) {
 		if (!(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && ValidationHelper
 				.hasObjectValidAttributes(new Student(email)))) {
@@ -249,6 +245,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		this.cryptionPassword = decryptionPassword;
 	}
 
+	//Private helper
 	private long getCurrentTime() {
 		return new GregorianCalendar().getTimeInMillis();
 	}

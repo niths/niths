@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
- * Handles errors in the Authentication process
+ * Sets the entry point for exceptions in the Authentication process
  *
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {

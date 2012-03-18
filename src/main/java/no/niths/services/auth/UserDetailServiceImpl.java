@@ -18,6 +18,12 @@ public class UserDetailServiceImpl implements UserDetailService {
 	@Autowired
 	private AuthenticationService authService;
 	
+	/**
+	 * Calls on authentication to authenticate the session token
+	 * 
+	 * @return UserDetails the details of the student with belonging session token
+	 * @throws UsernameNotFoundException when no student is found
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String sessionToken)
 			throws UsernameNotFoundException {
