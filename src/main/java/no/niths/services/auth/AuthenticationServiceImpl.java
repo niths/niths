@@ -119,6 +119,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throw new UnvalidTokenException(
 					"Token does not belong to a student");
 		}
+		if(wantAccess.getLastLogon() == null){
+			throw new UnvalidTokenException("Can not find last login");
+		}
 		verifyLastLogonTime(wantAccess.getLastLogon());
 
 		// The information added here is used in the @Security

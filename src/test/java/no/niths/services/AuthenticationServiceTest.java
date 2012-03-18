@@ -36,7 +36,7 @@ public class AuthenticationServiceTest {
 	
 	@Test(expected=UnvalidTokenException.class)
 	public void testAuthenticate(){
-		service.setCryptionPassword("password");
+		service.setCryptionPassword("pass");
 		String token = getNormalToken();
 		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));
 		
@@ -84,7 +84,7 @@ public class AuthenticationServiceTest {
 				+ "|" + Long.toString(1) + "|" + Long.toString(tokenIssued);
 		//Encrypt the token
 		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword("password");
+		jasypt.setPassword("pass");
 		return jasypt.encrypt(generatedToken);		
 	}
 	
@@ -94,7 +94,7 @@ public class AuthenticationServiceTest {
 				+ "|" + Long.toString(1) + "|" + Long.toString(tokenIssued);
 		//Encrypt the token
 		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword("password");
+		jasypt.setPassword("pass");
 		return jasypt.encrypt(generatedToken);
 	}
 }
