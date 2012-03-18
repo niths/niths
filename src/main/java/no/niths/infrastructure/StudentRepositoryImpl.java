@@ -20,6 +20,20 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 		queryGen = new QueryGenerator<Student>(Student.class);
 	}
 
+	/**
+	 * Update a student
+	 * 
+	 * Saves the old last login and session token
+	 */
+	@Override
+	public void update(Student domain) {
+		Student s = (Student) getSession().getCurrentSession().load(Student.class, domain.getId());
+		domain = s;
+		domain.setLastLogon(s.getLastLogon());
+		domain.setSessionToken(s.getSessionToken());
+		super.update(domain);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsWithNamedCourse(String name) {
 		String sql = "from " + Student.class.getSimpleName()
