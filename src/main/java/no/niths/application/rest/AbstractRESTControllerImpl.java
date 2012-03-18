@@ -115,7 +115,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
      * 
      * Returns an arraylist with all domain objects of the type
      * 
-     * @param domain the class type 
+     * @param domain will search the DB for instances with the same attributes,
+     * 				if null, all will be returned
      * @return List of all domain objects
      * 
      * Usage in your own class:
@@ -123,8 +124,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * {@code
 	 * @Override
 	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
-	 * public ArrayList<Role> getAll(Role domain) {
-	 * 		ArrayList<Role> roles = super.getAll(domain);
+	 * public ArrayList<Your_Domain> getAll(Your_Domain domain) {
+	 * 		ArrayList<Your_Domain> all = super.getAll(domain);
 	 * return roles;
 	 * }
      */
