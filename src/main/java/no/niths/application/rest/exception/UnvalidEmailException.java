@@ -1,27 +1,18 @@
 package no.niths.application.rest.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason="Unvalid email")
-public final class UnvalidEmailException extends RuntimeException {
+public final class UnvalidEmailException extends AuthenticationException{
 
-    private static final long serialVersionUID = 344699966872664622L;
+    public UnvalidEmailException(String msg) {
+		super(msg);
+		// TODO Auto-generated constructor stub
+	}
 
-    public UnvalidEmailException() {
-        super();
-    }
+	private static final long serialVersionUID = 344699966872664622L;
 
-    public UnvalidEmailException(
-            final String message,
-            final Throwable cause) {
-        super(message, cause);
-    }
-    public UnvalidEmailException(final String message) {
-        super(message);
-    }
-    public UnvalidEmailException(final Throwable cause) {
-        super(cause);
-    }
 
 }

@@ -6,100 +6,95 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import no.niths.services.auth.interfaces.AuthenticationService;
-
-import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.ModelAndView;
+
 /**
  * Security filter that checks for session token and validates user
- *
+ * 
  */
 public class UserAuthFilter extends OncePerRequestFilter {
 
 	Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthFilter.class);
-	
+
 	@Autowired
-	private AuthenticationService service;
-	
+	private RestAuthenticationEntryPoint entryPoint;
+
+	@Autowired
+	private RequestAuthenticationProvider authProvider;
+
+
 	/**
-	 * Handles the verification process
-	 * Checks for "session-token" in the HTTP request header
-	 * and authenticates the user
+	 * Handles the verification process Checks for "session-token" in the HTTP
+	 * request header and authenticates the user
 	 * 
-	 * @param req the HttpServletRequest
-	 * @param res the HttpServletResponse
-	 * @param chain the Security filter chain
-	 * @throws ServletException, IOException
+	 * @param req
+	 *            the HttpServletRequest
+	 * @param res
+	 *            the HttpServletResponse
+	 * @param chain
+	 *            the Security filter chain
+	 * @throws ServletException
+	 *             , IOException
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
 		
-		//////////////////////////
-		//FOR EASIER TEST: Add roles if needed
-		///////////////////////////
-//		logger.debug("TEST MODE AUTH!");
-//		
-//		User uu = new User("rosben09@nith.no");
-//		uu.setStudentId(new Long(3));
-//		uu.addRoleName("ROLE_STUDENT");
-//		setCurrentAuthenticatedUser(uu);
-//		
-//		chain.doFilter(req, res);
-		///////////////////////////////
-		//TEST MODE: OUTCOMMENT ALL BELOW
-		////////////////////////////
+		//Checking if Basic Authentication has been set, 
+		//if not, we check for a Session-Token header
+		Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+		if (currentAuth == null) { //If basic auth has been populated, do not check for session token
+			String header = req.getHeader("Session-token"); // TODO: set as constant
 
-		
-		
-		logger.info("Checking for session token");
-		try {
-			String token = req.getHeader("session-token");
-			if (token != null) {
-				logger.info("Token was provided");
-				User u = service.authenticateSessionToken(token);
-				setCurrentAuthenticatedUser(u);
-			} else {
-				logger.info("A token was not provided");
+			if (header != null) {
+				logger.debug("Session-token header found: " + header);
+				try {
+					//Create a authorization request with the header(session-token)
+					AuthenticationSessionToken authRequest = new AuthenticationSessionToken(
+							null, null, header);
+					logger.debug("Starting authentication process...");
+					//Let the authentication provider authenticate the request
+					//Will throw AuthenticationException, so it is important that
+					//every exception extends AuthenticationException
+					Authentication authResult = authProvider.authenticate(authRequest);
+					logger.debug("Authentication success");
+					//Set the result as the authentication object
+					SecurityContextHolder.getContext().setAuthentication(authResult);
+				} catch (AuthenticationException ae) {
+					logger.debug("Authentication failed for session-token: "
+							+ header);
+					// Login failed, clear authentication object
+					SecurityContextHolder.getContext().setAuthentication(null);
+					// We send the error to the entry point
+					entryPoint.commence(req, res, ae);
+
+				}
 			}
-		
-		//If token is provided, but not correct			
-		} catch (HttpClientErrorException httpe) {			
-			logger.warn("Not a valid token");
 		}
-		//Continue the security filter chain
 		chain.doFilter(req, res);
 	}
 
-	//Sets the current authenticated user
-	//If user did not pass security check, user is anonymous
-	private void setCurrentAuthenticatedUser(User u){
-		if(u == null){
-			u = new User(); //Role = ROLE_ANONYMOUS
-		}		
-		Authentication auth = 
-				new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);					
+	public RequestAuthenticationProvider getAuthProvider() {
+		return authProvider;
 	}
-	
 
-	@ExceptionHandler(EncryptionOperationNotPossibleException.class)
-	@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Token not valid")
-	public void notAuthorized() {
+	public void setAuthProvider(RequestAuthenticationProvider authProvider) {
+		this.authProvider = authProvider;
+	}
+
+	public RestAuthenticationEntryPoint getEntryPoint() {
+		return entryPoint;
+	}
+
+	public void setEntryPoint(RestAuthenticationEntryPoint entryPoint) {
+		this.entryPoint = entryPoint;
 	}
 
 }

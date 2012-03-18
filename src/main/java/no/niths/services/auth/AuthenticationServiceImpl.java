@@ -4,6 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
+import no.niths.application.rest.exception.ExpiredTokenException;
+import no.niths.application.rest.exception.UnvalidEmailException;
+import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
@@ -24,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -65,18 +69,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// Authenticate user from Google, and then check to see if the email is
 		// valid
 		String userEmail = googleService.authenticateAndGetEmail(googleToken);
-		if (isUserValid(userEmail)) {
-			Student authenticatedStudent = getStudent(userEmail);
-			// Generate "session token" that the app will use from now on
-			String generatedToken = generateToken(authenticatedStudent.getId());
-			// Add the generated token to the student
-			authenticatedStudent.setSessionToken(generatedToken);
-			// Update last login time
-			authenticatedStudent.setLastLogon(getCurrentTime());
+		isUserValid(userEmail);
+		Student authenticatedStudent = getStudent(userEmail);
+		// Generate "session token" that the app will use from now on
+		String generatedToken = generateToken(authenticatedStudent.getId());
+		// Add the generated token to the student
+		authenticatedStudent.setSessionToken(generatedToken);
+		// Update last login time
+		authenticatedStudent.setLastLogon(getCurrentTime());
 
-			studentService.update(authenticatedStudent);
-			sessionToken.setToken(generatedToken);
-		}
+		studentService.update(authenticatedStudent);
+		sessionToken.setToken(generatedToken);
+
 		return sessionToken;
 	}
 
@@ -92,81 +96,94 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 *         token
 	 */
 	@Override
-	public User authenticateSessionToken(String sessionToken) {
-		logger.debug("Request with session token: " + sessionToken);
+	public User authenticateSessionToken(String sessionToken)
+			throws AuthenticationException {
+		logger.debug("Will autheticate: " + sessionToken);
 		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
+//		
+//		User uu = new User("rosben09@nith.no");
+//		uu.setStudentId(new Long(3));
+//		uu.addRoleName("ROLE_STUDENT");
+//		if(uu != null)
+//			return uu;
+//		
+		
+		
 		// First check the format of the token
-		if (verifySessionTokenFormat(sessionToken)) {
-			// Fetch student owning the session token
-			Student wantAccess = studentService
-					.getStudentBySessionToken(sessionToken);
-			// Then we verify the last login time of the student
-			if (wantAccess != null
-					&& verifyLastLogonTime(wantAccess.getLastLogon())) {
+		verifySessionTokenFormat(sessionToken);
+		// Fetch student owning the session token
+		Student wantAccess = studentService
+				.getStudentBySessionToken(sessionToken);
+		// Then we verify the last login time of the student
+		if (wantAccess != null) {
+			verifyLastLogonTime(wantAccess.getLastLogon());
 
-				// The information added here is used in the @Security
-				// annotations
-				// This enables us to fine grain the security checks like this:
-				// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId
-				// == #id)
-				// principal = authenticatedUser, #id = methodparam(must match
-				// the name!)
-				authenticatedUser.setUserName(wantAccess.getEmail());
-				authenticatedUser.setStudentId(wantAccess.getId());
+			// The information added here is used in the @Security
+			// annotations
+			// This enables us to fine grain the security checks like this:
+			// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
+			// principal = authenticatedUser, #id = methodparam(must match
+			// the name!)
+			authenticatedUser.setUserName(wantAccess.getEmail());
+			authenticatedUser.setStudentId(wantAccess.getId());
 
-				// Checking roles of student and adding them to User wrapper
-				List<Role> roles = wantAccess.getRoles();
-				if (!(roles.isEmpty())) {
-					String loggerText = "Student logging in has role(s): ";
-					for (Role role : roles) {
-						loggerText += role.getRoleName() + " ";
-						authenticatedUser.addRoleName(role.getRoleName());
-					}
-					logger.debug(loggerText);
+			// Checking roles of student and adding them to User wrapper
+			List<Role> roles = wantAccess.getRoles();
+			if (!(roles.isEmpty())) {
+				String loggerText = "Student logging in has role(s): ";
+				for (Role role : roles) {
+					loggerText += role.getRoleName() + " ";
+					authenticatedUser.addRoleName(role.getRoleName());
 				}
-				// Update last login time
-				wantAccess.setLastLogon(getCurrentTime());
-				studentService.update(wantAccess);
+				logger.debug(loggerText);
 			}
+			// Update last login time
+			wantAccess.setLastLogon(getCurrentTime());
+			studentService.update(wantAccess);
 		}
 		return authenticatedUser;
 	}
 
-	private boolean verifyLastLogonTime(long lastLogon) {
+	private void verifyLastLogonTime(long lastLogon)
+			throws AuthenticationException {
 		logger.debug("Verifying last login time...");
-		if (System.currentTimeMillis() - lastLogon <= SecurityConstants.SESSION_VALID_TIME) {
-			logger.debug("Session token was valid");
-			return true;
+		if (!(System.currentTimeMillis() - lastLogon <= SecurityConstants.SESSION_VALID_TIME)) {
+			logger.debug("Token expired");			
+			throw new ExpiredTokenException("Session-token has expired");
 		}
-		logger.debug("token was not valid");
-		return false;
+		logger.debug("Verified");
 	}
 
 	// Verifies the session token from the HTTP request
-	private boolean verifySessionTokenFormat(String token) {
+	private void verifySessionTokenFormat(String token)
+			throws AuthenticationException {
+		logger.debug("Verifying session token format...");
 		if (token != null) {
-			logger.info("Verifying format of token: " + token);
-//			try {
+			try {
+				logger.debug("Token before encryption: " + token);
+
 				StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
 				jasypt.setPassword(cryptionPassword);
 				String decryptedToken = jasypt.decrypt(token);
+
 				logger.debug("Token after decryption: " + decryptedToken);
+
 				String[] splittet = decryptedToken.split("[|]");
 				if (splittet.length == 3) {
-					try {
-						long issuedAt = Long.parseLong(splittet[2]);
-						if (System.currentTimeMillis() - issuedAt <= SecurityConstants.MAX_SESSION_VALID_TIME) {
-							return true;
-						}
-					} catch (NumberFormatException e) {
-						// Do nothing...
+					long issuedAt = Long.parseLong(splittet[2]);
+					if (System.currentTimeMillis() - issuedAt > SecurityConstants.MAX_SESSION_VALID_TIME) {
+						logger.debug("Token expired");			
+						throw new ExpiredTokenException(
+								"Session-token has expired");
 					}
 				}
-//			} catch (EncryptionOperationNotPossibleException ee) {
-//
-//			}
+			} catch (EncryptionOperationNotPossibleException ee) {
+				throw new UnvalidTokenException("Token not in a valid format");
+			} catch (NumberFormatException nfe) {
+				throw new UnvalidTokenException("Token not in a valid format");
+			}
 		}
-		return false; // Not valid token
+		logger.debug("Verified");
 	}
 
 	// Generates a random token and encrypts it with Jasypt
@@ -211,16 +228,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	// Check if the email of the user is valid(nith.no) and passes bean
 	// validation
-	private boolean isUserValid(String email) {
-		if (email != null
-				&& email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)
-				&& ValidationHelper
-						.hasObjectValidAttributes(new Student(email))) {
-			logger.debug("Email is valid: " + email);
-			return true;
+	private void isUserValid(String email) {
+		if (!(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && ValidationHelper
+				.hasObjectValidAttributes(new Student(email)))) {
+			throw new UnvalidEmailException("Unvalid email");
 		}
-		logger.debug("Email is NOT valid: " + email);
-		return false;
 	}
 
 	public String getCryptionPassword() {

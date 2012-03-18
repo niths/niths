@@ -152,28 +152,35 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 
 	/**
-	 * PUT
+	 * PUT - Error with header parameters
+	 * 
 	 * Catches constraint violation exceptions Ex: Leader already added to
 	 * committee
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
-	public void notUniqueObject() {
+	public void constraintViolation() {
 	}
 	
 	/**
-	 * POST
+	 * POST- Error with header parameters
+	 * 
 	 * Catches constraint violation exceptions Ex: Leader already added to
 	 * committee
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
-	public void notUniqueObject2() {
+	public void dataIntegrity() {
 	}
 	
+	/**
+	 * When server fetches an object and try to insert it into 
+	 * an collection where the object already is
+	 * 
+	 */
 	@ExceptionHandler(org.hibernate.NonUniqueObjectException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, that object has is already added to the other object")
-	public void notUniqueObject3() {
+	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, it is already a member of the collection")
+	public void notUniqueObject() {
 	}
 	
 	
@@ -188,35 +195,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
-	 * Catches Jsypt exceptions
-	 */
-	@ExceptionHandler(EncryptionOperationNotPossibleException.class)
-	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Oops! Session token format is not correct")
-	public void notAValidToken() {
-		logger.warn("HAX");
-	}
-
-	/**
-	 * Catches unvalid email requests
-	 */
-	@ExceptionHandler(UnvalidEmailException.class)
-	@ResponseStatus(value = HttpStatus.EXPECTATION_FAILED, reason = "That is not a correct email...")
-	public void unvalidEmail() {
-	}
-
-	/**
-	 * Catches unvalid email requests
-	 */
-	@ExceptionHandler(ExpiredTokenException.class)
-	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Your token has expired")
-	public void tokenExpired() {
-	}
-	/**
-	 * Catches unvalid email requests
+	 * Catches access denied exceptions
+	 * ExpiredTokenException, UnvalidTokenException etc...
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
-	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Your token has expired")
-	public void tokenExpired2() {
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized, access denied")
+	public void accessDenied() {
+		logger.debug("Access denied cathed in AbstractRestController");
 	}
 
 

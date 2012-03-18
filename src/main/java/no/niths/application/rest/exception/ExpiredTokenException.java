@@ -1,27 +1,17 @@
 package no.niths.application.rest.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.FORBIDDEN, reason="Expired token")
-public final class ExpiredTokenException extends RuntimeException {
+@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason="Expired token")
+public final class ExpiredTokenException extends AuthenticationException {
 
-    private static final long serialVersionUID = 344699966872664622L;
+    public ExpiredTokenException(String msg) {
+		super(msg);
+		// TODO Auto-generated constructor stub
+	}
 
-    public ExpiredTokenException() {
-        super();
-    }
-
-    public ExpiredTokenException(
-            final String message,
-            final Throwable cause) {
-        super(message, cause);
-    }
-    public ExpiredTokenException(final String message) {
-        super(message);
-    }
-    public ExpiredTokenException(final Throwable cause) {
-        super(cause);
-    }
+	private static final long serialVersionUID = 344699966872664622L;
 
 }

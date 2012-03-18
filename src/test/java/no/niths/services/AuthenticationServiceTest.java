@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import no.niths.domain.Student;
-import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.AuthenticationServiceImpl;
@@ -66,14 +65,6 @@ public class AuthenticationServiceTest {
 				
 		SessionToken genToken = service.authenticateAtGoogle("token");
 		assertNotSame("Not a valid token provided", genToken.getToken());
-		
-		//Not a valid email
-		s.setEmail("mail@mail.no");
-		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@mail.no");
-		when(studRepo.getStudentByEmail("mail@mail.no")).thenReturn(s);
-		
-		genToken = service.authenticateAtGoogle("token");
-		assertEquals("Not a valid token provided", genToken.getToken());
 		
 		//Not a registrated user
 		s.setEmail("mail@nith.no");
