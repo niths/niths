@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
+import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 
 import org.hibernate.NonUniqueObjectException;
@@ -20,7 +22,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +34,26 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Abstract class that holds logic for CRUD operations on a given domain type
  * 
+ * To add new controllers, create an interface that extends
+ * GenericRESTController<Your_Domain> Then create a class that extends
+ * AbstractRESTControllerImpl<Your_domaim> implements YourInterface
+ * 
+ * <pre>
+ * {@code
+ * @Autowire your service and create a new list in 
+ * @package no.niths.application.rest.list and 
+ * @Override the two methods:
+ * public GenericService<Your_domain> getService() public
+ * ListAdapter<Your_domain> getList() to return your service and your list
+ * }
+ * </pre>
+ * 
+ * Add extra methods by defining them in the interface and override them in the
+ * implementation class Call super.methodName(parameter) to execute CRUD methods
+ * 
  * @param <T>
- *            The type parameter
+ *            The domain type
+ * 
  */
 public abstract class AbstractRESTControllerImpl<T> implements
 		GenericRESTController<T> {
@@ -42,7 +62,18 @@ public abstract class AbstractRESTControllerImpl<T> implements
 			.getLogger(AbstractRESTControllerImpl.class);
 
 	/**
-	 * {@inheritDoc}
+	 * Persists the domain
+	 * 
+	 * @param domain
+	 *            the domain to persist
+	 * 
+	 *            <pre>
+	 * {@code
+	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+	 * void create(@RequestBody Your_domain domain){
+	 * 		super.create(domain); 
+	 * }
+	 * </pre>
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
@@ -52,7 +83,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the domain object with the given id
+	 * 
+	 * @param id
+	 *            the id of the domain object
+	 * @return the domain object
+	 * @throws ObjectNotFoundException when object is not found
+	 * 
+	 *  Usage in your own class:
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	 * public You_Domain getById(@PathVariable Long id) {
+	 * 		return super.getById(id);
+	 * }
+	 * </pre>
+	 * 
 	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -64,9 +111,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		return domain;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	  /**
+     * 
+     * Returns an arraylist with all domain objects of the type
+     * 
+     * @param domain the class type 
+     * @return List of all domain objects
+     * 
+     * Usage in your own class:
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
+	 * public ArrayList<Role> getAll(Role domain) {
+	 * 		ArrayList<Role> roles = super.getAll(domain);
+	 * return roles;
+	 * }
+     */
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -76,7 +137,21 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Update the domain object
+	 * 
+	 * @param domain the domain
+	 * @throws ObjectNotFoundException when object is not found
+	 * 
+	 *  Usage in your own class:
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+	 * void update(@RequestBody Your_domain domain){
+	 * 		super.update(domain); 
+	 * }
+	 * </pre>
+	 * 
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.PUT)
@@ -98,7 +173,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Deprecated
 	public void delete(@PathVariable Long id) {
 		if (!getService().delete(id)) {
-			throw new ObjectNotFoundException("Could not find the object to delete");
+			throw new ObjectNotFoundException(
+					"Could not find the object to delete");
 		}
 	}
 
@@ -113,7 +189,21 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Deletes the domain object with the given id
+     * 
+     * @param id the if of the domain object to be deleted
+	 * 
+	 * Usage in your own class:
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+	 * void hibernateDelete(@PathVariable long id){
+	 * 		super.hibernateDelete(id); 
+	 * }
+	 * </pre>
+     * 
+     * 
 	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -129,6 +219,16 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	/**
 	 * Represents the service
 	 * 
+	 * Must override in own implementation
+	 * 
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * public GenericService<Your_domain> getService() {
+	 * 		return yourService;
+	 * }
+	 * </pre>
+	 * 
 	 * @return the service of a given type
 	 */
 	public abstract GenericService<T> getService();
@@ -136,14 +236,27 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	/**
 	 * Adapter for xml presentation of a list
 	 * 
+	 * Must override in own implementation
+	 * 
+	 *	<pre>
+	 * {@code
+	 * @Override
+	 * public ListAdapter<Your_Domain> getList() {
+	 * 		return your_domainList;
+	 * }
+	 * </pre>
+	 * 
 	 * @return Arraylist of a given type
 	 */
 	public abstract ListAdapter<T> getList();
 
+	
+	
+	
 	/**
 	 * EXCEPTIONHANDLING
 	 * 
-	 *	Throwing exceptions with custom error header as a response
+	 * Throwing exceptions with custom error header as a response
 	 * 
 	 */
 
@@ -155,11 +268,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public void constraintViolation(ConstraintViolationException cve, HttpServletResponse res) {
+	public void constraintViolation(ConstraintViolationException cve,
+			HttpServletResponse res) {
 		logger.debug("hibernate.constraintvia");
-		
-		res.setHeader("Error", cve.getMessage().toString()); 
+
+		res.setHeader("Error", cve.getMessage().toString());
 	}
+
 	/**
 	 * PUT - Error with header parameters
 	 * 
@@ -168,11 +283,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@ExceptionHandler(javax.validation.ConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public void constraintViolation2(javax.validation.ConstraintViolationException cve, HttpServletResponse res) {
+	public void constraintViolation2(
+			javax.validation.ConstraintViolationException cve,
+			HttpServletResponse res) {
 		logger.debug("javax.constraint");
-		res.setHeader("Error", cve.getMessage().toString()); 		
+		res.setHeader("Error", cve.getMessage().toString());
 	}
-	
+
 	/**
 	 * POST- Error with header parameters
 	 * 
@@ -181,25 +298,22 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public void dataIntegrity(DataIntegrityViolationException e, HttpServletResponse res) {
+	public void dataIntegrity(DataIntegrityViolationException e,
+			HttpServletResponse res) {
 		logger.debug("data");
 		res.setHeader("Error", e.getMessage().toString());
 	}
 
-	
 	/**
-	 * When server fetches an object and try to insert it into 
-	 * an collection where the object already is
-	 * Ex:
-	 * 		niths/committees/addEvent/1/5
+	 * When server fetches an object and try to insert it into an collection
+	 * where the object already is Ex: niths/committees/addEvent/1/5
 	 */
 	@ExceptionHandler(org.hibernate.NonUniqueObjectException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, it is already a member of the collection")
-	public void notUniqueObjectEx(NonUniqueObjectException e, HttpServletResponse res) {
+	public void notUniqueObjectEx(NonUniqueObjectException e,
+			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
-	
-	
 
 	/**
 	 * Catches illegal arguments Ex: When you try to insert a subject into a
@@ -207,32 +321,32 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@ExceptionHandler(java.lang.IllegalArgumentException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-	public void notValidParams(java.lang.IllegalArgumentException e, HttpServletResponse res) {
+	public void notValidParams(java.lang.IllegalArgumentException e,
+			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
-	
+
 	/**
-	 * Catches access denied exceptions
-	 * ExpiredTokenException, UnvalidTokenException etc...
+	 * Catches access denied exceptions ExpiredTokenException,
+	 * UnvalidTokenException etc...
 	 */
 	@ExceptionHandler(ObjectNotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void objectNotFound(ObjectNotFoundException e, HttpServletResponse res) {
+	public void objectNotFound(ObjectNotFoundException e,
+			HttpServletResponse res) {
 		logger.debug("Object not found AbstractRestController");
 		res.setHeader("Error", e.getMessage().toString());
 	}
 
 	/**
-	 * Catches access denied exceptions
-	 * ExpiredTokenException, UnvalidTokenException etc...
+	 * Catches access denied exceptions ExpiredTokenException,
+	 * UnvalidTokenException etc...
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	public void accessDenied(AccessDeniedException e) {
 		logger.debug("Access denied cathed in AbstractRestController");
-		//Use the error from the exception
+		// Use the error from the exception
 	}
-
-
 
 }
