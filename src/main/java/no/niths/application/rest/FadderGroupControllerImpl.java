@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -138,9 +139,9 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
     public void addLeaderToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         Student stud = studService.getById(studId);
-        ValidationHelper.isObjectNull(stud);
+        ValidationHelper.isObjectNull(stud, "Student not found");
         
         group.getLeaders().add(stud);
         service.update(group);
@@ -155,9 +156,9 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
     public void removeLeaderFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         Student stud = studService.getById(studId);
-        ValidationHelper.isObjectNull(stud);
+        ValidationHelper.isObjectNull(stud, "Student not found");
   
         
         if(group.getLeaders().contains(stud)){
@@ -175,9 +176,9 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
     public void addChildToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         Student stud = studService.getById(studId);
-        ValidationHelper.isObjectNull(stud);
+        ValidationHelper.isObjectNull(stud, "Student not found");
         
         
         group.getFadderChildren().add(stud);
@@ -193,15 +194,15 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
     public void removeChildFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         Student stud = studService.getById(studId);
-        ValidationHelper.isObjectNull(stud);
+        ValidationHelper.isObjectNull(stud, "Student not found");
         
         if(group.getFadderChildren().contains(stud)){
         	group.getFadderChildren().remove(stud);
         	service.update(group);
         }else{
-        	logger.debug("student was not found in the group no update was performed");
+        	throw new NotInCollectionException("Student not a child in that group");
         }
         
     }
@@ -215,7 +216,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildrenFromAGroup(@PathVariable Long groupId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         
         if(!group.getFadderChildren().isEmpty()){
         	group.getFadderChildren().clear();
@@ -235,7 +236,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeadersFromAGroup(@PathVariable Long groupId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group);
+        ValidationHelper.isObjectNull(group, "Faddergroup not found");
         
         if(!group.getLeaders().isEmpty()){
         	group.getLeaders().clear();
@@ -258,7 +259,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         studentList.clear();
 
         FadderGroup fadderGroup = service.getById(id);
-        ValidationHelper.isObjectNull(fadderGroup);
+        ValidationHelper.isObjectNull(fadderGroup, "Faddergroup not found");
 
         // Adds the current FadderGroups children to the list.
         studentList.addAll(fadderGroup.getFadderChildren());

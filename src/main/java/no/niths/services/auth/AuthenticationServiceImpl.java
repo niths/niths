@@ -100,47 +100,50 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throws AuthenticationException {
 		logger.debug("Will autheticate: " + sessionToken);
 		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
-//		
-//		User uu = new User("rosben09@nith.no");
-//		uu.setStudentId(new Long(3));
-//		uu.addRoleName("ROLE_STUDENT");
-//		if(uu != null)
-//			return uu;
-//		
-		
-		
+		//
+		// User uu = new User("rosben09@nith.no");
+		// uu.setStudentId(new Long(3));
+		// uu.addRoleName("ROLE_STUDENT");
+		// if(uu != null)
+		// return uu;
+		//
+
 		// First check the format of the token
 		verifySessionTokenFormat(sessionToken);
 		// Fetch student owning the session token
 		Student wantAccess = studentService
 				.getStudentBySessionToken(sessionToken);
 		// Then we verify the last login time of the student
-		if (wantAccess != null) {
-			verifyLastLogonTime(wantAccess.getLastLogon());
-
-			// The information added here is used in the @Security
-			// annotations
-			// This enables us to fine grain the security checks like this:
-			// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
-			// principal = authenticatedUser, #id = methodparam(must match
-			// the name!)
-			authenticatedUser.setUserName(wantAccess.getEmail());
-			authenticatedUser.setStudentId(wantAccess.getId());
-
-			// Checking roles of student and adding them to User wrapper
-			List<Role> roles = wantAccess.getRoles();
-			if (!(roles.isEmpty())) {
-				String loggerText = "Student logging in has role(s): ";
-				for (Role role : roles) {
-					loggerText += role.getRoleName() + " ";
-					authenticatedUser.addRoleName(role.getRoleName());
-				}
-				logger.debug(loggerText);
-			}
-			// Update last login time
-			wantAccess.setLastLogon(getCurrentTime());
-			studentService.update(wantAccess);
+		if (wantAccess == null) {
+			logger.debug("No student has that session-token");
+			throw new UnvalidTokenException(
+					"Token does not belong to a student");
 		}
+		verifyLastLogonTime(wantAccess.getLastLogon());
+
+		// The information added here is used in the @Security
+		// annotations
+		// This enables us to fine grain the security checks like this:
+		// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
+		// principal = authenticatedUser, #id = methodparam(must match
+		// the name!)
+		authenticatedUser.setUserName(wantAccess.getEmail());
+		authenticatedUser.setStudentId(wantAccess.getId());
+
+		// Checking roles of student and adding them to User wrapper
+		List<Role> roles = wantAccess.getRoles();
+		if (!(roles.isEmpty())) {
+			String loggerText = "Student logging in has role(s): ";
+			for (Role role : roles) {
+				loggerText += role.getRoleName() + " ";
+				authenticatedUser.addRoleName(role.getRoleName());
+			}
+			logger.debug(loggerText);
+		}
+		// Update last login time
+		wantAccess.setLastLogon(getCurrentTime());
+		studentService.update(wantAccess);
+
 		return authenticatedUser;
 	}
 
@@ -148,7 +151,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throws AuthenticationException {
 		logger.debug("Verifying last login time...");
 		if (!(System.currentTimeMillis() - lastLogon <= SecurityConstants.SESSION_VALID_TIME)) {
-			logger.debug("Token expired");			
+			logger.debug("Token expired");
 			throw new ExpiredTokenException("Session-token has expired");
 		}
 		logger.debug("Verified");
@@ -172,7 +175,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				if (splittet.length == 3) {
 					long issuedAt = Long.parseLong(splittet[2]);
 					if (System.currentTimeMillis() - issuedAt > SecurityConstants.MAX_SESSION_VALID_TIME) {
-						logger.debug("Token expired");			
+						logger.debug("Token expired");
 						throw new ExpiredTokenException(
 								"Session-token has expired");
 					}

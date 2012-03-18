@@ -78,7 +78,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	@ResponseBody
 	public List<Subject> getCourseSubjects(@PathVariable Long id) {
 		Course course = courseService.getById(id);
-		ValidationHelper.isObjectNull(course);
+		ValidationHelper.isObjectNull(course, "Course not found");
 		subjectList.clear();
 		subjectList.addAll(course.getSubjects());
 		subjectList.setData(course.getSubjects());
@@ -127,10 +127,10 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 			@PathVariable Long subjectId) {
 
 		Course course = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(course);
+		ValidationHelper.isObjectNull(course, "Course not found");
 
 		Subject subject = subjectService.getById(subjectId);
-		ValidationHelper.isObjectNull(subject);
+		ValidationHelper.isObjectNull(subject, "Subject not found");
 
 		course.getSubjects().add(subject);
 		courseService.update(course);

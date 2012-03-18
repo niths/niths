@@ -26,7 +26,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 			throws IOException, ServletException {
 		
 		logger.debug("Authentication failed, entry point is set");
-		response.addHeader("error", authException.getMessage());
+		response.addHeader("Error", authException.getMessage());
 	
 	}
 

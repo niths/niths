@@ -23,6 +23,12 @@ public class ValidationHelper {
 		}
 		return false;
 	}
+	public static boolean isObjectNull(Object obj, String errorMessage) {
+		if (obj == null) {
+			throw new ObjectNotFoundException(errorMessage);
+		}
+		return false;
+	}
 
 
 	/**

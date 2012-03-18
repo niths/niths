@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.domain.Student;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
@@ -33,7 +34,7 @@ public class AuthenticationServiceTest {
 	@InjectMocks
 	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
 	
-	@Test
+	@Test(expected=UnvalidTokenException.class)
 	public void testAuthenticate(){
 		service.setCryptionPassword("password");
 		String token = getNormalToken();
@@ -52,6 +53,7 @@ public class AuthenticationServiceTest {
 		assertEquals(1, u.getAuthorities().size());
 
 	}
+	
 	
 	@Test
 	public void testLogin(){

@@ -43,9 +43,4 @@ public interface CommitteeController extends GenericRESTController<Committee> {
 	 */
 	public void removeEvent(Long committeeId, Long eventId);
 
-	/**
-	 * Catches constraint violation exceptions Ex: Leader already added to
-	 * committee
-	 */
-	public void notUniqueObject();
 }

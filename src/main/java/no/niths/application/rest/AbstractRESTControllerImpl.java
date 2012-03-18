@@ -3,24 +3,24 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ExpiredTokenException;
-import no.niths.application.rest.exception.IdentifierNullException;
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
-import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,7 +87,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		try {
 			getService().update(domain);
 		} catch (TransientObjectException e) {
-			throw new IdentifierNullException();
+			throw new ObjectNotFoundException(e.getMessage().toString());
 		}
 	}
 
@@ -98,7 +98,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Deprecated
 	public void delete(@PathVariable Long id) {
 		if (!getService().delete(id)) {
-			throw new ObjectNotFoundException();
+			throw new ObjectNotFoundException("Could not find the object to delete");
 		}
 	}
 
@@ -122,7 +122,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		try {
 			getService().hibernateDelete(id);
 		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ObjectNotFoundException();
+			throw new ObjectNotFoundException("Could not find the object");
 		}
 	}
 
@@ -143,11 +143,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	/**
 	 * EXCEPTIONHANDLING
 	 * 
-	 * How to retrieve the reason in a client:
-	 * 
-	 * } catch (HttpClientErrorException e) {
-	 * assertEquals(HttpStatus.NOT_FOUND,e.getStatusCode()); } catch(Exception
-	 * e) { fail("this isn't the expected exception: "+e.getMessage()); }
+	 *	Throwing exceptions with custom error header as a response
 	 * 
 	 */
 
@@ -158,8 +154,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * committee
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
-	public void constraintViolation() {
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public void constraintViolation(ConstraintViolationException cve, HttpServletResponse res) {
+		logger.debug("hibernate.constraintvia");
+		
+		res.setHeader("Error", cve.getMessage().toString()); 
+	}
+	/**
+	 * PUT - Error with header parameters
+	 * 
+	 * Catches constraint violation exceptions Ex: Leader already added to
+	 * committee
+	 */
+	@ExceptionHandler(javax.validation.ConstraintViolationException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public void constraintViolation2(javax.validation.ConstraintViolationException cve, HttpServletResponse res) {
+		logger.debug("javax.constraint");
+		res.setHeader("Error", cve.getMessage().toString()); 		
 	}
 	
 	/**
@@ -169,18 +180,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * committee
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, there is already an object with simular values")
-	public void dataIntegrity() {
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public void dataIntegrity(DataIntegrityViolationException e, HttpServletResponse res) {
+		logger.debug("data");
+		res.setHeader("Error", e.getMessage().toString());
 	}
+
 	
 	/**
 	 * When server fetches an object and try to insert it into 
 	 * an collection where the object already is
-	 * 
+	 * Ex:
+	 * 		niths/committees/addEvent/1/5
 	 */
 	@ExceptionHandler(org.hibernate.NonUniqueObjectException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, it is already a member of the collection")
-	public void notUniqueObject() {
+	public void notUniqueObjectEx(NonUniqueObjectException e, HttpServletResponse res) {
+		res.setHeader("Error", e.getMessage().toString());
 	}
 	
 	
@@ -190,8 +206,20 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * committee
 	 */
 	@ExceptionHandler(java.lang.IllegalArgumentException.class)
-	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Sorry, illegal arguments")
-	public void notValidParams() {
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void notValidParams(java.lang.IllegalArgumentException e, HttpServletResponse res) {
+		res.setHeader("Error", e.getMessage().toString());
+	}
+	
+	/**
+	 * Catches access denied exceptions
+	 * ExpiredTokenException, UnvalidTokenException etc...
+	 */
+	@ExceptionHandler(ObjectNotFoundException.class)
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	public void objectNotFound(ObjectNotFoundException e, HttpServletResponse res) {
+		logger.debug("Object not found AbstractRestController");
+		res.setHeader("Error", e.getMessage().toString());
 	}
 
 	/**
@@ -199,10 +227,12 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * ExpiredTokenException, UnvalidTokenException etc...
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
-	@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized, access denied")
-	public void accessDenied() {
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+	public void accessDenied(AccessDeniedException e) {
 		logger.debug("Access denied cathed in AbstractRestController");
+		//Use the error from the exception
 	}
+
 
 
 }

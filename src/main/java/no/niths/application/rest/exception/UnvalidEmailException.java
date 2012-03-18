@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason="Unvalid email")
+@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 public final class UnvalidEmailException extends AuthenticationException{
 
     public UnvalidEmailException(String msg) {

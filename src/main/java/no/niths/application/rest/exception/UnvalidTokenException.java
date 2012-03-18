@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason="Unvalid token")
+@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 public final class UnvalidTokenException extends AuthenticationException {
 
     public UnvalidTokenException(String msg) {

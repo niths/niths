@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -163,9 +164,9 @@ public class CommitteeControllerImpl
             @PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee);
+        ValidationHelper.isObjectNull(committee, "Committee not found");
         Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student);
+        ValidationHelper.isObjectNull(student, "Student not found");
         committee.getLeaders().add(student);
         committeeService.update(committee);
     }
@@ -187,12 +188,16 @@ public class CommitteeControllerImpl
     public void removeLeader(@PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee);
+        ValidationHelper.isObjectNull(committee, "Committee not found");
         Student studentLeader = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(studentLeader);
+        ValidationHelper.isObjectNull(studentLeader, "Student not found");
         ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
-        committee.getLeaders().remove(studentLeader);
-        committeeService.update(committee);
+        
+        if(committee.getLeaders().remove(studentLeader)){
+        	committeeService.update(committee);
+        }else{
+        	throw new NotInCollectionException("The student is not a leader");
+        }
     }
 
     /**
@@ -208,11 +213,12 @@ public class CommitteeControllerImpl
             @PathVariable Long committeeId,
             @PathVariable Long eventId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee);
+        ValidationHelper.isObjectNull(committee, "Committee not found");
         Event event = eventService.getById(eventId);
-        ValidationHelper.isObjectNull(event);
-        committee.getEvents().add(event);
-        committeeService.update(committee);
+        ValidationHelper.isObjectNull(event, "Event not found");
+        if(committee.getEvents().add(event)){
+        	committeeService.update(committee);        	
+        }
     }
 
     /**
@@ -228,13 +234,15 @@ public class CommitteeControllerImpl
             @PathVariable Long committeeId,
             @PathVariable Long eventId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee);
+        ValidationHelper.isObjectNull(committee, "Committee not found");
         Event event = eventService.getById(eventId);
-        ValidationHelper.isObjectNull(event);
+        ValidationHelper.isObjectNull(event, "Event not found");
 
         if(committee.getEvents().contains(event)){
             committee.getEvents().remove(event);
             committeeService.update(committee);
+        }else{
+        	throw new NotInCollectionException("Committe does not have that event");
         }
     }
 
@@ -253,4 +261,5 @@ public class CommitteeControllerImpl
     public ListAdapter<Committee> getList() {
         return committeeList;
     }
+
 }
