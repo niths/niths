@@ -24,13 +24,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  * Controller for handling developers and their applications
- *
+ * 
  */
 @Controller
 @RequestMapping(AppConstants.DEVELOPERS)
-public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Developer> implements DeveloperController{
+public class DeveloperControllerImpl extends
+		AbstractRESTControllerImpl<Developer> implements DeveloperController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeveloperControllerImpl.class);
@@ -39,62 +41,60 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	private DeveloperService service;
 
 	private DeveloperList developerList = new DeveloperList();
-	
+
 	@Autowired
 	private MailSenderService mailService;
-	
+
 	/**
 	 * Move this to create()?
 	 * 
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { "/gimme/{email}/{developerName}" }, 
-					method = RequestMethod.GET, 
-					headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "/gimme/" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public String requestAccess(@PathVariable String email, @PathVariable String developerName) {
-		logger.debug("A developer requests access: email: " + email + " : " + developerName);
-			logger.debug("valid email");
-			EmailValidator validator = EmailValidator.getInstance();
-			if (validator.isValid(email)){
-				
-				mailService.composeAndSend(email);
-				return "Valid email provided, check your inbox!";
-			}
-			//generere token
-			//opprette en developer med den token -->Flere parametre enn email?
-			//sette boolean devEnabled til false (Developer har en bool enabled kanskje)
-			//sende token til dev på mail
-			
-			//Dev mottar denne på mail
-			//sende token tilbake til APIet
-			//verifisere tokenen
-			//sette dev til enabled
-			//Sende mail til dev med du er enabled og ny token
-		logger.debug("not a valid email");
-		return "Not a valid email";
+	public void requestAccess(@RequestBody Developer domain) {
+		logger.debug("A developer requests access! Email: " + domain.getEmail());
+
+		EmailValidator validator = EmailValidator.getInstance();
+		if (!validator.isValid(domain.getEmail())) {
+			throw new UnvalidEmailException("Email is not valid");
+		}
+		//Valid email, persist the domain
+		create(domain);
+		//Send confirmation to developer
+		mailService.composeAndSend(domain.getEmail());
+		
+		
+		// generere token
+		// opprette en developer med den token -->Flere parametre enn email?
+		// sette boolean devEnabled til false (Developer har en bool enabled
+		// kanskje)
+		// sende token til dev på mail
+
+		// Dev mottar denne på mail
+		// sende token tilbake til APIet
+		// verifisere tokenen
+		// sette dev til enabled
+		// Sende mail til dev med du er enabled og ny token
+
 	}
 
 	@Override
 	public ArrayList<Developer> getAll(Developer domain) {
 		developerList = (DeveloperList) super.getAll(domain);
-		for (Developer d : developerList){
+		for (Developer d : developerList) {
 			d.setApps(null);
 		}
 		return developerList;
 	}
-	
+
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(@RequestBody Developer domain) {
-		EmailValidator validator = EmailValidator.getInstance();
-		if (!validator.isValid(domain.getEmail())){
-			throw new UnvalidEmailException("Email is not valid");
-		}
 		super.create(domain);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
@@ -102,14 +102,14 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 		// TODO Auto-generated method stub
 		super.delete(id);
 	}
-	
+
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void hibernateDelete(@PathVariable long id) {
 		// TODO Auto-generated method stub
 		super.hibernateDelete(id);
 	}
-	
+
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Developer domain) {
@@ -132,6 +132,5 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	public ListAdapter<Developer> getList() {
 		return developerList;
 	}
-
 
 }

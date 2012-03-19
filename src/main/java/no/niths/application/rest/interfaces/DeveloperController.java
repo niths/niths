@@ -8,8 +8,7 @@ import no.niths.domain.Developer;
 public interface DeveloperController extends GenericRESTController<Developer> {
 	/**
 	 * Method used for developers wanting access to the API
-	 * @param email
-	 * @return
+	 * @param developer
 	 */
-	String requestAccess(String email, String developerName);
+	void requestAccess(Developer domain);
 }

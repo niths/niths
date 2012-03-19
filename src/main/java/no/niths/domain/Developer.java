@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -44,6 +46,16 @@ public class Developer implements Serializable{
     @Column
     @Size(min = 3, max = 30, message = "Length min = 3, max = 30")
     private String name;
+    
+    @JsonIgnore
+	@XmlTransient
+    @Column
+    private Boolean isEnabled;
+    
+    @JsonIgnore
+	@XmlTransient
+    @Column(name="developer_token")
+    private String developerToken;
     
 //    @OneToMany(mappedBy = "developer", targetEntity=Application.class)
     @Cascade(CascadeType.ALL)
@@ -97,5 +109,25 @@ public class Developer implements Serializable{
         Developer s = (Developer) that;
         return s == this ? true : s.getId() == id ? true : false;
     }
+
+    @JsonIgnore
+	@XmlTransient
+	public Boolean getIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public String getDeveloperToken() {
+		return developerToken;
+	}
+
+	public void setDeveloperToken(String developerToken) {
+		this.developerToken = developerToken;
+	}
     
 }

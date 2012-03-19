@@ -18,6 +18,7 @@ import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.interfaces.StudentService;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
@@ -231,9 +232,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @param email email to check
 	 * @throws UnvalidEmailException
 	 */
+	@SuppressWarnings("null")
 	private void isUserValid(String email) {
-		if (!(email != null && email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && ValidationHelper
-				.hasObjectValidAttributes(new Student(email)))) {
+		EmailValidator validator = EmailValidator.getInstance();
+
+		if (!(email != null) && (email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && validator.isValid(email))) {
 			throw new UnvalidEmailException("Unvalid email");
 		}
 	}

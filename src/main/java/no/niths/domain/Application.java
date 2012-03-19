@@ -25,56 +25,57 @@ import no.niths.common.AppConstants;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.APPLICATIONS)
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Application implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 2489514983742481691L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(unique = true)
-    @Size(min = 2, max = 80, message ="The length of the name must be between 2 to 80 letters")
-    private String title;
+	@Column(unique = true)
+	@Size(min = 2, max = 80, message = "The length of the name must be between 2 to 80 letters")
+	private String title;
 
-	@Column(length=500)
-    @Size(max = 500, message ="The length of the description must not exceed 500 letters")
-    private String description;
-    
-    @Column(name = "icon_url")
-    @Size(max=200, message = "Url to long, max length = 200")
-    private String iconUrl;
-    
-    @JsonIgnore
+	@Column(length = 500)
+	@Size(max = 500, message = "The length of the description must not exceed 500 letters")
+	private String description;
+
+	@Column(name = "icon_url")
+	@Size(max = 200, message = "Url to long, max length = 200")
+	private String iconUrl;
+
+	@JsonIgnore
 	@XmlTransient
-    @Column
-    private String token;
+	@Column
+	private String token;
 
-    @JsonIgnore
+	@JsonIgnore
 	@XmlTransient
-    @Column
-    private Boolean isValid;
-    
-    @ManyToOne
-    @JoinTable(name = "developers_applications", joinColumns =  @JoinColumn(name = "applications_id"),
-    inverseJoinColumns= @JoinColumn(name="developers_id"))
-    @Cascade(CascadeType.ALL)
-    private Developer developer;
-    
-    public Application(){
-    }
-    
-    public Application(String title, String description, String iconUrl, Developer developer){
-    	this.title = title;
-    	this.description = description;
-    	this.iconUrl = iconUrl;
-    	this.developer = developer;
-    }
-     
-    
-    public String getToken() {
+	@Column
+	private Boolean isValid;
+
+	@ManyToOne
+	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
+	@Cascade(CascadeType.ALL)
+	private Developer developer;
+
+	public Application() {
+	}
+
+	public Application(String title, String description, String iconUrl,
+			Developer developer) {
+		this.title = title;
+		this.description = description;
+		this.iconUrl = iconUrl;
+		this.developer = developer;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public String getToken() {
 		return token;
 	}
 
@@ -82,6 +83,8 @@ public class Application implements Serializable {
 		this.token = token;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public Boolean getIsValid() {
 		return isValid;
 	}
@@ -89,12 +92,13 @@ public class Application implements Serializable {
 	public void setIsValid(Boolean isValid) {
 		this.isValid = isValid;
 	}
-    
-    @Override
-    public String toString() {
-    	return String.format("[%s][%s][%s][%s]", id, title, description, iconUrl);
-    }
- 
+
+	@Override
+	public String toString() {
+		return String.format("[%s][%s][%s][%s]", id, title, description,
+				iconUrl);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -136,13 +140,13 @@ public class Application implements Serializable {
 	public void setDeveloper(Developer developer) {
 		this.developer = developer;
 	}
-	
-    @Override
-    public boolean equals(Object that) {
-        if (!(that instanceof Application))	
-            return false;
-        Application s = (Application) that;
-        return s == this ? true : s.getId() == id ? true : false;
-    }
+
+	@Override
+	public boolean equals(Object that) {
+		if (!(that instanceof Application))
+			return false;
+		Application s = (Application) that;
+		return s == this ? true : s.getId() == id ? true : false;
+	}
 
 }
