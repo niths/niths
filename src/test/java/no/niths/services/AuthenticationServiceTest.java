@@ -23,20 +23,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class AuthenticationServiceTest {
 
-	@Mock
-	private StudentService studRepo;
-	
-	@Mock
-	private GoogleAuthenticationService authService;
-	
-	@Mock
-	private TokenGeneratorService tokenService;
-	
-	@InjectMocks
-	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
+//	@Mock
+//	private StudentService studRepo;
+//	
+//	@Mock
+//	private GoogleAuthenticationService authService;
+//	
+//	@Mock
+//	private TokenGeneratorService tokenService;
+//	
+//	@InjectMocks
+//	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
 	
 //	@Test(expected=UnvalidTokenException.class)
 //	public void testAuthenticate(){
