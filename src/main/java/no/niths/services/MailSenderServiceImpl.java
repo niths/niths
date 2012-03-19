@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import no.niths.domain.Developer;
 import no.niths.services.interfaces.MailSenderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,27 @@ public class MailSenderServiceImpl implements MailSenderService {
 	@Autowired(required=false)
 	private MailSender mailSender;
 	
-	private SimpleMailMessage composeMail(String email){
+	private SimpleMailMessage composeMail(String to, String from, String subject, String body){
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("niths@nith.no");
-		message.setTo(email);
-		message.setSubject("Hei du!");
-		message.setText("hei, dette er en tekst");
+		message.setFrom(from); //Email from
+		message.setTo(to); //Email to
+		message.setSubject(subject); //Email subject
+		message.setText(body); //Email message(body)
 		return message;
 	}
 	
 	@Override
-	public boolean composeAndSend(String email) {
-		if(sendMessage(composeMail(email))){
-			return true;
-		}
-		return false;
+	public void composeAndSend(String to, String from, String subject, String body) {
+		sendMessage(composeMail(to, from, subject, body));
 	}
 	
+
+	@Override
+	public void sendDeveloperEmail(Developer developer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Async
 	private boolean sendMessage(SimpleMailMessage message){
 		try{
@@ -47,5 +52,4 @@ public class MailSenderServiceImpl implements MailSenderService {
 		}
 		return false;
 	}
-
 }
