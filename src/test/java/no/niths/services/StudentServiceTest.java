@@ -232,13 +232,13 @@ public class StudentServiceTest {
 		Role r1 = new Role("SWISH");
 		roleService.create(r1);
 		
-		s1 = studService.getById(s1.getId());
+		s1 = studService.getStudentWithRoles(s1.getId());
 		int size = s1.getRoles().size();
 		s1.getRoles().add(r1);
 		s1.getRoles().add(r1);
 		studService.update(s1);
 		
-		s1 = studService.getById(s1.getId());
+		s1 = studService.getStudentWithRoles(s1.getId());
 		assertEquals(size + 2, s1.getRoles().size());
 		
 	}
