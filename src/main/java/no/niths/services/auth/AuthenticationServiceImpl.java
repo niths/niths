@@ -16,6 +16,7 @@ import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.interfaces.StudentService;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -42,9 +43,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Autowired
 	private GoogleAuthenticationService googleService;
-
-	@Value("${jasypt.password}")
-	private String cryptionPassword;
+	
+	@Autowired
+	private TokenGeneratorService tokenService;
 
 	/**
 	 * Authenticates a student via Google. If authentication succeeds, student
@@ -67,7 +68,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		isUserValid(userEmail);
 		Student authenticatedStudent = getStudent(userEmail);
 		// Generate "session token" that the app will use from now on
-		String generatedToken = generateToken(authenticatedStudent.getId());
+		String generatedToken = tokenService.generateToken(authenticatedStudent.getId());
+		
+//		String generatedToken = generateToken(authenticatedStudent.getId());
 		// Add the generated token to the student
 		authenticatedStudent.setSessionToken(generatedToken);
 		// Update last login time
@@ -96,8 +99,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Will autheticate: " + sessionToken);
 		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
 
-		// First check the format of the token
-		verifySessionTokenFormat(sessionToken);
+		// First check the format of the token		
+		tokenService.verifyTokenFormat(sessionToken);
+
 		// Fetch student owning the session token
 		Student wantAccess = studentService
 				.getStudentBySessionToken(sessionToken);
@@ -154,58 +158,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Verified");
 	}
 
-	// Verifies the session token from the HTTP request
-	private void verifySessionTokenFormat(String token)
-			throws AuthenticationException {
-		logger.debug("Verifying session token format...");
-		if (token != null) {
-			try {
-				logger.debug("Token before encryption: " + token);
-
-				StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-				jasypt.setPassword(cryptionPassword);
-				String decryptedToken = jasypt.decrypt(token);
-
-				logger.debug("Token after decryption: " + decryptedToken);
-
-				String[] splittet = decryptedToken.split("[|]");
-				if (splittet.length == 3) {
-					long issuedAt = Long.parseLong(splittet[2]);
-					if (System.currentTimeMillis() - issuedAt > SecurityConstants.MAX_SESSION_VALID_TIME) {
-						logger.debug("Token expired");
-						throw new ExpiredTokenException(
-								"Session-token has expired");
-					}
-				}
-			} catch (EncryptionOperationNotPossibleException ee) {
-				throw new UnvalidTokenException("Token not in a valid format");
-			} catch (NumberFormatException nfe) {
-				throw new UnvalidTokenException("Token not in a valid format");
-			}
-		}
-		logger.debug("Verified");
-	}
-
-	// Generates a random token and encrypts it with Jasypt
-	// (http://www.jasypt.org/)
-	private String generateToken(Long userId) {
-		// Create a token consisting of 128bit random string + user id + current
-		// time
-		long tokenIssued = getCurrentTime();
-		String generatedToken = UUID.randomUUID().toString().toUpperCase()
-				+ "|" + Long.toString(userId) + "|"
-				+ Long.toString(tokenIssued);
-		// Encrypt the token
-		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword(cryptionPassword);
-		String encryptedToked = jasypt.encrypt(generatedToken);
-
-		logger.debug("Generated token before encryption: " + generatedToken);
-		logger.debug("Generated token after encryption: " + encryptedToked);
-
-		return encryptedToked;
-	}
-
 	/**
 	 * Fetches student from DB. If no student matches the email, a new student
 	 * will be created and persisted
@@ -239,14 +191,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if (!(email != null) && (email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && validator.isValid(email))) {
 			throw new UnvalidEmailException("Unvalid email");
 		}
-	}
-
-	public String getCryptionPassword() {
-		return cryptionPassword;
-	}
-
-	public void setCryptionPassword(String decryptionPassword) {
-		this.cryptionPassword = decryptionPassword;
 	}
 
 	//Private helper
