@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @package no.niths.application.rest.list and 
  * @Override the two methods:
  * public GenericService<Your_domain> getService() public
- * ListAdapter<Your_domain> getList() to return your service and your list
+ * 		ListAdapter<Your_domain> getList() to return your service and your list
  * }
  * </pre>
  * 

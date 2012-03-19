@@ -15,7 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
-
+/**
+ * 
+ * Service for generating and verifying tokens. Tokens are used in HTTP headers
+ * when accessing the API from an application.
+ * 
+ * Tokens are encrypted and decrypted with {@link http://www.jasypt.org/} 
+ * Passwords are from persistence.properties in res/main/resources
+ *
+ */
 @Service
 public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 

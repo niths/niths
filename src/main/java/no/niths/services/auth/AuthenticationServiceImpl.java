@@ -2,14 +2,12 @@ package no.niths.services.auth;
 
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.UUID;
 
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.security.SessionToken;
@@ -20,17 +18,15 @@ import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.interfaces.StudentService;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 /**
  * Authenticates user trying to request a resource
+ * 
  */
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -51,13 +47,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * Authenticates a student via Google. If authentication succeeds, student
 	 * is either fetched from DB or if the student is a first time user, he/she
 	 * gets persisted.
-	 * 
-	 * Returns a session token valid for (see AppConstants.SESSION_VALID_TIME)
+	 * <p>
+	 * Returns a session token valid for {@value AppConstants.SESSION_VALID_TIME}
 	 * minutes Use this session token for future requests against the API
+	 * <p>
+	 * How to use:
+	 * <pre>
+	 * {@code
+	 * Place in header:
+	 * Session-token: ojejcndiu23io2hjUILHDSDW21.wqi8h2
+	 * Accept: Application/xml
+	 * }
+	 * </pre>
+	 * @param googleToken	the string to authenticate. If null, or not correct
+	 * 						a 401 will be in the response.
 	 * 
-	 * @param googleToken
-	 *            the token issued from google
-	 * @return session token to use in future request
+	 * @return SessionToken the string to use in future requests against the 
+	 * 						API. It is valid for {@value SecurityConstants.SESSION_VALID_TIME} ms.
+	 * 						Max concurrent session is {@value SecurityConstants.MAX_SESSION_VALID_TIME} ms.
+	 * 						
 	 */
 	@Override
 	public SessionToken authenticateAtGoogle(String googleToken) {
@@ -83,13 +91,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	/**
-	 * Authenticates the session token from a request Verifies the format of the
-	 * token, then fetches belonging student from DB. We then create a User
-	 * wrapper object with roles from the student and return that object to the
-	 * class responsible for setting the authenticated user.
+	 * Authenticates the session token from a request. 
+	 * <p>
+	 * Uses a TokenGeneratorService to verify the format of the token and any
+	 * errors will throw an AuthenticationException with an "Error" header.
+	 * If format is verified we then fetches belonging student from DB.
+	 * <p>
+	 * We then create a User wrapper object with roles copied from the student and
+	 * return that user to the class responsible for doing the actual authentication.
 	 * 
-	 * @param sessionToken
-	 *            the token to verify
+	 * @param sessionToken 	the string to verify. If not correct, an Authentication
+	 * 						exception will occur with an "Error header" explaining
+	 * 						the issue.
 	 * @return a user object with roles from student belonging to the session
 	 *         token
 	 */
@@ -97,7 +110,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public User authenticateSessionToken(String sessionToken)
 			throws AuthenticationException {
 		logger.debug("Will autheticate: " + sessionToken);
-		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
 
 		// First check the format of the token		
 		tokenService.verifyTokenFormat(sessionToken);
@@ -116,12 +128,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		verifyLastLogonTime(wantAccess.getLastLogon());
 
-		// The information added here is used in the @Security
-		// annotations
-		// This enables us to fine grain the security checks like this:
-		// @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
-		// principal = authenticatedUser, #id = methodparam(must match
-		// the name!)
+		/**
+		 * The information added here is used in the @Security annotations
+		 * 
+		 * This enables us to fine grain the security checks like this:¨
+		 * <pre>
+		 * {@code
+		 * @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
+		 * 		public void methodName(Long id){...}
+		 * principal = authenticatedUser, #id = methodparam(must match the name!)
+		 * }
+		 * </pre>
+		 */
+		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
 		authenticatedUser.setUserName(wantAccess.getEmail());
 		authenticatedUser.setStudentId(wantAccess.getId());
 
@@ -143,10 +162,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	/**
-	 * Verifies the last login time against the {@link SecurityConstants.SESSION_VALID_TIME} 
+	 * Verifies the last login time against the {@value SecurityConstants.SESSION_VALID_TIME} 
 	 * 
-	 * @param lastLogon time student had last login
-	 * @throws AuthenticationException
+	 * @param lastLogon long time student had last login in ms
+	 * @throws AuthenticationException when session token has expired
 	 */
 	private void verifyLastLogonTime(long lastLogon)
 			throws AuthenticationException {
@@ -181,7 +200,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	/**
 	 * Check if the email of the user is valid(nith.no) and passes bean validation
-	 * @param email email to check
+	 * @param email the string to check
 	 * @throws UnvalidEmailException
 	 */
 	@SuppressWarnings("null")
