@@ -218,6 +218,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// persisted
 		Student student = studentService.getStudentByEmail(userEmail);
 		if (student == null) { // First time user, persist!
+			logger.debug("Student is a first time user, persisting.");
 			student = new Student(userEmail);
 			Long id = studentService.create(student);
 			student.setId(id);
