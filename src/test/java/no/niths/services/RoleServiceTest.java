@@ -64,18 +64,19 @@ public class RoleServiceTest {
 		roleService.create(r2);
 		
 		//Add roles to student
-		Student t1 = studService.getById(s1.getId());
+		//Student t1 = studService.getById(s1.getId());
+		Student t1 = studService.getStudentWithRoles(s1.getId());
 		int t1Roles = t1.getRoles().size();
 		t1.getRoles().add(r1);
 		t1.getRoles().add(r2);
 		studService.update(t1);
-		assertEquals(t1Roles + 2, studService.getById(t1.getId()).getRoles().size());
+		assertEquals(t1Roles + 2, studService.getStudentWithRoles(s1.getId()).getRoles().size());
 		
 		//Remove a role from student
-		t1 = studService.getById(s1.getId());
+		t1 = studService.getStudentWithRoles(s1.getId());
 		t1.getRoles().remove(r1);
 		studService.update(t1);
-		assertEquals(t1Roles + 1, studService.getById(t1.getId()).getRoles().size());
+		assertEquals(t1Roles + 1, studService.getStudentWithRoles(s1.getId()).getRoles().size());
 		roleService.hibernateDelete(r1.getId());
 		
 		studService.hibernateDelete(t1.getId());

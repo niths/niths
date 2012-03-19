@@ -80,6 +80,15 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return s;
 	}
+	
+	@Override
+	public Student getStudentWithRoles(Long id) {
+		Student s = repo.getById(id);
+		if (s != null) {
+			s.getRoles().size();
+		}
+		return s;
+	}
 
 	public List<Student> getAll(Student s) {
 		return repo.getAll(s);
@@ -124,4 +133,5 @@ public class StudentServiceImpl implements StudentService {
 		
 		return list;
 	}
+
 }

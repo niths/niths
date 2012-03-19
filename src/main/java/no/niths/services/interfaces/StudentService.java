@@ -15,4 +15,6 @@ public interface StudentService extends GenericService<Student> {
 	Student getStudentBySessionToken(String token);
 	
 	Student getStudentByEmail(String email);
+	
+	Student getStudentWithRoles(Long id);
 }

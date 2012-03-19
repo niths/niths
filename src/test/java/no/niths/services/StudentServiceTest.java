@@ -117,7 +117,7 @@ public class StudentServiceTest {
 	public void testStudentRoleRelationship(){
 		Student s = new Student("xxxxx@nith.no");
 		studService.create(s);
-		Student fetched = studService.getById(s.getId());
+		Student fetched = studService.getStudentWithRoles(s.getId());
 		assertEquals(s, fetched);
 		int studentRoles = fetched.getRoles().size();
 		int numOfRoles = roleService.getAll(null).size();
@@ -131,13 +131,13 @@ public class StudentServiceTest {
 		fetched.getRoles().add(r1);
 		fetched.getRoles().add(r2);
 		studService.update(fetched);
-		fetched = studService.getById(s.getId());
+		fetched = studService.getStudentWithRoles(s.getId());
 		assertEquals(studentRoles + 2, fetched.getRoles().size());
 		
 		//Delete a ROLE
 		roleService.hibernateDelete(r1.getId());
 		//Should be removed from student!
-		fetched = studService.getById(s.getId());
+		fetched = studService.getStudentWithRoles(s.getId());
 		assertEquals(studentRoles + 1, fetched.getRoles().size());
 		
 		//Delete the student
@@ -182,8 +182,8 @@ public class StudentServiceTest {
 		roleService.create(r1);
 		roleService.create(r2);
 		
-		Student temp = studService.getById(s1.getId());
-		Student temp2 = studService.getById(s2.getId());
+		Student temp = studService.getStudentWithRoles(s1.getId());
+		Student temp2 = studService.getStudentWithRoles(s2.getId());
 		int st = temp.getRoles().size();
 		int st2 = temp.getRoles().size();
 		temp.getRoles().add(r1);
@@ -194,28 +194,28 @@ public class StudentServiceTest {
 		studService.update(temp);
 		studService.update(temp2);
 		
-		temp = studService.getById(s1.getId());
-		temp2 = studService.getById(s2.getId());
+		temp = studService.getStudentWithRoles(s1.getId());
+		temp2 = studService.getStudentWithRoles(s2.getId());
 		assertEquals(st + 2, temp.getRoles().size());
 		assertEquals(st2 + 2, temp2.getRoles().size());
 		
 		roleService.hibernateDelete(r1.getId());
 		
-		temp = studService.getById(s1.getId());
-		temp2 = studService.getById(s2.getId());
+		temp = studService.getStudentWithRoles(s1.getId());
+		temp2 = studService.getStudentWithRoles(s2.getId());
 		assertEquals(st + 1, temp.getRoles().size());
 		assertEquals(st2 + 1, temp2.getRoles().size());
 		
 		temp.getRoles().remove(r2);
 		studService.update(temp);
 		
-		temp = studService.getById(s1.getId());
-		temp2 = studService.getById(s2.getId());
+		temp = studService.getStudentWithRoles(s1.getId());
+		temp2 = studService.getStudentWithRoles(s2.getId());
 		assertEquals(st, temp.getRoles().size());
 		assertEquals(st2 + 1, temp2.getRoles().size());
 		
 		studService.hibernateDelete(temp.getId());
-		temp2 = studService.getById(s2.getId());
+		temp2 = studService.getStudentWithRoles(s2.getId());
 		assertEquals(st2 + 1, temp2.getRoles().size());
 		
 		studService.hibernateDelete(temp2.getId());
