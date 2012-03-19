@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.domain.Student;
 import no.niths.security.SessionToken;
@@ -23,23 +24,45 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AuthenticationServiceTest {
 
-//	@Mock
-//	private StudentService studRepo;
-//	
-//	@Mock
-//	private GoogleAuthenticationService authService;
-//	
-//	@Mock
-//	private TokenGeneratorService tokenService;
-//	
-//	@InjectMocks
-//	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
+	@Mock
+	private StudentService studService;
 	
-//	@Test(expected=UnvalidTokenException.class)
-//	public void testAuthenticate(){
+	@Mock
+	private GoogleAuthenticationService authService;
+	
+	@Mock
+	private TokenGeneratorService tokenService;
+	
+	@InjectMocks
+	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
+	
+	private String token = "token";
+	private String unValidemail = "mail@mail.com";
+	private String validemail = "maiwswwwl@nith.no";
+	
+	@Test(expected=UnvalidEmailException.class)
+	public void testEmailunValid(){
+		when(authService.authenticateAndGetEmail(token)).thenReturn(token);
+		service.authenticateAtGoogle(token);
+	}
+	@Test(expected=UnvalidEmailException.class)
+	public void testEmailunValid2(){
+		when(authService.authenticateAndGetEmail(token)).thenReturn(unValidemail);
+		service.authenticateAtGoogle(token);
+	}
+	@Test//(expected=UnvalidEmailException.class)
+	public void testEmailValid(){
+		when(authService.authenticateAndGetEmail(token)).thenReturn(validemail);
+		Student s= new Student(validemail);
+		when(studService.create(s)).thenReturn(new Long(1));
+		when(tokenService.generateToken(new Long(1))).thenReturn("dddd");
+		SessionToken st = service.authenticateAtGoogle(token);
+		assertEquals("dddd", st.getToken());
+		
+	}
 //		service.setCryptionPassword("pass");
 //		String token = getNormalToken();
 //		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));

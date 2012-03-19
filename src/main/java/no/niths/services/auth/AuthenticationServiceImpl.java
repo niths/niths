@@ -203,13 +203,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @param email the string to check
 	 * @throws UnvalidEmailException
 	 */
-	@SuppressWarnings("null")
 	private void isUserValid(String email) {
 		EmailValidator validator = EmailValidator.getInstance();
 
-		if (!(email != null) && (email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && validator.isValid(email))) {
+		if (email == null || !(email.endsWith(AppConstants.VALID_EMAIL_DOMAIN) && validator.isValid(email))) {
+			logger.debug("email is unvalid: " + email);
 			throw new UnvalidEmailException("Unvalid email");
 		}
+		logger.debug("Email valid: " + email);
 	}
 
 	//Private helper
