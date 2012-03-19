@@ -345,9 +345,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-	public void accessDenied(AccessDeniedException e) {
+	public void accessDenied(AccessDeniedException e, HttpServletResponse res) {
+		if(e.getMessage() == null){
+			res.setHeader("Error", "Access denied");
+		}
 		logger.debug("Access denied cathed in AbstractRestController");
-		// Use the error from the exception
 	}
 
 }
