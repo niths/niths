@@ -1,5 +1,7 @@
 package no.niths.application.rest.auth;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.common.AppConstants;
@@ -53,8 +55,9 @@ public class RestLoginControllerImpl implements RestLoginController{
 	}
 	
 	@ExceptionHandler(HttpClientErrorException.class)
-	@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Token not valid")
-	public void notAuthorized() {
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+	public void notAuthorized(HttpClientErrorException e, HttpServletResponse res) {
+		res.setHeader("Error", "Token not valid");
 	}
 
 }
