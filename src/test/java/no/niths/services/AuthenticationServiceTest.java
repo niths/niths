@@ -13,6 +13,7 @@ import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.interfaces.StudentService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -30,6 +31,9 @@ public class AuthenticationServiceTest {
 	
 	@Mock
 	private GoogleAuthenticationService authService;
+	
+	@Mock
+	private TokenGeneratorService tokenService;
 	
 	@InjectMocks
 	private AuthenticationServiceImpl service = new AuthenticationServiceImpl();
