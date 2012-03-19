@@ -66,7 +66,7 @@ public class DeveloperControllerImpl extends
 		create(domain);
 		logger.debug("Request success, sending email");
 		//Send confirmation to developer
-		//mailService.composeAndSend(domain.getEmail());
+		mailService.sendDeveloperEmail(domain);
 		
 		// generere token
 		// opprette en developer med den token -->Flere parametre enn email?
