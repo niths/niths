@@ -102,7 +102,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 			"setRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
 	public void addStudentRole(@PathVariable Long studentId, @PathVariable Long roleId) {
-		Student stud = studentService.getById(studentId);
+		Student stud = studentService.getStudentWithRoles(studentId);
 		ValidationHelper.isObjectNull(stud);
 		
 		Role role = roleService.getById(roleId);
@@ -121,7 +121,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@RequestMapping(value = { "removeRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role removed")
 	public void removeStudentRole(Long studId, Long roleId) {
-		Student stud = studentService.getById(studId);
+		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud);
 		
 		Role role = roleService.getById(roleId);
@@ -141,7 +141,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@RequestMapping(value = { "removeRoles/{studentId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
 	public void removeAllRolesFromStudent(Long studId) {
-		Student stud = studentService.getById(studId);
+		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud);
 
 		stud.getRoles().clear();

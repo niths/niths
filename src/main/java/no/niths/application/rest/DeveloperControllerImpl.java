@@ -46,12 +46,14 @@ public class DeveloperControllerImpl extends
 	private MailSenderService mailService;
 
 	/**
-	 * Move this to create()?
+	 * Register a developer!
+	 * 
+	 * Check if the email is valid, then send the developer a email confirmation
 	 * 
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { "/gimme/" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "/gimme/" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public void requestAccess(@RequestBody Developer domain) {
 		logger.debug("A developer requests access! Email: " + domain.getEmail());
@@ -62,9 +64,9 @@ public class DeveloperControllerImpl extends
 		}
 		//Valid email, persist the domain
 		create(domain);
+		logger.debug("Request success, sending email");
 		//Send confirmation to developer
-		mailService.composeAndSend(domain.getEmail());
-		
+		//mailService.composeAndSend(domain.getEmail());
 		
 		// generere token
 		// opprette en developer med den token -->Flere parametre enn email?
