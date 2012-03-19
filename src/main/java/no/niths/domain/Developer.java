@@ -49,7 +49,7 @@ public class Developer implements Serializable{
     
     @JsonIgnore
 	@XmlTransient
-    @Column
+    @Column(name="is_enabled")
     private Boolean isEnabled;
     
     @JsonIgnore

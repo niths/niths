@@ -49,12 +49,12 @@ public class Application implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@Column
-	private String token;
+	@Column(name ="application_token")
+	private String applicationToken;
 
 	@JsonIgnore
 	@XmlTransient
-	@Column
+	@Column(name="is_valid")
 	private Boolean isValid;
 
 	@ManyToOne
@@ -75,12 +75,12 @@ public class Application implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	public String getToken() {
-		return token;
+	public String getApplicationToken() {
+		return applicationToken;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setApplicationToken(String token) {
+		this.applicationToken = token;
 	}
 
 	@JsonIgnore
