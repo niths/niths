@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
@@ -336,6 +337,16 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void objectNotFound(ObjectNotFoundException e,
 			HttpServletResponse res) {
 		logger.debug("Object not found AbstractRestController");
+		res.setHeader("Error", e.getMessage().toString());
+	}
+	
+	/**
+	 * Catches unvalid email exceptions
+	 */
+	@ExceptionHandler(UnvalidEmailException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void unvalidEmailException(UnvalidEmailException e,
+			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
 

@@ -37,7 +37,7 @@ public class Developer implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@Column
+	@Column(unique=true)
     @Email
     private String email;
     

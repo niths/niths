@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.DeveloperController;
 import no.niths.application.rest.lists.DeveloperList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -87,7 +88,10 @@ public class DeveloperControllerImpl extends AbstractRESTControllerImpl<Develope
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(@RequestBody Developer domain) {
-		// TODO Auto-generated method stub
+		EmailValidator validator = EmailValidator.getInstance();
+		if (!validator.isValid(domain.getEmail())){
+			throw new UnvalidEmailException("Email is not valid");
+		}
 		super.create(domain);
 	}
 	
