@@ -4,6 +4,7 @@ import java.util.List;
 
 import no.niths.aop.ApiEvent;
 import no.niths.domain.Developer;
+import no.niths.domain.Student;
 import no.niths.infrastructure.interfaces.DeveloperRepository;
 import no.niths.services.interfaces.DeveloperService;
 
@@ -48,4 +49,19 @@ public class DeveloperServiceImpl implements DeveloperService{
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Developer getDeveloperByDeveloperToken(String token) {
+		Developer dev = new Developer();
+		dev.setDeveloperToken(token);
+		List<Developer> all = getAll(dev);
+		if(!all.isEmpty()){
+			return all.get(0);
+		}
+		return null;
+	}
+
 }

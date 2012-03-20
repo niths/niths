@@ -20,7 +20,7 @@
 	</security:http>
 
 	<!-- Authentication filter that handles requests if no Basic authorization header is provided-->
-	<beans:bean id="authfilter" class="no.niths.security.UserAuthFilter">
+	<beans:bean id="authfilter" class="no.niths.security.RequestAuthenticationFilter">
 		<beans:property name="authProvider" ref="reqAuthenticationManager" />
 		<beans:property name="entryPoint" ref="authEntryPoint" />
 	</beans:bean>

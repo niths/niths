@@ -14,7 +14,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.security.SessionToken;
-import no.niths.security.User;
+import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
@@ -86,7 +86,7 @@ public class AuthenticationServiceTest {
 		long now = System.currentTimeMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME * 2);
 		s.setLastLogon(now);
 		when(studService.getStudentBySessionToken(token)).thenReturn(s);
-		User u = service.authenticateSessionToken(token);
+		RequestHolderDetails u = service.authenticateSessionToken(token);
 	}
 	
 	
@@ -97,7 +97,7 @@ public class AuthenticationServiceTest {
 		s.setLastLogon(now);
 		when(studService.getStudentBySessionToken(token)).thenReturn(s);
 		
-		User u = service.authenticateSessionToken(token);
+		RequestHolderDetails u = service.authenticateSessionToken(token);
 		assertEquals(1, u.getAuthorities().size());
 		GrantedAuthority a = u.getAuthorities().iterator().next();
 		assertEquals(SecurityConstants.R_ANONYMOUS, a.getAuthority());

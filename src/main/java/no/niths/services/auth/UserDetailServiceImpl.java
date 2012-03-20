@@ -1,6 +1,6 @@
 package no.niths.services.auth;
 
-import no.niths.security.User;
+import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.UserDetailService;
 
@@ -28,7 +28,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 	public UserDetails loadUserByUsername(String sessionToken)
 			throws UsernameNotFoundException {
 		
-		User user = authService.authenticateSessionToken(sessionToken);
+		RequestHolderDetails user = authService.authenticateSessionToken(sessionToken);
 		if(user == null){
 			throw new UsernameNotFoundException("Could not find user with that sessiontoken");
 		}

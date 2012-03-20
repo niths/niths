@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import no.niths.application.rest.exception.ExpiredTokenException;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
@@ -13,7 +14,7 @@ import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
-import no.niths.security.User;
+import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
@@ -113,7 +114,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 *         token
 	 */
 	@Override
-	public User authenticateSessionToken(String sessionToken)
+	public RequestHolderDetails authenticateSessionToken(String sessionToken)
 			throws AuthenticationException {
 		logger.debug("Will autheticate: " + sessionToken);
 
@@ -146,7 +147,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		 * }
 		 * </pre>
 		 */
-		User authenticatedUser = new User(); // ROLE_ANONYMOUS --> Wrapper
+		RequestHolderDetails authenticatedUser = new RequestHolderDetails(); // ROLE_ANONYMOUS --> Wrapper
 		authenticatedUser.setUserName(wantAccess.getEmail());
 		authenticatedUser.setStudentId(wantAccess.getId());
 
@@ -190,6 +191,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Developer[" + dev.getId() + "] has been given token: " + devToken.getToken());
 		
 		return devToken;
+	}
+	
+	/**
+	 * Enables a developer
+	 * 
+	 * Developer must exist in the DB, or else enabling will fail...
+	 * 
+	 * @param developerToken string return from registerDeveloper(Dev)
+	 * @return the developer object, null if not found
+	 */
+	public Developer enableDeveloper(String developerToken){
+		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken);
+		if(dev != null){
+			dev.setEnabled(true);			
+		}
+		return dev;
 	}
 
 	/**

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestDeveloperAccessController;
-import no.niths.common.AppConstants;
 import no.niths.domain.Developer;
 import no.niths.security.DeveloperToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -43,12 +41,31 @@ public class RestDeveloperAccessControllerImpl implements RestDeveloperAccessCon
 	@Autowired
 	private MailSenderService mailService;
 	
+	private final static String VIEW_NAME = "developerConfirmation";
+	
 	/**
-	 * Register a developer!
+	 * Register a developer and generates a developer token that the
+	 * developer uses in future requests
 	 * 
-	 * Check if the email is valid, then send the developer a email confirmation
+	 * <pre>
+	 * {@code
+	 * How to use:
+	 * POST: niths/register/
 	 * 
-	 * {@inheritDoc}
+	 * Header:
+	 * Content-type: application/xml
+	 * Accept: application/xml || application/json
+	 * 
+	 * Body:
+	 * <developer>
+	 * <email>youremail@mail.com</email>
+	 * <name>Your developer name</name>
+	 * </developer>
+	 * }
+	 * </pre>
+	 * 
+	 * @param developer the developer to persist
+	 * @return DeveloperToken the token and a confirmation message 
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
@@ -70,21 +87,31 @@ public class RestDeveloperAccessControllerImpl implements RestDeveloperAccessCon
 		return devToken;
 	}
 	
+	/**
+	 * Enables already registrated developers.
+	 * 
+	 * How to use:
+	 * Paste the url to the server + /niths/register/enable/<your_token>
+	 * into your favourite browser
+	 * 
+	 * @param developerToken the token returned from requestAccess(Developer)
+	 * @return a page with confirmation or error message
+	 */
 	@Override
-	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.GET)
 	public ModelAndView enableDeveloper(@PathVariable String developerToken){
 		logger.debug("Developer want to be enabled with developer token: " + developerToken);
+		ModelAndView view = new ModelAndView(VIEW_NAME);
 		
-		ModelAndView view = new ModelAndView("developerConfirmation");
-		
-		//Get developer with the token, set him enabled
-		//if any errors:
-		view.addObject("error", "the error");
+		Developer dev = service.enableDeveloper(developerToken);
+		if(dev == null){
+			view.addObject("error", "No developer with token: "+ developerToken + " could be found");			
+		}
 		
 		view.addObject("token", developerToken);
 		return view;
-		//return new DeveloperToken("TOOOKEN", "HEI DU");
 	}
+
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)

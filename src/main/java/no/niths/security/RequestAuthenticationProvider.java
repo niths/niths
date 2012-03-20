@@ -40,7 +40,7 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			AuthenticationSessionToken signedToken = (AuthenticationSessionToken) authentication;
 			logger.debug("Session-token:" + signedToken.getToken());
 			//Get a user that holds the student matching the session token
-			User user = (User) userDetailService.loadUserByUsername(signedToken.getToken());
+			RequestHolderDetails user = (RequestHolderDetails) userDetailService.loadUserByUsername(signedToken.getToken());
 			//Create new authentication object with the studentid and the roles
 			Authentication auth = new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 			return auth;
