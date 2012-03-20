@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.common.AppConstants;
-import no.niths.domain.Room;
+import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;

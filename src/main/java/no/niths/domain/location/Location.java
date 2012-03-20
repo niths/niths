@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.location;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Event;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;

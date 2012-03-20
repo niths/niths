@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Room;
+import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.services.interfaces.AccessFieldService;

@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.location;
 
 import java.io.Serializable;
 import java.util.ArrayList;

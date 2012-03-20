@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Room;
+import no.niths.domain.location.Room;
 
 @XmlRootElement(name = AppConstants.ROOMS)
 public class RoomList extends ListAdapter<Room> {

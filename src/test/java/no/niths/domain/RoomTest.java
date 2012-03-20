@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import no.niths.domain.location.Room;
+
 import org.hibernate.validator.HibernateValidator;
 import org.junit.Before;
 import org.junit.Ignore;

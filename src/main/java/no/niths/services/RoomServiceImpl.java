@@ -2,7 +2,7 @@ package no.niths.services;
 
 import java.util.List;
 
-import no.niths.domain.Room;
+import no.niths.domain.location.Room;
 import no.niths.infrastructure.interfaces.RoomRepository;
 import no.niths.services.interfaces.RoomService;
 

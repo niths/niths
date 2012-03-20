@@ -7,7 +7,7 @@ import no.niths.application.rest.interfaces.RoomController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoomList;
 import no.niths.common.AppConstants;
-import no.niths.domain.Room;
+import no.niths.domain.location.Room;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoomService;
 

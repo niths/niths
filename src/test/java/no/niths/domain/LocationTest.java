@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import no.niths.domain.location.Location;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
