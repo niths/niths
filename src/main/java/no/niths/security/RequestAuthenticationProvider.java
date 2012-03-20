@@ -82,7 +82,7 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return authentication.equals(AuthenticationSessionToken.class);
+		return authentication.equals(RequestAuthenticationInfo.class);
 
 	}
 
