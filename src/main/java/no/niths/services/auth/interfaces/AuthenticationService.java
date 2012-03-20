@@ -3,7 +3,7 @@ package no.niths.services.auth.interfaces;
 import no.niths.domain.Developer;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
-import no.niths.security.User;
+import no.niths.security.RequestHolderDetails;
 /**
  * Authenticates user trying to request a resource
  */
@@ -25,7 +25,7 @@ public interface AuthenticationService {
 	 * @return a user object with roles from student belonging to the session
 	 *         token
 	 */
-	User authenticateSessionToken(String sessionToken);
+	RequestHolderDetails authenticateSessionToken(String sessionToken);
 	
 	/**
 	 * Authenticates a student via Google. If authentication succeeds, student

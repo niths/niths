@@ -18,9 +18,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Security filter that checks for session token and validates user
  * 
  */
-public class UserAuthFilter extends OncePerRequestFilter {
+public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
-	Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthFilter.class);
+	Logger logger = org.slf4j.LoggerFactory.getLogger(RequestAuthenticationFilter.class);
 
 	@Autowired
 	private RestAuthenticationEntryPoint entryPoint;

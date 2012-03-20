@@ -25,20 +25,21 @@ import org.springframework.security.core.userdetails.UserDetails;
  * principal = the authenticated user
  * 
  */
-public class User implements UserDetails {
+public class RequestHolderDetails implements UserDetails {
 
 	private static final long serialVersionUID = -4668876556049860936L;
 
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
 	private Long studentId;
+	private Long developerId;
 
 
-	public User() {
+	public RequestHolderDetails() {
 		this("Not provided");
 	}
 
-	public User(String userName) {
+	public RequestHolderDetails(String userName) {
 		this.userName = userName;
 	}
 	
@@ -120,6 +121,14 @@ public class User implements UserDetails {
 			userName = "Not provided";
 		}
 		this.userName = userName;
+	}
+
+	public Long getDeveloperId() {
+		return developerId;
+	}
+
+	public void setDeveloperId(Long developerId) {
+		this.developerId = developerId;
 	}
 
 }
