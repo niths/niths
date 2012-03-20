@@ -3,7 +3,7 @@ package no.niths.application.rest.auth.interfaces;
 import no.niths.security.SessionToken;
 
 /**
- * Login controller for Google login
+ * Login controller for the API
  * 
  */
 public interface RestLoginController {
@@ -14,6 +14,6 @@ public interface RestLoginController {
 	 * @param token for authentication via Google
 	 * @return Session token to use for login after authentication
 	 */
-	public SessionToken login(String token);
+	SessionToken login(String token);
 	
 }

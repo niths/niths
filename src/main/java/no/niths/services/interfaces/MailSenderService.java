@@ -19,6 +19,6 @@ public interface MailSenderService {
 	 */
 	public void composeAndSend(String to, String from, String subject, String body);
 	
-	public void sendDeveloperEmail(Developer developer);
+	public boolean sendDeveloperEmail(Developer developer);
 
 }

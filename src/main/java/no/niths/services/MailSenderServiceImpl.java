@@ -1,8 +1,12 @@
 package no.niths.services;
 
+import no.niths.common.AppConstants;
 import no.niths.domain.Developer;
+import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.interfaces.MailSenderService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailSenderServiceImpl implements MailSenderService {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(MailSenderServiceImpl.class);
+	
 	@Autowired(required=false)
 	private MailSender mailSender;
 	
@@ -35,8 +42,11 @@ public class MailSenderServiceImpl implements MailSenderService {
 	
 
 	@Override
-	public void sendDeveloperEmail(Developer developer) {
-		// TODO Auto-generated method stub
+	public boolean sendDeveloperEmail(Developer developer) {
+		String subject = "Registration success, verification needed";
+		String body = "Your developer-token is: " + developer.getDeveloperToken();
+		body += "<br/>" + "click me to verify \n er dette på egen linje?";
+		return (sendMessage(composeMail(developer.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
 		
 	}
 
@@ -47,8 +57,10 @@ public class MailSenderServiceImpl implements MailSenderService {
 				mailSender.send(message);
 				return true;
 			}
+			logger.warn("Could not send mail, mailsender is null");		
 		}catch(MailException me){
-			//false
+			me.printStackTrace();
+			logger.warn("MailException! Could not send mail");
 		}
 		return false;
 	}

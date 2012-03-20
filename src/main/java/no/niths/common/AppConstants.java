@@ -27,5 +27,6 @@ public final class AppConstants {
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
     public static final String CALENDAR_FORMAT = "dd/MM/yyyy-HH:mm";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String NITHS_EMAIL = "niths@nith.no";
     
 }

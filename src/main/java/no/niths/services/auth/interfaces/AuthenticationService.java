@@ -1,5 +1,7 @@
 package no.niths.services.auth.interfaces;
 
+import no.niths.domain.Developer;
+import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
 /**
@@ -50,4 +52,13 @@ public interface AuthenticationService {
 	 * 						
 	 */
 	SessionToken authenticateAtGoogle(String token);
+	
+	/**
+	 * Register a developer and generates a developer token that the
+	 * developer uses in future requests
+	 * 
+	 * @param developer the developer to persist
+	 * @return DeveloperToken the token and a confirmation message 
+	 */
+	DeveloperToken registerDeveloper(Developer dev);
 }
