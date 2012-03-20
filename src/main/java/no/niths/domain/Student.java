@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -153,6 +154,13 @@ public class Student implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
 	@Cascade(CascadeType.ALL)
 	private FadderGroup fadderGroup;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "feeds_student",
+	    joinColumns =        @JoinColumn(name = "student_id"),
+	    inverseJoinColumns = @JoinColumn(name = "feeds_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Feed> feeds = new ArrayList<Feed>();
 	
 	public Student() {
 		this(null, null, null, null, null, null, null);
@@ -375,6 +383,14 @@ public class Student implements Serializable {
 
 	public void setLastLogon(Long lastLogon) {
 		this.lastLogon = lastLogon;
+	}
+
+	public List<Feed> getFeeds() {
+		return feeds;
+	}
+
+	public void setFeeds(List<Feed> feeds) {
+		this.feeds = feeds;
 	}
 
 }

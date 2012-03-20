@@ -20,6 +20,8 @@ public final class AppConstants {
     public static final String ROLES = "roles";
     public static final String ADMIN = "admin";
     public static final String LOCATIONS = "locations";
+    public static final String FEED = "feed";
+    public static final String FEEDS = "feed";
     
     
     

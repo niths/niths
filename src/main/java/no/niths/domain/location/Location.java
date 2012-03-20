@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Event;
+import no.niths.domain.Feed;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -48,11 +49,19 @@ public class Location implements Serializable {
 	@Column(name = "longitude")
 	private Double longitude;
 
-
-	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
-	@JoinTable(name = "events_locations", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "events_id"))
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
+	@JoinTable(name = "events_location", 
+	joinColumns = @JoinColumn(name = "location_id"), 
+	inverseJoinColumns = @JoinColumn(name = "events_id"))
 	@Cascade(CascadeType.ALL)
-	private List<Event> eventLocations = new ArrayList<Event>();
+	private List<Event> events = new ArrayList<Event>();
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "feeds_location",
+	    joinColumns =        @JoinColumn(name = "location_id"),
+	    inverseJoinColumns = @JoinColumn(name = "feeds_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Feed> feeds = new ArrayList<Feed>();
 
 	public Location() {
 		this(null, null);
@@ -92,16 +101,6 @@ public class Location implements Serializable {
 		this.id = id;
 	}
 
-	@XmlTransient
-	@JsonIgnore
-	public List<Event> getEventLocations() {
-		return eventLocations;
-	}
-
-	public void setEventLocations(List<Event> eventLocations) {
-		this.eventLocations = eventLocations;
-	}
-
 	public String getPlace() {
 		return place;
 	}
@@ -127,5 +126,25 @@ public class Location implements Serializable {
 	public String toString() {
 		return String.format("[%s][%s][Longitud:%s][Latitude:%s]", id, place,
 				longitude, latitude);
+	}
+
+	@XmlTransient
+	@JsonIgnore
+	public List<Feed> getFeeds() {
+		return feeds;
+	}
+
+	public void setFeeds(List<Feed> feeds) {
+		this.feeds = feeds;
+	}
+
+	@XmlTransient
+	@JsonIgnore
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
 	}
 }

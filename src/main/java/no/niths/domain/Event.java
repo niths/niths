@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,20 +24,16 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import no.niths.application.rest.lists.EventList;
-import no.niths.application.rest.lists.LocationList;
 import no.niths.common.AppConstants;
 import no.niths.domain.adapter.JsonCalendarAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
-import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -56,7 +53,7 @@ public class Event implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable=false)
+	@Column(unique = true, nullable = false)
 	@Size(min = 3, max = 30, message = "The length of the name must be between 3 to 30 letters")
 	private String name;
 
@@ -83,24 +80,19 @@ public class Event implements Serializable {
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
-	@JoinTable(name = "committees_events", 
-			joinColumns = @JoinColumn(name = "events_id"), 
-			inverseJoinColumns = @JoinColumn(name = "committees_id"))
+	@JoinTable(name = "committees_events", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	private List<Committee> committees = new ArrayList<Committee>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    		name="events_locations", 
-    		uniqueConstraints={@UniqueConstraint(
-    				columnNames ={"events_id", "location_id"})} )
-	@Cascade(value=CascadeType.ALL)
-    private List<Location> location = new ArrayList<Location>();
-		
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "events_location", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
+	@Cascade(value = CascadeType.ALL)
+	private Location location;
+
 	public Event() {
 		this(null, null, null, null, null);
 	}
-	
-	public Event(String name){
+
+	public Event(String name) {
 		this.name = name;
 	}
 
@@ -159,7 +151,7 @@ public class Event implements Serializable {
 		return description == null && name == null && id == null
 				&& endTime == null && startTime == null;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("[%s][%s][%s]", id, name, description);
@@ -198,12 +190,13 @@ public class Event implements Serializable {
 	public void setCommittees(List<Committee> committees) {
 		this.committees = committees;
 	}
-	
-	public List<Location> getLocation() {
+
+	public Location getLocation() {
 		return location;
 	}
 
-	public void setLocations(List<Location> locations) {
-		this.location = locations;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
+
 }

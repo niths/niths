@@ -101,21 +101,21 @@ public class EventRepositoryTest {
 		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
 		Event event = new Event("LUG Party", "Linux", cal, null);
 		Location loc = new Location("Oslo",10.2304,90.2030);
-		event.getLocation().add(loc);
+		event.setLocation(loc);
 		
 		eventRepo.create(event);
 		Event temp = eventRepo.getAll(event).get(0);
 		assertEquals(event,temp);
 		
-		assertEquals(1, temp.getLocation().size());
-		assertEquals(loc, temp.getLocation().get(0));
+		
+		assertEquals(loc, temp.getLocation());
 		
 		// update 
 		event.setEndTime(cal);		
 		temp = eventRepo.getAll(event).get(0);
 		
 		assertEquals(event.getEndTime(), temp.getEndTime());
-		assertEquals(1, temp.getLocation().size());
-		assertEquals(loc, temp.getLocation().get(0));
+	
+		assertEquals(loc, temp.getLocation());
 	}
 }
