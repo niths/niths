@@ -29,42 +29,40 @@ import org.hibernate.validator.constraints.Email;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.DEVELOPERS)
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Developer implements Serializable{
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class Developer implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = -85961208307674962L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
-	@Column(unique=true)
-    @Email
-    private String email;
-    
-    @Column
-    @Size(min = 3, max = 30, message = "Length min = 3, max = 30")
-    private String name;
-    
-    @JsonIgnore
-	@XmlTransient
-    @Column(name="is_enabled")
-    private Boolean isEnabled;
-    
-    @JsonIgnore
-	@XmlTransient
-    @Column(name="developer_token")
-    private String developerToken;
-    
-//    @OneToMany(mappedBy = "developer", targetEntity=Application.class)
-    @Cascade(CascadeType.ALL)
-    @OneToMany
-    @JoinTable(name = "developers_applications", joinColumns =  @JoinColumn(name = "developers_id"),
-    inverseJoinColumns= @JoinColumn(name="applications_id"))
-    List<Application> apps = new ArrayList<Application>();
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    
+	@Column(unique = true)
+	@Email
+	private String email;
+
+	@Column
+	@Size(min = 3, max = 30, message = "Length min = 3, max = 30")
+	private String name;
+
+	@JsonIgnore
+	@XmlTransient
+	@Column
+	private Boolean enabled;
+
+	@JsonIgnore
+	@XmlTransient
+	@Column(name = "developer_token")
+	private String developerToken;
+
+	// @OneToMany(mappedBy = "developer", targetEntity=Application.class)
+	@Cascade(CascadeType.ALL)
+	@OneToMany
+	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
+	List<Application> apps = new ArrayList<Application>();
+
 	public List<Application> getApps() {
 		return apps;
 	}
@@ -88,7 +86,7 @@ public class Developer implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -101,23 +99,13 @@ public class Developer implements Serializable{
 	public String toString() {
 		return String.format("[%s][%s][%s]", id, email, name);
 	}
-    
-    @Override
-    public boolean equals(Object that) {
-        if (!(that instanceof Developer))	
-            return false;
-        Developer s = (Developer) that;
-        return s == this ? true : s.getId() == id ? true : false;
-    }
 
-    @JsonIgnore
-	@XmlTransient
-	public Boolean getIsEnabled() {
-		return isEnabled;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	@Override
+	public boolean equals(Object that) {
+		if (!(that instanceof Developer))
+			return false;
+		Developer s = (Developer) that;
+		return s == this ? true : s.getId() == id ? true : false;
 	}
 
 	@JsonIgnore
@@ -129,5 +117,15 @@ public class Developer implements Serializable{
 	public void setDeveloperToken(String developerToken) {
 		this.developerToken = developerToken;
 	}
-    
+
+	@JsonIgnore
+	@XmlTransient
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 }

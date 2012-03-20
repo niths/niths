@@ -54,8 +54,8 @@ public class Application implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@Column(name="is_valid")
-	private Boolean isValid;
+	@Column
+	private Boolean enabled;
 
 	@ManyToOne
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
@@ -85,12 +85,12 @@ public class Application implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	public Boolean getIsValid() {
-		return isValid;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setIsValid(Boolean isValid) {
-		this.isValid = isValid;
+	public void setEnabled(Boolean isValid) {
+		this.enabled = isValid;
 	}
 
 	@Override
