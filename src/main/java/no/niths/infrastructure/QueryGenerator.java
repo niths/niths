@@ -59,11 +59,9 @@ public class QueryGenerator<T> {
 	private String[] splittingCriteria(String criteria) {
 		String[] conditionBuilder;
 
-//		if (criteria.length() > 0 && (SPLITT.equals(criteria.charAt(0)))) {
-//			conditionBuilder = new String[] { criteria };
-//		} else
-			
-		if (!criteria.contains(SPLITT)) {
+		if (criteria.length() > 0 && (SPLITT.equals(criteria.charAt(0)))) {
+			conditionBuilder = new String[] { criteria };
+		} else if (!criteria.contains(SPLITT)) {
 			conditionBuilder = new String[] { criteria };
 		} else {
 
