@@ -7,9 +7,12 @@ import static org.mockito.Mockito.when;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
+import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
+import no.niths.domain.security.Role;
 import no.niths.security.SessionToken;
 import no.niths.security.User;
 import no.niths.services.auth.AuthenticationServiceImpl;
@@ -23,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.security.core.GrantedAuthority;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticationServiceTest {
@@ -43,6 +47,9 @@ public class AuthenticationServiceTest {
 	private String unValidemail = "mail@mail.com";
 	private String validemail = "maiwswwwl@nith.no";
 	
+	/**
+	 * Authenticate at google
+	 */
 	@Test(expected=UnvalidEmailException.class)
 	public void testEmailunValid(){
 		when(authService.authenticateAndGetEmail(token)).thenReturn(token);
@@ -61,67 +68,45 @@ public class AuthenticationServiceTest {
 		when(tokenService.generateToken(new Long(1))).thenReturn("dddd");
 		SessionToken st = service.authenticateAtGoogle(token);
 		assertEquals("dddd", st.getToken());
-		
 	}
-//		service.setCryptionPassword("pass");
-//		String token = getNormalToken();
-//		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));
-//		
-//		User u = service.authenticateSessionToken(token);
-//		assertEquals(1, u.getAuthorities().size());
-//		
-//		token = getExpiredToken();
-//		when(studRepo.getStudentBySessionToken(token)).thenReturn(new Student("mail@nith.no", System.currentTimeMillis()));
-//		
-//		u = service.authenticateSessionToken(token);
-//		assertEquals(1, u.getAuthorities().size());
-//		
-//		u = service.authenticateSessionToken(null);
-//		assertEquals(1, u.getAuthorities().size());
-//
-//	}
-//	
-//	
-//	@Test
-//	public void testLogin(){
-//		Student s = new Student("mail@nith.no");
-//		s.setId(new Long(1));
-//		service.setCryptionPassword("password");
-//
-//		//Valid email
-//		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
-//		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(s);
-//				
-//		SessionToken genToken = service.authenticateAtGoogle("token");
-//		assertNotSame("Not a valid token provided", genToken.getToken());
-//		
-//		//Not a registrated user
-//		s.setEmail("mail@nith.no");
-//		when(authService.authenticateAndGetEmail("token")).thenReturn("mail@nith.no");
-//		when(studRepo.getStudentByEmail("mail@nith.no")).thenReturn(null);
-//		when(studRepo.create(new Student("mail@nith.no"))).thenReturn(new Long(1));
-//		
-//		genToken = service.authenticateAtGoogle("token");
-//		assertNotSame("Not a valid token provided", genToken.getToken());
-//	}
-//	
-//	private String getExpiredToken(){
-//		long tokenIssued = new GregorianCalendar().getTimeInMillis() - 60000;
-//		String generatedToken = UUID.randomUUID().toString().toUpperCase()
-//				+ "|" + Long.toString(1) + "|" + Long.toString(tokenIssued);
-//		//Encrypt the token
-//		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-//		jasypt.setPassword("pass");
-//		return jasypt.encrypt(generatedToken);		
-//	}
-//	
-//	private String getNormalToken(){
-//		long tokenIssued = new GregorianCalendar().getTimeInMillis();
-//		String generatedToken = UUID.randomUUID().toString().toUpperCase()
-//				+ "|" + Long.toString(1) + "|" + Long.toString(tokenIssued);
-//		//Encrypt the token
-//		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-//		jasypt.setPassword("pass");
-//		return jasypt.encrypt(generatedToken);
-//	}
+	
+	/**
+	 * Authentice session token
+	 */
+	@Test(expected=UnvalidTokenException.class)
+	public void testStudentWithNoLastLogon(){
+		Student s = new Student(validemail);
+		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		service.authenticateSessionToken(token);
+	}
+	
+	@Test(expected=ExpiredTokenException.class)
+	public void expiredToken(){
+		Student s = new Student(validemail);
+		long now = System.currentTimeMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME * 2);
+		s.setLastLogon(now);
+		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		User u = service.authenticateSessionToken(token);
+	}
+	
+	
+	@Test//
+	public void testStudentWithLastLogon(){
+		Student s = new Student(validemail);
+		long now = System.currentTimeMillis();
+		s.setLastLogon(now);
+		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		
+		User u = service.authenticateSessionToken(token);
+		assertEquals(1, u.getAuthorities().size());
+		GrantedAuthority a = u.getAuthorities().iterator().next();
+		assertEquals(SecurityConstants.R_ANONYMOUS, a.getAuthority());
+		
+		s.getRoles().add(new Role(SecurityConstants.R_STUDENT));
+		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		u = service.authenticateSessionToken(token);
+		assertEquals(1, u.getAuthorities().size());
+		a = u.getAuthorities().iterator().next();
+		assertEquals(SecurityConstants.R_STUDENT, a.getAuthority());
+	}
 }
