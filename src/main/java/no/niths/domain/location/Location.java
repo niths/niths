@@ -16,10 +16,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Event;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -46,6 +48,8 @@ public class Location implements Serializable {
 	@Column(name = "longitude")
 	private Double longitude;
 
+	@XmlTransient
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
 	@JoinTable(name = "events_locations", joinColumns = @JoinColumn(name = "locations_id"), inverseJoinColumns = @JoinColumn(name = "events_id"))
 	@Cascade(CascadeType.ALL)

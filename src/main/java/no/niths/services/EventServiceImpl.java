@@ -24,16 +24,26 @@ public class EventServiceImpl implements EventsService {
 
 	@ApiEvent(title = "Event created")
 	public Long create(Event committeeEvents) {
+		logger.debug("comitteeEvents"+committeeEvents);
 		return repo.create(committeeEvents);
 	}
 
 	public List<Event> getAll(Event event) {
 		List<Event> events = repo.getAll(event);
+
+		for (Event e : events) {
+			e.setLocations(null);
+		}
+
 		return events;
 	}
 
 	public Event getById(long id) {
 		Event event = repo.getById(id);
+
+		if (event != null) {
+			event.getLocations().size();
+		}
 		return event;
 	}
 

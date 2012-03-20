@@ -1,10 +1,15 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.GregorianCalendar;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Event;
+import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
+import no.niths.services.interfaces.LocationService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +28,9 @@ public class EventServiceTest {
 	
 	@Autowired
 	private EventsService eventService;
+	
+	@Autowired
+	private LocationService locService;
 	
 	@Test
 	public void testCRUD(){
@@ -45,4 +53,34 @@ public class EventServiceTest {
 		
 	}
 	
+
+	@Test 
+	public void testEventLocation(){
+		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
+		Event event = new Event("LUG Party", "Linux", cal, null);
+		Location loc = new Location("Oslo",10.2304,90.2030);
+		event.getLocations().add(loc);
+		
+		eventService.create(event);
+		Event temp = eventService.getById(event.getId());
+		assertEquals(event,temp);
+		
+		assertEquals(1, temp.getLocations().size());
+		assertEquals(loc, temp.getLocations().get(0));
+		
+		// update 
+		event.setEndTime(cal);	
+		eventService.update(event);
+		
+		temp = eventService.getById(event.getId());
+		
+		assertEquals(event.getEndTime(), temp.getEndTime());
+		assertEquals(1, temp.getLocations().size());
+		assertEquals(loc, temp.getLocations().get(0));
+		
+		assertEquals(1,locService.getAll(loc).size());
+		
+		locService.hibernateDelete(loc.getId());
+		assertEquals(0,locService.getAll(loc).size());
+	}
 }
