@@ -43,7 +43,7 @@ public class Developer implements Serializable {
 	@Email
 	private String email;
 
-	@Column
+	@Column(unique = true)
 	@Size(min = 3, max = 30, message = "Length min = 3, max = 30")
 	private String name;
 

@@ -6,9 +6,5 @@ import no.niths.domain.Developer;
  *
  */
 public interface DeveloperController extends GenericRESTController<Developer> {
-	/**
-	 * Method used for developers wanting access to the API
-	 * @param developer
-	 */
-	void requestAccess(Developer domain);
+
 }
