@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import no.niths.application.rest.exception.ExpiredTokenException;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
@@ -190,6 +191,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Developer[" + dev.getId() + "] has been given token: " + devToken.getToken());
 		
 		return devToken;
+	}
+	
+	/**
+	 * Enables a developer
+	 * 
+	 * Developer must exist in the DB, or else enabling will fail...
+	 * 
+	 * @param developerToken string return from registerDeveloper(Dev)
+	 * @return the developer object, null if not found
+	 */
+	public Developer enableDeveloper(String developerToken){
+		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken);
+		if(dev != null){
+			dev.setEnabled(true);			
+		}
+		return dev;
 	}
 
 	/**

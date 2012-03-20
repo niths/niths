@@ -38,6 +38,8 @@
 				<c:otherwise>
 					<p>Very sorry, but an error occured</p>
 					<br />
+					<p>Error report: <b>${error}</b></p>
+					<br />
 					<p>You sure you sendt in the correct token?</p>
 				</c:otherwise>
 			</c:choose>

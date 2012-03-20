@@ -12,11 +12,41 @@ import no.niths.security.DeveloperToken;
 public interface RestDeveloperAccessController {
 	
 	/**
-	 * Method used for developers wanting access to the API
-	 * @param developer
+	 * Register a developer and generates a developer token that the
+	 * developer uses in future requests
+	 * 
+	 * <pre>
+	 * {@code
+	 * How to use:
+	 * POST: niths/register/
+	 * 
+	 * Header:
+	 * Content-type: application/xml
+	 * Accept: application/xml || application/json
+	 * 
+	 * Body:
+	 * <developer>
+	 * <email>youremail@mail.com</email>
+	 * <name>Your developer name</name>
+	 * </developer>
+	 * }
+	 * </pre>
+	 * 
+	 * @param developer the developer to persist
+	 * @return DeveloperToken the token and a confirmation message 
 	 */
 	DeveloperToken requestAccess(Developer domain);
 	
+	/**
+	 * Enables already registrated developers.
+	 * 
+	 * How to use:
+	 * Paste the url to the server + /niths/register/enable/<your_token>
+	 * into your favourite browser
+	 * 
+	 * @param developerToken the token returned from requestAccess(Developer)
+	 * @return a page with confirmation or error message
+	 */
 	ModelAndView enableDeveloper(String developerToken);
 	
 }

@@ -61,4 +61,14 @@ public interface AuthenticationService {
 	 * @return DeveloperToken the token and a confirmation message 
 	 */
 	DeveloperToken registerDeveloper(Developer dev);
+	
+	/**
+	 * Enables a developer
+	 * 
+	 * Developer must exist in the DB, or else enabling will fail...
+	 * 
+	 * @param developerToken string return from registerDeveloper(Dev)
+	 * @return the developer object, null if not found
+	 */
+	Developer enableDeveloper(String developerToken);
 }
