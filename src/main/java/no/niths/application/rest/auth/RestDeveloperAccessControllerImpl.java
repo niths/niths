@@ -76,6 +76,11 @@ public class RestDeveloperAccessControllerImpl implements RestDeveloperAccessCon
 		logger.debug("Developer want to be enabled with developer token: " + developerToken);
 		
 		ModelAndView view = new ModelAndView("developerConfirmation");
+		
+		//Get developer with the token, set him enabled
+		//if any errors:
+		view.addObject("error", "the error");
+		
 		view.addObject("token", developerToken);
 		return view;
 		//return new DeveloperToken("TOOOKEN", "HEI DU");
