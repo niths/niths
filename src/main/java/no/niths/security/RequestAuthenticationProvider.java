@@ -9,10 +9,11 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Authenticates requests
- *
+ * 
  */
 public class RequestAuthenticationProvider implements AuthenticationProvider {
 
@@ -23,27 +24,52 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 	private UserDetailService userDetailService;
 
 	/**
-	 * Fetches the Student belonging to the session token and
-	 * populates the authentication object with the student roles
+	 * Fetches the Student belonging to the session token and populates the
+	 * authentication object with the student roles
 	 * 
-	 * @param authentication the current authentication object
+	 * @param authentication
+	 *            the current authentication object
 	 * @return a new authentication object
-	 * @throws AuthenticationException when authentication fails
+	 * @throws AuthenticationException
+	 *             when authentication fails
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		logger.debug("Authentication manager handling the authentication object");
-		
 		try {
-			//Get the session token from the authentication object
-			AuthenticationSessionToken signedToken = (AuthenticationSessionToken) authentication;
-			logger.debug("Session-token:" + signedToken.getToken());
-			//Get a user that holds the student matching the session token
-			RequestHolderDetails user = (RequestHolderDetails) userDetailService.loadUserByUsername(signedToken.getToken());
-			//Create new authentication object with the studentid and the roles
-			Authentication auth = new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
-			return auth;
+//			Authentication auth = new UsernamePasswordAuthenticationToken(null, null,null);
+			
+			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
+			RequestHolderDetails userInfo = new RequestHolderDetails();
+			Long devId = null;
+			
+			//First check if developer token was provided,
+			//if so, get the developer id.
+			//The authentication provider handles the process and will
+			//throw an exception if no matching developer is found
+			if (authInfo.getDeveloperToken() != null) {
+				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
+			} 
+			
+			//If a session token was provided, get the student and his roles
+			//wrapped in a RequestHolderDetails object
+			if (authInfo.getSessionToken() != null) {
+				logger.debug("Authentication provider found Session-token: " + authInfo.getSessionToken());
+
+				// Get a user that holds the student matching the session token
+				userInfo = (RequestHolderDetails) userDetailService
+						.loadStudentBySessionToken(authInfo.getSessionToken());
+				
+			}
+			
+			if(devId != null){
+				userInfo.setDeveloperId(devId);
+			}
+			authInfo = new RequestAuthenticationInfo(userInfo, userInfo.getAuthorities());
+
+			return authInfo;
+
 		} catch (ClassCastException cce) {
 			logger.warn("Could not cast the authentication object");
 			throw new UnvalidTokenException(
