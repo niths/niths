@@ -10,8 +10,7 @@
       <%@include file='assets/stylesheets/admin.css'%>
     </style>
     <script type="text/javascript">
-      <%@include file='assets/javascripts/jquery.js'%>
-      <%@include file='assets/javascripts/admin.js'%>
+        <%@include file='assets/javascripts/admin.js'%>
     </script>
     </head>
   <body>
