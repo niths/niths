@@ -1,6 +1,7 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.GregorianCalendar;
 
@@ -77,6 +78,10 @@ public class EventServiceTest {
 		assertEquals(event.getEndTime(), temp.getEndTime());
 		assertEquals(1, temp.getLocation().size());
 		assertEquals(loc, temp.getLocation().get(0));
+		
+		eventService.hibernateDelete(temp.getId());
+		
+		assertNull(eventService.getById(event.getId()));
 		
 		assertEquals(1,locService.getAll(loc).size());
 		
