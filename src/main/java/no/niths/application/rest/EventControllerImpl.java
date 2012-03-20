@@ -45,9 +45,10 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	@Override
 	public ArrayList<Event> getAll(Event domain) {
 		super.getAll(domain);
+
 		
 		for (Event e : eventList) {
-			e.setLocations(null);
+			e.setLocation(null);
 		}
 		
 		return eventList;
@@ -106,7 +107,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 		
 		renewList(service.getEventsByTag(tag));
 		for (Event e : eventList) {
-			e.setLocations(null);
+			e.setLocation(null);
 		}
 		
 		return eventList;

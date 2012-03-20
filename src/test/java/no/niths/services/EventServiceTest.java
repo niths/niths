@@ -60,14 +60,14 @@ public class EventServiceTest {
 		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
 		Event event = new Event("LUG Party", "Linux", cal, null);
 		Location loc = new Location("Oslo",10.2304,90.2030);
-		event.getLocation().add(loc);
+		event.setLocation(loc);
 		
 		eventService.create(event);
 		Event temp = eventService.getById(event.getId());
 		assertEquals(event,temp);
 		
-		assertEquals(1, temp.getLocation().size());
-		assertEquals(loc, temp.getLocation().get(0));
+	
+		assertEquals(loc, temp.getLocation());
 		
 		// update 
 		event.setEndTime(cal);	
@@ -76,8 +76,8 @@ public class EventServiceTest {
 		temp = eventService.getById(event.getId());
 		
 		assertEquals(event.getEndTime(), temp.getEndTime());
-		assertEquals(1, temp.getLocation().size());
-		assertEquals(loc, temp.getLocation().get(0));
+
+		assertEquals(loc, temp.getLocation());
 		
 		eventService.hibernateDelete(temp.getId());
 		
