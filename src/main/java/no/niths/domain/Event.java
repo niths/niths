@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -70,12 +71,6 @@ public class Event implements Serializable {
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar endTime;
 
-	@Column(name = "latitude")
-	private Double latitude;
-
-	@Column(name = "longitude")
-	private Double longitude;
-
 	@Column(name = "tags")
 	private String tags;
 
@@ -88,6 +83,14 @@ public class Event implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	private List<Committee> committees = new ArrayList<Committee>();
 
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    		name="events_locations", 
+    		uniqueConstraints={@UniqueConstraint(
+    				columnNames ={"events_id", "locations_id"})} )
+	@Cascade(value=CascadeType.ALL)
+    private List<Location> locations = new ArrayList<Location>();
+	
 	public Event() {
 		this(null, null, null, null, null);
 	}
@@ -183,28 +186,20 @@ public class Event implements Serializable {
 		this.tags = tags;
 	}
 
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	public Double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
 	public List<Committee> getCommittees() {
 		return committees;
 	}
 
 	public void setCommittees(List<Committee> committees) {
 		this.committees = committees;
+	}
+
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 
 }

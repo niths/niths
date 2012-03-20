@@ -19,6 +19,9 @@ public final class AppConstants {
     public static final String SUBJECTS = "subjects";
     public static final String ROLES = "roles";
     public static final String ADMIN = "admin";
+    public static final String LOCATIONS = "locations";
+    
+    
     
     //Shared constants
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
