@@ -43,9 +43,9 @@
             <c:choose>
               <c:when test="${!student.roles.isEmpty()}">
               
-              <ul class="list">
+   
                 <c:forEach items="${listOfRoles}" var="roles">
-                <li>
+                
                   <c:set value="false" var="temp" />
                   
                   <c:forEach items="${student.roles}" var="studRoles">
@@ -69,9 +69,9 @@
                       value="${roles.id}">
                     <c:out value="${roles.trimedRoleName}" />
                   </c:if>
-                </li>
+        
                 </c:forEach>
-              </ul>
+              
               </c:when>
               <c:otherwise>
               
@@ -85,6 +85,7 @@
             </c:choose>
             <input type="submit" value="Oppdater Roller" />
           </form>
+          
           <form action="delete" method="post">
             <input type="hidden" value="${student.id}" name="studId" /> <input
               type="submit" value="Slett bruker">
