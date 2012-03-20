@@ -48,10 +48,9 @@ public class Location implements Serializable {
 	@Column(name = "longitude")
 	private Double longitude;
 
-	@XmlTransient
-	@JsonIgnore
+
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
-	@JoinTable(name = "events_locations", joinColumns = @JoinColumn(name = "locations_id"), inverseJoinColumns = @JoinColumn(name = "events_id"))
+	@JoinTable(name = "events_locations", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "events_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Event> eventLocations = new ArrayList<Event>();
 
@@ -93,6 +92,8 @@ public class Location implements Serializable {
 		this.id = id;
 	}
 
+	@XmlTransient
+	@JsonIgnore
 	public List<Event> getEventLocations() {
 		return eventLocations;
 	}

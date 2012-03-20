@@ -9,12 +9,11 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 
 import org.hibernate.NonUniqueObjectException;
+import org.hibernate.QueryParameterException;
 import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,8 +34,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Abstract class that holds logic for CRUD operations on a given domain type
  * 
  * To add new controllers, create an interface that extends
- * GenericRESTController<Your_Domain> Then create a class that extends
- * AbstractRESTControllerImpl<Your_domaim> implements YourInterface
+ * GenericRESTController<your_domain>, then create a class that extends
+ * AbstractRESTControllerImpl<your_domain> and implements YourInterface
  * 
  * <pre>
  * {@code
@@ -330,7 +328,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	/**
 	 * Catches access denied exceptions ExpiredTokenException,
-	 * UnvalidTokenException etc...
+	 * InvalidTokenException etc...
 	 */
 	@ExceptionHandler(ObjectNotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -341,7 +339,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 	
 	/**
-	 * Catches unvalid email exceptions
+	 * Catches invalid email exceptions
 	 */
 	@ExceptionHandler(UnvalidEmailException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
@@ -352,7 +350,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	/**
 	 * Catches access denied exceptions ExpiredTokenException,
-	 * UnvalidTokenException etc...
+	 * InvalidTokenException etc...
 	 */
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
@@ -363,4 +361,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("Access denied cathed in AbstractRestController");
 	}
 
+	
+	/**
+	 * Catches QueryParameterException, inv
+	 */
+	@ExceptionHandler(QueryParameterException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void InvalidSearchParam(QueryParameterException e, HttpServletResponse res) {
+		res.setHeader("Error", "Invalid Search param ex: hello&&hei " );
+		logger.debug("Invalid search param");
+	}
 }

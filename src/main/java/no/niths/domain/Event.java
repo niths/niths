@@ -23,16 +23,20 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import no.niths.application.rest.lists.EventList;
+import no.niths.application.rest.lists.LocationList;
 import no.niths.common.AppConstants;
 import no.niths.domain.adapter.JsonCalendarAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
+import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -88,10 +92,10 @@ public class Event implements Serializable {
     @JoinTable(
     		name="events_locations", 
     		uniqueConstraints={@UniqueConstraint(
-    				columnNames ={"events_id", "locations_id"})} )
+    				columnNames ={"events_id", "location_id"})} )
 	@Cascade(value=CascadeType.ALL)
-    private List<Location> locations = new ArrayList<Location>();
-	
+    private List<Location> location = new ArrayList<Location>();
+		
 	public Event() {
 		this(null, null, null, null, null);
 	}
@@ -194,13 +198,12 @@ public class Event implements Serializable {
 	public void setCommittees(List<Committee> committees) {
 		this.committees = committees;
 	}
-
-	public List<Location> getLocations() {
-		return locations;
+	
+	public List<Location> getLocation() {
+		return location;
 	}
 
 	public void setLocations(List<Location> locations) {
-		this.locations = locations;
+		this.location = locations;
 	}
-
 }

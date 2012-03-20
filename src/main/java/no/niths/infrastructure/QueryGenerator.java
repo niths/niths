@@ -22,6 +22,7 @@ public class QueryGenerator<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> whereQuery(String criteria, String columnName,
 			Session session) {
+
 		String[] conditionBuilder = splittingCriteria(criteria);
 		String condition = condition(columnName, conditionBuilder);
 		Query query = queryBuilder(session, conditionBuilder, condition);
@@ -59,13 +60,12 @@ public class QueryGenerator<T> {
 	private String[] splittingCriteria(String criteria) {
 		String[] conditionBuilder;
 
-		if (criteria.length() > 0 && (SPLITT.equals(criteria.charAt(0)))) {
+		if (criteria.length() > 0 && (SPLITT.charAt(0) == (criteria.charAt(0)))) {
 			conditionBuilder = new String[] { criteria };
 		} else if (!criteria.contains(SPLITT)) {
 			conditionBuilder = new String[] { criteria };
 		} else {
-
-			conditionBuilder = criteria.replaceAll(" ", "").split(SPLITT);
+			conditionBuilder = criteria.split(SPLITT);
 		}
 		return conditionBuilder;
 	}

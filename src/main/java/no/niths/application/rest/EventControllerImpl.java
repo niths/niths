@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.interfaces.EventController;
@@ -7,7 +8,6 @@ import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.Event;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
@@ -38,6 +38,20 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			.getLogger(EventControllerImpl.class);
 
 	private EventList eventList = new EventList();
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ArrayList<Event> getAll(Event domain) {
+		super.getAll(domain);
+		
+		for (Event e : eventList) {
+			e.setLocations(null);
+		}
+		
+		return eventList;
+	}
 	
 	/**
 	 * {@inheritDoc}
@@ -82,14 +96,19 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 		return eventList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@RequestMapping(value = { "tag={tag}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Event> getEventsByTag(@PathVariable String tag) {
-		eventList.clear();
-		eventList.addAll(service.getEventsByTag(tag));
-		eventList.setData(eventList);
-		ValidationHelper.isListEmpty(eventList);
+		
+		renewList(service.getEventsByTag(tag));
+		for (Event e : eventList) {
+			e.setLocations(null);
+		}
+		
 		return eventList;
 	}
 }

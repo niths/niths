@@ -30,11 +30,6 @@ public class EventServiceImpl implements EventsService {
 
 	public List<Event> getAll(Event event) {
 		List<Event> events = repo.getAll(event);
-
-		for (Event e : events) {
-			e.setLocations(null);
-		}
-
 		return events;
 	}
 
@@ -42,7 +37,7 @@ public class EventServiceImpl implements EventsService {
 		Event event = repo.getById(id);
 
 		if (event != null) {
-			event.getLocations().size();
+			event.getLocation().size();
 		}
 		return event;
 	}
