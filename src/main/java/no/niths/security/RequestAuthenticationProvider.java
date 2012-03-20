@@ -36,7 +36,7 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
-		logger.debug("Authentication manager handling the authentication object");
+		logger.debug("Authentication provider handling the authentication object");
 		try {
 			
 			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
@@ -50,7 +50,10 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			if (authInfo.getDeveloperToken() != null) {
 				logger.debug("Authentication provider found developer-token: " + authInfo.getDeveloperToken());
 				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
-			} 
+			} else {
+				logger.warn("No developer token found in authentication");
+				throw new UnvalidTokenException("No developer token found");
+			}
 			
 			//If a session token was provided, get the student and his roles
 			//wrapped in a RequestHolderDetails object

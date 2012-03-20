@@ -47,53 +47,74 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 			HttpServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
 
+		logger.debug("Incoming request, firing security filter;");
 		// Checking if Basic Authentication has been set,
 		// if not, we check for a Session-Token header
 		Authentication currentAuth = SecurityContextHolder.getContext()
 				.getAuthentication();
-		if (currentAuth == null) { // If basic auth has been populated, do not
-									// check for session token
-
+		if (currentAuth == null) { // If basic auth has been populated,
+									// do not check for session token
+			logger.debug("No Basic Authentication header found");
 			logger.debug("Starting request authentication process...");
-			//Wrapper
-			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(new RequestHolderDetails());
-			
+			// Wrapper
+			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(
+					new RequestHolderDetails());
+
 			// Get the authorization headers
-			String sessionHeader = req.getHeader("Session-token"); 
+			String sessionHeader = req.getHeader("Session-token");
 			String developerHeader = req.getHeader("Developer-token");
 
-			try {
-				if (developerHeader != null) {
-					logger.debug("Developer header found: " + developerHeader);
-					authInfo.setDeveloperToken(developerHeader);
-				}
-
-				if (sessionHeader != null) {
-					logger.debug("Session-token header found: " + sessionHeader);
-					authInfo.setSessionToken(sessionHeader);
-				}
-				// Let the authentication provider authenticate the request
-				// Will throw AuthenticationException, so it is important
-				// that every exception extends AuthenticationException
-				Authentication authResult = authProvider
-						.authenticate(authInfo);
-				
-				logger.debug("Authentication success");
-				// Set the result as the authentication object
-				SecurityContextHolder.getContext().setAuthentication(
-						authResult);
-				
-				
-				
-			} catch (AuthenticationException ae) {
-				logger.debug("Authentication failed for session-token: "
-						+ sessionHeader);
-				// Login failed, clear authentication object
-				SecurityContextHolder.getContext().setAuthentication(null);
-				// We send the error to the entry point
-				entryPoint.commence(req, res, ae);
+			boolean authenticateDev = false;
+			boolean authenticateSes = false; // for debugging
+			if (developerHeader != null) {
+				logger.debug("Developer header found: " + developerHeader);
+				authInfo.setDeveloperToken(developerHeader);
+				authenticateDev = true;
 			}
+
+			if (sessionHeader != null) {
+				logger.debug("Session-token header found: " + sessionHeader);
+				authInfo.setSessionToken(sessionHeader);
+				authenticateSes = true;
+			}else{
+				logger.debug("No session header found");
+			}
+
+			if (!authenticateDev) {
+				logger.debug("No developer token found, authentication ends...");
+			} else {
+				try {
+					logger.debug("Calling authentication provider to authenticate the header");
+
+					// Let the authentication provider authenticate the request
+					// Will throw AuthenticationException, so it is important
+					// that every exception extends AuthenticationException.
+					// Exceptions are catched in AbstractRestController.
+					Authentication authResult = authProvider
+							.authenticate(authInfo);
+
+					logger.debug("Authentication success, setting the ");
+
+					// Set the result as the authentication object
+					SecurityContextHolder.getContext().setAuthentication(
+							authResult);
+				} catch (AuthenticationException ae) {
+
+					logger.debug("Authentication failed: " + developerHeader);
+					if (authenticateSes) {
+						logger.debug("Authentication failed: "+ sessionHeader);
+					}
+					
+					// Login failed, clear authentication object
+					SecurityContextHolder.getContext().setAuthentication(null);
+					// We send the error to the entry point
+					entryPoint.commence(req, res, ae);
+				}
+			}
+
 		}
+		
+		logger.debug("Continuing spring security filter chain");
 		chain.doFilter(req, res);
 	}
 

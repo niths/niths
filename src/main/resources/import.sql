@@ -395,8 +395,8 @@ insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Stor
 insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Oslo');
 
 
-insert into events_locations (location_id, events_id) values(1, 1);
-insert into events_locations (location_id, events_id) values(2, 1);
+--insert into events_locations (location_id, events_id) values(1, 1);
+--insert into events_locations (location_id, events_id) values(2, 1);
 
 
 
