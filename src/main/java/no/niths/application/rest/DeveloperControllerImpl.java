@@ -68,9 +68,8 @@ public class DeveloperControllerImpl extends
 	}
 
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)// + " or (principal.developerId == #domain.getId())")
 	public void update(@RequestBody Developer domain) {
-		// TODO Auto-generated method stub
 		super.update(domain);
 	}
 

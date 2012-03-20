@@ -15,14 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+
 /**
  * 
  * Service for generating and verifying tokens. Tokens are used in HTTP headers
  * when accessing the API from an application.
  * 
- * Tokens are encrypted and decrypted with {@link http://www.jasypt.org/} 
+ * Tokens are encrypted and decrypted with {@link http://www.jasypt.org/}
  * Passwords are from persistence.properties in res/main/resources
- *
+ * 
  */
 @Service
 public class TokenGeneratorServiceImpl implements TokenGeneratorService {
@@ -61,15 +62,17 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 	}
 
 	/**
-	 * Verifies the format of the token
+	 * Verifies the format of the provided token
 	 * 
 	 * @param token
-	 *            to verify
-	 * @throws AuthenticationException
+	 *            the string to verify
+	 * @param checkTime
+	 *            true if we want to verify the token timestamp
 	 */
 	@Override
-	public void verifyTokenFormat(String token) throws AuthenticationException {
-		logger.debug("Verifying session token format...");
+	public void verifyTokenFormat(String token, boolean checkTime)
+			throws AuthenticationException {
+		logger.debug("Verifying token format...");
 		if (token == null) {
 			throw new UnvalidTokenException("Token can not be null");
 		}
@@ -83,7 +86,10 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 			logger.debug("Token after decryption: " + decryptedToken);
 
 			String[] splittet = decryptedToken.split("[|]");
-			if (splittet.length == 3) {
+			if (splittet.length != 3) {
+				throw new UnvalidTokenException("Token not in a valid format");
+			}
+			if (checkTime) {
 				long issuedAt = Long.parseLong(splittet[2]);
 				if (System.currentTimeMillis() - issuedAt > SecurityConstants.MAX_SESSION_VALID_TIME) {
 					logger.debug("Token expired");

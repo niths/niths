@@ -40,22 +40,22 @@ public class TokenGeneratorServiceTest {
 		tokenService.setPassword(password);
 		String token = tokenService.generateToken(new Long(21));
 		String token2 = tokenService.generateToken(new Long(22));
-		tokenService.verifyTokenFormat(token);	
+		tokenService.verifyTokenFormat(token, true);	
 	}
 	
 	@Test(expected=ExpiredTokenException.class)
 	public void testExpiredoken(){
 		String unvalid = generateUnvalidToken(new Long(23));
-		tokenService.verifyTokenFormat(unvalid);
+		tokenService.verifyTokenFormat(unvalid, true);
 	}
 	
 	@Test(expected=UnvalidTokenException.class)
 	public void testUnvalidToken(){
-		tokenService.verifyTokenFormat("aaaaijde876tda76fd6wafdw");
+		tokenService.verifyTokenFormat("aaaaijde876tda76fd6wafdw", true);
 	}
 	@Test(expected=UnvalidTokenException.class)
 	public void testUnvalidToken2(){
-		tokenService.verifyTokenFormat(null);
+		tokenService.verifyTokenFormat(null, true);
 	}
 	@Test(expected=UnvalidTokenException.class)
 	public void testUnvalidToken3(){

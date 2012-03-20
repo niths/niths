@@ -23,7 +23,7 @@ public interface UserDetailService extends UserDetailsService {
 	 * Calls on the authentication service to get the authenticated user.
 	 * 
 	 * 
-	 * @param sessionToken the string to get belong
+	 * @param sessionToken the string to verify
 	 * @return UserDetails the details of the student with belonging session token
 	 * @throws UsernameNotFoundException when no student is found
 	 * 
@@ -31,5 +31,13 @@ public interface UserDetailService extends UserDetailsService {
 	UserDetails loadStudentBySessionToken(String sessionToken)
 			throws UsernameNotFoundException;
 	
+	/**
+	 * Calls on authentication service to authenticate the developer
+	 * 
+	 * @param developerToken the string to verify
+	 * @return id of the developer
+	 * @throws UsernameNotFoundException if no developer is found
+	 * 
+	 */
 	Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException;
 }

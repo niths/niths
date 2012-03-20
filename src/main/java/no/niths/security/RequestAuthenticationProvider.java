@@ -38,7 +38,6 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			throws AuthenticationException {
 		logger.debug("Authentication manager handling the authentication object");
 		try {
-//			Authentication auth = new UsernamePasswordAuthenticationToken(null, null,null);
 			
 			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
 			RequestHolderDetails userInfo = new RequestHolderDetails();
@@ -49,6 +48,7 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			//The authentication provider handles the process and will
 			//throw an exception if no matching developer is found
 			if (authInfo.getDeveloperToken() != null) {
+				logger.debug("Authentication provider found developer-token: " + authInfo.getDeveloperToken());
 				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
 			} 
 			
@@ -62,7 +62,6 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 						.loadStudentBySessionToken(authInfo.getSessionToken());
 				
 			}
-			
 			if(devId != null){
 				userInfo.setDeveloperId(devId);
 			}

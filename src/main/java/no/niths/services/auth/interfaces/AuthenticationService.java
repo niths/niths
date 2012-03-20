@@ -71,4 +71,12 @@ public interface AuthenticationService {
 	 * @return the developer object, null if not found
 	 */
 	Developer enableDeveloper(String developerToken);
+	
+	/**
+	 * Verifies the format and fetches matching developer from DB
+	 * 
+	 * @param devToken token to verify
+	 * @return the developer id
+	 */
+	Long authenticateDeveloperToken(String devToken);
 }

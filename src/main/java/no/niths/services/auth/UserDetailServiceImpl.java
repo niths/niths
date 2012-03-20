@@ -49,8 +49,21 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return user;
 	}
 	
+	/**
+	 * Calls on authentication service to authenticate the developer
+	 * 
+	 * @param developerToken the string to verify
+	 * @return id of the developer
+	 * @throws UsernameNotFoundException if no developer is found
+	 * 
+	 */
+	@Override
 	public Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException{
-		throw new UsernameNotFoundException("Developer not found");
+		Long id = authService.authenticateDeveloperToken(developerToken);
+		if(id == null){
+			throw new UsernameNotFoundException("Could not find a developer with that developer token");
+		}
+		return id;
 	}
 	
 

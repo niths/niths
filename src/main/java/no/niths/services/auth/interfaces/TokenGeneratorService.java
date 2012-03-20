@@ -23,12 +23,11 @@ public interface TokenGeneratorService {
 	String generateToken(Long id);
 	
 	/**
-	 * Verifies the format of the token
+	 * Verifies the format of the provided token
 	 * 
-	 * @param token
-	 *            to verify
-	 * @throws AuthenticationException
+	 * @param token the string to verify
+	 * @param checkTime true if we want to verify the token timestamp
 	 */
-	void verifyTokenFormat(String token);
+	void verifyTokenFormat(String token, boolean checkTime);
 
 }

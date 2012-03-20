@@ -55,14 +55,11 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 									// check for session token
 
 			logger.debug("Starting request authentication process...");
-
-			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(); // Auth
-																					// wrapper
-
+			//Wrapper
+			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(new RequestHolderDetails());
+			
 			// Get the authorization headers
-			String sessionHeader = req.getHeader("Session-token"); // TODO: set
-																	// as
-																	// constant
+			String sessionHeader = req.getHeader("Session-token"); 
 			String developerHeader = req.getHeader("Developer-token");
 
 			try {

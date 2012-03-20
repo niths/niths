@@ -119,7 +119,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Will autheticate: " + sessionToken);
 
 		// First check the format of the token		
-		tokenService.verifyTokenFormat(sessionToken);
+		tokenService.verifyTokenFormat(sessionToken, true);
 
 		// Fetch student owning the session token
 		Student wantAccess = studentService
@@ -176,7 +176,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @return DeveloperToken the token and a confirmation message 
 	 */
 	@Override
-	public DeveloperToken registerDeveloper(Developer dev){
+	public DeveloperToken registerDeveloper(Developer dev) {
 		//Verify developer email
 		isEmailValid(dev.getEmail());
 		//Passed checks! We persist the dev to get the id
@@ -194,18 +194,42 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 	
 	/**
-	 * Enables a developer
+	 * Verifies the format and fetches matching developer from DB
+	 * 
+	 * @param devToken token to verify
+	 * @return the developer id
+	 */
+	@Override
+	public Long authenticateDeveloperToken(String devToken) throws AuthenticationException{
+		tokenService.verifyTokenFormat(devToken, false);
+		Developer dev = developerService.getDeveloperByDeveloperToken(devToken);
+		if(dev == null){
+			throw new UnvalidTokenException("No developer found for token");
+		}else if (dev.getEnabled() == null){
+			throw new UnvalidTokenException("Developer is not enabled");			
+		}else if (!dev.getEnabled()){
+			throw new UnvalidTokenException("Developer is not enabled");						
+		}
+		return dev.getId();
+	}
+	
+	
+	/**
+	 * Enables a developer, needed to be able to do requests towards the API
 	 * 
 	 * Developer must exist in the DB, or else enabling will fail...
 	 * 
 	 * @param developerToken string return from registerDeveloper(Dev)
 	 * @return the developer object, null if not found
 	 */
-	public Developer enableDeveloper(String developerToken){
+	public Developer enableDeveloper(String developerToken) throws AuthenticationException{
 		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken);
-		if(dev != null){
-			dev.setEnabled(true);			
+		if(dev == null){
+			throw new UnvalidTokenException("No developer found with that token");
 		}
+		dev.setEnabled(true);
+		developerService.update(dev);
+		
 		return dev;
 	}
 
