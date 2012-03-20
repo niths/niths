@@ -61,28 +61,21 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					new RequestHolderDetails());
 
 			// Get the authorization headers
-			String sessionHeader = req.getHeader("Session-token");
 			String developerHeader = req.getHeader("Developer-token");
 
-			boolean authenticateDev = false;
-			boolean authenticateSes = false; // for debugging
 			if (developerHeader != null) {
 				logger.debug("Developer header found: " + developerHeader);
+				
 				authInfo.setDeveloperToken(developerHeader);
-				authenticateDev = true;
-			}
-
-			if (sessionHeader != null) {
-				logger.debug("Session-token header found: " + sessionHeader);
-				authInfo.setSessionToken(sessionHeader);
-				authenticateSes = true;
-			}else{
-				logger.debug("No session header found");
-			}
-
-			if (!authenticateDev) {
-				logger.debug("No developer token found, authentication ends...");
-			} else {
+				String sessionHeader = req.getHeader("Session-token");
+				
+				if (sessionHeader != null) {
+					logger.debug("Session-token header found: " + sessionHeader);
+					authInfo.setSessionToken(sessionHeader);
+				}else{
+					logger.debug("No session header found");
+				}
+				
 				try {
 					logger.debug("Calling authentication provider to authenticate the header");
 
@@ -93,16 +86,17 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					Authentication authResult = authProvider
 							.authenticate(authInfo);
 
-					logger.debug("Authentication success, setting the ");
+					logger.debug("Authentication success!");
 
 					// Set the result as the authentication object
 					SecurityContextHolder.getContext().setAuthentication(
 							authResult);
 				} catch (AuthenticationException ae) {
 
-					logger.debug("Authentication failed: " + developerHeader);
-					if (authenticateSes) {
-						logger.debug("Authentication failed: "+ sessionHeader);
+					logger.debug("Authentication failed for developer: " + developerHeader);
+					
+					if (sessionHeader != null) {
+						logger.debug("Authentication failed for session: "+ sessionHeader);
 					}
 					
 					// Login failed, clear authentication object
@@ -110,8 +104,11 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					// We send the error to the entry point
 					entryPoint.commence(req, res, ae);
 				}
+				
+				
+			}else{
+				logger.debug("No developer token found, authentication ends...");
 			}
-
 		}
 		
 		logger.debug("Continuing spring security filter chain");

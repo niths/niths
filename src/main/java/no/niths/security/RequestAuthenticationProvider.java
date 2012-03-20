@@ -41,36 +41,42 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			
 			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
 			RequestHolderDetails userInfo = new RequestHolderDetails();
+			
 			Long devId = null;
 			
 			//First check if developer token was provided,
 			//if so, get the developer id.
 			//The authentication provider handles the process and will
 			//throw an exception if no matching developer is found
-			if (authInfo.getDeveloperToken() != null) {
-				logger.debug("Authentication provider found developer-token: " + authInfo.getDeveloperToken());
-				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
-			} else {
+			if (authInfo.getDeveloperToken() == null) {
 				logger.warn("No developer token found in authentication");
 				throw new UnvalidTokenException("No developer token found");
-			}
-			
-			//If a session token was provided, get the student and his roles
-			//wrapped in a RequestHolderDetails object
-			if (authInfo.getSessionToken() != null) {
-				logger.debug("Authentication provider found Session-token: " + authInfo.getSessionToken());
-
-				// Get a user that holds the student matching the session token
-				userInfo = (RequestHolderDetails) userDetailService
-						.loadStudentBySessionToken(authInfo.getSessionToken());
 				
-			}
-			if(devId != null){
-				userInfo.setDeveloperId(devId);
-			}
-			authInfo = new RequestAuthenticationInfo(userInfo, userInfo.getAuthorities());
+			} else {
 
-			return authInfo;
+				logger.debug("Authentication provider found developer-token: " + authInfo.getDeveloperToken());
+				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
+			
+				
+				//If a session token was provided, get the student and his roles
+				//wrapped in a RequestHolderDetails object
+				if (authInfo.getSessionToken() != null) {
+					logger.debug("Authentication provider found Session-token: " + authInfo.getSessionToken());
+					
+					// Get a user that holds the student matching the session token
+					userInfo = (RequestHolderDetails) userDetailService
+							.loadStudentBySessionToken(authInfo.getSessionToken());
+					
+				}
+				if(devId != null){
+					userInfo.setDeveloperId(devId);
+				}
+				
+				authInfo = new RequestAuthenticationInfo(userInfo, userInfo.getAuthorities());
+				logger.debug("Authication provider has finished successfully");
+				logger.debug("Sending a RequestAuthenticationInfo object back to the request filter");
+				return authInfo;
+			}
 
 		} catch (ClassCastException cce) {
 			logger.warn("Could not cast the authentication object");
