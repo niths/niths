@@ -20,14 +20,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
-	Logger logger = org.slf4j.LoggerFactory.getLogger(RequestAuthenticationFilter.class);
+	Logger logger = org.slf4j.LoggerFactory
+			.getLogger(RequestAuthenticationFilter.class);
 
 	@Autowired
 	private RestAuthenticationEntryPoint entryPoint;
 
 	@Autowired
 	private RequestAuthenticationProvider authProvider;
-
 
 	/**
 	 * Handles the verification process Checks for "session-token" in the HTTP
@@ -46,36 +46,55 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest req,
 			HttpServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
-		
-		//Checking if Basic Authentication has been set, 
-		//if not, we check for a Session-Token header
-		Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
-		if (currentAuth == null) { //If basic auth has been populated, do not check for session token
-			String header = req.getHeader("Session-token"); // TODO: set as constant
 
-			if (header != null) {
-				logger.debug("Session-token header found: " + header);
-				try {
-					//Create a authorization request with the header(session-token)
-					AuthenticationSessionToken authRequest = new AuthenticationSessionToken(
-							null, null, header);
-					logger.debug("Starting authentication process...");
-					//Let the authentication provider authenticate the request
-					//Will throw AuthenticationException, so it is important that
-					//every exception extends AuthenticationException
-					Authentication authResult = authProvider.authenticate(authRequest);
-					logger.debug("Authentication success");
-					//Set the result as the authentication object
-					SecurityContextHolder.getContext().setAuthentication(authResult);
-				} catch (AuthenticationException ae) {
-					logger.debug("Authentication failed for session-token: "
-							+ header);
-					// Login failed, clear authentication object
-					SecurityContextHolder.getContext().setAuthentication(null);
-					// We send the error to the entry point
-					entryPoint.commence(req, res, ae);
+		// Checking if Basic Authentication has been set,
+		// if not, we check for a Session-Token header
+		Authentication currentAuth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (currentAuth == null) { // If basic auth has been populated, do not
+									// check for session token
 
+			logger.debug("Starting request authentication process...");
+
+			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(); // Auth
+																					// wrapper
+
+			// Get the authorization headers
+			String sessionHeader = req.getHeader("Session-token"); // TODO: set
+																	// as
+																	// constant
+			String developerHeader = req.getHeader("Developer-token");
+
+			try {
+				if (developerHeader != null) {
+					logger.debug("Developer header found: " + developerHeader);
+					authInfo.setDeveloperToken(developerHeader);
 				}
+
+				if (sessionHeader != null) {
+					logger.debug("Session-token header found: " + sessionHeader);
+					authInfo.setSessionToken(sessionHeader);
+				}
+				// Let the authentication provider authenticate the request
+				// Will throw AuthenticationException, so it is important
+				// that every exception extends AuthenticationException
+				Authentication authResult = authProvider
+						.authenticate(authInfo);
+				
+				logger.debug("Authentication success");
+				// Set the result as the authentication object
+				SecurityContextHolder.getContext().setAuthentication(
+						authResult);
+				
+				
+				
+			} catch (AuthenticationException ae) {
+				logger.debug("Authentication failed for session-token: "
+						+ sessionHeader);
+				// Login failed, clear authentication object
+				SecurityContextHolder.getContext().setAuthentication(null);
+				// We send the error to the entry point
+				entryPoint.commence(req, res, ae);
 			}
 		}
 		chain.doFilter(req, res);

@@ -8,6 +8,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 
  */
 public interface UserDetailService extends UserDetailsService {
+	
+	/**
+	 * Implement your own version of this method to return UserDetails
+	 * 
+	 * See the other methods for a how to
+	 * 
+	 */
+	@Override
+	public UserDetails loadUserByUsername(String sessionToken)
+			throws UsernameNotFoundException;
+
 	/**
 	 * Calls on the authentication service to get the authenticated user.
 	 * 
@@ -17,7 +28,8 @@ public interface UserDetailService extends UserDetailsService {
 	 * @throws UsernameNotFoundException when no student is found
 	 * 
 	 */
-	@Override
-	public UserDetails loadUserByUsername(String sessionToken)
+	UserDetails loadStudentBySessionToken(String sessionToken)
 			throws UsernameNotFoundException;
+	
+	Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException;
 }
