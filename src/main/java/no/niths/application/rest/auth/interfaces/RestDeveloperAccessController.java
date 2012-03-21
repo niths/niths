@@ -2,7 +2,9 @@ package no.niths.application.rest.auth.interfaces;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
+import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 
 /**
@@ -48,5 +50,16 @@ public interface RestDeveloperAccessController {
 	 * @return a page with confirmation or error message
 	 */
 	ModelAndView enableDeveloper(String developerToken);
+
+	/**
+	 * Registers an application
+	 * 
+	 * Developer must have been authorized for a successful request
+	 * 
+	 * @param app the application to add
+	 * @return an application token to use in furture requests
+	 * 
+	 */
+	ApplicationToken addApplicationToDeveloper(Application app);
 	
 }

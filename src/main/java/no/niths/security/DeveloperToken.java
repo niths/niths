@@ -1,13 +1,19 @@
 package no.niths.security;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Wrapper class for token
  *
  */
 @XmlRootElement
-public class DeveloperToken {
+public class DeveloperToken implements Serializable{ 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1415495457020406132L;
 	private String token;
 	private String message;
 	

@@ -9,9 +9,11 @@ import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
+import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
 import no.niths.security.RequestHolderDetails;
@@ -191,6 +193,31 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Developer[" + dev.getId() + "] has been given token: " + devToken.getToken());
 		
 		return devToken;
+	}
+	
+	/**
+	 * Registers an application to the matching developer
+	 * 
+	 * @param app the application to add
+	 * @param devId id of the dev to add application to
+	 * @return an application token to use in furture requests
+	 * 
+	 */
+	@Override
+	public ApplicationToken registerApplication(Application app, Long devId){
+		Developer dev = developerService.getById(devId);
+		if(dev == null){
+			logger.warn("No developer found for: " + devId);
+			throw new ObjectNotFoundException("No developer found");
+		}
+		
+		ApplicationToken appToken = new ApplicationToken(tokenService.generateToken(devId));
+		app.setEnabled(true);
+		app.setApplicationToken(appToken.getToken());
+		dev.getApps().add(app);
+		developerService.update(dev);
+		
+		return appToken;
 	}
 	
 	/**

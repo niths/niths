@@ -1,13 +1,19 @@
 package no.niths.security;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Wrapper class for token
  *
  */
 @XmlRootElement
-public class SessionToken {
+public class SessionToken implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8019110671289257365L;
 	private String token;
 	
 	public SessionToken(){

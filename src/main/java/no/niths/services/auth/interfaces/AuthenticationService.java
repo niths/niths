@@ -1,6 +1,8 @@
 package no.niths.services.auth.interfaces;
 
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
+import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
 import no.niths.security.RequestHolderDetails;
@@ -79,4 +81,14 @@ public interface AuthenticationService {
 	 * @return the developer id
 	 */
 	Long authenticateDeveloperToken(String devToken);
+	
+	/**
+	 * Registers an application to the matching developer
+	 * 
+	 * @param app the application to add
+	 * @param devId id of the dev to add application to
+	 * @return an application token to use in furture requests
+	 * 
+	 */
+	ApplicationToken registerApplication(Application app, Long devId);
 }
