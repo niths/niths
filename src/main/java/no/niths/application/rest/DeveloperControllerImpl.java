@@ -68,7 +68,8 @@ public class DeveloperControllerImpl extends
 	}
 
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)// + " or (principal.developerId == #domain.getId())")
+//	@PreAuthorize("(hasAnyRole('ROLE_ADMIN', 'ROLE_SR')) or (principal.developerId == #domain.id)")
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Developer domain) {
 		super.update(domain);
 	}

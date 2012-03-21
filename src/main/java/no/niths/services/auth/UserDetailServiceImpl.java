@@ -40,7 +40,13 @@ public class UserDetailServiceImpl implements UserDetailService {
 	 */
 	@Override
 	public UserDetails loadStudentBySessionToken(String sessionToken) throws UsernameNotFoundException{
-		
+		//TEST MODE:
+//		RequestHolderDetails testUser = new RequestHolderDetails("rosen09@nith.no");
+//		testUser.addRoleName("ROLE_STUDENT");
+//		testUser.addRoleName("ROLE_SR");
+//		testUser.setStudentId(new Long(1));
+//		return testUser;
+		//END TESTMODE
 		RequestHolderDetails user = authService.authenticateSessionToken(sessionToken);
 		if(user == null){
 			throw new UsernameNotFoundException("Could not find user with that sessiontoken");
@@ -59,6 +65,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 	 */
 	@Override
 	public Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException{
+		//TEST MODE:
+//		return new Long(1);
+		//END TESTMODE
 		Long id = authService.authenticateDeveloperToken(developerToken);
 		if(id == null){
 			throw new UsernameNotFoundException("Could not find a developer with that developer token");

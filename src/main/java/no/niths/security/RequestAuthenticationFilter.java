@@ -77,7 +77,7 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 				}
 				
 				try {
-					logger.debug("Calling authentication provider to authenticate the header");
+					logger.debug("Calling authentication provider to authenticate the header(s)");
 
 					// Let the authentication provider authenticate the request
 					// Will throw AuthenticationException, so it is important
