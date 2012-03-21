@@ -54,8 +54,8 @@ public class DeveloperServiceImpl implements DeveloperService{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Developer getDeveloperByDeveloperToken(String token) {
-		return repo.getByDeveloperToken(token);
+	public Developer getDeveloperByDeveloperToken(String token, boolean isEnabled) {
+		return repo.getByDeveloperToken(token, isEnabled);
 	}
 
 }

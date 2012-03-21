@@ -14,9 +14,12 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 	}
 	
 	@Override
-	public Developer getByDeveloperToken(String token) {
+	public Developer getByDeveloperToken(String token, boolean isEnabled) {
 		String sql = "from " + Developer.class.getSimpleName() + " d " +
-						"where d.developerToken = :token and d.enabled=true";
+						"where d.developerToken = :token";
+		if (isEnabled){
+			sql += " and d.enabled=true";
+		}
 		return (Developer) getSession().getCurrentSession().createQuery(sql)
 										.setString("token", token).uniqueResult();
 		

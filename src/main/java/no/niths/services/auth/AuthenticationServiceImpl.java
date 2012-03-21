@@ -243,7 +243,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public Long authenticateDeveloperToken(String devToken) throws AuthenticationException{
 		tokenService.verifyTokenFormat(devToken, false);
-		Developer dev = developerService.getDeveloperByDeveloperToken(devToken);
+		Developer dev = developerService.getDeveloperByDeveloperToken(devToken, true);
 		if(dev == null){
 			throw new UnvalidTokenException("No developer found for token or dev is not enabled");
 		}
@@ -279,7 +279,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @return the developer object, null if not found
 	 */
 	public Developer enableDeveloper(String developerToken) throws AuthenticationException{
-		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken);
+		logger.debug("Trying to enable developer with token: " + developerToken);
+		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken, false);
 		if(dev == null){
 			throw new UnvalidTokenException("No developer found with that token");
 		}
