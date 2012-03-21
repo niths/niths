@@ -88,10 +88,12 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * @param id
 	 *            the id of the domain object
 	 * @return the domain object
-	 * @throws ObjectNotFoundException when object is not found
+	 * @throws ObjectNotFoundException
+	 *             when object is not found
 	 * 
-	 *  Usage in your own class:
-	 *	<pre>
+	 *             Usage in your own class:
+	 * 
+	 *             <pre>
 	 * {@code
 	 * @Override
 	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)
@@ -105,23 +107,24 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public T getById(@PathVariable Long id) {
-		logger.info("method used");
 		T domain = getService().getById(id);
-		logger.info("Here");
 		ValidationHelper.isObjectNull(domain);
+		logger.debug(domain.toString());
 		return domain;
 	}
 
-	  /**
-     * 
-     * Returns an array list with all domain objects of the type
-     * 
-     * @param domain will search the DB for instances with the same attributes,
-     * 				if null, all will be returned
-     * @return List of all domain objects
-     * 
-     * Usage in your own class:
-	 *	<pre>
+	/**
+	 * 
+	 * Returns an array list with all domain objects of the type
+	 * 
+	 * @param domain
+	 *            will search the DB for instances with the same attributes, if
+	 *            null, all will be returned
+	 * @return List of all domain objects
+	 * 
+	 *         Usage in your own class:
+	 * 
+	 *         <pre>
 	 * {@code
 	 * @Override
 	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
@@ -129,7 +132,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 		ArrayList<Your_Domain> all = super.getAll(domain);
 	 * return roles;
 	 * }
-     */
+	 */
 	@Override
 	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -141,11 +144,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	/**
 	 * Update the domain object
 	 * 
-	 * @param domain the domain
-	 * @throws ObjectNotFoundException when object is not found
+	 * @param domain
+	 *            the domain
+	 * @throws ObjectNotFoundException
+	 *             when object is not found
 	 * 
-	 *  Usage in your own class:
-	 *	<pre>
+	 *             Usage in your own class:
+	 * 
+	 *             <pre>
 	 * {@code
 	 * @Override
 	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
@@ -184,7 +190,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * {@inheritDoc}
 	 */
 	public void renewList(List<T> list) {
-		logger.debug("rendeList: " + list.size() );
 		getList().clear();
 		getList().addAll(list);
 		getList().setData(getList()); // Used for XML marshaling
@@ -193,11 +198,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	/**
 	 * Deletes the domain object with the given id
-     * 
-     * @param id the if of the domain object to be deleted
 	 * 
-	 * Usage in your own class:
-	 *	<pre>
+	 * @param id
+	 *            the if of the domain object to be deleted
+	 * 
+	 *            Usage in your own class:
+	 * 
+	 *            <pre>
 	 * {@code
 	 * @Override
 	 * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
@@ -205,8 +212,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 		super.hibernateDelete(id); 
 	 * }
 	 * </pre>
-     * 
-     * 
+	 * 
+	 * 
 	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -224,7 +231,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 
 	 * Must override in own implementation
 	 * 
-	 *	<pre>
+	 * <pre>
 	 * {@code
 	 * @Override
 	 * public GenericService<Your_domain> getService() {
@@ -241,7 +248,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 
 	 * Must override in own implementation
 	 * 
-	 *	<pre>
+	 * <pre>
 	 * {@code
 	 * @Override
 	 * public ListAdapter<Your_Domain> getList() {
@@ -253,9 +260,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	public abstract ListAdapter<T> getList();
 
-	
-	
-	
 	/**
 	 * EXCEPTIONHANDLING
 	 * 
@@ -274,7 +278,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void constraintViolation(ConstraintViolationException cve,
 			HttpServletResponse res) {
 		logger.debug("hibernate.constraintvia");
-
 		res.setHeader("Error", cve.getMessage().toString());
 	}
 
@@ -340,7 +343,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("Object not found AbstractRestController");
 		res.setHeader("Error", e.getMessage().toString());
 	}
-	
+
 	/**
 	 * Catches invalid email exceptions
 	 */
@@ -358,20 +361,20 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	public void accessDenied(AccessDeniedException e, HttpServletResponse res) {
-		if(e.getMessage() == null){
+		if (e.getMessage() == null) {
 			res.setHeader("Error", "Access denied");
 		}
 		logger.debug("Access denied cathed in AbstractRestController");
 	}
 
-	
 	/**
 	 * Catches QueryParameterException, invalid query
 	 */
 	@ExceptionHandler(QueryParameterException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
-	public void InvalidSearchParam(QueryParameterException e, HttpServletResponse res) {
-		res.setHeader("Error", "Invalid Search param ex: hello&&hei " );
+	public void InvalidSearchParam(QueryParameterException e,
+			HttpServletResponse res) {
+		res.setHeader("Error", "Invalid Search param ex: hello&&hei ");
 		logger.debug("Invalid search param");
 	}
 }

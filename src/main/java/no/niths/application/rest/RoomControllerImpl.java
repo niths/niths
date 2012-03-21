@@ -1,7 +1,6 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 import no.niths.application.rest.interfaces.RoomController;
 import no.niths.application.rest.lists.ListAdapter;
