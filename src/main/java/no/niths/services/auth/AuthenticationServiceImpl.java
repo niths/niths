@@ -85,11 +85,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * 						
 	 */
 	@Override
-	public SessionToken authenticateAtGoogle(String googleToken) {
+	public SessionToken authenticateAtGoogle(String googleToken) throws UnvalidEmailException{
 		SessionToken sessionToken = new SessionToken(); // Wrapper class
 		// Authenticate user from Google, and then check to see if the email is
 		// valid
 		String userEmail = googleService.authenticateAndGetEmail(googleToken);
+//		
+		//@Test
+		//String userEmail = "bendikr@nith.no";
+		
 		isUserValid(userEmail);
 		Student authenticatedStudent = getStudent(userEmail);
 		// Generate "session token" that the app will use from now on
@@ -218,7 +222,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * 
 	 */
 	@Override
-	public ApplicationToken registerApplication(Application app, Long devId){
+	public ApplicationToken registerApplication(Application app, Long devId) throws ObjectNotFoundException {
 		Developer dev = developerService.getById(devId);
 		if(dev == null){
 			logger.warn("No developer found for: " + devId);
@@ -336,7 +340,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @param email the string to check
 	 * @throws UnvalidEmailException
 	 */
-	private void isUserValid(String email) {
+	private void isUserValid(String email) throws UnvalidEmailException{
 		isEmailValid(email);
 		if (!email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)) {
 			logger.debug("email is unvalid: " + email);
