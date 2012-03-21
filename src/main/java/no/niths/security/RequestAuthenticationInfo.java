@@ -4,7 +4,11 @@ import java.util.Collection;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-
+/**
+ * 
+ * Wrapper class for HTTP headers we want to authenticate
+ * 
+ */
 public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
 
 	private static final long serialVersionUID = 1192605098301148314L;
@@ -12,6 +16,7 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
 	private RequestHolderDetails principal;
     private String developerToken;
     private String sessionToken;
+    private String appToken;
 
     public RequestAuthenticationInfo(RequestHolderDetails principal) {
         super(null);
@@ -69,5 +74,13 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
 	public Object getCredentials() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getAppToken() {
+		return appToken;
+	}
+
+	public void setAppToken(String appToken) {
+		this.appToken = appToken;
 	}
 }

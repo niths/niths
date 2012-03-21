@@ -9,16 +9,20 @@ import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
+import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
 import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
+import no.niths.services.interfaces.ApplicationService;
 import no.niths.services.interfaces.DeveloperService;
+import no.niths.services.interfaces.MailSenderService;
 import no.niths.services.interfaces.StudentService;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -49,6 +53,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	@Autowired
 	private TokenGeneratorService tokenService;
+	
+	@Autowired
+	private ApplicationService appService;
+	
+	@Autowired
+	private MailSenderService mailService;
 
 	/**
 	 * Authenticates a student via Google. If authentication succeeds, student
@@ -190,7 +200,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		developerService.update(dev);
 		logger.debug("Developer[" + dev.getId() + "] has been given token: " + devToken.getToken());
 		
+		if (!mailService.sendDeveloperRegistratedConfirmation(dev)) {
+			devToken.setMessage("Failed to send an email, but now worries! \n"
+					+ "To enable your new developer account paste this into a browser\n" +
+					AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + devToken.getToken());
+		}
+		
 		return devToken;
+	}
+	
+	/**
+	 * Registers an application to the matching developer
+	 * 
+	 * @param app the application to add
+	 * @param devId id of the dev to add application to
+	 * @return an application token to use in furture requests
+	 * 
+	 */
+	@Override
+	public ApplicationToken registerApplication(Application app, Long devId){
+		Developer dev = developerService.getById(devId);
+		if(dev == null){
+			logger.warn("No developer found for: " + devId);
+			throw new ObjectNotFoundException("No developer found");
+		}
+		
+		ApplicationToken appToken = new ApplicationToken(tokenService.generateToken(devId));
+		app.setEnabled(true);
+		app.setApplicationToken(appToken.getToken());
+		dev.getApps().add(app);
+		developerService.update(dev);
+		mailService.sendDeveloperAddedAppConfirmation(dev, app);
+		return appToken;
 	}
 	
 	/**
@@ -202,15 +243,30 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public Long authenticateDeveloperToken(String devToken) throws AuthenticationException{
 		tokenService.verifyTokenFormat(devToken, false);
-		Developer dev = developerService.getDeveloperByDeveloperToken(devToken);
+		Developer dev = developerService.getDeveloperByDeveloperToken(devToken, true);
 		if(dev == null){
-			throw new UnvalidTokenException("No developer found for token");
-		}else if (dev.getEnabled() == null){
-			throw new UnvalidTokenException("Developer is not enabled");			
-		}else if (!dev.getEnabled()){
-			throw new UnvalidTokenException("Developer is not enabled");						
+			throw new UnvalidTokenException("No developer found for token or dev is not enabled");
 		}
+
 		return dev.getId();
+	}
+	
+	/**
+	 * Verifies the format of the application token and returns the app id
+	 * Returns null if no app is found or app is not enabled
+	 * 
+	 * @param appToken string verify
+	 * @return id of the belonging app
+	 * @throws AuthenticationException
+	 */
+	@Override
+	public Long authenticateApplicationToken(String appToken) throws AuthenticationException{
+		tokenService.verifyTokenFormat(appToken, false);
+		Application app = appService.getByApplicationToken(appToken);
+		if(app == null){
+			throw new UnvalidTokenException("No app found or app is not enabled");
+		}
+		return app.getId();
 	}
 	
 	
@@ -223,10 +279,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @return the developer object, null if not found
 	 */
 	public Developer enableDeveloper(String developerToken) throws AuthenticationException{
-		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken);
+		logger.debug("Trying to enable developer with token: " + developerToken);
+		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken, false);
 		if(dev == null){
 			throw new UnvalidTokenException("No developer found with that token");
 		}
+		//Generate a new token
+		dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
 		dev.setEnabled(true);
 		developerService.update(dev);
 		

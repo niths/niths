@@ -8,23 +8,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class DeveloperToken implements Serializable{ 
+public class ApplicationToken implements Serializable{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1415495457020406132L;
+	private static final long serialVersionUID = -1021190003418694035L;
 	private String token;
 	private String message;
 	
-	public DeveloperToken(){
-		this("Not valid", "Email sendt with instuctions, check your inbox");
+	public ApplicationToken(){
+		this("Not valid");
 	}
 	
-	public DeveloperToken(String token){
+	public ApplicationToken(String token){
 		this.token = token;
 	}
-	public DeveloperToken(String token, String message){
+	public ApplicationToken(String token, String message){
 		this.token = token;
 		this.message = message;
 	}

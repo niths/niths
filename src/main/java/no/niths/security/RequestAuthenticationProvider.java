@@ -38,33 +38,55 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			throws AuthenticationException {
 		logger.debug("Authentication provider handling the authentication object");
 		try {
-			
+
 			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
 			RequestHolderDetails userInfo = new RequestHolderDetails();
-			
-			Long devId = null; //ID of the developer holding the request
 
+			Long devId = null; // ID of the developer holding the request
+			Long appId = null; // ID of the app holding the request
+			
 			if (authInfo.getDeveloperToken() == null) {
 				logger.warn("No developer token found in authentication");
 				throw new UnvalidTokenException("No developer token found");
-				
-			} else { //Proceed to verify the developer token
 
-				logger.debug("Authentication provider found developer-token: " + authInfo.getDeveloperToken());
-				devId = userDetailService.loadDeveloperIdFromDeveloperToken(authInfo.getDeveloperToken());
-				
-				//We found the developer, check for session token
-				if (authInfo.getSessionToken() != null) {
-					logger.debug("Authentication provider found Session-token: " + authInfo.getSessionToken());
-					
-					// Get a user that holds the student matching the session token
-					userInfo = (RequestHolderDetails) userDetailService
-							.loadStudentBySessionToken(authInfo.getSessionToken());
+			} else { // Proceed to verify the developer token
+
+				if (authInfo.getAppToken() == null) {
+					throw new UnvalidTokenException(
+							"Application token not found");
 				}
+				logger.debug("Authentication provider found developer-token: "
+						+ authInfo.getDeveloperToken());
 				
+				devId = userDetailService
+						.loadDeveloperIdFromDeveloperToken(authInfo
+								.getDeveloperToken());
+
+				logger.debug("Authentication provider found Application-token: "
+						+ authInfo.getAppToken());
+				
+				appId = userDetailService
+						.loadApplicationIdFromApplicationToken(authInfo
+								.getAppToken());
+
+				// We found dev and app token, they have been authenticated,
+				// proceed to check for a session token
+				if (authInfo.getSessionToken() != null) {
+					logger.debug("Authentication provider found Session-token: "
+							+ authInfo.getSessionToken());
+
+					// Get a user that holds the student matching the session
+					// token
+					userInfo = (RequestHolderDetails) userDetailService
+							.loadStudentBySessionToken(authInfo
+									.getSessionToken());
+				}
+
 				userInfo.setDeveloperId(devId);
-				
-				authInfo = new RequestAuthenticationInfo(userInfo, userInfo.getAuthorities());
+				userInfo.setAppId(appId);
+
+				authInfo = new RequestAuthenticationInfo(userInfo,
+						userInfo.getAuthorities());
 				logger.debug("Authication provider has finished successfully");
 				logger.debug("Sending a RequestAuthenticationInfo object back to the request filter");
 				return authInfo;

@@ -40,4 +40,13 @@ public interface UserDetailService extends UserDetailsService {
 	 * 
 	 */
 	Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException;
+	
+	/**
+	 * Calls on authenticationservice to authenticate the application
+	 * 
+	 * @param applicationToken string to verify
+	 * @return id of the belonging app
+	 * @throws UsernameNotFoundException of no app is found
+	 */
+	Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException;
 }

@@ -1,5 +1,6 @@
 package no.niths.services.interfaces;
 
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
 
 /**
@@ -19,6 +20,8 @@ public interface MailSenderService {
 	 */
 	public void composeAndSend(String to, String from, String subject, String body);
 	
-	public boolean sendDeveloperEmail(Developer developer);
+	boolean sendDeveloperRegistratedConfirmation(Developer dev);
+	
+	boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app);
 
 }

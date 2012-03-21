@@ -1,6 +1,9 @@
 package no.niths.services;
 
+import javax.mail.internet.MimeMessage;
+
 import no.niths.common.AppConstants;
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.interfaces.MailSenderService;
@@ -9,8 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.mail.MailMessage;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 /**
@@ -26,6 +34,10 @@ public class MailSenderServiceImpl implements MailSenderService {
 	@Autowired(required=false)
 	private MailSender mailSender;
 	
+	@Autowired(required = false)
+	private JavaMailSender javaMailSender;
+	
+	//Composes a simple mail (No html or attachements)
 	private SimpleMailMessage composeMail(String to, String from, String subject, String body){
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(from); //Email from
@@ -35,21 +47,61 @@ public class MailSenderServiceImpl implements MailSenderService {
 		return message;
 	}
 	
+	//Prepares a MimeMessage (html and attachments)
+	private MimeMessagePreparator prepare(final String to,final String from,final String subject,final String body) {
+		 MimeMessagePreparator preparator = new MimeMessagePreparator() {
+	            public void prepare(MimeMessage mimeMessage) throws Exception {
+	               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+	               message.setTo(to);
+	               message.setFrom(from);
+	               message.setSubject(subject);
+	               message.setText(body, true);
+	            }
+	         };
+	         
+	         return preparator;
+	}
+	
+	/**
+	 * Sends a developer an email with a enable dev link
+	 */
+	public boolean sendDeveloperRegistratedConfirmation(Developer dev){
+		String subject = "Hi " + dev.getName()+ ". Registration success, verification needed";
+		String body = "Your developer-token is: " + dev.getDeveloperToken() + "<br />" +
+				"Click on the link to enable your account";
+		String linkUrl = AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperToken();
+		body += "<br /><br/><a href='"+ linkUrl +"'>Click to enable!</a>" +
+				"<br />Link not working? Use this: " + linkUrl + "<br />";
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
+	}
+	
+	public boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app){
+		String subject = "Hi " + dev.getName()+ ". Your app has been registrated";
+		String body = "Your app " + app.getTitle() + " is ready to use!<br />" +
+		"Place this in your header: <br />" +
+				"Application-header: " + app.getApplicationToken();
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
+	}
+	
 	@Override
 	public void composeAndSend(String to, String from, String subject, String body) {
 		sendMessage(composeMail(to, from, subject, body));
 	}
-	
 
-	@Override
-	public boolean sendDeveloperEmail(Developer developer) {
-		String subject = "Registration success, verification needed";
-		String body = "Your developer-token is: " + developer.getDeveloperToken();
-		body += "<br/>" + "click me to verify \n er dette på egen linje?";
-		return (sendMessage(composeMail(developer.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
-		
+	@Async
+	private boolean sendMimeMessage(MimeMessagePreparator message){
+		try{
+			if(javaMailSender != null){
+				javaMailSender.send(message);
+				return true;
+			}
+			logger.warn("Could not send mail, mailsender is null");		
+		}catch(MailException me){
+			me.printStackTrace();
+			logger.warn("MailException! Could not send mail");
+		}
+		return false;
 	}
-
 	@Async
 	private boolean sendMessage(SimpleMailMessage message){
 		try{

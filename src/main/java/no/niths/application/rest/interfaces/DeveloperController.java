@@ -6,5 +6,6 @@ import no.niths.domain.Developer;
  *
  */
 public interface DeveloperController extends GenericRESTController<Developer> {
+	
 
 }

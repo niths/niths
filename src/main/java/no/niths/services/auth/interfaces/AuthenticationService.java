@@ -1,6 +1,10 @@
 package no.niths.services.auth.interfaces;
 
+import org.springframework.security.core.AuthenticationException;
+
+import no.niths.domain.Application;
 import no.niths.domain.Developer;
+import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 import no.niths.security.SessionToken;
 import no.niths.security.RequestHolderDetails;
@@ -79,4 +83,24 @@ public interface AuthenticationService {
 	 * @return the developer id
 	 */
 	Long authenticateDeveloperToken(String devToken);
+	
+	/**
+	 * Registers an application to the matching developer
+	 * 
+	 * @param app the application to add
+	 * @param devId id of the dev to add application to
+	 * @return an application token to use in furture requests
+	 * 
+	 */
+	ApplicationToken registerApplication(Application app, Long devId);
+	
+	/**
+	 * Verifies the format of the application token and returns the app id
+	 * Returns null if no app is found or app is not enabled
+	 * 
+	 * @param appToken string verify
+	 * @return id of the belonging app
+	 * @throws AuthenticationException
+	 */
+	Long authenticateApplicationToken(String appToken) throws AuthenticationException;
 }
