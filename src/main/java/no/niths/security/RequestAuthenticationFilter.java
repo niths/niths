@@ -62,13 +62,16 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
 			// Get the authorization headers
 			String developerHeader = req.getHeader("Developer-token");
+			String appHeader = req.getHeader("Application-token");
 
-			if (developerHeader != null) {
+			if (developerHeader != null && appHeader != null) {
 				logger.debug("Developer header found: " + developerHeader);
+				logger.debug("Application header found: " + appHeader);
 				
 				authInfo.setDeveloperToken(developerHeader);
+				authInfo.setAppToken(appHeader);
+
 				String sessionHeader = req.getHeader("Session-token");
-				
 				if (sessionHeader != null) {
 					logger.debug("Session-token header found: " + sessionHeader);
 					authInfo.setSessionToken(sessionHeader);
@@ -98,6 +101,9 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					if (sessionHeader != null) {
 						logger.debug("Authentication failed for session: "+ sessionHeader);
 					}
+					if(appHeader != null){
+						logger.debug("Authentication failed for application: "+ sessionHeader);
+					}
 					
 					// Login failed, clear authentication object
 					SecurityContextHolder.getContext().setAuthentication(null);
@@ -107,7 +113,7 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 				
 				
 			}else{
-				logger.debug("No developer token found, authentication ends...");
+				logger.debug("Could not find both a developer header and an application header, authentication process ends...");
 			}
 		}
 		

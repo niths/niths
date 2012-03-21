@@ -4,4 +4,5 @@ import no.niths.domain.Application;
 
 public interface ApplicationService extends GenericService<Application> {
 
+	Application getByApplicationToken(String token);
 }

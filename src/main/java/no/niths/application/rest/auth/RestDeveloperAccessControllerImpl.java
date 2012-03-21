@@ -47,8 +47,8 @@ public class RestDeveloperAccessControllerImpl implements
 	@Autowired
 	private AuthenticationService service;
 
-	@Autowired
-	private MailSenderService mailService;
+//	@Autowired
+//	private MailSenderService mailService;
 
 	private final static String VIEW_NAME = "developerConfirmation";
 
@@ -91,10 +91,10 @@ public class RestDeveloperAccessControllerImpl implements
 		// Send confirmation to developer
 		// If any errors occurred (Sitting behind a firewall? Port closed?),
 		// we give the user instructions as a HTTP response
-		if (!mailService.sendDeveloperEmail(developer)) {
-			devToken.setMessage("Failed to send an email, but now worries! "
-					+ "To enable your new developer account: DO THIS");
-		}
+//		if (!mailService.sendDeveloperRegistratedConfirmation(developer)) {
+//			devToken.setMessage("Failed to send an email, but now worries! "
+//					+ "To enable your new developer account: DO THIS");
+//		}
 		return devToken;
 	}
 
@@ -156,8 +156,6 @@ public class RestDeveloperAccessControllerImpl implements
 			logger.debug("Adding new app to developer");
 			token = service.registerApplication(app, det.getDeveloperId());
 			token.setMessage("Use this in the header for futurer requests");
-			
-			//TODO: send developer an email
 			
 		}else{
 			throw new ObjectNotFoundException("Are you sure you set the correct developer-token?");

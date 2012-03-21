@@ -44,4 +44,9 @@ public class ApplicationServiceImpl implements ApplicationService{
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
+	
+	@Override
+	public Application getByApplicationToken(String token){
+		return repo.getByApplicationToken(token);
+	}
 }

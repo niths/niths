@@ -33,6 +33,7 @@ public class RequestHolderDetails implements UserDetails {
 	private String userName;
 	private Long studentId;
 	private Long developerId;
+	private Long appId;
 
 
 	public RequestHolderDetails() {
@@ -51,7 +52,6 @@ public class RequestHolderDetails implements UserDetails {
 		this.studentId = studentId;
 	}
 
-	//TODO: FIX DRY!
 	@SuppressWarnings("serial")
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
@@ -129,6 +129,14 @@ public class RequestHolderDetails implements UserDetails {
 
 	public void setDeveloperId(Long developerId) {
 		this.developerId = developerId;
+	}
+
+	public Long getAppId() {
+		return appId;
+	}
+
+	public void setAppId(Long appId) {
+		this.appId = appId;
 	}
 
 }

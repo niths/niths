@@ -75,5 +75,24 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return id;
 	}
 	
+	/**
+	 * Calls on authenticationservice to authenticate the application
+	 * 
+	 * @param applicationToken string to verify
+	 * @return id of the belonging app
+	 * @throws UsernameNotFoundException of no app is found
+	 */
+	@Override
+	public Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException{
+		//TEST MODE:
+//		return new Long(1);
+		//END TESTMODE
+		Long id = authService.authenticateDeveloperToken(applicationToken);
+		if(id == null){
+			throw new UsernameNotFoundException("Could not find a application with that token");
+		}
+		return id;
+	}
+	
 
 }
