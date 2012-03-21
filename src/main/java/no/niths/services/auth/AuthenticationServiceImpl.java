@@ -289,6 +289,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		dev.setEnabled(true);
 		developerService.update(dev);
 		
+		mailService.sendDeveloperEnabledConfirmation(dev);
+		
 		return dev;
 	}
 

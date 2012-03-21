@@ -60,6 +60,6 @@ public interface RestDeveloperAccessController {
 	 * @return an application token to use in furture requests
 	 * 
 	 */
-	ApplicationToken addApplicationToDeveloper(Application app);
+	ApplicationToken addApplicationToDeveloper(Application app, String developerToken);
 	
 }
