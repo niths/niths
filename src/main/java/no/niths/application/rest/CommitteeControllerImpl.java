@@ -67,11 +67,6 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(
-            value = "{id}",
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
     public Committee getById(@PathVariable Long id) {
         logger.debug(id+"");
         Committee committee = super.getById(id);
@@ -101,10 +96,6 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
     public ArrayList<Committee> getAll(Committee domain) {
         committeeList = (CommitteeList) super.getAll(domain);
 
@@ -155,7 +146,7 @@ public class CommitteeControllerImpl
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
     @RequestMapping(
             value ="leaders/{committeeId}/{studentId}",
-            method = RequestMethod.POST)
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
     public void addLeader(
             @PathVariable Long committeeId,
