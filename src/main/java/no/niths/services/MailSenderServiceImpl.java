@@ -3,6 +3,7 @@ package no.niths.services;
 import javax.mail.internet.MimeMessage;
 
 import no.niths.common.AppConstants;
+import no.niths.common.EmailTexts;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.services.auth.AuthenticationServiceImpl;
@@ -67,20 +68,17 @@ public class MailSenderServiceImpl implements MailSenderService {
 	 */
 	public boolean sendDeveloperRegistratedConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Registration success, verification needed";
-		String body = "Your developer-token is: " + dev.getDeveloperToken() + "<br />" +
-				"Click on the link to enable your account";
-		String linkUrl = AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperToken();
-		body += "<br /><br/><a href='"+ linkUrl +"'>Click to enable!</a>" +
-				"<br />Link not working? Use this: " + linkUrl + "<br />";
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev))));
 	}
 	
 	public boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app){
 		String subject = "Hi " + dev.getName()+ ". Your app has been registrated";
-		String body = "Your app " + app.getTitle() + " is ready to use!<br />" +
-		"Place this in your header: <br />" +
-				"Application-header: " + app.getApplicationToken();
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, body)));
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app))));
+	}
+	
+	public boolean sendDeveloperEnabledConfirmation(Developer dev){
+		String subject = "Hi " + dev.getName()+ ". Your are now enabled!";
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev))));
 	}
 	
 	@Override

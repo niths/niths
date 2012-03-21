@@ -139,28 +139,37 @@ public class RestDeveloperAccessControllerImpl implements
 	 * 
 	 */
 	@Override
-	@RequestMapping(value = "/addApp", method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "/addApp/{developerToken:.+}", method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public ApplicationToken addApplicationToDeveloper(@RequestBody Application app) {
-		ApplicationToken token = new ApplicationToken("Could not register app");
+	public ApplicationToken addApplicationToDeveloper(@RequestBody Application app,
+										@PathVariable String developerToken) {
 		logger.debug("Developer wants to registrate an application");
+		
+		ApplicationToken token = new ApplicationToken("Could not register app");
+		
+		Long devId = service.authenticateDeveloperToken(developerToken);
+		logger.debug("Adding new app to developer");
+		token = service.registerApplication(app, devId);
+		token.setMessage("Use this in the header for futurer requests");
+		
+		return token;
 		//First we get the information about the current request holder
 		//If no developer is found, cancel the request,
 		//else add application to developer
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (auth != null && auth instanceof RequestAuthenticationInfo) {
-			RequestHolderDetails det = (RequestHolderDetails) auth.getPrincipal();
-			logger.debug("Found authentication! Developer id: " + det.getDeveloperId());
-			
-			logger.debug("Adding new app to developer");
-			token = service.registerApplication(app, det.getDeveloperId());
-			token.setMessage("Use this in the header for futurer requests");
-			
-		}else{
-			throw new ObjectNotFoundException("Are you sure you set the correct developer-token?");
-		}
-		return token;
+//		Authentication auth = SecurityContextHolder.getContext()
+//				.getAuthentication();
+//		if (auth != null && auth instanceof RequestAuthenticationInfo) {
+//			RequestHolderDetails det = (RequestHolderDetails) auth.getPrincipal();
+//			logger.debug("Found authentication! Developer id: " + det.getDeveloperId());
+//			
+//			logger.debug("Adding new app to developer");
+//			token = service.registerApplication(app, det.getDeveloperId());
+//			token.setMessage("Use this in the header for futurer requests");
+//			
+//		}else{
+//			throw new ObjectNotFoundException("Are you sure you set the correct developer-token?");
+//		}
+//		return token;
 	}
 
 	@ExceptionHandler(ObjectNotFoundException.class)
