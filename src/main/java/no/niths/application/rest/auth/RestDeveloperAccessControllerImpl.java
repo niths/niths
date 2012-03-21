@@ -88,13 +88,6 @@ public class RestDeveloperAccessControllerImpl implements
 
 		logger.debug("Request success, sending email");
 
-		// Send confirmation to developer
-		// If any errors occurred (Sitting behind a firewall? Port closed?),
-		// we give the user instructions as a HTTP response
-//		if (!mailService.sendDeveloperRegistratedConfirmation(developer)) {
-//			devToken.setMessage("Failed to send an email, but now worries! "
-//					+ "To enable your new developer account: DO THIS");
-//		}
 		return devToken;
 	}
 
