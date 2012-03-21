@@ -87,7 +87,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 		//TEST MODE:
 //		return new Long(1);
 		//END TESTMODE
-		Long id = authService.authenticateDeveloperToken(applicationToken);
+		Long id = authService.authenticateApplicationToken(applicationToken);
 		if(id == null){
 			throw new UsernameNotFoundException("Could not find a application with that token");
 		}
