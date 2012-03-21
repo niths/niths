@@ -82,7 +82,7 @@ public class Event implements Serializable {
 	@JoinTable(name = "committees_events", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	private List<Committee> committees = new ArrayList<Committee>();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinTable(name = "events_location", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(value = CascadeType.ALL)
 	private Location location;

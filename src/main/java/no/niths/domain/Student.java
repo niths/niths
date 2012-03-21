@@ -385,8 +385,7 @@ public class Student implements Serializable {
 		this.lastLogon = lastLogon;
 	}
 	
-	@XmlTransient
-	@JsonIgnore
+	
 	public List<Feed> getFeeds() {
 		return feeds;
 	}

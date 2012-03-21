@@ -390,14 +390,21 @@ INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3);
 
 
-
 insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Stord');
 insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Oslo');
 
+insert into events_location (location_id, events_id) values(1, 1);
+insert into events_location (location_id, events_id) values(1, 2);
+insert into events_location (location_id, events_id) values(2, 3);
 
---insert into events_locations (location_id, events_id) values(1, 1);
---insert into events_locations (location_id, events_id) values(2, 1);
+insert into feeds (id, message, published) values(1, 'Kroa åpner 14:00 ', '2012-03-21 13:00');
+insert into feeds (id, message, published) values(2, 'Salg i kantina ', '2012-03-21 13:00');
 
+insert into feeds_location (location_id, feeds_id) values(1, 1);
+insert into feeds_location (location_id, feeds_id) values(1, 2);
+
+insert into feeds_student (student_id, feeds_id) values(1, 1);
+insert into feeds_student (student_id, feeds_id) values(1, 2);
 
 
 

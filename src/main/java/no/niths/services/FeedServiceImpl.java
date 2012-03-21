@@ -2,6 +2,8 @@ package no.niths.services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +15,12 @@ import no.niths.services.interfaces.FeedService;
 @Service
 @Transactional
 public class FeedServiceImpl implements FeedService {
-
+	
+	Logger logger = LoggerFactory.getLogger(FeedServiceImpl.class);
+	
 	@Autowired
 	private FeedRepoistory repo;
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -38,15 +42,22 @@ public class FeedServiceImpl implements FeedService {
 	 */
 	@Override
 	public Feed getById(long id) {
+		
+		logger.debug("get by id in service so good so far");
 		Feed feed = repo.getById(id);
+		logger.debug("is shit null? "+(feed==null));
 		
-		if(feed != null){
-			if(feed.getStudent()!=null)
+		if (feed != null) {
+			if (feed.getStudent() != null) {
 				feed.getStudent().getEmail();
-			if(feed.getLocation()!=null)
-				feed.getLocation().getPlace();
+			}
+
+//			if (feed.getLocation() != null) {
+//				feed.getLocation().getPlace();
+//			}
+
 		}
-		
+
 		return feed;
 	}
 

@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -34,6 +36,7 @@ import org.hibernate.annotations.CascadeType;
 @XmlRootElement(name = AppConstants.FEED)
 @Entity
 @Table(name = AppConstants.FEEDS)
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Feed implements Serializable {
 
@@ -54,18 +57,23 @@ public class Feed implements Serializable {
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar published;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_location", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinTable(name = "feeds_location", 
+		joinColumns = @JoinColumn(name = "feeds_id"), 
+		inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(CascadeType.ALL)
 	private Location location;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinTable(name = "feeds_student", 
+		joinColumns = @JoinColumn(name = "feeds_id"), 
+		inverseJoinColumns = @JoinColumn(name = "student_id"))
 	@Cascade(CascadeType.ALL)
 	private Student student;
 
 	public Feed() {
-
+		this(null);
+		setPublished(null);
 	}
 
 	public Feed(String message) {

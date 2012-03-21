@@ -35,12 +35,6 @@ public class EventServiceImpl implements EventsService {
 
 	public Event getById(long id) {
 		Event event = repo.getById(id);
-
-		if (event != null) {
-			if(event.getLocation() != null){
-				event.getLocation().getPlace();
-			}
-		}
 		return event;
 	}
 
