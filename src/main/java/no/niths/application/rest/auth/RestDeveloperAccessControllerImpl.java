@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,26 +27,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Register developers wanting access to the API
- *
+ * 
  */
 @Controller
 @RequestMapping("register")
-public class RestDeveloperAccessControllerImpl implements RestDeveloperAccessController{
-	
+public class RestDeveloperAccessControllerImpl implements
+		RestDeveloperAccessController {
+
 	Logger logger = org.slf4j.LoggerFactory
 			.getLogger(RestDeveloperAccessControllerImpl.class);
-	
+
 	@Autowired
 	private AuthenticationService service;
-	
+
 	@Autowired
 	private MailSenderService mailService;
-	
+
 	private final static String VIEW_NAME = "developerConfirmation";
-	
+
 	/**
-	 * Register a developer and generates a developer token that the
-	 * developer uses in future requests
+	 * Register a developer and generates a developer token that the developer
+	 * uses in future requests
 	 * 
 	 * <pre>
 	 * {@code
@@ -64,62 +66,67 @@ public class RestDeveloperAccessControllerImpl implements RestDeveloperAccessCon
 	 * }
 	 * </pre>
 	 * 
-	 * @param developer the developer to persist
-	 * @return DeveloperToken the token and a confirmation message 
+	 * @param developer
+	 *            the developer to persist
+	 * @return DeveloperToken the token and a confirmation message
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public DeveloperToken requestAccess(@RequestBody Developer developer) {
-		logger.debug("A developer requests access! Email: " + developer.getEmail());
-		
+		logger.debug("A developer requests access! Email: "
+				+ developer.getEmail());
+
 		DeveloperToken devToken = service.registerDeveloper(developer);
 
 		logger.debug("Request success, sending email");
-		
-		//Send confirmation to developer
-		//If any errors occurred (Sitting behind a firewall? Port closed?),
-		//we give the user instructions as a HTTP response
-		if(!mailService.sendDeveloperEmail(developer)){
-			devToken.setMessage("Failed to send an email, but now worries! " +
-								"To enable your new developer account: DO THIS");
+
+		// Send confirmation to developer
+		// If any errors occurred (Sitting behind a firewall? Port closed?),
+		// we give the user instructions as a HTTP response
+		if (!mailService.sendDeveloperEmail(developer)) {
+			devToken.setMessage("Failed to send an email, but now worries! "
+					+ "To enable your new developer account: DO THIS");
 		}
 		return devToken;
 	}
-	
+
 	/**
-	 * Enables already registrated developers.
+	 * Enables already registrated developers. Returns a new developer token to
+	 * use in all future requests
 	 * 
-	 * How to use:
-	 * Paste the url to the server + /niths/register/enable/<your_token>
-	 * into your favourite browser
+	 * How to use: Paste the url to the server +
+	 * /niths/register/enable/<your_token> into your favourite browser
 	 * 
-	 * @param developerToken the token returned from requestAccess(Developer)
+	 * @param developerToken
+	 *            the token returned from requestAccess(Developer)
 	 * @return a page with confirmation or error message
 	 */
 	@Override
 	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.GET)
-	public ModelAndView enableDeveloper(@PathVariable String developerToken){
-		logger.debug("Developer want to be enabled with developer token: " + developerToken);
+	public ModelAndView enableDeveloper(@PathVariable String developerToken) {
+		logger.debug("Developer want to be enabled with developer token: "
+				+ developerToken);
 		ModelAndView view = new ModelAndView(VIEW_NAME);
-		
-		Developer dev = service.enableDeveloper(developerToken);
-		if(dev == null){
-			view.addObject("error", "No developer with token: "+ developerToken + " could be found");			
+		try {
+			Developer dev = service.enableDeveloper(developerToken);
+			// Returns a view with the new token
+			view.addObject("token", dev.getDeveloperToken());
+
+		} catch (AuthenticationException e) {
+			view.addObject("error", e.getMessage());
 		}
-		
-		view.addObject("token", developerToken);
+		// Maybe send a new email with the new token?
 		return view;
 	}
 
-	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void dataIntegrity(DataIntegrityViolationException e,
 			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
-	
+
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void constraintViolation(ConstraintViolationException cve,

@@ -11,8 +11,6 @@
 </style>
 <script type="text/javascript">
 	
-<%@include file='assets/javascripts/jquery.js'%>
-	
 <%@include file='assets/javascripts/admin.js'%>
 	
 </script>

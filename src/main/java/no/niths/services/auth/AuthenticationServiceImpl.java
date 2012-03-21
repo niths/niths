@@ -227,6 +227,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if(dev == null){
 			throw new UnvalidTokenException("No developer found with that token");
 		}
+		//Generate a new token
+		dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
 		dev.setEnabled(true);
 		developerService.update(dev);
 		

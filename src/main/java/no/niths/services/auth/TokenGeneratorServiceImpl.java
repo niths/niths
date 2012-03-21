@@ -57,7 +57,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
 		logger.debug("Generated token before encryption: " + generatedToken);
 		logger.debug("Generated token after encryption: " + encryptedToked);
-
+		
+		encryptedToked = encryptedToked.replace('/', '*');
+		logger.debug("Generated token after replacing: " + encryptedToked);
 		return encryptedToked;
 	}
 
@@ -78,7 +80,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 		}
 		try {
 			logger.debug("Token before encryption: " + token);
-
+			token = token.replace('*', '/');
+			logger.debug("Token after replace: " + token);
+			
 			StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
 			jasypt.setPassword(password);
 			String decryptedToken = jasypt.decrypt(token);
