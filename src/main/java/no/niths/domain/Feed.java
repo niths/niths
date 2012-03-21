@@ -47,37 +47,32 @@ public class Feed implements Serializable {
 	@Column
 	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String message;
-	
+
 	@Column(name = "published")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar published;
 
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_location", 
-		joinColumns = @JoinColumn(name = "feeds_id"), 
-		inverseJoinColumns = @JoinColumn(name = "location_id"))
+	@JoinTable(name = "feeds_location", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(CascadeType.ALL)
 	private Location location;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_student", 
-		joinColumns = @JoinColumn(name = "feeds_id"), 
-		inverseJoinColumns = @JoinColumn(name = "student_id"))
+	@JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
 	@Cascade(CascadeType.ALL)
 	private Student student;
 
 	public Feed() {
-		
+
 	}
-	
+
 	public Feed(String message) {
 		setMessage(message);
 		setPublished(new GregorianCalendar());
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -103,9 +98,21 @@ public class Feed implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public boolean equals(Object that) {
+		if (this == that)
+			return true;
 
-		return String.format("[%s][%s]", id,message);
+		if (!(that instanceof Feed))
+			return false;
+
+		Feed feed = (Feed)that;
+		
+		return (toString()+getPublished()).equals(feed.toString()+feed.getPublished());
+	}
+
+	@Override
+	public String toString() {
+		return String.format("[%s][%s]", id, message);
 	}
 
 	public Location getLocation() {
