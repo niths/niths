@@ -4,7 +4,7 @@ import java.util.List;
 
 import no.niths.aop.ApiEvent;
 import no.niths.domain.Event;
-import no.niths.infrastructure.interfaces.EventRepositorty;
+import no.niths.infrastructure.interfaces.EventRepository;
 import no.niths.services.interfaces.EventsService;
 
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventsService {
 			.getLogger(EventServiceImpl.class);
 
 	@Autowired
-	private EventRepositorty repo;
+	private EventRepository repo;
 
 	@ApiEvent(title = "Event created")
 	public Long create(Event committeeEvents) {

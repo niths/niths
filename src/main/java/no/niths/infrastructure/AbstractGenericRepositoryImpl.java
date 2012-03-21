@@ -11,8 +11,13 @@ import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public abstract class AbstractGenericRepositoryImpl<T extends Serializable> implements
-		GenericRepository<T> {
+/**
+ * 
+ * 
+ * @param <T>
+ */
+public abstract class AbstractGenericRepositoryImpl<T extends Serializable>
+		implements GenericRepository<T> {
 
 	private Class<T> persistentClass;
 
@@ -29,11 +34,7 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable> impl
 	}
 
 	/**
-	 * Find and returns all objects which has values equal to the object sent as
-	 * parameter.
-	 * @param domain
-	 *            - The object that has the values to search for
-	 * @return List of objects found
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getAll(T domain) {
@@ -47,16 +48,25 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable> impl
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	public T getById(long id) {
 		return (T) session.getCurrentSession().get(persistentClass, id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Transactional(readOnly = false)
 	public void update(T domain) {
 		session.getCurrentSession().update(domain);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Transactional(readOnly = false)
 	public boolean delete(long id) {
 		Query query = session.getCurrentSession()
@@ -67,14 +77,24 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable> impl
 		return (1 == query.executeUpdate());
 	}
 
+	/**
+	 * Returns a instance of the persistence class
+	 * @return
+	 */
 	public Class<T> getPersistentClass() {
 		return persistentClass;
 	}
 
+	/**
+	 * Returns the given session
+	 * @return
+	 */
 	public SessionFactory getSession() {
 		return session;
 	}
 
-
-	public abstract void  hibernateDelete(long id);
+	/**
+	 * 
+	 */
+	public abstract void hibernateDelete(long id);
 }

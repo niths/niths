@@ -17,7 +17,7 @@ public final class AppConstants {
     public static final String FADDER = "fadder";
     public static final String FADDER_GROUPS = "fadder_groups";
     public static final String FEED = "feed";
-    public static final String FEEDS = "feed";
+    public static final String FEEDS = "feeds";
     public static final String LOCATIONS = "locations";
     public static final String ROLES = "roles";
     public static final String ROOMS = "rooms";

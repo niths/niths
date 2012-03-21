@@ -3,13 +3,13 @@ package no.niths.infrastructure;
 import java.util.List;
 
 import no.niths.domain.Event;
-import no.niths.infrastructure.interfaces.EventRepositorty;
+import no.niths.infrastructure.interfaces.EventRepository;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
-		implements EventRepositorty {
+		implements EventRepository {
 
 	private QueryGenerator<Event> queryGen;
 	private final String COLUMNAME = "tags";

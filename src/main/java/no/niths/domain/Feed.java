@@ -1,6 +1,8 @@
 package no.niths.domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.adapter.JsonCalendarAdapter;
+import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -36,7 +45,15 @@ public class Feed implements Serializable {
 	private Long id;
 
 	@Column
+	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String message;
+	
+	@Column(name = "published")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlSchemaType(name = "date")
+	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	private Calendar published;
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "feeds_location", 
@@ -52,6 +69,15 @@ public class Feed implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private Student student;
 
+	public Feed() {
+		
+	}
+	
+	public Feed(String message) {
+		setMessage(message);
+		setPublished(new GregorianCalendar());
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -79,7 +105,7 @@ public class Feed implements Serializable {
 	@Override
 	public String toString() {
 
-		return String.format("[%s][%s][]", "");
+		return String.format("[%s][%s]", id,message);
 	}
 
 	public Location getLocation() {
@@ -88,5 +114,14 @@ public class Feed implements Serializable {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@JsonSerialize(using = JsonCalendarAdapter.class)
+	public Calendar getPublished() {
+		return published;
+	}
+
+	public void setPublished(Calendar published) {
+		this.published = published;
 	}
 }

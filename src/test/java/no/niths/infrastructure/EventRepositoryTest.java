@@ -9,7 +9,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Event;
 import no.niths.domain.location.Location;
-import no.niths.infrastructure.interfaces.EventRepositorty;
+import no.niths.infrastructure.interfaces.EventRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventRepositoryTest {
 
 	@Autowired
-	private EventRepositorty eventRepo;
+	private EventRepository eventRepo;
 
 	@Test
 	public void testCRUD() {
