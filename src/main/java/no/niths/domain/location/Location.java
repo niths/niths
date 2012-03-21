@@ -31,6 +31,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.LOCATIONS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlRootElement
+	
 public class Location implements Serializable {
 
 	private static final long serialVersionUID = -4834276555969698011L;
@@ -49,6 +50,8 @@ public class Location implements Serializable {
 	@Column(name = "longitude")
 	private Double longitude;
 
+	@XmlTransient
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
 	@JoinTable(name = "events_location", 
 	joinColumns = @JoinColumn(name = "location_id"), 
@@ -56,6 +59,8 @@ public class Location implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Event> events = new ArrayList<Event>();
 
+	@XmlTransient
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "feeds_location",
 	    joinColumns =        @JoinColumn(name = "location_id"),
@@ -128,8 +133,6 @@ public class Location implements Serializable {
 				longitude, latitude);
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public List<Feed> getFeeds() {
 		return feeds;
 	}
@@ -138,8 +141,6 @@ public class Location implements Serializable {
 		this.feeds = feeds;
 	}
 
-	@XmlTransient
-	@JsonIgnore
 	public List<Event> getEvents() {
 		return events;
 	}

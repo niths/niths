@@ -14,15 +14,14 @@ import no.niths.domain.Student;
 
 public class ValidationHelper {
 
-	/**
-	 * @Param committee
-	 */
+
 	public static boolean isObjectNull(Object obj) {
 		if (obj == null) {
 			throw new ObjectNotFoundException();
 		}
 		return false;
 	}
+	
 	public static boolean isObjectNull(Object obj, String errorMessage) {
 		if (obj == null) {
 			throw new ObjectNotFoundException(errorMessage);

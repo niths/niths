@@ -1,6 +1,5 @@
 package no.niths.application.rest;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +9,13 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.Course;
+import no.niths.domain.Feed;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -57,6 +54,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			for (int i = 0; i < student.getCourses().size(); i++) {
 				student.getCourses().get(i).setSubjects(null);
 			}
+			
+		
+			for(Feed f: student.getFeeds()){
+				f.setStudent(null);
+			}
+			
 		}
 		return student;
 	}

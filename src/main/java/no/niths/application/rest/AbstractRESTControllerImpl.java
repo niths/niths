@@ -78,6 +78,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
 	public void create(@RequestBody T domain) {
+		logger.debug(domain.toString());
 		getService().create(domain);
 	}
 
@@ -106,13 +107,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public T getById(@PathVariable Long id) {
 		logger.info("method used");
 		T domain = getService().getById(id);
+		logger.info("Here");
 		ValidationHelper.isObjectNull(domain);
 		return domain;
 	}
 
 	  /**
      * 
-     * Returns an arraylist with all domain objects of the type
+     * Returns an array list with all domain objects of the type
      * 
      * @param domain will search the DB for instances with the same attributes,
      * 				if null, all will be returned
@@ -157,7 +159,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Update OK")
 	public void update(@RequestBody T domain) {
-		logger.info("method used");
+		logger.debug(domain.toString());
 
 		try {
 			getService().update(domain);
@@ -182,6 +184,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * {@inheritDoc}
 	 */
 	public void renewList(List<T> list) {
+		logger.debug("rendeList: " + list.size() );
 		getList().clear();
 		getList().addAll(list);
 		getList().setData(getList()); // Used for XML marshaling
@@ -363,7 +366,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	
 	/**
-	 * Catches QueryParameterException, inv
+	 * Catches QueryParameterException, invalid query
 	 */
 	@ExceptionHandler(QueryParameterException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)

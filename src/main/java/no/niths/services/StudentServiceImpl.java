@@ -24,47 +24,49 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentRepository repo;
-	
+
 	@Autowired
 	private RoleRepository roleRepo;
 
 	public Long create(Student student) {
 		Role r = new Role(SecurityConstants.R_STUDENT);
 		List<Role> roles = roleRepo.getAll(r);
-		if(!roles.isEmpty() && roles.size() == 1){
-			logger.debug("Role given to created student: " + roles.get(0).getRoleName());
+		if (!roles.isEmpty() && roles.size() == 1) {
+			logger.debug("Role given to created student: "
+					+ roles.get(0).getRoleName());
 			student.getRoles().add(roles.get(0));
-		}		
+		}
 		return repo.create(student);
 	}
+
 	@Override
-	public Student getStudentByEmail(String email){
+	public Student getStudentByEmail(String email) {
 		Student s = new Student(email);
 		List<Student> all = getAll(s);
-		if(!all.isEmpty()){
+		if (!all.isEmpty()) {
 			Student s2 = all.get(0);
 			s2.getRoles().size();
 			return s2;
 		}
 		return null;
 	}
+
 	@Override
-	public Student getStudentBySessionToken(String token){
+	public Student getStudentBySessionToken(String token) {
 		Student s = new Student();
 		s.setSessionToken(token);
 		List<Student> all = getAll(s);
-		if(!all.isEmpty()){
+		if (!all.isEmpty()) {
 			Student s2 = all.get(0);
 			s2.getRoles().size();
 			return s2;
 		}
 		return null;
 	}
-	
 
 	/**
 	 * Finds and returns a student with a given id. Returns the student with
-	 * courses and committees
+	 * courses, committees and feeds
 	 * 
 	 * @param id
 	 *            ID of student to find
@@ -75,12 +77,17 @@ public class StudentServiceImpl implements StudentService {
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-//			s.getRoles().size();
-			//s.getFadderGroup().size();
-		}
+
+			int size = s.getFeeds().size();
+			for (int i = 0; i < size; i++) {
+				if (s.getFeeds().get(i).getLocation() != null){
+					s.getFeeds().get(i).getLocation().getPlace();
+				}
+			}
+		}		
 		return s;
 	}
-	
+
 	@Override
 	public Student getStudentWithRoles(Long id) {
 		Student s = repo.getById(id);
@@ -116,8 +123,8 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getStudentsAndRoles(Student s) {
-		List <Student> list = repo.getAll(s);
-		
+		List<Student> list = repo.getAll(s);
+
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).getRoles().size();
 		}
@@ -126,11 +133,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
-		List <Student> list = repo.getStudentByColumn(column, criteria);
+		List<Student> list = repo.getStudentByColumn(column, criteria);
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).getRoles().size();
 		}
-		
+
 		return list;
 	}
 
