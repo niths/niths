@@ -5,17 +5,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
 import no.niths.domain.FadderGroup;
 
-@XmlRootElement(name = AppConstants.FADDER)
+@XmlRootElement(name = "faddergroups")
 public class FadderGroupList extends ListAdapter<FadderGroup>{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 7386282831236634626L;
-	@XmlElement(name = "fadderGroup")
+	@XmlElement(name = "faddergroup")
     private List<FadderGroup> data;
 
     @Override
