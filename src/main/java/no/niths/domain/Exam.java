@@ -40,8 +40,8 @@ public class Exam implements Serializable {
     private String name;
 
     @Column
-    @Size(min = 2, max = 10, message ="The length of the type must be between 2 to 10 letters")
-    private String type;
+    @Size(min = 2, max = 10, message ="The length of the exam_type must be between 2 to 10 letters")
+    private String examType;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -79,9 +79,9 @@ public class Exam implements Serializable {
     public Exam(){
     }
 
-    public Exam(String name, String type, String allowedAid, GregorianCalendar startTime, GregorianCalendar endTime){
+    public Exam(String name, String examType, String allowedAid, GregorianCalendar startTime, GregorianCalendar endTime){
         setName(name);
-        setType(type);
+        setExamType(examType);
         setAllowedAid(allowedAid);
         setStartTime(startTime);
         setEndTime(endTime);
@@ -103,12 +103,12 @@ public class Exam implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getExamType() {
+        return examType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setExamType(String examType) {
+        this.examType = examType;
     }
 
     public String getAllowedAid() {
@@ -164,12 +164,12 @@ public class Exam implements Serializable {
 
     @JsonIgnore
     public boolean isEmpty(){
-        return (id == null && name == null && type == null && allowedAid ==  null
+        return (id == null && name == null && examType == null && allowedAid ==  null
                 && startTime == null && endTime == null);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s][%s][%s]", id, name, type);
+        return String.format("[%s][%s][%s]", id, name, examType);
     }
 }
