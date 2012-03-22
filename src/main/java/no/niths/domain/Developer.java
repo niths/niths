@@ -63,6 +63,21 @@ public class Developer implements Serializable {
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
 	List<Application> apps = new ArrayList<Application>();
 
+	public Developer() {
+		setId(null);
+		setEmail(null);
+		setName(null);
+		setEnabled(null);
+		setDeveloperToken(null);
+		setApps(null);
+	}
+	
+
+	public Developer(String Name) {
+		setName(name);
+	}
+	
+	
 	public List<Application> getApps() {
 		return apps;
 	}

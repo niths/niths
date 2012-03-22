@@ -10,8 +10,6 @@ import no.niths.services.interfaces.DeveloperService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,9 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class DeveloperServiceTest {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(DeveloperServiceTest.class);
 
 	@Autowired
 	private DeveloperService devService;
@@ -36,7 +31,7 @@ public class DeveloperServiceTest {
 		int devSize = devService.getAll(null).size();
 		int appSize = appService.getAll(null).size();
 		
-		Developer dev = new Developer();
+		Developer dev = new Developer("Jhon");
 		devService.create(dev);
 		assertEquals(devSize + 1, devService.getAll(null).size());
 		
@@ -75,10 +70,10 @@ public class DeveloperServiceTest {
 	
 	@Test
 	public void testAppDevRelation(){
-		Developer d1 = new Developer();
+		Developer d1 = new Developer("mrDoe");
 		devService.create(d1);
-		Application a1 = new Application();
-		Application a2 = new Application();
+		Application a1 = new Application("App",null,null,null);
+		Application a2 = new Application("Apssp",null,null,null);
 		appService.create(a1);
 		appService.create(a2);
 		

@@ -71,7 +71,7 @@ public class CascadeControllerTest {
 		g.getFadderChildren().add(s1);
 		fadderGroupController.create(g);
 		//Add student to a committee as leader
-		Committee com = new Committee();
+		Committee com = new Committee("Super","asd");
 		com.getLeaders().add(s1);
 		committeeController.create(com);
 		//Add as a member
