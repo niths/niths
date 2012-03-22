@@ -49,7 +49,7 @@ public class Application implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	@Column(name ="application_token")
+	@Column(name = "application_token")
 	private String applicationToken;
 
 	@JsonIgnore
@@ -63,14 +63,15 @@ public class Application implements Serializable {
 	private Developer developer;
 
 	public Application() {
+		this(null, null, null, null);
 	}
 
 	public Application(String title, String description, String iconUrl,
 			Developer developer) {
-		this.title = title;
-		this.description = description;
-		this.iconUrl = iconUrl;
-		this.developer = developer;
+		setTitle(title);
+		setDescription(description);
+		setIconUrl(iconUrl);
+		setDeveloper(developer);
 	}
 
 	@JsonIgnore
@@ -148,5 +149,4 @@ public class Application implements Serializable {
 		Application s = (Application) that;
 		return s == this ? true : s.getId() == id ? true : false;
 	}
-
 }

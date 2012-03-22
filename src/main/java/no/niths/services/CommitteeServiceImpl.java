@@ -1,11 +1,14 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.domain.Committee;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.services.interfaces.CommitteeService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CommitteeServiceImpl implements CommitteeService {
+
+	private Logger logger = LoggerFactory.getLogger(CommitteeServiceImpl.class);
+
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	@Autowired
 	private CommitteeRepositorty repo;
@@ -27,7 +34,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 	}
 
 	/**
-	 * <
+	 * 
 	 * 
 	 * @return
 	 */
@@ -47,6 +54,7 @@ public class CommitteeServiceImpl implements CommitteeService {
 			c.getLeaders().size();
 			c.getEvents().size();
 			c.getMembers().size();
+			
 		}
 		return c;
 	}
@@ -56,7 +64,14 @@ public class CommitteeServiceImpl implements CommitteeService {
 	 * @param committee
 	 */
 	public void update(Committee committee) {
-		repo.update(committee);
+		Committee committeeToUpdate = repo.getById(committee.getId());
+		try {
+			beanCopy.copyProperties(committeeToUpdate, committee);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(committeeToUpdate);
 	}
 
 	/**

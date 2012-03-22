@@ -29,7 +29,5 @@ public class JsonCalendarAdapter extends JsonSerializer<Calendar> {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-
 	}
-
 }

@@ -105,16 +105,16 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public void update(Student student) {
-		Student old =repo.getById(student.getId());
+		Student studentToUpdate =repo.getById(student.getId());
 		
 		try {
-			beanCopy.copyProperties(old, student);
+			beanCopy.copyProperties(studentToUpdate, student);
 		} catch (IllegalAccessException | InvocationTargetException e) {
-			logger.debug("error",e);
+			logger.error("error",e);
 			e.printStackTrace();
 		}
 		
-		repo.update(old);
+		repo.update(studentToUpdate);
 	}
 
 	public boolean delete(long id) {

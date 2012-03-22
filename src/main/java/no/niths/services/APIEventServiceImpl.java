@@ -34,7 +34,7 @@ public class APIEventServiceImpl implements APIEventService {
 	@Autowired
 	private APIEventRepository repo;
 
-	private CustomBeanUtilsBean beancopyer = new CustomBeanUtilsBean();
+	private CustomBeanUtilsBean beanCopyer = new CustomBeanUtilsBean();
 
 	public Long create(APIEvent event) {
 		return repo.create(event);
@@ -49,14 +49,14 @@ public class APIEventServiceImpl implements APIEventService {
 	}
 
 	public void update(APIEvent event) {
-		APIEvent e = repo.getById(event.getId());	
+		APIEvent apiEventToUpdate = repo.getById(event.getId());	
 		try {
-			beancopyer.copyProperties(e, event);
+			beanCopyer.copyProperties(apiEventToUpdate, event);
 		} catch (IllegalAccessException | InvocationTargetException e1) {
-			logger.debug("error",e1);
+			logger.error("error",e1);
 			e1.printStackTrace();
 		}
-		repo.update(e);
+		repo.update(apiEventToUpdate);
 	}
 
 	public boolean delete(long id) {

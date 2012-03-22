@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -67,11 +66,6 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(
-            value = "{id}",
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
     public Committee getById(@PathVariable Long id) {
         logger.debug(id+"");
         Committee committee = super.getById(id);
@@ -82,12 +76,14 @@ public class CommitteeControllerImpl
             for (Student leader : leaders) {
                 leader.setCommittees(null);
                 leader.setCourses(null);
+                leader.setFeeds(null);
                 // leaders.get(i).setFadderGroup(null);
             }
             List<Student> members = committee.getMembers();
             for(Student member: members) {
             	member.setCommittees(null);
             	member.setCourses(null);
+            	member.setFeeds(null);
             }
 
             if(committee.getEvents().isEmpty()){
@@ -101,10 +97,6 @@ public class CommitteeControllerImpl
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(
-            method = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
     public ArrayList<Committee> getAll(Committee domain) {
         committeeList = (CommitteeList) super.getAll(domain);
 

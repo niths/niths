@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.aop.ApiEvent;
@@ -7,6 +8,8 @@ import no.niths.domain.Application;
 import no.niths.infrastructure.interfaces.ApplicationRepository;
 import no.niths.services.interfaces.ApplicationService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ApplicationServiceImpl implements ApplicationService{
 
+	private Logger logger = LoggerFactory.getLogger(ApplicationServiceImpl.class);
+	
     @Autowired
     private ApplicationRepository repo;
 
+    private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
+    
     @ApiEvent(title = "Application created")
     public Long create(Application app) {
         return repo.create(app);
@@ -33,7 +40,16 @@ public class ApplicationServiceImpl implements ApplicationService{
 
     @ApiEvent(title = "Application updated")
     public void update(Application app) {
-        repo.update(app);
+    	Application appToUpdate = repo.getById(app.getId());
+    	
+    	try {
+			beanCopy.copyProperties(appToUpdate, app);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error", e);
+			e.printStackTrace();
+		}
+    	
+        repo.update(appToUpdate);
     }
 
     public boolean delete(long id) {
