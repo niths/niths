@@ -75,6 +75,18 @@ hr {
   margin: 3px;  
 }
 
+.right{
+	text-align: right;
+}
+.developer{
+	font-weight:bold;
+	text-align: left;
+}
+.application{
+	margin-left:20px;
+	text-align: left;
+}
+
 .odd {
 	background-color: #ebebeb;
 	padding: 5px;
