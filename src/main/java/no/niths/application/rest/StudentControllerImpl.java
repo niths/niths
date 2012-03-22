@@ -67,11 +67,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
 	public void update(@RequestBody Student domain) {
-		
-		Student s = getById(domain.getId());
-
-		domain.setLastLogon(s.getLastLogon());
-		domain.setSessionToken(s.getSessionToken());
 
 		super.update(domain);
 	}
