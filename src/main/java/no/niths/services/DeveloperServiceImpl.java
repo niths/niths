@@ -58,4 +58,16 @@ public class DeveloperServiceImpl implements DeveloperService{
 		return repo.getByDeveloperToken(token, isEnabled);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Developer> getAllWithApps(Developer dev) {
+		List<Developer> all = repo.getAll(dev);
+		for (Developer d: all){
+			d.getApps().size();
+		}
+		return all;
+	}
+
 }
