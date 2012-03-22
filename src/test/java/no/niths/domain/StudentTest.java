@@ -48,7 +48,7 @@ public class StudentTest {
                 student.setGender(GENDER);
                 student.setGrade(GRADE);
                 student.setDescription(DESCRIPTION);
-                student.setPassword(PASSWORD);
+            
                 student.setBirthday(DATE);
 
                 assertThat(FIRST_NAME, is(equalTo(student.getFirstName())));
@@ -58,9 +58,9 @@ public class StudentTest {
                 assertThat(EMAIL, is(equalTo(student.getEmail())));
                 assertThat(PHONE_NUMBER, is(equalTo(student.getTelephoneNumber())));
                 assertThat(DESCRIPTION, is(equalTo(student.getDescription())));
-                assertThat(PASSWORD, is(equalTo(student.getPassword())));
+              
                 assertThat(DATE, is(equalTo(student.getBirthday())));
-                assertThat(student.getSerialversionuid(), is(notNullValue()));
+             
                 
                 assertThat(false, is(equalTo(student.isEmpty())));
         }

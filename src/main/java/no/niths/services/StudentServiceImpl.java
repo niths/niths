@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.common.SecurityConstants;
@@ -27,6 +28,8 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private RoleRepository roleRepo;
+	
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	public Long create(Student student) {
 		Role r = new Role(SecurityConstants.R_STUDENT);
@@ -102,7 +105,16 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public void update(Student student) {
-		repo.update(student);
+		Student old =repo.getById(student.getId());
+		
+		try {
+			beanCopy.copyProperties(old, student);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.debug("error",e);
+			e.printStackTrace();
+		}
+		
+		repo.update(old);
 	}
 
 	public boolean delete(long id) {
@@ -124,7 +136,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> getStudentsAndRoles(Student s) {
 		List<Student> list = repo.getAll(s);
-
+		
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).getRoles().size();
 		}

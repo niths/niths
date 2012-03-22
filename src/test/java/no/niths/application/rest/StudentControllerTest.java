@@ -31,7 +31,7 @@ public class StudentControllerTest {
 	@Test(expected= ConstraintViolationException.class)
 	public void testInsertNullObject_shallThrowException() {
 		
-		Student s = new Student();
+		Student s = new Student("jhone","doe");
 		studController.create(s);
 	}
 	
