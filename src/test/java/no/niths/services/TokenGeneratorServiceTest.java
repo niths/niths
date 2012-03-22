@@ -1,7 +1,5 @@
 package no.niths.services;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
@@ -9,10 +7,7 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.APIEvent;
 import no.niths.services.auth.TokenGeneratorServiceImpl;
-import no.niths.services.auth.interfaces.TokenGeneratorService;
-import no.niths.services.interfaces.APIEventService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Test;
@@ -20,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,8 +25,9 @@ public class TokenGeneratorServiceTest {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(TokenGeneratorServiceTest.class);
-	
-	String password = "pass";
+
+	@Value("${jasypt.password}")
+	private String password;
 	
 	@Autowired
 	private TokenGeneratorServiceImpl tokenService;
