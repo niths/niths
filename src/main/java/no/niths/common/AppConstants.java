@@ -23,6 +23,7 @@ public final class AppConstants {
     public static final String ROOMS = "rooms";
     public static final String STUDENTS = "students";
     public static final String SUBJECTS = "subjects";
+    public static final String EXAMS = "exams";
 
     //Shared constants
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
