@@ -69,7 +69,8 @@ public class APIEvent implements Serializable{
 	private String description;
     
     public APIEvent(){
-    	
+    	this(null,null,null);
+    	setId(null);
     }
     
     public APIEvent(String title, String description, GregorianCalendar eventTime){
