@@ -65,6 +65,10 @@ public class Application implements Serializable {
 	public Application() {
 		this(null, null, null, null);
 	}
+	
+	public Application(String title){
+		this.title = title;
+	}
 
 	public Application(String title, String description, String iconUrl,
 			Developer developer) {
