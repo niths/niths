@@ -48,8 +48,6 @@ public class Role implements Serializable {
 	@SuppressWarnings("unused")
 	private String trimedRoleName;
 	
-	
-
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@JoinTable(name = "students_roles", 
 		joinColumns = @JoinColumn(name = "roles_id"), 
@@ -57,7 +55,11 @@ public class Role implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Student> students = new ArrayList<Student>();
 	
-	public Role(){}
+	public Role(){
+		this(null);
+		setStudents(null);
+		
+	}
 	
 	public Role(String roleName){
 		this.roleName = roleName;

@@ -78,7 +78,13 @@ public class Subject implements Serializable {
     private List<Exam> exams = new ArrayList<Exam>();
     
     public Subject(){
-    	//this(null, null, null, null, null);
+    	this(null, null, null, null, null);
+    	setExams(null);
+    	setCourses(null);
+    }
+    
+    public Subject(String name){
+    	this(name,null, null, null,null);
     }
     
     public Subject(String name, String topicCode, String description, String startTime, String endTime){

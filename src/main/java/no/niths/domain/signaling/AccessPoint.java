@@ -47,6 +47,8 @@ public class AccessPoint implements Serializable {
 	private List<AccessField> accessfields = new ArrayList<AccessField>();
 
 	public AccessPoint() {
+		this(null);
+		setAccessFields(null);
 	}
 
 	public AccessPoint(String address) {
