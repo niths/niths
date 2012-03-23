@@ -45,15 +45,15 @@ INSERT INTO courses_subjects VALUES(4,3);
 INSERT INTO courses_subjects VALUES(4,5);
 
 
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Øyvind', 'Ødegård','2012-02-02','degyvi09@nith.no','M','super awesome','41549300',3,'super secret password *******');
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Øyvind', 'Ødegård','2012-02-02','degyvi09@nith.no','M','super awesome','41549300',3);
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 1);
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 2);
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 3);
 
 
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Andre', 'Kristensen', '2012-02-02','mail@mail.com','M','super awesome','81549300',3,'super secret password *******');
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3,'super secret password *******');
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade,password) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3,'super secret password *******');
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Andre', 'Kristensen', '2012-02-02','mail@mail.com','M','super awesome','81549300',3);
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3);
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3);
 
 INSERT INTO students_roles(students_id, roles_id) VALUES(2, 1);
 INSERT INTO students_roles(students_id, roles_id) VALUES(2, 2);

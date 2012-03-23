@@ -9,6 +9,7 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,7 @@ public class FadderGroupControllerTest {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void testAddAndRemoveChildren(){
 		Student s1 = new Student("mail@ds.com");

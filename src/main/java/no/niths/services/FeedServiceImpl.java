@@ -1,6 +1,11 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import no.niths.domain.Feed;
+import no.niths.infrastructure.interfaces.FeedRepoistory;
+import no.niths.services.interfaces.FeedService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,16 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import no.niths.domain.Feed;
-import no.niths.infrastructure.interfaces.FeedRepoistory;
-import no.niths.services.interfaces.FeedService;
-
 @Service
 @Transactional
 public class FeedServiceImpl implements FeedService {
 	
-	Logger logger = LoggerFactory.getLogger(FeedServiceImpl.class);
-	
+	private Logger logger = LoggerFactory.getLogger(FeedServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
+
 	@Autowired
 	private FeedRepoistory repo;
 
@@ -51,11 +53,6 @@ public class FeedServiceImpl implements FeedService {
 			if (feed.getStudent() != null) {
 				feed.getStudent().getEmail();
 			}
-
-//			if (feed.getLocation() != null) {
-//				feed.getLocation().getPlace();
-//			}
-
 		}
 
 		return feed;
@@ -65,8 +62,15 @@ public class FeedServiceImpl implements FeedService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void update(Feed domain) {
-		repo.update(domain);
+	public void update(Feed feed) {
+		Feed feedToUpdate = repo.getById(feed.getId());
+		try {
+			beanCopy.copyProperties(feedToUpdate, feed);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(feedToUpdate);
 	}
 
 	/**

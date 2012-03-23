@@ -64,6 +64,8 @@ public class Course implements Serializable {
 
     public Course() {
         this(null, null, null);
+        setStudents(null);
+        setSubjects(null);
     }
 
     public Course(String name, String description) {

@@ -43,10 +43,10 @@ public class DeveloperRepositoryTest {
 	
 	@Test
 	public void testApplicationRelation(){
-		Developer dev = new Developer();
+		Developer dev = new Developer("mrDEv");
 		//devRepo.create(dev);
 		
-		Application app = new Application();
+		Application app = new Application("hello",null,null,null);
 		dev.getApps().add(app);
 		
 		appRepo.create(app);

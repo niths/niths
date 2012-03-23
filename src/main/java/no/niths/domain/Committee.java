@@ -68,7 +68,10 @@ public class Committee implements Serializable {
     private List<Student> members = new ArrayList<Student>();
     
     public Committee() {
-        this(null, null);
+        this(null, null,null);
+        setEvents(null);
+        setMembers(null);
+        setLeaders(null);
     }
 
     public Committee(String name, String description) {

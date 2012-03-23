@@ -12,6 +12,7 @@ import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.LocationService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class EventServiceTest {
 		
 	}
 	
-
+	@Ignore
 	@Test 
 	public void testEventLocation(){
 		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);

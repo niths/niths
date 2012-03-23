@@ -45,28 +45,15 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	public Feed getById(@PathVariable Long id) {
 		logger.debug("get by id in controller so good so far "  + id);
 		Feed feed = service.getById(id);
-		
-		logger.debug("is feed null" + (feed == null));
-//		feed.setStudent(null);
 		if(feed.getStudent() != null){
-			
 			feed.getStudent().setCommittees(null);
-			feed.getStudent().setCommittesLeader(null);
+			feed.getStudent().setCommitteesLeader(null);
 			feed.getStudent().setCourses(null);
 			feed.getStudent().setFadderGroup(null);
 			feed.getStudent().setGroupLeaders(null);
 			feed.getStudent().setFeeds(null);
 			feed.getStudent().setRoles(null);
 		}
-		
-//		feed.setLocation(null);
-//		if(feed.getLocation() != null){
-//			logger.debug(feed.getLocation().toString());
-//		
-//			feed.getLocation().setFeeds(null);
-//			feed.getLocation().setEvents(null);
-//		}
-		
 		return feed;
 	}
 

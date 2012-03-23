@@ -71,11 +71,6 @@ public class Student implements Serializable {
 	@XmlJavaTypeAdapter(value = XmlCharAdapter.class)
 	private Character gender;
 
-	@Column
-	@JsonIgnore
-	@XmlTransient
-	private String password;
-
 	@Column(name = "session_token")
 	@JsonIgnore
 	@XmlTransient
@@ -109,24 +104,20 @@ public class Student implements Serializable {
 	@Column(name = "last_logon")
 	private Long lastLogon;
 
-	@JsonIgnore
-	@XmlTransient
+
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
 	@JoinTable(name = "students_roles", 
 	joinColumns = @JoinColumn(name = "students_id"), 
 	inverseJoinColumns = @JoinColumn(name = "roles_id"), 
 	uniqueConstraints = @UniqueConstraint(columnNames = {"students_id","roles_id"}))
-	//@Cascade(CascadeType.ALL)
 	private List<Role> roles = new ArrayList<Role>();
 
-	@JsonIgnore
-	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@JoinTable(name = "committee_leaders", 
 		joinColumns = @JoinColumn(name = "leaders_id"), 
 		inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	@Cascade(CascadeType.ALL)
-	private List<Committee> committesLeader = new ArrayList<Committee>();
+	private List<Committee> committeesLeader = new ArrayList<Committee>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
@@ -136,8 +127,6 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Course> courses = new ArrayList<Course>();
 	
-	@JsonIgnore
-	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
 	@JoinTable(name = "fadder_leaders_students", 
 		joinColumns = @JoinColumn(name = "leaders_id"), 
@@ -145,9 +134,6 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<FadderGroup> groupLeaders = new ArrayList<FadderGroup>();
 	
-	
-	@JsonIgnore
-	@XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
 	@JoinTable(name = "fadder_children_students", 
 		joinColumns = @JoinColumn(name = "fadderChildren_id"), 
@@ -164,6 +150,13 @@ public class Student implements Serializable {
 	
 	public Student() {
 		this(null, null, null, null, null, null, null);
+		setCommittees(null);
+		setCommitteesLeader(null);
+		setCourses(null);
+		setFadderGroup(null);
+		setGroupLeaders(null);
+		setFeeds(null);
+		setRoles(null);
 	}
 
 	public Student(String email) {
@@ -207,14 +200,6 @@ public class Student implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	@JsonSerialize(using = JsonDateAdapter.class)
@@ -335,7 +320,7 @@ public class Student implements Serializable {
 	public boolean isEmpty() {
 		// Do we need to check for firstName and lastName? They can not be null
 		return (id == null && firstName == null && lastName == null
-				&& gender == null && password == null && email == null
+				&& gender == null  && email == null
 				&& description == null && birthday == null
 				&& telephoneNumber == null && grade == null);
 	}
@@ -347,12 +332,12 @@ public class Student implements Serializable {
 
 	@JsonIgnore
 	@XmlTransient
-	public List<Committee> getCommittesLeader() {
-		return committesLeader;
+	public List<Committee> getCommitteesLeader() {
+		return committeesLeader;
 	}
 
-	public void setCommittesLeader(List<Committee> committesLeader) {
-		this.committesLeader = committesLeader;
+	public void setCommitteesLeader(List<Committee> committesLeader) {
+		this.committeesLeader = committesLeader;
 	}
 
 	@JsonIgnore

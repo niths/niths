@@ -1,11 +1,14 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.services.interfaces.RoleService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService{
+
+	private Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
     @Autowired
     private RoleRepository repo;
@@ -30,7 +36,14 @@ public class RoleServiceImpl implements RoleService{
     }
 
     public void update(Role role) {
-        repo.update(role);
+    	Role roleToUpdate = repo.getById(role.getId());
+		try {
+			beanCopy.copyProperties(roleToUpdate, role);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(roleToUpdate);
     }
 
     public boolean delete(long id) {

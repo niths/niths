@@ -4,17 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -77,9 +67,24 @@ public class Subject implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "courses_id"))
     @Cascade(CascadeType.ALL)
     private List<Course> courses = new ArrayList<Course>();
+
+    @JsonIgnore
+    @XmlTransient
+    @OneToMany(fetch = FetchType.LAZY, targetEntity= Exam.class)
+    @JoinTable(name = "exam_subjects",
+            joinColumns = @JoinColumn(name = "subjects_id"),
+            inverseJoinColumns = @JoinColumn(name = "exams_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Exam> exams = new ArrayList<Exam>();
     
     public Subject(){
-    	//this(null, null, null, null, null);
+    	this(null, null, null, null, null);
+    	setExams(null);
+    	setCourses(null);
+    }
+    
+    public Subject(String name){
+    	this(name,null, null, null,null);
     }
     
     public Subject(String name, String topicCode, String description, String startTime, String endTime){
@@ -183,11 +188,14 @@ public class Subject implements Serializable {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	
 
-	
-    
-	
-	
+    @JsonIgnore
+    @XmlTransient
+    public List<Exam> getExams() {
+        return exams;
+    }
 
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
 }

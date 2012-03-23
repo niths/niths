@@ -63,6 +63,8 @@ public class FadderGroup implements Serializable {
 	
 	public FadderGroup() {
 		this(null);
+		setFadderChildren(null);
+		setLeaders(null);
 	}
 	
 	public FadderGroup(Integer groupNumber) {

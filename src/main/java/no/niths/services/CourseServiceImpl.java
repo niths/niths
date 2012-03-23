@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.aop.ApiEvent;
@@ -7,6 +8,8 @@ import no.niths.domain.Course;
 import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.services.interfaces.CourseService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CourseServiceImpl implements CourseService{
 
+	private Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
+
+	
     @Autowired
     private CourseRepository repo;
 
@@ -37,7 +44,14 @@ public class CourseServiceImpl implements CourseService{
 
     @ApiEvent(title = "Course updated")
     public void update(Course course) {
-        repo.update(course);
+    	Course courseToUpdate = repo.getById(course.getId());
+    	try {
+			beanCopy.copyProperties(courseToUpdate, course);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(courseToUpdate);
     }
 
     public boolean delete(long id) {

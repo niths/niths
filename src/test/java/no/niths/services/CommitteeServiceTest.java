@@ -59,7 +59,7 @@ public class CommitteeServiceTest {
 	
 	@Test
 	public void testCommitteeLeadersRelation(){
-		Committee c1 = new Committee();
+		Committee c1 = new Committee("sUper",null);
 		comService.create(c1);
 		Student s1 = new Student("qqqq@mail.com");
 		Student s2 = new Student("wwww@mail.com");
@@ -106,7 +106,7 @@ public class CommitteeServiceTest {
 	public void testEventRelationship(){
 		int eventSize = eventService.getAll(null).size();
 		
-		Committee c1 = new Committee();
+		Committee c1 = new Committee("asd",null);
 		comService.create(c1);
 		
 		Event e1 = new Event();

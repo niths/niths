@@ -89,6 +89,8 @@ public class Event implements Serializable {
 
 	public Event() {
 		this(null, null, null, null, null);
+		setCommittees(null);
+		setLocation(null);
 	}
 
 	public Event(String name) {

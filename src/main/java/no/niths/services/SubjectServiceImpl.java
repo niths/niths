@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.aop.ApiEvent;
@@ -7,6 +8,8 @@ import no.niths.domain.Subject;
 import no.niths.infrastructure.interfaces.SubjectRepository;
 import no.niths.services.interfaces.SubjectService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SubjectServiceImpl implements SubjectService{
 
+	private Logger logger = LoggerFactory.getLogger(CommitteeServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
+
+	
     @Autowired
     private SubjectRepository repo;
 
@@ -32,8 +39,15 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @ApiEvent(title = "Subject updated")
-    public void update(Subject topic) {
-        repo.update(topic);
+    public void update(Subject subject) {
+    	Subject subjectToUpdate = repo.getById(subject.getId());
+		try {
+			beanCopy.copyProperties(subjectToUpdate, subject);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(subjectToUpdate);
     }
 
     public boolean delete(long id) {

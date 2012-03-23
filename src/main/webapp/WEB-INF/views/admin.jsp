@@ -31,7 +31,8 @@
       <c:if test="${exception != null}" >
         is null yeah
       </c:if>
-        <c:forEach items="${studentList}" var="student">
+        <c:forEach items="${studentList}" var="student" varStatus="loopStatus">
+        <div class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
           <form method="post">
             <input type="hidden" value="${student.id}" id=studentId
               name="studentId"> <b> <c:out value="${student.id}" />
@@ -90,6 +91,7 @@
               type="submit" value="Slett bruker">
           </form>
           <br />
+          </div>
         </c:forEach>
       </section>
     <br style="clear: both" />

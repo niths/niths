@@ -15,10 +15,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Exam;
 import no.niths.domain.signaling.AccessField;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -48,6 +48,13 @@ public class Room implements Serializable {
         joinColumns        = @JoinColumn(name = "room_id"),
         inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
     private List<AccessField> accessFields = new ArrayList<AccessField>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
+    @JoinTable(name="rooms_exams",
+            joinColumns        = @JoinColumn(name = "room_id"),
+            inverseJoinColumns = @JoinColumn(name = "exams_id"))
+    private List<Exam> exams = new ArrayList<Exam>();
 
     public Room(String roomName) {
 		setRoomName(roomName);
@@ -79,6 +86,14 @@ public class Room implements Serializable {
 
     public List<AccessField> getAccessFields() {
         return accessFields;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
     }
     
     @Override

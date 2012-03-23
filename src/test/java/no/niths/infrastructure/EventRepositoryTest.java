@@ -31,7 +31,7 @@ public class EventRepositoryTest {
 		// create
 		int size = eventRepo.getAll(null).size();
 
-		Event event = new Event();
+		Event event = new Event("event");
 		event.setName("Joe");
 		eventRepo.create(event);
 		assertEquals(size + 1, eventRepo.getAll(null).size());

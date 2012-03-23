@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.domain.location.Room;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoomServiceImpl implements RoomService {
 
 	private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	@Autowired
 	private RoomRepository repo;
@@ -45,8 +47,15 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public void update(Room domain) {
-		repo.update(domain);
+	public void update(Room room) {
+		Room roomToUpdate = repo.getById(room.getId());
+		try {
+			beanCopy.copyProperties(roomToUpdate, room);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(roomToUpdate);
 	}
 
 	@Override

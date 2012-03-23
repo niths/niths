@@ -55,7 +55,11 @@ public class AccessField implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
     private AccessPoint accesspoint;
 
-    public AccessField() {}
+    public AccessField() {
+    	this(null, null);
+    	setAccessPoint(null);
+    	setRooms(null);
+    }
 
     public AccessField(Integer min, Integer max) {
         this.maxRange = max;

@@ -6,18 +6,15 @@ import no.niths.common.AppConstants;
 import no.niths.common.EmailTexts;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
-import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.interfaces.MailSenderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.MailMessage;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;

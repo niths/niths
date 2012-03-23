@@ -3,6 +3,8 @@ package no.niths.services.auth;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
+
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
@@ -33,6 +35,14 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
 	@Value("${jasypt.password}")
 	private String password;
+	
+	private StandardPBEStringEncryptor jasypt;
+	
+	@PostConstruct
+	public void init(){
+		jasypt = new StandardPBEStringEncryptor();
+		jasypt.setPassword(password);
+	}
 
 	/**
 	 * Generates a token based on the userId
@@ -51,13 +61,12 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 				+ "|" + Long.toString(userId) + "|"
 				+ Long.toString(tokenIssued);
 		// Encrypt the token
-		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword(password);
 		String encryptedToked = jasypt.encrypt(generatedToken);
 
 		logger.debug("Generated token before encryption: " + generatedToken);
 		logger.debug("Generated token after encryption: " + encryptedToked);
 		
+		//Replace all / to avoid any errors using the token in a link
 		encryptedToked = encryptedToked.replace('/', '*');
 		logger.debug("Generated token after replacing: " + encryptedToked);
 		return encryptedToked;
@@ -83,8 +92,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 			token = token.replace('*', '/');
 			logger.debug("Token after replace: " + token);
 			
-			StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
-			jasypt.setPassword(password);
+			//Decrypt the token
 			String decryptedToken = jasypt.decrypt(token);
 
 			logger.debug("Token after decryption: " + decryptedToken);
