@@ -63,11 +63,11 @@ public class ApplicationServiceTest {
 	public void testDevRelation(){
 		int devSize = devService.getAll(null).size();
 		int appSize = service.getAll(null).size();
-		Developer d1 = new Developer();
+		Developer d1 = new Developer("dev");
 		devService.create(d1);
 		assertEquals(devSize + 1, devService.getAll(null).size());
-		Application a1 = new Application();
-		Application a2 = new Application();
+		Application a1 = new Application("kimsgame",null,null,null);
+		Application a2 = new Application("AAss",null,null,null);
 		service.create(a1);
 		service.create(a2);
 		assertEquals(appSize + 2, service.getAll(null).size());

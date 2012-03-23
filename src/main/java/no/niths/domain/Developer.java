@@ -64,9 +64,9 @@ public class Developer implements Serializable {
 	List<Application> apps = new ArrayList<Application>();
 
 	public Developer() {
+		this(null);
 		setId(null);
 		setEmail(null);
-		setName(null);
 		setEnabled(null);
 		setDeveloperToken(null);
 		setApps(null);
