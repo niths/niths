@@ -1,11 +1,14 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
 import no.niths.services.interfaces.AccessPointService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccessPointServiceImpl implements AccessPointService {
 
+	private Logger logger = LoggerFactory.getLogger(AccessPointServiceImpl.class);
+	private CustomBeanUtilsBean copyBean = new CustomBeanUtilsBean();
+	
     @Autowired
     private AccessPointRepository repo;
 
@@ -34,7 +40,14 @@ public class AccessPointServiceImpl implements AccessPointService {
 
     @Override
     public void update(AccessPoint accessPoint) {
-        repo.update(accessPoint);
+    	AccessPoint apToUpdate = repo.getById(accessPoint.getId());
+    	try {
+			copyBean.copyProperties(apToUpdate, accessPoint);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+        repo.update(apToUpdate);
     }
 
     @Override

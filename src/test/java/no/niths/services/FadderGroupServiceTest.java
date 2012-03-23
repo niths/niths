@@ -8,6 +8,7 @@ import no.niths.domain.Student;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.StudentService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -101,6 +102,7 @@ public class FadderGroupServiceTest {
 		assertEquals(studSize, studService.getAll(null).size());
 	}
 	
+	@Ignore
 	@Test
 	public void testChildrenRelationship(){
 		int studSize = studService.getAll(null).size();

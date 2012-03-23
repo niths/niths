@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.aop.ApiEvent;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventServiceImpl implements EventsService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(EventServiceImpl.class);
+	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	@Autowired
 	private EventRepository repo;
@@ -39,9 +41,15 @@ public class EventServiceImpl implements EventsService {
 	}
 
 	@ApiEvent(title = "Event updated")
-	public void update(Event committeeEvents) {
-		repo.update(committeeEvents);
-
+	public void update(Event events) {
+		Event eventToUpdate = repo.getById(events.getId());
+		try {
+			beanCopy.copyProperties(eventToUpdate, events);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			logger.error("error",e);
+			e.printStackTrace();
+		}
+		repo.update(eventToUpdate);
 	}
 
 	@ApiEvent(title = "Event deleted")

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommitteeServiceImpl implements CommitteeService {
 
 	private Logger logger = LoggerFactory.getLogger(CommitteeServiceImpl.class);
-
 	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	@Autowired
