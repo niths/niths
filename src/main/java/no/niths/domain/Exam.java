@@ -77,6 +77,9 @@ public class Exam implements Serializable {
     private List<Room> rooms = new ArrayList<>();
 
     public Exam(){
+    	this(null,null,null,null,null);
+    	setRooms(null);
+    	setSubject(null);
     }
 
     public Exam(String name, String examType, String allowedAid, GregorianCalendar startTime, GregorianCalendar endTime){

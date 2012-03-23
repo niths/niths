@@ -74,6 +74,10 @@ public class Feed implements Serializable {
 	public Feed() {
 		this(null);
 		setPublished(null);
+		setStudent(null);
+		setLocation(null);
+		setPublished(null);
+		
 	}
 
 	public Feed(String message) {
