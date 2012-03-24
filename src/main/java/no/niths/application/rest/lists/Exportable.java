@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Exportable<T> {
 
-    void setData(List<T> list);
+	void setData(List<T> list);
 }

@@ -11,14 +11,14 @@ import no.niths.domain.signaling.AccessPoint;
 @XmlRootElement(name = AppConstants.ACCESS_POINTS)
 public class AccessPointList extends ListAdapter<AccessPoint> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @SuppressWarnings("unused")
-    @XmlElement(name = "accesspoint")
-    private List<AccessPoint> accessPointData;
+	@SuppressWarnings("unused")
+	@XmlElement(name = "accesspoint")
+	private List<AccessPoint> accessPointData;
 
-    @Override
-    public void setData(List<AccessPoint> accessPointData) {
-        this.accessPointData = accessPointData;
-    }
+	@Override
+	public void setData(List<AccessPoint> accessPointData) {
+		this.accessPointData = accessPointData;
+	}
 }

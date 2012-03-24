@@ -12,18 +12,18 @@ import no.niths.domain.Event;
 
 @XmlRootElement(name = AppConstants.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EventList extends ListAdapter<Event>{
-    private static final long serialVersionUID = 3045223036129251886L;
-    
-    @XmlElement(name="event")
-    private List<Event> eventData;
+public class EventList extends ListAdapter<Event> {
+	private static final long serialVersionUID = 3045223036129251886L;
 
-    @Override
-    public void setData(List<Event> data) {
-        this.eventData = data;
-    }
-    
-    public List<Event> getData(){
-    	return eventData;
-    }
+	@XmlElement(name = "event")
+	private List<Event> eventData;
+
+	@Override
+	public void setData(List<Event> data) {
+		this.eventData = data;
+	}
+
+	public List<Event> getData() {
+		return eventData;
+	}
 }

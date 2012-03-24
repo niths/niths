@@ -9,15 +9,15 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Developer;
 
 @XmlRootElement(name = AppConstants.DEVELOPERS)
-public class DeveloperList extends ListAdapter<Developer>{
-
+public class DeveloperList extends ListAdapter<Developer> {
 
 	private static final long serialVersionUID = 7176343871162986392L;
+	@SuppressWarnings("unused")
 	@XmlElement(name = "developer")
-    private List<Developer> data;
+	private List<Developer> data;
 
-    @Override
-    public void setData(List<Developer> data) {
-     this.data = data;
-    }
+	@Override
+	public void setData(List<Developer> data) {
+		this.data = data;
+	}
 }

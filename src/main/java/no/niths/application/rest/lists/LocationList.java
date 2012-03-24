@@ -10,21 +10,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 import no.niths.domain.location.Location;
 
-@XmlRootElement(name=AppConstants.LOCATIONS)
+@XmlRootElement(name = AppConstants.LOCATIONS)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class LocationList extends ListAdapter<Location>{
+public class LocationList extends ListAdapter<Location> {
 
 	private static final long serialVersionUID = 7284616637714631167L;
-	@XmlElement(name="location")
+	@XmlElement(name = "location")
 	private List<Location> locationData;
-	
+
 	@Override
 	public void setData(List<Location> locationData) {
 		this.locationData = locationData;
 	}
 
-	public List<Location>getData() {
-		return locationData; 
+	public List<Location> getData() {
+		return locationData;
 	}
 
 }
