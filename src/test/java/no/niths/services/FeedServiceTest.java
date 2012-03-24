@@ -37,6 +37,8 @@ public class FeedServiceTest {
 		Feed feed = new Feed("Hello this is a message");
 		service.create(feed);
 		assertEquals(size + 1, service.getAll(null).size());
+
+		System.out.println(feed.equals(service.getById(feed.getId())));
 		assertEquals(feed, service.getById(feed.getId()));
 
 		// update time

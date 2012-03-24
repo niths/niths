@@ -118,8 +118,8 @@ public class Feed implements Serializable {
 			return false;
 
 		Feed feed = (Feed)that;
-		
-		return (toString()+getPublished()).equals(feed.toString()+feed.getPublished());
+
+		return (getId()==(feed.getId()));
 	}
 
 	@Override
