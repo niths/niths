@@ -44,6 +44,10 @@ public class DeveloperServiceImpl implements DeveloperService{
 
     @ApiEvent(title = "Developer updated")
     public void update(Developer dev) {
+    	logger.debug(dev.getApps().size() +"");
+    	logger.debug(dev.getApps().size() +"");
+    	logger.debug(dev.getApps().get(0).getEnabled() +"");
+    	
     	Developer developerToUpdate = repo.getById(dev.getId());
 		try {
 			beanCopy.copyProperties(developerToUpdate, dev);
@@ -81,6 +85,11 @@ public class DeveloperServiceImpl implements DeveloperService{
 			d.getApps().size();
 		}
 		return all;
+	}
+
+	@Override
+	public void updateForDeveloperController(Developer dev) {
+    	repo.update(dev);	
 	}
 
 }

@@ -1,14 +1,9 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.GregorianCalendar;
-
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Event;
 import no.niths.domain.location.Location;
-import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.LocationService;
 
 import org.junit.Test;

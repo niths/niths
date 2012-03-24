@@ -11,7 +11,6 @@ import no.niths.services.interfaces.FeedService;
 import no.niths.services.interfaces.LocationService;
 import no.niths.services.interfaces.StudentService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class FeedServiceTest {
 	
 	
 	
-	@Ignore
+
 	@Test 
 	public void testFeedLocationAndStudent(){
 		Feed feed = new Feed("Hello this is a message");
@@ -71,11 +70,13 @@ public class FeedServiceTest {
 		assertEquals(student, temp.getStudent());
 		
 		// update 
-		feed.setMessage("new message");	
-		service.update(feed);
+		Feed feed2 = new Feed();
+		feed2.setId(feed.getId());
+		feed2.setMessage("new message");	
+		service.update(feed2);
 		
 		temp = service.getById(feed.getId());
-		assertEquals(feed.getMessage(), temp.getMessage());
+		assertEquals("new message", temp.getMessage());
 		assertEquals(loc, temp.getLocation());
 		
 		service.hibernateDelete(temp.getId());		

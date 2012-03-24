@@ -27,7 +27,6 @@ public class DeveloperServiceTest {
 	private ApplicationService appService;
 
 	@Test
-	@Rollback(true)
 	public void testCRUD() {
 		int devSize = devService.getAll(null).size();
 		int appSize = appService.getAll(null).size();
@@ -69,7 +68,7 @@ public class DeveloperServiceTest {
 		assertEquals(0, appService.getAll(null).size());
 	}
 	
-	@Ignore
+
 	@Test
 	public void testAppDevRelation(){
 		Developer d1 = new Developer("mrDoe");
@@ -82,7 +81,7 @@ public class DeveloperServiceTest {
 		Developer temp = devService.getById(d1.getId());
 		temp.getApps().add(a1);
 		temp.getApps().add(a2);
-		devService.update(temp);
+		devService.updateForDeveloperController(temp);
 		//Did developer get apps?
 		temp = devService.getById(d1.getId());
 		assertEquals(2, temp.getApps().size());
@@ -91,7 +90,7 @@ public class DeveloperServiceTest {
 		assertEquals(temp, appTemp.getDeveloper());
 		
 		//Remove dev from app
-		appTemp.setDeveloper(null);
+		appTemp.setDeveloper(new Developer());
 		appService.update(appTemp);
 		//App should be removed from dev
 		temp = devService.getById(d1.getId());

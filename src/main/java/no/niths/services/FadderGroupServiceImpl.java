@@ -64,4 +64,9 @@ public class FadderGroupServiceImpl implements FadderGroupService {
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
+
+	@Override
+	public void updateForFadderLeaderAndChildren(FadderGroup group) {
+		repo.update(group);
+	}
 }

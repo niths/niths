@@ -66,7 +66,6 @@ public class FadderGroupControllerTest {
 		}
 	}
 	
-	@Ignore
 	@Test
 	public void testAddAndRemoveChildren(){
 		Student s1 = new Student("mail@ds.com");

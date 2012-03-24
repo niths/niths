@@ -12,11 +12,8 @@ import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.LocationService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,9 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class EventServiceTest {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(EventServiceTest.class);
 	
 	@Autowired
 	private EventsService eventService;
@@ -50,12 +44,9 @@ public class EventServiceTest {
 		assertEquals("the new name xxx", eventService.getById(e1.getId()).getName());
 		
 		eventService.hibernateDelete(e1.getId());
-		assertEquals(size, eventService.getAll(null).size());
-		
-		
+		assertEquals(size, eventService.getAll(null).size());	
 	}
 	
-	@Ignore
 	@Test 
 	public void testEventLocation(){
 		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
@@ -71,12 +62,14 @@ public class EventServiceTest {
 		assertEquals(loc, temp.getLocation());
 		
 		// update 
-		event.setEndTime(cal);	
-		eventService.update(event);
+		Event e = new Event();
+		e.setId(event.getId());
+		e.setEndTime(cal);	
+		eventService.update(e);
 		
 		temp = eventService.getById(event.getId());
 		
-		assertEquals(event.getEndTime(), temp.getEndTime());
+		assertEquals(cal, temp.getEndTime());
 
 		assertEquals(loc, temp.getLocation());
 		

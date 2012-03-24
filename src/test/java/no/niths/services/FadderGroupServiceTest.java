@@ -1,6 +1,9 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.FadderGroup;
@@ -8,11 +11,8 @@ import no.niths.domain.Student;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.StudentService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,8 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class FadderGroupServiceTest {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(FadderGroupServiceTest.class);
 
 	@Autowired
 	private FadderGroupService fadderService;
@@ -102,7 +100,6 @@ public class FadderGroupServiceTest {
 		assertEquals(studSize, studService.getAll(null).size());
 	}
 	
-	@Ignore
 	@Test
 	public void testChildrenRelationship(){
 		int studSize = studService.getAll(null).size();
@@ -116,17 +113,23 @@ public class FadderGroupServiceTest {
 		studService.create(s3);
 		assertEquals(studSize + 3, studService.getAll(null).size());
 		
-		FadderGroup fetched = fadderService.getById(g1.getId());
-		fetched.getFadderChildren().add(s1);
-		fetched.getFadderChildren().add(s2);
-		fetched.getFadderChildren().add(s3);
-		fadderService.update(fetched);
+		ArrayList<Student> children = new ArrayList<Student>();
+		children.add(s1);
+		children.add(s2);
+		children.add(s3);
 		
-		fetched = fadderService.getById(g1.getId());
+		FadderGroup fadderGroup = new FadderGroup();
+		fadderGroup.setId(g1.getId());
+		fadderGroup.setFadderChildren(children);
+		fadderService.update(fadderGroup);
+		
+		FadderGroup fetched = fadderService.getById(g1.getId());
 		assertEquals(3, fetched.getFadderChildren().size());
 		//Remove a child
-		fetched.getFadderChildren().remove(s1);
-		fadderService.update(fetched);
+		
+		
+		fadderGroup.getFadderChildren().remove(s1);
+		fadderService.update(fadderGroup);
 		
 		fetched = fadderService.getById(g1.getId());
 		assertEquals(2, fetched.getFadderChildren().size());
