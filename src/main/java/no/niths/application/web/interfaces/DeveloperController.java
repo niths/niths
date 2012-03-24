@@ -17,6 +17,6 @@ public interface DeveloperController {
 	 * 
 	 * Responsible for setting developers and apps enabled
 	 */
-	ModelAndView updateDeveloper(Long developerId, Long[] checkDevs, Long[] checkedApps);
+	String updateDeveloper(Long developerId, Long[] checkDevs, Long[] checkedApps);
 
 }

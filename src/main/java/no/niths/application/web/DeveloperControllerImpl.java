@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.web.interfaces.DeveloperController;
+import no.niths.common.AppConstants;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.services.interfaces.DeveloperService;
@@ -22,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller(value = "adminDeveloperImpl")
-@RequestMapping("admin/developer")
+@RequestMapping(AppConstants.ADMIN_DEV)
 public class DeveloperControllerImpl implements DeveloperController {
 
 	private Logger logger = org.slf4j.LoggerFactory
@@ -55,7 +56,7 @@ public class DeveloperControllerImpl implements DeveloperController {
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView updateDeveloper(@RequestParam(value="developerId") Long developerId,
+	public String updateDeveloper(@RequestParam(value="developerId") Long developerId,
 										@RequestParam(value = "devs", defaultValue = "") Long[] checkedDevs,
 										@RequestParam(value = "apps", defaultValue = "") Long[] checkedApps){
 		logger.debug("Updating developer");
@@ -87,12 +88,8 @@ public class DeveloperControllerImpl implements DeveloperController {
 				devService.updateForDeveloperController(dev);
 			}		
 		}
-		
-		ModelAndView view = new ModelAndView(DEVELOPERS);
-		setAllDevelopers(devService.getAllWithApps(null));
-		
-		view.addObject("allDevelopers", allDevelopers);
-		return view;
+
+		return "redirect:developer";//getDevelopers();
 	}
 
 	public List<Developer> getAllDevelopers() {
