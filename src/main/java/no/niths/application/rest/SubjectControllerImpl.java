@@ -72,7 +72,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
     		value ="removeTutor/{subjectId}/{studentId}",
-    		method = RequestMethod.DELETE)
+    		method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor removed to subject")
     public void removeTutor(@PathVariable Long subjectId, @PathVariable Long studentId) {
     	Subject subject = service.getById(subjectId);
