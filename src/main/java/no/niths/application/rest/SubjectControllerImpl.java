@@ -62,7 +62,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
         ValidationHelper.isObjectNull(student, "Student not found");
         
         subject.getTutors().add(student);
-        service.update(subject);
+        service.updateForTutor(subject);
     }
     
     /**
@@ -81,7 +81,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
     	ValidationHelper.isObjectNull(student, "Student not found");
     	
     	if(subject.getTutors().remove(student)){
-    		service.update(subject);    		
+    		service.updateForTutor(subject);    		
     	}else{
     		throw new NotInCollectionException("Student is not a tutor");
     	}

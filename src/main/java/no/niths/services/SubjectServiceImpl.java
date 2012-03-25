@@ -60,4 +60,9 @@ public class SubjectServiceImpl implements SubjectService{
 	public void hibernateDelete(long id) {
 		repo.hibernateDelete(id);
 	}
+
+	@Override
+	public void updateForTutor(Subject subject) {
+		repo.update(subject);
+	}
 }
