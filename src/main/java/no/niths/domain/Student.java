@@ -71,9 +71,9 @@ public class Student implements Serializable {
 	@XmlJavaTypeAdapter(value = XmlCharAdapter.class)
 	private Character gender;
 
-	@Column(name = "session_token")
 	@JsonIgnore
 	@XmlTransient
+	@Column(name = "session_token")
 	private String sessionToken;
 
 	@Column(name = "birthday")
@@ -105,6 +105,8 @@ public class Student implements Serializable {
 	private Long lastLogon;
 
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
 	@JoinTable(name = "students_roles", 
 	joinColumns = @JoinColumn(name = "students_id"), 
@@ -112,12 +114,23 @@ public class Student implements Serializable {
 	uniqueConstraints = @UniqueConstraint(columnNames = {"students_id","roles_id"}))
 	private List<Role> roles = new ArrayList<Role>();
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@JoinTable(name = "committee_leaders", 
 		joinColumns = @JoinColumn(name = "leaders_id"), 
 		inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committeesLeader = new ArrayList<Committee>();
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Subject.class)
+	@JoinTable(name = "subjects_tutors", 
+	joinColumns = @JoinColumn(name = "tutors_id"), 
+	inverseJoinColumns = @JoinColumn(name = "subjects_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Subject> tutorInSubjects = new ArrayList<Subject>();
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
@@ -127,6 +140,8 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<Course> courses = new ArrayList<Course>();
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
 	@JoinTable(name = "fadder_leaders_students", 
 		joinColumns = @JoinColumn(name = "leaders_id"), 
@@ -134,6 +149,8 @@ public class Student implements Serializable {
 	@Cascade(CascadeType.ALL)
 	private List<FadderGroup> groupLeaders = new ArrayList<FadderGroup>();
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
 	@JoinTable(name = "fadder_children_students", 
 		joinColumns = @JoinColumn(name = "fadderChildren_id"), 
@@ -157,6 +174,7 @@ public class Student implements Serializable {
 		setGroupLeaders(null);
 		setFeeds(null);
 		setRoles(null);
+		setTutorInSubjects(null);
 	}
 
 	public Student(String email) {
@@ -377,6 +395,16 @@ public class Student implements Serializable {
 
 	public void setFeeds(List<Feed> feeds) {
 		this.feeds = feeds;
+	}
+
+	@JsonIgnore
+	@XmlTransient
+	public List<Subject> getTutorInSubjects() {
+		return tutorInSubjects;
+	}
+
+	public void setTutorInSubjects(List<Subject> tutorInSubjects) {
+		this.tutorInSubjects = tutorInSubjects;
 	}
 
 }

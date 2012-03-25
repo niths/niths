@@ -389,6 +389,7 @@ INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2);
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3);
 
+insert into subjects_tutors values (1,1);
 
 insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Stord');
 insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Oslo');

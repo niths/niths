@@ -54,10 +54,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			for (int i = 0; i < student.getCourses().size(); i++) {
 				student.getCourses().get(i).setSubjects(null);
 			}
-			
-		
+
 			for(Feed f: student.getFeeds()){
 				f.setStudent(null);
+				f.setLocation(null);
 			}
 			
 		}

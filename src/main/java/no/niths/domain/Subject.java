@@ -77,10 +77,18 @@ public class Subject implements Serializable {
     @Cascade(CascadeType.ALL)
     private List<Exam> exams = new ArrayList<Exam>();
     
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity= Student.class)
+    @JoinTable(name = "subjects_tutors",
+    joinColumns = @JoinColumn(name = "subjects_id"),
+    inverseJoinColumns = @JoinColumn(name = "tutors_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Student> tutors = new ArrayList<Student>();
+    
     public Subject(){
     	this(null, null, null, null, null);
     	setExams(null);
     	setCourses(null);
+    	setTutors(null);
     }
     
     public Subject(String name){
@@ -198,4 +206,12 @@ public class Subject implements Serializable {
     public void setExams(List<Exam> exams) {
         this.exams = exams;
     }
+
+	public List<Student> getTutors() {
+		return tutors;
+	}
+
+	public void setTutors(List<Student> tutors) {
+		this.tutors = tutors;
+	}
 }

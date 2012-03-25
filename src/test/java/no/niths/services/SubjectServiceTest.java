@@ -3,7 +3,9 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Student;
 import no.niths.domain.Subject;
+import no.niths.services.interfaces.StudentService;
 import no.niths.services.interfaces.SubjectService;
 
 import org.junit.Test;
@@ -23,6 +25,8 @@ public class SubjectServiceTest {
 	
 	@Autowired
 	private SubjectService service;
+	@Autowired
+	private StudentService sservice;
 	
 	@Test
 	public void testCRUD(){
@@ -51,6 +55,32 @@ public class SubjectServiceTest {
 		service.hibernateDelete(s1.getId());
 		assertEquals(size, service.getAll(null).size());
 		
+	}
+	
+	@Test
+	public void testTutorRela(){
+		Student s1 = new Student("ben@nith.com");
+		Student s2 = new Student("be2n@nith.com");
+		
+		sservice.create(s1);
+		sservice.create(s2);
+		
+		Subject sub = new Subject("pg211");
+		
+		service.create(sub);
+		
+		sub.getTutors().add(s1);
+		sub.getTutors().add(s2);
+		
+		service.update(sub);
+		
+		Subject temp = service.getById(sub.getId());
+		
+		assertEquals(2, temp.getTutors().size());
+		
+		service.hibernateDelete(sub.getId());
+		sservice.hibernateDelete(s1.getId());
+		sservice.hibernateDelete(s2.getId());
 	}
 	
 }

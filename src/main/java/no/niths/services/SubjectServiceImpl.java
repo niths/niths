@@ -31,7 +31,9 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     public Subject getById(long id) {
-    	return repo.getById(id);
+    	Subject s = repo.getById(id);
+    	s.getTutors().size();
+    	return s;
    }
 
     public List<Subject> getAll(Subject topic) {

@@ -80,7 +80,7 @@ public class StudentServiceImpl implements StudentService {
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-
+			
 			int size = s.getFeeds().size();
 			for (int i = 0; i < size; i++) {
 				if (s.getFeeds().get(i).getLocation() != null){
