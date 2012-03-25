@@ -1,11 +1,7 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.mockito.Mockito.when;
-
-import java.util.GregorianCalendar;
-import java.util.UUID;
 
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
@@ -20,7 +16,6 @@ import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.interfaces.StudentService;
 
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

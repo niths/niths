@@ -1,6 +1,5 @@
 package no.niths.services.auth.interfaces;
 
-import org.springframework.security.core.AuthenticationException;
 
 /**
  * 

@@ -1,11 +1,11 @@
 package no.niths.services.auth;
 
+import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
 import org.springframework.stereotype.Service;
-
-import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 /**
  * Authenticates a user through Google and are able to fetch their profiles
  * 
