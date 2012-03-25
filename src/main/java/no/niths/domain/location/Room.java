@@ -13,14 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Exam;
+import no.niths.domain.Subject;
 import no.niths.domain.signaling.AccessField;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -56,6 +60,13 @@ public class Room implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "exams_id"))
     private List<Exam> exams = new ArrayList<Exam>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "subjects_room",
+	    joinColumns =        @JoinColumn(name = "room_id"),
+	    inverseJoinColumns = @JoinColumn(name = "subjects_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Subject> subjects = new ArrayList<Subject>();
+    
     public Room(String roomName) {
 		setRoomName(roomName);
 	}
@@ -92,6 +103,8 @@ public class Room implements Serializable {
         this.exams = exams;
     }
 
+    @XmlTransient
+    @JsonIgnore
     public List<Exam> getExams() {
         return exams;
     }
@@ -100,4 +113,14 @@ public class Room implements Serializable {
     public String toString() {
     	return String.format("[%s][%s]", id, roomName);
     }
+
+    @XmlTransient
+    @JsonIgnore
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
 }

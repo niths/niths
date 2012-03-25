@@ -8,15 +8,15 @@ INSERT INTO roles(role_name) VALUES('ROLE_ANONYMOUS');
 INSERT INTO roles(role_name) VALUES('ROLE_STUDENT');
 INSERT INTO roles(role_name) VALUES('ROLE_DEVELOPER');
 	
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday','81'); 
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday','43');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday','12');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday,room_number) VALUES('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday','34');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday'); 
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
 
 
 INSERT INTO courses (name, description) VALUES('Mobil apputvikling', 'Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.');
@@ -407,11 +407,15 @@ insert into feeds_location (location_id, feeds_id) values(1, 2);
 insert into feeds_student (student_id, feeds_id) values(1, 1);
 insert into feeds_student (student_id, feeds_id) values(1, 2);
 
+insert into subjects_room (room_id, subjects_id) values(1, 1);
+insert into subjects_room (room_id, subjects_id) values(1, 2);
 
+insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'Jave ex', '2012-03-09 11:05:32');
+insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'C++ ex', '2012-03-09 11:05:32');
+insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'Math ex', '2012-03-09 11:05:32');
 
-
-
-
+insert into exam_subjects (subjects_id, exams_id) values(1, 1);
+insert into exam_subjects (subjects_id, exams_id) values(2, 2);
 
 
 

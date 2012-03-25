@@ -9,7 +9,6 @@ import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Committee;
 import no.niths.domain.Student;
 import no.niths.domain.Subject;
 import no.niths.services.interfaces.GenericService;
@@ -97,6 +96,9 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
 			stud.setCourses(null);
 			stud.setFeeds(null);
 		}
+		if(s.getRoom() != null){
+			s.getRoom().setAccessFields(null);
+		}
 		return s;
 	}
 
@@ -107,6 +109,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
 		SubjectList list = (SubjectList) super.getAll(domain);
 		for (int i = 0; i< list.size(); i++){
 			list.get(i).setTutors(null);
+			list.get(i).setRoom(null);
 		}
 		return list;
 	}

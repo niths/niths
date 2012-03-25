@@ -28,8 +28,7 @@ public class SubjectTest {
         subject.setName(NAME);
         subject.setSubjectCode(SUBJECT_CODE);
         subject.setDescription(DESCRIPTION);
-        subject.setWeekday(WEEKDAY);
-        subject.setRoomNumber(ROOM_NUMBER);
+        subject.setWeekday(WEEKDAY);  
         subject.setStartTime(START_TIME);
         subject.setEndTime(END_TIME);
 
@@ -38,7 +37,6 @@ public class SubjectTest {
         assertThat(SUBJECT_CODE, is(equalTo(subject.getSubjectCode())));
         assertThat(DESCRIPTION, is(equalTo(subject.getDescription())));
         assertThat(WEEKDAY, is(equalTo(subject.getWeekday())));
-        assertThat(ROOM_NUMBER, is(equalTo(subject.getRoomNumber())));
         assertThat(START_TIME, is(equalTo(subject.getStartTime())));
         assertThat(END_TIME, is(equalTo(subject.getEndTime())));
 

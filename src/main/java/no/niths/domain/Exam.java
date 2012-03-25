@@ -39,29 +39,29 @@ public class Exam implements Serializable {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
 
-    @Column
+    @Column(name="exam_type")
     @Size(min = 2, max = 10, message ="The length of the exam_type must be between 2 to 10 letters")
     private String examType;
 
-    @Column
+    @Column(name="start_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
     private Calendar startTime;
 
-    @Column
+    @Column(name="end_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
     private Calendar endTime;
 
-    @Column
+    @Column(name="allowed_aid")
     private String allowedAid;
 
     @JsonIgnore
     @XmlTransient
     @ManyToOne(fetch = FetchType.EAGER, targetEntity= Subject.class)
-    @JoinTable(name = "subjects_exams",
+    @JoinTable(name = "exam_subjects",
             joinColumns = @JoinColumn(name = "exams_id"),
             inverseJoinColumns = @JoinColumn(name = "subjects_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

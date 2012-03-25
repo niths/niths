@@ -4,19 +4,32 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import no.niths.common.AppConstants;
+import no.niths.domain.constraints.Weekday;
+import no.niths.domain.location.Room;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
-import no.niths.common.AppConstants;
-import no.niths.domain.constraints.Weekday;
 
 @XmlRootElement
 @Entity
@@ -47,9 +60,11 @@ public class Subject implements Serializable {
     @Weekday
     private String weekday;
     
-    @Column(name="room_number")
-    @Size(min = 1, max = 10, message ="The length of the room number must be between 2 to 10 letters")
-    private String roomNumber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "subjects_room",
+        joinColumns =        @JoinColumn(name = "subjects_id"),
+        inverseJoinColumns = @JoinColumn(name = "room_id"))
+    private Room room;
     
     @Column(name = "start_time")
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
@@ -114,14 +129,6 @@ public class Subject implements Serializable {
     	return String.format("[%s][%s][%s]", id, name, description);
     }
  
-	public String getRoomNumber() {
-		return roomNumber;
-	}
-
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -213,5 +220,13 @@ public class Subject implements Serializable {
 
 	public void setTutors(List<Student> tutors) {
 		this.tutors = tutors;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 }
