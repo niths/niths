@@ -46,8 +46,8 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@RequestMapping(value = { "login" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public SessionToken login(@RequestBody SessionToken token) {
-		logger.info("A user wants to be authenticated with token: " + token);
 		if(token != null){
+			logger.info("A user wants to be authenticated with token: " + token);
 			return service.authenticateAtGoogle(token.getToken());
 		}
 		return new SessionToken();

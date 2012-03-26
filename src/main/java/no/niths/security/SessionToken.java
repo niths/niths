@@ -35,6 +35,12 @@ public class SessionToken implements Serializable {
 		this.token = token;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return token;
+	}
+	
 	
 
 }

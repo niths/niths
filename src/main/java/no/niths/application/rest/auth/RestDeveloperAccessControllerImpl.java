@@ -98,7 +98,7 @@ public class RestDeveloperAccessControllerImpl implements
 	 * @return a page with confirmation or error message
 	 */
 	@Override
-	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.GET)
 	public ModelAndView enableDeveloper(@PathVariable String developerToken) {
 		logger.debug("Developer want to be enabled with developer token: "
 				+ developerToken);
