@@ -42,7 +42,7 @@ public class RestLoginControllerImpl implements RestLoginController{
 	 * 
 	 */
 	@Override
-	@RequestMapping(value = { "login/{token:.+}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "login/{token:.+}" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public SessionToken login(@PathVariable String token) {
 		logger.info("A user wants to be authenticated with token: " + token);
