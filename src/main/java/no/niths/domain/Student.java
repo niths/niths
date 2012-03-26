@@ -417,6 +417,8 @@ public class Student implements Domain {
 		this.tutorInSubjects = tutorInSubjects;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public Course getRepresentativeFor() {
 		return representativeFor;
 	}
