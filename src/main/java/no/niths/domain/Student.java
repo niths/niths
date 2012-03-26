@@ -133,7 +133,7 @@ public class Student implements Domain {
 	
 	@JsonIgnore
 	@XmlTransient
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
 	@JoinTable(name = "courses_representatives", 
 	joinColumns = @JoinColumn(name = "representatives_id"), 
 	inverseJoinColumns = @JoinColumn(name = "courses_id"))
