@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -63,7 +64,8 @@ public class Course implements Domain {
     @OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", 
 		joinColumns = @JoinColumn(name = "courses_id"), 
-		inverseJoinColumns = @JoinColumn(name = "representatives_id"))
+		inverseJoinColumns = @JoinColumn(name = "representatives_id"),
+		uniqueConstraints = @UniqueConstraint(columnNames = {"courses_id","representatives_id"}))
     @Cascade(CascadeType.ALL)
     private List<Student> courseRepresentatives = new ArrayList<Student>();
 

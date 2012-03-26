@@ -3,6 +3,8 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CourseController;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -10,10 +12,13 @@ import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
+import no.niths.domain.Committee;
 import no.niths.domain.Course;
+import no.niths.domain.Student;
 import no.niths.domain.Subject;
 import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.StudentService;
 import no.niths.services.interfaces.SubjectService;
 
 import org.slf4j.Logger;
@@ -41,6 +46,9 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	@Autowired
 	private SubjectService subjectService;
@@ -99,6 +107,51 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		ValidationHelper.isListEmpty(subjectList);
 		return subjectList;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+    @Override
+    @RequestMapping(
+            value ="addRepresentative/{courseId}/{studentId}",
+            method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
+    public void addRepresentative(
+            @PathVariable Long courseId,
+            @PathVariable Long studentId) {
+    	
+    	Course c = courseService.getById(courseId);
+        ValidationHelper.isObjectNull(c, "Course not found");
+        Student student = studentService.getById(studentId);
+        ValidationHelper.isObjectNull(student, "Student not found");
+        if(c.getCourseRepresentatives().contains(student)){
+        	throw new DuplicateEntryCollectionException("Student already a representative");
+        }
+        c.getCourseRepresentatives().add(student);
+        courseService.update(c);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+    		value ="removeRepresentative/{courseId}/{studentId}",
+    		method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
+    public void removeRepresentative(
+    		@PathVariable Long courseId,
+    		@PathVariable Long studentId) {
+    	Course c = courseService.getById(courseId);
+    	ValidationHelper.isObjectNull(c, "Course not found");
+    	Student student = studentService.getById(studentId);
+    	ValidationHelper.isObjectNull(student, "Student not found");
+    	
+    	if(!c.getCourseRepresentatives().remove(student)){
+    		throw new NotInCollectionException("Student not a representative for that class");
+    	}
+    	courseService.update(c);
+    }
 	
 	/**
 	 * {@inheritDoc}
