@@ -40,7 +40,7 @@ public class Exam implements Serializable {
     private String name;
 
     @Column(name="exam_type")
-    @Size(min = 2, max = 10, message ="The length of the exam_type must be between 2 to 10 letters")
+    @Size(min = 2, max = 30, message ="The length of the exam_type must be between 2 to 10 letters")
     private String examType;
 
     @Column(name="start_time")
@@ -74,7 +74,7 @@ public class Exam implements Serializable {
             joinColumns = @JoinColumn(name = "exams_id"),
             inverseJoinColumns = @JoinColumn(name = "rooms_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<Room> rooms = new ArrayList<>();
+    private List<Room> rooms = new ArrayList<Room>();
 
     public Exam(){
     	this(null,null,null,null,null);
