@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@Ignore
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class FeedServiceTest {
@@ -77,7 +77,7 @@ public class FeedServiceTest {
 		Feed feed2 = new Feed();
 		feed2.setId(feed.getId());
 		feed2.setMessage("new message");	
-		service.update(feed2);
+		service.mergeUpdate(feed2);
 		
 		temp = service.getById(feed.getId());
 		assertEquals("new message", temp.getMessage());
