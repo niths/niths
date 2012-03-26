@@ -72,7 +72,11 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 			course.getSubjects().get(i).setRoom(null);
 			course.getSubjects().get(i).setTutors(null);
 		}
-		
+		for (int i = 0; i < course.getCourseRepresentatives().size(); i++){
+			course.getCourseRepresentatives().get(i).setCommittees(null);
+			course.getCourseRepresentatives().get(i).setCourses(null);
+			course.getCourseRepresentatives().get(i).setFeeds(null);	
+		}
 		return course;
 	}
 	
