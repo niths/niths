@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import no.niths.domain.Exam;
 import no.niths.infrastructure.interfaces.ExamRepository;
+
 import org.springframework.stereotype.Repository;
 
 @Repository

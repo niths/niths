@@ -2,6 +2,8 @@ package no.niths.application.rest.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import no.niths.application.rest.AbstractRESTControllerImpl;
 /**
  * Generic interface for Controllers
  * 

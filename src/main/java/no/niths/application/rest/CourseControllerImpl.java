@@ -16,14 +16,12 @@ import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.SubjectService;
 
-import org.hibernate.NonUniqueObjectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -136,16 +134,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		courseService.update(course);
 	}
 
-
-	/**
-	 * Catches constraint violation exceptions
-	 * Ex: Topic already added to course
-	 */
-	@ExceptionHandler(NonUniqueObjectException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject() {
-	}
-
 	@Override
 	public GenericService<Course> getService() {
 		return courseService;
@@ -155,4 +143,5 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	public ListAdapter<Course> getList() {
 		return courseList;
 	}
+
 }

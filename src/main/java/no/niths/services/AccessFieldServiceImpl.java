@@ -3,15 +3,15 @@ package no.niths.services;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import no.niths.domain.signaling.AccessField;
+import no.niths.infrastructure.interfaces.AccessFieldRepository;
+import no.niths.services.interfaces.AccessFieldService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import no.niths.domain.signaling.AccessField;
-import no.niths.infrastructure.interfaces.AccessFieldRepository;
-import no.niths.services.interfaces.AccessFieldService;
 
 @Service
 @Transactional

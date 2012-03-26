@@ -6,7 +6,6 @@ import no.niths.application.rest.auth.RestLoginControllerImpl;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
-//import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

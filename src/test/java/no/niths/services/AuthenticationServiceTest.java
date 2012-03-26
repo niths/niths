@@ -2,15 +2,14 @@ package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
-import no.niths.security.SessionToken;
 import no.niths.security.RequestHolderDetails;
+import no.niths.security.SessionToken;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;

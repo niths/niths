@@ -1,11 +1,11 @@
 package no.niths.application.rest.auth.interfaces;
 
-import org.springframework.web.servlet.ModelAndView;
-
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
+
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles developers wanting access to the API
