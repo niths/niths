@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,12 +43,12 @@ public class RestLoginControllerImpl implements RestLoginController{
 	 * 
 	 */
 	@Override
-	@RequestMapping(value = { "login/{token:.+}" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "login" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public SessionToken login(@PathVariable String token) {
+	public SessionToken login(@RequestBody SessionToken token) {
 		logger.info("A user wants to be authenticated with token: " + token);
 		if(token != null){
-			return service.authenticateAtGoogle(token);
+			return service.authenticateAtGoogle(token.getToken());
 		}
 		return new SessionToken();
 	}
