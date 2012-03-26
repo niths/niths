@@ -19,7 +19,6 @@ import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.aspectj.AspectJAdviceParameterNameDiscoverer.AmbiguousBindingException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -171,7 +170,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug(domain.toString());
 
 		try {
-			getService().update(domain);
+			getService().mergeUpdate(domain);
 		} catch (TransientObjectException e) {
 			throw new ObjectNotFoundException(e.getMessage().toString());
 		}

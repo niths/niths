@@ -79,7 +79,7 @@ public class DeveloperServiceTest {
 		Developer temp = devService.getById(d1.getId());
 		temp.getApps().add(a1);
 		temp.getApps().add(a2);
-		devService.updateForDeveloperController(temp);
+		devService.update(temp);
 		//Did developer get apps?
 		temp = devService.getById(d1.getId());
 		assertEquals(2, temp.getApps().size());

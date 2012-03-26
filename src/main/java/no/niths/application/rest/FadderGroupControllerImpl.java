@@ -142,7 +142,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         Student stud = getStudent(studId);
         
         group.getLeaders().add(stud);
-        service.updateForFadderLeaderAndChildren(group);
+        service.update(group);
     }
 
     /**
@@ -159,7 +159,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
         if(group.getLeaders().contains(stud)){
         	group.getLeaders().remove(stud);
-        	service.updateForFadderLeaderAndChildren(group);
+        	service.update(group);
         }
     }
 
@@ -176,7 +176,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
         
         group.getFadderChildren().add(stud);
-        service.updateForFadderLeaderAndChildren(group);       
+		service.update(group);       
     }
 
     /**
@@ -192,7 +192,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
         if(group.getFadderChildren().contains(stud)){
         	group.getFadderChildren().remove(stud);
-        	service.updateForFadderLeaderAndChildren(group);
+        	service.update(group);
         }else{
         	throw new NotInCollectionException("Student not a child in that group");
         }
@@ -211,7 +211,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
         if(!group.getFadderChildren().isEmpty()){
         	group.getFadderChildren().clear();
-        	service.updateForFadderLeaderAndChildren(group);
+        	service.update(group);
         }else{
         	logger.debug("list was empty no need for update");
         }
@@ -230,7 +230,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         
         if(!group.getLeaders().isEmpty()){
         	group.getLeaders().clear();
-        	service.updateForFadderLeaderAndChildren(group);
+        	service.update(group);
         }else{
         	logger.debug("list was empty no need for update");
         }

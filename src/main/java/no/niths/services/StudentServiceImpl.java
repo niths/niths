@@ -1,11 +1,11 @@
 package no.niths.services;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
+import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 import no.niths.services.interfaces.StudentService;
@@ -14,11 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends AbstractGenericService<Student> implements StudentService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentServiceImpl.class);
@@ -28,8 +26,6 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private RoleRepository roleRepo;
-	
-	private CustomBeanUtilsBean beanCopy = new CustomBeanUtilsBean();
 
 	public Long create(Student student) {
 		Role r = new Role(SecurityConstants.R_STUDENT);
@@ -100,39 +96,10 @@ public class StudentServiceImpl implements StudentService {
 		return s;
 	}
 
-	public List<Student> getAll(Student s) {
-		return repo.getAll(s);
-	}
-
-	public void update(Student student) {
-		Student studentToUpdate =repo.getById(student.getId());
-		
-		try {
-			beanCopy.copyProperties(studentToUpdate, student);
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			logger.error("error",e);
-			e.printStackTrace();
-		}
-		
-		repo.update(studentToUpdate);
-	}
-
-	public boolean delete(long id) {
-		return repo.delete(id);
-	}
-
 	public List<Student> getStudentsWithNamedCourse(String name) {
-
-		List<Student> temp = repo.getStudentsWithNamedCourse(name);
-
-		return temp;
+		return repo.getStudentsWithNamedCourse(name);
 	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		repo.hibernateDelete(id);
-	}
-
+	
 	@Override
 	public List<Student> getStudentsAndRoles(Student s) {
 		List<Student> list = repo.getAll(s);
@@ -151,6 +118,11 @@ public class StudentServiceImpl implements StudentService {
 		}
 
 		return list;
+	}
+
+	@Override
+	public GenericRepository<Student> getRepository() {
+		return repo;
 	}
 
 }

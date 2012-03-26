@@ -64,7 +64,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
         
         if(!subject.getTutors().contains(student)){
         	subject.getTutors().add(student);
-        	service.updateForTutor(subject);        	
+        	service.update(subject);        	
         }else{
         	throw new DuplicateEntryCollectionException("Tutor is already added to the subject");
         }
@@ -86,7 +86,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
     	ValidationHelper.isObjectNull(student, "Student not found");
     	
     	if(subject.getTutors().remove(student)){
-    		service.updateForTutor(subject);    		
+    		service.update(subject);    		
     	}else{
     		throw new NotInCollectionException("Student is not a tutor");
     	}

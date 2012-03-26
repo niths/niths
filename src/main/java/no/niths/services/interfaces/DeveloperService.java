@@ -23,9 +23,4 @@ public interface DeveloperService extends GenericService<Developer> {
 	 */
 	List<Developer> getAllWithApps(Developer dev);
 
-	/**
-	 * Update method that is only used for admin panel.
-	 * @param dev
-	 */
-	void updateForDeveloperController(Developer dev);
 }

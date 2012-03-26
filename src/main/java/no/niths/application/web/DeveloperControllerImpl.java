@@ -85,7 +85,7 @@ public class DeveloperControllerImpl implements DeveloperController {
 					}
 				}
 				
-				devService.updateForDeveloperController(dev);
+				devService.update(dev);
 			}		
 		}
 
