@@ -39,6 +39,14 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 
 	private EventList eventList = new EventList();
 	
+	
+	@Override
+	public Event getById(@PathVariable Long id) {
+		Event e = super.getById(id);
+		e.getLocation().setEvents(null);
+		e.getLocation().setFeeds(null);
+		return e;
+	}
 	/**
 	 * {@inheritDoc}
 	 */
