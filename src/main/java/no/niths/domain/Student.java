@@ -130,6 +130,17 @@ public class Student implements Domain {
 	inverseJoinColumns = @JoinColumn(name = "subjects_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Subject> tutorInSubjects = new ArrayList<Subject>();
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@JoinTable(name = "courses_representatives", 
+	joinColumns = @JoinColumn(name = "representatives_id"), 
+	inverseJoinColumns = @JoinColumn(name = "courses_id"))
+	@Cascade(CascadeType.ALL)
+	private Course representativeFor;
+	
+	
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
@@ -404,6 +415,14 @@ public class Student implements Domain {
 
 	public void setTutorInSubjects(List<Subject> tutorInSubjects) {
 		this.tutorInSubjects = tutorInSubjects;
+	}
+
+	public Course getRepresentativeFor() {
+		return representativeFor;
+	}
+
+	public void setRepresentativeFor(Course representativeFor) {
+		this.representativeFor = representativeFor;
 	}
 
 }

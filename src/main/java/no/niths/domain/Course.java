@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -58,12 +59,20 @@ public class Course implements Domain {
 		inverseJoinColumns = @JoinColumn(name = "students_id"))
     @Cascade(CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
+    
+    @OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "courses_representatives", 
+		joinColumns = @JoinColumn(name = "courses_id"), 
+		inverseJoinColumns = @JoinColumn(name = "representatives_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Student> courseRepresentatives = new ArrayList<Student>();
 
 
     public Course() {
         this(null, null, null);
         setStudents(null);
         setSubjects(null);
+        setCourseRepresentatives(null);
     }
 
     public Course(String name, String description) {
@@ -130,5 +139,13 @@ public class Course implements Domain {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	public List<Student> getCourseRepresentatives() {
+		return courseRepresentatives;
+	}
+
+	public void setCourseRepresentatives(List<Student> courseRepresentatives) {
+		this.courseRepresentatives = courseRepresentatives;
 	}
 }
