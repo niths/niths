@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CommitteeController;
 import no.niths.application.rest.lists.CommitteeList;
@@ -156,6 +157,9 @@ public class CommitteeControllerImpl
         ValidationHelper.isObjectNull(committee, "Committee not found");
         Student student = studentService.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student not found");
+        if(committee.getLeaders().contains(student)){
+        	throw new DuplicateEntryCollectionException("Student already a leader");
+        }
         committee.getLeaders().add(student);
         committeeService.update(committee);
     }
@@ -205,6 +209,9 @@ public class CommitteeControllerImpl
         ValidationHelper.isObjectNull(committee, "Committee not found");
         Event event = eventService.getById(eventId);
         ValidationHelper.isObjectNull(event, "Event not found");
+        if(committee.getEvents().contains(event)){
+        	throw new DuplicateEntryCollectionException("Event already added");
+        }
         if(committee.getEvents().add(event)){
         	committeeService.update(committee);        	
         }

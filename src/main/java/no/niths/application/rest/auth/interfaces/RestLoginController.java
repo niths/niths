@@ -14,6 +14,6 @@ public interface RestLoginController {
 	 * @param token for authentication via Google
 	 * @return Session token to use for login after authentication
 	 */
-	SessionToken login(String token);
+	SessionToken login(SessionToken token);
 	
 }

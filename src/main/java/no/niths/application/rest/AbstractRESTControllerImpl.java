@@ -1,5 +1,6 @@
 package no.niths.application.rest;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -392,5 +393,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 		}
 		logger.debug("Invalid search param");
+	}
+	@ExceptionHandler(EOFException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void endOfFile(EOFException e, HttpServletResponse res) {
+		res.setHeader("Error", "Wrong input");
 	}
 }

@@ -141,23 +141,6 @@ public class RestDeveloperAccessControllerImpl implements
 		token.setMessage("Use this in the header for futurer requests");
 		
 		return token;
-		//First we get the information about the current request holder
-		//If no developer is found, cancel the request,
-		//else add application to developer
-//		Authentication auth = SecurityContextHolder.getContext()
-//				.getAuthentication();
-//		if (auth != null && auth instanceof RequestAuthenticationInfo) {
-//			RequestHolderDetails det = (RequestHolderDetails) auth.getPrincipal();
-//			logger.debug("Found authentication! Developer id: " + det.getDeveloperId());
-//			
-//			logger.debug("Adding new app to developer");
-//			token = service.registerApplication(app, det.getDeveloperId());
-//			token.setMessage("Use this in the header for futurer requests");
-//			
-//		}else{
-//			throw new ObjectNotFoundException("Are you sure you set the correct developer-token?");
-//		}
-//		return token;
 	}
 
 	@ExceptionHandler(ObjectNotFoundException.class)

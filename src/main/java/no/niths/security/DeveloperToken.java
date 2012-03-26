@@ -3,11 +3,14 @@ package no.niths.security;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * Wrapper class for token
  *
  */
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class DeveloperToken implements Serializable{ 
 	
 	/**

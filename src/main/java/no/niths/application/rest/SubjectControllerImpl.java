@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.SubjectController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -61,8 +62,12 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
         Student student = studentService.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student not found");
         
-        subject.getTutors().add(student);
-        service.updateForTutor(subject);
+        if(!subject.getTutors().contains(student)){
+        	subject.getTutors().add(student);
+        	service.updateForTutor(subject);        	
+        }else{
+        	throw new DuplicateEntryCollectionException("Tutor is already added to the subject");
+        }
     }
     
     /**

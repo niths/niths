@@ -3,11 +3,14 @@ package no.niths.security;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * Wrapper class for token
  *
  */
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class SessionToken implements Serializable {
 	
 	/**
@@ -30,6 +33,12 @@ public class SessionToken implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return token;
 	}
 	
 	

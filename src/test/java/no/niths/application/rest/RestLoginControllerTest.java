@@ -6,7 +6,6 @@ import no.niths.application.rest.auth.RestLoginControllerImpl;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
-//import no.niths.services.auth.interfaces.RestLoginService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,9 +26,9 @@ public class RestLoginControllerTest {
 	
 	@Test
 	public void testLogin(){
-		SessionToken token = new SessionToken("returned");
+		SessionToken token = new SessionToken("token");
 		when(service.authenticateAtGoogle("token")).thenReturn(token);
-		assertEquals("returned", controller.login("token").getToken());
+		assertEquals(token, controller.login(token));
 		
 		SessionToken t = new SessionToken();
 		assertEquals(t.getToken(), controller.login(null).getToken());
