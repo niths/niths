@@ -10,7 +10,7 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 		implements DeveloperRepository {
 
 	public DeveloperRepositoryImpl() {
-		super(Developer.class);
+		super(Developer.class, new Developer());
 	}
 	
 	@Override
@@ -23,12 +23,5 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 		return (Developer) getSession().getCurrentSession().createQuery(sql)
 										.setString("token", token).uniqueResult();
 		
-	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Developer s = new Developer();
-		s.setId(id);
-		getSession().getCurrentSession().delete(s);
 	}
 }

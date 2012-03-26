@@ -18,6 +18,7 @@ import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.aspectj.AspectJAdviceParameterNameDiscoverer.AmbiguousBindingException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -381,13 +382,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public void httpMessageNotReadableException(HttpMessageNotReadableException e,
-			HttpServletResponse res) {
+	public void httpMessageNotReadableException(
+			HttpMessageNotReadableException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader("Error", "HttpMessageNotReadableException Cannot read input");
-		}else{
-			res.setHeader("Error",e.getMessage());
-			
+			res.setHeader("Error",
+					"HttpMessageNotReadableException Cannot read input");
+		} else {
+			res.setHeader("Error", e.getMessage());
+
 		}
 		logger.debug("Invalid search param");
 	}

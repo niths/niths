@@ -11,13 +11,6 @@ public class AccessPointRepositoryImpl
         implements AccessPointRepository {
 
     public AccessPointRepositoryImpl() {
-        super(AccessPoint.class);
-    }
-
-    @Override
-    public void hibernateDelete(long id) {
-        AccessPoint accessPoint = new AccessPoint();
-        accessPoint.setId(id);
-        getSession().getCurrentSession().delete(accessPoint);
+        super(AccessPoint.class, new AccessPoint());
     }
 }

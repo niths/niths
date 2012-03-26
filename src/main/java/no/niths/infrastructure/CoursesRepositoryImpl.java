@@ -10,13 +10,6 @@ public class CoursesRepositoryImpl extends AbstractGenericRepositoryImpl<Course>
 		implements CourseRepository {
 
 	public CoursesRepositoryImpl() {
-		super(Course.class);
-	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Course  c = new Course();
-		c.setId(id);
-		getSession().getCurrentSession().delete(c);
+		super(Course.class, new Course());
 	}
 }

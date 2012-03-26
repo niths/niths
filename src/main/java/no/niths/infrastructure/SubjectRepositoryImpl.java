@@ -10,14 +10,7 @@ public class SubjectRepositoryImpl extends AbstractGenericRepositoryImpl<Subject
 		implements SubjectRepository {
 
 	public SubjectRepositoryImpl() {
-		super(Subject.class);
+		super(Subject.class, new Subject());
 	}
 
-	@Override
-	public void hibernateDelete(long id) {
-		Subject s = new Subject();
-		s.setId(id);
-		getSession().getCurrentSession().delete(s);
-		
-	}
 }

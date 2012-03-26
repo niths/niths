@@ -86,8 +86,8 @@ public class CommitteeControllerImpl
             	member.setFeeds(null);
             }
 
-            if(committee.getEvents().isEmpty()){
-                committee.setEvents(null);
+            for(Event event: committee.getEvents()) {
+            	event.setLocation(null);
             }
         }
         return committee;

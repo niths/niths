@@ -10,14 +10,7 @@ public class CommitteeRepositoryImpl extends AbstractGenericRepositoryImpl<Commi
 		implements CommitteeRepositorty{
 
 	public CommitteeRepositoryImpl() {
-		super(Committee.class);
+		super(Committee.class, new Committee());
 	}
 	
-	@Override
-	public void hibernateDelete(long id) {
-		Committee  c = new Committee();
-		c.setId(id);
-		getSession().getCurrentSession().delete(c);
-	}
-
 }

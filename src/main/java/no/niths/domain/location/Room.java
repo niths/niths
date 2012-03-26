@@ -1,6 +1,5 @@
 package no.niths.domain.location;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Domain;
 import no.niths.domain.Exam;
 import no.niths.domain.Subject;
 import no.niths.domain.signaling.AccessField;
@@ -33,7 +33,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.ROOMS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Room implements Serializable {
+public class Room implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -664567726655902624L;

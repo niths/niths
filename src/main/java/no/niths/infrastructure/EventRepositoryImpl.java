@@ -15,7 +15,7 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 	private final String COLUMNAME = "tags";
 
 	public EventRepositoryImpl() {
-		super(Event.class);
+		super(Event.class, new Event());
 		queryGen = new QueryGenerator<Event>(Event.class);
 	}
 
@@ -24,12 +24,4 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		return queryGen.whereQuery(tag, COLUMNAME, getSession()
 				.getCurrentSession());
 	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Event e = new Event();
-		e.setId(id);
-		getSession().getCurrentSession().delete(e);
-	}
-
 }

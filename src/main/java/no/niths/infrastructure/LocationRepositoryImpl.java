@@ -10,15 +10,6 @@ public class LocationRepositoryImpl extends
 		AbstractGenericRepositoryImpl<Location> implements LocationRepository {
 
 	public LocationRepositoryImpl() {
-		super(Location.class);
+		super(Location.class, new Location());
 	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Location location = new Location();
-		location.setId(id);
-		getSession().getCurrentSession().delete(location);
-
-	}
-
 }

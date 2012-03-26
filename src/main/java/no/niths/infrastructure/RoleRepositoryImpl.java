@@ -10,13 +10,6 @@ public class RoleRepositoryImpl extends AbstractGenericRepositoryImpl<Role>
 		implements RoleRepository{
 
 	public RoleRepositoryImpl() {
-		super(Role.class);
-	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Role r = new Role();
-		r.setId(id);
-		getSession().getCurrentSession().delete(r);
+		super(Role.class, new Role());
 	}
 }

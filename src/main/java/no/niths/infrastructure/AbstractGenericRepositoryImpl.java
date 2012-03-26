@@ -1,8 +1,8 @@
 package no.niths.infrastructure;
 
-import java.io.Serializable;
 import java.util.List;
 
+import no.niths.domain.Domain;
 import no.niths.infrastructure.interfaces.GenericRepository;
 
 import org.hibernate.Query;
@@ -16,13 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @param <T>
  */
-public abstract class AbstractGenericRepositoryImpl<T extends Serializable>
+public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 		implements GenericRepository<T> {
 
 	private Class<T> persistentClass;
+	private Domain domain;
 
-	public AbstractGenericRepositoryImpl(Class<T> persistentClass) {
+	public AbstractGenericRepositoryImpl(Class<T> persistentClass, Domain domain) {
 		this.persistentClass = persistentClass;
+		this.domain = domain;
 	}
 
 	@Autowired
@@ -79,6 +81,7 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable>
 
 	/**
 	 * Returns a instance of the persistence class
+	 * 
 	 * @return
 	 */
 	public Class<T> getPersistentClass() {
@@ -87,6 +90,7 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable>
 
 	/**
 	 * Returns the given session
+	 * 
 	 * @return
 	 */
 	public SessionFactory getSession() {
@@ -94,7 +98,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Serializable>
 	}
 
 	/**
-	 * 
+	 * {@inheritDoc}
 	 */
-	public abstract void hibernateDelete(long id);
+	public void hibernateDelete(long id) {
+		domain.setId(id);
+		getSession().getCurrentSession().delete(domain);
+	}
 }

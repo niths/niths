@@ -11,14 +11,6 @@ public class AccessFieldRepositoryImpl extends
 		AccessFieldRepository {
 
 	public AccessFieldRepositoryImpl() {
-		super(AccessField.class);
+		super(AccessField.class, new AccessField());
 	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		AccessField af = new AccessField();
-		af.setId(id);
-		getSession().getCurrentSession().delete(af);
-	}
-
 }

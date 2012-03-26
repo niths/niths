@@ -1,7 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +14,18 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import no.niths.common.AppConstants;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import no.niths.common.AppConstants;
 
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.APPLICATIONS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Application implements Serializable {
+public class Application implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 2489514983742481691L;

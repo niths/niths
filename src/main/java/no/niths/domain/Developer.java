@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = AppConstants.DEVELOPERS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Developer implements Serializable {
+public class Developer implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -85961208307674962L;

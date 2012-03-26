@@ -14,13 +14,6 @@ public class RoomRepositoryImpl extends AbstractGenericRepositoryImpl<Room> impl
 	private Logger logger = LoggerFactory.getLogger(RoomRepositoryImpl.class);
 
 	public RoomRepositoryImpl() {
-		super(Room.class);
-	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		Room room = new Room();
-		room.setId(id);
-		getSession().getCurrentSession().delete(room);
+		super(Room.class, new Room());
 	}
 }

@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -43,7 +42,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Event implements Serializable {
+public class Event implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 1878727682733503699L;

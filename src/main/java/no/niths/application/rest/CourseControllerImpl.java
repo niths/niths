@@ -66,6 +66,18 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		return courseList;
 	}
 	
+	@Override
+	public Course getById(@PathVariable Long id) {
+		Course course = super.getById(id);
+		for (int i = 0; i < course.getSubjects().size(); i++) {
+			course.getSubjects().get(i).setCourses(null);
+			course.getSubjects().get(i).setRoom(null);
+			course.getSubjects().get(i).setTutors(null);
+		}
+		
+		return course;
+	}
+	
 	/**
 	 * Returns all topics inside a course
 	 * 
@@ -134,16 +146,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 
 		course.getSubjects().add(subject);
 		courseService.update(course);
-	}
-
-
-	/**
-	 * Catches constraint violation exceptions
-	 * Ex: Topic already added to course
-	 */
-	@ExceptionHandler(NonUniqueObjectException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Already added")
-	public void notUniqueObject() {
 	}
 
 	@Override

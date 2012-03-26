@@ -25,8 +25,4 @@ public interface CourseController extends GenericRESTController<Course> {
 	 */
 	public void addSubjectToCourse(Long courseId, Long subjectId);
 
-	/**
-	 * Catches constraint violation exceptions
-	 */
-	public void notUniqueObject();
 }

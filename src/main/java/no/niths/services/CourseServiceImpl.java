@@ -34,6 +34,7 @@ public class CourseServiceImpl implements CourseService{
     	Course c = repo.getById(id);
     	if(c != null){
     		c.getSubjects().size();
+    		
     	}
         return c;
    }

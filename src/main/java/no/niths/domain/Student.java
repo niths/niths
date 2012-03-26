@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +48,7 @@ import org.hibernate.validator.constraints.Email;
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Student implements Serializable {
+public class Student implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 8441269238845961513L;

@@ -12,7 +12,7 @@ public class FeedRepositoryImpl extends AbstractGenericRepositoryImpl<Feed>
 		implements FeedRepoistory {
 
 	public FeedRepositoryImpl() {
-		super(Feed.class);
+		super(Feed.class, new Feed());
 	}
 	
 	@Override
@@ -25,13 +25,6 @@ public class FeedRepositoryImpl extends AbstractGenericRepositoryImpl<Feed>
 	public void update(Feed domain) {
 		domain.setPublished(new GregorianCalendar());
 		super.update(domain);
-	}
-	
-	@Override
-	public void hibernateDelete(long id) {
-		Feed feed = new Feed();
-		feed.setId(id);
-		getSession().getCurrentSession().delete(feed);
 	}
 
 }

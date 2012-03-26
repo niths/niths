@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name=AppConstants.COURSES)
 @XmlRootElement
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Course implements Serializable {
+public class Course implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -1898014630305240760L;
@@ -52,8 +51,7 @@ public class Course implements Serializable {
     @Cascade(CascadeType.ALL)
 	private List<Subject> subjects = new ArrayList<Subject>();
 	
-    @JsonIgnore
-	@XmlTransient
+
     @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "students_courses", 
 		joinColumns = @JoinColumn(name = "courses_id"), 

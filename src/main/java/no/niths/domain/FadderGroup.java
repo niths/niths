@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name =AppConstants.FADDER_GROUPS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)  
-public class FadderGroup implements Serializable {
+public class FadderGroup implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -3434555328809873472L;

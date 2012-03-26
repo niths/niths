@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.COMMITTEES)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Committee implements Serializable {
+public class Committee implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 7191935818417886723L;
@@ -158,6 +157,4 @@ public class Committee implements Serializable {
 	public void setMembers(List<Student> members) {
 		this.members = members;
 	}
-    
-
 }

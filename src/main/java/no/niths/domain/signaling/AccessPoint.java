@@ -1,6 +1,5 @@
 package no.niths.domain.signaling;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
@@ -27,7 +27,7 @@ import org.hibernate.annotations.CascadeType;
 @XmlRootElement(name = "accesspoint")
 @Entity
 @Table(name = AppConstants.ACCESS_POINTS)
-public class AccessPoint implements Serializable {
+public class AccessPoint implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 8118983219932188402L;

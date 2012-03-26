@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -38,7 +37,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.FEEDS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class Feed implements Serializable {
+public class Feed implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -7280194759501252804L;

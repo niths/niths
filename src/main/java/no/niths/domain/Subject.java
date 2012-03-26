@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.SUBJECTS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class Subject implements Serializable {
+public class Subject implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = 3477975219659800316L;

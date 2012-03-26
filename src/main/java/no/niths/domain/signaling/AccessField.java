@@ -1,6 +1,5 @@
 package no.niths.domain.signaling;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.common.AppConstants;
+import no.niths.domain.Domain;
 import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -29,7 +29,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Table(name = AppConstants.ACCESS_FIELDS)
 @XmlRootElement(name = "accessfield")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class AccessField implements Serializable {
+public class AccessField implements Domain {
 
     private static final long serialVersionUID = 2425345455743938142L;
 

@@ -16,7 +16,7 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 	private QueryGenerator<Student> queryGen;
 	
 	public StudentRepositoryImpl() {
-		super(Student.class);
+		super(Student.class, new Student());
 		queryGen = new QueryGenerator<Student>(Student.class);
 	}
 
@@ -28,33 +28,7 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 				.setString("name", name)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
-
-//	@Override
-//	public Student getStudentByEmail(String email) {
-//		String sql = "from " + Student.class.getSimpleName()
-//				+ " s where s.email=:email";
-//		return (Student) getSession().getCurrentSession().createQuery(sql)
-//				.setString("email", email).uniqueResult();
-//	}
-//
-//	@Override
-//	public Student getStudentBySessionToken(String sessionToken) {
-//		String sql = "from " + Student.class.getSimpleName()
-//				+ " s where s.sessionToken=:token";
-//		return (Student) getSession().getCurrentSession()
-//				.createQuery(sql)
-//				.setString("token", sessionToken)
-//				.uniqueResult();
-//	}
 	
-	@Override
-	public void hibernateDelete(long id) {
-		Student s = new Student();
-		s.setId(id);
-
-		getSession().getCurrentSession().delete(s);
-	}
-
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
 		

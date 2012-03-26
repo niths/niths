@@ -11,13 +11,7 @@ public class FadderGroupRepositoryImpl extends
 		FadderGroupRepository {
 
 	public FadderGroupRepositoryImpl() {
-		super(FadderGroup.class);
+		super(FadderGroup.class, new FadderGroup());
 	}
 
-	@Override
-	public void hibernateDelete(long id) {
-		FadderGroup f = new FadderGroup();
-		f.setId(id);
-		getSession().getCurrentSession().delete(f);
-	}
 }

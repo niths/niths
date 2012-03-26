@@ -21,14 +21,6 @@ public class APIEventRepositoryImpl extends AbstractGenericRepositoryImpl<APIEve
 		implements APIEventRepository {
 
 	public APIEventRepositoryImpl() {
-		super(APIEvent.class);
-	}
-
-	@Override
-	public void hibernateDelete(long id) {
-		APIEvent s = new APIEvent();
-		s.setId(id);
-		getSession().getCurrentSession().delete(s);
-		
+		super(APIEvent.class, new APIEvent());
 	}
 }

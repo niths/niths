@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -45,7 +44,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @Table(name = AppConstants.API_EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class APIEvent implements Serializable{
+public class APIEvent implements Domain{
 	
 	@Transient
 	private static final long serialVersionUID = -5311081154825173386L;
