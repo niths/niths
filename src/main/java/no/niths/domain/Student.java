@@ -139,8 +139,6 @@ public class Student implements Domain {
 	inverseJoinColumns = @JoinColumn(name = "courses_id"))
 	@Cascade(CascadeType.ALL)
 	private Course representativeFor;
-	
-	
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
@@ -324,8 +322,8 @@ public class Student implements Domain {
 		this.committees = committees;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -334,8 +332,8 @@ public class Student implements Domain {
 		this.roles = roles;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public String getSessionToken() {
 		return sessionToken;
 	}
@@ -358,8 +356,8 @@ public class Student implements Domain {
 		return String.format("[%s][%s]", id, email);
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public List<Committee> getCommitteesLeader() {
 		return committeesLeader;
 	}
@@ -368,8 +366,8 @@ public class Student implements Domain {
 		this.committeesLeader = committesLeader;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public FadderGroup getFadderGroup() {
 		return fadderGroup;
 	}
@@ -378,8 +376,8 @@ public class Student implements Domain {
 		this.fadderGroup = fadderGroup;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public List<FadderGroup> getGroupLeaders() {
 		return groupLeaders;
 	}
@@ -388,8 +386,8 @@ public class Student implements Domain {
 		this.groupLeaders = groupLeaders;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public Long getLastLogon() {
 		return lastLogon;
 	}
@@ -407,8 +405,8 @@ public class Student implements Domain {
 		this.feeds = feeds;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public List<Subject> getTutorInSubjects() {
 		return tutorInSubjects;
 	}
@@ -417,8 +415,8 @@ public class Student implements Domain {
 		this.tutorInSubjects = tutorInSubjects;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public Course getRepresentativeFor() {
 		return representativeFor;
 	}

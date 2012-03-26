@@ -50,8 +50,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				student.getCommittees().get(i).setLeaders(null);
 				student.getCommittees().get(i).setMembers(null);
 			}
-
+			
 			for (int i = 0; i < student.getCourses().size(); i++) {
+				student.getCourses().get(i).setCourseRepresentatives(null);
 				student.getCourses().get(i).setSubjects(null);
 			}
 
