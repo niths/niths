@@ -8,12 +8,14 @@ import javax.annotation.PostConstruct;
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
+import no.niths.services.auth.interfaces.StringCryptationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
@@ -32,17 +34,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(TokenGeneratorServiceImpl.class);
-
-	@Value("${jasypt.password}")
-	private String password;
 	
-	private StandardPBEStringEncryptor jasypt;
-	
-	@PostConstruct
-	public void init(){
-		jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword(password);
-	}
+	@Autowired
+	private StringCryptationService stringCrypt;
 
 	/**
 	 * Generates a token based on the userId
@@ -61,7 +55,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 				+ "|" + Long.toString(userId) + "|"
 				+ Long.toString(tokenIssued);
 		// Encrypt the token
-		String encryptedToked = jasypt.encrypt(generatedToken);
+		String encryptedToked = stringCrypt.encrypt(generatedToken);
 
 		logger.debug("Generated token before encryption: " + generatedToken);
 		logger.debug("Generated token after encryption: " + encryptedToked);
@@ -93,7 +87,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 			logger.debug("Token after replace: " + token);
 			
 			//Decrypt the token
-			String decryptedToken = jasypt.decrypt(token);
+			String decryptedToken = stringCrypt.decrypt(token);
 
 			logger.debug("Token after decryption: " + decryptedToken);
 
@@ -116,17 +110,17 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 		logger.debug("Verified");
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	// Private helper
 	private long getCurrentTime() {
 		return new GregorianCalendar().getTimeInMillis();
+	}
+
+	public StringCryptationService getStringCrypt() {
+		return stringCrypt;
+	}
+
+	public void setStringCrypt(StringCryptationService stringCrypt) {
+		this.stringCrypt = stringCrypt;
 	}
 
 }

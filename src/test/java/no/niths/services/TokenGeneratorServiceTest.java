@@ -34,7 +34,6 @@ public class TokenGeneratorServiceTest {
 	
 	@Test
 	public void testGenerateAndVerify(){
-		tokenService.setPassword(password);
 		String token = tokenService.generateToken(new Long(21));
 		String token2 = tokenService.generateToken(new Long(22));
 		tokenService.verifyTokenFormat(token, true);	
