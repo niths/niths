@@ -5,9 +5,13 @@ import javax.annotation.PostConstruct;
 import no.niths.services.auth.interfaces.StringCryptationService;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service for handling en- and decryption of strings
+ *
+ */
 @Service
 public class StringCryptationServiceImpl implements StringCryptationService {
 	
@@ -22,11 +26,25 @@ public class StringCryptationServiceImpl implements StringCryptationService {
 		jasypt.setPassword(password);
 	}
 	
-	public String encrypt(String txt){
+	/**
+	 * Returns an encrypted String
+	 * 
+	 * @param txt the string to encrypt
+	 * @return the encrypted string
+	 * @throws EncryptionOperationNotPossibleException
+	 */
+	public String encrypt(String txt) throws EncryptionOperationNotPossibleException{
 		return jasypt.encrypt(txt);
 	}
 	
-	public String decrypt(String txt){
+	/**
+	 * Returns a decrypted string
+	 * 
+	 * @param txt string to decrypt
+	 * @return the decrypted string
+	 * @throws EncryptionOperationNotPossibleException
+	 */
+	public String decrypt(String txt) throws EncryptionOperationNotPossibleException{
 		return jasypt.decrypt(txt);
 	}
 
