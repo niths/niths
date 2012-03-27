@@ -47,13 +47,7 @@ public class ApplicationControllerImpl extends AbstractRESTControllerImpl<Applic
 		super.create(domain);
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void delete(@PathVariable Long id) {
-		super.delete(id);
-	}
-	
+
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void hibernateDelete(@PathVariable long id) {

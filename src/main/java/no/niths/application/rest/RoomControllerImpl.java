@@ -24,46 +24,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.ROOMS)
-public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> implements RoomController{
+public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
+		implements RoomController {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(RoomControllerImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(RoomControllerImpl.class);
 
-    @Autowired
-    private RoomService service;
+	@Autowired
+	private RoomService service;
 
-    @Autowired private AccessFieldService afService;
-    
-    private RoomList roomList = new RoomList();
-  
-    @Override
-    public GenericService<Room> getService() {
-        return service;
-    }
+	@Autowired
+	private AccessFieldService afService;
 
-    @Override
-    public ListAdapter<Room> getList() {
-        return roomList;
-    }
-        
+	private RoomList roomList = new RoomList();
+
+	@Override
+	public GenericService<Room> getService() {
+		return service;
+	}
+
+	@Override
+	public ListAdapter<Room> getList() {
+		return roomList;
+	}
+
 	@Override
 	@RequestMapping(value = "add/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
-	public void addAccessField(@PathVariable long roomId,@PathVariable long afId) {
-		Room ap = service.getById(roomId);
-		ValidationHelper.isObjectNull(ap, "Room does not exist");
+	public void addAccessField(@PathVariable long roomId,
+			@PathVariable long afId) {
+		Room room = service.getById(roomId);
+		ValidationHelper.isObjectNull(room, "Room does not exist");
 		AccessField af = afService.getById(afId);
-		ValidationHelper.isObjectNull(ap, "Acess field does not exist");
+		ValidationHelper.isObjectNull(afId, "Acess field does not exist");
 
-		ap.getAccessFields().add(af);
-		service.update(ap);
-		logger.debug("Accss field updated");
+		room.getAccessFields().add(af);
+		service.update(room);
+		logger.debug("Room updated");
 	}
 
 	@Override
 	@RequestMapping(value = "remove/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
-	public void removeAccessField(@PathVariable long roomId, @PathVariable long afId) {
+	public void removeAccessField(@PathVariable long roomId,
+			@PathVariable long afId) {
 		Room room = service.getById(roomId);
 		ValidationHelper.isObjectNull(room, "Room does not exist");
 
@@ -71,17 +75,17 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> impleme
 		for (int i = 0; i < room.getAccessFields().size(); i++) {
 			if (room.getAccessFields().get(i).getId() == afId) {
 				room.getAccessFields().remove(i);
-				isRemoved =true;
+				isRemoved = true;
 				break;
 			}
 		}
-		
-		if(isRemoved){
+
+		if (isRemoved) {
 			service.update(room);
-		}else {
+		} else {
 			logger.debug("Accss field not Found");
 			throw new ObjectNotFoundException("Accss field not Found");
 		}
-		
+
 	}
 }
