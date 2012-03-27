@@ -1,20 +1,26 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoomController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoomList;
 import no.niths.common.AppConstants;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
+import no.niths.domain.signaling.AccessField;
+import no.niths.services.interfaces.AccessFieldService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoomService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.ROOMS)
@@ -26,23 +32,10 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> impleme
     @Autowired
     private RoomService service;
 
-    private RoomList roomList = new RoomList();
-
-    @Override
-    public ArrayList<Room> getAll(Room domain) {
-    	logger.debug("size first : " + roomList.size());
-    	
-    	ArrayList<Room> tempList = super.getAll(domain);
-    	
-    	logger.debug("size after : " + roomList.size());
-//    	LinkedHashSet<Room> hashSet = new LinkedHashSet<Room>(super.getAll(domain));
-//    
-//    	roomList.clear();
-//    	roomList.addAll(hashSet);
-//    	logger.debug("size after hasSet : " + roomList.size());
-    	return tempList;
-    }
+    @Autowired private AccessFieldService afService;
     
+    private RoomList roomList = new RoomList();
+  
     @Override
     public GenericService<Room> getService() {
         return service;
@@ -52,4 +45,43 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room> impleme
     public ListAdapter<Room> getList() {
         return roomList;
     }
+        
+	@Override
+	@RequestMapping(value = "add/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
+	public void addAccessField(@PathVariable long roomId,@PathVariable long afId) {
+		Room ap = service.getById(roomId);
+		ValidationHelper.isObjectNull(ap, "Room does not exist");
+		AccessField af = afService.getById(afId);
+		ValidationHelper.isObjectNull(ap, "Acess field does not exist");
+
+		ap.getAccessFields().add(af);
+		service.update(ap);
+		logger.debug("Accss field updated");
+	}
+
+	@Override
+	@RequestMapping(value = "remove/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
+	public void removeAccessField(@PathVariable long roomId, @PathVariable long afId) {
+		Room room = service.getById(roomId);
+		ValidationHelper.isObjectNull(room, "Room does not exist");
+
+		boolean isRemoved = false;
+		for (int i = 0; i < room.getAccessFields().size(); i++) {
+			if (room.getAccessFields().get(i).getId() == afId) {
+				room.getAccessFields().remove(i);
+				isRemoved =true;
+				break;
+			}
+		}
+		
+		if(isRemoved){
+			service.update(room);
+		}else {
+			logger.debug("Accss field not Found");
+			throw new ObjectNotFoundException("Accss field not Found");
+		}
+		
+	}
 }

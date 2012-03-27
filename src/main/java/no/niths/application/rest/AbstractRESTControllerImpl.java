@@ -10,6 +10,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
@@ -24,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -182,6 +184,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 */
 	@Override
 	@Deprecated
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void delete(@PathVariable Long id) {
 		if (!getService().delete(id)) {
 			throw new ObjectNotFoundException(

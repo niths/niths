@@ -38,13 +38,7 @@ public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent>
 	public void create(@RequestBody APIEvent domain) {
 		super.create(domain);
 	}
-	
-	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void delete(@PathVariable Long id) {
-		super.delete(id);
-	}
-	
+
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void hibernateDelete(@PathVariable long id) {
