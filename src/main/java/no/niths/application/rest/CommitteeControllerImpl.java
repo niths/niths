@@ -45,217 +45,220 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping(AppConstants.COMMITTEES)
-public class CommitteeControllerImpl
-        extends AbstractRESTControllerImpl<Committee>
-        implements CommitteeController {
+public class CommitteeControllerImpl extends
+		AbstractRESTControllerImpl<Committee> implements CommitteeController {
 
-    @Autowired
-    private CommitteeService committeeService;
-    
-    @Autowired
-    private EventsService eventService;
+	@Autowired
+	private CommitteeService committeeService;
 
-    @Autowired
-    private StudentService studentService;
+	@Autowired
+	private EventsService eventService;
 
-    private Logger logger = org.slf4j.LoggerFactory
-            .getLogger(CommitteeControllerImpl.class);
+	@Autowired
+	private StudentService studentService;
 
-    private CommitteeList committeeList = new CommitteeList();
+	private Logger logger = org.slf4j.LoggerFactory
+			.getLogger(CommitteeControllerImpl.class);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Committee getById(@PathVariable Long id) {
-        logger.debug(id+"");
-        Committee committee = super.getById(id);
+	private CommitteeList committeeList = new CommitteeList();
 
-        if(committee != null){
-            List<Student> leaders = committee.getLeaders();
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Committee getById(@PathVariable Long id) {
+		logger.debug(id + "");
+		Committee committee = super.getById(id);
 
-            for (Student leader : leaders) {
-                leader.setCommittees(null);
-                leader.setCourses(null);
-                leader.setFeeds(null);
-                // leaders.get(i).setFadderGroup(null);
-            }
-            List<Student> members = committee.getMembers();
-            for(Student member: members) {
-            	member.setCommittees(null);
-            	member.setCourses(null);
-            	member.setFeeds(null);
-            }
+		if (committee != null) {
+			List<Student> leaders = committee.getLeaders();
 
-            for(Event event: committee.getEvents()) {
-            	event.setLocation(null);
-            }
-        }
-        return committee;
-    }
+			for (Student leader : leaders) {
+				leader.setCommittees(null);
+				leader.setCourses(null);
+				leader.setFeeds(null);
+				// leaders.get(i).setFadderGroup(null);
+			}
+			List<Student> members = committee.getMembers();
+			for (Student member : members) {
+				member.setCommittees(null);
+				member.setCourses(null);
+				member.setFeeds(null);
+			}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Committee> getAll(Committee domain) {
-        committeeList = (CommitteeList) super.getAll(domain);
+			for (Event event : committee.getEvents()) {
+				event.setLocation(null);
+			}
+		}
+		return committee;
+	}
 
-        for (Committee committee : committeeList) {
-            committee.setEvents(null);
-            committee.setLeaders(null);
-            committee.setMembers(null);
-        }
-        return committeeList;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void hibernateDelete(@PathVariable long id) {
-    	super.hibernateDelete(id);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void create(@RequestBody Committee domain) {
-    	super.create(domain);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void update(@RequestBody Committee domain) {
-    	super.update(domain);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ArrayList<Committee> getAll(Committee domain) {
+		committeeList = (CommitteeList) super.getAll(domain);
 
-    /**
-     * Adds a leader to a committee
-     * 
-     * @param committeeId
-     *            The id of the committee
-     * @param studentId
-     *            The id of the student to add as leader
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    @RequestMapping(
-            value ="leaders/{committeeId}/{studentId}",
-            method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
-    public void addLeader(
-            @PathVariable Long committeeId,
-            @PathVariable Long studentId) {
-        Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
-        Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student not found");
-        if(committee.getLeaders().contains(student)){
-        	throw new DuplicateEntryCollectionException("Student already a leader");
-        }
-        committee.getLeaders().add(student);
-        committeeService.update(committee);
-    }
+		for (Committee committee : committeeList) {
+			committee.setEvents(null);
+			committee.setLeaders(null);
+			committee.setMembers(null);
+		}
+		return committeeList;
+	}
 
-    /**
-     * Removes a leader from a committee
-     * 
-     * @param committeeId
-     *            The id of the committee to remove leader from
-     * @param studentId
-     *            The id of the student to remove
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    @RequestMapping(
-            value = "leaders/{committeeId}/{studentId}",
-            method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-    public void removeLeader(@PathVariable Long committeeId,
-            @PathVariable Long studentId) {
-        Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
-        Student studentLeader = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(studentLeader, "Student not found");
-        ValidationHelper.isStudentLeaderInCommittee(committee, studentLeader);
-        
-        if(committee.getLeaders().remove(studentLeader)){
-        	committeeService.update(committee);
-        }else{
-        	throw new NotInCollectionException("The student is not a leader");
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	public void hibernateDelete(@PathVariable long id) {
+		super.hibernateDelete(id);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    @RequestMapping(
-            value = "addEvent/{committeeId}/{eventId}",
-            method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Event added")
-    public void addEvent(
-            @PathVariable Long committeeId,
-            @PathVariable Long eventId) {
-        Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
-        Event event = eventService.getById(eventId);
-        ValidationHelper.isObjectNull(event, "Event not found");
-        if(committee.getEvents().contains(event)){
-        	throw new DuplicateEntryCollectionException("Event already added");
-        }
-        if(committee.getEvents().add(event)){
-        	committeeService.update(committee);        	
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	public void create(@RequestBody Committee domain) {
+		super.create(domain);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    @RequestMapping(
-            value = "removeEvent/{committeeId}/{eventId}",
-            method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
-    public void removeEvent(
-            @PathVariable Long committeeId,
-            @PathVariable Long eventId) {
-        Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
-        Event event = eventService.getById(eventId);
-        ValidationHelper.isObjectNull(event, "Event not found");
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	public void update(@RequestBody Committee domain) {
+		super.update(domain);
+	}
 
-        if(committee.getEvents().contains(event)){
-            committee.getEvents().remove(event);
-            committeeService.update(committee);
-        }else{
-        	throw new NotInCollectionException("Committe does not have that event");
-        }
-    }
+	/**
+	 * Adds a leader to a committee
+	 * 
+	 * @param committeeId
+	 *            The id of the committee
+	 * @param studentId
+	 *            The id of the student to add as leader
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "leaders/{committeeId}/{studentId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
+	public void addLeader(@PathVariable Long committeeId,
+			@PathVariable Long studentId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee, "Committee not found");
+		Student student = studentService.getById(studentId);
+		ValidationHelper.isObjectNull(student, "Student not found");
+		if (committee.getLeaders().contains(student)) {
+			throw new DuplicateEntryCollectionException(
+					"Student already a leader");
+		}
+		committee.getLeaders().add(student);
+		committeeService.update(committee);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GenericService<Committee> getService() {
-        return committeeService;
-    }
+	/**
+	 * Removes a leader from a committee
+	 * 
+	 * @param committeeId
+	 *            The id of the committee to remove leader from
+	 * @param studentId
+	 *            The id of the student to remove
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "leaders/{committeeId}/{studentId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+	public void removeLeader(@PathVariable Long committeeId,
+			@PathVariable Long studentId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee, "Committee not found");
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ListAdapter<Committee> getList() {
-        return committeeList;
-    }
+		boolean isRemoved = false;
+		for (int i = 0; i < committee.getLeaders().size(); i++) {
+			if (committee.getLeaders().get(i).getId() == studentId) {
+				committee.getLeaders().remove(i);
+				isRemoved = true;
+				break;
+			}
+		}
+
+		if (isRemoved) {
+			committeeService.update(committee);
+		} else {
+			throw new NotInCollectionException("The student is not a leader");
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "addEvent/{committeeId}/{eventId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Event added")
+	public void addEvent(@PathVariable Long committeeId,
+			@PathVariable Long eventId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee, "Committee not found");
+		Event event = eventService.getById(eventId);
+		ValidationHelper.isObjectNull(event, "Event not found");
+		if (committee.getEvents().contains(event)) {
+			throw new DuplicateEntryCollectionException("Event already added");
+		}
+		if (committee.getEvents().add(event)) {
+			committeeService.update(committee);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "removeEvent/{committeeId}/{eventId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
+	public void removeEvent(@PathVariable Long committeeId,
+			@PathVariable Long eventId) {
+		Committee committee = committeeService.getById(committeeId);
+		ValidationHelper.isObjectNull(committee, "Committee not found");
+
+		boolean isRemoved = false;
+
+		for (int i = 0; i < committee.getEvents().size(); i++) {
+			if (committee.getEvents().get(i).getId() == eventId) {
+				committee.getEvents().remove(i);
+				isRemoved = true;
+				break;
+			}
+		}
+
+		if (isRemoved) {
+			committeeService.update(committee);
+		} else {
+			throw new NotInCollectionException(
+					"Committe does not have that event");
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public GenericService<Committee> getService() {
+		return committeeService;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ListAdapter<Committee> getList() {
+		return committeeList;
+	}
 
 }
