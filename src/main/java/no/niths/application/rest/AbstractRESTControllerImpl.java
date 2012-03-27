@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.interfaces.GenericRESTController;
@@ -64,7 +66,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	private static final Logger logger = LoggerFactory
 			.getLogger(AbstractRESTControllerImpl.class);
 	private static final String ERROR = "Error";
-
+	private static final String INFO = "Info";
+	
 	/**
 	 * Persists the domain
 	 * 
@@ -384,6 +387,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("Invalid search param");
 	}
 
+
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void httpMessageNotReadableException(
@@ -402,4 +406,30 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void endOfFile(EOFException e, HttpServletResponse res) {
 		res.setHeader(ERROR, "Wrong input");
 	}
+	
+	@ExceptionHandler(DuplicateEntryCollectionException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public void duplicateEntryCollectionException(DuplicateEntryCollectionException e, HttpServletResponse res) {
+		if (e.getMessage() == null) {
+			res.setHeader(INFO,
+					"DuplicateEntry");
+		} else {
+			res.setHeader(INFO, e.getMessage());
+
+		}
+		logger.debug("DuplicateEntry");
+	}
+	
+	@ExceptionHandler(NotInCollectionException.class)
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	public void notInCollectionException(NotInCollectionException e, HttpServletResponse res) {
+		if (e.getMessage() == null) {
+			res.setHeader(INFO,
+					"NotInCollectionException");
+		} else {
+			res.setHeader(INFO, e.getMessage());
+		}
+		logger.debug("NotInCollectionException");
+	}
+	
 }

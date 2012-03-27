@@ -12,7 +12,6 @@ import no.niths.application.rest.lists.SubjectList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Student;
 import no.niths.domain.Subject;
