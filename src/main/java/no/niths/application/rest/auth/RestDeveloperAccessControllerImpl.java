@@ -42,9 +42,6 @@ public class RestDeveloperAccessControllerImpl implements
 	@Autowired
 	private AuthenticationService service;
 
-//	@Autowired
-//	private MailSenderService mailService;
-
 	private final static String VIEW_NAME = "developerConfirmation";
 
 	/**
@@ -87,28 +84,29 @@ public class RestDeveloperAccessControllerImpl implements
 	}
 
 	/**
-	 * Enables already registrated developers. Returns a new developer token to
+	 * Enables already registred developers. Returns a new developer token to
 	 * use in all future requests
 	 * 
 	 * How to use: Paste the url to the server +
-	 * /niths/register/enable/<your_token> into your favourite browser
+	 * /niths/register/enable/<your_key> into your favourite browser
 	 * 
-	 * @param developerToken
+	 * @param developerKey
 	 *            the token returned from requestAccess(Developer)
 	 * @return a page with confirmation or error message
 	 */
 	@Override
-	@RequestMapping(value = { "/enable/{developerToken:.+}" }, method = RequestMethod.GET)
-	public ModelAndView enableDeveloper(@PathVariable String developerToken) {
-		logger.debug("Developer want to be enabled with developer token: "
-				+ developerToken);
+	@RequestMapping(value = { "/enable/{developerKey:.+}" }, method = RequestMethod.GET)
+	public ModelAndView enableDeveloper(@PathVariable String developerKey) {
+		logger.debug("Developer wants to be enabled with developer token: "
+				+ developerKey);
 		ModelAndView view = new ModelAndView(VIEW_NAME);
 		try {
-			Developer dev = service.enableDeveloper(developerToken);
+			
+			Developer dev = service.enableDeveloper(developerKey);
+			
 			// Returns a view with the new token
 			view.addObject("token", dev.getDeveloperToken());
-			
-			//TODO: send developer mail
+			view.addObject("key", dev.getDeveloperKey());
 
 		} catch (AuthenticationException e) {
 			view.addObject("error", e.getMessage());
@@ -126,6 +124,7 @@ public class RestDeveloperAccessControllerImpl implements
 	 * @return an application token to use in furture requests
 	 * 
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	@RequestMapping(value = "/addApp/{developerToken:.+}", method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -138,7 +137,7 @@ public class RestDeveloperAccessControllerImpl implements
 		Long devId = service.authenticateDeveloperToken(developerToken);
 		logger.debug("Adding new app to developer");
 		token = service.registerApplication(app, devId);
-		token.setMessage("Use this in the header for futurer requests");
+		token.setMessage("Use this in the header for future requests");
 		
 		return token;
 	}

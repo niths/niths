@@ -43,8 +43,8 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 			Long devId = null; // ID of the developer holding the request
 			Long appId = null; // ID of the app holding the request
 			
-			if (authInfo.getDeveloperToken() == null) {
-				logger.warn("No developer token found in authentication");
+			if (authInfo.getDeveloperToken() == null || authInfo.getDeveloperKey() == null) {
+				logger.warn("No developer token or developer key found in authentication");
 				throw new UnvalidTokenException("No developer token found");
 
 			} else { // Proceed to verify the developer token
@@ -55,11 +55,11 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 				}
 				logger.debug("Authentication provider found developer-token: "
 						+ authInfo.getDeveloperToken());
-				
-				devId = userDetailService
-						.loadDeveloperIdFromDeveloperToken(authInfo
-								.getDeveloperToken());
 
+				devId = userDetailService.loadDeveloperIdFromDeveloperKey(
+						authInfo.getDeveloperKey(), authInfo.getDeveloperToken()
+						);	
+				
 				logger.debug("Authentication provider found Application-token: "
 						+ authInfo.getAppToken());
 				

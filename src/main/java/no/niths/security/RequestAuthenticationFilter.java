@@ -61,15 +61,18 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					new RequestHolderDetails());
 
 			// Get the authorization headers
-			String developerHeader = req.getHeader("Developer-token");
-			String appHeader = req.getHeader("Application-token");
+			String developerKey = req.getHeader("Developer-key");
+			String developerToken = req.getHeader("Developer-token");
+			String applicationToken = req.getHeader("Application-token");
 
-			if (developerHeader != null && appHeader != null) {
-				logger.debug("Developer header found: " + developerHeader);
-				logger.debug("Application header found: " + appHeader);
+			if (developerKey != null && developerToken != null && applicationToken != null) {
+				logger.debug("Developer key found: " + developerKey);
+				logger.debug("Developer header found: " + developerToken);
+				logger.debug("Application header found: " + applicationToken);
 				
-				authInfo.setDeveloperToken(developerHeader);
-				authInfo.setAppToken(appHeader);
+				authInfo.setDeveloperKey(developerKey);
+				authInfo.setDeveloperToken(developerToken);
+				authInfo.setAppToken(applicationToken);
 
 				String sessionHeader = req.getHeader("Session-token");
 				if (sessionHeader != null) {
@@ -96,12 +99,13 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 							authResult);
 				} catch (AuthenticationException ae) {
 
-					logger.debug("Authentication failed for developer: " + developerHeader);
+					logger.debug("Authentication failed for developer with key: " + developerKey);
+					logger.debug("Authentication failed for developer with token: " + developerToken);
 					
 					if (sessionHeader != null) {
 						logger.debug("Authentication failed for session: "+ sessionHeader);
 					}
-					if(appHeader != null){
+					if(applicationToken != null){
 						logger.debug("Authentication failed for application: "+ sessionHeader);
 					}
 					
@@ -113,7 +117,7 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 				
 				
 			}else{
-				logger.debug("Could not find both a developer header and an application header, authentication process ends...");
+				logger.debug("Could not find required headers(Developer/Application), authentication process ends...");
 			}
 		}
 		

@@ -23,8 +23,16 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Email;
-
+import org.jasypt.hibernate4.type.EncryptedStringType;
+@TypeDef(name = "encryptedString" ,
+typeClass = EncryptedStringType.class,
+parameters = {
+	@Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
+})
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.DEVELOPERS)
@@ -54,9 +62,14 @@ public class Developer implements Domain {
 	@JsonIgnore
 	@XmlTransient
 	@Column(name = "developer_token")
+	@Type(type="encryptedString")
 	private String developerToken;
-
-	// @OneToMany(mappedBy = "developer", targetEntity=Application.class)
+	
+	@JsonIgnore
+	@XmlTransient
+	@Column(name = "developer_key")
+	private String developerKey;
+	
 	@Cascade(CascadeType.ALL)
 	@OneToMany
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
@@ -140,6 +153,16 @@ public class Developer implements Domain {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+
+	public String getDeveloperKey() {
+		return developerKey;
+	}
+
+
+	public void setDeveloperKey(String developerKey) {
+		this.developerKey = developerKey;
 	}
 
 }
