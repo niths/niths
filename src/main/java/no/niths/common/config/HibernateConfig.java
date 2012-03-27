@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,6 +50,9 @@ public class HibernateConfig{
 
     @Value("${" + SHOW_SQL + "}")
     private Boolean showSQL;
+    
+    @Value("${jasypt.password}")
+    private String jasyptPassword;
 
     final Properties additionlProperties(){
         Properties props = new Properties();
@@ -91,4 +96,23 @@ public class HibernateConfig{
    public PersistenceExceptionTranslator exceptionTranslator() {
 	   return new HibernateExceptionTranslator();
    }
+   
+   @Bean
+   public PooledPBEStringEncryptor strongEncryptor() {
+	   PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+	   encryptor.setAlgorithm("PBEWithMD5AndDES");
+	   encryptor.setPassword(jasyptPassword);
+	   encryptor.setPoolSize(5);
+	   
+	   return encryptor;
+   }
+   
+   @Bean
+   public HibernatePBEStringEncryptor hibernateStringEncryptor(){
+	   HibernatePBEStringEncryptor encryptor = new HibernatePBEStringEncryptor();
+	   encryptor.setRegisteredName("strongHibernateStringEncryptor");
+	   encryptor.setEncryptor(strongEncryptor());
+	   return encryptor;
+   }
+   
 }

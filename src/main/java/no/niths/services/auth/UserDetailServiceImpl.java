@@ -4,6 +4,7 @@ import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.UserDetailService;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserDetailServiceImpl implements UserDetailService {
+	
+	Logger logger = org.slf4j.LoggerFactory
+			.getLogger(UserDetailServiceImpl.class);
 
 	@Autowired
 	private AuthenticationService authService;
@@ -64,6 +68,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 	 * 
 	 */
 	@Override
+	@Deprecated
 	public Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException{
 		//TEST MODE:
 //		return new Long(1);
@@ -72,6 +77,16 @@ public class UserDetailServiceImpl implements UserDetailService {
 		if(id == null){
 			throw new UsernameNotFoundException("Could not find a developer with that developer token");
 		}
+		return id;
+	}
+	
+	@Override
+	public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
+		Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
+		if(id == null){
+			throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
+		}
+		logger.debug("Found developer in userdetailservice");
 		return id;
 	}
 	

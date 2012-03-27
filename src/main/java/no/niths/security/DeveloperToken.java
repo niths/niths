@@ -19,6 +19,7 @@ public class DeveloperToken implements Serializable{
 	private static final long serialVersionUID = 1415495457020406132L;
 	private String token;
 	private String message;
+	public String key;
 	
 	public DeveloperToken(){
 		this("Not valid", "Email sendt with instuctions, check your inbox");
@@ -38,6 +39,14 @@ public class DeveloperToken implements Serializable{
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getMessage() {

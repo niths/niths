@@ -28,6 +28,8 @@
 					<br />
 					<p>In every request from any of your apps, place:</p>
 					<br />
+					<p><b>Developer-key: <c:out value="${key}" /></b></p>
+					<br />
 					<p><b>Developer-token: <c:out value="${token}" /></b></p>
 					<br />
 					<p>in the header.</p>

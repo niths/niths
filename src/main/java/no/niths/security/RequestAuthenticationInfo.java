@@ -17,6 +17,7 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
     private String developerToken;
     private String sessionToken;
     private String appToken;
+    private String developerKey;
 
     public RequestAuthenticationInfo(RequestHolderDetails principal) {
         super(null);
@@ -82,5 +83,13 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
 
 	public void setAppToken(String appToken) {
 		this.appToken = appToken;
+	}
+
+	public String getDeveloperKey() {
+		return developerKey;
+	}
+
+	public void setDeveloperKey(String developerKey) {
+		this.developerKey = developerKey;
 	}
 }

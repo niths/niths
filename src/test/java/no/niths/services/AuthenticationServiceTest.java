@@ -6,13 +6,17 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
+import no.niths.domain.Developer;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
+import no.niths.security.DeveloperToken;
 import no.niths.security.RequestHolderDetails;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
+import no.niths.services.interfaces.DeveloperService;
+import no.niths.services.interfaces.MailSenderService;
 import no.niths.services.interfaces.StudentService;
 
 import org.junit.Test;
@@ -30,6 +34,12 @@ public class AuthenticationServiceTest {
 	
 	@Mock
 	private GoogleAuthenticationService authService;
+	
+	@Mock
+	private DeveloperService devService;
+	
+	@Mock
+	private MailSenderService mailService;
 	
 	@Mock
 	private TokenGeneratorService tokenService;
@@ -102,5 +112,19 @@ public class AuthenticationServiceTest {
 		assertEquals(1, u.getAuthorities().size());
 		a = u.getAuthorities().iterator().next();
 		assertEquals(SecurityConstants.R_STUDENT, a.getAuthority());
+	}
+	
+	/**
+	 * Register developer
+	 */
+	@Test
+	public void testRegisterDeveloper(){
+		Developer dev = new Developer("hei");
+		dev.setEmail("mail@nith.no");
+		when(devService.create(dev)).thenReturn(new Long(1));
+		when(mailService.sendDeveloperRegistratedConfirmation(dev)).thenReturn(true);
+		
+		DeveloperToken token = service.registerDeveloper(dev);
+		assertEquals(false, token == null);
 	}
 }

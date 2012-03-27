@@ -81,7 +81,9 @@ public interface AuthenticationService {
 	 * 
 	 * @param devToken token to verify
 	 * @return the developer id
+	 * @deprecated use authenticateDeveloperToken(String devToken, String devKey)
 	 */
+	@Deprecated
 	Long authenticateDeveloperToken(String devToken);
 	
 	/**
@@ -95,12 +97,25 @@ public interface AuthenticationService {
 	ApplicationToken registerApplication(Application app, Long devId);
 	
 	/**
-	 * Verifies the format of the application token and returns the app id
-	 * Returns null if no app is found or app is not enabled
+	 * Verifies the format and fetches matching developer from DB
 	 * 
-	 * @param appToken string verify
-	 * @return id of the belonging app
-	 * @throws AuthenticationException
+	 * @param devToken token to verify
+	 * @return the developer id
+	 * 
 	 */
+	
 	Long authenticateApplicationToken(String appToken) throws AuthenticationException;
+
+	/**
+	 * Authenticates the developer token. Verifies the format of the token and 
+	 * and fetches matching student from DB based on the key. Then checks if 
+	 * developer token is correct
+	 * 
+	 * @param devToken the developer token
+	 * @param devKey the developer key
+	 * @throws AuthenticationException if no matching student is found
+	 * 
+	 */
+	Long authenticateDeveloperToken(String devToken, String devKey)
+			throws AuthenticationException;
 }

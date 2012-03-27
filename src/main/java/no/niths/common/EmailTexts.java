@@ -6,10 +6,12 @@ import no.niths.domain.Developer;
 public final class EmailTexts {
 	
 	public static String getDeveloperConfirmationBody(Developer dev){
-		String linkUrl = AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperToken();
+		String linkUrl = AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperKey();
 		String body = "<h2>Congratulations, you are almost there!</h2>"+
 						"<br /><br />" +
-						"Your developer token is: " + dev.getDeveloperToken() +
+						//"Your developer token is: " + dev.getDeveloperToken() +
+						//"<br /><br />" +
+						"Your developer key is: " + dev.getDeveloperKey() +
 						"<br /><br />" +
 						"<a href='"+ linkUrl +"'>Click to enable!</a>" +
 						"<br /><br />" +
@@ -22,6 +24,8 @@ public final class EmailTexts {
 		String body = "<h2>Congratulations, you are now enabled!</h2>"+
 				"<br /><br />" +
 				"Your new developer token is: " + dev.getDeveloperToken() +
+				"<br /><br />" +
+				"Your new developer key is: " + dev.getDeveloperKey() +
 				"<br /><br />" +
 				"Use this in all future requests." +
 				"<br /><br />";

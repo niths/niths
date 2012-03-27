@@ -14,6 +14,7 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 	}
 	
 	@Override
+	@Deprecated
 	public Developer getByDeveloperToken(String token, boolean isEnabled) {
 		String sql = "from " + Developer.class.getSimpleName() + " d " +
 						"where d.developerToken = :token";
@@ -22,6 +23,23 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 		}
 		return (Developer) getSession().getCurrentSession().createQuery(sql)
 										.setString("token", token).uniqueResult();
+		
+	}
+	
+	/**
+	 * Returns the developer with matching key, 
+	 * or null if no developer is found
+	 * 
+	 * @param key the developer key
+	 * @return a developer or null
+	 */
+	@Override
+	public Developer getByDeveloperKey(String key) {
+		String sql = "from " + Developer.class.getSimpleName() + " d " +
+				"where d.developerKey = :token";
+		
+		return (Developer) getSession().getCurrentSession().createQuery(sql)
+				.setString("token", key).uniqueResult();
 		
 	}
 }

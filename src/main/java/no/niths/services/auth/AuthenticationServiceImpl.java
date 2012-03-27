@@ -25,6 +25,7 @@ import no.niths.services.interfaces.DeveloperService;
 import no.niths.services.interfaces.MailSenderService;
 import no.niths.services.interfaces.StudentService;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,28 +87,26 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 */
 	@Override
 	public SessionToken authenticateAtGoogle(String googleToken) throws UnvalidEmailException{
-		SessionToken sessionToken = new SessionToken(); // Wrapper class
-		// Authenticate user from Google, and then check to see if the email is
-		// valid
-		String userEmail = googleService.authenticateAndGetEmail(googleToken);
-//		
-		//@Test
-		//String userEmail = "bendikr@nith.no";
 		
-		isUserValid(userEmail);
+		// Authenticate user from Google, 
+		// and then check to see if the email is valid
+		String userEmail = googleService.authenticateAndGetEmail(googleToken);
+		isUserValid(userEmail); //Verify email
+		
+		//Get the matching student
+		//If no student exists, we persist
 		Student authenticatedStudent = getStudent(userEmail);
 		// Generate "session token" that the app will use from now on
 		String generatedToken = tokenService.generateToken(authenticatedStudent.getId());
-		
-//		String generatedToken = generateToken(authenticatedStudent.getId());
-		// Add the generated token to the student
+		// Add the generated token to the student,
+		// and update last login time
 		authenticatedStudent.setSessionToken(generatedToken);
-		// Update last login time
 		authenticatedStudent.setLastLogon(getCurrentTime());
-
 		studentService.update(authenticatedStudent);
+		
+		// Create a wrapper to give to the request holder
+		SessionToken sessionToken = new SessionToken(); 
 		sessionToken.setToken(generatedToken);
-
 		return sessionToken;
 	}
 
@@ -130,7 +129,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public RequestHolderDetails authenticateSessionToken(String sessionToken)
 			throws AuthenticationException {
-		logger.debug("Will autheticate: " + sessionToken);
+		logger.debug("Will authenticate session-token: " + sessionToken);
 
 		// First check the format of the token		
 		tokenService.verifyTokenFormat(sessionToken, true);
@@ -149,18 +148,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		verifyLastLogonTime(wantAccess.getLastLogon());
 
-		/**
-		 * The information added here is used in the @Security annotations
-		 * 
-		 * This enables us to fine grain the security checks like this:¨
-		 * <pre>
-		 * {@code
-		 * @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId== #id)
-		 * 		public void methodName(Long id){...}
-		 * principal = authenticatedUser, #id = methodparam(must match the name!)
-		 * }
-		 * </pre>
-		 */
+		// The information added here is used in the @Security annotations
 		RequestHolderDetails authenticatedUser = new RequestHolderDetails(); // ROLE_ANONYMOUS --> Wrapper
 		authenticatedUser.setUserName(wantAccess.getEmail());
 		authenticatedUser.setStudentId(wantAccess.getId());
@@ -193,21 +181,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public DeveloperToken registerDeveloper(Developer dev) {
 		//Verify developer email
 		isEmailValid(dev.getEmail());
-		//Passed checks! We persist the dev to get the id
-		developerService.create(dev);
-		logger.debug("Developer created! id: " + dev.getId());
 		
-		//We then generate a dev token and update the dev
+		//Passed checks! Generate a key and persist the developer
+		String developerKey = getDeveloperKey();
+		dev.setDeveloperKey(developerKey);
+		developerService.create(dev);
+
+		logger.debug("Developer[" + dev.getId() + "] has been created and given key: " + dev.getDeveloperKey());
+		
+		//Create response to the request holder
 		DeveloperToken devToken = new DeveloperToken();
-		devToken.setToken(tokenService.generateToken(dev.getId()));
-		dev.setDeveloperToken(devToken.getToken());
-		developerService.update(dev);
-		logger.debug("Developer[" + dev.getId() + "] has been given token: " + devToken.getToken());
+		devToken.setKey(developerKey);
+		
+		logger.debug("Developer[" + dev.getId() + "] has been given key: " + devToken.getKey());
 		
 		if (!mailService.sendDeveloperRegistratedConfirmation(dev)) {
 			devToken.setMessage("Failed to send an email, but now worries! \n"
 					+ "To enable your new developer account paste this into a browser\n" +
-					AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + devToken.getToken());
+					AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + devToken.getKey());
 		}
 		
 		return devToken;
@@ -243,8 +234,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * 
 	 * @param devToken token to verify
 	 * @return the developer id
+	 * @deprecated use authenticateDeveloperToken(String devToken, String devKey)
 	 */
 	@Override
+	@Deprecated
 	public Long authenticateDeveloperToken(String devToken) throws AuthenticationException{
 		tokenService.verifyTokenFormat(devToken, false);
 		Developer dev = developerService.getDeveloperByDeveloperToken(devToken, true);
@@ -253,6 +246,36 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 
 		return dev.getId();
+	}
+	
+	/**
+	 * Authenticates the developer token. Verifies the format of the token and 
+	 * and fetches matching student from DB based on the key. Then checks if 
+	 * developer token is correct
+	 * 
+	 * @param devToken the developer token
+	 * @param devKey the developer key
+	 * @throws AuthenticationException if no matching student is found
+	 * 
+	 */
+	@Override
+	public Long authenticateDeveloperToken(String devToken, String devKey) throws AuthenticationException{
+		
+		tokenService.verifyTokenFormat(devToken, false);
+		Developer dev = developerService.getDeveloperByDeveloperKey(devKey);
+		
+		if(dev == null){
+			throw new UnvalidTokenException("No developer found for token/key");
+		}
+		if(dev.getEnabled() == null){
+			throw new UnvalidTokenException("Developer is not enabled");
+		}
+		if(dev.getEnabled() == false || !dev.getDeveloperToken().equals(devToken)){
+			throw new UnvalidTokenException("Not a correct token or dev is not enabled");
+		}
+			
+		return dev.getId();
+		
 	}
 	
 	/**
@@ -282,17 +305,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @param developerToken string return from registerDeveloper(Dev)
 	 * @return the developer object, null if not found
 	 */
-	public Developer enableDeveloper(String developerToken) throws AuthenticationException{
-		logger.debug("Trying to enable developer with token: " + developerToken);
-		Developer dev = developerService.getDeveloperByDeveloperToken(developerToken, false);
+	public Developer enableDeveloper(String developerKey) throws AuthenticationException{
+		logger.debug("Trying to enable developer with token: " + developerKey);
+		Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
 		if(dev == null){
-			throw new UnvalidTokenException("No developer found with that token");
+			throw new UnvalidTokenException("No developer found with that key");
 		}
-		//Generate a new token
+		
+		//Generate a personal token and set developer to enabled
 		dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
 		dev.setEnabled(true);
 		developerService.update(dev);
 		
+		//Send confirmation email
 		mailService.sendDeveloperEnabledConfirmation(dev);
 		
 		return dev;
@@ -349,6 +374,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Email valid: " + email);
 	}
 	
+	/**
+	 * Return true if the email is valid
+	 * @param email string to check
+	 */
 	private void isEmailValid(String email){
 		EmailValidator validator = EmailValidator.getInstance();
 		if(!validator.isValid(email)){
@@ -356,9 +385,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 	}
 
+	
+	/**
+	 * Generates a developer key
+	 * @return string
+	 */
+	private String getDeveloperKey(){
+		boolean found = false;
+		String key = "";
+		while(!found){
+			key = RandomStringUtils.randomAlphanumeric(10);
+			if(developerService.getDeveloperByDeveloperKey(key) == null){
+				found = true;
+			}
+		}
+		return key;
+	}
+
 	//Private helper
 	private long getCurrentTime() {
 		return new GregorianCalendar().getTimeInMillis();
 	}
-
 }

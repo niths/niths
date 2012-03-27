@@ -30,8 +30,17 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer> impl
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Deprecated
 	public Developer getDeveloperByDeveloperToken(String token, boolean isEnabled) {
 		return repo.getByDeveloperToken(token, isEnabled);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Developer getDeveloperByDeveloperKey(String key) {
+		return repo.getByDeveloperKey(key);
 	}
 
 	/**
