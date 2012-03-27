@@ -30,7 +30,8 @@ public final class AppConstants {
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
     public static final String CALENDAR_FORMAT = "dd/MM/yyyy-HH:mm";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
-    public static final String NITHS_BASE_DOMAIN = "http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/";
+//    public static final String NITHS_BASE_DOMAIN = "http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/";
+    public static final String NITHS_BASE_DOMAIN = "http://localhost:8080/niths/";
     public static final String NITHS_EMAIL = "niths@nith.no";
     
     

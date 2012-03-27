@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.common.SecurityConstants;
@@ -33,6 +34,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		if (!roles.isEmpty() && roles.size() == 1) {
 			logger.debug("Role given to created student: "
 					+ roles.get(0).getRoleName());
+			student.setRoles(new ArrayList<Role>());
 			student.getRoles().add(roles.get(0));
 		}
 		return repo.create(student);

@@ -61,6 +61,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AbstractRESTControllerImpl.class);
+	private static final String ERROR = "Error";
 
 	/**
 	 * Persists the domain
@@ -80,8 +81,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
 	public void create(@RequestBody T domain) {
-		logger.debug(domain.toString());
-		getService().create(domain);
+			logger.debug(domain +"");
+			getService().create(domain);
 	}
 
 	/**
@@ -103,7 +104,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * 		return super.getById(id);
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 */
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -280,7 +281,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void constraintViolation(ConstraintViolationException cve,
 			HttpServletResponse res) {
 		logger.debug("hibernate.constraintvia");
-		res.setHeader("Error", cve.getMessage().toString());
+		res.setHeader(ERROR, cve.getMessage().toString());
 	}
 
 	/**
@@ -290,12 +291,12 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * committee
 	 */
 	@ExceptionHandler(javax.validation.ConstraintViolationException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT)
+	@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 	public void constraintViolation2(
 			javax.validation.ConstraintViolationException cve,
 			HttpServletResponse res) {
 		logger.debug("javax.constraint");
-		res.setHeader("Error", cve.getMessage().toString());
+		res.setHeader(ERROR, cve.getMessage().toString());
 	}
 
 	/**
@@ -309,7 +310,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void dataIntegrity(DataIntegrityViolationException e,
 			HttpServletResponse res) {
 		logger.debug("data");
-		res.setHeader("Error", e.getMessage().toString());
+		res.setHeader(ERROR, e.getMessage().toString());
 	}
 
 	/**
@@ -320,7 +321,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, it is already a member of the collection")
 	public void notUniqueObjectEx(NonUniqueObjectException e,
 			HttpServletResponse res) {
-		res.setHeader("Error", e.getMessage().toString());
+		res.setHeader(ERROR, e.getMessage().toString());
 	}
 
 	/**
@@ -331,7 +332,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 	public void notValidParams(java.lang.IllegalArgumentException e,
 			HttpServletResponse res) {
-		res.setHeader("Error", e.getMessage().toString());
+		res.setHeader(ERROR, e.getMessage().toString());
 	}
 
 	/**
@@ -343,7 +344,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void objectNotFound(ObjectNotFoundException e,
 			HttpServletResponse res) {
 		logger.debug("Object not found AbstractRestController");
-		res.setHeader("Error", e.getMessage().toString());
+		res.setHeader(ERROR, e.getMessage().toString());
 	}
 
 	/**
@@ -353,7 +354,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 	public void unvalidEmailException(UnvalidEmailException e,
 			HttpServletResponse res) {
-		res.setHeader("Error", e.getMessage().toString());
+		res.setHeader(ERROR, e.getMessage().toString());
 	}
 
 	/**
@@ -364,7 +365,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	public void accessDenied(AccessDeniedException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader("Error", "Access denied");
+			res.setHeader(ERROR, "Access denied");
 		}
 		logger.debug("Access denied cathed in AbstractRestController");
 	}
@@ -376,7 +377,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 	public void invalidSearchParam(QueryParameterException e,
 			HttpServletResponse res) {
-		res.setHeader("Error", "Invalid Search param ex: hello&&hei ");
+		res.setHeader(ERROR, "Invalid Search param ex: hello&&hei ");
 		logger.debug("Invalid search param");
 	}
 
@@ -385,10 +386,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	public void httpMessageNotReadableException(
 			HttpMessageNotReadableException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader("Error",
+			res.setHeader(ERROR,
 					"HttpMessageNotReadableException Cannot read input");
 		} else {
-			res.setHeader("Error", e.getMessage());
+			res.setHeader(ERROR, e.getMessage());
 
 		}
 		logger.debug("Invalid search param");
@@ -396,6 +397,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ExceptionHandler(EOFException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void endOfFile(EOFException e, HttpServletResponse res) {
-		res.setHeader("Error", "Wrong input");
+		res.setHeader(ERROR, "Wrong input");
 	}
 }
