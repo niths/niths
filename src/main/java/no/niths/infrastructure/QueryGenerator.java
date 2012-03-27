@@ -7,6 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+/**
+ * 
+ * This is a dynamic query generator that creates where 
+ * queries based on provided column name and given criteria
+ * 
+ *
+ * @param <T>
+ */
 public class QueryGenerator<T> {
 
 	private final String SPLITT = "&";
@@ -20,10 +28,17 @@ public class QueryGenerator<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> whereQuery(String criteria, String columnName,
 			Session session) {
-		return queryBuilder(session, splittingCriteria(criteria), columnName).list();
+		return criteriaBuilder(session, splittingCriteria(criteria), columnName).list();
 	}
 
-	private Criteria queryBuilder(Session session, String[] conditionBuilder,
+	/**
+	 * Builds the criteria
+	 * @param session
+	 * @param conditionBuilder
+	 * @param columnName
+	 * @return
+	 */
+	private Criteria criteriaBuilder(Session session, String[] conditionBuilder,
 			String columnName) {
 		
 		Criteria crit = session.createCriteria(persistentClass);
@@ -35,12 +50,15 @@ public class QueryGenerator<T> {
 		return crit;
 	}
 
+	/**
+	 * Splits the given criteria into a String list
+	 * @param criteria
+	 * @return
+	 */
 	private String[] splittingCriteria(String criteria) {
 		String[] conditionBuilder;
 
-		if (criteria.length() > 0 && (SPLITT.charAt(0) == (criteria.charAt(0)))) {
-			conditionBuilder = new String[] { criteria };
-		} else if (!criteria.contains(SPLITT)) {
+		if (!criteria.contains(SPLITT)) {
 			conditionBuilder = new String[] { criteria };
 		} else {
 			conditionBuilder = criteria.split(SPLITT);
@@ -48,10 +66,18 @@ public class QueryGenerator<T> {
 		return conditionBuilder;
 	}
 
+	/**
+	 * Gets the provided persistence class
+	 * @return
+	 */
 	public Class<T> getPersistentClass() {
 		return persistentClass;
 	}
-
+	
+	/**
+	 * Sets the provided persistence class
+	 * @param persistentClass
+	 */
 	public void setPersistentClass(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
 	}
