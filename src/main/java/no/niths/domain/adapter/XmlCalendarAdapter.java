@@ -22,7 +22,6 @@ public class XmlCalendarAdapter extends XmlAdapter<String, Calendar> {
 	@Override
 	public Calendar unmarshal(String date) throws ParseException {
 		try {
-
 			Calendar calendar = new GregorianCalendar();
 			calendar.setTime(df.parse(date));
 			return calendar;

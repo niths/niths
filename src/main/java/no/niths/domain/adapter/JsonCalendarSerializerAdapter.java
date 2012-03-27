@@ -13,10 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class JsonCalendarAdapter extends JsonSerializer<Calendar> {
+public class JsonCalendarSerializerAdapter extends JsonSerializer<Calendar> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(JsonCalendarAdapter.class);
+			.getLogger(JsonCalendarSerializerAdapter.class);
 
 	private DateFormat df = new SimpleDateFormat(AppConstants.CALENDAR_FORMAT);
 
@@ -24,10 +24,10 @@ public class JsonCalendarAdapter extends JsonSerializer<Calendar> {
 	public void serialize(Calendar calendar, JsonGenerator gen,
 			SerializerProvider provider) {
 		try {
-
 			gen.writeString(df.format(calendar.getTime()));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 }

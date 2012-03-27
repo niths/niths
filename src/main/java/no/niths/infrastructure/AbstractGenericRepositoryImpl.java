@@ -5,15 +5,18 @@ import java.util.List;
 import no.niths.domain.Domain;
 import no.niths.infrastructure.interfaces.GenericRepository;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 
- * 
+ * Abstract generic repository class that generates
+ * all the basic CRUD actions for repository classes to 
+ * extends 
  * @param <T>
  */
 public abstract class AbstractGenericRepositoryImpl<T extends Domain>
@@ -22,6 +25,11 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	private Class<T> persistentClass;
 	private Domain domain;
 
+	/**
+	 * Constructor takes the persistence class and the persistence domain
+	 * @param persistentClass
+	 * @param domain
+	 */
 	public AbstractGenericRepositoryImpl(Class<T> persistentClass, Domain domain) {
 		this.persistentClass = persistentClass;
 		this.domain = domain;
@@ -30,6 +38,9 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	@Autowired
 	private SessionFactory session;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Transactional(readOnly = false)
 	public Long create(T domain) {
 		return (Long) session.getCurrentSession().save(domain);
@@ -40,14 +51,12 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getAll(T domain) {
-		if (domain == null) {
-			return session.getCurrentSession()
-					.createQuery("from " + persistentClass.getSimpleName())
-					.list();
-		} else {
-			return session.getCurrentSession().createCriteria(persistentClass)
-					.add(Example.create(domain)).list();
+		Criteria criteria = session.getCurrentSession()
+				.createCriteria(persistentClass);
+		if (domain != null) {
+			criteria.add(Example.create(domain).enableLike(MatchMode.ANYWHERE));
 		}
+		return criteria.list();
 	}
 
 	/**
@@ -90,7 +99,6 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 
 	/**
 	 * Returns the given session
-	 * 
 	 * @return
 	 */
 	public SessionFactory getSession() {

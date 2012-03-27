@@ -31,13 +31,16 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.adapter.JsonDateAdapter;
+import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
+import no.niths.domain.adapter.JsonDateSerializerAdapter;
+import no.niths.domain.adapter.JsonDateDeserializerAdapter;
 import no.niths.domain.adapter.XmlCharAdapter;
 import no.niths.domain.adapter.XmlDateAdapter;
 import no.niths.domain.constraints.StudentGender;
 import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -228,11 +231,12 @@ public class Student implements Domain {
 		this.id = id;
 	}
 
-	@JsonSerialize(using = JsonDateAdapter.class)
+	@JsonSerialize(using = JsonDateSerializerAdapter.class)
 	public Date getBirthday() {
 		return birthday;
 	}
 
+	@JsonDeserialize(using=JsonDateDeserializerAdapter.class)
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}

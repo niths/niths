@@ -2,9 +2,7 @@ package no.niths.common;
 
 import java.util.List;
 /**
- * 
- * 
- *
+ * A interface for Generic CRUD actions
  * @param <T>
  */
 public interface GenericCRUDActions<T> {

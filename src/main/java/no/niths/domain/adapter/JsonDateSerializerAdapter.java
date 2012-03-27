@@ -14,10 +14,10 @@ import org.codehaus.jackson.map.SerializerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonDateAdapter extends JsonSerializer<Date>{
+public class JsonDateSerializerAdapter extends JsonSerializer<Date>{
 	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);
 	private static final Logger logger = LoggerFactory
-			.getLogger(JsonDateAdapter.class);
+			.getLogger(JsonDateSerializerAdapter.class);
 	@Override
 	public void serialize(Date date, JsonGenerator gen,
 			SerializerProvider provider)

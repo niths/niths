@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.adapter.JsonCalendarAdapter;
+import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Room;
 
@@ -135,7 +135,7 @@ public class Exam implements Domain {
         this.allowedAid = allowedAid;
     }
 
-    @JsonSerialize(using = JsonCalendarAdapter.class)
+    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
     public Calendar getStartTime() {
         return startTime;
     }
@@ -144,7 +144,7 @@ public class Exam implements Domain {
         this.startTime = startTime;
     }
 
-    @JsonSerialize(using = JsonCalendarAdapter.class)
+    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
     public Calendar getEndTime() {
         return endTime;
     }

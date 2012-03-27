@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.adapter.JsonCalendarAdapter;
+import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -108,7 +108,7 @@ public class APIEvent implements Domain{
 		return String.format("[%s][%s][%s][%s]", id, eventTime, title, description);
 	}
 
-	@JsonSerialize(using = JsonCalendarAdapter.class)
+	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
 	public Calendar getEventTime() {
 		return eventTime;
 	}

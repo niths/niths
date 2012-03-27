@@ -28,11 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.adapter.JsonCalendarAdapter;
+import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
+import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -157,20 +159,22 @@ public class Event implements Domain {
 		return String.format("[%s][%s][%s]", id, name, description);
 	}
 
-	@JsonSerialize(using = JsonCalendarAdapter.class)
+	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
 	public Calendar getEndTime() {
 		return endTime;
 	}
 
+	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
 	public void setEndTime(Calendar endTime) {
 		this.endTime = endTime;
 	}
 
-	@JsonSerialize(using = JsonCalendarAdapter.class)
+	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
 	public Calendar getStartTime() {
 		return startTime;
 	}
 
+	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
