@@ -2,16 +2,14 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 public class QueryGenerator<T> {
 
 	private final String SPLITT = "&";
-	private final String PRE = "e";
-	private final String PREFIX = PRE + ".";
-	private final String FROM = "from ";
-	private final String WHERE = " where ";
 
 	private Class<T> persistentClass;
 
@@ -22,39 +20,19 @@ public class QueryGenerator<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> whereQuery(String criteria, String columnName,
 			Session session) {
-
-		String[] conditionBuilder = splittingCriteria(criteria);
-		String condition = condition(columnName, conditionBuilder);
-		Query query = queryBuilder(session, conditionBuilder, condition);
-		return query.list();
+		return queryBuilder(session, splittingCriteria(criteria), columnName).list();
 	}
 
-	private Query queryBuilder(Session session, String[] conditionBuilder,
-			String condition) {
-		Query query = null;
-
-		query = session.createQuery(FROM + persistentClass.getSimpleName()
-				+ " " + PRE + WHERE + condition);
-
+	private Criteria queryBuilder(Session session, String[] conditionBuilder,
+			String columnName) {
+		
+		Criteria crit = session.createCriteria(persistentClass);
+		
 		for (int i = 0; i < conditionBuilder.length; i++) {
-			query.setParameter("a" + i, "%" + conditionBuilder[i] + "%");
+			crit.add(Restrictions.like(columnName, conditionBuilder[i], MatchMode.ANYWHERE));
 		}
-		return query;
-	}
-
-	private String condition(String columnName, String[] conditionBuilder) {
-		StringBuffer buffer = new StringBuffer();
-		for (int i = 0; i < conditionBuilder.length; i++) {
-			if (conditionBuilder[i].length() > 0) {
-				if (conditionBuilder.length - 1 == i) {
-					buffer.append(PREFIX + columnName + " like :a" + i);
-				} else {
-					buffer.append(PREFIX + columnName + " like :a" + i
-							+ " and ");
-				}
-			}
-		}
-		return buffer.toString();
+		
+		return crit;
 	}
 
 	private String[] splittingCriteria(String criteria) {
