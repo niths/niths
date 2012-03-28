@@ -369,11 +369,11 @@ INSERT INTO students_courses VALUES(2, 2);
 INSERT INTO students_courses VALUES(3, 1);
 INSERT INTO students_courses VALUES(4, 3);
 
-INSERT INTO committees_events VALUES(1, 1);
-INSERT INTO committees_events VALUES(1, 2);
-INSERT INTO committees_events VALUES(1, 3);
-INSERT INTO committees_events VALUES(1, 4);
-INSERT INTO committees_events VALUES(2, 5);
+INSERT INTO committees_events(committees_id, events_id) VALUES(1, 1);
+INSERT INTO committees_events(committees_id, events_id) VALUES(1, 2);
+INSERT INTO committees_events(committees_id, events_id) VALUES(1, 3);
+INSERT INTO committees_events(committees_id, events_id) VALUES(1, 4);
+INSERT INTO committees_events(committees_id, events_id) VALUES(2, 5);
 
 INSERT INTO developers(id, name, email) VALUES (1, 'Urtegata', 'urter@mail.com');
 INSERT INTO developers(id, name, email) VALUES (2, 'Knut sine apps', 'knut@mail.com');
