@@ -100,7 +100,7 @@ public class DeveloperControllerImpl extends
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "enable/{developerId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
+	@ResponseStatus(value = HttpStatus.OK, reason = "Developer enabled")
 	public void enableDeveloper(@PathVariable Long developerId){
 		Developer developer = service.getById(developerId);
 		ValidationHelper.isObjectNull(developer, "Developer not found");
