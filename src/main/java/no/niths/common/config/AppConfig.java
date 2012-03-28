@@ -15,7 +15,7 @@ public class AppConfig {
                                WEB_PACKAGE = BASE_PACKAGE +
                                    ".application.web",
                                    
-                               PERSISTENCE_PROPS = "persistence.properties";
+                               PERSISTENCE_PROPS = "application.properties";
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){

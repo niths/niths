@@ -10,7 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 @ComponentScan({ AppConfig.SERVICES_PACKAGE, AppConfig.REST_PACKAGE })
 public class TestAppConfig {
     public static final String PERSISTENCE_PROPS =
-            "test-persistence.properties";
+            "test-application.properties";
     public static final String TRANSACTION_MANAGER = "transactionManager";
 
     @Bean
