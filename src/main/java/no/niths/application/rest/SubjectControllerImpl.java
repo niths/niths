@@ -53,12 +53,13 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value ="addTutor/{subjectId}/{studentId}",
+            value ="add/tutor/{subjectId}/{studentId}",
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor added to subject")
     public void addTutor(@PathVariable Long subjectId, @PathVariable Long studentId) {
         Subject subject = service.getById(subjectId);
         ValidationHelper.isObjectNull(subject, "Subject not found");
+        
         Student student = studentService.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student not found");
         
@@ -76,17 +77,25 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-    		value ="removeTutor/{subjectId}/{studentId}",
+    		value ="remove/tutor/{subjectId}/{studentId}",
     		method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor removed to subject")
     public void removeTutor(@PathVariable Long subjectId, @PathVariable Long studentId) {
     	Subject subject = service.getById(subjectId);
     	ValidationHelper.isObjectNull(subject, "Subject not found");
-    	Student student = studentService.getById(studentId);
-    	ValidationHelper.isObjectNull(student, "Student not found");
     	
-    	if(subject.getTutors().remove(student)){
+    	
+    	boolean isRemoved = false;
+		for (int i = 0; i < subject.getTutors().size(); i++) {
+			if (subject.getTutors().get(i).getId() == studentId) {
+				subject.getTutors().remove(i);
+				isRemoved = true;
+			}
+		}
+    	
+    	if(isRemoved){
     		service.update(subject);    		
+    		logger.debug("Tutor removed from subject " + subject.getName());
     	}else{
     		throw new NotInCollectionException("Student is not a tutor");
     	}
