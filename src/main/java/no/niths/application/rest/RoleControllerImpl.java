@@ -113,6 +113,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 		
 		logger.debug("Added role to student: " + role.getRoleName());
 	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -149,8 +150,6 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 
 		logger.debug("All roles removed from student");
 	}
-	
-	
 	
 	/**
 	 * {@inheritDoc}
