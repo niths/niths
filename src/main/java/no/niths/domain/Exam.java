@@ -1,6 +1,5 @@
 package no.niths.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -80,12 +79,10 @@ public class Exam implements Domain {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Subject subject;
 
-    @JsonIgnore
-    @XmlTransient
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity= Room.class)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "rooms_exams",
             joinColumns = @JoinColumn(name = "exams_id"),
-            inverseJoinColumns = @JoinColumn(name = "rooms_id"))
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Room> rooms = new ArrayList<Room>();
 
@@ -93,6 +90,10 @@ public class Exam implements Domain {
     	this(null,null,null,null,null);
     	setRooms(null);
     	setSubject(null);
+    }
+
+    public Exam(String name){
+        setName(name);
     }
 
     public Exam(String name, String examType, String allowedAid, GregorianCalendar startTime, GregorianCalendar endTime){
