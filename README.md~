@@ -6,7 +6,7 @@
 
 ### Prerequisites
 - Git
-- Tomcat 7
+- Tomcat
 - MySQL Server > 5
 - JDK 1.7
 - Maven
@@ -30,7 +30,3 @@
 ### Build the application
 
 - Finally you can build the application running `mvn clean install` inside the project's root from the command line
-
-### Deploy
-- Place `niths/target/niths.war` in `path/to/tomcat/installation/webapps/niths.war`
-- Restart Tomcat: `service tomcat restart`
