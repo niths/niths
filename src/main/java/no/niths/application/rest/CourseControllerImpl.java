@@ -32,20 +32,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * Controller for course
- *
+ * 
  */
 @Controller
 @RequestMapping(AppConstants.COURSES)
-public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> implements CourseController{
+public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
+		implements CourseController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(CourseControllerImpl.class);
 
 	@Autowired
 	private CourseService courseService;
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -53,7 +55,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	private SubjectService subjectService;
 
 	private CourseList courseList = new CourseList();
-	
+
 	private SubjectList subjectList = new SubjectList();
 
 	/**
@@ -64,14 +66,14 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	@ResponseBody
 	public ArrayList<Course> getAll(Course domain) {
 		courseList = (CourseList) super.getAll(domain);
-    	for (int i = 0; i < courseList.size(); i++){
-    		courseList.get(i).setSubjects(null);
-    		courseList.get(i).setStudents(null);
-    		courseList.get(i).setCourseRepresentatives(null);
-    	}
+		for (int i = 0; i < courseList.size(); i++) {
+			courseList.get(i).setSubjects(null);
+			courseList.get(i).setStudents(null);
+			courseList.get(i).setCourseRepresentatives(null);
+		}
 		return courseList;
 	}
-	
+
 	@Override
 	public Course getById(@PathVariable Long id) {
 		Course course = super.getById(id);
@@ -80,14 +82,14 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 			course.getSubjects().get(i).setRoom(null);
 			course.getSubjects().get(i).setTutors(null);
 		}
-		for (int i = 0; i < course.getCourseRepresentatives().size(); i++){
+		for (int i = 0; i < course.getCourseRepresentatives().size(); i++) {
 			course.getCourseRepresentatives().get(i).setCommittees(null);
 			course.getCourseRepresentatives().get(i).setCourses(null);
-			course.getCourseRepresentatives().get(i).setFeeds(null);	
+			course.getCourseRepresentatives().get(i).setFeeds(null);
 		}
 		return course;
 	}
-	
+
 	/**
 	 * Returns all topics inside a course
 	 * 
@@ -107,52 +109,56 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		ValidationHelper.isListEmpty(subjectList);
 		return subjectList;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
-    @Override
-    @RequestMapping(
-            value ="addRepresentative/{courseId}/{studentId}",
-            method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
-    public void addRepresentative(
-            @PathVariable Long courseId,
-            @PathVariable Long studentId) {
-    	
-    	Course c = courseService.getById(courseId);
-        ValidationHelper.isObjectNull(c, "Course not found");
-        Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student not found");
-        if(c.getCourseRepresentatives().contains(student)){
-        	throw new DuplicateEntryCollectionException("Student already a representative");
-        }
-        c.getCourseRepresentatives().add(student);
-        courseService.update(c);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(
-    		value ="removeRepresentative/{courseId}/{studentId}",
-    		method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
-    public void removeRepresentative(
-    		@PathVariable Long courseId,
-    		@PathVariable Long studentId) {
-    	Course c = courseService.getById(courseId);
-    	ValidationHelper.isObjectNull(c, "Course not found");
-    	Student student = studentService.getById(studentId);
-    	ValidationHelper.isObjectNull(student, "Student not found");
-    	
-    	if(!c.getCourseRepresentatives().remove(student)){
-    		throw new NotInCollectionException("Student not a representative for that class");
-    	}
-    	courseService.update(c);
-    }
-	
+	@Override
+	@RequestMapping(value = "add/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
+	public void addRepresentative(@PathVariable Long courseId,
+			@PathVariable Long studentId) {
+
+		Course c = courseService.getById(courseId);
+		ValidationHelper.isObjectNull(c, "Course not found");
+		Student student = studentService.getById(studentId);
+		ValidationHelper.isObjectNull(student, "Student not found");
+		if (c.getCourseRepresentatives().contains(student)) {
+			throw new DuplicateEntryCollectionException(
+					"Student already a representative");
+		}
+		c.getCourseRepresentatives().add(student);
+		courseService.update(c);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "remove/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
+	public void removeRepresentative(@PathVariable Long courseId,
+			@PathVariable Long studentId) {
+		Course c = courseService.getById(courseId);
+		ValidationHelper.isObjectNull(c, "Course not found");
+
+		boolean isRemoved = false;
+		for (int i = 0; i < c.getCourseRepresentatives().size(); i++) {
+			if (c.getCourseRepresentatives().get(i).getId() == studentId) {
+				c.getCourseRepresentatives().remove(i);
+				isRemoved = true;
+			}
+		}
+
+		if (isRemoved) {
+			courseService.update(c);
+			logger.debug("representive removed");
+		} else {
+			throw new NotInCollectionException(
+					"Student not a representative for that class");
+		}
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -161,6 +167,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	public void create(@RequestBody Course domain) {
 		super.create(domain);
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -178,6 +185,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
 	}
+
 	/**
 	 * Adds a topic to a course
 	 * 
@@ -188,7 +196,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{courseId}/{subjectId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "add/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
 	public void addSubjectToCourse(@PathVariable Long courseId,
 			@PathVariable Long subjectId) {
@@ -203,11 +211,36 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course> imp
 		courseService.update(course);
 	}
 
+
+	@Override
+	@RequestMapping(value = { "remove/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
+	public void reomveSubjectToCourse(@PathVariable Long courseId,@PathVariable Long subjectId) {
+		Course course = courseService.getById(courseId);
+		ValidationHelper.isObjectNull(course, "Course not found");
+		
+		boolean isRemoved = false;
+		for (int i = 0; i < course.getSubjects().size(); i++) {
+			if (course.getSubjects().get(i).getId() == subjectId) {
+				course.getCourseRepresentatives().remove(i);
+				isRemoved = true;
+			}
+		}
+
+		if (isRemoved) {
+			courseService.update(course);
+			logger.debug("subject removed");
+		} else {
+			throw new NotInCollectionException(
+					"Subject is not in this course");
+		}
+	}
+	
 	@Override
 	public GenericService<Course> getService() {
 		return courseService;
 	}
-
+	
 	@Override
 	public ListAdapter<Course> getList() {
 		return courseList;
