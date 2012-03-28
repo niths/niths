@@ -52,7 +52,7 @@ public class Exam implements Domain {
     private String name;
 
     @Column(name="exam_type")
-    @Size(min = 2, max = 30, message ="The length of the exam_type must be between 2 to 10 letters")
+    @Size(min = 2, max = 30, message ="The length of the exam_type must be between 2 to 30 letters")
     private String examType;
 
     @Column(name="start_time")
@@ -175,8 +175,7 @@ public class Exam implements Domain {
         if(!(that instanceof Exam)) return false;
         Exam exam = (Exam) that;
 
-        return exam == this ? true : exam.getId() == id
-                ? true : false;
+        return exam == this || exam.getId().equals(id);
     }
 
     @JsonIgnore
