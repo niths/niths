@@ -99,7 +99,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { 
-			"setRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
+			"add/role/{studentId}/{roleId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
 	public void addStudentRole(@PathVariable Long studentId, @PathVariable Long roleId) {
 		Student stud = studentService.getStudentWithRoles(studentId);
@@ -118,7 +118,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	@RequestMapping(value = { "removeRole/{studentId}/{roleId}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "remove/role/{studentId}/{roleId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role removed")
 	public void removeStudentRole(Long studId, Long roleId) {
 		Student stud = studentService.getStudentWithRoles(studId);
@@ -138,7 +138,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	@RequestMapping(value = { "removeRoles/{studentId}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "remove/roles/{studentId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
 	public void removeAllRolesFromStudent(Long studId) {
 		Student stud = studentService.getStudentWithRoles(studId);
@@ -167,7 +167,4 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	public ListAdapter<Role> getList() {
 		return roleList;
 	}
-
-
-	
 }

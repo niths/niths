@@ -222,7 +222,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 		boolean isRemoved = false;
 		for (int i = 0; i < course.getSubjects().size(); i++) {
 			if (course.getSubjects().get(i).getId() == subjectId) {
-				course.getCourseRepresentatives().remove(i);
+				course.getSubjects().remove(i);
 				isRemoved = true;
 			}
 		}

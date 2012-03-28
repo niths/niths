@@ -108,7 +108,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
 
         boolean isRemoved = false;
 
-        if (exam.getSubject().getId() == subjectId) {
+        if (exam.getSubject() != null && exam.getSubject().getId() == subjectId) {
             exam.setSubject(null);
             isRemoved = true;
         }
