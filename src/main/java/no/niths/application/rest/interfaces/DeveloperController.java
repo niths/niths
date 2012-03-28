@@ -7,5 +7,18 @@ import no.niths.domain.Developer;
  */
 public interface DeveloperController extends GenericRESTController<Developer> {
 	
+	/**
+	 * Adds a app to a developer
+	 * @param devId
+	 * @param AppId
+	 */
+	void addApp(Long devId, Long AppId);
+	
+	/**
+	 * Removes a app from a developer
+	 * @param devId
+	 * @param AppId
+	 */
+	void removeApp(Long devId, Long AppId);
 
 }

@@ -26,6 +26,13 @@ public interface CourseController extends GenericRESTController<Course> {
 	public void addSubjectToCourse(Long courseId, Long subjectId);
 	
 	/**
+	 * Removes a subject to a course
+	 * @param courseId
+	 * @param subjectId
+	 */
+	public void reomveSubjectToCourse(Long courseId, Long subjectId);
+	
+	/**
 	 * Adds a representative to a course
 	 * 
 	 * @param courseId id of the course

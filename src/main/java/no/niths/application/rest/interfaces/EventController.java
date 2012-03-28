@@ -7,5 +7,28 @@ import no.niths.domain.Event;
  * Controller for events
  */
 public interface EventController extends GenericRESTController<Event> {
-	public List<Event> getEventsByTag(String tag);
+	/**
+	 * 
+	 * Retruns a list of events on the given tag.
+	 * Here you can search on more tags by adding &
+	 * between the serach words like this:
+	 * tag = "party&fun"
+	 * @param tag
+	 * @return
+	 */
+	List<Event> getEventsByTag(String tag);
+	
+	/**
+	 * Adds a location to a event
+	 * @param eventId
+	 * @param LocId
+	 */
+	void addLocation(Long eventId, Long LocId);
+	
+	/**
+	 * Removes a location from a event
+	 * @param eventId
+	 * @param LocId
+	 */
+	void removeLocation(Long eventId, Long LocId);
 }
