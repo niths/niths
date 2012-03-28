@@ -30,9 +30,11 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 	private RequestAuthenticationProvider authProvider;
 
 	/**
-	 * Handles the verification process Checks for "session-token" in the HTTP
-	 * request header and authenticates the user
-	 * 
+	 * Handles the verification process.
+	 * <p>
+	 * Checks for authentication headers and based
+	 * on the information authenticates the user
+	 * <p>
 	 * @param req
 	 *            the HttpServletRequest
 	 * @param res
@@ -63,21 +65,28 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 			// Get the authorization headers
 			String developerKey = req.getHeader("Developer-key");
 			String developerToken = req.getHeader("Developer-token");
+			String applicationKey = req.getHeader("Application-key");
 			String applicationToken = req.getHeader("Application-token");
 
-			if (developerKey != null && developerToken != null && applicationToken != null) {
+			logger.debug("HTTP headers have been processed.");
+			
+			if (developerKey != null && developerToken != null 
+					&& applicationToken != null && applicationKey != null) {
+				
 				logger.debug("Developer key found: " + developerKey);
-				logger.debug("Developer header found: " + developerToken);
-				logger.debug("Application header found: " + applicationToken);
+				logger.debug("Developer token found: " + developerToken);
+				logger.debug("Application key found: " + applicationKey);
+				logger.debug("Application token found: " + applicationToken);
 				
 				authInfo.setDeveloperKey(developerKey);
 				authInfo.setDeveloperToken(developerToken);
+				authInfo.setAppKey(applicationKey);
 				authInfo.setAppToken(applicationToken);
 
-				String sessionHeader = req.getHeader("Session-token");
-				if (sessionHeader != null) {
-					logger.debug("Session-token header found: " + sessionHeader);
-					authInfo.setSessionToken(sessionHeader);
+				String sessionToken = req.getHeader("Session-token");
+				if (sessionToken != null) {
+					logger.debug("Session-token header found: " + sessionToken);
+					authInfo.setSessionToken(sessionToken);
 				}else{
 					logger.debug("No session header found");
 				}
@@ -101,12 +110,11 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
 					logger.debug("Authentication failed for developer with key: " + developerKey);
 					logger.debug("Authentication failed for developer with token: " + developerToken);
+					logger.debug("Authentication failed for app with key: "+ applicationKey);
+					logger.debug("Authentication failed for app with token: "+ applicationToken);
 					
-					if (sessionHeader != null) {
-						logger.debug("Authentication failed for session: "+ sessionHeader);
-					}
-					if(applicationToken != null){
-						logger.debug("Authentication failed for application: "+ sessionHeader);
+					if (sessionToken != null) {
+						logger.debug("Authentication failed for session: "+ sessionToken);
 					}
 					
 					// Login failed, clear authentication object

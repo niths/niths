@@ -15,8 +15,21 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application> 
     private ApplicationRepository repo;
    
 	@Override
+	@Deprecated
 	public Application getByApplicationToken(String token){
 		return repo.getByApplicationToken(token);
+	}
+	
+	/**
+	 * Returns the application matching the key
+	 * The application must be enabled to be returned
+	 * 
+	 * @param key the application key as a string
+	 * @return the application or null if no matching key or app is not enabled
+	 */
+	@Override
+	public Application getByApplicationKey(String key){
+		return repo.getByApplicationKey(key);
 	}
 
 	@Override

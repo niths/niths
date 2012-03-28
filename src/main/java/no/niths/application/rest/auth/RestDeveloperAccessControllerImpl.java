@@ -97,7 +97,7 @@ public class RestDeveloperAccessControllerImpl implements
 	@Override
 	@RequestMapping(value = { "/enable/{developerKey:.+}" }, method = RequestMethod.GET)
 	public ModelAndView enableDeveloper(@PathVariable String developerKey) {
-		logger.debug("Developer wants to be enabled with developer token: "
+		logger.debug("Developer wants to be enabled with developer-key: "
 				+ developerKey);
 		ModelAndView view = new ModelAndView(VIEW_NAME);
 		try {
@@ -111,7 +111,7 @@ public class RestDeveloperAccessControllerImpl implements
 		} catch (AuthenticationException e) {
 			view.addObject("error", e.getMessage());
 		}
-		// Maybe send a new email with the new token?
+		
 		return view;
 	}
 	

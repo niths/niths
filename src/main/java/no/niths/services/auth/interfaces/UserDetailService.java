@@ -49,7 +49,7 @@ public interface UserDetailService extends UserDetailsService {
 	 * @return id of the belonging app
 	 * @throws UsernameNotFoundException of no app is found
 	 */
-	
+	@Deprecated
 	Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException;
 
 	/**
@@ -63,4 +63,15 @@ public interface UserDetailService extends UserDetailsService {
 	 */
 	Long loadDeveloperIdFromDeveloperKey(String developerKey,
 			String developerToken) throws UsernameNotFoundException;
+
+	/**
+	 * Calls on authentication service to authenticate the application
+	 * 
+	 * @param applicationKey the application key
+	 * @param applicationToken the application token
+	 * @return id of the application
+	 * @throws UsernameNotFoundException when no application is found
+	 */
+	Long loadApplicationIdFromApplicationKey(String applicationKey,
+			String applicationToken) throws UsernameNotFoundException;
 }

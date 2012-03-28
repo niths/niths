@@ -44,18 +44,11 @@ public class UserDetailServiceImpl implements UserDetailService {
 	 */
 	@Override
 	public UserDetails loadStudentBySessionToken(String sessionToken) throws UsernameNotFoundException{
-		//TEST MODE:
-//		RequestHolderDetails testUser = new RequestHolderDetails("rosen09@nith.no");
-//		testUser.addRoleName("ROLE_STUDENT");
-//		testUser.addRoleName("ROLE_SR");
-//		testUser.setStudentId(new Long(1));
-//		return testUser;
-		//END TESTMODE
 		RequestHolderDetails user = authService.authenticateSessionToken(sessionToken);
 		if(user == null){
 			throw new UsernameNotFoundException("Could not find user with that sessiontoken");
 		}
-		
+		logger.debug("Found student in UserDetailService");
 		return user;
 	}
 	
@@ -86,7 +79,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 		if(id == null){
 			throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
 		}
-		logger.debug("Found developer in userdetailservice");
+		logger.debug("Found developer in UserDetailService");
 		return id;
 	}
 	
@@ -98,6 +91,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 	 * @throws UsernameNotFoundException of no app is found
 	 */
 	@Override
+	@Deprecated
 	public Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException{
 		//TEST MODE:
 //		return new Long(1);
@@ -106,6 +100,24 @@ public class UserDetailServiceImpl implements UserDetailService {
 		if(id == null){
 			throw new UsernameNotFoundException("Could not find a application with that token");
 		}
+		return id;
+	}
+	
+	/**
+	 * Calls on authentication service to authenticate the application
+	 * 
+	 * @param applicationKey the application key
+	 * @param applicationToken the application token
+	 * @return id of the application
+	 * @throws UsernameNotFoundException when no application is found
+	 */
+	@Override
+	public Long loadApplicationIdFromApplicationKey(String applicationKey, String applicationToken) throws UsernameNotFoundException{
+		Long id = authService.authenticateApplicationToken(applicationKey, applicationToken);
+		if(id == null){
+			throw new UsernameNotFoundException("Could not find a application with that token/key");
+		}
+		logger.debug("Found application in UserDetailService");
 		return id;
 	}
 	

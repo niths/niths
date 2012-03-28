@@ -20,7 +20,16 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.jasypt.hibernate4.type.EncryptedStringType;
 
+@TypeDef(name = "encryptedString" ,
+typeClass = EncryptedStringType.class,
+parameters = {
+	@Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
+})
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.APPLICATIONS)
@@ -49,13 +58,21 @@ public class Application implements Domain {
 	@JsonIgnore
 	@XmlTransient
 	@Column(name = "application_token")
+	@Type(type="encryptedString")
 	private String applicationToken;
 
+	@JsonIgnore
+	@XmlTransient
+	@Column(name = "application_key")
+	private String applicationKey;
+	
 	@JsonIgnore
 	@XmlTransient
 	@Column
 	private Boolean enabled;
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
 	@Cascade(CascadeType.ALL)
@@ -77,8 +94,8 @@ public class Application implements Domain {
 		setDeveloper(developer);
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public String getApplicationToken() {
 		return applicationToken;
 	}
@@ -87,8 +104,8 @@ public class Application implements Domain {
 		this.applicationToken = token;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -135,8 +152,8 @@ public class Application implements Domain {
 		this.iconUrl = iconUrl;
 	}
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	public Developer getDeveloper() {
 		return developer;
 	}
@@ -151,5 +168,13 @@ public class Application implements Domain {
 			return false;
 		Application s = (Application) that;
 		return s == this ? true : s.getId() == id ? true : false;
+	}
+
+	public String getApplicationKey() {
+		return applicationKey;
+	}
+
+	public void setApplicationKey(String applicationKey) {
+		this.applicationKey = applicationKey;
 	}
 }

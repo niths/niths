@@ -131,6 +131,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throws AuthenticationException {
 		logger.debug("Will authenticate session-token: " + sessionToken);
 
+		//TEST MODE:
+//		RequestHolderDetails testUser = new RequestHolderDetails("rosen09@nith.no");
+//		testUser.addRoleName("ROLE_STUDENT");
+//		testUser.addRoleName("ROLE_SR");
+//		testUser.setStudentId(new Long(1));
+//		return testUser;
+		//END TESTMODE
+		
 		// First check the format of the token		
 		tokenService.verifyTokenFormat(sessionToken, true);
 
@@ -260,17 +268,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 */
 	@Override
 	public Long authenticateDeveloperToken(String devToken, String devKey) throws AuthenticationException{
+		//TEST MODE
+//		return new Long(1);
+		//TEST MODE
+		
 		
 		tokenService.verifyTokenFormat(devToken, false);
 		Developer dev = developerService.getDeveloperByDeveloperKey(devKey);
 		
 		if(dev == null){
 			throw new UnvalidTokenException("No developer found for token/key");
-		}
-		if(dev.getEnabled() == null){
+		}else if(dev.getEnabled() == null){
 			throw new UnvalidTokenException("Developer is not enabled");
-		}
-		if(dev.getEnabled() == false || !dev.getDeveloperToken().equals(devToken)){
+		}else if (dev.getDeveloperToken() == null){
+			throw new UnvalidTokenException("Developer does not have a developer token");
+		}else if(dev.getEnabled() == false || !dev.getDeveloperToken().equals(devToken)){
 			throw new UnvalidTokenException("Not a correct token or dev is not enabled");
 		}
 			
@@ -282,11 +294,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * Verifies the format of the application token and returns the app id
 	 * Returns null if no app is found or app is not enabled
 	 * 
-	 * @param appToken string verify
+	 * @param appToken string to verify
 	 * @return id of the belonging app
 	 * @throws AuthenticationException
 	 */
 	@Override
+	@Deprecated
 	public Long authenticateApplicationToken(String appToken) throws AuthenticationException{
 		tokenService.verifyTokenFormat(appToken, false);
 		Application app = appService.getByApplicationToken(appToken);
@@ -296,12 +309,46 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return app.getId();
 	}
 	
+
+	/**
+	 * Authenticates the application token.
+	 * <p>
+	 * Verifies the token format and, based on the key,
+	 * fetches the matching application from DB,
+	 * if it is enabled.
+	 * <p>
+	 * @param applicationKey the application key
+	 * @param applicationToken the application token
+	 * @return id of the application
+	 * @throws AuthenticationException if no matching app is found
+	 */
+	@Override
+	public Long authenticateApplicationToken(String applicationKey, String applicationToken)
+						throws AuthenticationException {
+		//TEST MODE
+//		return new Long(1);
+		//TEST MODE
+		
+		tokenService.verifyTokenFormat(applicationToken, false);
+		Application app = appService.getByApplicationKey(applicationKey);
+		if(app == null){
+			throw new UnvalidTokenException("No app found or app is not enabled");
+		}else if(app.getApplicationToken() == null){
+			throw new UnvalidTokenException("Application does not have a token");
+		}else if(!app.getApplicationToken().equals(applicationToken)){
+			throw new UnvalidTokenException("Application token is not correct");
+		}
+		return app.getId();
+	}
+	
 	
 	/**
 	 * Enables a developer, needed to be able to do requests towards the API
-	 * 
+	 * <p>
 	 * Developer must exist in the DB, or else enabling will fail...
-	 * 
+	 * <p>
+	 * Sends the developer a confirmation email
+	 * <p>
 	 * @param developerToken string return from registerDeveloper(Dev)
 	 * @return the developer object, null if not found
 	 */

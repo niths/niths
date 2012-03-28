@@ -11,6 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * Authenticates requests
+ * <p>
+ * This class is responsible for delegating the authentication
+ * to the UserDetailService
  * 
  */
 public class RequestAuthenticationProvider implements AuthenticationProvider {
@@ -22,12 +25,14 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 	private UserDetailService userDetailService;
 
 	/**
-	 * Fetches the Student belonging to the session token and populates the
-	 * authentication object with the student roles
+	 * Checks the Authentication object and uses an instance of
+	 * UserDetailService to verify the request
+	 * 
 	 * 
 	 * @param authentication
 	 *            the current authentication object
-	 * @return a new authentication object
+	 * @return a new authentication object with details of the authenticated
+	 * 								developer, application and user
 	 * @throws AuthenticationException
 	 *             when authentication fails
 	 */
@@ -38,39 +43,43 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 		try {
 
 			RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
-			RequestHolderDetails userInfo = new RequestHolderDetails();
 
 			Long devId = null; // ID of the developer holding the request
 			Long appId = null; // ID of the app holding the request
 			
-			if (authInfo.getDeveloperToken() == null || authInfo.getDeveloperKey() == null) {
-				logger.warn("No developer token or developer key found in authentication");
-				throw new UnvalidTokenException("No developer token found");
+			//Verifying the authorization object
+			if (authInfo.getDeveloperToken() == null || authInfo.getDeveloperKey() == null
+					|| authInfo.getAppKey() == null || authInfo.getAppToken() == null) {
+				logger.warn("Authorization object passed to provider is not correct");
+				throw new UnvalidTokenException("Error with HTTP-header values");
 
-			} else { // Proceed to verify the developer token
-
-				if (authInfo.getAppToken() == null) {
-					throw new UnvalidTokenException(
-							"Application token not found");
-				}
-				logger.debug("Authentication provider found developer-token: "
-						+ authInfo.getDeveloperToken());
-
-				devId = userDetailService.loadDeveloperIdFromDeveloperKey(
-						authInfo.getDeveloperKey(), authInfo.getDeveloperToken()
-						);	
+			} else { // Verified, proceed
 				
-				logger.debug("Authentication provider found Application-token: "
+				//This is the object holding the authenticated user
+				RequestHolderDetails userInfo = new RequestHolderDetails();
+
+				logger.debug("Provider found developer-key: "
+						+ authInfo.getDeveloperKey());
+				logger.debug("Provider found developer-token: "
+						+ authInfo.getDeveloperToken());
+				
+				//Let our implementation of UserDetailService fetch the dev
+				devId = userDetailService.loadDeveloperIdFromDeveloperKey(
+						authInfo.getDeveloperKey(), authInfo.getDeveloperToken());	
+				
+				logger.debug("Provider found Application-key: "
+						+ authInfo.getAppKey());
+				logger.debug("Provider found Application-token: "
 						+ authInfo.getAppToken());
 				
-				appId = userDetailService
-						.loadApplicationIdFromApplicationToken(authInfo
-								.getAppToken());
+				//Let our implementation of UserDetailService fetch the app 
+				appId = userDetailService.loadApplicationIdFromApplicationKey(
+						authInfo.getAppKey(), authInfo.getAppToken());
 
-				// We found dev and app token, they have been authenticated,
+				// We found tokens and keys, they have been authenticated,
 				// proceed to check for a session token
 				if (authInfo.getSessionToken() != null) {
-					logger.debug("Authentication provider found Session-token: "
+					logger.debug("Provider found Session-token: "
 							+ authInfo.getSessionToken());
 
 					// Get a user that holds the student matching the session
