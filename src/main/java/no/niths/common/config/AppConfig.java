@@ -15,14 +15,14 @@ public class AppConfig {
                                WEB_PACKAGE = BASE_PACKAGE +
                                    ".application.web",
                                    
-                               PERSISTENCE_PROPS = "application.properties";
+                               APP_PROPS = "application.properties";
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
         final PropertyPlaceholderConfigurer ppc =
                 new PropertyPlaceholderConfigurer();
         final ClassPathResource[] resources = new ClassPathResource[] {
-                new ClassPathResource(PERSISTENCE_PROPS)};
+                new ClassPathResource(APP_PROPS)};
         ppc.setLocations(resources);
         ppc.setIgnoreUnresolvablePlaceholders(true);
 

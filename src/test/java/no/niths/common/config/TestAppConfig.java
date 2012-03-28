@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 @ComponentScan({ AppConfig.SERVICES_PACKAGE, AppConfig.REST_PACKAGE })
 public class TestAppConfig {
-    public static final String PERSISTENCE_PROPS =
+    public static final String APP_PROPS =
             "test-application.properties";
     public static final String TRANSACTION_MANAGER = "transactionManager";
 
@@ -18,7 +18,7 @@ public class TestAppConfig {
     	final PropertyPlaceholderConfigurer ppc =
                 new PropertyPlaceholderConfigurer();
         final ClassPathResource[] resources = new ClassPathResource[] {
-                new ClassPathResource(PERSISTENCE_PROPS)};
+                new ClassPathResource(APP_PROPS)};
         ppc.setLocations(resources);
         ppc.setIgnoreUnresolvablePlaceholders(true);
 
