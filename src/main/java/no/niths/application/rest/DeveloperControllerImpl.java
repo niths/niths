@@ -2,7 +2,9 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.DeveloperController;
 import no.niths.application.rest.lists.DeveloperList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -47,6 +49,9 @@ public class DeveloperControllerImpl extends
 	
 	private DeveloperList developerList = new DeveloperList();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ArrayList<Developer> getAll(Developer domain) {
 		developerList = (DeveloperList) super.getAll(domain);
@@ -56,6 +61,9 @@ public class DeveloperControllerImpl extends
 		return developerList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(@RequestBody Developer domain) {
@@ -63,35 +71,57 @@ public class DeveloperControllerImpl extends
 	}
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	// @PreAuthorize("(hasAnyRole('ROLE_ADMIN', 'ROLE_SR')) or (principal.developerId == #domain.id)")
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Developer domain) {
 		super.update(domain);
 	}
-
+	
 	/**
-	 * {@inheritDoc}
+	 * Enables a developer
+	 * <p>
+	 * Developer must be enabled to do request
+	 * <p>
+	 * @param developerId id of the developer
+	 * @throws ObjectNotFoundException if no developer is found
 	 */
 	@Override
-	public GenericService<Developer> getService() {
-		return service;
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@RequestMapping(value = { "enable/{developerId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
+	public void enableDeveloper(@PathVariable Long developerId){
+		Developer developer = service.getById(developerId);
+		ValidationHelper.isObjectNull(developer, "Developer not found");
+		boolean update = false;
+		if(developer.getEnabled() != null){
+			if(!developer.getEnabled()){
+				update = true;
+			}
+		}else{
+			update = true;
+		}
+		
+		if(update){
+			developer.setEnabled(true);
+			service.update(developer);			
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public ListAdapter<Developer> getList() {
-		return developerList;
-	}
-
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "add/application/{devId}/{appId}" }, method = RequestMethod.PUT)
@@ -103,11 +133,18 @@ public class DeveloperControllerImpl extends
 		Application app = appService.getById(appId);
 		ValidationHelper.isObjectNull(app, "Application not found");
 
-		developer.getApps().add(app);
-		service.update(developer);
-		logger.debug("developer adde a new app:"+ app.getTitle());
+		if(!developer.getApps().contains(app)){
+			developer.getApps().add(app);
+			service.update(developer);
+			logger.debug("developer adde a new app:"+ app.getTitle());			
+		}else{
+			throw new DuplicateEntryCollectionException("Application already added");
+		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "remove/application/{devId}/{appId}" }, method = RequestMethod.PUT)
@@ -131,6 +168,22 @@ public class DeveloperControllerImpl extends
 			throw new NotInCollectionException(
 					"App does not belong to developer");
 		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public GenericService<Developer> getService() {
+		return service;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ListAdapter<Developer> getList() {
+		return developerList;
 	}
 
 }
