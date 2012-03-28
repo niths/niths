@@ -25,5 +25,7 @@ public interface MailSenderService {
 	boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app);
 	
 	boolean sendDeveloperEnabledConfirmation(Developer dev);
+	
+	boolean sendApplicationEnabledConfirmation(Developer dev, Application app);
 
 }

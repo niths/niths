@@ -61,5 +61,13 @@ public interface RestDeveloperAccessController {
 	 * 
 	 */
 	ApplicationToken addApplicationToDeveloper(Application app, String developerToken);
+
+	/**
+	 * Enables an application
+	 * 
+	 * @param applicationKey
+	 * @return a view with confirmation
+	 */
+	ModelAndView enableApplication(String applicationKey);
 	
 }

@@ -14,5 +14,5 @@ public interface ApplicationRepository extends GenericRepository<Application> {
 	 * @param key the application key as a string
 	 * @return the application or null if no matching key or app is not enabled
 	 */
-	Application getByApplicationKey(String key);
+	Application getByApplicationKey(String key, boolean enabled);
 }

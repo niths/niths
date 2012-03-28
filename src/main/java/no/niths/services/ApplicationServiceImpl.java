@@ -25,11 +25,12 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application> 
 	 * The application must be enabled to be returned
 	 * 
 	 * @param key the application key as a string
-	 * @return the application or null if no matching key or app is not enabled
+	 * @param enabled if the app needs to be enabled or not
+	 * @return the application or null if no matching key
 	 */
 	@Override
-	public Application getByApplicationKey(String key){
-		return repo.getByApplicationKey(key);
+	public Application getByApplicationKey(String key, boolean enabled){
+		return repo.getByApplicationKey(key, enabled);
 	}
 
 	@Override

@@ -79,6 +79,14 @@ public class MailSenderServiceImpl implements MailSenderService {
 	}
 	
 	@Override
+	public boolean sendApplicationEnabledConfirmation(Developer dev,
+			Application app) {
+		String subject = "Hi " + dev.getName()+ ". Your app now enabled!";
+		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app))));
+	}
+	
+	
+	@Override
 	public void composeAndSend(String to, String from, String subject, String body) {
 		sendMessage(composeMail(to, from, subject, body));
 	}
@@ -111,4 +119,6 @@ public class MailSenderServiceImpl implements MailSenderService {
 		}
 		return false;
 	}
+
+
 }

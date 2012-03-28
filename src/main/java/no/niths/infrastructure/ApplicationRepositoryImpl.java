@@ -32,9 +32,12 @@ public class ApplicationRepositoryImpl extends
 	 * @return the application or null if no matching key or app is not enabled
 	 */
 	@Override
-	public Application getByApplicationKey(String key) {
+	public Application getByApplicationKey(String key, boolean enabled) {
 		String sql = "from " + Application.class.getSimpleName() + " a "
-				+ "where a.applicationKey = :key and a.enabled=true";
+				+ "where a.applicationKey = :key";
+		if(enabled){
+			sql += " and a.enabled=true";
+		}
 		return (Application) getSession().getCurrentSession().createQuery(sql)
 				.setString("key", key).uniqueResult();
 		

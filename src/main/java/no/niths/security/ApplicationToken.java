@@ -16,6 +16,7 @@ public class ApplicationToken implements Serializable{
 	private static final long serialVersionUID = -1021190003418694035L;
 	private String token;
 	private String message;
+	private String appKey;
 	
 	public ApplicationToken(){
 		this("Not valid");
@@ -43,6 +44,14 @@ public class ApplicationToken implements Serializable{
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getAppKey() {
+		return appKey;
+	}
+
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
 	}
 	
 	

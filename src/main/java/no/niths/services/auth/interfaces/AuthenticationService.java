@@ -94,7 +94,7 @@ public interface AuthenticationService {
 	 * @return an application token to use in furture requests
 	 * 
 	 */
-	ApplicationToken registerApplication(Application app, Long devId);
+	ApplicationToken registerApplication(Application app, String developerKey);
 	
 	/**
 	 * Verifies the format and fetches matching developer from DB
@@ -133,4 +133,15 @@ public interface AuthenticationService {
 	 */
 	Long authenticateApplicationToken(String applicationKey,
 			String applicationToken) throws AuthenticationException;
+
+	/**
+	 * 
+	 * Enables an application
+	 * 
+	 * @param applicationKey 
+	 * @return the Application
+	 * @throws AuthenticationException
+	 */
+	Application enableApplication(String applicationKey)
+			throws AuthenticationException;
 }

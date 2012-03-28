@@ -31,6 +31,21 @@ public final class EmailTexts {
 				"<br /><br />";
 		return body;
 	}
+	public static String getApplicationEnabledBody(Developer dev, Application app){
+		String body = "<h2>Congratulations, your application is now enabled!</h2>"+
+				"<br /><br />" +
+				"Your developer token is: " + dev.getDeveloperToken() +
+				"<br /><br />" +
+				"Your developer key is: " + dev.getDeveloperKey() +
+				"<br /><br />" +
+				"Your application token is: " + app.getApplicationToken() +
+				"<br /><br />" +
+				"Your application key is: " + app.getApplicationKey() +
+				"<br /><br />" +
+				"Use this in all future requests." +
+				"<br /><br />";
+		return body;
+	}
 	
 	public static String getAddedAppToDevelioperBody(Application app){
 		String body = "<h2>Your application is ready to use!</h2>" +

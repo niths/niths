@@ -3,6 +3,7 @@ package no.niths.services.auth;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
@@ -191,7 +192,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		isEmailValid(dev.getEmail());
 		
 		//Passed checks! Generate a key and persist the developer
-		String developerKey = getDeveloperKey();
+		String developerKey = getRandomKey();
 		dev.setDeveloperKey(developerKey);
 		developerService.create(dev);
 
@@ -221,16 +222,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * 
 	 */
 	@Override
-	public ApplicationToken registerApplication(Application app, Long devId) throws ObjectNotFoundException {
-		Developer dev = developerService.getById(devId);
+	public ApplicationToken registerApplication(Application app, String developerKey) 
+			throws ObjectNotFoundException, DuplicateEntryCollectionException {
+		
+		Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
 		if(dev == null){
-			logger.warn("No developer found for: " + devId);
 			throw new ObjectNotFoundException("No developer found");
 		}
+		ApplicationToken appToken = new ApplicationToken("No token");
+		//app.setEnabled(true);
+		//app.setApplicationToken(appToken.getToken());
+		String appKey = getRandomKey();
 		
-		ApplicationToken appToken = new ApplicationToken(tokenService.generateToken(devId));
-		app.setEnabled(true);
-		app.setApplicationToken(appToken.getToken());
+		if(dev.getApps().contains(app)){
+			throw new DuplicateEntryCollectionException("App already added to developer");
+		}
+		
+		appToken.setAppKey(appKey);
+		app.setApplicationKey(appKey);
 		dev.getApps().add(app);
 		developerService.update(dev);
 		mailService.sendDeveloperAddedAppConfirmation(dev, app);
@@ -329,8 +338,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 //		return new Long(1);
 		//TEST MODE
 		
-		tokenService.verifyTokenFormat(applicationToken, false);
-		Application app = appService.getByApplicationKey(applicationKey);
+		tokenService.verifyTokenFormat(applicationToken, true);
+		Application app = appService.getByApplicationKey(applicationKey, true);
 		if(app == null){
 			throw new UnvalidTokenException("No app found or app is not enabled");
 		}else if(app.getApplicationToken() == null){
@@ -352,6 +361,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * @param developerToken string return from registerDeveloper(Dev)
 	 * @return the developer object, null if not found
 	 */
+	@Override
 	public Developer enableDeveloper(String developerKey) throws AuthenticationException{
 		logger.debug("Trying to enable developer with token: " + developerKey);
 		Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
@@ -368,6 +378,34 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		mailService.sendDeveloperEnabledConfirmation(dev);
 		
 		return dev;
+	}
+	
+	/**
+	 * 
+	 * Enables an application
+	 * 
+	 * @param applicationKey 
+	 * @return the Application
+	 * @throws AuthenticationException
+	 */
+	@Override
+	public Application enableApplication(String applicationKey) throws AuthenticationException{
+		logger.debug("Trying to enable application with key: " + applicationKey);
+		Application app = appService.getByApplicationKey(applicationKey, false);
+		if(app == null){
+			throw new UnvalidTokenException("No application found with that key");
+		}
+		//Generate a personal token and set app to enabled
+		app.setApplicationToken(tokenService.generateToken(app.getId()));
+		app.setEnabled(true);
+		appService.update(app);
+		
+		//Send confirmation email
+		if(app.getDeveloper() != null){
+			mailService.sendApplicationEnabledConfirmation(app.getDeveloper(), app);			
+		}
+		
+		return app;
 	}
 
 	/**
@@ -437,7 +475,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * Generates a developer key
 	 * @return string
 	 */
-	private String getDeveloperKey(){
+	private String getRandomKey(){
 		boolean found = false;
 		String key = "";
 		while(!found){

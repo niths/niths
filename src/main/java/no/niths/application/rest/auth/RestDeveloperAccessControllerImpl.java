@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestDeveloperAccessController;
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
@@ -95,7 +96,7 @@ public class RestDeveloperAccessControllerImpl implements
 	 * @return a page with confirmation or error message
 	 */
 	@Override
-	@RequestMapping(value = { "/enable/{developerKey:.+}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/enableDeveloper/{developerKey:.+}" }, method = RequestMethod.GET)
 	public ModelAndView enableDeveloper(@PathVariable String developerKey) {
 		logger.debug("Developer wants to be enabled with developer-key: "
 				+ developerKey);
@@ -121,27 +122,54 @@ public class RestDeveloperAccessControllerImpl implements
 	 * Developer must have been authorized for a successful request
 	 * 
 	 * @param app the application to add
-	 * @return an application token to use in furture requests
+	 * @param developerKey the developer key
+	 * @return an application key to use to enable the application
 	 * 
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
-	@RequestMapping(value = "/addApp/{developerToken:.+}", method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = "/addApp/{developerKey}", method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public ApplicationToken addApplicationToDeveloper(@RequestBody Application app,
-										@PathVariable String developerToken) {
+										@PathVariable String developerKey) {
 		logger.debug("Developer wants to registrate an application");
-		
 		ApplicationToken token = new ApplicationToken("Could not register app");
 		
-		Long devId = service.authenticateDeveloperToken(developerToken);
-		logger.debug("Adding new app to developer");
-		token = service.registerApplication(app, devId);
-		token.setMessage("Use this in the header for future requests");
-		
+		token = service.registerApplication(app, developerKey);
 		return token;
 	}
+	
+	/**
+	 * Enables an application
+	 * 
+	 * @param applicationKey
+	 * @return a view with confirmation
+	 */
+	@Override
+	@RequestMapping(value = { "/enableApp/{applicationKey:.+}" }, method = RequestMethod.GET)
+	public ModelAndView enableApplication(@PathVariable String applicationKey) {
+		logger.debug("Application wants to be enabled with application-key: "
+				+ applicationKey);
+		ModelAndView view = new ModelAndView(VIEW_NAME);
+		try {
+			Application app = service.enableApplication(applicationKey);
+			
+			// Returns a view with the new token
+			view.addObject("token", app.getApplicationToken());
+			view.addObject("key", app.getApplicationKey());
+			
+		} catch (AuthenticationException e) {
+			view.addObject("error", e.getMessage());
+		}
+		
+		return view;
+	}
 
+	@ExceptionHandler(DuplicateEntryCollectionException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public void dataIntegrity(DuplicateEntryCollectionException e,
+			HttpServletResponse res) {
+		res.setHeader("Error", e.getMessage().toString());
+	}
 	@ExceptionHandler(ObjectNotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void dataIntegrity(ObjectNotFoundException e,
