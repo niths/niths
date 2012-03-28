@@ -22,6 +22,7 @@ import org.hibernate.TransientObjectException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -432,4 +433,18 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("NotInCollectionException");
 	}
 	
+
+	
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void typeMismatchException(TypeMismatchException e, HttpServletResponse res) {
+		if (e.getMessage() == null) {
+			res.setHeader(ERROR,
+					"TypeMismatchException");
+		} else {
+			res.setHeader(ERROR, e.getMessage());
+		}
+		logger.debug("TypeMismatchException");
+	}
 }
