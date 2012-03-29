@@ -192,7 +192,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		isEmailValid(dev.getEmail());
 		
 		//Passed checks! Generate a key and persist the developer
-		String developerKey = getRandomKey();
+		String developerKey = getDeveloperKey();
 		dev.setDeveloperKey(developerKey);
 		developerService.create(dev);
 
@@ -232,7 +232,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		ApplicationToken appToken = new ApplicationToken("No token");
 		//app.setEnabled(true);
 		//app.setApplicationToken(appToken.getToken());
-		String appKey = getRandomKey();
+		String appKey = getApplicationKey();
 		
 		if(dev.getApps().contains(app)){
 			throw new DuplicateEntryCollectionException("App already added to developer");
@@ -475,12 +475,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * Generates a developer key
 	 * @return string
 	 */
-	private String getRandomKey(){
+	private String getDeveloperKey(){
 		boolean found = false;
 		String key = "";
 		while(!found){
 			key = RandomStringUtils.randomAlphanumeric(10);
 			if(developerService.getDeveloperByDeveloperKey(key) == null){
+				found = true;
+			}
+		}
+		return key;
+	}
+	/**
+	 * Generates an application key
+	 * @return string
+	 */
+	private String getApplicationKey(){
+		boolean found = false;
+		String key = "";
+		while(!found){
+			key = RandomStringUtils.randomAlphanumeric(10);
+			if(appService.getByApplicationKey(key, false) == null){
 				found = true;
 			}
 		}
