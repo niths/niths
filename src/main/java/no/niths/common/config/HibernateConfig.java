@@ -16,7 +16,10 @@ import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+/**
+ * Configuration class for Hibernate
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"no.niths.services", "no.niths.infrastructure", "no.niths.aop"})
@@ -97,6 +100,9 @@ public class HibernateConfig{
 	   return new HibernateExceptionTranslator();
    }
    
+   /**
+    * Database entity attribute encryptor
+    */
    @Bean
    public PooledPBEStringEncryptor strongEncryptor() {
 	   PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
@@ -106,7 +112,9 @@ public class HibernateConfig{
 	   
 	   return encryptor;
    }
-   
+   /**
+    * Wrapper bean for the database entity encryptor
+    */
    @Bean
    public HibernatePBEStringEncryptor hibernateStringEncryptor(){
 	   HibernatePBEStringEncryptor encryptor = new HibernatePBEStringEncryptor();
