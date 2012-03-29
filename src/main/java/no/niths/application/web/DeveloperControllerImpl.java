@@ -7,7 +7,9 @@ import no.niths.application.web.interfaces.DeveloperController;
 import no.niths.common.AppConstants;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
+import no.niths.services.auth.interfaces.KeyGeneratorService;
 import no.niths.services.interfaces.DeveloperService;
+import no.niths.services.interfaces.MailSenderService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,12 @@ public class DeveloperControllerImpl implements DeveloperController {
 
 	@Autowired
 	private DeveloperService devService;
+	
+	@Autowired
+	private KeyGeneratorService keyService;
+	
+	@Autowired
+	private MailSenderService mailService;
 
 	/**
 	 * Renders a view of developers and their apps
@@ -47,6 +55,21 @@ public class DeveloperControllerImpl implements DeveloperController {
 		
 		view.addObject("allDevelopers", allDevelopers);
 		return view;
+	}
+	
+	@Override
+	@RequestMapping(value = "/reset", method = RequestMethod.POST)
+	public String resetDeveloperKey(@RequestParam(value="developerId") Long developerId){
+		logger.debug("Reset developer");
+		Developer dev = devService.getById(developerId);
+		if(dev != null){
+			dev.setDeveloperToken(null);
+			dev.setDeveloperKey(keyService.generateDeveloperKey());
+			devService.update(dev);
+			
+			mailService.sendDeveloperRegistratedConfirmation(dev);
+		}
+		return "redirect:/admin/developer";
 	}
 	
 	/**

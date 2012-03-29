@@ -18,5 +18,7 @@ public interface DeveloperController {
 	 * Responsible for setting developers and apps enabled
 	 */
 	String updateDeveloper(Long developerId, Long[] checkDevs, Long[] checkedApps);
+	
+	String resetDeveloperKey(Long developerId);
 
 }
