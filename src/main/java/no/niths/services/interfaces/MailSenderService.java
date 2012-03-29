@@ -18,14 +18,14 @@ public interface MailSenderService {
 	 * @param body
 	 * 
 	 */
-	public void composeAndSend(String to, String from, String subject, String body);
+	void composeAndSend(String to, String from, String subject, String body);
 	
-	boolean sendDeveloperRegistratedConfirmation(Developer dev);
+	void sendDeveloperRegistratedConfirmation(Developer dev);
 	
-	boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app);
+	void sendDeveloperAddedAppConfirmation(Developer dev, Application app);
 	
-	boolean sendDeveloperEnabledConfirmation(Developer dev);
+	void sendDeveloperEnabledConfirmation(Developer dev);
 	
-	boolean sendApplicationEnabledConfirmation(Developer dev, Application app);
+	void sendApplicationEnabledConfirmation(Developer dev, Application app);
 
 }

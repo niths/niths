@@ -63,26 +63,26 @@ public class MailSenderServiceImpl implements MailSenderService {
 	/**
 	 * Sends a developer an email with a enable dev link
 	 */
-	public boolean sendDeveloperRegistratedConfirmation(Developer dev){
+	public void sendDeveloperRegistratedConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Registration success, verification needed";
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev))));
+		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev)));
 	}
 	
-	public boolean sendDeveloperAddedAppConfirmation(Developer dev, Application app){
+	public void sendDeveloperAddedAppConfirmation(Developer dev, Application app){
 		String subject = "Hi " + dev.getName()+ ". Your app has been registrated";
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app))));
+		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app)));
 	}
 	
-	public boolean sendDeveloperEnabledConfirmation(Developer dev){
+	public void sendDeveloperEnabledConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Your are now enabled!";
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev))));
+		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev)));
 	}
 	
 	@Override
-	public boolean sendApplicationEnabledConfirmation(Developer dev,
+	public void sendApplicationEnabledConfirmation(Developer dev,
 			Application app) {
 		String subject = "Hi " + dev.getName()+ ". Your app now enabled!";
-		return (sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app))));
+		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app)));
 	}
 	
 	
@@ -92,32 +92,30 @@ public class MailSenderServiceImpl implements MailSenderService {
 	}
 
 	@Async
-	private boolean sendMimeMessage(MimeMessagePreparator message){
+	private void sendMimeMessage(MimeMessagePreparator message){
 		try{
 			if(javaMailSender != null){
 				javaMailSender.send(message);
-				return true;
+			}else{
+				logger.warn("Could not send mail, mailsender is null");	
 			}
-			logger.warn("Could not send mail, mailsender is null");		
 		}catch(MailException me){
 			me.printStackTrace();
 			logger.warn("MailException! Could not send mail");
 		}
-		return false;
 	}
 	@Async
-	private boolean sendMessage(SimpleMailMessage message){
+	private void sendMessage(SimpleMailMessage message){
 		try{
 			if(mailSender != null){
 				mailSender.send(message);
-				return true;
+			}else {
+				logger.warn("Could not send mail, mailsender is null");	
 			}
-			logger.warn("Could not send mail, mailsender is null");		
 		}catch(MailException me){
 			me.printStackTrace();
 			logger.warn("MailException! Could not send mail");
 		}
-		return false;
 	}
 
 
