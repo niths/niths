@@ -37,6 +37,7 @@ public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent>
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void create(@RequestBody APIEvent domain) {
 		super.create(domain);
+		logger.debug("APIEvent created with id: " + domain.getId());
 	}
 
 	@Override

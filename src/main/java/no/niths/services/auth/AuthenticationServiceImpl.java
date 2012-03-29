@@ -68,7 +68,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * gets persisted.
 	 * <p>
 	 * Returns a session token valid for {@value AppConstants.SESSION_VALID_TIME}
-	 * minutes Use this session token for future requests against the API
+	 * minutes.
+	 * <p> 
+	 * Use this session token for future requests against the API
 	 * <p>
 	 * How to use:
 	 * <pre>
@@ -247,25 +249,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 	
 	/**
-	 * Verifies the format and fetches matching developer from DB
-	 * 
-	 * @param devToken token to verify
-	 * @return the developer id
-	 * @deprecated use authenticateDeveloperToken(String devToken, String devKey)
-	 */
-	@Override
-	@Deprecated
-	public Long authenticateDeveloperToken(String devToken) throws AuthenticationException{
-		tokenService.verifyTokenFormat(devToken, false);
-		Developer dev = developerService.getDeveloperByDeveloperToken(devToken, true);
-		if(dev == null){
-			throw new UnvalidTokenException("No developer found for token or dev is not enabled");
-		}
-
-		return dev.getId();
-	}
-	
-	/**
 	 * Authenticates the developer token. Verifies the format of the token and 
 	 * and fetches matching student from DB based on the key. Then checks if 
 	 * developer token is correct
@@ -297,25 +280,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			
 		return dev.getId();
 		
-	}
-	
-	/**
-	 * Verifies the format of the application token and returns the app id
-	 * Returns null if no app is found or app is not enabled
-	 * 
-	 * @param appToken string to verify
-	 * @return id of the belonging app
-	 * @throws AuthenticationException
-	 */
-	@Override
-	@Deprecated
-	public Long authenticateApplicationToken(String appToken) throws AuthenticationException{
-		tokenService.verifyTokenFormat(appToken, false);
-		Application app = appService.getByApplicationToken(appToken);
-		if(app == null){
-			throw new UnvalidTokenException("No app found or app is not enabled");
-		}
-		return app.getId();
 	}
 	
 

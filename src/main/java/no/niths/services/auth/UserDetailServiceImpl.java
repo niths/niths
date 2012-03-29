@@ -52,27 +52,6 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return user;
 	}
 	
-	/**
-	 * Calls on authentication service to authenticate the developer
-	 * 
-	 * @param developerToken the string to verify
-	 * @return id of the developer
-	 * @throws UsernameNotFoundException if no developer is found
-	 * 
-	 */
-	@Override
-	@Deprecated
-	public Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException{
-		//TEST MODE:
-//		return new Long(1);
-		//END TESTMODE
-		Long id = authService.authenticateDeveloperToken(developerToken);
-		if(id == null){
-			throw new UsernameNotFoundException("Could not find a developer with that developer token");
-		}
-		return id;
-	}
-	
 	@Override
 	public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
 		Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
@@ -80,26 +59,6 @@ public class UserDetailServiceImpl implements UserDetailService {
 			throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
 		}
 		logger.debug("Found developer in UserDetailService");
-		return id;
-	}
-	
-	/**
-	 * Calls on authenticationservice to authenticate the application
-	 * 
-	 * @param applicationToken string to verify
-	 * @return id of the belonging app
-	 * @throws UsernameNotFoundException of no app is found
-	 */
-	@Override
-	@Deprecated
-	public Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException{
-		//TEST MODE:
-//		return new Long(1);
-		//END TESTMODE
-		Long id = authService.authenticateApplicationToken(applicationToken);
-		if(id == null){
-			throw new UsernameNotFoundException("Could not find a application with that token");
-		}
 		return id;
 	}
 	

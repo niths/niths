@@ -30,27 +30,6 @@ public interface UserDetailService extends UserDetailsService {
 	 */
 	UserDetails loadStudentBySessionToken(String sessionToken)
 			throws UsernameNotFoundException;
-	
-	/**
-	 * Calls on authentication service to authenticate the developer
-	 * 
-	 * @param developerToken the string to verify
-	 * @return id of the developer
-	 * @throws UsernameNotFoundException if no developer is found
-	 * 
-	 */
-	@Deprecated
-	Long loadDeveloperIdFromDeveloperToken(String developerToken) throws UsernameNotFoundException;
-	
-	/**
-	 * Calls on authenticationservice to authenticate the application
-	 * 
-	 * @param applicationToken string to verify
-	 * @return id of the belonging app
-	 * @throws UsernameNotFoundException of no app is found
-	 */
-	@Deprecated
-	Long loadApplicationIdFromApplicationToken(String applicationToken) throws UsernameNotFoundException;
 
 	/**
 	 * Calls on authentication service to authenticate the developer

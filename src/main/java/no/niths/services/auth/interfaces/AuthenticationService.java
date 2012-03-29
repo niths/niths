@@ -77,16 +77,6 @@ public interface AuthenticationService {
 	Developer enableDeveloper(String developerToken);
 	
 	/**
-	 * Verifies the format and fetches matching developer from DB
-	 * <p>
-	 * @param devToken token to verify
-	 * @return the developer id
-	 * @deprecated use authenticateDeveloperToken(String devToken, String devKey)
-	 */
-	@Deprecated
-	Long authenticateDeveloperToken(String devToken);
-	
-	/**
 	 * Registers an application to the matching developer
 	 * <p>
 	 * @param app the application to add
@@ -95,16 +85,6 @@ public interface AuthenticationService {
 	 * 
 	 */
 	ApplicationToken registerApplication(Application app, String developerKey);
-	
-	/**
-	 * Verifies the format and fetches matching developer from DB
-	 * <p>
-	 * @param devToken token to verify
-	 * @return the developer id
-	 * 
-	 */
-	@Deprecated
-	Long authenticateApplicationToken(String appToken) throws AuthenticationException;
 
 	/**
 	 * Authenticates the developer token. Verifies the format of the token and 
