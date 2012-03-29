@@ -20,6 +20,7 @@ import no.niths.security.RequestHolderDetails;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
+import no.niths.services.auth.interfaces.KeyGeneratorService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.interfaces.ApplicationService;
 import no.niths.services.interfaces.DeveloperService;
@@ -61,6 +62,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	@Autowired
 	private MailSenderService mailService;
+	
+	@Autowired
+	private KeyGeneratorService keyService;
 
 	/**
 	 * Authenticates a student via Google. If authentication succeeds, student
@@ -197,7 +201,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		isEmailValid(dev.getEmail());
 		
 		//Passed checks! Generate a key and persist the developer
-		String developerKey = getDeveloperKey();
+		String developerKey = keyService.generateDeveloperKey();
 		dev.setDeveloperKey(developerKey);
 		developerService.create(dev);
 
@@ -209,11 +213,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		
 		logger.debug("Developer[" + dev.getId() + "] has been given key: " + devToken.getKey());
 		
-		if (!mailService.sendDeveloperRegistratedConfirmation(dev)) {
-			devToken.setMessage("Failed to send an email, but now worries! \n"
-					+ "To enable your new developer account paste this into a browser\n" +
-					AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + devToken.getKey());
-		}
+		mailService.sendDeveloperRegistratedConfirmation(dev);
+		
+//		devToken.setMessage("Failed to send an email, but now worries! \n"
+//					+ "To enable your new developer account paste this into a browser\n" +
+//					AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperKey());
+		
 		
 		return devToken;
 	}
@@ -227,7 +232,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * 
 	 * @param app the application to add
 	 * @param devId id of the dev to add application to
-	 * @return an application token to use in furture requests
+	 * @return an application token to use in future requests
 	 * 
 	 */
 	@Override
@@ -239,9 +244,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throw new ObjectNotFoundException("No developer found");
 		}
 		ApplicationToken appToken = new ApplicationToken("No token");
-		//app.setEnabled(true);
-		//app.setApplicationToken(appToken.getToken());
-		String appKey = getApplicationKey();
+
+		String appKey = keyService.generateApplicationKey();
 		
 		if(dev.getApps().contains(app)){
 			throw new DuplicateEntryCollectionException("App already added to developer");
@@ -270,8 +274,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		//TEST MODE
 //		return new Long(1);
 		//TEST MODE
-		
-		
+
 		tokenService.verifyTokenFormat(devToken, false);
 		Developer dev = developerService.getDeveloperByDeveloperKey(devKey);
 		
@@ -442,38 +445,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if(!validator.isValid(email)){
 			throw new UnvalidEmailException("Unvalid email, did you forget @?");
 		}
-	}
-
-	
-	/**
-	 * Generates a developer key
-	 * @return string
-	 */
-	private String getDeveloperKey(){
-		boolean found = false;
-		String key = "";
-		while(!found){
-			key = RandomStringUtils.randomAlphanumeric(10);
-			if(developerService.getDeveloperByDeveloperKey(key) == null){
-				found = true;
-			}
-		}
-		return key;
-	}
-	/**
-	 * Generates an application key
-	 * @return string
-	 */
-	private String getApplicationKey(){
-		boolean found = false;
-		String key = "";
-		while(!found){
-			key = RandomStringUtils.randomAlphanumeric(10);
-			if(appService.getByApplicationKey(key, false) == null){
-				found = true;
-			}
-		}
-		return key;
 	}
 
 	//Private helper

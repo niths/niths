@@ -114,17 +114,4 @@ public class AuthenticationServiceTest {
 		assertEquals(SecurityConstants.R_STUDENT, a.getAuthority());
 	}
 	
-	/**
-	 * Register developer
-	 */
-	@Test
-	public void testRegisterDeveloper(){
-		Developer dev = new Developer("hei");
-		dev.setEmail("mail@nith.no");
-		when(devService.create(dev)).thenReturn(new Long(1));
-		when(mailService.sendDeveloperRegistratedConfirmation(dev)).thenReturn(true);
-		
-		DeveloperToken token = service.registerDeveloper(dev);
-		assertEquals(false, token == null);
-	}
 }
