@@ -17,7 +17,7 @@
 
 ### Create the database
 - Create a database named `niths`
-    - From the command line run: ` echo "CREATE DATABASE niths;" > tmp.sql && mysql -u <MySQL username> < tmp.sql && rm tmp.sql`
+    - From the command line run: `mysql -u <MySQL username> -e 'CREATE DATABASE niths;' 
     - From any other tool, consult the appropriate manual
 
 ### Configure the properties file
