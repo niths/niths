@@ -184,9 +184,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	/**
 	 * Register a developer and generates a developer token that the
 	 * developer uses in future requests
-	 * 
+	 * <p>
+	 * Sends an email to the developer with confirmation and instructions
+	 * on how to enable the account
+	 * <p>
 	 * @param developer the developer to persist
-	 * @return DeveloperToken the token and a confirmation message 
+	 * @return DeveloperToken the developer key and a confirmation message 
 	 */
 	@Override
 	public DeveloperToken registerDeveloper(Developer dev) {
@@ -217,6 +220,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	/**
 	 * Registers an application to the matching developer
+	 * <p>
+	 * Sends an email to the developer with confirmation and 
+	 * information on how to proceed
+	 * <p>
 	 * 
 	 * @param app the application to add
 	 * @param devId id of the dev to add application to
@@ -320,7 +327,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	 * <p>
 	 * Developer must exist in the DB, or else enabling will fail...
 	 * <p>
-	 * Sends the developer a confirmation email
+	 * Sends the developer a confirmation email with instructions
 	 * <p>
 	 * @param developerToken string return from registerDeveloper(Dev)
 	 * @return the developer object, null if not found
@@ -347,6 +354,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	/**
 	 * 
 	 * Enables an application
+	 * <p>
+	 * Sends the developer a confirmation email with instructions
+	 * <p>
 	 * 
 	 * @param applicationKey 
 	 * @return the Application
