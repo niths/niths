@@ -32,4 +32,11 @@ public interface DeveloperController extends GenericRESTController<Developer> {
 	 */
 	void enableDeveloper(Long developerId);
 
+	/**
+	 * Reset developer key
+	 * @param devId id of the developer
+	 * @throws ObjectNotFoundException id no dev is found
+	 */
+	void resetDeveloperKey(Long devId);
+
 }

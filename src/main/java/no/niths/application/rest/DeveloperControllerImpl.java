@@ -13,6 +13,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
+import no.niths.services.auth.interfaces.KeyGeneratorService;
 import no.niths.services.interfaces.ApplicationService;
 import no.niths.services.interfaces.DeveloperService;
 import no.niths.services.interfaces.GenericService;
@@ -46,6 +47,9 @@ public class DeveloperControllerImpl extends
 
 	@Autowired
 	private ApplicationService appService;
+	
+	@Autowired
+	private KeyGeneratorService keyService;
 	
 	private DeveloperList developerList = new DeveloperList();
 
@@ -119,6 +123,22 @@ public class DeveloperControllerImpl extends
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@RequestMapping(value = { "resetDeveloperKey/{devId}" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
+	public void resetDeveloperKey(@PathVariable Long devId){
+		Developer dev = service.getById(devId);
+		ValidationHelper.isObjectNull(dev, "Developer not found");
+		dev.setDeveloperKey(keyService.generateDeveloperKey());
+		
+		service.update(dev);
+		
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
