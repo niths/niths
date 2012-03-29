@@ -48,7 +48,7 @@ public class RestDeveloperAccessControllerImpl implements
 	/**
 	 * Register a developer and generates a developer token that the developer
 	 * uses in future requests
-	 * 
+	 * <p>
 	 * <pre>
 	 * {@code
 	 * How to use:
@@ -68,7 +68,8 @@ public class RestDeveloperAccessControllerImpl implements
 	 * 
 	 * @param developer
 	 *            the developer to persist
-	 * @return DeveloperToken the token and a confirmation message
+	 * @return DeveloperToken 
+	 * 				an object containing the developer key and a confirmation message
 	 */
 	@Override
 	@RequestMapping(method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
@@ -87,10 +88,10 @@ public class RestDeveloperAccessControllerImpl implements
 	/**
 	 * Enables already registred developers. Returns a new developer token to
 	 * use in all future requests
-	 * 
+	 * <p>
 	 * How to use: Paste the url to the server +
-	 * /niths/register/enable/<your_key> into your favourite browser
-	 * 
+	 * /niths/register/enableDeveloper/<your_key> into your favourite browser
+	 * <p>
 	 * @param developerKey
 	 *            the token returned from requestAccess(Developer)
 	 * @return a page with confirmation or error message
@@ -118,9 +119,9 @@ public class RestDeveloperAccessControllerImpl implements
 	
 	/**
 	 * Registers an application
-	 * 
+	 * <p>
 	 * Developer must have been authorized for a successful request
-	 * 
+	 * <p>
 	 * @param app the application to add
 	 * @param developerKey the developer key
 	 * @return an application key to use to enable the application
