@@ -2,7 +2,11 @@ package no.niths.common;
 
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
-
+/**
+ * Class that holds email templates
+ * used in MailService
+ *
+ */
 public final class EmailTexts {
 	
 	public static String getDeveloperConfirmationBody(Developer dev){
