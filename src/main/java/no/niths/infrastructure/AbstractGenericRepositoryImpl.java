@@ -14,9 +14,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Abstract generic repository class that generates
- * all the basic CRUD actions for repository classes to 
- * extends 
+ * Abstract generic repository class that generates all 
+ * the basic CRUD actions for repository classes.
+ * <p>
+ * How to use:
+ * <p>
+ * First create an interface that defines the methods.
+ * Naming is important for the code to be easy to read,
+ * so call it YourDomainRepository.
+ * <p> 
+ * If you keep the interface empty, it will give you the basic
+ * CRUD methods: create, update, delete, getById and getAll
+ * <p> 
+ * Then create a new class that implements the interface and,
+ * extends this class like this (Remember naming convention):
+ * <p>
+ * <pre>
+ * {@code
+ * @Repository
+ * public class YourDomainRepositoryImpl extends AbstractGenericRepositoryImpl<YourDomain>
+ * 						implements YourDomainRepository{
+ * 
+ * public YourDomainRepositoryImpl() {
+ *		super(YourDomain.class, new YourDomain());
+ * }
+ * 
+ * }
+ * }
+ * <pre>
+ * 
  * @param <T>
  */
 public abstract class AbstractGenericRepositoryImpl<T extends Domain>
@@ -27,8 +53,9 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 
 	/**
 	 * Constructor takes the persistence class and the persistence domain
-	 * @param persistentClass
-	 * @param domain
+	 * <p>
+	 * @param persistentClass the domain class
+	 * @param domain an empty object of your domain type
 	 */
 	public AbstractGenericRepositoryImpl(Class<T> persistentClass, Domain domain) {
 		this.persistentClass = persistentClass;
@@ -39,7 +66,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	private SessionFactory session;
 
 	/**
-	 * {@inheritDoc}
+	 * Persist a provided domain
+	 * <p>
+	 * @param domain the object you want to persist
+	 * @return id of the domain
 	 */
 	@Transactional(readOnly = false)
 	public Long create(T domain) {
@@ -47,7 +77,11 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Find and returns all objects which has values equal to the object sent as
+	 * parameter.
+	 * @param domain
+	 *            - The object that has the values to search for
+	 * @return List of objects found
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getAll(T domain) {
@@ -60,7 +94,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns a domain on a given id
+	 * @param id
+	 * @return the domain with matching ID,
+	 * 			or null if not found
 	 */
 	@SuppressWarnings("unchecked")
 	public T getById(long id) {
@@ -68,7 +105,9 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Updates a existing domain
+	 * <p>
+	 * @param domain the object
 	 */
 	@Transactional(readOnly = false)
 	public void update(T domain) {
@@ -76,7 +115,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Deletes a domain on a given id
+	 * @param id
+	 * @return true if update succeeded,
+	 * 			false otherwise
 	 */
 	@Transactional(readOnly = false)
 	public boolean delete(long id) {
@@ -89,6 +131,16 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	}
 
 	/**
+	 * Deletes a domain on a given id and deletes
+	 * relationships.
+	 * @param id the id of the object to delete
+	 */
+	public void hibernateDelete(long id) {
+		domain.setId(id);
+		getSession().getCurrentSession().delete(domain);
+	}
+	
+	/**
 	 * Returns a instance of the persistence class
 	 * 
 	 * @return
@@ -99,17 +151,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 
 	/**
 	 * Returns the given session
-	 * @return
+	 * @return session
 	 */
 	public SessionFactory getSession() {
 		return session;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void hibernateDelete(long id) {
-		domain.setId(id);
-		getSession().getCurrentSession().delete(domain);
-	}
 }

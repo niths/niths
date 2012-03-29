@@ -3,14 +3,16 @@ package no.niths.common;
 import java.util.List;
 /**
  * A interface for Generic CRUD actions
+ * @see AbstractGenericRepositoryImpl for information
  * @param <T>
  */
 public interface GenericCRUDActions<T> {
 	
 	/**
 	 * Persist a provided domain
-	 * @param domain
-	 * @return
+	 * <p>
+	 * @param domain the object you want to persist
+	 * @return id of the domain
 	 */
 	Long create(T domain);
 
@@ -26,27 +28,30 @@ public interface GenericCRUDActions<T> {
 	/**
 	 * Returns a domain on a given id
 	 * @param id
-	 * @return
+	 * @return the domain with matching ID,
+	 * 			or null if not found
 	 */
 	T getById(long id);
 	
 	/**
 	 * Updates a existing domain
-	 * @param domain
+	 * <p>
+	 * @param domain the object
 	 */
 	void update(T domain);
 
 	/**
 	 * Deletes a domain on a given id
 	 * @param id
-	 * @return
+	 * @return true if update succeeded,
+	 * 			false otherwise
 	 */
 	boolean delete(long id);
 	
 	/**
 	 * Deletes a domain on a given id and deletes
 	 * relationships.
-	 * @param id
+	 * @param id the id of the object to delete
 	 */
 	void hibernateDelete(long id);
 }
