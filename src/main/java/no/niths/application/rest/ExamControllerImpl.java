@@ -1,5 +1,7 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ExamController;
 import no.niths.application.rest.lists.ExamList;
@@ -43,6 +45,27 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
     private SubjectService subjectService;
 
     private ExamList examList = new ExamList();
+    
+    @Override
+    public ArrayList<Exam> getAll(Exam domain) {
+    	examList = (ExamList) super.getAll(domain);
+    	clearRelations();
+    	return examList;
+    }
+    
+    @Override
+    public ArrayList<Exam> getAll(Exam domain, @PathVariable int firstResult, @PathVariable int maxResults) {
+    	examList = (ExamList) super.getAll(domain, firstResult, maxResults);
+    	clearRelations();
+    	return examList;
+    }
+    
+    private void clearRelations(){
+    	for(Exam e : examList){
+    		e.setRooms(null);
+    		e.setSubject(null);
+    	}
+    }
 
     @Override
     @RequestMapping(value = "add/room/{examId}/{roomId}", method = RequestMethod.PUT)
