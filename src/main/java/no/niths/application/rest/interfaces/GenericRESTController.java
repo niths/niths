@@ -35,6 +35,8 @@ public interface GenericRESTController<T> {
      * @return List of all domain objects
      */
     public ArrayList<T> getAll(T domain);
+    
+    public ArrayList<T> getAll(T domain, int firstResult, int maxResults);
 
     /**
      * Updates the given domain object

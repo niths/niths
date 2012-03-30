@@ -149,6 +149,15 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		renewList(getService().getAll(domain));
 		return getList();
 	}
+	
+	
+	@Override
+	@RequestMapping(value = "paginated/{firstResult}/{maxResults}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public ArrayList<T> getAll(T domain,@PathVariable int firstResult, @PathVariable int maxResults) {
+		renewList(getService().getAll(domain, firstResult, maxResults));
+		return getList();
+	}
 
 	/**
 	 * Update the domain object

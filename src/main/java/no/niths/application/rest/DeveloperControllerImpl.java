@@ -59,10 +59,22 @@ public class DeveloperControllerImpl extends
 	@Override
 	public ArrayList<Developer> getAll(Developer domain) {
 		developerList = (DeveloperList) super.getAll(domain);
+		clearRelations();
+		return developerList;
+	}
+	
+	@Override
+	public ArrayList<Developer> getAll(Developer domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
+		developerList = (DeveloperList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return developerList;
+	}
+	
+	private void clearRelations(){
 		for (Developer d : developerList) {
 			d.setApps(null);
 		}
-		return developerList;
 	}
 
 	/**

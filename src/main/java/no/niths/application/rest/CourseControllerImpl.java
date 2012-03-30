@@ -62,16 +62,26 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
 	public ArrayList<Course> getAll(Course domain) {
 		courseList = (CourseList) super.getAll(domain);
+		clearRelations();
+		return courseList;
+	}
+	
+	@Override
+	public ArrayList<Course> getAll(Course domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
+		courseList = (CourseList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return courseList;
+	}
+	
+	private void clearRelations(){
 		for (int i = 0; i < courseList.size(); i++) {
 			courseList.get(i).setSubjects(null);
 			courseList.get(i).setStudents(null);
 			courseList.get(i).setCourseRepresentatives(null);
 		}
-		return courseList;
 	}
 
 	@Override

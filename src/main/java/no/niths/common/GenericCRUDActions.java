@@ -24,6 +24,8 @@ public interface GenericCRUDActions<T> {
 	 * @return List of objects found
 	 */
 	List<T> getAll(T domain);
+	
+	List<T> getAll(T domain, int firstResult, int maxResults);
 
 	/**
 	 * Returns a domain on a given id

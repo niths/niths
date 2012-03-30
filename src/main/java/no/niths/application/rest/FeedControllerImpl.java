@@ -32,13 +32,23 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@Override
 	public ArrayList<Feed> getAll(Feed domain) {
 		
-		super.getAll(domain);
-		
+		list = (FeedList) super.getAll(domain);
+		clearRelations();
+		return list;
+	}
+	
+	@Override
+	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult, @PathVariable int maxResults) {
+		list = (FeedList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return list;
+	}
+	
+	private void clearRelations(){
 		for (Feed l : list) {
 			l.setStudent(null);
 			l.setLocation(null);
 		}
-		return list;
 	}
 	
 	@Override

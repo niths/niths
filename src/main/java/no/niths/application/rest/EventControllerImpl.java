@@ -65,11 +65,22 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	public ArrayList<Event> getAll(Event domain) {
-		super.getAll(domain);
+		eventList = (EventList) super.getAll(domain);
+		clearRelations();
+		return eventList;
+	}
+	
+	@Override
+	public ArrayList<Event> getAll(Event domain, @PathVariable int firstResult, @PathVariable int maxResults) {
+		eventList = (EventList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return eventList;
+	}
+	
+	private void clearRelations(){
 		for (Event e : eventList) {
 			e.setLocation(null);
-		}	
-		return eventList;
+		}
 	}
 	
 	/**

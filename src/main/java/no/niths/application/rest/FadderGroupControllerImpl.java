@@ -103,15 +103,25 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * 
      */
     @Override
-    @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
     public ArrayList<FadderGroup> getAll(FadderGroup domain) {
         fadderGroupList = (FadderGroupList) super.getAll(domain);
-        for (int i = 0; i < fadderGroupList.size(); i++){
-            fadderGroupList.get(i).setFadderChildren(null);
-            fadderGroupList.get(i).setLeaders(null);
-        }
+        clearRelations();
         return fadderGroupList;
+    }
+    
+    @Override
+    public ArrayList<FadderGroup> getAll(FadderGroup domain, @PathVariable int firstResult,
+    		@PathVariable int maxResults) {
+    	fadderGroupList = (FadderGroupList) super.getAll(domain, firstResult, maxResults);
+    	clearRelations();
+    	return fadderGroupList;
+    }
+    
+    private void clearRelations(){
+    	 for (int i = 0; i < fadderGroupList.size(); i++){
+             fadderGroupList.get(i).setFadderChildren(null);
+             fadderGroupList.get(i).setLeaders(null);
+         }
     }
     
     /**

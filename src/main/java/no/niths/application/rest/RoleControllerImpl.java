@@ -86,11 +86,23 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public ArrayList<Role> getAll(Role domain) {
-		ArrayList<Role> roles = super.getAll(domain);
-		for (Role r: roles) {
+		roleList = (RoleList) super.getAll(domain);
+		clearRelations();
+		return roleList;
+	}
+	
+	@Override
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
+	public ArrayList<Role> getAll(Role domain, @PathVariable int firstResult, @PathVariable int maxResults) {
+		roleList = (RoleList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return roleList;
+	}
+	
+	private void clearRelations(){
+		for (Role r: roleList) {
 			r.setStudents(null);
 		}
-		return roles;
 	}
 	
 	/**

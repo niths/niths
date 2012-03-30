@@ -68,6 +68,11 @@ public abstract class AbstractGenericService<T extends Domain> implements Generi
 		return getRepository().getAll(domain);
 	}
 	
+	@Override
+	public List<T> getAll(T domain, int firstResult, int maxResults){
+		return getRepository().getAll(domain, firstResult, maxResults);
+	}
+	
 	/**
 	 * Calls on repository to get a certain object
 	 * @param id of the object

@@ -87,16 +87,27 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
 	public ArrayList<Student> getAll(Student domain) {
 		studentList = (StudentList) super.getAll(domain);
+		clearRelations();
+		return studentList;
+	}
+	
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
+		studentList = (StudentList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return studentList;
+	}
+	
+	private void clearRelations(){
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
 			studentList.get(i).setFeeds(null);
 		}
-		return studentList;
 	}
 
 	/**

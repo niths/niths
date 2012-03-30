@@ -85,12 +85,35 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getAll(T domain) {
+		return buildCriteria(domain).list();
+	}
+	/**
+	 * Find and returns all objects which has values equal to the object sent as
+	 * parameter.
+	 * <p>
+	 * Supports pagination
+	 * <p>
+	 * @param domain the object that has the values to search for
+	 * @param firstResult the first result
+	 * @param maxResults number of results in the returning list
+	 * @return List of objects found
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> getAll(T domain, int firstResult, int maxResults) {
+		Criteria criteria = buildCriteria(domain);
+		criteria.setFirstResult(firstResult);
+		criteria.setMaxResults(maxResults);
+		return criteria.list();
+	}
+	
+	//Private method for building the criteria
+	private Criteria buildCriteria(T domain){
 		Criteria criteria = session.getCurrentSession()
 				.createCriteria(persistentClass);
 		if (domain != null) {
 			criteria.add(Example.create(domain).enableLike(MatchMode.ANYWHERE));
 		}
-		return criteria.list();
+		return criteria;
 	}
 
 	/**

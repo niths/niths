@@ -117,16 +117,27 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject> i
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
 	public ArrayList<Subject> getAll(Subject domain) {
-		SubjectList list = (SubjectList) super.getAll(domain);
-		for (int i = 0; i< list.size(); i++){
-			list.get(i).setTutors(null);
-			list.get(i).setRoom(null);
-		}
-		return list;
+		subjectList = (SubjectList) super.getAll(domain);
+		clearRelations();
+		return subjectList;
 	}
+	
+	@Override
+	public ArrayList<Subject> getAll(Subject domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
+		subjectList =  (SubjectList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return subjectList;
+	}
+	
+	private void clearRelations(){
+		for (int i = 0; i< subjectList.size(); i++){
+			subjectList.get(i).setTutors(null);
+			subjectList.get(i).setRoom(null);
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
