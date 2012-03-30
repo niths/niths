@@ -150,7 +150,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		return getList();
 	}
 	
-	
+	/**
+	 * Returns an arraylist with all exams like getAll(domain), 
+	 * but also supports pagination
+	 * <p>
+	 * @param domain object with attributes to search for
+	 * @param firstResult the first result in the resultset
+	 * @param maxResults the number of result to return
+	 */
 	@Override
 	@RequestMapping(value = "paginated/{firstResult}/{maxResults}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody

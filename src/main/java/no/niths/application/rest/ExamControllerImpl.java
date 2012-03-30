@@ -46,6 +46,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
 
     private ExamList examList = new ExamList();
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<Exam> getAll(Exam domain) {
     	examList = (ExamList) super.getAll(domain);
@@ -53,6 +56,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
     	return examList;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<Exam> getAll(Exam domain, @PathVariable int firstResult, @PathVariable int maxResults) {
     	examList = (ExamList) super.getAll(domain, firstResult, maxResults);
@@ -67,6 +73,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
     	}
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "add/room/{examId}/{roomId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
@@ -82,6 +91,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
         logger.debug("Exam updated");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "remove/room/{examId}/{roomId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
@@ -107,6 +119,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "add/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Subject Added")
@@ -122,6 +137,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> impleme
         logger.debug("Exam updated");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "remove/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Subject Removed")
