@@ -31,6 +31,10 @@ public class Console implements Domain {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
 
+    //consoleType
+
+    //locker
+
     @JsonIgnore
     @XmlTransient
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)

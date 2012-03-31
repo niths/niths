@@ -31,6 +31,8 @@ public class Game implements Domain {
     @Size(min = 2, max = 30, message ="The length of the category must be between 2 to 10 letters")
     private String category;
 
+    //locker
+
     @JsonIgnore
     @XmlTransient
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Console.class)
