@@ -42,7 +42,7 @@ public class GameTest {
 
     @Test
     public void testValidationOfCorrectGameValues() {
-        Game game = new Game(NAME, CATEGORY);
+        Game game = new Game(NAME, CATEGORY, 1);
 
         Set<ConstraintViolation<Game>> constraintViolations = validator
                 .validate(game);
@@ -52,7 +52,7 @@ public class GameTest {
 
     @Test
     public void testValidationOfIncorrectGameValues() {
-        Game game = new Game("KM", CATEGORY);
+        Game game = new Game("KM", CATEGORY, 1);
 
         Set<ConstraintViolation<Game>> constraintViolations = validator
                 .validate(game);
@@ -73,7 +73,7 @@ public class GameTest {
 
     @Test
     public void testTwoEqualGames() {
-        Game game = new Game(NAME, CATEGORY);
+        Game game = new Game(NAME, CATEGORY, 1);
 
         Game equalGame = game;
 
@@ -82,10 +82,10 @@ public class GameTest {
 
     @Test
     public void testTwoGamesWhichIsNotEqual() {
-        Game game = new Game(NAME, CATEGORY);
+        Game game = new Game(NAME, CATEGORY, 1);
         game.setId(1L);
 
-        Game notEqualGame = new Game(NAME, "Drama");
+        Game notEqualGame = new Game(NAME, "Drama", 1);
         notEqualGame.setId(2L);
 
         assertThat(false, is(equalTo(game.equals(notEqualGame))));
@@ -93,7 +93,7 @@ public class GameTest {
 
     @Test
     public void testEqualsBetweenNotEqualObjects() {
-        Game game = new Game(NAME, CATEGORY);
+        Game game = new Game(NAME, CATEGORY, 1);
 
         Student student = new Student();
 

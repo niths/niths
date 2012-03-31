@@ -31,9 +31,11 @@ public class Console implements Domain {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
 
-    //consoleType
+    @Column(name="console_type")
+    private String consoleType;
 
-    //locker
+    @Column
+    private Integer locker;
 
     @JsonIgnore
     @XmlTransient
@@ -53,6 +55,12 @@ public class Console implements Domain {
         setName(name);
     }
 
+    public Console(String name, String consoleType, Integer locker){
+        setName(name);
+        setConsoleType(consoleType);
+        setLocker(locker);
+    }
+
     @Override
     public void setId(Long id) {
         this.id = id;
@@ -69,6 +77,22 @@ public class Console implements Domain {
 
     public String getName() {
         return name;
+    }
+
+    public void setConsoleType(String consoleType) {
+        this.consoleType = consoleType;
+    }
+
+    public String getConsoleType() {
+        return consoleType;
+    }
+
+    public void setLocker(Integer locker) {
+        this.locker = locker;
+    }
+
+    public Integer getLocker() {
+        return locker;
     }
 
     public void setGames(List<Game> games) {

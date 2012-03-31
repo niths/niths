@@ -31,7 +31,8 @@ public class Game implements Domain {
     @Size(min = 2, max = 30, message ="The length of the category must be between 2 to 10 letters")
     private String category;
 
-    //locker
+    @Column
+    private Integer locker;
 
     @JsonIgnore
     @XmlTransient
@@ -43,7 +44,7 @@ public class Game implements Domain {
     private Console console;
 
     public Game(){
-        this(null, null);
+        this(null, null, null);
         setConsole(null);
     }
 
@@ -51,9 +52,10 @@ public class Game implements Domain {
         setName(name);
     }
 
-    public Game(String name, String category){
+    public Game(String name, String category, Integer locker){
         setName(name);
         setCategory(category);
+        setLocker(locker);
     }
 
     @Override
@@ -80,6 +82,14 @@ public class Game implements Domain {
 
     public String getCategory() {
         return category;
+    }
+
+    public void setLocker(Integer locker) {
+        this.locker = locker;
+    }
+
+    public Integer getLocker() {
+        return locker;
     }
 
     public Console getConsole() {
