@@ -1,0 +1,50 @@
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address               Foreign Address             State       PID/Program name   
+tcp        0      0 0.0.0.0:3306                0.0.0.0:*                   LISTEN      -                   
+tcp        0      0 127.0.0.1:5037              0.0.0.0:*                   LISTEN      26148/adb           
+tcp        0      0 127.0.0.1:631               0.0.0.0:*                   LISTEN      -                   
+tcp        0      0 127.0.0.1:25                0.0.0.0:*                   LISTEN      -                   
+tcp        0      0 ::ffff:127.0.0.1:8619       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::55404                    :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8621       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::8686                     :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8623       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::8080                     :::*                        LISTEN      31959/java          
+tcp        0      0 :::4848                     :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8625       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8627       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8628       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::3700                     :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8629       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::8181                     :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8631       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::631                      :::*                        LISTEN      -                   
+tcp        0      0 ::ffff:127.0.0.1:8600       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8601       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8634       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8602       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8603       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8700       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::7676                     :::*                        LISTEN      13330/java          
+tcp        0      0 ::ffff:127.0.0.1:8605       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8637       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8606       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8638       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8608       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8640       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 :::57120                    :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8641       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8642       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8643       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8611       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8644       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8645       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8646       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8647       :::*                        LISTEN      25410/eclipse       
+tcp        0      0 ::ffff:127.0.0.1:8615       :::*                        LISTEN      25410/eclipse       
+udp        0      0 0.0.0.0:631                 0.0.0.0:*                               -                   
+udp        0      0 0.0.0.0:5353                0.0.0.0:*                               -                   
+udp        0      0 0.0.0.0:41871               0.0.0.0:*                               -                   
+udp        0      0 0.0.0.0:5145                0.0.0.0:*                               -                   
+udp        0      0 0.0.0.0:68                  0.0.0.0:*                               -                   
+udp        0      0 :::55951                    :::*                                    -                   

@@ -75,7 +75,6 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public Role getById(@PathVariable Long id) {
 		return super.getById(id);
 	}
@@ -84,7 +83,6 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public ArrayList<Role> getAll(Role domain) {
 		roleList = (RoleList) super.getAll(domain);
 		clearRelations();
@@ -92,7 +90,6 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	}
 	
 	@Override
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public ArrayList<Role> getAll(Role domain, @PathVariable int firstResult, @PathVariable int maxResults) {
 		roleList = (RoleList) super.getAll(domain, firstResult, maxResults);
 		clearRelations();
