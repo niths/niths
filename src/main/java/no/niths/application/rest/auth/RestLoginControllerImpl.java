@@ -1,5 +1,6 @@
 package no.niths.application.rest.auth;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
@@ -44,9 +45,10 @@ public class RestLoginControllerImpl implements RestLoginController{
 	@Override
 	@RequestMapping(value = { "login" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public SessionToken login(@RequestBody SessionToken token) {
+	public SessionToken login(@RequestBody SessionToken token, HttpServletRequest req, HttpServletResponse res) {
 		if(token != null){
 			logger.info("A user wants to be authenticated with token: " + token);
+			res.setHeader("session-token", token.getToken());
 			return service.authenticateAtGoogle(token.getToken());
 		}
 		return new SessionToken();

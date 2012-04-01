@@ -1,5 +1,8 @@
 package no.niths.application.rest.auth.interfaces;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.security.SessionToken;
 
 /**
@@ -14,6 +17,9 @@ public interface RestLoginController {
 	 * @param token for authentication via Google
 	 * @return Session token to use for login after authentication
 	 */
-	SessionToken login(SessionToken token);
+	//SessionToken login(SessionToken token);
+
+	SessionToken login(SessionToken token, HttpServletRequest req,
+			HttpServletResponse res);
 	
 }
