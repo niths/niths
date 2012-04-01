@@ -1,0 +1,81 @@
+package no.niths.services;
+
+import no.niths.common.config.HibernateConfig;
+import no.niths.common.config.TestAppConfig;
+import no.niths.domain.Console;
+import no.niths.domain.Game;
+import no.niths.services.interfaces.ConsoleService;
+import no.niths.services.interfaces.GameService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
+public class ConsoleServiceTest {
+
+    private static final Logger logger = LoggerFactory
+            .getLogger(ConsoleServiceTest.class);
+
+    public static final String NAME = "Wii";
+    public static final String CHANGED_NAME = "Xbox";
+
+    @Autowired
+    private ConsoleService consoleService;
+
+    @Autowired
+    private GameService gameService;
+
+    @Test
+    public void testCRUD(){
+
+        int size = consoleService.getAll(null).size();
+
+        Console console = new Console();
+        console.setName(NAME);
+        consoleService.create(console);
+        assertThat(size + 1, is(equalTo(consoleService.getAll(null).size())));
+
+        Console tempConsole = consoleService.getById(console.getId());
+        assertThat(NAME, is(equalTo(tempConsole.getName())));
+
+        tempConsole.setName(CHANGED_NAME);
+        consoleService.update(tempConsole);
+
+        tempConsole = consoleService.getById(console.getId());
+        assertThat(CHANGED_NAME, is(equalTo(tempConsole.getName())));
+
+        consoleService.hibernateDelete(console.getId());
+        assertThat(size, is(equalTo(consoleService.getAll(null).size())));
+    }
+
+    @Test
+    public void testRelationsBetweenConsoleAndGame(){
+        Game game = new Game("Super Mario");
+        gameService.create(game);
+
+        Game otherGame = new Game("Halo");
+        gameService.create(otherGame);
+
+        Console console = new Console(NAME);
+        consoleService.create(console);
+
+        console.getGames().add(game);
+        console.getGames().add(otherGame);
+        consoleService.update(console);
+
+        assertThat(2, is(equalTo(consoleService.getById(console.getId()).getGames().size())));
+
+        consoleService.hibernateDelete(console.getId());
+        gameService.hibernateDelete(game.getId());
+        gameService.hibernateDelete(otherGame.getId());
+    }
+}
