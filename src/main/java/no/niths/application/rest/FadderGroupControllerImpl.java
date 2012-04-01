@@ -89,10 +89,12 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
             for(Student l: group.getLeaders()){
                 l.setCommittees(null);
                 l.setCourses(null);
+                l.setFeeds(null);
             }
             for(Student c: group.getFadderChildren()){
                 c.setCommittees(null);
                 c.setCourses(null);
+                c.setFeeds(null);
             }
         }
         return group;
