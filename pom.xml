@@ -366,8 +366,13 @@
 		<maven-surefire-plugin.version>2.11</maven-surefire-plugin.version>
 
 		<!-- VERSIONS -->
+	<!--  <spring-security.version>3.1.0.RELEASE</spring-security.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
+		<spring-social.version>1.0.2.RELEASE</spring-social.version>-->
+		
 		<spring-security.version>3.1.0.RELEASE</spring-security.version>
-		<spring.version>3.1.0.RELEASE</spring.version> <!-- 3.1.0.BUILD-SNAPSHOT -->
+		<spring.version>3.1.1.RELEASE</spring.version> <!-- 3.1.0.BUILD-SNAPSHOT -->
 		<spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
 		<spring-social.version>1.0.2.RELEASE</spring-social.version>
 
