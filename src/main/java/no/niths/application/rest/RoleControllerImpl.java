@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
@@ -130,7 +131,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "remove/role/{studentId}/{roleId}" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role removed")
-	public void removeStudentRole(Long studId, Long roleId) {
+	public void removeStudentRole(@PathVariable Long studId, @PathVariable Long roleId) {
 		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud);
 		
@@ -150,7 +151,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "remove/roles/{studentId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
-	public void removeAllRolesFromStudent(Long studId) {
+	public void removeAllRolesFromStudent(@PathVariable Long studId) {
 		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud);
 
@@ -158,6 +159,29 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 		studentService.update(stud);
 
 		logger.debug("All roles removed from student");
+	}
+	
+	/**
+	 * Return 200 ok is student is in role, else 204, no content
+	 * @param studId
+	 * @param roleId
+	 */
+	@Override
+	@RequestMapping(value = { "isStudent/{studentId}/{roleId}" }, method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
+	public void isStudentInRole(@PathVariable Long studId, @PathVariable Long roleId){
+		Student stud = studentService.getStudentWithRoles(studId);
+		ValidationHelper.isObjectNull(stud, "Student does not exist");
+		boolean hasRole = false;
+		for (Role r : stud.getRoles()){
+			if (r.getId() == roleId){
+				hasRole = true;
+			}
+		}
+		
+		if(!hasRole){
+			throw new NotInCollectionException("Student does not have the role");
+		}
 	}
 	
 	/**
