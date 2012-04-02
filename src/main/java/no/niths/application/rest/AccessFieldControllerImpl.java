@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -58,16 +59,15 @@ public class AccessFieldControllerImpl extends
 	@Override
 	@ApiEvent(title = "Access field created")
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void create(AccessField domain) {
+	public void create(@RequestBody AccessField domain) {
 		super.create(domain);
 	}
 
 	@Override
 	@ApiEvent(title = "Access field updated")
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void update(AccessField domain) {
+	public void update(@RequestBody AccessField domain) {
 		super.update(domain);
-
 	}
 
 	@Override

@@ -190,7 +190,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Update OK")
 	public void update(@RequestBody T domain) {
-		logger.debug(domain.toString());
+		logger.debug("Update");
+		logger.debug(domain + "");
 
 		try {
 			getService().mergeUpdate(domain);

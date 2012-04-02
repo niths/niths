@@ -117,4 +117,18 @@ public class AccessField implements Domain {
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj == this) return true;
+    	if(!(obj instanceof AccessField))return false;
+    	
+    	AccessField af = (AccessField)obj;
+    	return getId() == af.getId();
+    }
+    
+    @Override
+    public String toString() {
+    	return String.format("[%s][%s][%s]", id,minRange,maxRange);
+    }
 }

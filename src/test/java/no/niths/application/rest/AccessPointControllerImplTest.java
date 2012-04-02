@@ -36,11 +36,6 @@ public class AccessPointControllerImplTest {
 		testAP03 = new AccessPoint("00:24:AD:CF:AF");
 		testAP04 = new AccessPoint("00:25:AB:AF:FF");
 		
-		if(controller == null){
-			System.err.println("Is null ");
-			System.exit(0);
-		}
-		
 		controller.create(testAP01);
 		controller.create(testAP02);
 		controller.create(testAP03);

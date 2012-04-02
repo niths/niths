@@ -21,8 +21,6 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement(name = "accesspoint")
 @Entity
@@ -41,7 +39,6 @@ public class AccessPoint implements Domain {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
-	@Cascade(CascadeType.ALL)
 	private List<AccessField> accessfields = new ArrayList<AccessField>();
 
 	public AccessPoint() {
