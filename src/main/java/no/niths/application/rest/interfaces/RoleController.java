@@ -33,5 +33,12 @@ public interface RoleController extends GenericRESTController<Role> {
 	 */
 	public void removeAllRolesFromStudent(Long studId);
 
+/**
+ * Return 200 ok is student is in role, else 204, no content
+ * @param studId
+ * @param roleId
+ */
+	void isStudentInRole(Long studId, Long roleId);
+
 
 }
