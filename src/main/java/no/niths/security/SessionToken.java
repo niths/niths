@@ -18,6 +18,7 @@ public class SessionToken implements Serializable {
 	 */
 	private static final long serialVersionUID = -8019110671289257365L;
 	private String token;
+	private Long studentId;
 	
 	public SessionToken(){
 		token = "Not a valid token provided";
@@ -39,6 +40,14 @@ public class SessionToken implements Serializable {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return token;
+	}
+
+	public Long getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
 	}
 	
 	

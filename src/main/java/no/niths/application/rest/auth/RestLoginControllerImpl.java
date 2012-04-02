@@ -52,7 +52,7 @@ public class RestLoginControllerImpl implements RestLoginController{
 
 			SessionToken newToken = service.authenticateAtGoogle(token.getToken());
 			res.setHeader("session-token", newToken.getToken());
-			
+			res.setHeader("student-id", newToken.getStudentId() + "");
 			logger.debug("Authentication success");
 		}
 	}

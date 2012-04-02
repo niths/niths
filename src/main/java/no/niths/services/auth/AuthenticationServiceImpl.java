@@ -114,6 +114,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		// Create a wrapper to give to the request holder
 		SessionToken sessionToken = new SessionToken(); 
 		sessionToken.setToken(generatedToken);
+		sessionToken.setStudentId(authenticatedStudent.getId());
 		return sessionToken;
 	}
 
