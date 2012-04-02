@@ -6,6 +6,7 @@ import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.api.legacyprofile.LegacyGoogleProfile;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 /**
  * Authenticates a user through Google and are able to fetch their profiles
  * 
@@ -20,7 +21,7 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 	 * @return string containg the users email
 	 */
 	@Override
-	public String authenticateAndGetEmail(String token) {
+	public String authenticateAndGetEmail(String token) throws HttpClientErrorException {
 		Google google = new GoogleTemplate(token);
 		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
 		return profile.getEmail();

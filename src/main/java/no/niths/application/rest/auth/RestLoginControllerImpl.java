@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.common.AppConstants;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
@@ -39,27 +40,35 @@ public class RestLoginControllerImpl implements RestLoginController{
 	 * Authorize the user. Use the returned session token for future requests
 	 * 
 	 * @param token The token issued from google
-	 * @return encrypted session token valid for (See AppConstants.SESSION_VALID_TIME)
+	 * @remove: @return encrypted session token valid for (See AppConstants.SESSION_VALID_TIME)
 	 * 
 	 */
 	@Override
 	@RequestMapping(value = { "login" }, method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public SessionToken login(@RequestBody SessionToken token, HttpServletRequest req, HttpServletResponse res) {
+	public void login(@RequestBody SessionToken token, HttpServletRequest req, HttpServletResponse res) {
 		if(token != null){
-			logger.info("A user wants to be authenticated with token: " + token);
-			res.setHeader("session-token", token.getToken());
-			return service.authenticateAtGoogle(token.getToken());
+			logger.debug("A user wants to be authenticated with token: " + token);
+
+			SessionToken newToken = service.authenticateAtGoogle(token.getToken());
+			res.setHeader("session-token", newToken.getToken());
+			
+			logger.debug("Authentication success");
 		}
-		return new SessionToken();
 	}
 	
 	
 	
+	@ExceptionHandler(UnvalidEmailException.class)
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+	public void notAuthorized(HttpServletResponse res) {
+		res.setHeader("error", "Email not valid");
+	}
+	
 	@ExceptionHandler(HttpClientErrorException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	public void notAuthorized(HttpClientErrorException e, HttpServletResponse res) {
-		res.setHeader("Error", "Token not valid");
+		res.setHeader("error", "Token not valid");
 	}
 
 }
