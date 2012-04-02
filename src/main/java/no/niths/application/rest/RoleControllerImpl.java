@@ -1,6 +1,7 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.RoleController;
@@ -167,18 +168,22 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * @param roleId
 	 */
 	@Override
-	@RequestMapping(value = { "isStudent/{studentId}/{roleId}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "isStudent/{studId}/{roleName}" }, method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
-	public void isStudentInRole(@PathVariable Long studId, @PathVariable Long roleId){
+	public void isStudentInRole(@PathVariable Long studId, @PathVariable String roleName){
 		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud, "Student does not exist");
+		List<Role> roles = roleService.getAll(new Role(roleName));
+		
 		boolean hasRole = false;
-		for (Role r : stud.getRoles()){
-			if (r.getId() == roleId){
-				hasRole = true;
+		if(!roles.isEmpty()){
+			Role role = roles.get(0);
+			for (int i = 0; i < stud.getRoles().size() && !hasRole; i++){
+				if(stud.getRoles() == role){
+					hasRole = true;
+				}
 			}
 		}
-		
 		if(!hasRole){
 			throw new NotInCollectionException("Student does not have the role");
 		}

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
@@ -454,14 +455,31 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	 * @param e
 	 * @param res
 	 */
+	@ExceptionHandler(HasNotRoleException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void hasNotRole(HasNotRoleException e, HttpServletResponse res) {
+		if (e.getMessage() == null) {
+			res.setHeader(ERROR,
+					"Does not have role");
+		} else {
+			res.setHeader(ERROR, e.getMessage());
+			
+		}
+	}
+	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
 	@ExceptionHandler(NotInCollectionException.class)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void notInCollectionException(NotInCollectionException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader(INFO,
+			res.setHeader(ERROR,
 					"NotInCollectionException");
 		} else {
-			res.setHeader(INFO, e.getMessage());
+			res.setHeader(ERROR, e.getMessage());
 		}
 		logger.debug("NotInCollectionException");
 	}
