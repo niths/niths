@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
@@ -447,6 +448,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 		}
 		logger.debug("DuplicateEntry");
+	}
+	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
+	@ExceptionHandler(HasNotRoleException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void hasNotRole(HasNotRoleException e, HttpServletResponse res) {
+		if (e.getMessage() == null) {
+			res.setHeader(ERROR,
+					"Does not have role");
+		} else {
+			res.setHeader(ERROR, e.getMessage());
+			
+		}
 	}
 	
 	/**

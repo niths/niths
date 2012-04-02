@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -167,20 +168,20 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	 * @param roleId
 	 */
 	@Override
-	@RequestMapping(value = { "isStudent/{studentId}/{roleId}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "isStudent/{studId}/{roleId}" }, method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
 	public void isStudentInRole(@PathVariable Long studId, @PathVariable Long roleId){
 		Student stud = studentService.getStudentWithRoles(studId);
 		ValidationHelper.isObjectNull(stud, "Student does not exist");
 		boolean hasRole = false;
-		for (Role r : stud.getRoles()){
-			if (r.getId() == roleId){
+		for (int i = 0; i < stud.getRoles().size() && !hasRole; i++){
+			if(stud.getRoles().get(i).getId() == roleId){
 				hasRole = true;
 			}
 		}
 		
 		if(!hasRole){
-			throw new NotInCollectionException("Student does not have the role");
+			throw new HasNotRoleException("Student does not have the role");
 		}
 	}
 	
