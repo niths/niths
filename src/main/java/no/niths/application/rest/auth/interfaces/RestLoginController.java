@@ -19,7 +19,7 @@ public interface RestLoginController {
 	 */
 	//SessionToken login(SessionToken token);
 
-	SessionToken login(SessionToken token, HttpServletRequest req,
+	void login(SessionToken token, HttpServletRequest req,
 			HttpServletResponse res);
 	
 }
