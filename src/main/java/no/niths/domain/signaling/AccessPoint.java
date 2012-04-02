@@ -40,9 +40,7 @@ public class AccessPoint implements Domain {
 	private String address;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "accessfields_accesspoints",
-	    joinColumns =        @JoinColumn(name = "accesspoint_id"),
-	    inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
+	@JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
 	@Cascade(CascadeType.ALL)
 	private List<AccessField> accessfields = new ArrayList<AccessField>();
 
@@ -79,5 +77,15 @@ public class AccessPoint implements Domain {
 
 	public void setAccessFields(List<AccessField> accessFields) {
 		this.accessfields = accessFields;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof AccessPoint))
+			return false;
+		AccessPoint ap = (AccessPoint) obj;
+		return (ap.getId() == getId());
 	}
 }
