@@ -25,8 +25,16 @@ public interface GenericCRUDActions<T> {
 	 */
 	List<T> getAll(T domain);
 	
+	/**
+	 * Find and returns all objects which has values equal to the object sent as parameter.
+	 * The results are limited to between first and max.
+	 * @param domain
+	 * @param firstResult
+	 * @param maxResults
+	 * @return
+	 */
 	List<T> getAll(T domain, int firstResult, int maxResults);
-
+	
 	/**
 	 * Returns a domain on a given id
 	 * @param id

@@ -151,11 +151,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 	
 	/**
-	 * Returns an arraylist with all exams like getAll(domain), 
+	 * Returns an array list with all exams like getAll(domain), 
 	 * but also supports pagination
 	 * <p>
 	 * @param domain object with attributes to search for
-	 * @param firstResult the first result in the resultset
+	 * @param firstResult the first result in the result set
 	 * @param maxResults the number of result to return
 	 */
 	@Override
@@ -338,7 +338,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 	/**
 	 * When server fetches an object and try to insert it into an collection
-	 * where the object already is Ex: niths/committees/addEvent/1/5
+	 * where the object already is Example: niths/committees/addEvent/1/5
 	 */
 	@ExceptionHandler(org.hibernate.NonUniqueObjectException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Sorry, it is already a member of the collection")
@@ -348,7 +348,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	}
 
 	/**
-	 * Catches illegal arguments Ex: When you try to insert a subject into a
+	 * Catches illegal arguments Example: When you try to insert a subject into a
 	 * committee
 	 */
 	@ExceptionHandler(java.lang.IllegalArgumentException.class)
@@ -418,12 +418,23 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		}
 		logger.debug("Invalid search param");
 	}
+	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
 	@ExceptionHandler(EOFException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void endOfFile(EOFException e, HttpServletResponse res) {
 		res.setHeader(ERROR, "Wrong input");
 	}
 	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
 	@ExceptionHandler(DuplicateEntryCollectionException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void duplicateEntryCollectionException(DuplicateEntryCollectionException e, HttpServletResponse res) {
@@ -437,6 +448,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("DuplicateEntry");
 	}
 	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
 	@ExceptionHandler(NotInCollectionException.class)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void notInCollectionException(NotInCollectionException e, HttpServletResponse res) {
@@ -449,9 +465,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		logger.debug("NotInCollectionException");
 	}
 	
-
-	
-	
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
 	@ExceptionHandler(TypeMismatchException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void typeMismatchException(TypeMismatchException e, HttpServletResponse res) {

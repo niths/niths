@@ -3,20 +3,16 @@ package no.niths.services.auth;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
-
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
 import no.niths.services.auth.interfaces.StringCryptationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
