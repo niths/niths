@@ -111,10 +111,6 @@ public class AccessFieldControllerImplTest {
 	
 	@Test(expected=DuplicateEntryCollectionException.class)
 	public void testAddTheSameAccessPointTwice_shouldThrowException(){
-		AccessField af = controller.getById(testAF02.getId());
-		assertEquals(null, af.getAccessPoint());
-		
-		// add access point to access field
 		controller.addAccessPoint(testAF02.getId(), testAP.getId());
 		controller.addAccessPoint(testAF02.getId(), testAP.getId());
 	}

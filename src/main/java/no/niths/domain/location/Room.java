@@ -123,4 +123,13 @@ public class Room implements Domain {
 	public void setSubjects(List<Subject> subjects) {
 		this.subjects = subjects;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == this)return true;
+		if(!(obj instanceof Room))return false;
+		
+		Room room =(Room)obj;
+		return room.getId() == getId();
+	}
 }
