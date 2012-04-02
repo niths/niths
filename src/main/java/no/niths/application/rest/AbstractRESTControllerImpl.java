@@ -476,10 +476,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void notInCollectionException(NotInCollectionException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader(INFO,
+			res.setHeader(ERROR,
 					"NotInCollectionException");
 		} else {
-			res.setHeader(INFO, e.getMessage());
+			res.setHeader(ERROR, e.getMessage());
 		}
 		logger.debug("NotInCollectionException");
 	}

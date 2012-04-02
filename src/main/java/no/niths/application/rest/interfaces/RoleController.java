@@ -38,7 +38,8 @@ public interface RoleController extends GenericRESTController<Role> {
  * @param studId
  * @param roleId
  */
-	void isStudentInRole(Long studId, Long roleId);
+
+void isStudentInRole(Long studId, String roleName);
 
 
 }
