@@ -171,15 +171,18 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role> impleme
 	@RequestMapping(value = { "isStudent/{studId}/{roleName}" }, method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
 	public void isStudentInRole(@PathVariable Long studId, @PathVariable String roleName){
-		Student stud = studentService.getStudentWithRoles(studId);
-		ValidationHelper.isObjectNull(stud, "Student does not exist");
 		List<Role> roles = roleService.getAll(new Role(roleName));
 		
 		boolean hasRole = false;
 		if(!roles.isEmpty()){
+			Student stud = studentService.getStudentWithRoles(studId);
+			ValidationHelper.isObjectNull(stud, "Student does not exist");
 			Role role = roles.get(0);
+			
 			for (int i = 0; i < stud.getRoles().size() && !hasRole; i++){
-				if(stud.getRoles() == role){
+				logger.debug(role.getRoleName());
+				logger.debug(stud.getRoles().get(i).getRoleName());
+				if(stud.getRoles().get(i).equals(role)){
 					hasRole = true;
 				}
 			}
