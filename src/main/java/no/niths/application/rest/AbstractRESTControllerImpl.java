@@ -496,4 +496,16 @@ public abstract class AbstractRESTControllerImpl<T> implements
 		}
 		logger.debug("TypeMismatchException");
 	}
+	/**
+	 * 
+	 * @param e
+	 * @param res
+	 */
+	@ExceptionHandler(org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void staleEx(org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException e, HttpServletResponse res) {
+	
+		res.setHeader(ERROR, "Something went wrong, are the parameters correct?");
+		
+	}
 }
