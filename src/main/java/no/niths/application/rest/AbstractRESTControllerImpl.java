@@ -437,10 +437,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void duplicateEntryCollectionException(DuplicateEntryCollectionException e, HttpServletResponse res) {
 		if (e.getMessage() == null) {
-			res.setHeader(INFO,
+			res.setHeader(ERROR,
 					"DuplicateEntry");
 		} else {
-			res.setHeader(INFO, e.getMessage());
+			res.setHeader(ERROR, e.getMessage());
 
 		}
 		logger.debug("DuplicateEntry");
