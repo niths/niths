@@ -20,9 +20,11 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
  * Domain class for APIEvents
@@ -104,7 +106,6 @@ public class APIEvent implements Domain{
     
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return String.format("[%s][%s][%s][%s]", id, eventTime, title, description);
 	}
 
@@ -113,6 +114,7 @@ public class APIEvent implements Domain{
 		return eventTime;
 	}
 
+	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
 	public void setEventTime(Calendar eventTime) {
 		this.eventTime = eventTime;
 	}
