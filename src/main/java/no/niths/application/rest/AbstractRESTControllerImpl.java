@@ -402,7 +402,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 	public void invalidSearchParam(QueryParameterException e,
 			HttpServletResponse res) {
-		res.setHeader(ERROR, "Invalid Search param ex: hello&&hei ");
+		res.setHeader(ERROR, "Invalid Search param");
 		logger.debug("Invalid search param");
 	}
 
@@ -411,13 +411,9 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void httpMessageNotReadableException(
 			HttpMessageNotReadableException e, HttpServletResponse res) {
-		if (e.getMessage() == null) {
-			res.setHeader(ERROR,
-					"HttpMessageNotReadableException Cannot read input");
-		} else {
-			res.setHeader(ERROR, e.getMessage());
 
-		}
+			res.setHeader(ERROR, "Error with HTTP body");
+
 		logger.debug("Invalid search param");
 	}
 	
