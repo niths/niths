@@ -42,7 +42,7 @@ public class FadderGroupControllerTest {
 				
 		assertEquals(2, fadderController.getById(g1.getId()).getLeaders().size());
 		
-		fadderController.removeAllLeadersFromAGroup(g1.getId());
+		fadderController.removeAllLeadersFromGroup(g1.getId());
 		assertEquals(true, fadderController.getById(g1.getId()).getLeaders().isEmpty());
 		
 		fadderController.addLeaderToAGroup(g1.getId(), s1.getId());
@@ -81,14 +81,14 @@ public class FadderGroupControllerTest {
 				
 		assertEquals(2, fadderController.getById(g1.getId()).getFadderChildren().size());
 		
-		fadderController.removeAllChildrenFromAGroup(g1.getId());
+		fadderController.removeAllChildrenFromGroup(g1.getId());
 		assertEquals(true, fadderController.getById(g1.getId()).getFadderChildren().isEmpty());
 		
 		fadderController.addChildToAGroup(g1.getId(), s1.getId());
 		fadderController.addChildToAGroup(g1.getId(), s2.getId());
 		assertEquals(2, fadderController.getById(g1.getId()).getFadderChildren().size());
 		
-		fadderController.removeChildFromAGroup(g1.getId(), s1.getId());
+		fadderController.removeChildFromGroup(g1.getId(), s1.getId());
 		assertEquals(1, fadderController.getById(g1.getId()).getFadderChildren().size());
 		
 		

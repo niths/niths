@@ -198,7 +198,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "removeChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
-    public void removeChildFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+    public void removeChildFromGroup(@PathVariable Long groupId, @PathVariable Long studId) {
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
         
@@ -216,9 +216,26 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @RequestMapping(
+            value  = { "{groupId}/remove-children/{studentIds}" },
+            method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Children removed")
+    public void removeChildrenFromGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long[] studentIds) {
+        for (Long studentId : studentIds) {
+            removeChildFromGroup(groupId, studentId);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(value = { "removeAllChildren/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
-    public void removeAllChildrenFromAGroup(@PathVariable Long groupId) {
+    public void removeAllChildrenFromGroup(@PathVariable Long groupId) {
         FadderGroup group = getGroup(groupId);
         
         if(!group.getFadderChildren().isEmpty()){
@@ -237,7 +254,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = { "removeAllLeaders/{groupId}" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
-    public void removeAllLeadersFromAGroup(@PathVariable Long groupId) {
+    public void removeAllLeadersFromGroup(@PathVariable Long groupId) {
         FadderGroup group = getGroup(groupId);
         
         if(!group.getLeaders().isEmpty()){

@@ -45,9 +45,17 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * 
      * @param groupId id of the group to remove the child from
      * @param studId if of the student to remove
-     * @throws ObjectNotFoundException if student of group does not exists
+     * @throws ObjectNotFoundException if student in the group does not exist
      */
-    public void removeChildFromAGroup(Long groupId, Long studId);
+    public void removeChildFromGroup(Long groupId, Long studId);
+
+    /**
+     * 
+     * @param groupId id of the group to remove the children from
+     * @param studId id of the student to remove
+     * @throws ObjectNotFoundException if the students in group do not exist
+     */
+    public void removeChildrenFromGroup(Long groupId, Long[] studId);
 
     /**
      * Removes all children from a group
@@ -55,7 +63,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @param groupId id of the group to remove child from
      * @throws ObjectNotFoundException if the group does not exists
      */
-    public void removeAllChildrenFromAGroup(Long groupId);
+    public void removeAllChildrenFromGroup(Long groupId);
 
     /**
      * Removes all leaders from a group
@@ -63,7 +71,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @param groupId id of the group to remove leaders from
      * @throws ObjectNotFoundException if the group does not exists
      */
-    public void removeAllLeadersFromAGroup(Long groupId);
+    public void removeAllLeadersFromGroup(Long groupId);
 
     /**
      * Gets all the students in a given fadder group
