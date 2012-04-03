@@ -68,7 +68,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	private static final Logger logger = LoggerFactory
 			.getLogger(AbstractRESTControllerImpl.class);
 	private static final String ERROR = "Error";
-	private static final String INFO = "Info";
 	
 	/**
 	 * Persists the domain
@@ -87,6 +86,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void create(@RequestBody T domain) {
 			logger.debug(domain +"");
 			getService().create(domain);
@@ -190,6 +190,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Override
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Update OK")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void update(@RequestBody T domain) {
 		logger.debug("Update");
 		logger.debug(domain + "");
@@ -246,6 +247,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 	@Override
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void hibernateDelete(@PathVariable long id) {
 		try {
 			getService().hibernateDelete(id);

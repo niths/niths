@@ -32,4 +32,5 @@ public class AccessPointControllerImpl extends
 	public ListAdapter<AccessPoint> getList() {
 		return accessPointList;
 	}
+	
 }
