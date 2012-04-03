@@ -268,6 +268,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         ValidationHelper.isListEmpty(studentList);
 
         for (int i = 0; i < studentList.size(); i++) {
+            studentList.get(i).setFeeds(null);
             studentList.get(i).setCommittees(null);
             studentList.get(i).setCourses(null);
         }
