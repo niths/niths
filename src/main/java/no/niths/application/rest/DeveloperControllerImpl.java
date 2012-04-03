@@ -53,6 +53,16 @@ public class DeveloperControllerImpl extends
 	
 	private DeveloperList developerList = new DeveloperList();
 
+	
+	@Override
+	public Developer getById(@PathVariable Long id) {
+		Developer dev = super.getById(id);
+		for (Application app : dev.getApps()){
+			app.setDeveloper(null);
+		}
+		return dev;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
