@@ -31,31 +31,32 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 
 	@Override
 	public ArrayList<Feed> getAll(Feed domain) {
-		
+
 		list = (FeedList) super.getAll(domain);
 		clearRelations();
 		return list;
 	}
-	
+
 	@Override
-	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult, @PathVariable int maxResults) {
+	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
 		list = (FeedList) super.getAll(domain, firstResult, maxResults);
 		clearRelations();
 		return list;
 	}
-	
-	private void clearRelations(){
+
+	private void clearRelations() {
 		for (Feed l : list) {
 			l.setStudent(null);
 			l.setLocation(null);
 		}
 	}
-	
+
 	@Override
 	public Feed getById(@PathVariable Long id) {
-		logger.debug("get by id in controller so good so far "  + id);
-		Feed feed = service.getById(id);
-		if(feed.getStudent() != null){
+		logger.debug("get by id in controller so good so far " + id);
+		Feed feed = super.getById(id);
+		if (feed.getStudent() != null) {
 			feed.getStudent().setCommittees(null);
 			feed.getStudent().setCommitteesLeader(null);
 			feed.getStudent().setCourses(null);
@@ -63,6 +64,11 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 			feed.getStudent().setGroupLeaders(null);
 			feed.getStudent().setFeeds(null);
 			feed.getStudent().setRoles(null);
+		}
+		
+		if (feed.getLocation() != null) {
+			feed.getLocation().setFeeds(null);
+			feed.getLocation().setEvents(null);
 		}
 		return feed;
 	}
