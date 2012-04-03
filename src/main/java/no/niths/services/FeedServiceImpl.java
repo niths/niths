@@ -33,6 +33,4 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements Fee
 	public GenericRepository<Feed> getRepository() {
 		return repo;
 	}
-
-	
 }
