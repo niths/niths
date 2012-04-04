@@ -12,12 +12,16 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class AppConfig {
 
-    public static final String BASE_PACKAGE = "no.niths",
-                               REST_PACKAGE = BASE_PACKAGE +
-                                   ".application.rest",
-                               SERVICES_PACKAGE = BASE_PACKAGE + ".services",
-                               WEB_PACKAGE = BASE_PACKAGE +
-                                   ".application.web",
+    public static final String BASE_PACKAGE =
+                                   "no.niths",
+                               EXTERNAL_PACKAGE =
+                                   BASE_PACKAGE + ".external",
+                               REST_PACKAGE =
+                                   BASE_PACKAGE + ".application.rest",
+                               SERVICES_PACKAGE =
+                                   BASE_PACKAGE + ".services",
+                               WEB_PACKAGE =
+                                   BASE_PACKAGE + ".application.web",
                                    
                                APP_PROPS = "application.properties";
 

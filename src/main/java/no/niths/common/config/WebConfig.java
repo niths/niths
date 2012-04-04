@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@ComponentScan(AppConfig.REST_PACKAGE)
+@ComponentScan({ AppConfig.REST_PACKAGE, AppConfig.EXTERNAL_PACKAGE })
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 

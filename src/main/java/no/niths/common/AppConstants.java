@@ -10,6 +10,7 @@ public final class AppConstants {
     public static final String API_EVENTS = "api_events";
     public static final String APPLICATIONS = "applications";
     public static final String AUTH = "auth";
+    public static final String BROADCAST = "broadcast";
     public static final String COMMITTEES = "committees";
     public static final String COURSES = "courses";
     public static final String DEVELOPERS = "developers";
