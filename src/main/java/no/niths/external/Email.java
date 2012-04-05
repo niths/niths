@@ -18,7 +18,7 @@ public class Email {
     private String senderName;
 
     @Pattern(regexp = NITH_EMAIL_REGEXP, message = INVALID_EMAIL_MESSAGE)
-    private String recipientAddress;
+    private String[] recipientAddresses;
 
     @Pattern(regexp = "^[\\w]{1,30}$", message = "Invalid subject")
     private String subject;
@@ -34,12 +34,12 @@ public class Email {
         this.senderName = senderName;
     }
 
-    public String getRecipientAddress() {
-        return recipientAddress;
+    public String[] getRecipientAddresses() {
+        return recipientAddresses;
     }
 
-    public void setRecipientAddress(String recipientAddress) {
-        this.recipientAddress = recipientAddress;
+    public void setRecipientAddresses(String[] recipientAddresses) {
+        this.recipientAddresses = recipientAddresses;
     }
 
     public String getSubject() {

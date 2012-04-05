@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.sun.mail.smtp.SMTPAddressFailedException;
+
 @Controller
 @RequestMapping(AppConstants.BROADCAST)
 public class Broadcaster {
@@ -32,12 +34,16 @@ public class Broadcaster {
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     public void broadcast(@RequestBody Email email) {
-        service.composeAndSend(
-                email.getRecipientAddress(),
-                email.getSenderName(),
-                email.getSubject(),
-                "Hei.\n\nDette er " + email.getSenderName() + ".\n\n"
-                    + email.getBody());
+        String[] recipinentAddresses = email.getRecipientAddresses();
+
+        for (String recipinetAddress : recipinentAddresses) {
+            service.composeAndSend(
+                    recipinetAddress,
+                    "NITHs",
+                    email.getSubject(),
+                    "Hei.\n\nDette er " + email.getSenderName() + ".\n\n"
+                        + email.getBody());            
+        }
     }
 
     /**
@@ -49,5 +55,17 @@ public class Broadcaster {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public void endOfFile(EOFException e, HttpServletResponse res) {
         res.setHeader("Error", "Wrong input");
+    }
+
+    /**
+     * 
+     * @param e The exception thrown
+     * @param res The response
+     */
+    @ExceptionHandler(SMTPAddressFailedException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public void handleNonexistentEmailAddresses(SMTPAddressFailedException e,
+            HttpServletResponse res) {
+        res.setHeader("Error", "Email addresse(s) don't exist");
     }
 }
