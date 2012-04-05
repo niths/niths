@@ -416,7 +416,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
 			res.setHeader(ERROR, "Error with HTTP body");
 
-		logger.debug("Invalid search param");
+		logger.debug("Error with request header body");
 	}
 	
 	/**
