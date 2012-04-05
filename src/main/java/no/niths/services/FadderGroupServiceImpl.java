@@ -27,4 +27,14 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup> 
 	public GenericRepository<FadderGroup> getRepository() {
 		return repo;
 	}
+
+	@Override
+	public FadderGroup getGroupBelongingToStudent(Long studentId) {
+		FadderGroup group =  repo.getGroupBelongingToStudent(studentId);
+		if (group != null) {
+			group.getFadderChildren().size();
+			group.getLeaders().size();
+		}
+		return group;
+	}
 }

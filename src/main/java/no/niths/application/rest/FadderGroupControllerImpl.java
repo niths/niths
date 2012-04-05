@@ -3,7 +3,9 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -100,6 +102,24 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         return group;
     }
     /**
+     * Returns the group belonging to the student
+     */
+    @Override
+    @RequestMapping(value = "getGroupBelongingTo/{studentId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public FadderGroup getGroupBelongingToStudent(@PathVariable Long studentId){
+    	Student s = studService.getById(studentId);
+    	ValidationHelper.isObjectNull(s, "Cant find the student");
+    	FadderGroup g = service.getGroupBelongingToStudent(studentId);
+    	ValidationHelper.isObjectNull(g, "A Student is not a child");
+    	g.setFadderChildren(null);
+    	g.setLeaders(null);
+    	
+    	return g;
+    	
+    }
+    
+    /**
      * {@inheritDoc}
      * 
      * 
@@ -186,9 +206,11 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
         
-        
+        if(stud.getFadderGroup() != null){
+        	throw new DuplicateEntryCollectionException("Student is already a child");
+        }
         group.getFadderChildren().add(stud);
-		service.update(group);       
+        service.update(group);       
     }
 
     /**
