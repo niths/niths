@@ -4,5 +4,7 @@ import no.niths.domain.FadderGroup;
 
 
 public interface FadderGroupRepository extends GenericRepository<FadderGroup>{
+
+	FadderGroup getGroupBelongingToStudent(Long studentId);
 	
 }

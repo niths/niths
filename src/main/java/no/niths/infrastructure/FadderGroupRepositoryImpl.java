@@ -14,4 +14,13 @@ public class FadderGroupRepositoryImpl extends
 		super(FadderGroup.class, new FadderGroup());
 	}
 
+	@Override
+	public FadderGroup getGroupBelongingToStudent(Long studentId) {
+		String sql = "from " + FadderGroup.class.getSimpleName() + " f "
+				+ "join fetch f.fadderChildren c where c.id = :studentId";
+		
+		return (FadderGroup) getSession().getCurrentSession().createQuery(sql)
+				.setLong("studentId", studentId).uniqueResult();
+	}
+
 }
