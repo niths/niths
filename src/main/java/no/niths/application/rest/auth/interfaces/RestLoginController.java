@@ -3,6 +3,7 @@ package no.niths.application.rest.auth.interfaces;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.niths.domain.Student;
 import no.niths.security.SessionToken;
 
 /**
@@ -19,7 +20,7 @@ public interface RestLoginController {
 	 */
 	//SessionToken login(SessionToken token);
 
-	void login(SessionToken token, HttpServletRequest req,
+	Student login(SessionToken token, HttpServletRequest req,
 			HttpServletResponse res);
 	
 }

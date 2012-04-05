@@ -1,5 +1,6 @@
 package no.niths.services.auth.interfaces;
 
+import no.niths.application.rest.auth.SessionParcel;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.security.ApplicationToken;
@@ -55,7 +56,7 @@ public interface AuthenticationService {
 	 * 						Max concurrent session is {@value SecurityConstants.MAX_SESSION_VALID_TIME} ms.
 	 * 						
 	 */
-	SessionToken authenticateAtGoogle(String token);
+	SessionParcel authenticateAtGoogle(String token);
 	
 	/**
 	 * Register a developer and generates a developer token that the

@@ -70,7 +70,7 @@ public class AuthenticationServiceTest {
 		Student s= new Student(validemail);
 		when(studService.create(s)).thenReturn(new Long(1));
 		when(tokenService.generateToken(new Long(1))).thenReturn("dddd");
-		SessionToken st = service.authenticateAtGoogle(token);
+		SessionToken st = service.authenticateAtGoogle(token).getSessionToken();
 		assertEquals("dddd", st.getToken());
 	}
 	
