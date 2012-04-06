@@ -58,6 +58,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			e.getLocation().setFeeds(null);
 		}
 		
+		logger.debug(e.getLocation()+"");
 		return e;
 	}
 	/**

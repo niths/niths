@@ -28,8 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
+import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
@@ -83,7 +83,7 @@ public class Event implements Domain {
 	@JoinTable(name = "committees_events", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	private List<Committee> committees = new ArrayList<Committee>();
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "events_location", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(value = CascadeType.ALL)
 	private Location location;
@@ -164,7 +164,7 @@ public class Event implements Domain {
 		return endTime;
 	}
 
-	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
+	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
 	public void setEndTime(Calendar endTime) {
 		this.endTime = endTime;
 	}
@@ -174,7 +174,7 @@ public class Event implements Domain {
 		return startTime;
 	}
 
-	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
+	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
 	public void setStartTime(Calendar startTime) {
 		this.startTime = startTime;
 	}
@@ -195,6 +195,7 @@ public class Event implements Domain {
 		this.committees = committees;
 	}
 
+	@JsonSerialize(as=Location.class)
 	public Location getLocation() {
 		return location;
 	}

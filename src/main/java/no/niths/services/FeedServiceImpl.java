@@ -25,6 +25,11 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements Fee
 			if (feed.getStudent() != null) {
 				feed.getStudent().getEmail();
 			}
+			
+			if(feed.getLocation() != null){
+				feed.getLocation().getPlace();
+			}
+			
 		}
 		return feed;
 	}

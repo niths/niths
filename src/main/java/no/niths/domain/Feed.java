@@ -56,14 +56,14 @@ public class Feed implements Domain {
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar published;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "feeds_location", 
 		joinColumns = @JoinColumn(name = "feeds_id"), 
 		inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(CascadeType.ALL)
 	private Location location;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "feeds_student", 
 		joinColumns = @JoinColumn(name = "feeds_id"), 
 		inverseJoinColumns = @JoinColumn(name = "student_id"))
@@ -100,6 +100,7 @@ public class Feed implements Domain {
 		this.message = message;
 	}
 
+	@JsonSerialize(as=Student.class)
 	public Student getStudent() {
 		return student;
 	}
@@ -126,6 +127,7 @@ public class Feed implements Domain {
 		return String.format("[%s][%s]", id, message);
 	}
 
+	@JsonSerialize(as = Location.class)
 	public Location getLocation() {
 		return location;
 	}
