@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,24 +36,9 @@ public class QRCodeTest {
 
     private final String CHARSET   = "UTF-8",
                          FILE_NAME = "foobar.jpg",
+                         FILE_PATH = System.getProperty("user.home") + '/'
+                             + FILE_NAME,
                          DATA      = "Lorem ipsum";
-
-    private String filePath;
-
-    @Before
-    public void setUp() {
-        switch (System.getProperty("os.name")) {
-            case "Linux":
-                filePath = "/home/whirlwin/tmp/" + FILE_NAME;
-                break;
-            case "Windows":
-                filePath = "?" + FILE_NAME;
-                break;
-            case "Mac OSX":
-                System.exit(1); // Not allowed :)
-                break;
-        }
-    }
 
     @Test
     @SuppressWarnings("serial")
@@ -74,7 +58,7 @@ public class QRCodeTest {
 
                 // File type based on file extension
                 FILE_NAME.replaceFirst("\\w+\\.(\\w+)", "$1".toUpperCase()),
-                new File(filePath)
+                new File(FILE_PATH)
         );
     }
 
@@ -93,7 +77,7 @@ public class QRCodeTest {
                                         new BufferedImageLuminanceSource(
                                                 ImageIO.read(
                                                         new FileInputStream(
-                                                            filePath
+                                                            FILE_PATH
                                                         )
                                                 )
                                         )
