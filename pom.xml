@@ -1,398 +1,410 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>no.niths</groupId>
-	<artifactId>niths</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>niths</name>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>no.niths</groupId>
+    <artifactId>niths</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>niths</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.4.0</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <!-- ZXing: QR processor -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>2.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<!-- JSP taglibs -->
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<scope>runtime</scope>
-			<version>1.1.1</version>
-		</dependency>
+        <!-- JSP taglibs -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>c</artifactId>
-			<version>1.1.1</version>
-			<scope>runtime</scope>
-			<type>tld</type>
-		</dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <scope>runtime</scope>
+            <version>1.1.1</version>
+        </dependency>
 
-		<!-- Spring social -->
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>c</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+            <type>tld</type>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-core</artifactId>
-			<version>${spring-social.version}</version>
-		</dependency>
+        <!-- Spring social -->
 
-		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-web</artifactId>
-			<version>${spring-social.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.mobile</groupId>
-			<artifactId>spring-mobile-device</artifactId>
-			<version>1.0.0.M3</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>${spring-social.version}</version>
+        </dependency>
 
-		<!-- Provided on class path -->
+        <dependency>
+            <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
+            <version>1.0.0.M3</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-google</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/spring-social-google-0.0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
+        <!-- Provided on class path -->
 
-		<!-- security -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-google</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/spring-social-google-0.0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
 
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>1.6.11</version>
-		</dependency>
+        <!-- security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.11</version>
-		</dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.11</version>
+        </dependency>
 
-		<!-- Encrypt/decrypt -->
-		<dependency>
-			<groupId>org.jasypt</groupId>
-			<artifactId>jasypt</artifactId>
-			<version>1.9.0</version>
-			<!-- <scope>compile</scope> -->
-		</dependency>
-		<dependency>
-			<groupId>org.jasypt</groupId>
-			<artifactId>jasypt-hibernate4</artifactId>
-			<version>1.9.0</version>
-		</dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.6.11</version>
+        </dependency>
 
-		<!-- JSON, XML -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>${jackson-mapper-asl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson-mapper-asl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>${jaxb-api.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>${xstream.version}</version>
-		</dependency>
+        <!-- Encrypt/decrypt -->
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.0</version>
+            <!-- <scope>compile</scope> -->
+        </dependency>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt-hibernate4</artifactId>
+            <version>1.9.0</version>
+        </dependency>
 
-		<!-- persistence -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data-jpa.version}</version>
-		</dependency>
+        <!-- JSON, XML -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson-mapper-asl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson-mapper-asl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-api.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>${cglib.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- persistence -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql-connector-java.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<!-- HIBERNATE -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
-		</dependency>
+        <!-- HIBERNATE -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
-		<!-- Mail -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.3</version>
-		</dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
 
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback-classic.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- Mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.3</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${org.slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<!-- test scoped -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- test scoped -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.3.164</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.3.164</version>
+            <scope>runtime</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.0</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
 
-	<build>
-		<finalName>niths</finalName>
-		<plugins>
+    </dependencies>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
+    <build>
+        <finalName>niths</finalName>
+        <plugins>
 
-				<configuration>
-					<source>${version.java}</source>
-					<target>${version.java}</target>
-					<compilerArguments>
-						<encoding>${project.build.sourceEncoding}</encoding>
-					</compilerArguments>
-				</configuration>
-			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
 
-	</build>
+                <configuration>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                    <compilerArguments>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+        </plugins>
 
-
-	<repositories>
-		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Maven Repository Group</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestone</id>
-			<name>Spring Maven MILESTONE Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-		<repository>
-			<id>spring-maven-snapshot</id>
-			<name>Springframework Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<profiles>
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<sonar.jdbc.url>jdbc:mysql://localhost:3306/niths_test</sonar.jdbc.url>
-				<sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
-				<!-- <sonar.jdbc.validationQuery>select 1</sonar.jdbc.validationQuery> -->
-				<sonar.jdbc.username>root</sonar.jdbc.username>
-				<sonar.jdbc.password>123456</sonar.jdbc.password>
-				<sonar.host.url>http://localhost:9000</sonar.host.url>
-			</properties>
-		</profile>
-	</profiles>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.java>1.7</version.java>
-		<cglib.version>2.2.2</cglib.version>
-
-		<!-- Maven -->
-		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>2.11</maven-surefire-plugin.version>
-
-		<!-- VERSIONS -->
-	<!--  <spring-security.version>3.1.0.RELEASE</spring-security.version>
-		<spring.version>3.1.0.RELEASE</spring.version>
-		<spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
-		<spring-social.version>1.0.2.RELEASE</spring-social.version>-->
-		
-		<spring-security.version>3.1.0.RELEASE</spring-security.version>
-		<spring.version>3.1.1.RELEASE</spring.version> <!-- 3.1.0.BUILD-SNAPSHOT -->
-		<spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
-		<spring-social.version>1.0.2.RELEASE</spring-social.version>
+    </build>
 
 
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Maven MILESTONE Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+        </repository>
+        <repository>
+            <id>spring-maven-snapshot</id>
+            <name>Springframework Maven Snapshot Repository</name>
+            <url>http://maven.springframework.org/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-		<!-- json / xml -->
-		<jackson-mapper-asl.version>1.9.3</jackson-mapper-asl.version>
-		<jaxb-api.version>2.2.6</jaxb-api.version>
-		<xstream.version>1.4.2</xstream.version>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.jdbc.url>jdbc:mysql://localhost:3306/niths_test</sonar.jdbc.url>
+                <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
+                <!-- <sonar.jdbc.validationQuery>select 1</sonar.jdbc.validationQuery> -->
+                <sonar.jdbc.username>root</sonar.jdbc.username>
+                <sonar.jdbc.password>123456</sonar.jdbc.password>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
+            </properties>
+        </profile>
+    </profiles>
 
-		<!-- VERSIONS - persistence -->
-		<mysql-connector-java.version>5.1.18</mysql-connector-java.version> <!-- latest version on: 02.10.2011 - http://dev.mysql.com/downloads/connector/j/ -->
-		<hibernate.version>4.0.0.Final</hibernate.version> <!-- 3.6.9.Final -->
-		<hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.java>1.7</version.java>
+        <cglib.version>2.2.2</cglib.version>
 
-		<!-- VERSIONS - logging -->
-		<org.slf4j.version>1.6.4</org.slf4j.version>
-		<logback-classic.version>1.0.0</logback-classic.version>
+        <!-- Maven -->
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.11</maven-surefire-plugin.version>
 
-		<!-- VERSIONS - testing -->
-		<junit.version>4.10</junit.version>
-	</properties>
+        <!-- VERSIONS -->
+    <!--  <spring-security.version>3.1.0.RELEASE</spring-security.version>
+        <spring.version>3.1.0.RELEASE</spring.version>
+        <spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
+        <spring-social.version>1.0.2.RELEASE</spring-social.version>-->
+        
+        <spring-security.version>3.1.0.RELEASE</spring-security.version>
+        <spring.version>3.1.1.RELEASE</spring.version> <!-- 3.1.0.BUILD-SNAPSHOT -->
+        <spring-data-jpa.version>1.0.2.RELEASE</spring-data-jpa.version>
+        <spring-social.version>1.0.2.RELEASE</spring-social.version>
+
+
+
+        <!-- json / xml -->
+        <jackson-mapper-asl.version>1.9.3</jackson-mapper-asl.version>
+        <jaxb-api.version>2.2.6</jaxb-api.version>
+        <xstream.version>1.4.2</xstream.version>
+
+        <!-- VERSIONS - persistence -->
+        <mysql-connector-java.version>5.1.18</mysql-connector-java.version> <!-- latest version on: 02.10.2011 - http://dev.mysql.com/downloads/connector/j/ -->
+        <hibernate.version>4.0.0.Final</hibernate.version> <!-- 3.6.9.Final -->
+        <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
+
+        <!-- VERSIONS - logging -->
+        <org.slf4j.version>1.6.4</org.slf4j.version>
+        <logback-classic.version>1.0.0</logback-classic.version>
+
+        <!-- VERSIONS - testing -->
+        <junit.version>4.10</junit.version>
+    </properties>
 </project>
