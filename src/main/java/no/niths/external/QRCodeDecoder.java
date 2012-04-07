@@ -1,5 +1,26 @@
 package no.niths.external;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Hashtable;
+
+import javax.imageio.ImageIO;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.HybridBinarizer;
+
 
 /**
  * 
@@ -8,7 +29,38 @@ package no.niths.external;
  */
 public class QRCodeDecoder {
 
-    public Long decodeFadderGroupQRCode(Byte[] data) {
-        return 1L;
+    public Long decodeFadderGroupQRCode(byte[] data) throws NotFoundException, FileNotFoundException, IOException, WriterException {
+        String a = new MultiFormatReader().decode(
+                new BinaryBitmap(
+                        new HybridBinarizer(
+                                new BufferedImageLuminanceSource(
+                                        ImageIO.read(new ByteArrayInputStream(data))
+                                )
+                        )
+                ),
+                new Hashtable<DecodeHintType, String>() {{
+                    put(DecodeHintType.CHARACTER_SET, "UTF-8");
+                }}
+                ).getText();
+
+        System.out.println("-------------------------------------");
+        System.out.println(a);
+        System.out.println("-------------------------------------");
+
+        return null;
+    }
+
+    public BufferedImage convertToBufferedImage(byte[] data) throws WriterException {
+        
+        
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        
+        return MatrixToImageWriter.toBufferedImage(
+                new MultiFormatWriter().encode(
+                        new String(data),
+                        BarcodeFormat.QR_CODE,
+                        100,
+                        100));
     }
 }

@@ -1,5 +1,7 @@
 package no.niths.application.rest;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 /**
  * Controller for subjects
  *
@@ -293,15 +298,27 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 
     /**
      * {@inheritDoc}
+     * @throws WriterException 
      */
     @Override
     @RequestMapping(value = "scan-qr-code")
     @ResponseStatus(value = HttpStatus.OK, reason = "Scanned QR code")
-    public void scanImage(Byte[] data, HttpServletResponse response) {
-        response.setHeader(
-                "location",
-                AppConstants.FADDER + '/'
-                    + new QRCodeDecoder().decodeFadderGroupQRCode(data));
+    public void scanImage(@RequestBody byte[] data, HttpServletResponse response) throws WriterException {
+        try {
+            response.setHeader(
+                    "location",
+                    AppConstants.FADDER + '/'
+                        + new QRCodeDecoder().decodeFadderGroupQRCode(data));
+        } catch (NotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -343,5 +360,4 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         ValidationHelper.isObjectNull(group, "Faddergroup not found");
 		return group;
 	}
-
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.zxing.WriterException;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
@@ -75,7 +77,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public void removeAllLeadersFromGroup(Long groupId);
 
-    public void scanImage(Byte[] data, HttpServletResponse response);
+    void scanImage(byte[] data, HttpServletResponse response) throws WriterException;
 
     /**
      * Gets all the students in a given fadder group
@@ -85,4 +87,5 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
     public List<Student> getAllStudentsFromFadderGroup(Long id);
 
 	FadderGroup getGroupBelongingToStudent(Long studentId);
+
 }
