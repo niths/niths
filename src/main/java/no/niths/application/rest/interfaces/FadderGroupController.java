@@ -2,6 +2,8 @@ package no.niths.application.rest.interfaces;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
@@ -72,6 +74,8 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @throws ObjectNotFoundException if the group does not exists
      */
     public void removeAllLeadersFromGroup(Long groupId);
+
+    public void scanImage(Byte[] data, HttpServletResponse response);
 
     /**
      * Gets all the students in a given fadder group

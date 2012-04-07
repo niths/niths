@@ -3,6 +3,8 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -15,6 +17,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+import no.niths.external.QRCodeDecoder;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
@@ -286,6 +289,19 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         	logger.debug("list was empty no need for update");
         }
         
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "scan-qr-code")
+    @ResponseStatus(value = HttpStatus.OK, reason = "Scanned QR code")
+    public void scanImage(Byte[] data, HttpServletResponse response) {
+        response.setHeader(
+                "location",
+                AppConstants.FADDER + '/'
+                    + new QRCodeDecoder().decodeFadderGroupQRCode(data));
     }
 
     /**
