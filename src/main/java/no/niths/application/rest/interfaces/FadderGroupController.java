@@ -77,7 +77,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public void removeAllLeadersFromGroup(Long groupId);
 
-    void scanImage(byte[] data, HttpServletResponse response) throws WriterException;
+    void scanImage(String data, HttpServletResponse response) throws WriterException;
 
     /**
      * Gets all the students in a given fadder group

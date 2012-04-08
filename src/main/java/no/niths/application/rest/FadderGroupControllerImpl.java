@@ -303,20 +303,13 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @Override
     @RequestMapping(value = "scan-qr-code")
     @ResponseStatus(value = HttpStatus.OK, reason = "Scanned QR code")
-    public void scanImage(@RequestBody byte[] data, HttpServletResponse response) throws WriterException {
+    public void scanImage(@RequestBody String data, HttpServletResponse response) throws WriterException {
         try {
             response.setHeader(
                     "location",
                     AppConstants.FADDER + '/'
                         + new QRCodeDecoder().decodeFadderGroupQRCode(data));
-        } catch (NotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
