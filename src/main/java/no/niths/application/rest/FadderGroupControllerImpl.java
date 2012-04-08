@@ -301,8 +301,10 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      * @throws WriterException 
      */
     @Override
-    @RequestMapping(value = "scan-qr-code")
-    @ResponseStatus(value = HttpStatus.OK, reason = "Scanned QR code")
+    @RequestMapping(value = "scan-qr-code", method = RequestMethod.POST)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Scanned QR code")
     public void scanImage(@RequestBody String data, HttpServletResponse response) throws WriterException {
         try {
             response.setHeader(
