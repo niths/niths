@@ -106,6 +106,10 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 		return criteria.list();
 	}
 	
+	// FIXME: Fix so that it is more restrictive
+	// E.g, the following query string:
+	//   courses?name=Programmering
+	// also yields "Spillprogrammering" in addition to "Programmering"
 	//Private method for building the criteria
 	private Criteria buildCriteria(T domain){
 		Criteria criteria = session.getCurrentSession()
