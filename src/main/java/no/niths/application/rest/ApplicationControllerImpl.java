@@ -51,6 +51,13 @@ public class ApplicationControllerImpl extends
 		}
 		return applicationList;
 	}
+	
+	@Override
+	public Application getById(@PathVariable Long id) {
+		Application a = super.getById(id);
+		a.getDeveloper().setApps(null);
+		return a;
+	}
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
