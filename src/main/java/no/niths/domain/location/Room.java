@@ -33,7 +33,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.ROOMS)
 @XmlRootElement
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Room implements Domain {
 
 	@Transient

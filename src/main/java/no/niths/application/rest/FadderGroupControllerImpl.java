@@ -1,7 +1,5 @@
 package no.niths.application.rest;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -37,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 /**
  * Controller for subjects

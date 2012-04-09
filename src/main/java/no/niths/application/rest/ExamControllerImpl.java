@@ -15,6 +15,7 @@ import no.niths.services.interfaces.ExamService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoomService;
 import no.niths.services.interfaces.SubjectService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,11 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 		if (e != null) {
 			if (e.getRooms().isEmpty()) {
 				e.setRooms(null);
-			} 
+			}else{
+				for (Room room : e.getRooms()) {
+					room.setAccessFields(null);
+				}
+			}
 		}
 
 		return e;
