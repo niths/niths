@@ -21,6 +21,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- BASE64 encoder/decoder -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>20041127.091804</version>
+        </dependency>
+
         <!-- ZXing: QR processor -->
         <dependency>
             <groupId>com.google.zxing</groupId>

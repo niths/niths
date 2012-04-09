@@ -27,62 +27,62 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(name = AppConstants.ACCESS_POINTS)
 public class AccessPoint implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = 8118983219932188402L;
+    @Transient
+    private static final long serialVersionUID = 8118983219932188402L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(unique = true)
-	private String address;
+    @Column(unique = true)
+    private String address;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
-	private List<AccessField> accessfields = new ArrayList<AccessField>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
+    private List<AccessField> accessfields = new ArrayList<AccessField>();
 
-	public AccessPoint() {
-		this(null);
-		setAccessFields(null);
-	}
+    public AccessPoint() {
+        this(null);
+        setAccessFields(null);
+    }
 
-	public AccessPoint(String address) {
-		this.address = address;
-	}
+    public AccessPoint(String address) {
+        this.address = address;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	@JsonIgnore
-	@XmlTransient
-	public List<AccessField> getAccessFields() {
-		return accessfields;
-	}
+    @JsonIgnore
+    @XmlTransient
+    public List<AccessField> getAccessFields() {
+        return accessfields;
+    }
 
-	public void setAccessFields(List<AccessField> accessFields) {
-		this.accessfields = accessFields;
-	}
+    public void setAccessFields(List<AccessField> accessFields) {
+        this.accessfields = accessFields;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof AccessPoint))
-			return false;
-		AccessPoint ap = (AccessPoint) obj;
-		return (ap.getId() == getId());
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (!(obj instanceof AccessPoint))
+            return false;
+        AccessPoint ap = (AccessPoint) obj;
+        return (ap.getId() == getId());
+    }
 }

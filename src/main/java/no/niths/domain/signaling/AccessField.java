@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -87,6 +88,7 @@ public class AccessField implements Domain {
         validateRanges();
     }
 
+    @XmlElement(name = "minrange")
     public Integer getMinRange() {
         return minRange;
     }
@@ -96,10 +98,12 @@ public class AccessField implements Domain {
         validateRanges();
     }
 
+    @XmlElement(name = "maxrange")
     public Integer getMaxRange() {
         return maxRange;
     }
 
+    @XmlElement(name = "accesspoint")
     public AccessPoint getAccessPoint() {
         return accesspoint;
     }
@@ -129,6 +133,6 @@ public class AccessField implements Domain {
     
     @Override
     public String toString() {
-    	return String.format("[%s][%s][%s]", id,minRange,maxRange);
+    	return String.format("[%s][%s][%s]", id, minRange, maxRange);
     }
 }

@@ -1,7 +1,11 @@
 package no.niths.application.rest;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
@@ -15,6 +19,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+import no.niths.external.QRCodeDecoder;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
@@ -31,6 +36,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 /**
  * Controller for subjects
  *
@@ -290,6 +298,26 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 
     /**
      * {@inheritDoc}
+     * @throws WriterException 
+     */
+    @Override
+    @RequestMapping(value = "scan-qr-code", method = RequestMethod.POST)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Scanned QR code")
+    public void scanImage(@RequestBody String data, HttpServletResponse response) throws WriterException {
+        try {
+            response.setHeader(
+                    "location",
+                    AppConstants.FADDER + '/'
+                        + new QRCodeDecoder().decodeFadderGroupQRCode(data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "{id}/get-all-children", method = RequestMethod.GET)
@@ -327,5 +355,4 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         ValidationHelper.isObjectNull(group, "Faddergroup not found");
 		return group;
 	}
-
 }

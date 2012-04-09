@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -84,9 +85,10 @@ public class Room implements Domain {
 		this.roomName = roomName;
 	}
 
-	public String getRoomName() {
-		return roomName;
-	}
+    @XmlElement(name = "roomname")
+    public String getRoomName() {
+        return roomName;
+    }
 
 	public void setAccessFields(List<AccessField> accessFields) {
 		this.accessFields = accessFields;
