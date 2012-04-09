@@ -1,15 +1,14 @@
 package no.niths.application.rest;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -24,18 +23,28 @@ import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
@@ -302,15 +311,33 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @RequestMapping(value = "scan-qr-code", method = RequestMethod.POST)
-    @ResponseStatus(
-            value  = HttpStatus.OK,
-            reason = "Scanned QR code")
-    public void scanImage(@RequestBody String data, HttpServletResponse response) throws WriterException {
+    @ResponseStatus(value  = HttpStatus.OK, reason = "Scanned QR code")
+    public void scanImage(HttpServletRequest req, HttpServletResponse response) throws WriterException {
         try {
-            response.setHeader(
-                    "location",
-                    AppConstants.FADDER + '/'
-                        + new QRCodeDecoder().decodeFadderGroupQRCode(data));
+            if (req instanceof MultipartHttpServletRequest) {
+                System.out.println("heyyyyyyyyyyyyyyyyyy file");
+            }
+            //System.out.println("and the byte size is: " + mpf.getSize() + ", " + mpf.getContentType());
+            
+            
+            /*
+            List<FileItem> f = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+            System.out.println("num of fiiiiiiiiiiiiiiiiiiiiiiiles: " + f.size());
+            for (FileItem i : f) {
+                if (i.isFormField()) {
+                    System.out.println("-------------FF----" + i.getFieldName());
+                } else {
+                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx isFile" );
+                    InputStream is = i.getInputStream();
+                    response.setHeader(
+                            "location",
+                            AppConstants.FADDER + '/'
+                                + new QRCodeDecoder().decodeFadderGroupQRCode(IOUtils.toByteArray(is)));
+                }
+            }
+            */
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -342,8 +369,15 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 
         return studentList; 
     }
-    
-    
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(
+            value = HttpStatus.BAD_REQUEST,
+            reason = "Scan failed. Try again")
+    public void catchNotFoundException(
+            NotFoundException e,
+            HttpServletResponse response) {}
+
     private Student getStudent(Long studId) {
 		Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud, "Student not found");
