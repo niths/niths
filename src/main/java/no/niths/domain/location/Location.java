@@ -31,7 +31,6 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.LOCATIONS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlRootElement
-	
 public class Location implements Domain {
 
 	private static final long serialVersionUID = -4834276555969698011L;
@@ -70,6 +69,8 @@ public class Location implements Domain {
 
 	public Location() {
 		this(null, null);
+		setFeeds(null);
+		setEvents(null);
 	}
 
 	public Location(Double latitude, Double longitude) {

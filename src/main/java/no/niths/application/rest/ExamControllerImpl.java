@@ -30,151 +30,169 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping(AppConstants.EXAMS)
-public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam> implements ExamController {
+public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
+		implements ExamController {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(ExamControllerImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ExamControllerImpl.class);
 
-    @Autowired
-    private ExamService examService;
-    
-    @Autowired
-    private RoomService roomService;
-    
-    @Autowired
-    private SubjectService subjectService;
+	@Autowired
+	private ExamService examService;
 
-    private ExamList examList = new ExamList();
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Exam> getAll(Exam domain) {
-    	examList = (ExamList) super.getAll(domain);
-    	clearRelations();
-    	return examList;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Exam> getAll(Exam domain, @PathVariable int firstResult, @PathVariable int maxResults) {
-    	examList = (ExamList) super.getAll(domain, firstResult, maxResults);
-    	clearRelations();
-    	return examList;
-    }
-    
-    private void clearRelations(){
-    	for(Exam e : examList){
-    		e.setRooms(null);
-    		e.setSubject(null);
-    	}
-    }
+	@Autowired
+	private RoomService roomService;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "add/room/{examId}/{roomId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
-    public void addRoom(@PathVariable Long examId, @PathVariable Long roomId) {
-        Exam exam = examService.getById(examId);
-        ValidationHelper.isObjectNull(exam, "Exam does not exist");
+	@Autowired
+	private SubjectService subjectService;
 
-        Room room = roomService.getById(roomId);
-        ValidationHelper.isObjectNull(room, "Room does not exist");
-        
-        exam.getRooms().add(room);
-        examService.update(exam);
-        logger.debug("Exam updated");
-    }
+	private ExamList examList = new ExamList();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "remove/room/{examId}/{roomId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
-    public void removeRoom(@PathVariable Long examId, @PathVariable Long roomId) {
-        Exam exam = examService.getById(examId);
-        ValidationHelper.isObjectNull(exam, "Exam does not exist");
-        
-        boolean isRemoved = false;
-        
-        for (int i = 0; i < exam.getRooms().size(); i++) {
-            if (exam.getRooms().get(i).getId() == roomId) {
-                exam.getRooms().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ArrayList<Exam> getAll(Exam domain) {
+		examList = (ExamList) super.getAll(domain);
+		clearRelations();
+		return examList;
+	}
 
-        if (isRemoved) {
-            examService.update(exam);
-        } else {
-            logger.debug("Room not found");
-            throw new ObjectNotFoundException("Room not found");
-        }
-    }
+	@Override
+	public Exam getById(@PathVariable Long id) {
+		logger.debug("id "+ id);
+		Exam e = super.getById(id);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "add/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Subject Added")
-    public void addSubject(@PathVariable Long examId, @PathVariable Long subjectId) {
-        Exam exam = examService.getById(examId);
-        ValidationHelper.isObjectNull(exam, "Exam does not exist");
+		if (e != null) {
+			if (e.getRooms().isEmpty()) {
+				e.setRooms(null);
+			} 
+		}
 
-        Subject subject = subjectService.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, "Subject does not exist");
+		return e;
+	}
 
-        exam.setSubject(subject);
-        examService.update(exam);
-        logger.debug("Exam updated");
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ArrayList<Exam> getAll(Exam domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
+		examList = (ExamList) super.getAll(domain, firstResult, maxResults);
+		clearRelations();
+		return examList;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "remove/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Subject Removed")
-    public void removeSubject(@PathVariable Long examId, @PathVariable Long subjectId) {
-        Exam exam = examService.getById(examId);
-        ValidationHelper.isObjectNull(exam, "Exam does not exist");
+	private void clearRelations() {
+		for (Exam e : examList) {
+			e.setRooms(null);
+			e.setSubject(null);
+		}
+	}
 
-        boolean isRemoved = false;
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "add/room/{examId}/{roomId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
+	public void addRoom(@PathVariable Long examId, @PathVariable Long roomId) {
+		Exam exam = examService.getById(examId);
+		ValidationHelper.isObjectNull(exam, "Exam does not exist");
 
-        if (exam.getSubject() != null && exam.getSubject().getId() == subjectId) {
-            exam.setSubject(null);
-            isRemoved = true;
-        }
+		Room room = roomService.getById(roomId);
+		ValidationHelper.isObjectNull(room, "Room does not exist");
 
-        if (isRemoved) {
-            examService.update(exam);
-        } else {
-            logger.debug("Subject not found");
-            throw new ObjectNotFoundException("Subject not found");
-        }
-    }
+		exam.getRooms().add(room);
+		examService.update(exam);
+		logger.debug("Exam updated");
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GenericService<Exam> getService() {
-        return examService;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "remove/room/{examId}/{roomId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
+	public void removeRoom(@PathVariable Long examId, @PathVariable Long roomId) {
+		Exam exam = examService.getById(examId);
+		ValidationHelper.isObjectNull(exam, "Exam does not exist");
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ListAdapter<Exam> getList() {
-        return examList;
-    }
+		boolean isRemoved = false;
+
+		for (int i = 0; i < exam.getRooms().size(); i++) {
+			if (exam.getRooms().get(i).getId() == roomId) {
+				exam.getRooms().remove(i);
+				isRemoved = true;
+				break;
+			}
+		}
+
+		if (isRemoved) {
+			examService.update(exam);
+		} else {
+			logger.debug("Room not found");
+			throw new ObjectNotFoundException("Room not found");
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "add/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Added")
+	public void addSubject(@PathVariable Long examId,
+			@PathVariable Long subjectId) {
+		Exam exam = examService.getById(examId);
+		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+
+		Subject subject = subjectService.getById(subjectId);
+		ValidationHelper.isObjectNull(subject, "Subject does not exist");
+
+		exam.setSubject(subject);
+		examService.update(exam);
+		logger.debug("Exam updated");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequestMapping(value = "remove/subject/{examId}/{subjectId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Removed")
+	public void removeSubject(@PathVariable Long examId,
+			@PathVariable Long subjectId) {
+		Exam exam = examService.getById(examId);
+		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+
+		boolean isRemoved = false;
+
+		if (exam.getSubject() != null && exam.getSubject().getId() == subjectId) {
+			exam.setSubject(null);
+			isRemoved = true;
+		}
+
+		if (isRemoved) {
+			examService.update(exam);
+		} else {
+			logger.debug("Subject not found");
+			throw new ObjectNotFoundException("Subject not found");
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public GenericService<Exam> getService() {
+		return examService;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ListAdapter<Exam> getList() {
+		return examList;
+	}
 }
