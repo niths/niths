@@ -46,6 +46,9 @@ public class ApplicationControllerImpl extends
 	@Override
 	public ArrayList<Application> getAll(Application domain) {
 		applicationList = (ApplicationList) super.getAll(domain);
+		for (Application a: applicationList){
+			a.setDeveloper(null);
+		}
 		return applicationList;
 	}
 
