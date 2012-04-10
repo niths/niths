@@ -1,6 +1,7 @@
 package no.niths.application.rest;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -311,7 +312,7 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
             if (req instanceof MultipartHttpServletRequest) {
                 MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) req;
                 Map<String, MultipartFile> files = ((MultipartHttpServletRequest) req).getFileMap();
-                
+
                 for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
                     System.out.println("key: " + entry.getKey());
                     CommonsMultipartFile file = (CommonsMultipartFile) entry.getValue();

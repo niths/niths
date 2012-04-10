@@ -526,7 +526,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
         
     }
 
-    @ExceptionHandler(org.springframework.validation.BindException.class)
+    @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public void handleBindException(BindException e, HttpServletResponse res) {
         res.setHeader(ERROR, "You have provided a query string in which there" +
