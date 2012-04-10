@@ -46,7 +46,17 @@ public class ApplicationControllerImpl extends
 	@Override
 	public ArrayList<Application> getAll(Application domain) {
 		applicationList = (ApplicationList) super.getAll(domain);
+		for (Application a: applicationList){
+			a.setDeveloper(null);
+		}
 		return applicationList;
+	}
+	
+	@Override
+	public Application getById(@PathVariable Long id) {
+		Application a = super.getById(id);
+		a.getDeveloper().setApps(null);
+		return a;
 	}
 
 	@Override

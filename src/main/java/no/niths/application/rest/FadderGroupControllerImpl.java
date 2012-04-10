@@ -1,8 +1,10 @@
 package no.niths.application.rest;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -16,7 +18,6 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
-import no.niths.external.QRCodeDecoder;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
@@ -27,13 +28,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 /**
  * Controller for subjects
@@ -298,15 +302,33 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @RequestMapping(value = "scan-qr-code", method = RequestMethod.POST)
-    @ResponseStatus(
-            value  = HttpStatus.OK,
-            reason = "Scanned QR code")
-    public void scanImage(@RequestBody String data, HttpServletResponse response) throws WriterException {
+    @ResponseStatus(value  = HttpStatus.OK, reason = "Scanned QR code")
+    public void scanImage(HttpServletRequest req, HttpServletResponse response) throws WriterException {
         try {
-            response.setHeader(
-                    "location",
-                    AppConstants.FADDER + '/'
-                        + new QRCodeDecoder().decodeFadderGroupQRCode(data));
+            if (req instanceof MultipartHttpServletRequest) {
+                System.out.println("heyyyyyyyyyyyyyyyyyy file");
+            }
+            //System.out.println("and the byte size is: " + mpf.getSize() + ", " + mpf.getContentType());
+            
+            
+            /*
+            List<FileItem> f = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+            System.out.println("num of fiiiiiiiiiiiiiiiiiiiiiiiles: " + f.size());
+            for (FileItem i : f) {
+                if (i.isFormField()) {
+                    System.out.println("-------------FF----" + i.getFieldName());
+                } else {
+                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx isFile" );
+                    InputStream is = i.getInputStream();
+                    response.setHeader(
+                            "location",
+                            AppConstants.FADDER + '/'
+                                + new QRCodeDecoder().decodeFadderGroupQRCode(IOUtils.toByteArray(is)));
+                }
+            }
+            */
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -338,8 +360,15 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
 
         return studentList; 
     }
-    
-    
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(
+            value = HttpStatus.BAD_REQUEST,
+            reason = "Scan failed. Try again")
+    public void catchNotFoundException(
+            NotFoundException e,
+            HttpServletResponse response) {}
+
     private Student getStudent(Long studId) {
 		Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud, "Student not found");

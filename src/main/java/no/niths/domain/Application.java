@@ -71,8 +71,8 @@ public class Application implements Domain {
 	@Column
 	private Boolean enabled;
 
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	@ManyToOne
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
 	@Cascade(CascadeType.ALL)

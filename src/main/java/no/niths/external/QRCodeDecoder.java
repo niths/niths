@@ -31,9 +31,9 @@ import com.google.zxing.common.HybridBinarizer;
  */
 public class QRCodeDecoder {
 
-    public Long decodeFadderGroupQRCode(String data) throws Exception {
-        System.out.println("------- " + data);
-        byte[] b = new Base64().decode(data.getBytes("UTF-8"));
+    public Long decodeFadderGroupQRCode(byte[] data) throws Exception {
+        //System.out.println("------- " + data);
+        byte[] b = data;//new Base64().decode(data.getBytes("ISO-8859-1"));
         
         Result result = new MultiFormatReader().decode(
                 new BinaryBitmap(
@@ -46,7 +46,8 @@ public class QRCodeDecoder {
                         )
                 ),
                 new Hashtable<DecodeHintType, String>() {{
-                    put(DecodeHintType.CHARACTER_SET, "UTF-8");
+                    put(DecodeHintType.CHARACTER_SET, "ISO-8859-1");
+                    put(DecodeHintType.TRY_HARDER, "TRUE");
                 }}
          );
 
