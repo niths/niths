@@ -17,11 +17,8 @@ import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -33,9 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager",defaultRollback=true) 
 public class StudentRepositoryTest {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(StudentRepositoryTest.class); // Replace with test class
 
 	@Autowired
 	private StudentRepository studentRepo;
@@ -80,7 +74,6 @@ public class StudentRepositoryTest {
 	@Test
 	public void testStudentWithCourses() {
 		int cSize = courseRepo.getAll(null).size();
-		int sSize = studentRepo.getAll(null).size();
 		int comSize = comRepo.getAll(null).size();
 		
 		Course c1 = new Course("PROG", "casd1");
@@ -120,7 +113,7 @@ public class StudentRepositoryTest {
 
 	}
 
-	@Ignore
+	
 	@Test
 	public void testGetAllStudentsWithParameter_shouldReturnListOfStudentsMatching() {
 		
@@ -139,7 +132,7 @@ public class StudentRepositoryTest {
 	
 	}
 
-	@Ignore
+
 	@Test
 	public void testGetStudentsWithNamedCourse(){
 		int size = studentRepo.getAll(null).size();
@@ -164,19 +157,6 @@ public class StudentRepositoryTest {
 		assertEquals(3, students.size());
 		
 	}
-	
-//	@Test
-//	public void testGetStudentBySessionToken(){
-//		Student s1 = new Student("mail@nith.no");
-//		s1.setSessionToken("aToken");
-//		studentRepo.create(s1);
-//		Student s2 = new Student("mail2@nith.no");
-//		s2.setSessionToken("bToken");
-//		studentRepo.create(s2);
-//		
-//		assertEquals(s1, studentRepo.getStudentBySessionToken("aToken"));
-//		assertEquals(null, studentRepo.getStudentBySessionToken("cToken"));
-//	}
 	
 	private ArrayList<Student>createStudentHelper(){
 		ArrayList<Student> students = new ArrayList<Student>();

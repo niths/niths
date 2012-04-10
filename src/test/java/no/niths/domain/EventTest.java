@@ -14,8 +14,6 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class EventTest {
 	private static final Long ID = 1L;
@@ -23,9 +21,6 @@ public class EventTest {
 	private static final String DESCRIPTION = "Utvalg for Fantasiske Fritidssysler har brettspillaften";
 	private static final GregorianCalendar START_TIME = new GregorianCalendar();
 	private static final GregorianCalendar END_TIME = new GregorianCalendar();
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(EventTest.class);
 
 	private static Validator validator;
 

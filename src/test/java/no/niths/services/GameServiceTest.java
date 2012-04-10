@@ -1,5 +1,8 @@
 package no.niths.services;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
@@ -8,26 +11,18 @@ import no.niths.domain.Student;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.StudentService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class GameServiceTest {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(GameServiceTest.class);
-
-    public static final String NAME = "Super Mario";
+	public static final String NAME = "Super Mario";
     public static final String CHANGED_NAME = "Halo";
 
     @Autowired

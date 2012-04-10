@@ -5,15 +5,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FadderGroupTest {
     private static final Long ID = 1L;
     private static final Integer GROUP_ID = 1;
-
-    private static final Logger logger = LoggerFactory
-                    .getLogger(FadderGroupTest.class);
 
     @Test
     public void testShouldGenerateNewFadderGroup() {

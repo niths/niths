@@ -6,17 +6,13 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
-import no.niths.domain.Developer;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
-import no.niths.security.DeveloperToken;
 import no.niths.security.RequestHolderDetails;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
-import no.niths.services.interfaces.DeveloperService;
-import no.niths.services.interfaces.MailSenderService;
 import no.niths.services.interfaces.StudentService;
 
 import org.junit.Test;
@@ -35,11 +31,11 @@ public class AuthenticationServiceTest {
 	@Mock
 	private GoogleAuthenticationService authService;
 	
-	@Mock
-	private DeveloperService devService;
-	
-	@Mock
-	private MailSenderService mailService;
+//	@Mock
+//	private DeveloperService devService;
+//	
+//	@Mock
+//	private MailSenderService mailService;
 	
 	@Mock
 	private TokenGeneratorService tokenService;
@@ -90,11 +86,12 @@ public class AuthenticationServiceTest {
 		long now = System.currentTimeMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME * 2);
 		s.setLastLogon(now);
 		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		@SuppressWarnings("unused")
 		RequestHolderDetails u = service.authenticateSessionToken(token);
 	}
 	
 	
-	@Test//
+	@Test
 	public void testStudentWithLastLogon(){
 		Student s = new Student(validemail);
 		long now = System.currentTimeMillis();

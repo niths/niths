@@ -35,7 +35,7 @@ public class TokenGeneratorServiceTest {
 	@Test
 	public void testGenerateAndVerify(){
 		String token = tokenService.generateToken(new Long(21));
-		String token2 = tokenService.generateToken(new Long(22));
+		tokenService.generateToken(new Long(22));
 		tokenService.verifyTokenFormat(token, true);	
 	}
 	
@@ -55,7 +55,7 @@ public class TokenGeneratorServiceTest {
 	}
 	@Test(expected=UnvalidTokenException.class)
 	public void testUnvalidToken3(){
-		String token = tokenService.generateToken(null);
+		tokenService.generateToken(null);
 	}
 	
 	private String generateUnvalidToken(Long userId) {

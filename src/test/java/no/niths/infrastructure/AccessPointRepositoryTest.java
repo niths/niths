@@ -10,8 +10,6 @@ import no.niths.infrastructure.interfaces.AccessPointRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,9 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
     TestAppConfig.TRANSACTION_MANAGER)
 
 public class AccessPointRepositoryTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(
-            AccessPointRepositoryTest.class);
 
     @Autowired
     private AccessPointRepository repo;
