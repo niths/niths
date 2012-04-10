@@ -54,10 +54,13 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		return list;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
-		list = (FeedList) super.getAll(domain, firstResult, maxResults);
+		super.getAll(domain, firstResult, maxResults);
 		clearRelations();
 		return list;
 	}
@@ -69,6 +72,9 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Feed getById(@PathVariable Long id) {
 		logger.debug("get by id in controller so good so far " + id);
