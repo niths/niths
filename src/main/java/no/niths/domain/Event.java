@@ -89,7 +89,7 @@ public class Event implements Domain {
 	private Location location;
 
 	public Event() {
-		this(null, null, null, null, null);
+		this(null, null, null, null);
 		setCommittees(null);
 		setLocation(null);
 	}
@@ -113,6 +113,15 @@ public class Event implements Domain {
 		setDescription(description);
 		setEndTime(endTime);
 		setStartTime(startTime);
+	}
+	
+	public Event(String name, String description, GregorianCalendar startTime,
+			GregorianCalendar endTime,String tags) {
+		setName(name);
+		setDescription(description);
+		setEndTime(endTime);
+		setStartTime(startTime);
+		setTags(tags);
 	}
 
 	public Long getId() {
