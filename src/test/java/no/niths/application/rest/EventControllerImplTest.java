@@ -1,12 +1,14 @@
 package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.EventController;
@@ -60,8 +62,10 @@ public class EventControllerImplTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testEvent01 = new Event("NITH Party", "awesome", startTime01, endTime01);
-		testEvent02 = new Event("LUG event", "awesome", startTime02, endTime02);
+		testEvent01 = new Event("NITH Party", "awesome", startTime01,
+				endTime01, "Beer, Party");
+		testEvent02 = new Event("LUG event", "awesome", startTime02, endTime02,
+				"Beer");
 		testEvent03 = new Event("Windows fest", "awesome", startTime03,
 				endTime03);
 		testEvent04 = new Event("Mac attack", "awesome", startTime04, endTime04);
@@ -128,26 +132,52 @@ public class EventControllerImplTest {
 
 	@Test
 	public void testGetEventsByTag() {
-		// TODO create test here
+		List<Event> events = controller.getEventsByTag("Beer");
+		assertEquals(2, events.size());
 	}
 
 	@Test
 	public void testAddAndRemoveLocation() {
-		// TODO create test here
+		controller.addLocation(testEvent01.getId(), testLocation.getId());
+		assertEquals(testLocation, controller.getById(testEvent01.getId())
+				.getLocation());
+
+		controller.removeLocation(testEvent01.getId(), testLocation.getId());
+		assertNull(controller.getById(testEvent01.getId()).getLocation());
+	}
+
+	@Test(expected = DuplicateEntryCollectionException.class)
+	public void testAddSameLocationTwice() {
+		controller.addLocation(testEvent01.getId(), testLocation.getId());
+		controller.addLocation(testEvent01.getId(), testLocation.getId());
+	}
+
+	@Test(expected = ObjectNotFoundException.class)
+	public void testRemoveAEventsNonExistingLocation() {
+		controller.removeLocation(testEvent01.getId(), new Long(-1));
+	}
+
+	@Test(expected = ObjectNotFoundException.class)
+	public void testRemoveANonExistingEventAndAExistingLocation() {
+		controller.removeLocation(new Long(-1), testLocation.getId());
 	}
 
 	@Test
 	public void testGetEventsBetweenDates() {
-		String start ="09/04/2012-10:55";
-		String end="09/05/2012-10:55";
+		String start = "09/04/2012-10:55";
+		String end = "09/05/2012-10:55";
 
 		TimeDTO tdto = new TimeDTO(start, end);
-		
-		System.out.println(tdto.getEndTimeCal().getTime());
-		System.out.println(tdto.getStartTimeCal().getTime());
-		
 		List<Event> events = controller.getEventsBetweenDates(tdto);
-		
+
 		assertEquals(3, events.size());
+	}
+	
+	@Test
+	public void testGetEventsFromADate() {
+		String start = "09/05/2012-10:55";
+		TimeDTO tdto = new TimeDTO(start, null);
+		List<Event> events = controller.getEventsBetweenDates(tdto);
+		assertEquals(1, events.size());
 	}
 }
