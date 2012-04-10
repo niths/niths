@@ -62,7 +62,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	public Exam getById(@PathVariable Long id) {
 		logger.debug("id "+ id);
 		Exam e = super.getById(id);
-
+		
+		
+		// cheksi if exam is not null
 		if (e != null) {
 			if (e.getRooms().isEmpty()) {
 				e.setRooms(null);
@@ -71,6 +73,13 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 					room.setAccessFields(null);
 				}
 			}
+			
+			if(e.getSubject() != null){
+				e.getSubject().setTutors(null);
+				e.getSubject().setRoom(null);
+			}
+			
+			
 		}
 
 		return e;

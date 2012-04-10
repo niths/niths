@@ -1,5 +1,6 @@
 package no.niths.services;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import no.niths.domain.Event;
@@ -36,6 +37,12 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	@Override
 	public GenericRepository<Event> getRepository() {
 		return repo;
+	}
+
+	@Override
+	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
+			GregorianCalendar endTime) {
+		return repo.getEventsBetweenDates(startTime, endTime);
 	}
 
 }

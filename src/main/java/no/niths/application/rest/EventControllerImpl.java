@@ -5,6 +5,7 @@ import java.util.List;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.EventController;
 import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -187,5 +188,19 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			logger.debug("Event not Found");
 			throw new ObjectNotFoundException("Event not Found");
 		}
+	}
+	@Override
+	@RequestMapping(value = "dates", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
+		logger.debug(timeDTO +"");
+		ValidationHelper.isObjectNull(timeDTO.getStartTime());
+		
+		if(timeDTO.getEndTime() != null){
+			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
+		}else{
+			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
+		}
+		return eventList;
 	}
 }

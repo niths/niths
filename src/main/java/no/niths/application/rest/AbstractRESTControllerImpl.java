@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
@@ -499,6 +500,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
         }
         logger.debug("TypeMismatchException");
     }
+    
     /**
      * 
      * @param e
@@ -507,9 +509,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ExceptionHandler(HibernateOptimisticLockingFailureException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public void staleEx(HibernateOptimisticLockingFailureException e, HttpServletResponse res) {
-    
         res.setHeader(ERROR, "Something went wrong, are the parameters correct?");
-        
     }
 
     @ExceptionHandler(org.springframework.validation.BindException.class)
@@ -517,5 +517,17 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public void handleBindException(BindException e, HttpServletResponse res) {
         res.setHeader(ERROR, "You have provided a query string in which there" +
                 "are nested attribute(s)");
+    }
+    
+    @ExceptionHandler(CustomParseException.class)
+    @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+    public void customParseException(CustomParseException e, HttpServletResponse res) {
+    	if (e.getMessage() == null) {
+            res.setHeader(ERROR,
+                    "CustomParseException");
+        } else {
+            res.setHeader(ERROR, e.getMessage());
+        }
+        logger.debug("CustomParseException");
     }
 }

@@ -2,6 +2,7 @@ package no.niths.infrastructure;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -118,5 +119,46 @@ public class EventRepositoryTest {
 		assertEquals(event.getEndTime(), temp.getEndTime());
 	
 		assertEquals(loc, temp.getLocation());
+	}
+	
+	@Test
+	public void testGetEventsBetweenToDates(){
+		GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.APRIL, 10, 15, 10);
+		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 20);
+		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 21);
+		
+		Event event = new Event("LUG Party", "Linux", startTime, null);
+		Event event2 = new Event("LUG", "Linux", endDate, null);
+		Event event3 = new Event("KAG", "Linux", oldDate, null);
+		eventRepo.create(event);
+		eventRepo.create(event2);
+		eventRepo.create(event3);
+		
+		
+		List<Event> events = eventRepo.getEventsBetweenDates(startTime, endDate);
+		
+		assertEquals(2, events.size());
+	
+	}
+	
+	
+	@Test
+	public void testGetEventsAfterADate(){
+		GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.APRIL, 10, 15, 10);
+		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 20);
+		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 21);
+		
+		Event event = new Event("LUG Party", "Linux", startTime, null);
+		Event event2 = new Event("LUG", "Linux", endDate, null);
+		Event event3 = new Event("KAG", "Linux", oldDate, null);
+		eventRepo.create(event);
+		eventRepo.create(event2);
+		eventRepo.create(event3);
+		
+		
+		List<Event> events = eventRepo.getEventsBetweenDates(startTime, null);
+		
+		assertEquals(3, events.size());
+	
 	}
 }
