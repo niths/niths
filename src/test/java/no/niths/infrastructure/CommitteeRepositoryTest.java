@@ -33,9 +33,9 @@ public class CommitteeRepositoryTest {
 	@Test
 	public void testAddLeader(){
 		Student s1 = new Student("John", "Doe");
-		s1.setEmail("mail@mail.com");
+		s1.setEmail("supermail@mail.com");
 		Student s2 = new Student("Jane", "Doe");
-		s2.setEmail("mail2@mail.com");
+		s2.setEmail("dupermail2@mail.com");
 		studentRepo.create(s1);
 		studentRepo.create(s2);
 		
