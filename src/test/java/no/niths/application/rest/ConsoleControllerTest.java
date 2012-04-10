@@ -3,10 +3,12 @@ package no.niths.application.rest;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ConsoleController;
 import no.niths.application.rest.interfaces.GameController;
+import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
+import no.niths.domain.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import javax.validation.ConstraintViolationException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,6 +36,9 @@ public class ConsoleControllerTest {
 
     @Autowired
     private GameController gameController;
+
+    @Autowired
+    private StudentController studentController;
 
     @Test(expected= ConstraintViolationException.class)
     public void testInsertNullObject_shallThrowException() {
@@ -92,5 +98,28 @@ public class ConsoleControllerTest {
         consoleController.hibernateDelete(console.getId());
         gameController.hibernateDelete(game.getId());
         gameController.hibernateDelete(otherGame.getId());
+    }
+
+    @Test
+    public void testCreateAndDeleteOfStudentLoanedBy() {
+        Console console = new Console("Wii");
+        consoleController.create(console);
+
+        assertThat(console, is(equalTo(consoleController.getById(console.getId()))));
+
+        Student loanedBy = new Student("email@nith.no");
+
+        studentController.create(loanedBy);
+
+        consoleController.addLoanedBy(console.getId(), loanedBy.getId());
+
+        assertThat(studentController.getById(loanedBy.getId()), is(equalTo(consoleController.getById(console.getId()).getLoanedBy())));
+
+        consoleController.removeLoanedBy(console.getId(), loanedBy.getId());
+
+        assertThat(consoleController.getById(console.getId()).getLoanedBy(), is(nullValue()));
+
+        consoleController.hibernateDelete(console.getId());
+        studentController.hibernateDelete(loanedBy.getId());
     }
 }

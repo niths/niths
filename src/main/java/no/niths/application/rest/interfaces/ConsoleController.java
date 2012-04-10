@@ -22,4 +22,20 @@ public interface ConsoleController extends GenericRESTController<Console> {
      * @param gameId id of the game
      */
     public void removeGame(Long consoleId, Long gameId);
+
+    /**
+     * Adds a loaned by student too a console
+     *
+     * @param consoleId id of the console
+     * @param loanedById id of the student
+     */
+    public void addLoanedBy(Long consoleId, Long loanedById);
+
+    /**
+     * Removes a loaned by student from a console
+     *
+     * @param consoleId id of the console
+     * @param loanedById if of the student
+     */
+    public void removeLoanedBy(Long consoleId, Long loanedById);
 }

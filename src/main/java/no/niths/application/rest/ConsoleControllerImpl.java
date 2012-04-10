@@ -8,9 +8,11 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
+import no.niths.domain.Student;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private StudentService studentService;
 
     private ConsoleList consoleList = new ConsoleList();
 
@@ -111,6 +116,49 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
         } else {
             logger.debug("Game not found");
             throw new ObjectNotFoundException("Game not found");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "add/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
+    public void addLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
+        Console console = consoleService.getById(consoleId);
+        ValidationHelper.isObjectNull(console, "Console does not exist");
+
+        Student loanedBy = studentService.getById(loanedById);
+        ValidationHelper.isObjectNull(loanedBy, "Loaned by does not exist");
+
+        console.setLoanedBy(loanedBy);
+        consoleService.update(console);
+        logger.debug("Console updated");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "remove/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
+    public void removeLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
+        Console console = consoleService.getById(consoleId);
+        ValidationHelper.isObjectNull(console, "Console does not exist");
+
+        boolean isRemoved = false;
+
+        if (console.getLoanedBy() != null && console.getLoanedBy().getId() == loanedById) {
+            console.setLoanedBy(null);
+            isRemoved = true;
+        }
+
+        if (isRemoved) {
+            consoleService.update(console);
+        } else {
+            logger.debug("Loaned by not found");
+            throw new ObjectNotFoundException("Loaned by not found");
         }
     }
 

@@ -3,10 +3,12 @@ package no.niths.application.rest;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ConsoleController;
 import no.niths.application.rest.interfaces.GameController;
+import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
+import no.niths.domain.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -34,6 +36,9 @@ public class GameControllerTest {
 
     @Autowired
     private ConsoleController consoleController;
+
+    @Autowired
+    private StudentController studentController;
 
     @Test(expected= ConstraintViolationException.class)
     public void testInsertNullObject_shallThrowException() {
@@ -88,5 +93,27 @@ public class GameControllerTest {
 
         gameController.hibernateDelete(game.getId());
         consoleController.hibernateDelete(console.getId());
+    }
+
+    @Test
+    public void testCreateAndDeleteOfStudentLoanedBy() {
+        Game game = new Game("Super Mario");
+        gameController.create(game);
+
+        assertThat(game, is(equalTo(gameController.getById(game.getId()))));
+
+        Student loanedBy = new Student("nyMail@nith.no");
+        studentController.create(loanedBy);
+
+        gameController.addLoanedBy(game.getId(), loanedBy.getId());
+
+        assertThat(studentController.getById(loanedBy.getId()), is(equalTo(gameController.getById(game.getId()).getLoanedBy())));
+
+        gameController.removeLoanedBy(game.getId(), loanedBy.getId());
+
+        assertThat(gameController.getById(game.getId()).getLoanedBy(), is(nullValue()));
+
+        gameController.hibernateDelete(game.getId());
+        studentController.hibernateDelete(loanedBy.getId());
     }
 }

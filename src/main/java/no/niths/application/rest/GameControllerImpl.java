@@ -8,9 +8,11 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
+import no.niths.domain.Student;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
 
     @Autowired
     private ConsoleService consoleService;
+
+    @Autowired
+    private StudentService studentService;
 
     private GameList gameList = new GameList();
 
@@ -107,6 +112,49 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
         } else {
             logger.debug("Console not found");
             throw new ObjectNotFoundException("Console not found");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "add/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
+    public void addLoanedBy(@PathVariable Long gameId, @PathVariable Long loanedById) {
+        Game game = gameService.getById(gameId);
+        ValidationHelper.isObjectNull(game, "Game does not exist");
+
+        Student loanedBy = studentService.getById(loanedById);
+        ValidationHelper.isObjectNull(loanedBy, "Loaned by does not exist");
+
+        game.setLoanedBy(loanedBy);
+        gameService.update(game);
+        logger.debug("Game updated");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "remove/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
+    public void removeLoanedBy(Long gameId, Long loanedById) {
+        Game game = gameService.getById(gameId);
+        ValidationHelper.isObjectNull(game, "Game does not exist");
+
+        boolean isRemoved = false;
+
+        if (game.getLoanedBy() != null && game.getLoanedBy().getId() == loanedById) {
+            game.setLoanedBy(null);
+            isRemoved = true;
+        }
+
+        if (isRemoved) {
+            gameService.update(game);
+        } else {
+            logger.debug("Loaned by not found");
+            throw new ObjectNotFoundException("Loaned by not found");
         }
     }
 
