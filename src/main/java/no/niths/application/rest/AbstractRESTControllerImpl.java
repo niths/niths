@@ -75,7 +75,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractRESTControllerImpl.class);
-    private static final String ERROR = "Error";
+    protected static final String ERROR = "Error";
 
     /**
      * Persists the domain
