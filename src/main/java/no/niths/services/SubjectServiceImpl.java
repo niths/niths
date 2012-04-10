@@ -17,7 +17,13 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
 
 	public Subject getById(long id) {
 		Subject s = repo.getById(id);
-		s.getTutors().size();
+		if(s!= null){
+			s.getTutors().size();
+			if(s.getRoom() != null){
+				s.getRoom().getRoomName();
+			}
+		}
+		
 		return s;
 	}
 

@@ -33,91 +33,88 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.ROOMS)
 @XmlRootElement
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 public class Room implements Domain {
 
 	@Transient
 	private static final long serialVersionUID = -664567726655902624L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "room_name", unique = true)
-    // @Pattern(regexp = "^(foobar)$", message = "Invalid room name")
-    private String roomName;
+	@Column(name = "room_name", unique = true)
+	private String roomName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
-    @JoinTable(name="rooms_accessfields",
-        joinColumns        = @JoinColumn(name = "room_id"),
-        inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
-    private List<AccessField> accessFields = new ArrayList<AccessField>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	@Cascade(CascadeType.ALL)
+	@JoinTable(name = "rooms_accessfields", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
+	private List<AccessField> accessFields = new ArrayList<AccessField>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
-    @JoinTable(name="rooms_exams",
-            joinColumns        = @JoinColumn(name = "room_id"),
-            inverseJoinColumns = @JoinColumn(name = "exams_id"))
-    private List<Exam> exams = new ArrayList<Exam>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	@Cascade(CascadeType.ALL)
+	@JoinTable(name = "rooms_exams", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "exams_id"))
+	private List<Exam> exams = new ArrayList<Exam>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "subjects_room",
-	    joinColumns =        @JoinColumn(name = "room_id"),
-	    inverseJoinColumns = @JoinColumn(name = "subjects_id"))
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "subjects_room", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "subjects_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Subject> subjects = new ArrayList<Subject>();
-    
-    public Room(String roomName) {
+
+	public Room(String roomName) {
 		setRoomName(roomName);
 	}
 
 	public Room() {
 		this(null);
+		setSubjects(null);
+		setExams(null);
+		setAccessFields(null);
+
 	}
 
 	public void setId(Long id) {
-        this.id = id;
-    }
+		this.id = id;
+	}
 
-    public Long getId() { 
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
 
     @XmlElement(name = "roomname")
     public String getRoomName() {
         return roomName;
     }
 
-    public void setAccessFields(List<AccessField> accessFields) {
-        this.accessFields = accessFields;
-    }
+	public void setAccessFields(List<AccessField> accessFields) {
+		this.accessFields = accessFields;
+	}
 
-    public List<AccessField> getAccessFields() {
-        return accessFields;
-    }
+	public List<AccessField> getAccessFields() {
+		return accessFields;
+	}
 
-    public void setExams(List<Exam> exams) {
-        this.exams = exams;
-    }
+	public void setExams(List<Exam> exams) {
+		this.exams = exams;
+	}
 
-    @XmlTransient
-    @JsonIgnore
-    public List<Exam> getExams() {
-        return exams;
-    }
-    
-    @Override
-    public String toString() {
-    	return String.format("[%s][%s]", id, roomName);
-    }
+	@XmlTransient
+	@JsonIgnore
+	public List<Exam> getExams() {
+		return exams;
+	}
 
-    @XmlTransient
-    @JsonIgnore
+	@Override
+	public String toString() {
+		return String.format("[%s][%s]", id, roomName);
+	}
+
+	@XmlTransient
+	@JsonIgnore
 	public List<Subject> getSubjects() {
 		return subjects;
 	}
@@ -125,13 +122,15 @@ public class Room implements Domain {
 	public void setSubjects(List<Subject> subjects) {
 		this.subjects = subjects;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(obj == this)return true;
-		if(!(obj instanceof Room))return false;
-		
-		Room room =(Room)obj;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Room))
+			return false;
+
+		Room room = (Room) obj;
 		return room.getId() == getId();
 	}
 }

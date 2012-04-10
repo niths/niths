@@ -20,4 +20,16 @@ public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 		return repo;
 	}
 
+	
+	@Override
+	public AccessField getById(long id) {
+		AccessField af= super.getById(id);
+		if(af != null){
+			if(af.getAccessPoint() != null){
+				af.getAccessPoint().getAddress();
+			}
+		}
+		
+		return af;
+	}
 }

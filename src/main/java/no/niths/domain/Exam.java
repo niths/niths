@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,6 +39,7 @@ import org.hibernate.annotations.Cascade;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.EXAMS)
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Exam implements Domain {
 
@@ -72,7 +75,7 @@ public class Exam implements Domain {
 
     @JsonIgnore
     @XmlTransient
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity= Subject.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity= Subject.class)
     @JoinTable(name = "exam_subjects",
             joinColumns = @JoinColumn(name = "exams_id"),
             inverseJoinColumns = @JoinColumn(name = "subjects_id"))
@@ -158,6 +161,7 @@ public class Exam implements Domain {
         this.subject = subject;
     }
 
+    @JsonSerialize(as=Subject.class)
     public Subject getSubject() {
         return subject;
     }

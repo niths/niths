@@ -82,6 +82,12 @@ public class RoomControllerImplTest {
 	}
 
 	@Test
+    public void testGetAllWithSearch() {
+        ArrayList<Room> rooms = controller.getAll(new Room("Kantina"));
+        assertEquals(1, rooms.size());
+    }
+
+	@Test
 	public void testGetAllTIntInt() {
 		ArrayList<Room> rooms = controller.getAll(new Room(), 1, 3);
 		assertEquals(3, rooms.size());

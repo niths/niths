@@ -117,7 +117,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 
 	@Override
 	public ArrayList<Subject> getAll(Subject domain) {
-		subjectList = (SubjectList) super.getAll(domain);
+		 super.getAll(domain);
 		clearRelations();
 		return subjectList;
 	}
@@ -125,7 +125,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 	@Override
 	public ArrayList<Subject> getAll(Subject domain,
 			@PathVariable int firstResult, @PathVariable int maxResults) {
-		subjectList = (SubjectList) super.getAll(domain, firstResult,
+		 super.getAll(domain, firstResult,
 				maxResults);
 		clearRelations();
 		return subjectList;
