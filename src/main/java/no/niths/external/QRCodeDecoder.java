@@ -33,20 +33,18 @@ public class QRCodeDecoder {
 
     public Long decodeFadderGroupQRCode(byte[] data) throws Exception {
         //System.out.println("------- " + data);
-        byte[] b = data;//new Base64().decode(data.getBytes("ISO-8859-1"));
         
         Result result = new MultiFormatReader().decode(
                 new BinaryBitmap(
                         new HybridBinarizer(
                                 new BufferedImageLuminanceSource(
                                         ImageIO.read(
-                                                new ByteArrayInputStream(b)
+                                                new ByteArrayInputStream(data)
                                         )
                                 )
                         )
                 ),
                 new Hashtable<DecodeHintType, String>() {{
-                    put(DecodeHintType.CHARACTER_SET, "ISO-8859-1");
                     put(DecodeHintType.TRY_HARDER, "TRUE");
                 }}
          );
