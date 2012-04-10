@@ -1,5 +1,7 @@
 package no.niths.application.rest;
 
+import java.util.ArrayList;
+
 import no.niths.aop.ApiEvent;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -56,6 +58,28 @@ public class AccessFieldControllerImpl extends
 		return list;
 	}
 
+	@Override
+	public ArrayList<AccessField> getAll(AccessField domain) {
+		super.getAll(domain);
+		
+		for(AccessField af : list){
+			af.setAccessPoint(null);
+		}
+		return list;
+	}
+	
+	@Override
+	public ArrayList<AccessField> getAll(AccessField domain, int firstResult,
+			int maxResults) {
+		super.getAll(domain,firstResult,maxResults);
+		
+		for(AccessField af : list){
+			af.setAccessPoint(null);
+		}
+		
+		return list;
+	}
+	
 	@Override
 	@ApiEvent(title = "Access field created")
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
