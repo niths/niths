@@ -1,6 +1,8 @@
 package no.niths.application.rest;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoomController;
@@ -60,6 +62,22 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
             @PathVariable int firstResult,
             @PathVariable int maxResults) {
         roomList = (RoomList) super.getAll(room, firstResult, maxResults);
+
+        for (Room r : roomList) {
+            Field[] fields = room.getClass().getDeclaredFields();
+            for (Field f : fields) {
+                if (Collection.class.isAssignableFrom(f.getType())) {
+                    System.err.println(f.getName());
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
         return roomList;
     }
 
