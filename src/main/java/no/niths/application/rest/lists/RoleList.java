@@ -20,4 +20,10 @@ public class RoleList extends ListAdapter<Role> {
 	public void setData(List<Role> data) {
 		this.data = data;
 	}
+
+    @Override
+    public List<Role> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

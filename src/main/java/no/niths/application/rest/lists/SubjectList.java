@@ -20,4 +20,10 @@ public class SubjectList extends ListAdapter<Subject> {
 	public void setData(List<Subject> data) {
 		this.data = data;
 	}
+
+    @Override
+    public List<Subject> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -100,7 +100,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain) {
 		studentList = (StudentList) super.getAll(domain);
-		clearRelations();
+		//clearRelations();
 		return studentList;
 	}
 	
@@ -109,7 +109,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
 		studentList = (StudentList) super.getAll(domain, firstResult, maxResults);
-		clearRelations();
+		//clearRelations();
 		return studentList;
 	}
 	

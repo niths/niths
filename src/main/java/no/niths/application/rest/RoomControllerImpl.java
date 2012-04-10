@@ -1,6 +1,8 @@
 package no.niths.application.rest;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -63,14 +65,25 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
             @PathVariable int maxResults) {
         roomList = (RoomList) super.getAll(room, firstResult, maxResults);
 
+        Field[] fields = Room.class.getDeclaredFields();
         for (Room r : roomList) {
-            Field[] fields = room.getClass().getDeclaredFields();
             for (Field f : fields) {
-                if (Collection.class.isAssignableFrom(f.getType())) {
-                    System.err.println(f.getName());
+                Class<?> c = Collection.class;
+                if (c.isAssignableFrom(f.getType())) {
+                    try {
+                        String name = f.getName();
+                        Method m = r.getClass().getMethod(
+                                "set" + Character.toUpperCase(name.charAt(0))
+                                        + name.substring(1), f.getType());
+                        m.invoke(r, new Object[] {null});
+
+                    } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+        
         
         
         

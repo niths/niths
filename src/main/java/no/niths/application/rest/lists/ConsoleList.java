@@ -19,4 +19,10 @@ public class ConsoleList extends ListAdapter<Console> {
     public void setData(List<Console> consoles) {
         this.data = consoles;
     }
+
+    @Override
+    public List<Console> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

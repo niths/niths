@@ -21,4 +21,8 @@ public class StudentList extends ListAdapter<Student> {
 		this.data = list;
 	}
 
+    @Override
+    public List<Student> getData() {
+        return data;
+    }
 }

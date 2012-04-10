@@ -11,4 +11,7 @@ public abstract class ListAdapter<E> extends ArrayList<E> implements
 	@Override
 	public abstract void setData(List<E> list);
 
+	@Override
+	public abstract List<E> getData();
+
 }

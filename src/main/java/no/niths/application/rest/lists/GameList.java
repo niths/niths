@@ -19,4 +19,10 @@ public class GameList extends ListAdapter<Game> {
     public void setData(List<Game> games) {
         this.data = games;
     }
+
+    @Override
+    public List<Game> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

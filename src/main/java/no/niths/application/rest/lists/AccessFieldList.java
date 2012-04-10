@@ -21,4 +21,10 @@ public class AccessFieldList extends ListAdapter<AccessField> {
 	public void setData(List<AccessField> list) {
 		this.accessFieldData = list;
 	}
+
+    @Override
+    public List<AccessField> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

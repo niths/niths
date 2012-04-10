@@ -23,4 +23,10 @@ public class ApplicationList extends ListAdapter<Application> {
 	public void setData(List<Application> data) {
 		this.data = data;
 	}
+
+    @Override
+    public List<Application> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

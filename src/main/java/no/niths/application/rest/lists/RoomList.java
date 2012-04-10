@@ -20,4 +20,10 @@ public class RoomList extends ListAdapter<Room> {
 	public void setData(List<Room> roomData) {
 		this.roomData = roomData;
 	}
+
+    @Override
+    public List<Room> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

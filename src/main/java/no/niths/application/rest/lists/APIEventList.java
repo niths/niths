@@ -20,4 +20,10 @@ public class APIEventList extends ListAdapter<APIEvent> {
 	public void setData(List<APIEvent> data) {
 		this.data = data;
 	}
+
+    @Override
+    public List<APIEvent> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

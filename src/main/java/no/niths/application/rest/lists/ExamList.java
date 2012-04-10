@@ -19,4 +19,10 @@ public class ExamList extends ListAdapter<Exam> {
     public void setData(List<Exam> exams) {
         this.data = exams;
     }
+
+    @Override
+    public List<Exam> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

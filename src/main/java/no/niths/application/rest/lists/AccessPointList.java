@@ -21,4 +21,10 @@ public class AccessPointList extends ListAdapter<AccessPoint> {
 	public void setData(List<AccessPoint> accessPointData) {
 		this.accessPointData = accessPointData;
 	}
+
+    @Override
+    public List<AccessPoint> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

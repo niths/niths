@@ -20,4 +20,10 @@ public class DeveloperList extends ListAdapter<Developer> {
 	public void setData(List<Developer> data) {
 		this.data = data;
 	}
+
+    @Override
+    public List<Developer> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

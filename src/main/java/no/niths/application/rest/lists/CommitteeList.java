@@ -22,4 +22,10 @@ public class CommitteeList extends ListAdapter<Committee> {
 		this.committeeData = committeeData;
 	}
 
+    @Override
+    public List<Committee> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

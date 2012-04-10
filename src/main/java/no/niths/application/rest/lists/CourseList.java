@@ -23,4 +23,10 @@ public class CourseList extends ListAdapter<Course> {
 	public List<Course> getCourseData() {
 		return courseData;
 	}
+
+    @Override
+    public List<Course> getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

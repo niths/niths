@@ -192,6 +192,10 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	
 	@Override
 	@RequestMapping(value = "dates", method = RequestMethod.GET)
+<<<<<<< Updated upstream
+=======
+	@ResponseStatus(value = HttpStatus.OK)
+>>>>>>> Stashed changes
 	@ResponseBody
 	public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
 		logger.debug(timeDTO +"");

@@ -1,7 +1,10 @@
 package no.niths.application.rest;
 
 import java.io.EOFException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -153,6 +156,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain) {
         renewList(getService().getAll(domain));
+        clearR();
         return getList();
     }
 
@@ -217,6 +221,38 @@ public abstract class AbstractRESTControllerImpl<T> implements
         if (!getService().delete(id)) {
             throw new ObjectNotFoundException(
                     "Could not find the object to delete");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    
+    public void clearR() {
+        ListAdapter<?> list = getList();
+
+        for (Object domain: list) {
+            Field[] fields = domain.getClass().getDeclaredFields();
+
+            for (Field field : fields) {
+                if (Collection.class.isAssignableFrom(field.getType())) {
+                    try {
+                        String fieldName = field.getName();
+
+                        // Dynamically find the set method for collection types.
+                        Method method = domain.getClass().getMethod(
+                                "set" +
+                                    Character.toUpperCase(fieldName.charAt(0)) +
+                                    fieldName.substring(1),
+                                field.getType());
+
+                        // Dynamically call the method
+                        method.invoke(domain, new Object[] { null });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
