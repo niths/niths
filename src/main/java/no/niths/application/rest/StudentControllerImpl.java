@@ -10,8 +10,19 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.*;
-import no.niths.services.interfaces.*;
+import no.niths.domain.Committee;
+import no.niths.domain.Console;
+import no.niths.domain.Course;
+import no.niths.domain.Feed;
+import no.niths.domain.Game;
+import no.niths.domain.Student;
+import no.niths.services.interfaces.CommitteeService;
+import no.niths.services.interfaces.ConsoleService;
+import no.niths.services.interfaces.CourseService;
+import no.niths.services.interfaces.FeedService;
+import no.niths.services.interfaces.GameService;
+import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.StudentService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +30,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.STUDENTS)
@@ -100,7 +116,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain) {
 		studentList = (StudentList) super.getAll(domain);
-		//clearRelations();
 		return studentList;
 	}
 	
@@ -109,16 +124,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
 		studentList = (StudentList) super.getAll(domain, firstResult, maxResults);
-		//clearRelations();
 		return studentList;
-	}
-	
-	private void clearRelations(){
-		for (int i = 0; i < studentList.size(); i++) {
-			studentList.get(i).setCommittees(null);
-			studentList.get(i).setCourses(null);
-			studentList.get(i).setFeeds(null);
-		}
 	}
 
 	/**
@@ -136,7 +142,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			//studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}
