@@ -99,28 +99,16 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain) {
-		studentList = (StudentList) super.getAll(domain);
-		//clearRelations();
-		return studentList;
+		return super.getAll(domain);
 	}
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
-		studentList = (StudentList) super.getAll(domain, firstResult, maxResults);
-		//clearRelations();
-		return studentList;
+		return super.getAll(domain, firstResult, maxResults);
 	}
 	
-	private void clearRelations(){
-		for (int i = 0; i < studentList.size(); i++) {
-			studentList.get(i).setCommittees(null);
-			studentList.get(i).setCourses(null);
-			studentList.get(i).setFeeds(null);
-		}
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -136,7 +124,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
-			//studentList.get(i).setFadderGroup(null);
 		}
 		return studentList;
 	}

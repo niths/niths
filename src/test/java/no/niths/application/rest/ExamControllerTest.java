@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import javax.validation.ConstraintViolationException;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ExamController;
 import no.niths.application.rest.interfaces.RoomController;
@@ -14,22 +16,16 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Exam;
 import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.validation.ConstraintViolationException;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class ExamControllerTest {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(ExamControllerTest.class);
 
     @Autowired
     private ExamController examController;

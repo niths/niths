@@ -5,13 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.google.zxing.WriterException;
-
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+
+import com.google.zxing.WriterException;
 
 /**
  * 

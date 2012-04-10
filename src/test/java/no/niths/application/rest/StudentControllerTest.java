@@ -8,15 +8,23 @@ import static org.junit.Assert.assertThat;
 import javax.validation.ConstraintViolationException;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.*;
+import no.niths.application.rest.interfaces.CommitteeController;
+import no.niths.application.rest.interfaces.ConsoleController;
+import no.niths.application.rest.interfaces.CourseController;
+import no.niths.application.rest.interfaces.FeedController;
+import no.niths.application.rest.interfaces.GameController;
+import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.*;
+import no.niths.domain.Committee;
+import no.niths.domain.Console;
+import no.niths.domain.Course;
+import no.niths.domain.Feed;
+import no.niths.domain.Game;
+import no.niths.domain.Student;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,8 +33,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class StudentControllerTest {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(StudentControllerTest.class);
     public static final String EMAIL = "epost@nith.no";
 
     @Autowired

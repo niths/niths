@@ -70,7 +70,6 @@ public class Room implements Domain {
 		setSubjects(null);
 		setExams(null);
 		setAccessFields(null);
-
 	}
 
 	public void setId(Long id) {
@@ -131,6 +130,6 @@ public class Room implements Domain {
 			return false;
 
 		Room room = (Room) obj;
-		return room.getId() == getId();
+		return room.getId() == getId() && room.getRoomName().equals(getRoomName());
 	}
 }
