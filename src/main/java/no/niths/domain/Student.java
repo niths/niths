@@ -199,6 +199,8 @@ public class Student implements Domain {
 		setFeeds(null);
 		setRoles(null);
 		setTutorInSubjects(null);
+        setLoanedGames(null);
+        setLoanedConsole(null);
 	}
 
 	public Student(String email) {
