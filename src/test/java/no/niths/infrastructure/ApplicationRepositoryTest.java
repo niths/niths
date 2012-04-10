@@ -25,7 +25,7 @@ public class ApplicationRepositoryTest {
 	public void testCRUD(){
 		int size = appRepo.getAll(null).size();
 		
-		Application a = new Application();
+		Application a = new Application("app");
 		appRepo.create(a);
 		
 		assertEquals(size + 1, appRepo.getAll(null).size());
