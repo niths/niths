@@ -174,6 +174,20 @@ public class Student implements Domain {
 	    inverseJoinColumns = @JoinColumn(name = "feeds_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Feed> feeds = new ArrayList<Feed>();
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
+    @JoinTable(name = "loans_consoles",
+            joinColumns = @JoinColumn(name = "loan_id"),
+            inverseJoinColumns = @JoinColumn(name = "console_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Console> loanedConsole = new ArrayList<Console>();
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
+    @JoinTable(name = "loans_games",
+            joinColumns = @JoinColumn(name = "loan_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Game> loanedGames = new ArrayList<Game>();
 	
 	public Student() {
 		this(null, null, null, null, null, null, null);
@@ -428,4 +442,19 @@ public class Student implements Domain {
 		this.representativeFor = representativeFor;
 	}
 
+    public List<Game> getLoanedGames() {
+        return loanedGames;
+    }
+
+    public void setLoanedGames(List<Game> loanedGames) {
+        this.loanedGames = loanedGames;
+    }
+
+    public List<Console> getLoanedConsole() {
+        return loanedConsole;
+    }
+
+    public void setLoanedConsole(List<Console> loanedConsole) {
+        this.loanedConsole = loanedConsole;
+    }
 }

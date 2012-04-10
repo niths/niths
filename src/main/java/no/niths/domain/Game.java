@@ -34,18 +34,24 @@ public class Game implements Domain {
     @Column
     private Integer locker;
 
-    @JsonIgnore
-    @XmlTransient
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Console.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Console.class)
     @JoinTable(name = "games_consoles",
             joinColumns = @JoinColumn(name = "games_id"),
             inverseJoinColumns = @JoinColumn(name = "consoles_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Console console;
 
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
+    @JoinTable(name = "loans_games",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "loan_id"))
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private Student loanedBy;
+
     public Game(){
         this(null, null, null);
         setConsole(null);
+        setLoanedBy(null);
     }
 
     public Game(String name){
@@ -92,12 +98,22 @@ public class Game implements Domain {
         return locker;
     }
 
+    @JsonSerialize(as=Console.class)
     public Console getConsole() {
         return console;
     }
 
     public void setConsole(Console console) {
         this.console = console;
+    }
+
+    @JsonSerialize(as=Student.class)
+    public Student getLoanedBy() {
+        return loanedBy;
+    }
+
+    public void setLoanedBy(Student loanedBy) {
+        this.loanedBy = loanedBy;
     }
 
     @Override
