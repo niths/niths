@@ -2,9 +2,12 @@ package no.niths.application.rest;
 
 import java.io.EOFException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.HasNotRoleException;
@@ -324,7 +327,16 @@ public abstract class AbstractRESTControllerImpl<T> implements
             javax.validation.ConstraintViolationException cve,
             HttpServletResponse res) {
         logger.debug("javax.constraint");
-        res.setHeader(ERROR, cve.getMessage().toString());
+        String error = "";
+        Set<ConstraintViolation<?>>  constr = cve.getConstraintViolations();
+        for (Iterator<ConstraintViolation<?>> iterator = constr.iterator(); iterator.hasNext();) {
+			ConstraintViolation<?> constraintViolation = (ConstraintViolation<?>) iterator.next();
+			error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + " ";
+		}
+        if(error.equals("")){
+        	error = cve.getMessage();
+        }
+        res.setHeader(ERROR, error);
     }
 
     /**
