@@ -1,8 +1,10 @@
 package no.niths.external;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
@@ -16,6 +18,7 @@ import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.GlobalHistogramBinarizer;
 import com.google.zxing.common.HybridBinarizer;
 
 
@@ -27,15 +30,23 @@ import com.google.zxing.common.HybridBinarizer;
 public class QRCodeDecoder {
 
     public Long decodeFadderGroupQRCode(byte[] data) throws Exception {
-        //System.out.println("------- " + data);
+        BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+        img = resizeImage(img);
+        
         
         Result result = new MultiFormatReader().decode(
                 new BinaryBitmap(
                         new HybridBinarizer(
                                 new BufferedImageLuminanceSource(
+                                        img
+                                        /*
                                         ImageIO.read(
-                                                new ByteArrayInputStream(data)
+                                                
+                                                new File("/home/whirlwin/tmp/qux.jpg")
+                                                //new URL("http://www.qrstuff.com/images/sample.png")
+                                                //new ByteArrayInputStream(data)
                                         )
+                                        */
                                 )
                         )
                 ),
@@ -55,17 +66,12 @@ public class QRCodeDecoder {
         return 1L;
     }
 
-    public BufferedImage convertToBufferedImage(byte[] data) throws WriterException {
-        
-        
-        
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        
-        return MatrixToImageWriter.toBufferedImage(
-                new MultiFormatWriter().encode(
-                        new String(data),
-                        BarcodeFormat.QR_CODE,
-                        100,
-                        100));
+    private BufferedImage resizeImage(BufferedImage img) {
+        BufferedImage newImg = new BufferedImage(100, 100, img.getType());
+        Graphics2D g = newImg.createGraphics();
+        g.drawImage(img, 0, 0, 100, 100, null);
+        g.dispose();
+
+        return newImg;
     }
 }

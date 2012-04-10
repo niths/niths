@@ -1,7 +1,7 @@
 package no.niths.application.rest;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -310,20 +310,20 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     public void scanImage(HttpServletRequest req, HttpServletResponse response) throws WriterException {
         try {
             if (req instanceof MultipartHttpServletRequest) {
-                MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) req;
                 Map<String, MultipartFile> files = ((MultipartHttpServletRequest) req).getFileMap();
 
                 for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
                     System.out.println("key: " + entry.getKey());
                     CommonsMultipartFile file = (CommonsMultipartFile) entry.getValue();
                     System.out.println("val: " + file.getSize());
+                    //file.transferTo(new File("/home/whirlwin/tmp/qux.jpg"));
+                    System.out.println("==== Content type: " + file.getContentType());
                     response.setHeader(
                             "location",
                             AppConstants.FADDER + '/'
                                 + new QRCodeDecoder().decodeFadderGroupQRCode(file.getBytes()));
                 }
                 
-                System.out.println("heyyyyyyyyyyyyyyyyyy file");
             }
             //System.out.println("and the byte size is: " + mpf.getSize() + ", " + mpf.getContentType());
             
