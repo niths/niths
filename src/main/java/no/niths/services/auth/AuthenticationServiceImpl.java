@@ -108,9 +108,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String generatedToken = tokenService.generateToken(authenticatedStudent.getId());
         // Add the generated token to the student,
         // and update last login time
-        authenticatedStudent.setSessionToken(generatedToken);
-        authenticatedStudent.setLastLogon(getCurrentTime());
-        studentService.update(authenticatedStudent);
+        Student temp = new Student();
+        temp.setId(authenticatedStudent.getId());
+        temp.setSessionToken(generatedToken);
+        temp.setLastLogon(getCurrentTime());
+        studentService.mergeUpdate(temp);
         
         // Create a wrapper to give to the request holder
         SessionToken sessionToken = new SessionToken(); 
