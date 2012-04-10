@@ -67,7 +67,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 
 	/**
 	 * Finds and returns a student with a given id. Returns the student with
-	 * courses, committees and feeds
+	 * courses, committees, loaned games, loaned consoles and feeds
 	 * 
 	 * @param id
 	 *            ID of student to find
@@ -78,7 +78,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-			
+            s.getLoanedGames().size();
+            s.getLoanedConsole().size();
+
 			int size = s.getFeeds().size();
 			for (int i = 0; i < size; i++) {
 				if (s.getFeeds().get(i).getLocation() != null){

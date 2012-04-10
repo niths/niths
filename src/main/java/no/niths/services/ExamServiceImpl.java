@@ -6,9 +6,11 @@ import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.interfaces.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ExamSeviceImpl extends AbstractGenericService<Exam> implements
+@Transactional
+public class ExamServiceImpl extends AbstractGenericService<Exam> implements
 		ExamService {
 
 	@Autowired

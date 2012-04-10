@@ -1,19 +1,17 @@
 package no.niths.services;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Course;
-import no.niths.domain.Student;
+import no.niths.domain.*;
 import no.niths.domain.security.Role;
-import no.niths.services.interfaces.CommitteeService;
-import no.niths.services.interfaces.CourseService;
-import no.niths.services.interfaces.RoleService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.interfaces.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,8 +28,9 @@ public class StudentServiceTest {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentServiceTest.class);
+    public static final String EMAIL = "enEmail@nith.no";
 
-	@Autowired
+    @Autowired
 	private StudentService studService;
 	
 	@Autowired
@@ -42,6 +41,15 @@ public class StudentServiceTest {
 	
 	@Autowired
 	private CommitteeService comService;
+
+    @Autowired
+	private FeedService feedService;
+
+    @Autowired
+	private GameService gameService;
+
+    @Autowired
+	private ConsoleService consoleService;
 
 	@Test
 	public void testCRUD() {
@@ -84,32 +92,6 @@ public class StudentServiceTest {
 		
 		studService.hibernateDelete(x.getId());
 		assertEquals(true, studService.getAll(null).isEmpty());
-	}
-	
-	@Test
-	public void testStudentCoursesRelationship(){
-		Course c = new Course("Navn", "Desc");
-		courseService.create(c);
-		Course c2 = new Course("Navaa", "Descen");
-		courseService.create(c2);
-		
-		Student s = new Student("xxxx@nith.no");
-		s.getCourses().add(c);
-		s.getCourses().add(c2);
-		studService.create(s);
-		assertEquals(2, studService.getById(s.getId()).getCourses().size());
-		
-		//Delete one course
-		courseService.hibernateDelete(c.getId());
-		//Course should be deleted on student
-		assertEquals(1, studService.getById(s.getId()).getCourses().size());
-		//Delete the student
-		studService.hibernateDelete(s.getId());
-		//Course should still be there
-		assertEquals(c2, courseService.getById(c2.getId()));
-		
-		courseService.hibernateDelete(c2.getId());
-		
 	}
 	
 	@Test
@@ -241,6 +223,32 @@ public class StudentServiceTest {
 		assertEquals(size + 2, s1.getRoles().size());
 		
 	}
+
+    @Test
+    public void testStudentCoursesRelationship(){
+        Course c = new Course("Navn", "Desc");
+        courseService.create(c);
+        Course c2 = new Course("Navaa", "Descen");
+        courseService.create(c2);
+
+        Student s = new Student("xxxx@nith.no");
+        s.getCourses().add(c);
+        s.getCourses().add(c2);
+        studService.create(s);
+        assertEquals(2, studService.getById(s.getId()).getCourses().size());
+
+        //Delete one course
+        courseService.hibernateDelete(c.getId());
+        //Course should be deleted on student
+        assertEquals(1, studService.getById(s.getId()).getCourses().size());
+        //Delete the student
+        studService.hibernateDelete(s.getId());
+        //Course should still be there
+        assertEquals(c2, courseService.getById(c2.getId()));
+
+        courseService.hibernateDelete(c2.getId());
+
+    }
 	
 	@Test
 	public void testStudentCommitteesRelationship(){
@@ -275,4 +283,114 @@ public class StudentServiceTest {
 		comService.hibernateDelete(c2.getId());
 		assertEquals(comSize, comService.getAll(null).size());
 	}
+
+    @Test
+    public void testRelationsBetweenStudentAndCourse(){
+        Course course = new Course("Programmering", "Her lærer du mye rart");
+        courseService.create(course);
+
+        Course otherCourse = new Course("Spillprogrammering", "Her undervises det i å lage spill");
+        courseService.create(otherCourse);
+
+        Student student = new Student(EMAIL);
+        studService.create(student);
+
+        student.getCourses().add(course);
+        student.getCourses().add(otherCourse);
+        studService.update(student);
+
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getCourses().size())));
+
+        studService.hibernateDelete(student.getId());
+        courseService.hibernateDelete(course.getId());
+        courseService.hibernateDelete(otherCourse.getId());
+    }
+
+    @Test
+    public void testRelationsBetweenStudentAndCommittee(){
+        Committee committee = new Committee("UFF", "Utvalg for fantastiske fritidssysseler");
+        comService.create(committee);
+
+        Committee otherCommittee = new Committee("KIT", "Kvinner og IT");
+        comService.create(otherCommittee);
+
+        Student student = new Student(EMAIL);
+        studService.create(student);
+
+        student.getCommittees().add(committee);
+        student.getCommittees().add(otherCommittee);
+        studService.update(student);
+
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getCommittees().size())));
+
+        studService.hibernateDelete(student.getId());
+        comService.hibernateDelete(committee.getId());
+        comService.hibernateDelete(otherCommittee.getId());
+    }
+
+    @Test
+    public void testRelationsBetweenStudentAndFeed(){
+        Feed feed = new Feed("Husk krokveld");
+        feedService.create(feed);
+
+        Feed otherFeed = new Feed("Studentkruspåmelding");
+        feedService.create(otherFeed);
+
+        Student student = new Student(EMAIL);
+        studService.create(student);
+
+        student.getFeeds().add(feed);
+        student.getFeeds().add(otherFeed);
+        studService.update(student);
+
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getFeeds().size())));
+
+        studService.hibernateDelete(student.getId());
+        feedService.hibernateDelete(feed.getId());
+        feedService.hibernateDelete(otherFeed.getId());
+    }
+
+    @Test
+    public void testRelationsBetweenStudentAndLoanedGame(){
+        Game game = new Game("Super Mario");
+        gameService.create(game);
+
+        Game otherGame = new Game("Halo");
+        gameService.create(otherGame);
+
+        Student student = new Student(EMAIL);
+        studService.create(student);
+
+        student.getLoanedGames().add(game);
+        student.getLoanedGames().add(otherGame);
+        studService.update(student);
+
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getLoanedGames().size())));
+
+        studService.hibernateDelete(student.getId());
+        gameService.hibernateDelete(game.getId());
+        gameService.hibernateDelete(otherGame.getId());
+    }
+
+    @Test
+    public void testRelationsBetweenStudentAndConsole(){
+        Console console = new Console("Wii");
+        consoleService.create(console);
+
+        Console otherConsole = new Console("Xbox");
+        consoleService.create(otherConsole);
+
+        Student student = new Student(EMAIL);
+        studService.create(student);
+
+        student.getLoanedConsole().add(console);
+        student.getLoanedConsole().add(otherConsole);
+        studService.update(student);
+
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getLoanedConsole().size())));
+
+        studService.hibernateDelete(student.getId());
+        consoleService.hibernateDelete(console.getId());
+        consoleService.hibernateDelete(otherConsole.getId());
+    }
 }

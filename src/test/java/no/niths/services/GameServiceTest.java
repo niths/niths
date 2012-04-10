@@ -4,8 +4,10 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
+import no.niths.domain.Student;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
+import no.niths.services.interfaces.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -33,6 +35,9 @@ public class GameServiceTest {
 
     @Autowired
     private ConsoleService consoleService;
+
+    @Autowired
+    private StudentService studentService;
 
     @Test
     public void testCRUD(){
@@ -73,5 +78,22 @@ public class GameServiceTest {
 
         gameService.hibernateDelete(game.getId());
         consoleService.hibernateDelete(console.getId());
+    }
+
+    @Test
+    public void testRelationsBetweenGameAndStudentLoanedBy(){
+        Student loanedBy = new Student("epost@nith.no");
+        studentService.create(loanedBy);
+
+        Game game = new Game(NAME);
+        gameService.create(game);
+
+        game.setLoanedBy(loanedBy);
+        gameService.update(game);
+
+        assertThat(studentService.getById(loanedBy.getId()), is(equalTo(gameService.getById(game.getId()).getLoanedBy())));
+
+        gameService.hibernateDelete(game.getId());
+        studentService.hibernateDelete(loanedBy.getId());
     }
 }
