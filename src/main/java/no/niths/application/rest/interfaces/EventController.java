@@ -1,6 +1,5 @@
 package no.niths.application.rest.interfaces;
 
-import java.text.ParseException;
 import java.util.List;
 
 import no.niths.application.rest.helper.TimeDTO;
@@ -35,5 +34,10 @@ public interface EventController extends GenericRESTController<Event> {
 	void removeLocation(Long eventId, Long LocId);
 	
 	
-	List<Event> getEventsBetweenDates(TimeDTO timeDTO) throws ParseException;
+	/**
+	 * 
+	 * @param timeDTO
+	 * @return
+	 */
+	List<Event> getEventsBetweenDates(TimeDTO timeDTO);
 }

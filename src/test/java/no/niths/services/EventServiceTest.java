@@ -3,7 +3,9 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -12,7 +14,6 @@ import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.LocationService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,4 +84,36 @@ public class EventServiceTest {
 		locService.hibernateDelete(loc.getId());
 		assertEquals(0,locService.getAll(loc).size());
 	}
+	
+	@Test
+	public void testGetEventsGreaterThanAGivenDay(){
+		GregorianCalendar cal = new GregorianCalendar(2012, Calendar.DECEMBER, 23, 22, 21, 23);
+		Event event = new Event("LUG Party", "Linux", cal, null);
+		eventService.create(event);
+		
+		List<Event> events = eventService.getEventsBetweenDates(cal, null);
+		assertEquals(1, events.size());
+		
+		eventService.hibernateDelete(event.getId());
+	}
+	
+	@Test
+	public void testGetEventsBetweenDates(){
+		GregorianCalendar cal = new GregorianCalendar(2012, Calendar.MARCH, 9, 22, 21, 23);
+		GregorianCalendar cal2 = new GregorianCalendar(2012, Calendar.APRIL, 25, 22, 21, 23);
+		Event event = new Event("LUG PPP", "Linux", cal, null);
+		Event event2 = new Event("LUG Party", "Linux", cal, null);
+		eventService.create(event);
+		eventService.create(event2);
+		
+		System.out.println(cal.getTime());
+		System.out.println(cal2.getTime());
+		
+		List<Event> events = eventService.getEventsBetweenDates(cal, cal2);
+		assertEquals(2, events.size());
+		
+		eventService.hibernateDelete(event.getId());
+		eventService.hibernateDelete(event2.getId());
+	}
+	
 }
