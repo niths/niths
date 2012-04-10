@@ -349,8 +349,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseStatus(value = HttpStatus.CONFLICT)
     public void dataIntegrity(DataIntegrityViolationException e,
             HttpServletResponse res) {
+    	String error = e.getMessage().toString();
+    	error = error.replaceAll("; SQL .*", "");
         logger.debug("data");
-        res.setHeader(ERROR, e.getMessage().toString());
+        res.setHeader(ERROR, error);
     }
 
     /**
