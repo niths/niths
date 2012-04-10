@@ -2,9 +2,12 @@ package no.niths.application.rest;
 
 import java.io.EOFException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -325,7 +328,16 @@ public abstract class AbstractRESTControllerImpl<T> implements
             javax.validation.ConstraintViolationException cve,
             HttpServletResponse res) {
         logger.debug("javax.constraint");
-        res.setHeader(ERROR, cve.getMessage().toString());
+        String error = "";
+        Set<ConstraintViolation<?>>  constr = cve.getConstraintViolations();
+        for (Iterator<ConstraintViolation<?>> iterator = constr.iterator(); iterator.hasNext();) {
+			ConstraintViolation<?> constraintViolation = (ConstraintViolation<?>) iterator.next();
+			error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + " ";
+		}
+        if(error.equals("")){
+        	error = cve.getMessage();
+        }
+        res.setHeader(ERROR, error);
     }
 
     /**
@@ -338,8 +350,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseStatus(value = HttpStatus.CONFLICT)
     public void dataIntegrity(DataIntegrityViolationException e,
             HttpServletResponse res) {
+    	String error = e.getMessage().toString();
+    	error = error.replaceAll("; SQL .*", "");
         logger.debug("data");
-        res.setHeader(ERROR, e.getMessage().toString());
+        res.setHeader(ERROR, error);
     }
 
     /**
@@ -512,7 +526,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
         res.setHeader(ERROR, "Something went wrong, are the parameters correct?");
     }
 
-    @ExceptionHandler(org.springframework.validation.BindException.class)
+    @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public void handleBindException(BindException e, HttpServletResponse res) {
         res.setHeader(ERROR, "You have provided a query string in which there" +

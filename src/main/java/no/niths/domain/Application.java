@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,6 +45,7 @@ public class Application implements Domain {
 	private Long id;
 
 	@Column(unique = true)
+	@NotNull
 	@Size(min = 2, max = 80, message = "The length of the name must be between 2 to 80 letters")
 	private String title;
 

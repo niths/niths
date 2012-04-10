@@ -32,6 +32,7 @@ public class ApplicationServiceTest {
 		Application a1 = new Application();
 		a1.setTitle("this a title ok");
 		Application a2 = new Application();
+		a2.setTitle("Title is title");
 		service.create(a1);
 		service.create(a2);
 		assertEquals(appSize + 2, service.getAll(null).size());

@@ -1,8 +1,9 @@
 package no.niths.application.rest;
 
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
+import no.niths.external.QRCodeDecoder;
 import no.niths.services.interfaces.FadderGroupService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
@@ -35,7 +37,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
@@ -306,6 +310,19 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     public void scanImage(HttpServletRequest req, HttpServletResponse response) throws WriterException {
         try {
             if (req instanceof MultipartHttpServletRequest) {
+                MultipartHttpServletRequest mreq = (MultipartHttpServletRequest) req;
+                Map<String, MultipartFile> files = ((MultipartHttpServletRequest) req).getFileMap();
+
+                for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
+                    System.out.println("key: " + entry.getKey());
+                    CommonsMultipartFile file = (CommonsMultipartFile) entry.getValue();
+                    System.out.println("val: " + file.getSize());
+                    response.setHeader(
+                            "location",
+                            AppConstants.FADDER + '/'
+                                + new QRCodeDecoder().decodeFadderGroupQRCode(file.getBytes()));
+                }
+                
                 System.out.println("heyyyyyyyyyyyyyyyyyy file");
             }
             //System.out.println("and the byte size is: " + mpf.getSize() + ", " + mpf.getContentType());

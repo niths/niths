@@ -3,20 +3,15 @@ package no.niths.external;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
-
-import org.apache.commons.codec.binary.Base64;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -33,20 +28,18 @@ public class QRCodeDecoder {
 
     public Long decodeFadderGroupQRCode(byte[] data) throws Exception {
         //System.out.println("------- " + data);
-        byte[] b = data;//new Base64().decode(data.getBytes("ISO-8859-1"));
         
         Result result = new MultiFormatReader().decode(
                 new BinaryBitmap(
                         new HybridBinarizer(
                                 new BufferedImageLuminanceSource(
                                         ImageIO.read(
-                                                new ByteArrayInputStream(b)
+                                                new ByteArrayInputStream(data)
                                         )
                                 )
                         )
                 ),
                 new Hashtable<DecodeHintType, String>() {{
-                    put(DecodeHintType.CHARACTER_SET, "ISO-8859-1");
                     put(DecodeHintType.TRY_HARDER, "TRUE");
                 }}
          );
