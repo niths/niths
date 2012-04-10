@@ -23,23 +23,15 @@ import com.google.zxing.common.HybridBinarizer;
 public class QRCodeDecoder {
 
     public Long decodeFadderGroupQRCode(byte[] data) throws Exception {
-        BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
-        img = resizeImage(img);
-        
-        
+
+        // Resize and scan the QR code code on the image
         Result result = new MultiFormatReader().decode(
                 new BinaryBitmap(
                         new HybridBinarizer(
                                 new BufferedImageLuminanceSource(
-                                        img
-                                        /*
-                                        ImageIO.read(
-                                                
-                                                new File("/home/whirlwin/tmp/qux.jpg")
-                                                //new URL("http://www.qrstuff.com/images/sample.png")
-                                                //new ByteArrayInputStream(data)
+                                        resizeImage(ImageIO.read(
+                                                new ByteArrayInputStream(data))
                                         )
-                                        */
                                 )
                         )
                 ),
@@ -59,12 +51,13 @@ public class QRCodeDecoder {
         return 1L;
     }
 
-    private BufferedImage resizeImage(BufferedImage img) {
-        BufferedImage newImg = new BufferedImage(100, 100, img.getType());
-        Graphics2D g = newImg.createGraphics();
-        g.drawImage(img, 0, 0, 100, 100, null);
+    private BufferedImage resizeImage(BufferedImage originalImg) {
+        BufferedImage resizedImg = new BufferedImage(
+                100, 100, originalImg.getType());
+        Graphics2D g = resizedImg.createGraphics();
+        g.drawImage(originalImg, 0, 0, 100, 100, null); // 100x100 px
         g.dispose();
 
-        return newImg;
+        return resizedImg;
     }
 }
