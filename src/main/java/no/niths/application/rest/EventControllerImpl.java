@@ -189,9 +189,10 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			throw new ObjectNotFoundException("Event not Found");
 		}
 	}
+	
 	@Override
 	@RequestMapping(value = "dates", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseBody
 	public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
 		logger.debug(timeDTO +"");
 		ValidationHelper.isObjectNull(timeDTO.getStartTime());
@@ -200,6 +201,10 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
 		}else{
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
+		}
+		
+		for (Event e : eventList) {
+			e.setLocation(null);
 		}
 		return eventList;
 	}
