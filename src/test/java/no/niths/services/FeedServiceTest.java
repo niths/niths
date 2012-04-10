@@ -66,7 +66,7 @@ public class FeedServiceTest {
 		feed.setStudent(student);
 		
 		service.create(feed);
-		Feed temp = service.getAll(feed).get(0);
+		Feed temp = service.getById(feed.getId());
 		assertEquals(feed,temp);
 		
 	

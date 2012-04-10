@@ -59,7 +59,7 @@ public class Subject implements Domain {
     @Weekday
     private String weekday;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "subjects_room",
         joinColumns =        @JoinColumn(name = "subjects_id"),
         inverseJoinColumns = @JoinColumn(name = "room_id"))
@@ -221,6 +221,7 @@ public class Subject implements Domain {
 		this.tutors = tutors;
 	}
 
+	@JsonSerialize(as=Room.class)
 	public Room getRoom() {
 		return room;
 	}

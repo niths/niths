@@ -50,7 +50,7 @@ public class AccessField implements Domain {
         inverseJoinColumns = @JoinColumn(name = "room_id"))
     private List<Room> rooms = new ArrayList<Room>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "accessfields_accesspoints",
         joinColumns =        @JoinColumn(name = "accessfield_id"),
         inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
@@ -104,6 +104,7 @@ public class AccessField implements Domain {
     }
 
     @XmlElement(name = "accesspoint")
+    @JsonSerialize(as=AccessPoint.class)
     public AccessPoint getAccessPoint() {
         return accesspoint;
     }
