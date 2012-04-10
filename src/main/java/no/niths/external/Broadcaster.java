@@ -34,11 +34,11 @@ public class Broadcaster {
     @ResponseStatus(value = HttpStatus.OK)
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     public void broadcast(@RequestBody Email email) {
-        String[] recipinentAddresses = email.getRecipientAddresses();
+        String[] recipientAddresses = email.getRecipientAddresses();
 
-        for (String recipinetAddress : recipinentAddresses) {
+        for (String recipientAddress : recipientAddresses) {
             service.composeAndSend(
-                    recipinetAddress,
+                    recipientAddress,
                     "NITHs",
                     email.getSubject(),
                     "Hei.\n\nDette er " + email.getSenderName() + ".\n\n"
