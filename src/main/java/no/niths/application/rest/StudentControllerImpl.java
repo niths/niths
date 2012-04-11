@@ -11,16 +11,12 @@ import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
-import no.niths.domain.Console;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
-import no.niths.domain.Game;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
-import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.FeedService;
-import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
@@ -59,11 +55,11 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Autowired
 	private FeedService feedService;
 
-    @Autowired
-	private GameService gameService;
-
-    @Autowired
-	private ConsoleService consoleService;
+//    @Autowired
+//	private GameService gameService;
+//
+//    @Autowired
+//	private ConsoleService consoleService;
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
@@ -92,6 +88,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		return student;
 	}
 	
+	
+	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
 	public void update(@RequestBody Student domain) {
@@ -115,14 +113,27 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain) {
-		return super.getAll(domain);
+		super.getAll(domain);
+		
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setRepresentativeFor(null);
+		}
+		
+		return studentList;
 	}
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
-		return super.getAll(domain, firstResult, maxResults);
+		super.getAll(domain, firstResult, maxResults);
+		
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setRepresentativeFor(null);
+		}
+		
+		return studentList;
+				
 	}
 	
 
@@ -141,6 +152,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
+			studentList.get(i).setRepresentativeFor(null);
 		}
 		return studentList;
 	}

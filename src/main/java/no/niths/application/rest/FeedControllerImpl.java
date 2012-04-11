@@ -89,6 +89,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 			feed.getStudent().setCourses(null);
 			feed.getStudent().setFeeds(null);
 			feed.getStudent().setLoans(null);
+			feed.getStudent().setRepresentativeFor(null);
 		}
 		
 		if (feed.getLocation() != null) {
