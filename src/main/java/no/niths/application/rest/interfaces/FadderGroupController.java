@@ -10,10 +10,6 @@ import no.niths.application.rest.exception.QRCodeException;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 
-import com.google.zxing.WriterException;
-
-import com.google.zxing.WriterException;
-
 /**
  * 
  * @author NITHs

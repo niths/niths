@@ -40,9 +40,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.google.zxing.NotFoundException;
-import com.google.zxing.WriterException;
 /**
  * Controller for subjects
  *
