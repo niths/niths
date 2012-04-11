@@ -82,8 +82,8 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 
 	@Override
 	public Feed getById(@PathVariable Long id) {
-		logger.debug("get by id in controller so good so far " + id);
 		Feed feed = super.getById(id);
+		ValidationHelper.isObjectNull(feed, "Feed not found");
 		if (feed.getStudent() != null) {
 			feed.getStudent().setCommittees(null);
 			feed.getStudent().setCommitteesLeader(null);
