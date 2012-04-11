@@ -11,22 +11,17 @@ import no.niths.domain.Course;
 @XmlRootElement(name = AppConstants.COURSES)
 public class CourseList extends ListAdapter<Course> {
 
-	private static final long serialVersionUID = 8082915037044141181L;
-	@XmlElement(name = "course")
-	private List<Course> courseData;
+    private static final long serialVersionUID = 8082915037044141181L;
 
-	@Override
-	public void setData(List<Course> data) {
-		this.courseData = data;
-	}
-
-	public List<Course> getCourseData() {
-		return courseData;
-	}
+    @XmlElement(name = "course")
+    private List<Course> courseData;
 
     @Override
-    public List<Course> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<Course> data) {
+        this.courseData = data;
+    }
+
+    public List<Course> getCourseData() {
+        return courseData;
     }
 }

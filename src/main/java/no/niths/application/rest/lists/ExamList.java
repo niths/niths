@@ -11,6 +11,7 @@ import java.util.List;
 public class ExamList extends ListAdapter<Exam> {
 
     private static final long serialVersionUID = 6258293263010726953L;
+
     @SuppressWarnings("unused")
     @XmlElement(name = "exam")
     private List<Exam> data;
@@ -18,11 +19,5 @@ public class ExamList extends ListAdapter<Exam> {
     @Override
     public void setData(List<Exam> exams) {
         this.data = exams;
-    }
-
-    @Override
-    public List<Exam> getData() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

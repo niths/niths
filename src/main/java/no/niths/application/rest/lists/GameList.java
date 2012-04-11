@@ -11,6 +11,7 @@ import java.util.List;
 public class GameList extends ListAdapter<Game> {
 
     private static final long serialVersionUID = 6250108293263726953L;
+
     @SuppressWarnings("unused")
     @XmlElement(name = "game")
     private List<Game> data;
@@ -18,11 +19,5 @@ public class GameList extends ListAdapter<Game> {
     @Override
     public void setData(List<Game> games) {
         this.data = games;
-    }
-
-    @Override
-    public List<Game> getData() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public class ConsoleList extends ListAdapter<Console> {
 
     private static final long serialVersionUID = 6293263726925010853L;
+
     @SuppressWarnings("unused")
     @XmlElement(name = "console")
     private List<Console> data;
@@ -18,11 +19,5 @@ public class ConsoleList extends ListAdapter<Console> {
     @Override
     public void setData(List<Console> consoles) {
         this.data = consoles;
-    }
-
-    @Override
-    public List<Console> getData() {
-        // TODO Auto-generated method stub
-        return null;
     }
 }
