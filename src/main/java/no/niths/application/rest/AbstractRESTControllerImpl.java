@@ -18,6 +18,8 @@ import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
+import no.niths.application.rest.helper.Error;
+import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
@@ -580,5 +582,27 @@ public abstract class AbstractRESTControllerImpl<T> implements
             res.setHeader(ERROR, e.getMessage());
         }
         logger.debug("CustomParseException");
+    }
+
+    /**
+     * 
+     * @param mainDomain the domain which caused the error
+     * @param commonError the type of error
+     * @return the string describing the error
+     */
+    protected String buildErrorMsg(Class<?> mainDomain, Error error) {
+        return String.format(
+                "%s %s", mainDomain.getSimpleName(), error.getMsg());
+    }
+
+    /**
+     * 
+     * @param mainDomain the domain which caused a status change
+     * @param status the type of status
+     * @return the string describing the status
+     */
+    protected String buildStatusMsg(Class<?> mainDomain, Status status) {
+        return String.format(
+                "%s %s", mainDomain.getSimpleName(), status.getMsg());
     }
 }

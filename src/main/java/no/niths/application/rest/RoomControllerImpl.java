@@ -1,8 +1,8 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Error;
+import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.interfaces.RoomController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoomList;
@@ -22,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -37,7 +36,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     private RoomService service;
 
     @Autowired
-    private AccessFieldService afService;
+    private AccessFieldService accessFieldService;
 
     private RoomList roomList = new RoomList();
 
@@ -54,31 +53,26 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     /**
      * {@inheritDoc}
      */
-    @RequestMapping(value = "paginated/{firstResult}/{maxResults}", method = RequestMethod.GET)
-    @ResponseBody
-    public ArrayList<Room> getAll(Room room, @PathVariable int firstResult,
-            @PathVariable int maxResults) {
-        super.getAll(room, firstResult, maxResults);
-
-        return roomList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    @RequestMapping(value = "{roomid}/add-accessfield/{afId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
-    public void addAccessField(@PathVariable long roomId,
-            @PathVariable long afId) {
-        Room room = service.getById(roomId);
-        ValidationHelper.isObjectNull(room, "Room does not exist");
-        AccessField af = afService.getById(afId);
-        ValidationHelper.isObjectNull(afId, "Acess field does not exist");
+    @RequestMapping(
+            value  = "{roomId}/add-accessfield/{accessFieldId}",
+            method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "AcessField added")
+    public void addAccessField(
+            @PathVariable long roomId,
+            @PathVariable long accessFieldId) {
 
-        room.getAccessFields().add(af);
+        Room room = service.getById(roomId);
+        ValidationHelper.isObjectNull(
+                buildErrorMsg(Room.class, Error.DOES_NOT_EXIST));
+
+        AccessField accessField = accessFieldService.getById(accessFieldId);
+        ValidationHelper.isObjectNull(
+                buildErrorMsg(AccessField.class, Error.DOES_NOT_EXIST));
+
+        room.getAccessFields().add(accessField);
         service.update(room);
-        logger.debug("Room updated");
+        logger.debug(buildStatusMsg(Room.class, Status.UPDATED));
     }
 
     /**
