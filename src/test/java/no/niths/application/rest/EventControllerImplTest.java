@@ -107,7 +107,7 @@ public class EventControllerImplTest {
 
 	@Test
 	public void testGetAllEvent_withParams() {
-		// TODO create test here
+		//TODO fix test here! :)
 	}
 
 	@Test
@@ -136,6 +136,12 @@ public class EventControllerImplTest {
 		assertEquals(2, events.size());
 	}
 
+	@Test
+	public void testGetEventsByTwoTag() {
+		List<Event> events = controller.getEventsByTag("Beer& Party");
+		assertEquals(1, events.size());
+	}
+	
 	@Test
 	public void testAddAndRemoveLocation() {
 		controller.addLocation(testEvent01.getId(), testLocation.getId());
