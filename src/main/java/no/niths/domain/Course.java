@@ -54,6 +54,8 @@ public class Course implements Domain {
 	private List<Subject> subjects = new ArrayList<Subject>();
 	
 
+    @JsonIgnore
+    @XmlTransient
     @ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "students_courses", 
 		joinColumns = @JoinColumn(name = "courses_id"), 
