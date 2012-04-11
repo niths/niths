@@ -240,21 +240,14 @@ public abstract class AbstractRESTControllerImpl<T> implements
      */
     @Override
     public void clearR() {
-        ListAdapter<?> list = getList();
-
-        for (Object domain: list) {
-            Field[] fields = domain.getClass().getDeclaredFields();
-
-            for (Field field : fields) {
+        for (Object domain: getList()) {
+            for (Field field : domain.getClass().getDeclaredFields()) {
                 if (Collection.class.isAssignableFrom(field.getType())) {
                     try {
-                        String fieldName = field.getName();
 
                         // Dynamically find the set method for collection types
                         Method method = domain.getClass().getMethod(
-                                "set" +
-                                    Character.toUpperCase(fieldName.charAt(0)) +
-                                    fieldName.substring(1),
+                                generateSetterName(field.getName()),
                                 field.getType());
 
                         // Dynamically call the method and set any collection
@@ -272,55 +265,60 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @Override
     public void clearSubR(T domain) {
         Class<?> domainClass = domain.getClass();
-        Field[] outerFields = domainClass.getDeclaredFields();
 
         outer:
-        for (Field outerField : outerFields) {
-            Class<?> type         = outerField.getType();
+        for (Field outerField : domainClass.getDeclaredFields()) {
+            Class<?> outerType         = outerField.getType();
             String outerFieldName = outerField.getName();
 
             try {
-                if (Collection.class.isAssignableFrom(type)) {
-                    Method outerMethod = domainClass.getMethod(
-                            "get" + captialize(outerFieldName),
-                            (Class<?>[]) null);
 
-                    Annotation[] annotations =
-                            outerField.getDeclaredAnnotations();
-                    for (Annotation anno : annotations) {
-                        Class<?> annotationType = anno.annotationType();
-                        if (annotationType == JsonIgnore.class
-                                || annotationType == XmlTransient.class) {
-                            continue outer;
-                        }
+                // The current domain's (collection) child will yield true
+                if (Collection.class.isAssignableFrom(outerType)) {
+
+                    // If the annotations indicate they are transient, skip to
+                    // the next attribute
+                    if (checkAnnotations(outerField.getDeclaredAnnotations())) {
+                        continue outer;
                     }
-                    
-                    Collection<Domain> outerCollection =
-                            (Collection<Domain>)outerMethod.invoke(
-                                    domain);
-                            
-                    for (Domain d : outerCollection) {
-                        Class<?> innerDomainClass = d.getClass();
-                        Field[] innerFields =
-                                innerDomainClass.getDeclaredFields();
+
+                    // Find the collection's getter method
+                    Method outerMethod = domainClass.getMethod(
+                            generateGetterName(outerFieldName), // Name
+                            (Class<?>[]) null); // Parameter(s)
+
+                    // Call the getter method, get the collection and iterate
+                    // over it
+                    for (Domain d :
+                            (Collection<Domain>) outerMethod.invoke(domain)) {
+                        Class<?> innerType    = d.getClass();
     
-                        for (Field innerField : innerFields) {
-                            if (Collection.class.isAssignableFrom(innerField
-                                    .getType())) {
-                                System.err.println("->" + innerField.getName());
-                                Method innerMethod = innerDomainClass.getDeclaredMethod(
-                                        "set" + captialize(innerField.getName()),
+                        for (Field innerField : innerType.getDeclaredFields()) {
+                            if (Collection.class.isAssignableFrom(
+                                    innerField.getType())) {
+                                Method innerMethod =
+
+                                        // Method name
+                                        innerType.getDeclaredMethod(
+                                                generateSetterName(
+                                                        innerField.getName()),
+                                                        
+                                        // Method parameter
                                         innerField.getType());
-                                innerMethod.invoke(d, new Object[] { null });
+
+                                // Call the method which sets the children's
+                                // child collection to null
+                                innerMethod.invoke(d, varargsNull);
                             }
                         }
                     }
-                } else if (Domain.class.isAssignableFrom(type)) {
-                    Method objMethod = domainClass.getDeclaredMethod(
-                            "set" + captialize(outerFieldName), type);
-                    objMethod.invoke(domain, varargsNull);
-                    //Domain d = (Domain) outerField.get(domain);
-                    //System.out.println("I HAZ ID: " + d.getId() + d.getClass());
+                } else if (Domain.class.isAssignableFrom(outerType)) {
+
+                    // Nullify any domain
+                    domainClass.getDeclaredMethod(
+                            generateSetterName(outerFieldName),
+                            outerType)
+                                .invoke(domain, varargsNull);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -328,8 +326,30 @@ public abstract class AbstractRESTControllerImpl<T> implements
         }
     }
 
+    private String generateGetterName(String fieldName) {
+        return String.format("get%s", captialize(fieldName));
+    }
+
+    private String generateSetterName(String fieldName) {
+        return String.format("set%s", captialize(fieldName));
+    }
+
     private String captialize(String text) {
         return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    }
+
+    private boolean checkAnnotations(Annotation[] annotations) {
+        boolean isTransient = false;
+
+        for (Annotation annotation : annotations) {
+            Class<?> annotationType = annotation.annotationType();
+            if (annotationType == JsonIgnore.class
+                    || annotationType == XmlTransient.class) {
+                isTransient = true;
+            }
+        }
+
+        return isTransient;
     }
 
     /**
