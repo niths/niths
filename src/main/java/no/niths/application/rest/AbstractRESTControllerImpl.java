@@ -131,7 +131,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public T getById(@PathVariable Long id) {
         T domain = getService().getById(id);
         ValidationHelper.isObjectNull(domain);
-        clearSubR(domain);
+        //clearSubR(domain);
         logger.debug(domain.toString());
         return domain;
     }
