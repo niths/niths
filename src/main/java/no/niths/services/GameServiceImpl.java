@@ -23,9 +23,9 @@ public class GameServiceImpl extends AbstractGenericService<Game> implements Gam
                 game.getConsole().getName();
             }
 
-           /* if (game.getLoanedBy() != null) {
-                game.getLoanedBy().getLastName();
-            }*/
+            if (game.getLoan() != null) {
+                game.getLoan().getLoanDate();
+            }
         }
         return game;
     }

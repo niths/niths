@@ -2,9 +2,7 @@ package no.niths.infrastructure;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Game;
 import no.niths.domain.Loan;
-import no.niths.infrastructure.interfaces.GameRepository;
 import no.niths.infrastructure.interfaces.LoanRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
