@@ -23,7 +23,7 @@ import java.util.List;
 
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.LOAN)
+@Table(name = AppConstants.LOANS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Loan implements Domain {

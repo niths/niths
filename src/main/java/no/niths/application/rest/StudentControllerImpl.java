@@ -13,11 +13,13 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
+import no.niths.domain.Loan;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
 import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.FeedService;
 import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.LoanService;
 import no.niths.services.interfaces.StudentService;
 
 import org.slf4j.Logger;
@@ -55,11 +57,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Autowired
 	private FeedService feedService;
 
-//    @Autowired
-//	private GameService gameService;
-//
-//    @Autowired
-//	private ConsoleService consoleService;
+    @Autowired
+	private LoanService loanService;
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
@@ -298,36 +297,36 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     /**
      * {@inheritDoc}
      */
-    /*@Override
-    @RequestMapping(value = "add/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Added")
-    public void addLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
+    @Override
+    @RequestMapping(value = "add/loan/{studentId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
+    public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student does not exist");
 
-        Game loanedGame = gameService.getById(loanedGameId);
-        ValidationHelper.isObjectNull(loanedGame, "Loaned game does not exist");
+        Loan loan = loanService.getById(loanId);
+        ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
-        student.getLoanedGames().add(loanedGame);
+        student.getLoans().add(loan);
         service.update(student);
         logger.debug("Student updated");
-    }*/
+    }
 
     /**
      * {@inheritDoc}
      */
-    /*@Override
-    @RequestMapping(value = "remove/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Removed")
-    public void removeLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
+    @Override
+    @RequestMapping(value = "remove/loan/{studentId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
+    public void removeLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student does not exist");
 
         boolean isRemoved = false;
 
-        for (int i = 0; i < student.getLoanedGames().size(); i++) {
-            if (student.getLoanedGames().get(i).getId() == loanedGameId) {
-                student.getLoanedGames().remove(i);
+        for (int i = 0; i < student.getLoans().size(); i++) {
+            if (student.getLoans().get(i).getId() == loanId) {
+                student.getLoans().remove(i);
                 isRemoved = true;
                 break;
             }
@@ -336,56 +335,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         if (isRemoved) {
             service.update(student);
         } else {
-            logger.debug("Loaned game not found");
-            throw new ObjectNotFoundException("Loaned game not found");
+            logger.debug("Loan not found");
+            throw new ObjectNotFoundException("Loan not found");
         }
-    }*/
-
-    /**
-     * {@inheritDoc}
-     */
-    /*@Override
-    @RequestMapping(value = "add/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Added")
-    public void addLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
-        Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
-
-        Console loanedConsole = consoleService.getById(loanedConsoleId);
-        ValidationHelper.isObjectNull(loanedConsole, "Loaned console does not exist");
-
-        student.getLoanedConsole().add(loanedConsole);
-        service.update(student);
-        logger.debug("Student updated");
-    }*/
-
-    /**
-     * {@inheritDoc}
-     */
-    /*@Override
-    @RequestMapping(value = "remove/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Removed")
-    public void removeLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
-        Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < student.getLoanedConsole().size(); i++) {
-            if (student.getLoanedConsole().get(i).getId() == loanedConsoleId) {
-                student.getLoanedConsole().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            service.update(student);
-        } else {
-            logger.debug("Loaned console not found");
-            throw new ObjectNotFoundException("Loaned console not found");
-        }
-    }*/
+    }
 
     /**
 	 * {@inheritDoc}
