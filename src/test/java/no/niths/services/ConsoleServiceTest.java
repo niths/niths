@@ -79,7 +79,7 @@ public class ConsoleServiceTest {
         gameService.hibernateDelete(otherGame.getId());
     }
 
-    @Test
+    /*@Test
     public void testRelationsBetweenConsoleAndStudentLoanedBy(){
         Student loanedBy = new Student("enEpostAdresse@nith.no");
         studentService.create(loanedBy);
@@ -95,5 +95,5 @@ public class ConsoleServiceTest {
 
         consoleService.hibernateDelete(console.getId());
         studentService.hibernateDelete(loanedBy.getId());
-    }
+    }*/
 }

@@ -354,7 +354,7 @@ public class StudentServiceTest {
         feedService.hibernateDelete(otherFeed.getId());
     }
 
-    @Test
+   /* @Test
     public void testRelationsBetweenStudentAndLoanedGame(){
         Game game = new Game("Super Mario");
         gameService.create(game);
@@ -396,5 +396,5 @@ public class StudentServiceTest {
         studService.hibernateDelete(student.getId());
         consoleService.hibernateDelete(console.getId());
         consoleService.hibernateDelete(otherConsole.getId());
-    }
+    }*/
 }

@@ -86,7 +86,7 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param studentId id of the student
      * @param loanedGameId id of the game
      */
-    public void addLoanedGame(Long studentId, Long loanedGameId);
+   // public void addLoanedGame(Long studentId, Long loanedGameId);
 
     /**
      * Removes a loaned game from a student
@@ -94,7 +94,7 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param studentId id of the student
      * @param loanedGameId if of the game
      */
-    public void removeLoanedGame(Long studentId, Long loanedGameId);
+//    public void removeLoanedGame(Long studentId, Long loanedGameId);
 
     /**
      * Adds a loaned console too a student
@@ -102,7 +102,7 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param studentId id of the student
      * @param loanedConsoleId id of the console
      */
-    public void addLoanedConsole(Long studentId, Long loanedConsoleId);
+   // public void addLoanedConsole(Long studentId, Long loanedConsoleId);
 
     /**
      * Removes a loaned console from a student
@@ -110,5 +110,5 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param studentId id of the student
      * @param loanedConsoleId id of the console
      */
-    public void removeLoanedConsole(Long studentId, Long loanedConsoleId);
+    //public void removeLoanedConsole(Long studentId, Long loanedConsoleId);
 }

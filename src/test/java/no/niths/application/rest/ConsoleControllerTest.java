@@ -97,7 +97,7 @@ public class ConsoleControllerTest {
         gameController.hibernateDelete(otherGame.getId());
     }
 
-    @Test
+    /*@Test
     public void testCreateAndDeleteOfStudentLoanedBy() {
         Console console = new Console("Wii");
         consoleController.create(console);
@@ -118,5 +118,5 @@ public class ConsoleControllerTest {
 
         consoleController.hibernateDelete(console.getId());
         studentController.hibernateDelete(loanedBy.getId());
-    }
+    }*/
 }

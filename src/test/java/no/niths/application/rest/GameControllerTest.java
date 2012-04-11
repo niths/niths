@@ -91,7 +91,7 @@ public class GameControllerTest {
         consoleController.hibernateDelete(console.getId());
     }
 
-    @Test
+   /* @Test
     public void testCreateAndDeleteOfStudentLoanedBy() {
         Game game = new Game("Super Mario");
         gameController.create(game);
@@ -111,5 +111,5 @@ public class GameControllerTest {
 
         gameController.hibernateDelete(game.getId());
         studentController.hibernateDelete(loanedBy.getId());
-    }
+    }*/
 }

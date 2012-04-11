@@ -29,7 +29,7 @@ public interface GameController extends GenericRESTController<Game> {
      * @param gameId id of the game
      * @param loanedById id of the student
      */
-    public void addLoanedBy(Long gameId, Long loanedById);
+    //public void addLoanedBy(Long gameId, Long loanedById);
 
     /**
      * Removes a loaned by student from a game
@@ -37,5 +37,5 @@ public interface GameController extends GenericRESTController<Game> {
      * @param gameId id of the game
      * @param loanedById if of the student
      */
-    public void removeLoanedBy(Long gameId, Long loanedById);
+    //public void removeLoanedBy(Long gameId, Long loanedById);
 }

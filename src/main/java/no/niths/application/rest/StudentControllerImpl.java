@@ -286,7 +286,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "add/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Added")
     public void addLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
@@ -299,12 +299,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         student.getLoanedGames().add(loanedGame);
         service.update(student);
         logger.debug("Student updated");
-    }
+    }*/
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "remove/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Removed")
     public void removeLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
@@ -327,12 +327,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
             logger.debug("Loaned game not found");
             throw new ObjectNotFoundException("Loaned game not found");
         }
-    }
+    }*/
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "add/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Added")
     public void addLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
@@ -345,12 +345,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         student.getLoanedConsole().add(loanedConsole);
         service.update(student);
         logger.debug("Student updated");
-    }
+    }*/
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "remove/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Removed")
     public void removeLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
@@ -373,7 +373,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
             logger.debug("Loaned console not found");
             throw new ObjectNotFoundException("Loaned console not found");
         }
-    }
+    }*/
 
     /**
 	 * {@inheritDoc}

@@ -21,9 +21,9 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
         if (console != null) {
             console.getGames().size();
 
-            if (console.getLoanedBy() != null) {
+            /*if (console.getLoanedBy() != null) {
                 console.getLoanedBy().getFirstName();
-            }
+            }*/
         }
         return console;
     }

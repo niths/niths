@@ -118,7 +118,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "add/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
     public void addLoanedBy(@PathVariable Long gameId, @PathVariable Long loanedById) {
@@ -131,12 +131,12 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
         game.setLoanedBy(loanedBy);
         gameService.update(game);
         logger.debug("Game updated");
-    }
+    }*/
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "remove/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
     public void removeLoanedBy(Long gameId, Long loanedById) {
@@ -156,7 +156,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
             logger.debug("Loaned by not found");
             throw new ObjectNotFoundException("Loaned by not found");
         }
-    }
+    }*/
 
     /**
      * {@inheritDoc}

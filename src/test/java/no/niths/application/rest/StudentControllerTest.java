@@ -204,7 +204,7 @@ public class StudentControllerTest {
         feedController.hibernateDelete(otherFeed.getId());
     }
 
-    @Test
+    /*@Test
     public void testCreateAndDeleteOfGames() {
         Student student = new Student(EMAIL);
         studController.create(student);
@@ -258,5 +258,5 @@ public class StudentControllerTest {
         studController.hibernateDelete(student.getId());
         consoleController.hibernateDelete(console.getId());
         consoleController.hibernateDelete(otherConsole.getId());
-    }
+    }*/
 }

@@ -78,8 +78,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-            s.getLoanedGames().size();
-            s.getLoanedConsole().size();
+            //s.getLoanedGames().size();
+            //s.getLoanedConsole().size();
 
 			int size = s.getFeeds().size();
 			for (int i = 0; i < size; i++) {

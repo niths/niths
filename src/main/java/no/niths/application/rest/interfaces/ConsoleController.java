@@ -29,7 +29,7 @@ public interface ConsoleController extends GenericRESTController<Console> {
      * @param consoleId id of the console
      * @param loanedById id of the student
      */
-    public void addLoanedBy(Long consoleId, Long loanedById);
+    //public void addLoanedBy(Long consoleId, Long loanedById);
 
     /**
      * Removes a loaned by student from a console
@@ -37,5 +37,5 @@ public interface ConsoleController extends GenericRESTController<Console> {
      * @param consoleId id of the console
      * @param loanedById if of the student
      */
-    public void removeLoanedBy(Long consoleId, Long loanedById);
+   // public void removeLoanedBy(Long consoleId, Long loanedById);
 }

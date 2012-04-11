@@ -122,7 +122,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     /**
      * {@inheritDoc}
      */
-    @Override
+   /* @Override
     @RequestMapping(value = "add/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
     public void addLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
@@ -135,12 +135,12 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
         console.setLoanedBy(loanedBy);
         consoleService.update(console);
         logger.debug("Console updated");
-    }
+    }*/
 
     /**
      * {@inheritDoc}
      */
-    @Override
+    /*@Override
     @RequestMapping(value = "remove/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
     public void removeLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
@@ -160,7 +160,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
             logger.debug("Loaned by not found");
             throw new ObjectNotFoundException("Loaned by not found");
         }
-    }
+    }*/
 
     @Override
     public GenericService<Console> getService() {
