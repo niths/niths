@@ -10,18 +10,20 @@ import javax.validation.ConstraintViolationException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ConsoleController;
 import no.niths.application.rest.interfaces.GameController;
-import no.niths.application.rest.interfaces.StudentController;
+import no.niths.application.rest.interfaces.LoanController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
-import no.niths.domain.Student;
+import no.niths.domain.Loan;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.GregorianCalendar;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -35,7 +37,7 @@ public class ConsoleControllerTest {
     private GameController gameController;
 
     @Autowired
-    private StudentController studentController;
+    private LoanController loanController;
 
     @Test(expected= ConstraintViolationException.class)
     public void testInsertNullObject_shallThrowException() {
@@ -70,7 +72,7 @@ public class ConsoleControllerTest {
     }
 
     @Test
-    public void testCreateAndDeleteOfRooms() {
+    public void testCreateAndDeleteOfGames() {
         Console console = new Console("Wii");
         consoleController.create(console);
 
@@ -97,26 +99,26 @@ public class ConsoleControllerTest {
         gameController.hibernateDelete(otherGame.getId());
     }
 
-    /*@Test
-    public void testCreateAndDeleteOfStudentLoanedBy() {
+    @Test
+    public void testCreateAndDeleteOfLoan() {
         Console console = new Console("Wii");
         consoleController.create(console);
 
         assertThat(console, is(equalTo(consoleController.getById(console.getId()))));
 
-        Student loanedBy = new Student("email@nith.no");
+        Loan loan = new Loan(new GregorianCalendar());
 
-        studentController.create(loanedBy);
+        loanController.create(loan);
 
-        consoleController.addLoanedBy(console.getId(), loanedBy.getId());
+        consoleController.addLoan(console.getId(), loan.getId());
 
-        assertThat(studentController.getById(loanedBy.getId()), is(equalTo(consoleController.getById(console.getId()).getLoanedBy())));
+        assertThat(loanController.getById(loan.getId()), is(equalTo(consoleController.getById(console.getId()).getLoan())));
 
-        consoleController.removeLoanedBy(console.getId(), loanedBy.getId());
+        consoleController.removeLoan(console.getId());
 
-        assertThat(consoleController.getById(console.getId()).getLoanedBy(), is(nullValue()));
+        assertThat(consoleController.getById(console.getId()).getLoan(), is(nullValue()));
 
         consoleController.hibernateDelete(console.getId());
-        studentController.hibernateDelete(loanedBy.getId());
-    }*/
+        loanController.hibernateDelete(loan.getId());
+    }
 }

@@ -8,11 +8,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
-import no.niths.domain.Student;
-import no.niths.services.interfaces.ConsoleService;
-import no.niths.services.interfaces.GameService;
-import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.domain.Loan;
+import no.niths.services.interfaces.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +39,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     private GameService gameService;
 
     @Autowired
-    private StudentService studentService;
+    private LoanService loanService;
 
     private ConsoleList consoleList = new ConsoleList();
 
@@ -69,6 +66,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     private void clearRelations(){
         for(Console console : consoleList){
             console.setGames(null);
+            console.setLoan(null);
         }
     }
 
@@ -122,45 +120,45 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     /**
      * {@inheritDoc}
      */
-   /* @Override
-    @RequestMapping(value = "add/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
-    public void addLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
+    @Override
+    @RequestMapping(value = "add/loan/{consoleId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
+    public void addLoan(@PathVariable Long consoleId, @PathVariable Long loanId) {
         Console console = consoleService.getById(consoleId);
         ValidationHelper.isObjectNull(console, "Console does not exist");
 
-        Student loanedBy = studentService.getById(loanedById);
-        ValidationHelper.isObjectNull(loanedBy, "Loaned by does not exist");
+        Loan loan = loanService.getById(loanId);
+        ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
-        console.setLoanedBy(loanedBy);
+        console.setLoan(loan);
         consoleService.update(console);
         logger.debug("Console updated");
-    }*/
+    }
 
     /**
      * {@inheritDoc}
      */
-    /*@Override
-    @RequestMapping(value = "remove/loanedBy/{consoleId}/{loanedById}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
-    public void removeLoanedBy(@PathVariable Long consoleId, @PathVariable Long loanedById) {
+    @Override
+    @RequestMapping(value = "remove/loan/{consoleId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
+    public void removeLoan(@PathVariable Long consoleId) {
         Console console = consoleService.getById(consoleId);
         ValidationHelper.isObjectNull(console, "Console does not exist");
 
         boolean isRemoved = false;
 
-        if (console.getLoanedBy() != null && console.getLoanedBy().getId() == loanedById) {
-            console.setLoanedBy(null);
+        if (console.getLoan() != null) {
+            console.setLoan(null);
             isRemoved = true;
         }
 
         if (isRemoved) {
             consoleService.update(console);
         } else {
-            logger.debug("Loaned by not found");
-            throw new ObjectNotFoundException("Loaned by not found");
+            logger.debug("Loan not found");
+            throw new ObjectNotFoundException("Loan not found");
         }
-    }*/
+    }
 
     @Override
     public GenericService<Console> getService() {
