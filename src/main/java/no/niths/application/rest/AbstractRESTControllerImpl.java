@@ -230,7 +230,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     /**
      * {@inheritDoc}
      */
-    
+    @Override
     public void clearR() {
         ListAdapter<?> list = getList();
 

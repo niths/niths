@@ -65,5 +65,10 @@ public interface GenericRESTController<T> {
      * @param list
      */
     public void renewList(List<T> list);
+
+    /**
+     * Clears relations (used in "getAll" methods
+     */
+    void clearR();
     
 }
