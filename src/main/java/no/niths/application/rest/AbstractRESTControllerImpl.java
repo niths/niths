@@ -1,8 +1,8 @@
 package no.niths.application.rest;
 
 import java.io.EOFException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
+import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -25,9 +26,10 @@ import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
+import no.niths.domain.Domain;
 import no.niths.services.interfaces.GenericService;
 
-import org.hibernate.LazyInitializationException;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.QueryParameterException;
 import org.hibernate.TransientObjectException;
@@ -77,9 +79,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public abstract class AbstractRESTControllerImpl<T> implements
         GenericRESTController<T> {
 
+    protected static final String ERROR = "Error";
+    
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractRESTControllerImpl.class);
-    protected static final String ERROR = "Error";
+
+    private final Object[] varargsNull = new Object[] { null };
 
     /**
      * Persists the domain
@@ -131,7 +136,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public T getById(@PathVariable Long id) {
         T domain = getService().getById(id);
         ValidationHelper.isObjectNull(domain);
-        //clearSubR(domain);
+        clearSubR(domain);
         logger.debug(domain.toString());
         return domain;
     }
@@ -252,7 +257,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
                                     fieldName.substring(1),
                                 field.getType());
 
-                        // Dynamically call the method
+                        // Dynamically call the method and set any collection
+                        // to null
                         method.invoke(domain, new Object[] { null });
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -262,52 +268,68 @@ public abstract class AbstractRESTControllerImpl<T> implements
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public void clearSubR(T domain) {
-        Field[] fields = domain.getClass().getDeclaredFields();
+        Class<?> domainClass = domain.getClass();
+        Field[] outerFields = domainClass.getDeclaredFields();
 
-        for (Field field : fields) {
-            if (Collection.class.isAssignableFrom(field.getType())) {
-                String fieldName = field.getName();
-                
-                try {
-                    Method method = domain.getClass().getMethod(
-                            "get" +
-                                Character.toUpperCase(fieldName.charAt(0)) +
-                                fieldName.substring(1), null);
-                    System.err.println(method.getName());
-                    try {
-                        Collection c = (Collection) method.invoke(domain, null);
-                        for (Object o : c) {
-                            System.out.println("class: " + o.getClass());
-                            if (o instanceof Collection<?>) {
-                                System.out.println(o.getClass());
-                            }
+        outer:
+        for (Field outerField : outerFields) {
+            Class<?> type         = outerField.getType();
+            String outerFieldName = outerField.getName();
+
+            try {
+                if (Collection.class.isAssignableFrom(type)) {
+                    Method outerMethod = domainClass.getMethod(
+                            "get" + captialize(outerFieldName),
+                            (Class<?>[]) null);
+
+                    Annotation[] annotations =
+                            outerField.getDeclaredAnnotations();
+                    for (Annotation anno : annotations) {
+                        Class<?> annotationType = anno.annotationType();
+                        if (annotationType == JsonIgnore.class
+                                || annotationType == XmlTransient.class) {
+                            continue outer;
                         }
-                    } catch (LazyInitializationException e) {
-                        System.err.println(e.getMessage());
                     }
                     
-                    //System.err.println("size: " + c.size());
-                    
-                    
-                    //System.out.println("collection size: " + c.size());
-                } catch (IllegalArgumentException e1) {
-                    e1.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SecurityException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Collection<Domain> outerCollection =
+                            (Collection<Domain>)outerMethod.invoke(
+                                    domain);
+                            
+                    for (Domain d : outerCollection) {
+                        Class<?> innerDomainClass = d.getClass();
+                        Field[] innerFields =
+                                innerDomainClass.getDeclaredFields();
+    
+                        for (Field innerField : innerFields) {
+                            if (Collection.class.isAssignableFrom(innerField
+                                    .getType())) {
+                                System.err.println("->" + innerField.getName());
+                                Method innerMethod = innerDomainClass.getDeclaredMethod(
+                                        "set" + captialize(innerField.getName()),
+                                        innerField.getType());
+                                innerMethod.invoke(d, new Object[] { null });
+                            }
+                        }
+                    }
+                } else if (Domain.class.isAssignableFrom(type)) {
+                    Method objMethod = domainClass.getDeclaredMethod(
+                            "set" + captialize(outerFieldName), type);
+                    objMethod.invoke(domain, varargsNull);
+                    //Domain d = (Domain) outerField.get(domain);
+                    //System.out.println("I HAZ ID: " + d.getId() + d.getClass());
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    private String captialize(String text) {
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
     }
 
     /**
