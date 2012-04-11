@@ -33,6 +33,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		implements FeedController {
 
+	private static final String STUDENT_REMOVED = "Student removed";
+	private static final String LOCATION_ADDED = "Location Added";
+	private static final String LOCATION_EXIST = "Location exist";
+	private static final String LOCATION_REMOVED = "Location removed";
+	private static final String LOCATION_NOT_FOUND = "Location not Found";
+	private static final String STUDENT_DOES_NOT_EXIST = "Student does not exist";
+	private static final String STUDENT_EXIST = "Student exist";
+	private static final String STUDENT_ADDED_TO_FEED = "Student added to feed";
+	private static final String STUDENT_NOT_FOUND = "Student not Found";
+	private static final String FEED_DOSE_NOT_EXIST = "Feed dose not exist";
+
 	private Logger logger = org.slf4j.LoggerFactory
 			.getLogger(FeedController.class);
 
@@ -103,14 +114,14 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "add/location/{feedId}/{locId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
+	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_ADDED)
 	public void addLocation(@PathVariable Long feedId,@PathVariable Long locId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, "Feed does not exist");
+		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
 		
 		if (feed.getLocation() != null && feed.getLocation().getId() == locId) {
-			logger.debug("location exist");
-			throw new DuplicateEntryCollectionException("Location exist");
+			logger.debug(LOCATION_EXIST);
+			throw new DuplicateEntryCollectionException(LOCATION_EXIST);
 		}
 		
 		Location location = locService.getById(locId);
@@ -124,13 +135,13 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "remove/location/{feedId}/{locId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
-	public void removeLocation(@PathVariable Long feedId,@PathVariable Long locId) {
+	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_REMOVED)
+	public void removeLocation(@PathVariable Long feedId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, "Event not exist");
+		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
 		
 		boolean isRemoved = false;
-		if (feed.getLocation() != null && feed.getLocation().getId() == locId) {
+		if (feed.getLocation() != null) {
 			isRemoved = true;
 			feed.setLocation(null);
 		}
@@ -138,41 +149,41 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		if (isRemoved) {
 			service.update(feed);
 		} else {
-			logger.debug("Event not Found");
-			throw new ObjectNotFoundException("Event not Found");
+			logger.debug(LOCATION_NOT_FOUND);
+			throw new ObjectNotFoundException(LOCATION_NOT_FOUND);
 		}
 	}
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "add/student/{feedId}/{studentId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Student Added")
+	@ResponseStatus(value = HttpStatus.OK, reason = "STUDENT_ADDED_TO_FEED")
 	public void addStudent(@PathVariable Long feedId,@PathVariable Long studentId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, "Feed does not exist");
+		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
 		if (feed.getStudent() != null && feed.getStudent().getId() == studentId) {
-			logger.debug("Student exist");
-			throw new DuplicateEntryCollectionException("Student exist");
+			logger.debug(STUDENT_EXIST);
+			throw new DuplicateEntryCollectionException(STUDENT_EXIST);
 		}
 		
 		Student student = studentService.getById(studentId);
-		ValidationHelper.isObjectNull(student, "Student does not exist");
+		ValidationHelper.isObjectNull(student, STUDENT_DOES_NOT_EXIST);
 		
 		feed.setStudent(student);
 		service.update(feed);
-		logger.debug("Student added to feed");
+		logger.debug(STUDENT_ADDED_TO_FEED);
 	}
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "remove/student/{feedId}/{studentId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Student removed")
-	public void removeStudent(@PathVariable Long feedId,@PathVariable Long studentId) {
+	@RequestMapping(value = "remove/student/{feedId}", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = STUDENT_REMOVED)
+	public void removeStudent(@PathVariable Long feedId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, "Event not exist");
-		
+		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
+	
 		boolean isRemoved = false;
-		if (feed.getStudent() != null && feed.getStudent().getId() == studentId) {
+		if (feed.getStudent() != null) {
 			isRemoved = true;
 			feed.setStudent(null);
 		}
@@ -180,8 +191,8 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		if (isRemoved) {
 			service.update(feed);
 		} else {
-			logger.debug("Event not Found");
-			throw new ObjectNotFoundException("Event not Found");
+			logger.debug(STUDENT_NOT_FOUND);
+			throw new ObjectNotFoundException(STUDENT_NOT_FOUND);
 		}
 	}
 }

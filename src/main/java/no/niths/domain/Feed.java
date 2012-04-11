@@ -24,10 +24,12 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -75,8 +77,6 @@ public class Feed implements Domain {
 		setPublished(null);
 		setStudent(null);
 		setLocation(null);
-		setPublished(null);
-		
 	}
 
 	public Feed(String message) {
@@ -141,6 +141,7 @@ public class Feed implements Domain {
 		return published;
 	}
 
+	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
 	public void setPublished(Calendar published) {
 		this.published = published;
 	}
