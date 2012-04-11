@@ -51,11 +51,15 @@ public class Room implements Domain {
 	@JoinTable(name = "rooms_accessfields", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
 	private List<AccessField> accessFields = new ArrayList<AccessField>();
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Cascade(CascadeType.ALL)
 	@JoinTable(name = "rooms_exams", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "exams_id"))
 	private List<Exam> exams = new ArrayList<Exam>();
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "subjects_room", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "subjects_id"))
 	@Cascade(CascadeType.ALL)
