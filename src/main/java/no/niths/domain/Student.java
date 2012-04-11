@@ -39,6 +39,7 @@ import no.niths.domain.constraints.StudentGender;
 import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -49,6 +50,7 @@ import org.hibernate.validator.constraints.Email;
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties({"representativeFor"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Student implements Domain {
 
@@ -128,7 +130,7 @@ public class Student implements Domain {
 
 	@JsonIgnore
 	@XmlTransient
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", joinColumns = @JoinColumn(name = "representatives_id"), inverseJoinColumns = @JoinColumn(name = "courses_id"))
 	@Cascade(CascadeType.ALL)
 	private Course representativeFor;
@@ -316,8 +318,6 @@ public class Student implements Domain {
 		this.committees = committees;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -326,8 +326,6 @@ public class Student implements Domain {
 		this.roles = roles;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public String getSessionToken() {
 		return sessionToken;
 	}
@@ -349,8 +347,6 @@ public class Student implements Domain {
 		return String.format("[%s][%s]", id, email);
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public List<Committee> getCommitteesLeader() {
 		return committeesLeader;
 	}
@@ -359,8 +355,6 @@ public class Student implements Domain {
 		this.committeesLeader = committesLeader;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public FadderGroup getFadderGroup() {
 		return fadderGroup;
 	}
@@ -369,8 +363,6 @@ public class Student implements Domain {
 		this.fadderGroup = fadderGroup;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public List<FadderGroup> getGroupLeaders() {
 		return groupLeaders;
 	}
@@ -379,8 +371,6 @@ public class Student implements Domain {
 		this.groupLeaders = groupLeaders;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public Long getLastLogon() {
 		return lastLogon;
 	}
@@ -397,8 +387,6 @@ public class Student implements Domain {
 		this.feeds = feeds;
 	}
 
-	// @JsonIgnore
-	// @XmlTransient
 	public List<Subject> getTutorInSubjects() {
 		return tutorInSubjects;
 	}

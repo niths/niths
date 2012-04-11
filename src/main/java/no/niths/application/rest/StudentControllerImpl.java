@@ -13,7 +13,6 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
-import no.niths.domain.Game;
 import no.niths.domain.Loan;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
@@ -89,6 +88,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				f.setStudent(null);
 				f.setLocation(null);
 			}
+			
 			for (Loan l : student.getLoans()) {
 			    l.setConsoles(null);
 			    l.setGames(null);

@@ -80,21 +80,6 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 			s.getCourses().size();
             s.getLoans().size();
             s.getFeeds().size();
-            
-            if(s.getRepresentativeFor() != null){
-            	s.getRepresentativeFor().getName();
-            }
-          
-		
-            s.getLoans().size();
-            s.getRoles().size();
-
-			int size = s.getFeeds().size();
-			for (int i = 0; i < size; i++) {
-				if (s.getFeeds().get(i).getLocation() != null){
-					s.getFeeds().get(i).getLocation().getPlace();
-				}
-			}
 		}		
 		return s;
 	}
