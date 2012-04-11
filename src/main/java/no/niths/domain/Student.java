@@ -175,19 +175,12 @@ public class Student implements Domain {
 	@Cascade(CascadeType.ALL)
 	private List<Feed> feeds = new ArrayList<Feed>();
 
-    /*@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-    @JoinTable(name = "loans_consoles",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "console_id"))
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Loan.class)
+    @JoinTable(name = "students_loans",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "loan_id"))
     @Cascade(CascadeType.ALL)
-    private List<Console> loanedConsole = new ArrayList<Console>();
-
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
-    @JoinTable(name = "loans_games",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    @Cascade(CascadeType.ALL)
-    private List<Game> loanedGames = new ArrayList<Game>();*/
+    private List<Loan> loans = new ArrayList<Loan>();
 	
 	public Student() {
 		this(null, null, null, null, null, null, null);
@@ -199,8 +192,7 @@ public class Student implements Domain {
 		setFeeds(null);
 		setRoles(null);
 		setTutorInSubjects(null);
-        //setLoanedGames(null);
-        //setLoanedConsole(null);
+        setLoans(null);
 	}
 
 	public Student(String email) {
@@ -444,19 +436,11 @@ public class Student implements Domain {
 		this.representativeFor = representativeFor;
 	}
 
-   /* public List<Game> getLoanedGames() {
-        return loanedGames;
+    public List<Loan> getLoans() {
+        return loans;
     }
 
-    public void setLoanedGames(List<Game> loanedGames) {
-        this.loanedGames = loanedGames;
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
     }
-
-    public List<Console> getLoanedConsole() {
-        return loanedConsole;
-    }
-
-    public void setLoanedConsole(List<Console> loanedConsole) {
-        this.loanedConsole = loanedConsole;
-    }*/
 }

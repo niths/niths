@@ -11,19 +11,13 @@ import no.niths.domain.Subject;
 @XmlRootElement(name = AppConstants.SUBJECTS)
 public class SubjectList extends ListAdapter<Subject> {
 
-	private static final long serialVersionUID = 7386282831236634626L;
-	@SuppressWarnings("unused")
-	@XmlElement(name = "subject")
-	private List<Subject> data;
-
-	@Override
-	public void setData(List<Subject> data) {
-		this.data = data;
-	}
+    private static final long serialVersionUID = 7386282831236634626L;
+    @SuppressWarnings("unused")
+    @XmlElement(name = "subject")
+    private List<Subject> data;
 
     @Override
-    public List<Subject> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<Subject> data) {
+        this.data = data;
     }
 }

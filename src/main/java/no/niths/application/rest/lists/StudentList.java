@@ -11,18 +11,14 @@ import no.niths.domain.Student;
 @XmlRootElement(name = AppConstants.STUDENTS)
 public class StudentList extends ListAdapter<Student> {
 
-	private static final long serialVersionUID = 3236993384670095653L;
+    private static final long serialVersionUID = 3236993384670095653L;
 
-	@XmlElement(name = "student")
-	private List<Student> data;
-
-	@Override
-	public void setData(List<Student> list) {
-		this.data = list;
-	}
+    @SuppressWarnings("unused")
+    @XmlElement(name = "student")
+    private List<Student> data;
 
     @Override
-    public List<Student> getData() {
-        return data;
+    public void setData(List<Student> list) {
+        this.data = list;
     }
 }

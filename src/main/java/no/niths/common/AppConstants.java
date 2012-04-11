@@ -23,6 +23,7 @@ public final class AppConstants {
     public static final String FEED = "feed";
     public static final String FEEDS = "feeds";
     public static final String GAMES = "games";
+    public static final String LOAN = "loans";
     public static final String LOCATIONS = "locations";
     public static final String QR = "qr";
     public static final String ROLES = "roles";

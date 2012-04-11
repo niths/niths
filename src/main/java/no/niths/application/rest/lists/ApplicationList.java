@@ -11,22 +11,14 @@ import no.niths.domain.Application;
 @XmlRootElement(name = AppConstants.APPLICATIONS)
 public class ApplicationList extends ListAdapter<Application> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7176343871162986392L;
-	@SuppressWarnings("unused")
-	@XmlElement(name = "application")
-	private List<Application> data;
+    private static final long serialVersionUID = 7176343871162986392L;
 
-	@Override
-	public void setData(List<Application> data) {
-		this.data = data;
-	}
+    @SuppressWarnings("unused")
+    @XmlElement(name = "application")
+    private List<Application> data;
 
     @Override
-    public List<Application> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<Application> data) {
+        this.data = data;
     }
 }
