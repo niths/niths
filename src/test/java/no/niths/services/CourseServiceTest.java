@@ -10,8 +10,6 @@ import no.niths.services.interfaces.SubjectService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,9 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class CourseServiceTest {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(CourseServiceTest.class);
 
 	@Autowired
 	private CourseService cService;

@@ -15,17 +15,12 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CommitteeTest {
     private static final Long ID = 1L;
     private static final String NAME = "UFF";
     private static final String DESCRIPTION = "Utvalg for Fantasiske Fritidssysler";
     
-    private static final Logger logger = LoggerFactory
-            .getLogger(CommitteeTest.class);
-
     private static Validator validator;
 
     @BeforeClass

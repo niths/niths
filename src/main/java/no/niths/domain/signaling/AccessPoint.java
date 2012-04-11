@@ -43,7 +43,7 @@ public class AccessPoint implements Domain {
 
     public AccessPoint() {
         this(null);
-        setAccessFields(null);
+        setAccessfields(null);
     }
 
     public AccessPoint(String address) {
@@ -72,7 +72,7 @@ public class AccessPoint implements Domain {
         return accessfields;
     }
 
-    public void setAccessFields(List<AccessField> accessFields) {
+    public void setAccessfields(List<AccessField> accessFields) {
         this.accessfields = accessFields;
     }
 

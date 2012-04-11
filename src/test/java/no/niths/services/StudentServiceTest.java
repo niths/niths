@@ -9,16 +9,25 @@ import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.*;
+import no.niths.domain.Committee;
+import no.niths.domain.Console;
+import no.niths.domain.Course;
+import no.niths.domain.Feed;
+import no.niths.domain.Game;
+import no.niths.domain.Student;
 import no.niths.domain.security.Role;
-import no.niths.services.interfaces.*;
+import no.niths.services.interfaces.CommitteeService;
+import no.niths.services.interfaces.ConsoleService;
+import no.niths.services.interfaces.CourseService;
+import no.niths.services.interfaces.FeedService;
+import no.niths.services.interfaces.GameService;
+import no.niths.services.interfaces.RoleService;
+import no.niths.services.interfaces.StudentService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,8 +35,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class StudentServiceTest {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(StudentServiceTest.class);
     public static final String EMAIL = "enEmail@nith.no";
 
     @Autowired
@@ -203,10 +210,7 @@ public class StudentServiceTest {
 		roleService.hibernateDelete(r2.getId());
 	}
 	
-	//Will fail as we want it to
-	//On ignore due to transaction, will effect the other tests when DataIntegrityVioEx is throwed
-	@Ignore
-	@Test
+	@Test(expected=DataIntegrityViolationException.class)
 	public void testAddSameRoleToStudent(){
 		Student s1= new Student("swish@mailed.com");
 		studService.create(s1);

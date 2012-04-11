@@ -12,7 +12,7 @@ import no.niths.domain.Student;
 public class StudentList extends ListAdapter<Student> {
 
 	private static final long serialVersionUID = 3236993384670095653L;
-	@SuppressWarnings("unused")
+
 	@XmlElement(name = "student")
 	private List<Student> data;
 

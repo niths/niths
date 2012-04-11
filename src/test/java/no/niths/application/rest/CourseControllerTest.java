@@ -21,12 +21,15 @@ public class CourseControllerTest {
 
     @Test
     public void testCreateAndGetCourse() {
-        Course firstCourse = getRandomCourse();
+        Course firstCourse = new Course("aCourse", "desc");
         controller.create(firstCourse);
 
         Course secondCourse = controller.getAll(firstCourse).get(0);
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
+        
+        controller.hibernateDelete(firstCourse.getId());
+        
     }
 
     @Test

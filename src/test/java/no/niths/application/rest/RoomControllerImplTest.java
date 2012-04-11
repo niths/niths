@@ -15,7 +15,6 @@ import no.niths.domain.signaling.AccessField;
 import org.hibernate.NonUniqueObjectException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +81,7 @@ public class RoomControllerImplTest {
 		assertEquals(4, rooms.size());
 	}
 
-	@Ignore
+	
 	@Test
     public void testGetAllWithSearch() {
         ArrayList<Room> rooms = controller.getAll(new Room("Kantina"));
@@ -91,7 +90,7 @@ public class RoomControllerImplTest {
 
 	@Test
 	public void testGetAllTIntInt() {
-		ArrayList<Room> rooms = controller.getAll(new Room(), 1, 3);
+		ArrayList<Room> rooms = controller.getAll(null, 1, 3);
 		assertEquals(3, rooms.size());
 	}
 

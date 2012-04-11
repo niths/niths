@@ -15,7 +15,6 @@ import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +68,7 @@ public class CourseRepositoryTest {
                 courseRepo.getById(course.getId()).getSubjects().size());
     }
 
-    @Ignore
+   
     @Test(expected=ConstraintViolationException.class)
     public void testWhenAddCourseWithSameName(){
         int size = courseRepo.getAll(null).size();

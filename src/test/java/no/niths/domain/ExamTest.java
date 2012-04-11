@@ -7,8 +7,6 @@ import static org.junit.Assert.assertThat;
 import java.util.GregorianCalendar;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ExamTest {
     private static final Long ID = 1L;
@@ -17,9 +15,6 @@ public class ExamTest {
     private static final String ALLOWED_AID = "Ingen";
     private static final GregorianCalendar START_TIME = new GregorianCalendar(2012, 3, 20, 9, 00);
     private static final GregorianCalendar END_TIME = new GregorianCalendar(2012, 3, 20, 12, 00);
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(ExamTest.class);
 
     @Test
     public void testShouldGenerateNewExam() {

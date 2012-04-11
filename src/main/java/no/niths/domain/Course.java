@@ -41,7 +41,7 @@ public class Course implements Domain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column
+    @Column(unique=true)
     @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
     private String name;
 

@@ -19,7 +19,7 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements Roo
 
 	@Override
 	public List<Room> getAll(Room domain) {
-		List<Room> rooms = repo.getAll(null);
+		List<Room> rooms = repo.getAll(domain);
 		for (Room r : rooms) {
 			r.getAccessFields().size();
 		}

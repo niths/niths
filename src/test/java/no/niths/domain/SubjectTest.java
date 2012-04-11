@@ -5,8 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SubjectTest {
     private static final Long ID = 1L;
@@ -14,12 +12,8 @@ public class SubjectTest {
     private static final String SUBJECT_CODE = "PJ600";
     private static final String DESCRIPTION = "Avsluttende prosjekt ved NITH";
     private static final String WEEKDAY = "Monday";
-    private static final String ROOM_NUMBER = "45";
     private static final String START_TIME = "08:00";
     private static final String END_TIME = "12:00";
-
-    private static final Logger logger = LoggerFactory
-                    .getLogger(SubjectTest.class);
 
     @Test
     public void testShouldGenerateNewSubject() {

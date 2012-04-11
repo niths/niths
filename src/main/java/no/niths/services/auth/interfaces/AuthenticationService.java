@@ -6,7 +6,6 @@ import no.niths.domain.Developer;
 import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 import no.niths.security.RequestHolderDetails;
-
 import org.springframework.security.core.AuthenticationException;
 /**
  * Authenticates user trying to request a resource
