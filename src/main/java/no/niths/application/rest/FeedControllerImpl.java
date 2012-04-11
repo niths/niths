@@ -86,12 +86,9 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		ValidationHelper.isObjectNull(feed, "Feed not found");
 		if (feed.getStudent() != null) {
 			feed.getStudent().setCommittees(null);
-			feed.getStudent().setCommitteesLeader(null);
 			feed.getStudent().setCourses(null);
-			feed.getStudent().setFadderGroup(null);
-			feed.getStudent().setGroupLeaders(null);
 			feed.getStudent().setFeeds(null);
-			feed.getStudent().setRoles(null);
+			feed.getStudent().setLoans(null);
 		}
 		
 		if (feed.getLocation() != null) {
