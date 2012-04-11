@@ -51,17 +51,17 @@ public class Game implements Domain {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Console console;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Loan.class)
     @JoinTable(name = "loans_games",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "loan_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Student loanedBy;*/
+    private Loan loan;
 
     public Game(){
         this(null, null, null);
         setConsole(null);
-        //setLoanedBy(null);
+        setLoan(null);
     }
 
     public Game(String name){
@@ -117,14 +117,14 @@ public class Game implements Domain {
         this.console = console;
     }
 
-   /* @JsonSerialize(as=Student.class)
-    public Student getLoanedBy() {
-        return loanedBy;
+    @JsonSerialize(as=Loan.class)
+    public Loan getLoan() {
+        return loan;
     }
 
-    public void setLoanedBy(Student loanedBy) {
-        this.loanedBy = loanedBy;
-    }*/
+    public void setLoan(Loan loan) {
+        this.loan = loan;
+    }
 
     @Override
     public boolean equals(Object that) {

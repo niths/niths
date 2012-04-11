@@ -70,6 +70,16 @@ public class ConsoleTest {
     }
 
     @Test
+    public void testGettingLoanFromConsole() {
+        Loan loan = new Loan();
+
+        Console console = new Console();
+        console.setLoan(loan);
+
+        assertThat(loan, is(equalTo(console.getLoan())));
+    }
+
+    @Test
     public void testTwoEqualConsoles() {
         Console console = new Console(NAME);
 

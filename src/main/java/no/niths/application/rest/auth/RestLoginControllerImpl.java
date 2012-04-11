@@ -76,8 +76,7 @@ public class RestLoginControllerImpl implements RestLoginController{
             authenticatedStudent.setRoles(null);
             authenticatedStudent.setRepresentativeFor(null);
             authenticatedStudent.setTutorInSubjects(null);
-            //authenticatedStudent.setLoanedConsole(null);
-            //authenticatedStudent.setLoanedGames(null);
+            authenticatedStudent.setLoans(null);
         }
 
         return authenticatedStudent;
