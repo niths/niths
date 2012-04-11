@@ -10,13 +10,10 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-	import no.niths.domain.Committee;
+import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
-<<<<<<< Updated upstream
-=======
 import no.niths.domain.Game;
->>>>>>> Stashed changes
 import no.niths.domain.Loan;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
