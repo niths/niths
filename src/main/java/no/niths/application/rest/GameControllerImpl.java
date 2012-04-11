@@ -8,11 +8,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
-import no.niths.domain.Student;
-import no.niths.services.interfaces.ConsoleService;
-import no.niths.services.interfaces.GameService;
-import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.domain.Loan;
+import no.niths.services.interfaces.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +39,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     private ConsoleService consoleService;
 
     @Autowired
-    private StudentService studentService;
+    private LoanService loanService;
 
     private GameList gameList = new GameList();
 
@@ -69,6 +66,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     private void clearRelations(){
         for(Game game : gameList){
             game.setConsole(null);
+            game.setLoan(null);
         }
     }
 
@@ -94,15 +92,15 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/console/{gameId}/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "remove/console/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
-    public void removeConsole(@PathVariable Long gameId, @PathVariable Long consoleId) {
+    public void removeConsole(@PathVariable Long gameId) {
         Game game = gameService.getById(gameId);
         ValidationHelper.isObjectNull(game, "Game does not exist");
 
         boolean isRemoved = false;
 
-        if (game.getConsole() != null && game.getConsole().getId() == consoleId) {
+        if (game.getConsole() != null) {
             game.setConsole(null);
             isRemoved = true;
         }
@@ -119,16 +117,16 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "add/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Added")
-    public void addLoanedBy(@PathVariable Long gameId, @PathVariable Long loanedById) {
+    @RequestMapping(value = "add/loan/{gameId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
+    public void addLoan(@PathVariable Long gameId, @PathVariable Long loanId) {
         Game game = gameService.getById(gameId);
         ValidationHelper.isObjectNull(game, "Game does not exist");
 
-        Student loanedBy = studentService.getById(loanedById);
-        ValidationHelper.isObjectNull(loanedBy, "Loaned by does not exist");
+        Loan loan = loanService.getById(loanId);
+        ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
-        game.setLoanedBy(loanedBy);
+        game.setLoan(loan);
         gameService.update(game);
         logger.debug("Game updated");
     }
@@ -137,24 +135,24 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/loanedBy/{gameId}/{loanedById}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned by Removed")
-    public void removeLoanedBy(Long gameId, Long loanedById) {
+    @RequestMapping(value = "remove/loan/{gameId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
+    public void removeLoan(Long gameId) {
         Game game = gameService.getById(gameId);
         ValidationHelper.isObjectNull(game, "Game does not exist");
 
         boolean isRemoved = false;
 
-        if (game.getLoanedBy() != null && game.getLoanedBy().getId() == loanedById) {
-            game.setLoanedBy(null);
+        if (game.getLoan() != null) {
+            game.setLoan(null);
             isRemoved = true;
         }
 
         if (isRemoved) {
             gameService.update(game);
         } else {
-            logger.debug("Loaned by not found");
-            throw new ObjectNotFoundException("Loaned by not found");
+            logger.debug("Loan not found");
+            throw new ObjectNotFoundException("Loan not found");
         }
     }
 

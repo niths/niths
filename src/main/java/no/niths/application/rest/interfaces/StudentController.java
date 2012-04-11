@@ -81,34 +81,18 @@ public interface StudentController extends GenericRESTController<Student> {
     public void removeFeed(Long studentId, Long feedId);
 
     /**
-     * Adds a loaned game too a student
+     * Adds a loan too a student
      *
      * @param studentId id of the student
-     * @param loanedGameId id of the game
+     * @param loanId id of the loan
      */
-    public void addLoanedGame(Long studentId, Long loanedGameId);
+    public void addLoan(Long studentId, Long loanId);
 
     /**
-     * Removes a loaned game from a student
+     * Removes a loan from a student
      *
      * @param studentId id of the student
-     * @param loanedGameId if of the game
+     * @param loanId if of the loan
      */
-    public void removeLoanedGame(Long studentId, Long loanedGameId);
-
-    /**
-     * Adds a loaned console too a student
-     *
-     * @param studentId id of the student
-     * @param loanedConsoleId id of the console
-     */
-    public void addLoanedConsole(Long studentId, Long loanedConsoleId);
-
-    /**
-     * Removes a loaned console from a student
-     *
-     * @param studentId id of the student
-     * @param loanedConsoleId id of the console
-     */
-    public void removeLoanedConsole(Long studentId, Long loanedConsoleId);
+    public void removeLoan(Long studentId, Long loanId);
 }

@@ -108,6 +108,8 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 			stud.setCommittees(null);
 			stud.setCourses(null);
 			stud.setFeeds(null);
+			stud.setLoans(null);
+			stud.setRepresentativeFor(null);
 		}
 		if (s.getRoom() != null) {
 			s.getRoom().setAccessFields(null);

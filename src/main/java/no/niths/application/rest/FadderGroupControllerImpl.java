@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.QRCodeException;
 import no.niths.application.rest.interfaces.FadderGroupController;
 import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -39,23 +40,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.google.zxing.NotFoundException;
-import com.google.zxing.WriterException;
 /**
  * Controller for subjects
  *
  */
 @Controller
 @RequestMapping(AppConstants.FADDER)
-public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<FadderGroup> implements FadderGroupController{
+public class FadderGroupControllerImpl
+        extends AbstractRESTControllerImpl<FadderGroup>
+        implements FadderGroupController{
 
     private static final Logger logger = LoggerFactory
             .getLogger(FadderGroupControllerImpl.class);
 
     @Autowired
     private FadderGroupService service;
-    
+
     @Autowired
     private StudentService studService;
 
@@ -69,35 +69,39 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     public void create(@RequestBody FadderGroup domain) {
-    	super.create(domain);
+        super.create(domain);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     public void update(@RequestBody FadderGroup domain) {
-    	super.update(domain);
+        super.update(domain);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     public void hibernateDelete(@PathVariable long id) {
-    	super.hibernateDelete(id);
+        super.hibernateDelete(id);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(
+            value   = "{id}",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public FadderGroup getById(@PathVariable Long id) {
         FadderGroup group = super.getById(id);
+
         if(group != null){
             for(Student l: group.getLeaders()){
                 l.setCommittees(null);
@@ -110,26 +114,31 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
                 c.setFeeds(null);
             }
         }
+
         return group;
     }
+
     /**
-     * Returns the group belonging to the student
+     * @return FadderGroup the fadder group in which the student resides
      */
     @Override
-    @RequestMapping(value = "getGroupBelongingTo/{studentId}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(
+            value   = "getGroupBelongingTo/{studentId}",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    public FadderGroup getGroupBelongingToStudent(@PathVariable Long studentId){
-    	Student s = studService.getById(studentId);
-    	ValidationHelper.isObjectNull(s, "Cant find the student");
-    	FadderGroup g = service.getGroupBelongingToStudent(studentId);
-    	ValidationHelper.isObjectNull(g, "A Student is not a child");
-    	g.setFadderChildren(null);
-    	g.setLeaders(null);
-    	
-    	return g;
-    	
+    public FadderGroup getGroupBelongingToStudent(
+            @PathVariable Long studentId) {
+        Student s = studService.getById(studentId);
+        ValidationHelper.isObjectNull(s, "Cant find the student");
+        FadderGroup g = service.getGroupBelongingToStudent(studentId);
+        ValidationHelper.isObjectNull(g, "A Student is not a child");
+        g.setFadderChildren(null);
+        g.setLeaders(null);
+
+        return g;
     }
-    
+
     /**
      * {@inheritDoc}
      * 
@@ -141,22 +150,26 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         clearRelations();
         return fadderGroupList;
     }
-    
+
     @Override
-    public ArrayList<FadderGroup> getAll(FadderGroup domain, @PathVariable int firstResult,
-    		@PathVariable int maxResults) {
-    	fadderGroupList = (FadderGroupList) super.getAll(domain, firstResult, maxResults);
-    	clearRelations();
-    	return fadderGroupList;
+    public ArrayList<FadderGroup> getAll(
+            FadderGroup domain,
+            @PathVariable int firstResult,
+            @PathVariable int maxResults) {
+        fadderGroupList = (FadderGroupList) super.getAll(
+                domain, firstResult, maxResults);
+        clearRelations();
+
+        return fadderGroupList;
     }
-    
+
     private void clearRelations(){
-    	 for (int i = 0; i < fadderGroupList.size(); i++){
+         for (int i = 0; i < fadderGroupList.size(); i++){
              fadderGroupList.get(i).setFadderChildren(null);
              fadderGroupList.get(i).setLeaders(null);
          }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -178,12 +191,16 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(value = { "addLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "addLeader/{groupId}/{studId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
-    public void addLeaderToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+    public void addLeaderToAGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long studId) {
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
-        
+
         group.getLeaders().add(stud);
         service.update(group);
     }
@@ -193,16 +210,20 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(value = { "removeLeader/{groupId}/{studId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "removeLeader/{groupId}/{studId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
-    public void removeLeaderFromAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+    public void removeLeaderFromAGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long studId) {
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
   
         
         if(group.getLeaders().contains(stud)){
-        	group.getLeaders().remove(stud);
-        	service.update(group);
+            group.getLeaders().remove(stud);
+            service.update(group);
         }
     }
 
@@ -211,15 +232,21 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(value = { "addChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "addChild/{groupId}/{studId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
-    public void addChildToAGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+    public void addChildToAGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long studId) {
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
         
         if(stud.getFadderGroup() != null){
-        	throw new DuplicateEntryCollectionException("Student is already a child");
+            throw new DuplicateEntryCollectionException(
+                    "Student is already a child");
         }
+
         group.getFadderChildren().add(stud);
         service.update(group);       
     }
@@ -229,17 +256,22 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(value = { "removeChild/{groupId}/{studId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "removeChild/{groupId}/{studId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
-    public void removeChildFromGroup(@PathVariable Long groupId, @PathVariable Long studId) {
+    public void removeChildFromGroup(
+            @PathVariable Long groupId,
+            @PathVariable Long studId) {
         FadderGroup group = getGroup(groupId);
         Student stud = getStudent(studId);
-        
+
         if(group.getFadderChildren().contains(stud)){
-        	group.getFadderChildren().remove(stud);
-        	service.update(group);
+            group.getFadderChildren().remove(stud);
+            service.update(group);
         }else{
-        	throw new NotInCollectionException("Student not a child in that group");
+            throw new NotInCollectionException(
+                    "Student not a child in that group");
         }
         
     }
@@ -266,16 +298,18 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(value = { "removeAllChildren/{groupId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "removeAllChildren/{groupId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildrenFromGroup(@PathVariable Long groupId) {
         FadderGroup group = getGroup(groupId);
         
         if(!group.getFadderChildren().isEmpty()){
-        	group.getFadderChildren().clear();
-        	service.update(group);
+            group.getFadderChildren().clear();
+            service.update(group);
         }else{
-        	logger.debug("list was empty no need for update");
+            logger.debug("list was empty no need for update");
         }
       
     }
@@ -285,68 +319,47 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = { "removeAllLeaders/{groupId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "removeAllLeaders/{groupId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeadersFromGroup(@PathVariable Long groupId) {
         FadderGroup group = getGroup(groupId);
         
         if(!group.getLeaders().isEmpty()){
-        	group.getLeaders().clear();
-        	service.update(group);
-        }else{
-        	logger.debug("list was empty no need for update");
+            group.getLeaders().clear();
+            service.update(group);
+        } else {
+            logger.debug("list was empty no need for update");
         }
-        
     }
 
     /**
      * {@inheritDoc}
-     * @throws WriterException 
+     * @throws QRCodeException an exception describing what went wrong during
+     * scanning
      */
     @Override
-    @RequestMapping(value = "scan-qr-code", method = RequestMethod.POST)
-    @ResponseStatus(value  = HttpStatus.OK, reason = "Scanned QR code")
-    public void scanImage(HttpServletRequest req, HttpServletResponse response) throws WriterException {
-        try {
+    @RequestMapping(value  = "scan-qr-code", method = RequestMethod.POST)
+    @ResponseStatus(value  = HttpStatus.OK,  reason = "Scanned QR code")
+    public void scanImage(
+            HttpServletRequest req,
+            HttpServletResponse response) throws QRCodeException {
             if (req instanceof MultipartHttpServletRequest) {
-                Map<String, MultipartFile> files = ((MultipartHttpServletRequest) req).getFileMap();
+                Map<String, MultipartFile> files =
+                        ((MultipartHttpServletRequest) req).getFileMap();
 
-                for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
-                    System.out.println("key: " + entry.getKey());
-                    CommonsMultipartFile file = (CommonsMultipartFile) entry.getValue();
-                    System.out.println("val: " + file.getSize());
-                    //file.transferTo(new File("/home/whirlwin/tmp/qux.jpg"));
-                    System.out.println("==== Content type: " + file.getContentType());
-                    response.setHeader(
-                            "location",
-                            AppConstants.FADDER + '/'
-                                + new QRCodeDecoder().decodeFadderGroupQRCode(file.getBytes()));
-                }
-                
-            }
-            //System.out.println("and the byte size is: " + mpf.getSize() + ", " + mpf.getContentType());
-            
-            
-            /*
-            List<FileItem> f = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            System.out.println("num of fiiiiiiiiiiiiiiiiiiiiiiiles: " + f.size());
-            for (FileItem i : f) {
-                if (i.isFormField()) {
-                    System.out.println("-------------FF----" + i.getFieldName());
-                } else {
-                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxx isFile" );
-                    InputStream is = i.getInputStream();
-                    response.setHeader(
-                            "location",
-                            AppConstants.FADDER + '/'
-                                + new QRCodeDecoder().decodeFadderGroupQRCode(IOUtils.toByteArray(is)));
-                }
-            }
-            */
+            // Iterate over maps like a boss
+            for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
 
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+                CommonsMultipartFile file =
+                        (CommonsMultipartFile) entry.getValue();
+                response.setHeader(
+                        "location",
+                        AppConstants.FADDER + '/'
+                            + new QRCodeDecoder().decodeFadderGroupQRCode(
+                                    file.getBytes()));
+            }
         }
     }
 
@@ -377,23 +390,25 @@ public class FadderGroupControllerImpl extends AbstractRESTControllerImpl<Fadder
         return studentList; 
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(QRCodeException.class)
     @ResponseStatus(
-            value = HttpStatus.BAD_REQUEST,
-            reason = "Scan failed. Try again")
+            value  = HttpStatus.BAD_REQUEST,
+            reason = "Scan failed")
     public void catchNotFoundException(
-            NotFoundException e,
-            HttpServletResponse response) {}
+            QRCodeException e,
+            HttpServletResponse response) {
+        response.setHeader(ERROR, e.getMessage());
+    }
 
     private Student getStudent(Long studId) {
-		Student stud = studService.getById(studId);
+        Student stud = studService.getById(studId);
         ValidationHelper.isObjectNull(stud, "Student not found");
-		return stud;
-	}
+        return stud;
+    }
 
-	private FadderGroup getGroup(Long groupId) {
-		FadderGroup group = service.getById(groupId);
+    private FadderGroup getGroup(Long groupId) {
+        FadderGroup group = service.getById(groupId);
         ValidationHelper.isObjectNull(group, "Faddergroup not found");
-		return group;
-	}
+        return group;
+    }
 }

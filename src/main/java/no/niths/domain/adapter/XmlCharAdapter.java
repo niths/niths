@@ -11,8 +11,6 @@ public class XmlCharAdapter extends XmlAdapter<String, Character> {
 		}else{
 			return null;
 		}
-		
-		
 	}
 
 	@Override

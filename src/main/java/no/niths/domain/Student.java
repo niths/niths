@@ -39,6 +39,7 @@ import no.niths.domain.constraints.StudentGender;
 import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -49,6 +50,7 @@ import org.hibernate.validator.constraints.Email;
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties({"representativeFor"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Student implements Domain {
 
@@ -99,96 +101,72 @@ public class Student implements Domain {
 	@Column
 	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
 	private String description;
-	
+
 	@JsonIgnore
 	@XmlTransient
 	@Column(name = "last_logon")
 	private Long lastLogon;
 
-
 	@JsonIgnore
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
-	@JoinTable(name = "students_roles", 
-	joinColumns = @JoinColumn(name = "students_id"), 
-	inverseJoinColumns = @JoinColumn(name = "roles_id"), 
-	uniqueConstraints = @UniqueConstraint(columnNames = {"students_id","roles_id"}))
+	@JoinTable(name = "students_roles", joinColumns = @JoinColumn(name = "students_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"), uniqueConstraints = @UniqueConstraint(columnNames = {
+			"students_id", "roles_id" }))
 	private List<Role> roles = new ArrayList<Role>();
 
 	@JsonIgnore
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
-	@JoinTable(name = "committee_leaders", 
-		joinColumns = @JoinColumn(name = "leaders_id"), 
-		inverseJoinColumns = @JoinColumn(name = "committees_id"))
+	@JoinTable(name = "committee_leaders", joinColumns = @JoinColumn(name = "leaders_id"), inverseJoinColumns = @JoinColumn(name = "committees_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committeesLeader = new ArrayList<Committee>();
-	
+
 	@JsonIgnore
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Subject.class)
-	@JoinTable(name = "subjects_tutors", 
-	joinColumns = @JoinColumn(name = "tutors_id"), 
-	inverseJoinColumns = @JoinColumn(name = "subjects_id"))
+	@JoinTable(name = "subjects_tutors", joinColumns = @JoinColumn(name = "tutors_id"), inverseJoinColumns = @JoinColumn(name = "subjects_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Subject> tutorInSubjects = new ArrayList<Subject>();
-	
+
 	@JsonIgnore
 	@XmlTransient
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Course.class)
-	@JoinTable(name = "courses_representatives", 
-	joinColumns = @JoinColumn(name = "representatives_id"), 
-	inverseJoinColumns = @JoinColumn(name = "courses_id"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "courses_representatives", joinColumns = @JoinColumn(name = "representatives_id"), inverseJoinColumns = @JoinColumn(name = "courses_id"))
 	@Cascade(CascadeType.ALL)
 	private Course representativeFor;
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)
 	@Cascade(CascadeType.ALL)
 	private List<Committee> committees = new ArrayList<Committee>();
-	
+
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
 	@Cascade(CascadeType.ALL)
 	private List<Course> courses = new ArrayList<Course>();
-	
+
 	@JsonIgnore
 	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
-	@JoinTable(name = "fadder_leaders_students", 
-		joinColumns = @JoinColumn(name = "leaders_id"), 
-		inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
+	@JoinTable(name = "fadder_leaders_students", joinColumns = @JoinColumn(name = "leaders_id"), inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
 	@Cascade(CascadeType.ALL)
 	private List<FadderGroup> groupLeaders = new ArrayList<FadderGroup>();
-	
+
 	@JsonIgnore
 	@XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
-	@JoinTable(name = "fadder_children_students", 
-		joinColumns = @JoinColumn(name = "fadderChildren_id"), 
-		inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
+	@JoinTable(name = "fadder_children_students", joinColumns = @JoinColumn(name = "fadderChildren_id"), inverseJoinColumns = @JoinColumn(name = "fadder_groups_id"))
 	@Cascade(CascadeType.ALL)
 	private FadderGroup fadderGroup;
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_student",
-	    joinColumns =        @JoinColumn(name = "student_id"),
-	    inverseJoinColumns = @JoinColumn(name = "feeds_id"))
+	@JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "feeds_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Feed> feeds = new ArrayList<Feed>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-    @JoinTable(name = "loans_consoles",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "console_id"))
-    @Cascade(CascadeType.ALL)
-    private List<Console> loanedConsole = new ArrayList<Console>();
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Loan.class)
+	@JoinTable(name = "students_loans", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "loan_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Loan> loans = new ArrayList<Loan>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
-    @JoinTable(name = "loans_games",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    @Cascade(CascadeType.ALL)
-    private List<Game> loanedGames = new ArrayList<Game>();
-	
 	public Student() {
 		this(null, null, null, null, null, null, null);
 		setCommittees(null);
@@ -199,15 +177,14 @@ public class Student implements Domain {
 		setFeeds(null);
 		setRoles(null);
 		setTutorInSubjects(null);
-        setLoanedGames(null);
-        setLoanedConsole(null);
+		setLoans(null);
 	}
 
 	public Student(String email) {
 		this.email = email;
 	}
-	
-	public Student(String email, Long lastLogon){
+
+	public Student(String email, Long lastLogon) {
 		this(email);
 		this.lastLogon = lastLogon;
 	}
@@ -251,7 +228,7 @@ public class Student implements Domain {
 		return birthday;
 	}
 
-	@JsonDeserialize(using=JsonDateDeserializerAdapter.class)
+	@JsonDeserialize(using = JsonDateDeserializerAdapter.class)
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
@@ -341,8 +318,6 @@ public class Student implements Domain {
 		this.committees = committees;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -351,8 +326,6 @@ public class Student implements Domain {
 		this.roles = roles;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public String getSessionToken() {
 		return sessionToken;
 	}
@@ -365,9 +338,8 @@ public class Student implements Domain {
 	public boolean isEmpty() {
 		// Do we need to check for firstName and lastName? They can not be null
 		return (id == null && firstName == null && lastName == null
-				&& gender == null  && email == null
-				&& description == null && birthday == null
-				&& telephoneNumber == null && grade == null);
+				&& gender == null && email == null && description == null
+				&& birthday == null && telephoneNumber == null && grade == null);
 	}
 
 	@Override
@@ -375,8 +347,6 @@ public class Student implements Domain {
 		return String.format("[%s][%s]", id, email);
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public List<Committee> getCommitteesLeader() {
 		return committeesLeader;
 	}
@@ -385,8 +355,6 @@ public class Student implements Domain {
 		this.committeesLeader = committesLeader;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public FadderGroup getFadderGroup() {
 		return fadderGroup;
 	}
@@ -395,8 +363,6 @@ public class Student implements Domain {
 		this.fadderGroup = fadderGroup;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public List<FadderGroup> getGroupLeaders() {
 		return groupLeaders;
 	}
@@ -405,8 +371,6 @@ public class Student implements Domain {
 		this.groupLeaders = groupLeaders;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public Long getLastLogon() {
 		return lastLogon;
 	}
@@ -414,8 +378,7 @@ public class Student implements Domain {
 	public void setLastLogon(Long lastLogon) {
 		this.lastLogon = lastLogon;
 	}
-	
-	
+
 	public List<Feed> getFeeds() {
 		return feeds;
 	}
@@ -424,8 +387,6 @@ public class Student implements Domain {
 		this.feeds = feeds;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public List<Subject> getTutorInSubjects() {
 		return tutorInSubjects;
 	}
@@ -434,8 +395,7 @@ public class Student implements Domain {
 		this.tutorInSubjects = tutorInSubjects;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
+	@JsonSerialize(as = Course.class)
 	public Course getRepresentativeFor() {
 		return representativeFor;
 	}
@@ -444,19 +404,11 @@ public class Student implements Domain {
 		this.representativeFor = representativeFor;
 	}
 
-    public List<Game> getLoanedGames() {
-        return loanedGames;
-    }
+	public List<Loan> getLoans() {
+		return loans;
+	}
 
-    public void setLoanedGames(List<Game> loanedGames) {
-        this.loanedGames = loanedGames;
-    }
-
-    public List<Console> getLoanedConsole() {
-        return loanedConsole;
-    }
-
-    public void setLoanedConsole(List<Console> loanedConsole) {
-        this.loanedConsole = loanedConsole;
-    }
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
+	}
 }

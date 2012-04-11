@@ -58,13 +58,23 @@ public class GameTest {
     }
 
     @Test
-    public void testGettingConsoleFromGame() {
+     public void testGettingConsoleFromGame() {
         Console console = new Console();
 
         Game game = new Game();
         game.setConsole(console);
 
         assertThat(console, is(equalTo(game.getConsole())));
+    }
+
+    @Test
+    public void testGettingLoanFromGame() {
+        Loan loan = new Loan();
+
+        Game game = new Game();
+        game.setLoan(loan);
+
+        assertThat(loan, is(equalTo(game.getLoan())));
     }
 
     @Test

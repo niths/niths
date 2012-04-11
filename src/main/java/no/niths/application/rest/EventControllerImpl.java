@@ -191,7 +191,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	}
 	
 	@Override
-	@RequestMapping(value = "dates", method = RequestMethod.GET)
+	@RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
 		logger.debug(timeDTO +"");

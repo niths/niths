@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.io.EOFException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,12 +19,15 @@ import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
+import no.niths.application.rest.helper.Error;
+import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.QueryParameterException;
 import org.hibernate.TransientObjectException;
@@ -75,7 +79,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractRESTControllerImpl.class);
-    private static final String ERROR = "Error";
+    protected static final String ERROR = "Error";
 
     /**
      * Persists the domain
@@ -127,6 +131,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public T getById(@PathVariable Long id) {
         T domain = getService().getById(id);
         ValidationHelper.isObjectNull(domain);
+        //clearSubR(domain);
         logger.debug(domain.toString());
         return domain;
     }
@@ -173,6 +178,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain,@PathVariable int firstResult, @PathVariable int maxResults) {
         renewList(getService().getAll(domain, firstResult, maxResults));
+        clearR();
         return getList();
     }
 
@@ -227,7 +233,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     /**
      * {@inheritDoc}
      */
-    
+    @Override
     public void clearR() {
         ListAdapter<?> list = getList();
 
@@ -239,7 +245,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
                     try {
                         String fieldName = field.getName();
 
-                        // Dynamically find the set method for collection types.
+                        // Dynamically find the set method for collection types
                         Method method = domain.getClass().getMethod(
                                 "set" +
                                     Character.toUpperCase(fieldName.charAt(0)) +
@@ -251,6 +257,54 @@ public abstract class AbstractRESTControllerImpl<T> implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+            }
+        }
+    }
+
+    public void clearSubR(T domain) {
+        Field[] fields = domain.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            if (Collection.class.isAssignableFrom(field.getType())) {
+                String fieldName = field.getName();
+                
+                try {
+                    Method method = domain.getClass().getMethod(
+                            "get" +
+                                Character.toUpperCase(fieldName.charAt(0)) +
+                                fieldName.substring(1), null);
+                    System.err.println(method.getName());
+                    try {
+                        Collection c = (Collection) method.invoke(domain, null);
+                        for (Object o : c) {
+                            System.out.println("class: " + o.getClass());
+                            if (o instanceof Collection<?>) {
+                                System.out.println(o.getClass());
+                            }
+                        }
+                    } catch (LazyInitializationException e) {
+                        System.err.println(e.getMessage());
+                    }
+                    
+                    //System.err.println("size: " + c.size());
+                    
+                    
+                    //System.out.println("collection size: " + c.size());
+                } catch (IllegalArgumentException e1) {
+                    e1.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SecurityException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
         }
@@ -579,5 +633,27 @@ public abstract class AbstractRESTControllerImpl<T> implements
             res.setHeader(ERROR, e.getMessage());
         }
         logger.debug("CustomParseException");
+    }
+
+    /**
+     * 
+     * @param mainDomain the domain which caused the error
+     * @param commonError the type of error
+     * @return the string describing the error
+     */
+    protected String buildErrorMsg(Class<?> mainDomain, Error error) {
+        return String.format(
+                "%s %s", mainDomain.getSimpleName(), error.getMsg());
+    }
+
+    /**
+     * 
+     * @param mainDomain the domain which caused a status change
+     * @param status the type of status
+     * @return the string describing the status
+     */
+    protected String buildStatusMsg(Class<?> mainDomain, Status status) {
+        return String.format(
+                "%s %s", mainDomain.getSimpleName(), status.getMsg());
     }
 }

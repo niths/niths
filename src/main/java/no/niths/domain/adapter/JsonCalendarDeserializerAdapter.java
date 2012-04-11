@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import no.niths.application.rest.exception.CustomParseException;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.JsonParser;
@@ -28,9 +29,11 @@ public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> 
 		Calendar calendar = new GregorianCalendar();		
 		try {
 			calendar.setTime(df.parse(jp.getText()));
-		} catch (ParseException e) {
-			logger.error(e.getMessage(),e);
-			e.printStackTrace();
+		} catch (ParseException px) {
+			logger.error(px.getMessage(),px);
+			throw new CustomParseException("Invalid syntacs! Valid syntax : "
+					+ AppConstants.CALENDAR_FORMAT + " ErrorOffset:"
+					+ px.getErrorOffset());
 		}
 		return calendar;
 	}

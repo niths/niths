@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import no.niths.application.rest.exception.CustomParseException;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.JsonParser;
@@ -27,10 +28,10 @@ public class JsonDateDeserializerAdapter extends JsonDeserializer<Date>{
 			return df.parse(jp.getText());
 		} catch (ParseException e) {
 			logger.error(e.getMessage(),e);
-			e.printStackTrace();
+			throw new CustomParseException("Invalid syntacs! Valid syntax : "
+					+ AppConstants.DATE_FORMAT + " ErrorOffset:"
+					+ e.getErrorOffset());
 		}
-		
-		return null;
 	}
 
 }

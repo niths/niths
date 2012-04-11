@@ -11,20 +11,14 @@ import no.niths.domain.signaling.AccessField;
 @XmlRootElement(name = AppConstants.ACCESS_FIELDS)
 public class AccessFieldList extends ListAdapter<AccessField> {
 
-	private static final long serialVersionUID = -5120021637809836989L;
+    private static final long serialVersionUID = -5120021637809836989L;
 
-	@SuppressWarnings("unused")
-	@XmlElement(name = "accessfield")
-	private List<AccessField> accessFieldData;
-
-	@Override
-	public void setData(List<AccessField> list) {
-		this.accessFieldData = list;
-	}
+    @SuppressWarnings("unused")
+    @XmlElement(name = "accessfield")
+    private List<AccessField> accessFieldData;
 
     @Override
-    public List<AccessField> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<AccessField> list) {
+        this.accessFieldData = list;
     }
 }

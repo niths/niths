@@ -11,19 +11,14 @@ import no.niths.domain.security.Role;
 @XmlRootElement(name = AppConstants.ROLES)
 public class RoleList extends ListAdapter<Role> {
 
-	private static final long serialVersionUID = 7386282831236634626L;
-	@SuppressWarnings("unused")
-	@XmlElement(name = "role")
-	private List<Role> data;
+    private static final long serialVersionUID = 7386282831236634626L;
 
-	@Override
-	public void setData(List<Role> data) {
-		this.data = data;
-	}
+    @SuppressWarnings("unused")
+    @XmlElement(name = "role")
+    private List<Role> data;
 
     @Override
-    public List<Role> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<Role> data) {
+        this.data = data;
     }
 }

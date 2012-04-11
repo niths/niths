@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.exception.QRCodeException;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
-
-import com.google.zxing.WriterException;
 
 /**
  * 
@@ -78,7 +77,8 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public void removeAllLeadersFromGroup(Long groupId);
 
-    void scanImage(HttpServletRequest request, HttpServletResponse response) throws WriterException;
+    void scanImage(HttpServletRequest request, HttpServletResponse response)
+            throws QRCodeException;
 
     /**
      * Gets all the students in a given fadder group

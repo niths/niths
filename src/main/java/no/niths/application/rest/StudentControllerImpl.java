@@ -10,8 +10,17 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.*;
-import no.niths.services.interfaces.*;
+import no.niths.domain.Committee;
+import no.niths.domain.Course;
+import no.niths.domain.Feed;
+import no.niths.domain.Loan;
+import no.niths.domain.Student;
+import no.niths.services.interfaces.CommitteeService;
+import no.niths.services.interfaces.CourseService;
+import no.niths.services.interfaces.FeedService;
+import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.LoanService;
+import no.niths.services.interfaces.StudentService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(AppConstants.STUDENTS)
@@ -44,10 +58,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	private FeedService feedService;
 
     @Autowired
-	private GameService gameService;
-
-    @Autowired
-	private ConsoleService consoleService;
+	private LoanService loanService;
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
@@ -67,14 +78,28 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				student.getCourses().get(i).setSubjects(null);
 			}
 
+			if(student.getRepresentativeFor()!=null){
+				student.getRepresentativeFor().setCourseRepresentatives(null);
+				student.getRepresentativeFor().setSubjects(null);
+				
+			}
+			
 			for(Feed f: student.getFeeds()){
 				f.setStudent(null);
 				f.setLocation(null);
 			}
 			
+			for (Loan l : student.getLoans()) {
+			    l.setConsoles(null);
+			    l.setGames(null);
+			    l.setStudent(null);
+			}
+			
 		}
 		return student;
 	}
+	
+	
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
@@ -99,16 +124,30 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain) {
-		return super.getAll(domain);
+		super.getAll(domain);
+		
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setRepresentativeFor(null);
+		}
+		
+		return studentList;
 	}
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
-		return super.getAll(domain, firstResult, maxResults);
+		super.getAll(domain, firstResult, maxResults);
+		
+		for (int i = 0; i < studentList.size(); i++) {
+			studentList.get(i).setRepresentativeFor(null);
+		}
+		
+		return studentList;
+				
 	}
 	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -124,6 +163,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		for (int i = 0; i < studentList.size(); i++) {
 			studentList.get(i).setCommittees(null);
 			studentList.get(i).setCourses(null);
+			studentList.get(i).setRepresentativeFor(null);
 		}
 		return studentList;
 	}
@@ -270,16 +310,16 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "add/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Added")
-    public void addLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
+    @RequestMapping(value = "add/loan/{studentId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
+    public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student does not exist");
 
-        Game loanedGame = gameService.getById(loanedGameId);
-        ValidationHelper.isObjectNull(loanedGame, "Loaned game does not exist");
+        Loan loan = loanService.getById(loanId);
+        ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
-        student.getLoanedGames().add(loanedGame);
+        student.getLoans().add(loan);
         service.update(student);
         logger.debug("Student updated");
     }
@@ -288,17 +328,17 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/loanedGame/{studentId}/{loanedGameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned game Removed")
-    public void removeLoanedGame(@PathVariable Long studentId, @PathVariable Long loanedGameId) {
+    @RequestMapping(value = "remove/loan/{studentId}/{loanId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
+    public void removeLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
         ValidationHelper.isObjectNull(student, "Student does not exist");
 
         boolean isRemoved = false;
 
-        for (int i = 0; i < student.getLoanedGames().size(); i++) {
-            if (student.getLoanedGames().get(i).getId() == loanedGameId) {
-                student.getLoanedGames().remove(i);
+        for (int i = 0; i < student.getLoans().size(); i++) {
+            if (student.getLoans().get(i).getId() == loanId) {
+                student.getLoans().remove(i);
                 isRemoved = true;
                 break;
             }
@@ -307,54 +347,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         if (isRemoved) {
             service.update(student);
         } else {
-            logger.debug("Loaned game not found");
-            throw new ObjectNotFoundException("Loaned game not found");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "add/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Added")
-    public void addLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
-        Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
-
-        Console loanedConsole = consoleService.getById(loanedConsoleId);
-        ValidationHelper.isObjectNull(loanedConsole, "Loaned console does not exist");
-
-        student.getLoanedConsole().add(loanedConsole);
-        service.update(student);
-        logger.debug("Student updated");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "remove/loanedConsole/{studentId}/{loanedConsoleId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loaned console Removed")
-    public void removeLoanedConsole(@PathVariable Long studentId, @PathVariable Long loanedConsoleId) {
-        Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < student.getLoanedConsole().size(); i++) {
-            if (student.getLoanedConsole().get(i).getId() == loanedConsoleId) {
-                student.getLoanedConsole().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            service.update(student);
-        } else {
-            logger.debug("Loaned console not found");
-            throw new ObjectNotFoundException("Loaned console not found");
+            logger.debug("Loan not found");
+            throw new ObjectNotFoundException("Loan not found");
         }
     }
 

@@ -87,16 +87,22 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	@Override
 	public Course getById(@PathVariable Long id) {
 		Course course = super.getById(id);
-		for (int i = 0; i < course.getSubjects().size(); i++) {
-			course.getSubjects().get(i).setCourses(null);
-			course.getSubjects().get(i).setRoom(null);
-			course.getSubjects().get(i).setTutors(null);
+		
+		for (Subject sub : course.getSubjects()) {
+			sub.setCourses(null);
+			sub.setRoom(null);
+			sub.setTutors(null);	
 		}
-		for (int i = 0; i < course.getCourseRepresentatives().size(); i++) {
-			course.getCourseRepresentatives().get(i).setCommittees(null);
-			course.getCourseRepresentatives().get(i).setCourses(null);
-			course.getCourseRepresentatives().get(i).setFeeds(null);
+		
+		for (Student student:course.getCourseRepresentatives()) {
+			student.setCommittees(null);
+			student.setCourses(null);
+			student.setFeeds(null);
+			student.setRepresentativeFor(null);
+			student.setLoans(null);
 		}
+		
+		
 		return course;
 	}
 

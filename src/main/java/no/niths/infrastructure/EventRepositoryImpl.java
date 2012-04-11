@@ -39,7 +39,7 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		if (isEndTimeNull) {
 			sql += " >= :startTime";
 		} else {
-			sql += " BETWEEN :startTime AND :endTime";
+			sql += " BETWEEN :startTime AND :endTime ORDER BY e.startTime asc";
 		}
 		
 		Query query = getSession().getCurrentSession().createQuery(sql);

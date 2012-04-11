@@ -11,19 +11,13 @@ import no.niths.domain.APIEvent;
 @XmlRootElement(name = AppConstants.API_EVENTS)
 public class APIEventList extends ListAdapter<APIEvent> {
 
-	private static final long serialVersionUID = 2794068992188408350L;
-	@SuppressWarnings("unused")
-	@XmlElement(name = "APIEvent")
-	private List<APIEvent> data;
-
-	@Override
-	public void setData(List<APIEvent> data) {
-		this.data = data;
-	}
+    private static final long serialVersionUID = 2794068992188408350L;
+    @SuppressWarnings("unused")
+    @XmlElement(name = "APIEvent")
+    private List<APIEvent> data;
 
     @Override
-    public List<APIEvent> getData() {
-        // TODO Auto-generated method stub
-        return null;
+    public void setData(List<APIEvent> data) {
+        this.data = data;
     }
 }

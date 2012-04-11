@@ -99,8 +99,8 @@ public class Course implements Domain {
 		return subjects;
 	}
 
-	public void setSubjects(List<Subject> topics) {
-		this.subjects = topics;
+	public void setSubjects(List<Subject> subject) {
+		this.subjects = subject;
 	}
 
 	public String getName() {
