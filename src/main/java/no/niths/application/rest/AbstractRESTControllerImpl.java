@@ -2,6 +2,7 @@ package no.niths.application.rest;
 
 import java.io.EOFException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,6 +27,7 @@ import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.QueryParameterException;
 import org.hibernate.TransientObjectException;
@@ -129,6 +131,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public T getById(@PathVariable Long id) {
         T domain = getService().getById(id);
         ValidationHelper.isObjectNull(domain);
+        clearSubR(domain);
         logger.debug(domain.toString());
         return domain;
     }
@@ -242,7 +245,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
                     try {
                         String fieldName = field.getName();
 
-                        // Dynamically find the set method for collection types.
+                        // Dynamically find the set method for collection types
                         Method method = domain.getClass().getMethod(
                                 "set" +
                                     Character.toUpperCase(fieldName.charAt(0)) +
@@ -254,6 +257,54 @@ public abstract class AbstractRESTControllerImpl<T> implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+            }
+        }
+    }
+
+    public void clearSubR(T domain) {
+        Field[] fields = domain.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            if (Collection.class.isAssignableFrom(field.getType())) {
+                String fieldName = field.getName();
+                
+                try {
+                    Method method = domain.getClass().getMethod(
+                            "get" +
+                                Character.toUpperCase(fieldName.charAt(0)) +
+                                fieldName.substring(1), null);
+                    System.err.println(method.getName());
+                    try {
+                        Collection c = (Collection) method.invoke(domain, null);
+                        for (Object o : c) {
+                            System.out.println("class: " + o.getClass());
+                            if (o instanceof Collection<?>) {
+                                System.out.println(o.getClass());
+                            }
+                        }
+                    } catch (LazyInitializationException e) {
+                        System.err.println(e.getMessage());
+                    }
+                    
+                    //System.err.println("size: " + c.size());
+                    
+                    
+                    //System.out.println("collection size: " + c.size());
+                } catch (IllegalArgumentException e1) {
+                    e1.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SecurityException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
         }

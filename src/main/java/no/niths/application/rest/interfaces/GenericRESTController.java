@@ -70,5 +70,6 @@ public interface GenericRESTController<T> {
      * Clears relations (used in "getAll" methods
      */
     void clearR();
-    
+
+    void clearSubR(T domain);
 }

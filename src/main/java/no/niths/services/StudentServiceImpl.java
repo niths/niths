@@ -78,6 +78,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
+<<<<<<< Updated upstream
             s.getLoans().size();
             s.getFeeds().size();
             
@@ -86,6 +87,17 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
             }
           
 		
+=======
+            s.getLoans().size();
+            s.getRoles().size();
+
+			int size = s.getFeeds().size();
+			for (int i = 0; i < size; i++) {
+				if (s.getFeeds().get(i).getLocation() != null){
+					s.getFeeds().get(i).getLocation().getPlace();
+				}
+			}
+>>>>>>> Stashed changes
 		}		
 		return s;
 	}

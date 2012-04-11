@@ -13,6 +13,10 @@ import no.niths.common.ValidationHelper;
 	import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
+<<<<<<< Updated upstream
+=======
+import no.niths.domain.Game;
+>>>>>>> Stashed changes
 import no.niths.domain.Loan;
 import no.niths.domain.Student;
 import no.niths.services.interfaces.CommitteeService;
@@ -87,6 +91,11 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			for(Feed f: student.getFeeds()){
 				f.setStudent(null);
 				f.setLocation(null);
+			}
+			for (Loan l : student.getLoans()) {
+			    l.setConsoles(null);
+			    l.setGames(null);
+			    l.setStudent(null);
 			}
 			
 		}
