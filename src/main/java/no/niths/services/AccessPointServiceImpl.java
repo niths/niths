@@ -1,4 +1,4 @@
-rpackage no.niths.services;
+package no.niths.services;
 
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.AccessPointRepository;
