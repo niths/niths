@@ -63,7 +63,6 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
 	public ArrayList<Room> getAll(Room room, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
 		super.getAll(room, firstResult, maxResults);
-		clearRelationships(Room.class.getDeclaredFields());
 
 		return roomList;
 	}
@@ -72,7 +71,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "add/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{roomid}/add-accessfield/{afId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
 	public void addAccessField(@PathVariable long roomId,
 			@PathVariable long afId) {
