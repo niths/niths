@@ -7,16 +7,18 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
-import no.niths.domain.Student;
+import no.niths.domain.Loan;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.interfaces.LoanService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.GregorianCalendar;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -32,7 +34,7 @@ public class GameServiceTest {
     private ConsoleService consoleService;
 
     @Autowired
-    private StudentService studentService;
+    private LoanService loanService;
 
     @Test
     public void testCRUD(){
@@ -75,20 +77,20 @@ public class GameServiceTest {
         consoleService.hibernateDelete(console.getId());
     }
 
-    /*@Test
-    public void testRelationsBetweenGameAndStudentLoanedBy(){
-        Student loanedBy = new Student("epost@nith.no");
-        studentService.create(loanedBy);
+    @Test
+    public void testRelationsBetweenGameAndLoan(){
+        Loan loan = new Loan(new GregorianCalendar());
+        loanService.create(loan);
 
         Game game = new Game(NAME);
         gameService.create(game);
 
-        game.setLoanedBy(loanedBy);
+        game.setLoan(loan);
         gameService.update(game);
 
-        assertThat(studentService.getById(loanedBy.getId()), is(equalTo(gameService.getById(game.getId()).getLoanedBy())));
+        assertThat(loanService.getById(loan.getId()), is(equalTo(gameService.getById(game.getId()).getLoan())));
 
         gameService.hibernateDelete(game.getId());
-        studentService.hibernateDelete(loanedBy.getId());
-    }*/
+        loanService.hibernateDelete(loan.getId());
+    }
 }

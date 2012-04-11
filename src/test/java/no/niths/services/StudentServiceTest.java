@@ -6,23 +6,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Console;
-import no.niths.domain.Course;
-import no.niths.domain.Feed;
-import no.niths.domain.Game;
-import no.niths.domain.Student;
+import no.niths.domain.*;
 import no.niths.domain.security.Role;
-import no.niths.services.interfaces.CommitteeService;
-import no.niths.services.interfaces.ConsoleService;
-import no.niths.services.interfaces.CourseService;
-import no.niths.services.interfaces.FeedService;
-import no.niths.services.interfaces.GameService;
-import no.niths.services.interfaces.RoleService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.interfaces.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,10 +43,7 @@ public class StudentServiceTest {
 	private FeedService feedService;
 
     @Autowired
-	private GameService gameService;
-
-    @Autowired
-	private ConsoleService consoleService;
+	private LoanService loanService;
 
 	@Test
 	public void testCRUD() {
@@ -354,47 +341,25 @@ public class StudentServiceTest {
         feedService.hibernateDelete(otherFeed.getId());
     }
 
-   /* @Test
-    public void testRelationsBetweenStudentAndLoanedGame(){
-        Game game = new Game("Super Mario");
-        gameService.create(game);
-
-        Game otherGame = new Game("Halo");
-        gameService.create(otherGame);
-
-        Student student = new Student(EMAIL);
-        studService.create(student);
-
-        student.getLoanedGames().add(game);
-        student.getLoanedGames().add(otherGame);
-        studService.update(student);
-
-        assertThat(2, is(equalTo(studService.getById(student.getId()).getLoanedGames().size())));
-
-        studService.hibernateDelete(student.getId());
-        gameService.hibernateDelete(game.getId());
-        gameService.hibernateDelete(otherGame.getId());
-    }
-
     @Test
-    public void testRelationsBetweenStudentAndConsole(){
-        Console console = new Console("Wii");
-        consoleService.create(console);
+    public void testRelationsBetweenStudentAndLoan(){
+        Loan loan = new Loan(new GregorianCalendar(), new GregorianCalendar());
+        loanService.create(loan);
 
-        Console otherConsole = new Console("Xbox");
-        consoleService.create(otherConsole);
+        Loan otherLoan = new Loan(new GregorianCalendar());
+        loanService.create(otherLoan);
 
         Student student = new Student(EMAIL);
         studService.create(student);
 
-        student.getLoanedConsole().add(console);
-        student.getLoanedConsole().add(otherConsole);
+        student.getLoans().add(loan);
+        student.getLoans().add(otherLoan);
         studService.update(student);
 
-        assertThat(2, is(equalTo(studService.getById(student.getId()).getLoanedConsole().size())));
+        assertThat(2, is(equalTo(studService.getById(student.getId()).getLoans().size())));
 
         studService.hibernateDelete(student.getId());
-        consoleService.hibernateDelete(console.getId());
-        consoleService.hibernateDelete(otherConsole.getId());
-    }*/
+        loanService.hibernateDelete(loan.getId());
+        loanService.hibernateDelete(otherLoan.getId());
+    }
 }
