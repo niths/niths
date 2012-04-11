@@ -10,7 +10,7 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Committee;
+	import no.niths.domain.Committee;
 import no.niths.domain.Course;
 import no.niths.domain.Feed;
 import no.niths.domain.Loan;
@@ -78,6 +78,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 				student.getCourses().get(i).setSubjects(null);
 			}
 
+			if(student.getRepresentativeFor()!=null){
+				student.getRepresentativeFor().setCourseRepresentatives(null);
+				student.getRepresentativeFor().setSubjects(null);
+				
+			}
+			
 			for(Feed f: student.getFeeds()){
 				f.setStudent(null);
 				f.setLocation(null);
