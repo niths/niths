@@ -422,9 +422,9 @@ insert into courses_representatives (courses_id, representatives_id) values (1, 
 insert into courses_representatives (courses_id, representatives_id) values (2, 3);
 
 INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Nintendo Wii', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Playstation 3', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Xbox 360', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Playstation 2', 'Seventh generation', 1);
+INSERT INTO consoles (id, name, console_type, locker) VALUES (2, 'Playstation 3', 'Seventh generation', 1);
+INSERT INTO consoles (id, name, console_type, locker) VALUES (3, 'Xbox 360', 'Seventh generation', 1);
+INSERT INTO consoles (id, name, console_type, locker) VALUES (4, 'Playstation 2', 'Seventh generation', 1);
 
 
 
