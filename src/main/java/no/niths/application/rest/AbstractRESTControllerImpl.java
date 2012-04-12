@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.io.EOFException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -297,25 +298,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     
                         for (Domain d : c) {
                             Class<?> innerType    = d.getClass();
-        
-                            for (Field innerField : innerType.getDeclaredFields()) {
-                                if (Collection.class.isAssignableFrom(
-                                        innerField.getType())) {
-                                    Method innerMethod =
-    
-                                            // Method name
-                                            innerType.getDeclaredMethod(
-                                                    generateSetterName(
-                                                            innerField.getName()),
-                                                            
-                                            // Method parameter
-                                            innerField.getType());
-    
-                                    // Call the method which sets the children's
-                                    // child collection to null
-                                    innerMethod.invoke(d, varargsNull);
-                                }
-                            }
+                            removeChild(d, innerType);
                         }
                     }
                 } else if (Domain.class.isAssignableFrom(outerType)) {
@@ -330,40 +313,32 @@ public abstract class AbstractRESTControllerImpl<T> implements
                         Method md = domainType.getMethod(
                                 generateGetterName(outerFieldName), (Class<?>[]) null);
                         Domain dom = (Domain) md.invoke(domain, null);
-                        System.err.println("=======================");
-                        System.err.println("object type: " + domain.getClass());
-                        System.err.println("method: " + md.getName());
-                        System.err.println("return type: " + md.getReturnType());
-                        
-                        Field[] realFields = Room.class.getDeclaredFields();
-                        for (Field realField : realFields) {
-                            System.err.println("class field (real): " + realField.getName());
-                        }
-                        
-                        System.err.println("-------------------------");
                         
                         if (dom != null) {
                             Class<?> superClass = dom.getClass().getSuperclass();
-                            Field[] domFields = superClass.getDeclaredFields();
-                            for (Field theField : domFields) {
-                                Class<?> type = theField.getType();
-                                if (Collection.class.isAssignableFrom(type)
-                                        || Domain.class.isAssignableFrom(type)) {
-                                    Method m = superClass.getMethod(
-                                            generateSetterName(theField.getName()),
-                                            theField.getType());
-                                    System.err.println("foo method: " + m.getName());
-                                    m.invoke(dom, varargsNull);
-                                }
-                                System.err.println("class field: " + theField.getName());
-                            }
+                            removeChild(dom, superClass);
                         }
-                        
-                        System.err.println("=======================");
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void removeChild(Object target, Class<?> type)
+            throws NoSuchMethodException, SecurityException,
+                   IllegalAccessException, IllegalArgumentException,
+                   InvocationTargetException {
+
+        for (Field field : type.getDeclaredFields()) {
+            Class<?> fieldType = field.getType();
+
+            if (Collection.class.isAssignableFrom(fieldType)
+                    || Domain.class.isAssignableFrom(fieldType)) {
+                type.getMethod(
+                        generateSetterName(field.getName()),
+                        fieldType).invoke(target, varargsNull);
             }
         }
     }
