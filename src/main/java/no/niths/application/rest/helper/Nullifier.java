@@ -25,7 +25,10 @@ public class Nullifier<T> {
     public void clearR(ListAdapter<T> list) {
         for (Object domain: list) {
             for (Field field : domain.getClass().getDeclaredFields()) {
-                if (Collection.class.isAssignableFrom(field.getType())) {
+                Class<?> type = field.getType();
+
+                if (Collection.class.isAssignableFrom(type) ||
+                        Domain.class.isAssignableFrom(type)) {
                     try {
 
                         // Dynamically find the set method for collection types

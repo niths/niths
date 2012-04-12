@@ -53,9 +53,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     @Override
     public Room getById(@PathVariable Long id) {
     	Room r = super.getById(id);
-    	for(AccessField af :r.getAccessFields()){
-    		af.setAccessPoint(null);
-    	}
+
     	return r;
     }
 

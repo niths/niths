@@ -34,114 +34,107 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.ACCESS_FIELDS)
 public class AccessFieldControllerImpl extends
-		AbstractRESTControllerImpl<AccessField> implements
-		AccessFieldController {
+        AbstractRESTControllerImpl<AccessField> implements
+        AccessFieldController {
 
-	Logger logger = org.slf4j.LoggerFactory
-			.getLogger(AccessFieldControllerImpl.class);
+    Logger logger = org.slf4j.LoggerFactory
+            .getLogger(AccessFieldControllerImpl.class);
 
-	@Autowired
-	private AccessFieldService service;
+    @Autowired
+    private AccessFieldService service;
 
-	@Autowired
-	private AccessPointService apService;
+    @Autowired
+    private AccessPointService apService;
 
-	private AccessFieldList list = new AccessFieldList();
+    private AccessFieldList list = new AccessFieldList();
 
-	@Override
-	public GenericService<AccessField> getService() {
-		return service;
-	}
-	
-	@Override
-	public ListAdapter<AccessField> getList() {
-		return list;
-	}
+    @Override
+    public GenericService<AccessField> getService() {
+        return service;
+    }
+    
+    @Override
+    public ListAdapter<AccessField> getList() {
+        return list;
+    }
 
-	@Override
-	public ArrayList<AccessField> getAll(AccessField domain) {
-		super.getAll(domain);
-		
-		for(AccessField af : list){
-			af.setAccessPoint(null);
-		}
-		return list;
-	}
-	
-	@Override
-	public ArrayList<AccessField> getAll(AccessField domain, @PathVariable int firstResult,
-			@PathVariable int maxResults) {
-		super.getAll(domain,firstResult,maxResults);
-		
-		for(AccessField af : list){
-			af.setAccessPoint(null);
-		}
-		
-		return list;
-	}
-	
-	@Override
-	@ApiEvent(title = "Access field created")
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void create(@RequestBody AccessField domain) {
-		super.create(domain);
-	}
+    @Override
+    public ArrayList<AccessField> getAll(AccessField domain) {
+        super.getAll(domain);
+        return list;
+    }
+    
+    @Override
+    public ArrayList<AccessField> getAll(
+            AccessField domain,
+            @PathVariable int firstResult,
+            @PathVariable int maxResults) {
+        super.getAll(domain,firstResult,maxResults);
+        return list;
+    }
+    
+    @Override
+    @ApiEvent(title = "Access field created")
+    @PreAuthorize(SecurityConstants.ONLY_ADMIN)
+    public void create(@RequestBody AccessField domain) {
+        super.create(domain);
+    }
 
-	@Override
-	@ApiEvent(title = "Access field updated")
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void update(@RequestBody AccessField domain) {
-		super.update(domain);
-	}
+    @Override
+    @ApiEvent(title = "Access field updated")
+    @PreAuthorize(SecurityConstants.ONLY_ADMIN)
+    public void update(@RequestBody AccessField domain) {
+        super.update(domain);
+    }
 
-	@Override
-	@ApiEvent(title = "Access field deleted")
-	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
-	public void hibernateDelete(@PathVariable long id) {
-		super.hibernateDelete(id);
-	}
+    @Override
+    @ApiEvent(title = "Access field deleted")
+    @PreAuthorize(SecurityConstants.ONLY_ADMIN)
+    public void hibernateDelete(@PathVariable long id) {
+        super.hibernateDelete(id);
+    }
 
-	@Override
-	@ApiEvent(title = "Access point added to access field")
-	@RequestMapping(value = "add/accesspoint/{afId}/{apId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "AcessPoint Added")
-	public void addAccessPoint(@PathVariable long afId, @PathVariable long apId) {
-		AccessField af = service.getById(afId);
-		ValidationHelper.isObjectNull(af, "Acess field does not exist");
-		if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
-			logger.debug("Acess Point exist");
-			throw new DuplicateEntryCollectionException("Acess Point exist");
-		}
-		
-		AccessPoint ap = apService.getById(apId);
-		ValidationHelper.isObjectNull(ap, "Access point does not exist");
-		af.setAccessPoint(ap);
-		service.update(af);
-		logger.debug("Accss field updated and changed");
+    @Override
+    @ApiEvent(title = "Access point added to access field")
+    @RequestMapping(value = "add/accesspoint/{afId}/{apId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "AcessPoint Added")
+    public void addAccessPoint(@PathVariable long afId, @PathVariable long apId) {
+        AccessField af = service.getById(afId);
+        ValidationHelper.isObjectNull(af, "Acess field does not exist");
+        if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
+            logger.debug("Acess Point exist");
+            throw new DuplicateEntryCollectionException("Acess Point exist");
+        }
+        
+        AccessPoint ap = apService.getById(apId);
+        ValidationHelper.isObjectNull(ap, "Access point does not exist");
+        af.setAccessPoint(ap);
+        service.update(af);
+        logger.debug("Accss field updated and changed");
 
-	}
+    }
 
-	@Override
-	@ApiEvent(title = "Access point removed from access field")
-	@RequestMapping(value = "remove/accesspoint/{afId}/{apId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Acesspoint Removed")
-	public void removeAccessPoint(@PathVariable long afId,
-			@PathVariable long apId) {
-		AccessField af = service.getById(afId);
-		ValidationHelper.isObjectNull(af, "Room does not exist");
+    @Override
+    @ApiEvent(title = "Access point removed from access field")
+    @RequestMapping(value = "remove/accesspoint/{afId}/{apId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Acesspoint Removed")
+    public void removeAccessPoint(@PathVariable long afId,
+            @PathVariable long apId) {
+        AccessField af = service.getById(afId);
+        ValidationHelper.isObjectNull(af, "Room does not exist");
 
-		boolean isRemoved = false;
-		if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
-			isRemoved = true;
-			af.setAccessPoint(null);
-		}
+        boolean isRemoved = false;
+        if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
+            isRemoved = true;
+            af.setAccessPoint(null);
+        }
 
-		if (isRemoved) {
-			service.update(af);
-		} else {
-			logger.debug("Access point not Found");
-			throw new ObjectNotFoundException("Access point not Found");
-		}
+        if (isRemoved) {
+            service.update(af);
+        } else {
+            logger.debug("Access point not Found");
+            throw new ObjectNotFoundException("Access point not Found");
+        }
 
-	}
+    }
 }
