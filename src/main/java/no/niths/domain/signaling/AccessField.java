@@ -44,6 +44,8 @@ public class AccessField implements Domain {
     @Column(name = "max_range")
     private Integer maxRange;
 
+    @JsonIgnore
+    @XmlTransient
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "rooms_accessfields",
         joinColumns =        @JoinColumn(name = "accessfield_id"),
@@ -113,8 +115,6 @@ public class AccessField implements Domain {
         this.accessPoint = accessPoint;
     }
 
-    @JsonIgnore
-    @XmlTransient
     public List<Room> getRooms() {
         return rooms;
     }

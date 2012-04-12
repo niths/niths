@@ -52,7 +52,7 @@ public class AccessFieldControllerImpl extends
 	public GenericService<AccessField> getService() {
 		return service;
 	}
-
+	
 	@Override
 	public ListAdapter<AccessField> getList() {
 		return list;
@@ -99,7 +99,6 @@ public class AccessFieldControllerImpl extends
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
-
 	}
 
 	@Override
