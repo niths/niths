@@ -1,6 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -91,34 +90,6 @@ public class FadderGroupControllerImpl
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(
-            value   = "{id}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public FadderGroup getById(@PathVariable Long id) {
-        FadderGroup group = super.getById(id);
-
-        if(group != null){
-            for(Student l: group.getLeaders()){
-                l.setCommittees(null);
-                l.setCourses(null);
-                l.setFeeds(null);
-            }
-            for(Student c: group.getFadderChildren()){
-                c.setCommittees(null);
-                c.setCourses(null);
-                c.setFeeds(null);
-            }
-        }
-
-        return group;
-    }
-
-    /**
      * @return FadderGroup the fadder group in which the student resides
      */
     @Override
@@ -137,37 +108,6 @@ public class FadderGroupControllerImpl
         g.setLeaders(null);
 
         return g;
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * 
-     */
-    @Override
-    public ArrayList<FadderGroup> getAll(FadderGroup domain) {
-        fadderGroupList = (FadderGroupList) super.getAll(domain);
-        clearRelations();
-        return fadderGroupList;
-    }
-
-    @Override
-    public ArrayList<FadderGroup> getAll(
-            FadderGroup domain,
-            @PathVariable int firstResult,
-            @PathVariable int maxResults) {
-        fadderGroupList = (FadderGroupList) super.getAll(
-                domain, firstResult, maxResults);
-        clearRelations();
-
-        return fadderGroupList;
-    }
-
-    private void clearRelations(){
-         for (int i = 0; i < fadderGroupList.size(); i++){
-             fadderGroupList.get(i).setFadderChildren(null);
-             fadderGroupList.get(i).setLeaders(null);
-         }
     }
 
     /**

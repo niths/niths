@@ -1,6 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -49,42 +48,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			.getLogger(EventControllerImpl.class);
 
 	private EventList eventList = new EventList();
-	
-	
-	@Override
-	public Event getById(@PathVariable Long id) {
-		Event e = super.getById(id);
-		if(e.getLocation() != null){
-			e.getLocation().setEvents(null);
-			e.getLocation().setFeeds(null);
-		}
-		
-		logger.debug(e.getLocation()+"");
-		return e;
-	}
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ArrayList<Event> getAll(Event domain) {
-		eventList = (EventList) super.getAll(domain);
-		clearRelations();
-		return eventList;
-	}
-	
-	@Override
-	public ArrayList<Event> getAll(Event domain, @PathVariable int firstResult, @PathVariable int maxResults) {
-		eventList = (EventList) super.getAll(domain, firstResult, maxResults);
-		clearRelations();
-		return eventList;
-	}
-	
-	private void clearRelations(){
-		for (Event e : eventList) {
-			e.setLocation(null);
-		}
-	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

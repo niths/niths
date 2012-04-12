@@ -1,7 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.FeedController;
@@ -57,55 +55,6 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	private StudentService studentService;
 	
 	private FeedList list = new FeedList();
-
-	@Override
-	public ArrayList<Feed> getAll(Feed domain) {
-		list = (FeedList) super.getAll(domain);
-//		clearRelations();
-		return list;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult,
-			@PathVariable int maxResults) {
-		super.getAll(domain, firstResult, maxResults);
-//		clearRelations();
-		return list;
-	}
-
-	
-//	private void clearRelations() {
-//		for (Feed l : list) {
-//			l.setStudent(null);
-//			l.setLocation(null);
-//		}
-//	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Feed getById(@PathVariable Long id) {
-		Feed feed = super.getById(id);
-		ValidationHelper.isObjectNull(feed, "Feed not found");
-//		if (feed.getStudent() != null) {
-//			feed.getStudent().setCommittees(null);
-//			feed.getStudent().setCourses(null);
-//			feed.getStudent().setFeeds(null);
-//			feed.getStudent().setLoans(null);
-//			feed.getStudent().setRepresentativeFor(null);
-//		}
-//		
-//		if (feed.getLocation() != null) {
-//			feed.getLocation().setFeeds(null);
-//			feed.getLocation().setEvents(null);
-//		}
-//		
-		return feed;
-	}
 
 	/**
 	 * {@inheritDoc}

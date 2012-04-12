@@ -1,8 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CommitteeController;
@@ -19,8 +16,6 @@ import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.StudentService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,59 +52,8 @@ public class CommitteeControllerImpl extends
 
     @Autowired
     private StudentService studentService;
-
-    private Logger logger = LoggerFactory
-            .getLogger(CommitteeControllerImpl.class);
-
+    
     private CommitteeList committeeList = new CommitteeList();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Committee getById(@PathVariable Long id) {
-        logger.debug(id + "");
-        Committee committee = super.getById(id);
-
-        if (committee != null) {
-            List<Student> leaders = committee.getLeaders();
-
-            for (Student leader : leaders) {
-                leader.setCommittees(null);
-                leader.setCourses(null);
-                leader.setFeeds(null);
-                // leaders.get(i).setFadderGroup(null);
-            }
-            List<Student> members = committee.getMembers();
-            for (Student member : members) {
-                member.setCommittees(null);
-                member.setCourses(null);
-                member.setFeeds(null);
-            }
-
-            for (Event event : committee.getEvents()) {
-                event.setLocation(null);
-            }
-        }
-        return committee;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Committee> getAll(Committee domain) {
-        committeeList = (CommitteeList) super.getAll(domain);
-        return committeeList;
-    }
-
-    @Override
-    public ArrayList<Committee> getAll(Committee domain,
-            @PathVariable int firstResult, @PathVariable int maxResults) {
-        committeeList = (CommitteeList) super.getAll(domain, firstResult,
-                maxResults);
-        return committeeList;
-    }
 
     /**
      * {@inheritDoc}

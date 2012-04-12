@@ -9,7 +9,11 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.Console;
 import no.niths.domain.Game;
 import no.niths.domain.Loan;
-import no.niths.services.interfaces.*;
+import no.niths.services.interfaces.ConsoleService;
+import no.niths.services.interfaces.GameService;
+import no.niths.services.interfaces.GenericService;
+import no.niths.services.interfaces.LoanService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.util.ArrayList;
 
 /**
  * Controller for games
@@ -42,33 +44,6 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     private LoanService loanService;
 
     private ConsoleList consoleList = new ConsoleList();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Console> getAll(Console domain) {
-        consoleList = (ConsoleList) super.getAll(domain);
-        clearRelations();
-        return consoleList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Console> getAll(Console domain, @PathVariable int firstResult, @PathVariable int maxResults) {
-        consoleList = (ConsoleList) super.getAll(domain, firstResult, maxResults);
-        clearRelations();
-        return consoleList;
-    }
-
-    private void clearRelations(){
-        for(Console console : consoleList){
-            console.setGames(null);
-            console.setLoan(null);
-        }
-    }
 
     /**
      * {@inheritDoc}

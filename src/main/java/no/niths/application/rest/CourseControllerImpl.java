@@ -1,6 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -57,32 +56,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	private CourseList courseList = new CourseList();
 
 	private SubjectList subjectList = new SubjectList();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ArrayList<Course> getAll(Course domain) {
-		courseList = (CourseList) super.getAll(domain);
-		clearRelations();
-		return courseList;
-	}
-	
-	@Override
-	public ArrayList<Course> getAll(Course domain, @PathVariable int firstResult,
-			@PathVariable int maxResults) {
-		courseList = (CourseList) super.getAll(domain, firstResult, maxResults);
-		//clearRelations();
-		return courseList;
-	}
-	
-	private void clearRelations(){
-		for (int i = 0; i < courseList.size(); i++) {
-			courseList.get(i).setSubjects(null);
-			courseList.get(i).setStudents(null);
-			courseList.get(i).setCourseRepresentatives(null);
-		}
-	}
 
 	@Override
 	public Course getById(@PathVariable Long id) {

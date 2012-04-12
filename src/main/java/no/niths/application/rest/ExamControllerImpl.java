@@ -1,7 +1,5 @@
 package no.niths.application.rest;
 
-import java.util.ArrayList;
-
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ExamController;
 import no.niths.application.rest.lists.ExamList;
@@ -47,61 +45,6 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	private SubjectService subjectService;
 
 	private ExamList examList = new ExamList();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ArrayList<Exam> getAll(Exam domain) {
-		examList = (ExamList) super.getAll(domain);
-		clearRelations();
-		return examList;
-	}
-
-	@Override
-	public Exam getById(@PathVariable Long id) {
-		logger.debug("id "+ id);
-		Exam e = super.getById(id);
-		
-		
-		// cheksi if exam is not null
-		if (e != null) {
-			if (e.getRooms().isEmpty()) {
-				e.setRooms(null);
-			}else{
-				for (Room room : e.getRooms()) {
-					room.setAccessFields(null);
-				}
-			}
-			
-			if(e.getSubject() != null){
-				e.getSubject().setTutors(null);
-				e.getSubject().setRoom(null);
-			}
-			
-			
-		}
-
-		return e;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ArrayList<Exam> getAll(Exam domain, @PathVariable int firstResult,
-			@PathVariable int maxResults) {
-		examList = (ExamList) super.getAll(domain, firstResult, maxResults);
-		clearRelations();
-		return examList;
-	}
-
-	private void clearRelations() {
-		for (Exam e : examList) {
-			e.setRooms(null);
-			e.setSubject(null);
-		}
-	}
 
 	/**
 	 * {@inheritDoc}
