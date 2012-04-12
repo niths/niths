@@ -188,7 +188,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         // Update last login time
         wantAccess.setLastLogon(getCurrentTime());
-        studentService.update(wantAccess);
+        Student temp = new Student();
+        temp.setId(wantAccess.getId());
+        temp.setLastLogon(wantAccess.getLastLogon());
+        temp.setSessionToken(wantAccess.getSessionToken());
+        studentService.mergeUpdate(temp);
+//        studentService.update(wantAccess);
 
         return authenticatedUser;
     }
@@ -247,18 +252,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public ApplicationToken registerApplication(Application app, String developerKey) 
             throws ObjectNotFoundException, DuplicateEntryCollectionException {
         
+    	logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
+        logger.debug("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb");
         if(dev == null){
             throw new ObjectNotFoundException("No developer found");
         }
         ApplicationToken appToken = new ApplicationToken("No token");
 
+        logger.debug("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         String appKey = keyService.generateApplicationKey();
+        logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         
         if(dev.getApps().contains(app)){
             throw new DuplicateEntryCollectionException("App already added to developer");
         }
-        
         appToken.setAppKey(appKey);
         app.setApplicationKey(appKey);
         dev.getApps().add(app);
@@ -320,7 +328,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 //        return new Long(1);
         //TEST MODE
         
-        tokenService.verifyTokenFormat(applicationToken, true);
+        tokenService.verifyTokenFormat(applicationToken, false);
         Application app = appService.getByApplicationKey(applicationKey, true);
         if(app == null){
             throw new UnvalidTokenException("No app found or app is not enabled");
