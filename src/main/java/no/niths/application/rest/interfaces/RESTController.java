@@ -11,7 +11,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
  *
  * @param <T> The type parameter
  */
-public interface GenericRESTController<T> {
+public interface RESTController<T> {
  
 	/**
 	 * Persists the domain

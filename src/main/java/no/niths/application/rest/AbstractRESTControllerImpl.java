@@ -1,19 +1,13 @@
 package no.niths.application.rest;
 
 import java.io.EOFException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
-import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -22,16 +16,14 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.helper.Error;
+import no.niths.application.rest.helper.Nullifier;
 import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Domain;
-import no.niths.domain.location.Room;
 import no.niths.services.interfaces.GenericService;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.QueryParameterException;
 import org.hibernate.TransientObjectException;
@@ -86,7 +78,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractRESTControllerImpl.class);
 
-    private final Object[] varargsNull = new Object[] { null };
+    private Nullifier<T> nullifier = new Nullifier<T>();
 
     /**
      * Persists the domain
@@ -138,7 +130,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     public T getById(@PathVariable Long id) {
         T domain = getService().getById(id);
         ValidationHelper.isObjectNull(domain);
-        clearSubR(domain);
+        nullifier.clearSubRelations(domain);
         logger.debug(domain.toString());
         return domain;
     }
@@ -168,7 +160,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain) {
         renewList(getService().getAll(domain));
-        clearR();
+        nullifier.clearR(getList());
         return getList();
     }
 
@@ -185,7 +177,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain,@PathVariable int firstResult, @PathVariable int maxResults) {
         renewList(getService().getAll(domain, firstResult, maxResults));
-        clearR();
+        nullifier.clearR(getList());
         return getList();
     }
 
@@ -235,163 +227,6 @@ public abstract class AbstractRESTControllerImpl<T> implements
             throw new ObjectNotFoundException(
                     "Could not find the object to delete");
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clearR() {
-        for (Object domain: getList()) {
-            for (Field field : domain.getClass().getDeclaredFields()) {
-                if (Collection.class.isAssignableFrom(field.getType())) {
-                    try {
-
-                        // Dynamically find the set method for collection types
-                        Method method = domain.getClass().getMethod(
-                                generateSetterName(field.getName()),
-                                field.getType());
-
-                        // Dynamically call the method and set any collection
-                        // to null
-                        method.invoke(domain, new Object[] { null });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void clearSubR(T domain) {
-        Class<?> domainType = domain.getClass();
-
-        outer:
-        for (Field outerField : domainType.getDeclaredFields()) {
-            Class<?> outerType         = outerField.getType();
-            String outerFieldName = outerField.getName();
-
-            try {
-
-                // The current domain's (collection) child will yield true
-                if (Collection.class.isAssignableFrom(outerType)) {
-
-                    // If the annotations indicate they are transient, skip to
-                    // the next attribute
-                    if (checkAnnotations(outerField.getDeclaredAnnotations())) {
-                        continue outer;
-                    }
-
-                    // Find the collection's getter method
-                    Method outerMethod = domainType.getMethod(
-                            generateGetterName(outerFieldName), // Name
-                            (Class<?>[]) null); // Parameter(s)
-
-                    // Call the getter method, get the collection and iterate
-                    // over it
-                    Object as = outerMethod.invoke(domain);
-                    if (as != null) {
-                        Collection<Domain> c = (Collection<Domain>) as;
-    
-                        for (Domain d : c) {
-                            Class<?> innerType    = d.getClass();
-        
-                            for (Field innerField : innerType.getDeclaredFields()) {
-                                if (Collection.class.isAssignableFrom(
-                                        innerField.getType())) {
-                                    Method innerMethod =
-    
-                                            // Method name
-                                            innerType.getDeclaredMethod(
-                                                    generateSetterName(
-                                                            innerField.getName()),
-                                                            
-                                            // Method parameter
-                                            innerField.getType());
-    
-                                    // Call the method which sets the children's
-                                    // child collection to null
-                                    innerMethod.invoke(d, varargsNull);
-                                }
-                            }
-                        }
-                    }
-                } else if (Domain.class.isAssignableFrom(outerType)) {
-
-                    if (checkAnnotations(outerField.getAnnotations())) {
-                        // Nullify any domain
-                        domainType.getDeclaredMethod(
-                                generateSetterName(outerFieldName),
-                                outerType)
-                                    .invoke(domain, varargsNull);
-                    } else {
-                        Method md = domainType.getMethod(
-                                generateGetterName(outerFieldName), (Class<?>[]) null);
-                        Domain dom = (Domain) md.invoke(domain, null);
-                        System.err.println("=======================");
-                        System.err.println("object type: " + domain.getClass());
-                        System.err.println("method: " + md.getName());
-                        System.err.println("return type: " + md.getReturnType());
-                        
-                        Field[] realFields = Room.class.getDeclaredFields();
-                        for (Field realField : realFields) {
-                            System.err.println("class field (real): " + realField.getName());
-                        }
-                        
-                        System.err.println("-------------------------");
-                        
-                        if (dom != null) {
-                            Class<?> superClass = dom.getClass().getSuperclass();
-                            Field[] domFields = superClass.getDeclaredFields();
-                            for (Field theField : domFields) {
-                                Class<?> type = theField.getType();
-                                if (Collection.class.isAssignableFrom(type)
-                                        || Domain.class.isAssignableFrom(type)) {
-                                    Method m = superClass.getMethod(
-                                            generateSetterName(theField.getName()),
-                                            theField.getType());
-                                    System.err.println("foo method: " + m.getName());
-                                    m.invoke(dom, varargsNull);
-                                }
-                                System.err.println("class field: " + theField.getName());
-                            }
-                        }
-                        
-                        System.err.println("=======================");
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String generateGetterName(String fieldName) {
-        return String.format("get%s", captialize(fieldName));
-    }
-
-    private String generateSetterName(String fieldName) {
-        return String.format("set%s", captialize(fieldName));
-    }
-
-    private String captialize(String text) {
-        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
-    }
-
-    private boolean checkAnnotations(Annotation[] annotations) {
-        boolean isTransient = false;
-
-        for (Annotation annotation : annotations) {
-            Class<?> annotationType = annotation.annotationType();
-            if (annotationType == JsonIgnore.class
-                    || annotationType == XmlTransient.class) {
-                isTransient = true;
-            }
-        }
-
-        return isTransient;
     }
 
     /**
@@ -505,11 +340,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
         String error = "";
         Set<ConstraintViolation<?>>  constr = cve.getConstraintViolations();
         for (Iterator<ConstraintViolation<?>> iterator = constr.iterator(); iterator.hasNext();) {
-			ConstraintViolation<?> constraintViolation = (ConstraintViolation<?>) iterator.next();
-			error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + " ";
-		}
+            ConstraintViolation<?> constraintViolation = (ConstraintViolation<?>) iterator.next();
+            error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + " ";
+        }
         if(error.equals("")){
-        	error = cve.getMessage();
+            error = cve.getMessage();
         }
         res.setHeader(ERROR, error);
     }
@@ -524,8 +359,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseStatus(value = HttpStatus.CONFLICT)
     public void dataIntegrity(DataIntegrityViolationException e,
             HttpServletResponse res) {
-    	String error = e.getMessage().toString();
-    	error = error.replaceAll("; SQL .*", "");
+        String error = e.getMessage().toString();
+        error = error.replaceAll("; SQL .*", "");
         logger.debug("data");
         res.setHeader(ERROR, error);
     }
@@ -710,7 +545,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ExceptionHandler(CustomParseException.class)
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
     public void customParseException(CustomParseException e, HttpServletResponse res) {
-    	if (e.getMessage() == null) {
+        if (e.getMessage() == null) {
             res.setHeader(ERROR,
                     "CustomParseException");
         } else {

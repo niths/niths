@@ -58,13 +58,13 @@ public class ApplicationServiceTest {
 		int devSize = devService.getAll(null).size();
 		int appSize = service.getAll(null).size();
 		
-		Developer d1 = new Developer("dev");
+		Developer d1 = new Developer("Navnet paa");
+		d1.setEmail("email@mailer.com");
 		devService.create(d1);
 		assertEquals(devSize + 1, devService.getAll(null).size());
 
-		Application a1 = new Application("Heilain");
+		Application a1 = new Application("Heiland");
 		Application a2 = new Application("Segkland");
-
 		service.create(a1);
 		service.create(a2);
 		assertEquals(appSize + 2, service.getAll(null).size());

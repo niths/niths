@@ -1,11 +1,17 @@
 package no.niths.application.rest.auth;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestDeveloperAccessController;
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.security.ApplicationToken;
@@ -77,7 +83,9 @@ public class RestDeveloperAccessControllerImpl implements
 	public DeveloperToken requestAccess(@RequestBody Developer developer) {
 		logger.debug("A developer requests access! Email: "
 				+ developer.getEmail());
-
+		if(developer.getApps() != null){
+			throw new BadRequestException("You must register as a developer before registering apps");
+		}
 		DeveloperToken devToken = service.registerDeveloper(developer);
 
 		logger.debug("Request success, sending email");
@@ -106,9 +114,11 @@ public class RestDeveloperAccessControllerImpl implements
 			
 			Developer dev = service.enableDeveloper(developerKey);
 			
+			view.addObject("msg", "Your developer account is enabled!");
+			
 			// Returns a view with the new token
-			view.addObject("token", dev.getDeveloperToken());
-			view.addObject("key", dev.getDeveloperKey());
+			view.addObject("token","Developer-token: " + dev.getDeveloperToken());
+			view.addObject("key", "Developer-key: " + dev.getDeveloperKey());
 
 		} catch (AuthenticationException e) {
 			view.addObject("error", e.getMessage());
@@ -153,10 +163,10 @@ public class RestDeveloperAccessControllerImpl implements
 		ModelAndView view = new ModelAndView(VIEW_NAME);
 		try {
 			Application app = service.enableApplication(applicationKey);
-			
+			view.addObject("msg", "Your app is enabled!");
 			// Returns a view with the new token
-			view.addObject("token", app.getApplicationToken());
-			view.addObject("key", app.getApplicationKey());
+			view.addObject("token", "Application-token: " + app.getApplicationToken());
+			view.addObject("key", "Application-key: " + app.getApplicationKey());
 			
 		} catch (AuthenticationException e) {
 			view.addObject("error", e.getMessage());
@@ -177,6 +187,12 @@ public class RestDeveloperAccessControllerImpl implements
 			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
+	@ExceptionHandler(UnvalidEmailException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void unvalidEmail(UnvalidEmailException e,
+			HttpServletResponse res) {
+		res.setHeader("Error", e.getMessage().toString());
+	}
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void dataIntegrity(DataIntegrityViolationException e,
@@ -190,5 +206,35 @@ public class RestDeveloperAccessControllerImpl implements
 			HttpServletResponse res) {
 		res.setHeader("Error", cve.getMessage().toString());
 	}
+	@ExceptionHandler(BadRequestException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void badReq(BadRequestException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", cve.getMessage().toString());
+	}
+	@ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void notReadable(org.springframework.http.converter.HttpMessageNotReadableException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", "Request body is not correct");
+	}
+	
+	   @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+	    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+	    public void constraintViolation2(
+	            javax.validation.ConstraintViolationException cve,
+	            HttpServletResponse res) {
+	        logger.debug("javax.constraint");
+	        String error = "";
+	        Set<ConstraintViolation<?>>  constr = cve.getConstraintViolations();
+	        for (Iterator<ConstraintViolation<?>> iterator = constr.iterator(); iterator.hasNext();) {
+				ConstraintViolation<?> constraintViolation = (ConstraintViolation<?>) iterator.next();
+				error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + " ";
+			}
+	        if(error.equals("")){
+	        	error = cve.getMessage();
+	        }
+	        res.setHeader("Error", error);
+	    }
 
 }
