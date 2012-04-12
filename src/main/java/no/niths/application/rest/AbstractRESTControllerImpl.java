@@ -290,33 +290,32 @@ public abstract class AbstractRESTControllerImpl<T> implements
                             generateGetterName(outerFieldName), // Name
                             (Class<?>[]) null); // Parameter(s)
 
-                    // Call the getter method, get the collection and iterate
-                    // over it
-                    Object as = outerMethod.invoke(domain);
-                    if (as != null) {
-                        Collection<Domain> c = (Collection<Domain>) as;
+                    Object result = outerMethod.invoke(domain);
+                    if (result != null) {
+                        Collection<Domain> c = (Collection<Domain>) result;
     
                         for (Domain d : c) {
-                            Class<?> innerType    = d.getClass();
-                            removeChild(d, innerType);
+                            removeChild(d, d.getClass());
                         }
                     }
                 } else if (Domain.class.isAssignableFrom(outerType)) {
 
                     if (checkAnnotations(outerField.getAnnotations())) {
-                        // Nullify any domain
+
+                        // Nullify domain that are transient
                         domainType.getDeclaredMethod(
                                 generateSetterName(outerFieldName),
                                 outerType)
                                     .invoke(domain, varargsNull);
                     } else {
-                        Method md = domainType.getMethod(
-                                generateGetterName(outerFieldName), (Class<?>[]) null);
-                        Domain dom = (Domain) md.invoke(domain, null);
+                        Domain result = (Domain) domainType.getMethod(
+                                generateGetterName(outerFieldName),
+                                (Class<?>[]) null).invoke(domain);
                         
-                        if (dom != null) {
-                            Class<?> superClass = dom.getClass().getSuperclass();
-                            removeChild(dom, superClass);
+                        if (result != null) {
+                            removeChild(
+                                    result,
+                                    result.getClass().getSuperclass());
                         }
                     }
                 }
