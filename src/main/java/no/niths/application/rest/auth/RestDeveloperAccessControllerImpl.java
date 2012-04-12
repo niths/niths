@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestDeveloperAccessController;
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 import no.niths.security.ApplicationToken;
@@ -77,7 +79,9 @@ public class RestDeveloperAccessControllerImpl implements
 	public DeveloperToken requestAccess(@RequestBody Developer developer) {
 		logger.debug("A developer requests access! Email: "
 				+ developer.getEmail());
-
+		if(developer.getApps() != null){
+			throw new BadRequestException("You must register as a developer before registering apps");
+		}
 		DeveloperToken devToken = service.registerDeveloper(developer);
 
 		logger.debug("Request success, sending email");
@@ -177,6 +181,12 @@ public class RestDeveloperAccessControllerImpl implements
 			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}
+	@ExceptionHandler(UnvalidEmailException.class)
+	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+	public void unvalidEmail(UnvalidEmailException e,
+			HttpServletResponse res) {
+		res.setHeader("Error", e.getMessage().toString());
+	}
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void dataIntegrity(DataIntegrityViolationException e,
@@ -187,6 +197,12 @@ public class RestDeveloperAccessControllerImpl implements
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void constraintViolation(ConstraintViolationException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", cve.getMessage().toString());
+	}
+	@ExceptionHandler(BadRequestException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void badReq(BadRequestException cve,
 			HttpServletResponse res) {
 		res.setHeader("Error", cve.getMessage().toString());
 	}

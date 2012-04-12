@@ -29,20 +29,21 @@ public class DeveloperServiceTest {
 		int devSize = devService.getAll(null).size();
 		int appSize = appService.getAll(null).size();
 		
-		Developer dev = new Developer("Jhon");
+		Developer dev = new Developer("DevolName");//, "mailert@mailer.com");
+		dev.setEmail("mailert@mailer.com");
 		devService.create(dev);
 		assertEquals(devSize + 1, devService.getAll(null).size());
 		
 		//create an app and set the developer
-		Application app = new Application("Bird",null,null,null);
+		Application app = new Application("Angry Birds Oslo");
 		app.setDeveloper(dev);
 		appService.create(app);
-		Application app2 = new Application("Birds",null,null,null);
+		Application app2 = new Application("Angry Birds Haag");
 		app2.setDeveloper(dev);
 		appService.create(app2);
 		
 		assertEquals(appSize + 2, appService.getAll(null).size());
-		
+		assertEquals(dev, appService.getById(app.getId()).getDeveloper());
 		Developer fetched = devService.getById(dev.getId());
 		assertEquals(2, fetched.getApps().size());
 		//Delete an app
@@ -69,7 +70,9 @@ public class DeveloperServiceTest {
 
 	@Test
 	public void testAppDevRelation(){
-		Developer d1 = new Developer("mrDoe");
+		Developer d1 = new Developer();
+		d1.setName("DevName");
+		d1.setEmail("mailer@mailer.com");
 		devService.create(d1);
 		Application a1 = new Application("App",null,null,null);
 		Application a2 = new Application("Apssp",null,null,null);
@@ -88,7 +91,7 @@ public class DeveloperServiceTest {
 		assertEquals(temp, appTemp.getDeveloper());
 		
 		//Remove dev from app
-		appTemp.setDeveloper(new Developer());
+		appTemp.setDeveloper(null);
 		appService.update(appTemp);
 		//App should be removed from dev
 		temp = devService.getById(d1.getId());

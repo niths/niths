@@ -55,7 +55,9 @@ public class ApplicationControllerImpl extends
 	@Override
 	public Application getById(@PathVariable Long id) {
 		Application a = super.getById(id);
-		a.getDeveloper().setApps(null);
+		if(a.getDeveloper() != null){
+			a.getDeveloper().setApps(null);			
+		}
 		return a;
 	}
 

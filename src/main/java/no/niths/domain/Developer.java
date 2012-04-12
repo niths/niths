@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -48,10 +49,12 @@ public class Developer implements Domain {
 
 	@Column(unique = true)
 	@Email
+	@NotNull
 	private String email;
 
 	@Column(unique = true)
 	@Size(min = 3, max = 30, message = "Length min = 3, max = 30")
+	@NotNull
 	private String name;
 
 	@JsonIgnore
@@ -85,10 +88,14 @@ public class Developer implements Domain {
 	}
 	
 
-	public Developer(String Name) {
+	public Developer(String name) {
 		setName(name);
 	}
 	
+	public Developer(String name, String email){
+		setName(name);
+		setEmail(email);
+	}
 	
 	public List<Application> getApps() {
 		return apps;
