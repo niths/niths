@@ -61,7 +61,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@Override
 	public ArrayList<Feed> getAll(Feed domain) {
 		list = (FeedList) super.getAll(domain);
-		clearRelations();
+//		clearRelations();
 		return list;
 	}
 
@@ -72,16 +72,17 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	public ArrayList<Feed> getAll(Feed domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
 		super.getAll(domain, firstResult, maxResults);
-		clearRelations();
+//		clearRelations();
 		return list;
 	}
 
-	private void clearRelations() {
-		for (Feed l : list) {
-			l.setStudent(null);
-			l.setLocation(null);
-		}
-	}
+	
+//	private void clearRelations() {
+//		for (Feed l : list) {
+//			l.setStudent(null);
+//			l.setLocation(null);
+//		}
+//	}
 
 	/**
 	 * {@inheritDoc}
@@ -90,26 +91,33 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	public Feed getById(@PathVariable Long id) {
 		Feed feed = super.getById(id);
 		ValidationHelper.isObjectNull(feed, "Feed not found");
-		if (feed.getStudent() != null) {
-			feed.getStudent().setCommittees(null);
-			feed.getStudent().setCourses(null);
-			feed.getStudent().setFeeds(null);
-			feed.getStudent().setLoans(null);
-			feed.getStudent().setRepresentativeFor(null);
-		}
-		
-		if (feed.getLocation() != null) {
-			feed.getLocation().setFeeds(null);
-			feed.getLocation().setEvents(null);
-		}
+//		if (feed.getStudent() != null) {
+//			feed.getStudent().setCommittees(null);
+//			feed.getStudent().setCourses(null);
+//			feed.getStudent().setFeeds(null);
+//			feed.getStudent().setLoans(null);
+//			feed.getStudent().setRepresentativeFor(null);
+//		}
+//		
+//		if (feed.getLocation() != null) {
+//			feed.getLocation().setFeeds(null);
+//			feed.getLocation().setEvents(null);
+//		}
+//		
 		return feed;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericService<Feed> getService() {
 		return service;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ListAdapter<Feed> getList() {
 		return list;
@@ -136,6 +144,9 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		logger.debug("Location added to feed");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "remove/location/{feedId}/{locId}", method = RequestMethod.PUT)
@@ -157,7 +168,10 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 			throw new ObjectNotFoundException(LOCATION_NOT_FOUND);
 		}
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "add/student/{feedId}/{studentId}", method = RequestMethod.PUT)
@@ -178,6 +192,9 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		logger.debug(STUDENT_ADDED_TO_FEED);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "remove/student/{feedId}", method = RequestMethod.PUT)
