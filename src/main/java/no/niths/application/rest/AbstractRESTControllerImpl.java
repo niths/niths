@@ -292,10 +292,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
 
                     Object result = outerMethod.invoke(domain);
                     if (result != null) {
-                        Collection<Domain> c = (Collection<Domain>) result;
-    
-                        for (Domain d : c) {
-                            removeChild(d, d.getClass());
+                        for (Domain innerCollection :
+                                (Collection<Domain>) result) {
+                            removeChild(
+                                    innerCollection,
+                                    innerCollection.getClass());
                         }
                     }
                 } else if (Domain.class.isAssignableFrom(outerType)) {
@@ -307,6 +308,8 @@ public abstract class AbstractRESTControllerImpl<T> implements
                                 generateSetterName(outerFieldName),
                                 outerType)
                                     .invoke(domain, varargsNull);
+
+                    // Nullify all domains and collections in the domain
                     } else {
                         Domain result = (Domain) domainType.getMethod(
                                 generateGetterName(outerFieldName),
@@ -333,6 +336,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
         for (Field field : type.getDeclaredFields()) {
             Class<?> fieldType = field.getType();
 
+            // Nullify any domain or collection
             if (Collection.class.isAssignableFrom(fieldType)
                     || Domain.class.isAssignableFrom(fieldType)) {
                 type.getMethod(
