@@ -18,4 +18,13 @@ public class AccessPointServiceImpl extends AbstractGenericService<AccessPoint> 
 	public GenericRepository<AccessPoint> getRepository() {
 		return repo;
 	}
+	
+	@Override
+	public AccessPoint getById(long id) {
+		AccessPoint ap = super.getById(id);
+		if(ap != null){
+			ap.getAccessFields().size();
+		}
+		return super.getById(id);
+	}
 }

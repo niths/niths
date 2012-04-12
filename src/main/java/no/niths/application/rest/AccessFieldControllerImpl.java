@@ -69,8 +69,8 @@ public class AccessFieldControllerImpl extends
 	}
 	
 	@Override
-	public ArrayList<AccessField> getAll(AccessField domain, int firstResult,
-			int maxResults) {
+	public ArrayList<AccessField> getAll(AccessField domain, @PathVariable int firstResult,
+			@PathVariable int maxResults) {
 		super.getAll(domain,firstResult,maxResults);
 		
 		for(AccessField af : list){

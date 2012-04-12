@@ -25,6 +25,7 @@ public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 	public AccessField getById(long id) {
 		AccessField af= super.getById(id);
 		if(af != null){
+			af.getRooms().size();
 			if(af.getAccessPoint() != null){
 				af.getAccessPoint().getAddress();
 			}

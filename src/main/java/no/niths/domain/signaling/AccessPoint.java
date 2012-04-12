@@ -39,11 +39,11 @@ public class AccessPoint implements Domain {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
-    private List<AccessField> accessfields = new ArrayList<AccessField>();
+    private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     public AccessPoint() {
         this(null);
-        setAccessfields(null);
+        setAccessFields(null);
     }
 
     public AccessPoint(String address) {
@@ -69,11 +69,11 @@ public class AccessPoint implements Domain {
     @JsonIgnore
     @XmlTransient
     public List<AccessField> getAccessFields() {
-        return accessfields;
+        return accessFields;
     }
 
-    public void setAccessfields(List<AccessField> accessFields) {
-        this.accessfields = accessFields;
+    public void setAccessFields(List<AccessField> accessFields) {
+        this.accessFields = accessFields;
     }
 
     @Override

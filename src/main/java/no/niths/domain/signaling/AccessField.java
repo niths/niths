@@ -54,7 +54,7 @@ public class AccessField implements Domain {
     @JoinTable(name = "accessfields_accesspoints",
         joinColumns =        @JoinColumn(name = "accessfield_id"),
         inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
-    private AccessPoint accesspoint;
+    private AccessPoint accessPoint;
 
     public AccessField() {
     	this(null, null);
@@ -106,11 +106,11 @@ public class AccessField implements Domain {
     @XmlElement(name = "accesspoint")
     @JsonSerialize(as=AccessPoint.class)
     public AccessPoint getAccessPoint() {
-        return accesspoint;
+        return accessPoint;
     }
 
     public void setAccessPoint(AccessPoint accessPoint) {
-        this.accesspoint = accessPoint;
+        this.accessPoint = accessPoint;
     }
 
     @JsonIgnore
