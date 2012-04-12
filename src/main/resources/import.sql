@@ -379,15 +379,18 @@ INSERT INTO developers(id, name, email) VALUES (1, 'Urtegata', 'urter@mail.com')
 INSERT INTO developers(id, name, email) VALUES (2, 'Knut sine apps', 'knut@mail.com');
 INSERT INTO developers(id, name, email) VALUES (3, 'Apps AS', 'apps@mail.com');
 INSERT INTO developers(id, name, email) VALUES (4, 'Android etc', 'android@mail.com');
+INSERT INTO developers(id, name, email, developer_key, developer_token) VALUES (5, 'NithsTeam', 'nithscommunity@mail.com', 'sob8gvpyk2', 'c44NqXR5pvUwtG7sODZNXy0AoIktZny*H5mqYRIh3J*9Oi1IkDY5h26aR0uokOT4Ika+hTpRFFTjHh2qyDEsfQ==');
 
 INSERT INTO applications(id, title) VALUES(1, 'Appen');
 INSERT INTO applications(id, title) VALUES(2, 'Den andre appen');
 INSERT INTO applications(id, title) VALUES(3, 'Angry Birds');
 INSERT INTO applications(id, title) VALUES(4, 'Drawsome');
+INSERT INTO applications(id, title, application_key, application_token) VALUES(5, 'fuNITHs', 'NH3E5WANTJ','JsfAZBG4jR/rH9dE71D6Tb/t7WrK0n7gLxhO2BoN26Qdof8nStqLbzdNbyCbQNSmcxkfkXC6GSojH1yjwrWSTSPHCBvtfHS29j8POLx68vdMztLdEkZDD7w3+FGnMinWCZ52ad3QKsI=');
 
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1);
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 2);
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (5, 5);
 
 insert into subjects_tutors values (1,1);
 
