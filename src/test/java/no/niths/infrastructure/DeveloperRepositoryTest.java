@@ -30,7 +30,7 @@ public class DeveloperRepositoryTest {
 	public void testCRUD(){
 		int size = devRepo.getAll(null).size();
 		
-		Developer dev = new Developer();
+		Developer dev = new Developer("The name", "atemail@nith.com");
 		devRepo.create(dev);
 		assertEquals(size + 1, devRepo.getAll(null).size());
 		
@@ -43,7 +43,7 @@ public class DeveloperRepositoryTest {
 	
 	@Test
 	public void testApplicationRelation(){
-		Developer dev = new Developer("mrDEv");
+		Developer dev = new Developer("mrDEv", "niths@nithsmail.com");
 		//devRepo.create(dev);
 		
 		Application app = new Application("hello",null,null,null);
