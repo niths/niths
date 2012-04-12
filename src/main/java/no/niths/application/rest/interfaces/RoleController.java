@@ -13,7 +13,7 @@ public interface RoleController extends GenericRESTController<Role> {
 	 * @param roleId id of the role
 	 * @throws ObjectNotFoundException if student or role does not exists
 	 */
-	public void addStudentRole(Long studId, Long roleId);
+	public void addStudentRole(Long roleId, Long studId);
 	
 	/**
 	 * Removes a role from a student
@@ -22,7 +22,7 @@ public interface RoleController extends GenericRESTController<Role> {
 	 * @param roleId id of the role to remove
 	 * @throws ObjectNotFoundException if student or role does not exist
 	 */
-	public void removeStudentRole(Long studId, Long roleId);
+	public void removeStudentRole(Long roleId, Long studId);
 	
 
 	/**

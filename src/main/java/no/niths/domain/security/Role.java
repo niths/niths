@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -40,6 +41,7 @@ public class Role implements Domain {
 	private Long id;
 	
 	@Column(unique = true, name="role_name")
+	@XmlElement(name="rolename")
 	private String roleName;
 
 	@JsonIgnore
@@ -48,6 +50,7 @@ public class Role implements Domain {
 	@SuppressWarnings("unused")
 	private String trimedRoleName;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@JoinTable(name = "students_roles", 
 		joinColumns = @JoinColumn(name = "roles_id"), 
@@ -106,8 +109,7 @@ public class Role implements Domain {
 		role = role.charAt(0) + role.substring(1, role.length()).toLowerCase() +"";
 		return role;
 	}
-
-	@JsonIgnore
+	
 	@XmlTransient
 	public List<Student> getStudents() {
 		return students;

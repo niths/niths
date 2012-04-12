@@ -107,8 +107,6 @@ public class Student implements Domain {
 	@Column(name = "last_logon")
 	private Long lastLogon;
 
-	@JsonIgnore
-	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Role.class)
 	@JoinTable(name = "students_roles", joinColumns = @JoinColumn(name = "students_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"), uniqueConstraints = @UniqueConstraint(columnNames = {
 			"students_id", "roles_id" }))

@@ -80,6 +80,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 			s.getCourses().size();
             s.getLoans().size();
             s.getFeeds().size();
+            s.getRoles().size();
 		}		
 		return s;
 	}

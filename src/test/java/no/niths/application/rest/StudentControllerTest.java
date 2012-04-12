@@ -45,7 +45,7 @@ public class StudentControllerTest {
 	@Test(expected= ConstraintViolationException.class)
 	public void testInsertNullObject_shallThrowException() {
 		
-		Student s = new Student("jhone","doe");
+		Student s = new Student();
 		studController.create(s);
 	}
 	
@@ -219,5 +219,10 @@ public class StudentControllerTest {
         studController.hibernateDelete(student.getId());
         loanController.hibernateDelete(loan.getId());
         loanController.hibernateDelete(otherLoan.getId());
+    }
+    
+    @Test
+    public void testGetStudentWithRoles(){
+    	//TODO make test here!
     }
 }

@@ -180,20 +180,11 @@ public class StudentRepositoryTest {
 		Student s1 = new Student("J","D");
 		s1.setEmail("mailai@mail.com");
 		studentRepo.create(s1);
-		
-		long [] arr = {1,2};
-		
-		List<Role> roles = roleRepo.getAll(null);
+	
 		s1.getRoles().clear();
-		for(Role r: roles){
-			
-			for(long l: arr){
-				if(r.getId() == l){
-					s1.getRoles().add(r);
-				}
-			}
+		s1.getRoles().add(new Role("ROLE_AMDIN"));
+		s1.getRoles().add(new Role("ROLE_AMDINS"));
 		
-		}
 		studentRepo.update(s1);
 		
 		s1 = studentRepo.getById(s1.getId());
