@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,6 +32,7 @@ import org.hibernate.annotations.CascadeType;
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.ROLES)
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Role implements Domain {
 	
@@ -51,6 +54,7 @@ public class Role implements Domain {
 	private String trimedRoleName;
 	
 	@JsonIgnore
+	@XmlTransient
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@JoinTable(name = "students_roles", 
 		joinColumns = @JoinColumn(name = "roles_id"), 
@@ -110,7 +114,7 @@ public class Role implements Domain {
 		return role;
 	}
 	
-	@XmlTransient
+	
 	public List<Student> getStudents() {
 		return students;
 	}
