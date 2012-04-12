@@ -52,9 +52,16 @@ public final class EmailTexts {
 	}
 	
 	public static String getAddedAppToDevelioperBody(Application app){
+		String linkUrl = AppConstants.NITHS_BASE_DOMAIN + "register/enableApp/" + app.getApplicationKey();
 		String body = "<h2>Your application is ready to use!</h2>" +
 					"<br /><br />" +
-					"Your application token is: " + app.getApplicationToken() + 
+					"Your application key is: " + app.getApplicationKey() + 
+					"<br /><br />" +
+					"<a href='"+ linkUrl +"'>Click to enable!</a>" +
+					"<br /><br />" +
+					"Link not working? Paste this into your favourite browser:" + 
+					"<br /><br />" +
+					linkUrl + 
 					"<br /><br />" +
 					"Read the API for further instructions...";
 		return body;
