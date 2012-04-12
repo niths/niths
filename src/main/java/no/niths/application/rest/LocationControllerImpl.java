@@ -31,7 +31,4 @@ implements LocationController {
 	public ListAdapter<Location> getList() {
 		return list;
 	}
-
-
-
 }

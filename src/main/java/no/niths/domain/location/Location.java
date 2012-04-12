@@ -49,8 +49,8 @@ public class Location implements Domain {
 	@Column(name = "longitude")
 	private Double longitude;
 
-	@XmlTransient
 	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
 	@JoinTable(name = "events_location", 
 	joinColumns = @JoinColumn(name = "location_id"), 
@@ -58,8 +58,8 @@ public class Location implements Domain {
 	@Cascade(CascadeType.ALL)
 	private List<Event> events = new ArrayList<Event>();
 
-	@XmlTransient
 	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "feeds_location",
 	    joinColumns =        @JoinColumn(name = "location_id"),
@@ -134,6 +134,7 @@ public class Location implements Domain {
 				longitude, latitude);
 	}
 
+	@XmlTransient
 	public List<Feed> getFeeds() {
 		return feeds;
 	}
@@ -142,6 +143,7 @@ public class Location implements Domain {
 		this.feeds = feeds;
 	}
 
+	@XmlTransient
 	public List<Event> getEvents() {
 		return events;
 	}
