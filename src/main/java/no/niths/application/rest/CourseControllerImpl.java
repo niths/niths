@@ -72,7 +72,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	public ArrayList<Course> getAll(Course domain, @PathVariable int firstResult,
 			@PathVariable int maxResults) {
 		courseList = (CourseList) super.getAll(domain, firstResult, maxResults);
-		clearRelations();
+		//clearRelations();
 		return courseList;
 	}
 	
@@ -87,21 +87,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	@Override
 	public Course getById(@PathVariable Long id) {
 		Course course = super.getById(id);
-		
-		for (Subject sub : course.getSubjects()) {
-			sub.setCourses(null);
-			sub.setRoom(null);
-			sub.setTutors(null);	
-		}
-		
-		for (Student student:course.getCourseRepresentatives()) {
-			student.setCommittees(null);
-			student.setCourses(null);
-			student.setFeeds(null);
-			student.setRepresentativeFor(null);
-			student.setLoans(null);
-		}
-		
 		
 		return course;
 	}
