@@ -48,7 +48,8 @@ public class LoanControllerTest {
 
         try {
             size = loanController.getAll(null).size();
-        } catch (ObjectNotFoundException exception) {
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
         }
 
         Loan loan = new Loan(new GregorianCalendar());

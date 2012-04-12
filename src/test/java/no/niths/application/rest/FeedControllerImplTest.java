@@ -141,8 +141,8 @@ public class FeedControllerImplTest {
 
 	@Test(expected = DuplicateEntryCollectionException.class)
 	public void testAddSameStudentTwice() {
-		controller.addLocation(testFeed01.getId(), testStudents.getId());
-		controller.addLocation(testFeed01.getId(), testStudents.getId());
+		controller.addStudent(testFeed01.getId(), testStudents.getId());
+		controller.addStudent(testFeed01.getId(), testStudents.getId());
 	}
 
 	@Test(expected = ObjectNotFoundException.class)

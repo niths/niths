@@ -3,6 +3,7 @@ package no.niths.application.rest;
 import java.io.EOFException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +28,7 @@ import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Domain;
+import no.niths.domain.location.Room;
 import no.niths.services.interfaces.GenericService;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -264,10 +266,10 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @SuppressWarnings("unchecked")
     @Override
     public void clearSubR(T domain) {
-        Class<?> domainClass = domain.getClass();
+        Class<?> domainType = domain.getClass();
 
         outer:
-        for (Field outerField : domainClass.getDeclaredFields()) {
+        for (Field outerField : domainType.getDeclaredFields()) {
             Class<?> outerType         = outerField.getType();
             String outerFieldName = outerField.getName();
 
@@ -283,42 +285,82 @@ public abstract class AbstractRESTControllerImpl<T> implements
                     }
 
                     // Find the collection's getter method
-                    Method outerMethod = domainClass.getMethod(
+                    Method outerMethod = domainType.getMethod(
                             generateGetterName(outerFieldName), // Name
                             (Class<?>[]) null); // Parameter(s)
 
                     // Call the getter method, get the collection and iterate
                     // over it
-                    for (Domain d :
-                            (Collection<Domain>) outerMethod.invoke(domain)) {
-                        Class<?> innerType    = d.getClass();
+                    Object as = outerMethod.invoke(domain);
+                    if (as != null) {
+                        Collection<Domain> c = (Collection<Domain>) as;
     
-                        for (Field innerField : innerType.getDeclaredFields()) {
-                            if (Collection.class.isAssignableFrom(
-                                    innerField.getType())) {
-                                Method innerMethod =
-
-                                        // Method name
-                                        innerType.getDeclaredMethod(
-                                                generateSetterName(
-                                                        innerField.getName()),
-                                                        
-                                        // Method parameter
-                                        innerField.getType());
-
-                                // Call the method which sets the children's
-                                // child collection to null
-                                innerMethod.invoke(d, varargsNull);
+                        for (Domain d : c) {
+                            Class<?> innerType    = d.getClass();
+        
+                            for (Field innerField : innerType.getDeclaredFields()) {
+                                if (Collection.class.isAssignableFrom(
+                                        innerField.getType())) {
+                                    Method innerMethod =
+    
+                                            // Method name
+                                            innerType.getDeclaredMethod(
+                                                    generateSetterName(
+                                                            innerField.getName()),
+                                                            
+                                            // Method parameter
+                                            innerField.getType());
+    
+                                    // Call the method which sets the children's
+                                    // child collection to null
+                                    innerMethod.invoke(d, varargsNull);
+                                }
                             }
                         }
                     }
                 } else if (Domain.class.isAssignableFrom(outerType)) {
 
-                    // Nullify any domain
-                    domainClass.getDeclaredMethod(
-                            generateSetterName(outerFieldName),
-                            outerType)
-                                .invoke(domain, varargsNull);
+                    if (checkAnnotations(outerField.getAnnotations())) {
+                        // Nullify any domain
+                        domainType.getDeclaredMethod(
+                                generateSetterName(outerFieldName),
+                                outerType)
+                                    .invoke(domain, varargsNull);
+                    } else {
+                        Method md = domainType.getMethod(
+                                generateGetterName(outerFieldName), (Class<?>[]) null);
+                        Domain dom = (Domain) md.invoke(domain, null);
+                        System.err.println("=======================");
+                        System.err.println("object type: " + domain.getClass());
+                        System.err.println("method: " + md.getName());
+                        System.err.println("return type: " + md.getReturnType());
+                        
+                        Field[] realFields = Room.class.getDeclaredFields();
+                        for (Field realField : realFields) {
+                            System.err.println("class field (real): " + realField.getName());
+                        }
+                        
+                        System.err.println("-------------------------");
+                        
+                        if (dom != null) {
+                            Class<?> superClass = dom.getClass().getSuperclass();
+                            Field[] domFields = superClass.getDeclaredFields();
+                            for (Field theField : domFields) {
+                                Class<?> type = theField.getType();
+                                if (Collection.class.isAssignableFrom(type)
+                                        || Domain.class.isAssignableFrom(type)) {
+                                    Method m = superClass.getMethod(
+                                            generateSetterName(theField.getName()),
+                                            theField.getType());
+                                    System.err.println("foo method: " + m.getName());
+                                    m.invoke(dom, varargsNull);
+                                }
+                                System.err.println("class field: " + theField.getName());
+                            }
+                        }
+                        
+                        System.err.println("=======================");
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -73,8 +73,6 @@ public class Exam implements Domain {
     @Column(name="allowed_aid")
     private String allowedAid;
 
-    @JsonIgnore
-    @XmlTransient
     @ManyToOne(fetch = FetchType.LAZY, targetEntity= Subject.class)
     @JoinTable(name = "exam_subjects",
             joinColumns = @JoinColumn(name = "exams_id"),
