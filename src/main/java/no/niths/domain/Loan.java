@@ -28,132 +28,135 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Loan implements Domain {
 
-    @Transient
-    private static final long serialVersionUID = 3498079752190376516L;
+	@Transient
+	private static final long serialVersionUID = 3498079752190376516L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "loanDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    @XmlSchemaType(name = "date")
-    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-    private Calendar loanDate;
+	@Column(name = "loanDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlSchemaType(name = "date")
+	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	private Calendar loanDate;
 
-    @Column(name = "returnDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    @XmlSchemaType(name = "date")
-    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-    private Calendar returnDate;
+	@Column(name = "returnDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	@XmlSchemaType(name = "date")
+	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	private Calendar returnDate;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
-    @JoinTable(name = "loans_games",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    @Cascade(CascadeType.ALL)
-    private List<Game> games = new ArrayList<Game>();
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
+	@JoinTable(name = "loans_games", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Game> games = new ArrayList<Game>();
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-    @JoinTable(name = "loans_consoles",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "console_id"))
-    @Cascade(CascadeType.ALL)
-    private List<Console> consoles = new ArrayList<Console>();
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
+	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
+	@Cascade(CascadeType.ALL)
+	private List<Console> consoles = new ArrayList<Console>();
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
-    @JoinTable(name = "students_loans",
-            joinColumns = @JoinColumn(name = "loan_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Student student;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
+	@JoinTable(name = "students_loans", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	private Student student;
 
-    public Loan(){
-        this(null, null);
-        setGames(null);
-        setConsoles(null);
-        setStudent(null);
-    }
+	public Loan() {
+		this(null, null);
+		setGames(null);
+		setConsoles(null);
+		setStudent(null);
+	}
 
-    public Loan(GregorianCalendar loanDate){
-        setLoanDate(loanDate);
-    }
+	public Loan(GregorianCalendar loanDate) {
+		setLoanDate(loanDate);
+	}
 
-    public Loan(GregorianCalendar loanDate, GregorianCalendar returnDate){
-        setLoanDate(loanDate);
-        setReturnDate(returnDate);
-    }
+	public Loan(GregorianCalendar loanDate, GregorianCalendar returnDate) {
+		setLoanDate(loanDate);
+		setReturnDate(returnDate);
+	}
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Override
-    public Long getId() {
-        return id;
-    }
+	@Override
+	public Long getId() {
+		return id;
+	}
 
-    @JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-    public void setLoanDate(Calendar loanDate) {
-        this.loanDate = loanDate;
-    }
+	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
+	public void setLoanDate(Calendar loanDate) {
+		this.loanDate = loanDate;
+	}
 
-    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-    public Calendar getLoanDate() {
-        return loanDate;
-    }
+	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
+	public Calendar getLoanDate() {
+		return loanDate;
+	}
 
-    @JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-    public void setReturnDate(Calendar returnDate) {
-        this.returnDate = returnDate;
-    }
+	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
+	public void setReturnDate(Calendar returnDate) {
+		this.returnDate = returnDate;
+	}
 
-    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-    public Calendar getReturnDate() {
-        return returnDate;
-    }
+	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
+	public Calendar getReturnDate() {
+		return returnDate;
+	}
 
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
 
-    public List<Game> getGames() {
-        return games;
-    }
+	public List<Game> getGames() {
+		return games;
+	}
 
-    public void setConsoles(List<Console> consoles) {
-        this.consoles = consoles;
-    }
+	public void setConsoles(List<Console> consoles) {
+		this.consoles = consoles;
+	}
 
-    public List<Console> getConsoles() {
-        return consoles;
-    }
+	public List<Console> getConsoles() {
+		return consoles;
+	}
 
-    @JsonSerialize(as=Student.class)
-    public Student getStudent() {
-        return student;
-    }
+	@JsonSerialize(as = Student.class)
+	public Student getStudent() {
+		return student;
+	}
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
-    @Override
-    public boolean equals(Object that) {
-        if(!(that instanceof Loan)) return false;
-        Loan loan = (Loan) that;
+	@Override
+	public boolean equals(Object that) {
+		if (!(that instanceof Loan))
+			return false;
+		Loan loan = (Loan) that;
 
-        return loan == this || loan.getId().equals(id);
-    }
+		return loan == this || loan.getId().equals(id);
+	}
 
-    @JsonIgnore
-    public boolean isEmpty(){
-        return (id == null && loanDate == null && returnDate == null);
-    }
+	@JsonIgnore
+	public boolean isEmpty() {
+		return (id == null && loanDate == null && returnDate == null);
+	}
 
-    @Override
-    public String toString() {
-        return String.format("[%s][%s][%s]", id, loanDate, returnDate);
-    }
+	@Override
+	public String toString() {
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(String.format("[%s]", id));
+		buffer.append(String.format("[%s]", (loanDate == null) ? null
+				: loanDate.getTime()));
+		buffer.append(String.format("[%s]", (returnDate == null) ? null
+				: returnDate.getTime()));
+		return buffer.toString();
+
+	}
 }
