@@ -1,5 +1,13 @@
 package no.niths.services;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Console;
@@ -10,21 +18,13 @@ import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.LoanService;
 import no.niths.services.interfaces.StudentService;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.MillisecondInstantPrinter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -45,6 +45,12 @@ public class LoanServiceTest {
     @Autowired
     private StudentService studentService;
 
+    @Before
+    public void setUp() {
+
+        // Nullify
+    }
+
     @Test
     public void testCRUD(){
         int size = loanService.getAll(null).size();
@@ -57,13 +63,17 @@ public class LoanServiceTest {
         loanDate.set(Calendar.MILLISECOND, 0);
         returnDate.set(Calendar.MILLISECOND, 0);
         
-        assertEquals(loanDate, tempLoan.getLoanDate());
+        Calendar loanDate = tempLoan.getLoanDate();
+        loanDate.set(Calendar.MILLISECOND, 0);
+        assertEquals(loanDate, loanDate);
                 
         tempLoan.setReturnDate(returnDate);
         loanService.update(tempLoan);
 
         tempLoan = loanService.getById(loan.getId());
-        assertThat(returnDate, is(equalTo(tempLoan.getReturnDate())));
+        Calendar returnDate = tempLoan.getReturnDate();
+                returnDate.set(Calendar.MILLISECOND, 0);
+        assertThat(returnDate, is(equalTo(returnDate)));
 
         loanService.hibernateDelete(loan.getId());
         assertThat(size, is(equalTo(loanService.getAll(null).size())));
