@@ -212,6 +212,12 @@ public class RestDeveloperAccessControllerImpl implements
 			HttpServletResponse res) {
 		res.setHeader("Error", cve.getMessage().toString());
 	}
+	@ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void notReadable(org.springframework.http.converter.HttpMessageNotReadableException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", "Request body is not correct");
+	}
 	
 	   @ExceptionHandler(javax.validation.ConstraintViolationException.class)
 	    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
