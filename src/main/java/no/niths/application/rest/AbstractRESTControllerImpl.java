@@ -160,7 +160,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain) {
         renewList(getService().getAll(domain));
-        nullifier.clearR(getList());
+        nullifier.clearRelations(getList());
         return getList();
     }
 
@@ -177,7 +177,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @ResponseBody
     public ArrayList<T> getAll(T domain,@PathVariable int firstResult, @PathVariable int maxResults) {
         renewList(getService().getAll(domain, firstResult, maxResults));
-        nullifier.clearR(getList());
+        nullifier.clearRelations(getList());
         return getList();
     }
 

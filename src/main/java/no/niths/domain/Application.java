@@ -96,8 +96,8 @@ public class Application implements Domain {
 		setDeveloper(developer);
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
+	@JsonIgnore
+	@XmlTransient
 	public String getApplicationToken() {
 		return applicationToken;
 	}
@@ -106,8 +106,8 @@ public class Application implements Domain {
 		this.applicationToken = token;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
+	@JsonIgnore
+	@XmlTransient
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -172,6 +172,8 @@ public class Application implements Domain {
 		return s == this ? true : s.getId() == id ? true : false;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public String getApplicationKey() {
 		return applicationKey;
 	}

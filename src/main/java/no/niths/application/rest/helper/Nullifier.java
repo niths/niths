@@ -8,10 +8,10 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.domain.Domain;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * 
@@ -22,28 +22,18 @@ public class Nullifier<T> {
 
     private final Object[] varargsNull = new Object[] { null };
 
-    public void clearR(ListAdapter<T> list) {
-        for (Object domain: list) {
-            for (Field field : domain.getClass().getDeclaredFields()) {
-                Class<?> type = field.getType();
+    public void clearRelations(ListAdapter<T> list) {
 
-                if (Collection.class.isAssignableFrom(type) ||
-                        Domain.class.isAssignableFrom(type)) {
-                    try {
-
-                        // Dynamically find the set method for collection types
-                        Method method = domain.getClass().getMethod(
-                                generateSetterName(field.getName()),
-                                field.getType());
-
-                        // Dynamically call the method and set any collection
-                        // to null
-                        method.invoke(domain, new Object[] { null });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+        try {
+            for (Object domain : list) {
+                removeChild(domain, domain.getClass());
             }
+        } catch (
+                  NoSuchMethodException
+                | SecurityException        | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e) {
+
+            e.printStackTrace();
         }
     }
 

@@ -163,6 +163,8 @@ public class Developer implements Domain {
 	}
 
 
+	@JsonIgnore
+	@XmlTransient
 	public String getDeveloperKey() {
 		return developerKey;
 	}
