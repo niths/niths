@@ -37,6 +37,7 @@ public class Nullifier<T> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void clearSubRelations(T domain) {
         Class<?> domainType = domain.getClass();
 

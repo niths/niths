@@ -1,4 +1,4 @@
-package no.niths.external;
+package no.niths.application.rest.misc;
 
 import java.io.EOFException;
 
@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
+import no.niths.domain.misc.Email;
 import no.niths.services.interfaces.MailSenderService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,8 +23,7 @@ import com.sun.mail.smtp.SMTPAddressFailedException;
 
 @Controller
 @RequestMapping(AppConstants.BROADCAST)
-public class Broadcaster {
-    private Logger logger = LoggerFactory.getLogger(Broadcaster.class);
+public class BroadcasterControllerImpl {
 
     @Autowired
     private MailSenderService service;

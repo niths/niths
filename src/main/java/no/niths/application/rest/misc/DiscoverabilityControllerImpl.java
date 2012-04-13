@@ -1,4 +1,4 @@
-package no.niths.application.rest;
+package no.niths.application.rest.misc;
 
 import java.net.URI;
 

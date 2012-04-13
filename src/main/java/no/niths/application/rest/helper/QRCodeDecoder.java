@@ -1,4 +1,4 @@
-package no.niths.external;
+package no.niths.application.rest.helper;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -43,9 +43,13 @@ public class QRCodeDecoder {
                                     )
                             )
                     ),
-                    new Hashtable<DecodeHintType, String>() {{
-                        put(DecodeHintType.TRY_HARDER, "TRUE");
-                    }}
+                    new Hashtable<DecodeHintType, String>() {
+                        private static final long serialVersionUID =
+                                -2668362696248033192L;
+
+                        // Try to decode the contents by any means
+                        { put(DecodeHintType.TRY_HARDER, "TRUE"); }
+                    }
              );
 
         groupNumber = parseGroupNumber(result.getText());

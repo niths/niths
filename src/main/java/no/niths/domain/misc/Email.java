@@ -1,4 +1,4 @@
-package no.niths.external;
+package no.niths.domain.misc;
 
 import javax.validation.constraints.Pattern;
 
