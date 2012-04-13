@@ -71,34 +71,6 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testCreateAndDeleteOfGames() {
-        Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan);
-
-        assertThat(loan, is(equalTo(loanController.getById(loan.getId()))));
-
-        Game game = new Game("Super Mario");
-        Game otherGame = new Game("Halo");
-
-        gameController.create(game);
-        gameController.create(otherGame);
-
-        loanController.addGame(loan.getId(), game.getId());
-        loanController.addGame(loan.getId(), otherGame.getId());
-
-        assertThat(2, is(equalTo(loanController.getById(loan.getId()).getGames().size())));
-
-        loanController.removeGame(loan.getId(), game.getId());
-
-        assertThat(1, is(equalTo(loanController.getById(loan.getId()).getGames().size())));
-        assertThat(gameController.getById(otherGame.getId()).getId(), is(equalTo(loanController.getById(loan.getId()).getGames().get(0).getId())));
-
-        loanController.hibernateDelete(loan.getId());
-        gameController.hibernateDelete(game.getId());
-        gameController.hibernateDelete(otherGame.getId());
-    }
-
-    @Test
     public void testCreateAndDeleteOfConsole() {
         Loan loan = new Loan(new GregorianCalendar());
         loanController.create(loan);

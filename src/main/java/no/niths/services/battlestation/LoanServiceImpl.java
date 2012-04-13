@@ -21,7 +21,6 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
         Loan loan = loanRepository.getById(id);
 
         if (loan != null) {
-            loan.getGames().size();
             loan.getConsoles().size();
 
             if (loan.getStudent() != null) {

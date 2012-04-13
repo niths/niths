@@ -2,6 +2,8 @@ package no.niths.domain.battlestation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,7 @@ import no.niths.domain.Domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement
 @Entity
@@ -36,43 +39,31 @@ public class Game implements Domain {
 
     @Column
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
-    private String name;
-
-    @Column()
-    @Size(min = 2, max = 30, message ="The length of the category must be between 2 to 10 letters")
-    private String category;
+    private String title;
 
     @Column
-    private Integer locker;
+    @Enumerated(EnumType.STRING)
+    private GameCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Console.class)
     @JoinTable(name = "games_consoles",
-            joinColumns = @JoinColumn(name = "games_id"),
-            inverseJoinColumns = @JoinColumn(name = "consoles_id"))
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Console console;
-
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Loan.class)
-    @JoinTable(name = "loans_games",
             joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "loan_id"))
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Loan loan;
+            inverseJoinColumns = @JoinColumn(name = "console_id"))
+    @Cascade(CascadeType.ALL)
+    private Console console;
 
     public Game(){
         this(null, null, null);
         setConsole(null);
-        setLoan(null);
     }
 
     public Game(String name){
-        setName(name);
+        setTitle(name);
     }
 
-    public Game(String name, String category, Integer locker){
-        setName(name);
+    public Game(String name, GameCategory category, Integer locker){
+        setTitle(name);
         setCategory(category);
-        setLocker(locker);
     }
 
     @Override
@@ -85,28 +76,20 @@ public class Game implements Domain {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(GameCategory category) {
         this.category = category;
     }
 
-    public String getCategory() {
+    public GameCategory getCategory() {
         return category;
-    }
-
-    public void setLocker(Integer locker) {
-        this.locker = locker;
-    }
-
-    public Integer getLocker() {
-        return locker;
     }
 
     @JsonSerialize(as=Console.class)
@@ -116,15 +99,6 @@ public class Game implements Domain {
 
     public void setConsole(Console console) {
         this.console = console;
-    }
-
-    @JsonSerialize(as=Loan.class)
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
     }
 
     @Override
@@ -137,11 +111,11 @@ public class Game implements Domain {
 
     @JsonIgnore
     public boolean isEmpty(){
-        return (id == null && name == null && category == null);
+        return (id == null && title == null && category == null);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s][%s][%s]", id, name, category);
+        return String.format("[%s][%s][%s]", id, title, category);
     }
 }

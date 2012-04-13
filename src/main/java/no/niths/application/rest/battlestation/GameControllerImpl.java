@@ -70,7 +70,6 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     private void clearRelations(){
         for(Game game : gameList){
             game.setConsole(null);
-            game.setLoan(null);
         }
     }
 
@@ -130,7 +129,6 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
         Loan loan = loanService.getById(loanId);
         ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
-        game.setLoan(loan);
         gameService.update(game);
         logger.debug("Game updated");
     }
@@ -147,17 +145,17 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
 
         boolean isRemoved = false;
 
-        if (game.getLoan() != null) {
-            game.setLoan(null);
-            isRemoved = true;
-        }
-
-        if (isRemoved) {
-            gameService.update(game);
-        } else {
-            logger.debug("Loan not found");
-            throw new ObjectNotFoundException("Loan not found");
-        }
+//        if (game.getLoan() != null) {
+//            game.setLoan(null);
+//            isRemoved = true;
+//        }
+//
+//        if (isRemoved) {
+//            gameService.update(game);
+//        } else {
+//            logger.debug("Loan not found");
+//            throw new ObjectNotFoundException("Loan not found");
+//        }
     }
 
     /**

@@ -9,14 +9,6 @@ import no.niths.domain.battlestation.Loan;
 public interface LoanController extends GenericRESTController<Loan> {
 
     /**
-     * Adds a game too a loan
-     *
-     * @param loanId id of the loan
-     * @param gameId id of the game
-     */
-    public void addGame(Long loanId, Long gameId);
-
-    /**
      * Removes a game from a loan
      *
      * @param loanId id of the loan

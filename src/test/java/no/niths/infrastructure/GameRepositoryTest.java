@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.GameCategory;
 import no.niths.infrastructure.interfaces.GameRepository;
 
 import org.junit.Test;
@@ -23,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameRepositoryTest {
 
     public static final String NAME = "Super Mario";
-    public static final String CATEGORY = "Action";
+    public static final GameCategory CATEGORY = GameCategory.ACTION;
 
     @Autowired
     private GameRepository gameRepository;
@@ -38,7 +39,7 @@ public class GameRepositoryTest {
         int size = gameRepository.getAll(null).size();
 
         Game game = new Game();
-        game.setName("Super Mario");
+        game.setTitle("Super Mario");
         gameRepository.create(game);
 
         assertThat(size + 1, is(equalTo(gameRepository.getAll(null).size())));
@@ -49,7 +50,7 @@ public class GameRepositoryTest {
         int size = gameRepository.getAll(null).size();
 
         Game game = new Game();
-        game.setName(NAME);
+        game.setTitle(NAME);
         game.setCategory(CATEGORY);
         gameRepository.create(game);
 
@@ -67,16 +68,16 @@ public class GameRepositoryTest {
         int size = gameRepository.getAll(null).size();
 
         Game game = new Game();
-        game.setName(NAME);
+        game.setTitle(NAME);
         game.setCategory(CATEGORY);
         gameRepository.create(game);
 
         assertThat(size + 1, is(equalTo(gameRepository.getAll(null).size())));
 
-        game.setCategory("Drama");
+        game.setCategory(GameCategory.ACTION);
         gameRepository.update(game);
 
-        assertThat("Drama", is(equalTo(gameRepository.getById(game.getId()).getCategory())));
+        assertThat(GameCategory.ACTION, is(equalTo(gameRepository.getById(game.getId()).getCategory())));
     }
 
     @Test
@@ -84,13 +85,13 @@ public class GameRepositoryTest {
         int size = gameRepository.getAll(null).size();
 
         Game game = new Game();
-        game.setName(NAME);
+        game.setTitle(NAME);
         gameRepository.create(game);
         Game otherGame = new Game();
-        otherGame.setName("Halo");
+        otherGame.setTitle("Halo");
         gameRepository.create(otherGame);
         Game thirdGame = new Game();
-        thirdGame.setName("Java 3");
+        thirdGame.setTitle("Java 3");
         gameRepository.create(thirdGame);
 
         assertThat(size + 3, is(equalTo(gameRepository.getAll(null).size())));

@@ -73,28 +73,9 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
 
     private void clearRelations(){
         for(Loan loan : loanList){
-            loan.setGames(null);
             loan.setConsoles(null);
             loan.setStudent(null);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "add/game/{loanId}/{gameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
-    public void addGame(@PathVariable Long loanId, @PathVariable Long gameId) {
-        Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
-
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
-
-        loan.getGames().add(game);
-        loanService.update(loan);
-        logger.debug("Loan updated");
     }
 
     /**
@@ -108,14 +89,6 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
         ValidationHelper.isObjectNull(loan, "Loan does not exist");
 
         boolean isRemoved = false;
-
-        for (int i = 0; i < loan.getGames().size(); i++) {
-            if (loan.getGames().get(i).getId() == gameId) {
-                loan.getGames().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
 
         if (isRemoved) {
             loanService.update(loan);

@@ -38,22 +38,17 @@ public class Loan implements Domain {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "loanDate")
+	@Column(name = "loan_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar loanDate;
 
-	@Column(name = "returnDate")
+	@Column(name = "return_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	private Calendar returnDate;
-
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
-	@JoinTable(name = "loans_games", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
-	@Cascade(CascadeType.ALL)
-	private List<Game> games = new ArrayList<Game>();
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
 	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
@@ -67,7 +62,6 @@ public class Loan implements Domain {
 
 	public Loan() {
 		this(null, null);
-		setGames(null);
 		setConsoles(null);
 		setStudent(null);
 	}
@@ -109,14 +103,6 @@ public class Loan implements Domain {
 	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
 	public Calendar getReturnDate() {
 		return returnDate;
-	}
-
-	public void setGames(List<Game> games) {
-		this.games = games;
-	}
-
-	public List<Game> getGames() {
-		return games;
 	}
 
 	public void setConsoles(List<Console> consoles) {

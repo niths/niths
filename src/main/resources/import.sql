@@ -429,10 +429,15 @@ INSERT INTO consoles (id, name, console_type, locker) VALUES (2, 'Playstation 3'
 INSERT INTO consoles (id, name, console_type, locker) VALUES (3, 'Xbox 360', 'Seventh generation', 1);
 INSERT INTO consoles (id, name, console_type, locker) VALUES (4, 'Playstation 2', 'Seventh generation', 1);
 
+INSERT INTO games (id, category, title) VALUES (1, 'ACTION', 'CoD MW2');
 
+INSERT INTO games_consoles(console_id, game_id) VALUES (1, 1);
 
+INSERT INTO loans (id, loan_date, return_date) VALUES(1, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
 
+INSERT INTO loans_consoles (loan_id, console_id) VALUES(1, 1);
 
+INSERT INTO students_loans (student_id, loan_id) VALUES(1, 1);
 
 
 
