@@ -1,9 +1,10 @@
-package no.niths.services;
+package no.niths.services.signaling;
 
 import no.niths.domain.signaling.AccessField;
 import no.niths.infrastructure.interfaces.AccessFieldRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.services.interfaces.AccessFieldService;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.signaling.interfaces.AccessFieldService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

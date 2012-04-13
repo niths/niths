@@ -11,9 +11,9 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
-import no.niths.services.interfaces.AccessFieldService;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.RoomService;
+import no.niths.services.signaling.interfaces.AccessFieldService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import no.niths.application.rest.interfaces.AccessPointController;
+import no.niths.application.rest.signaling.interfaces.AccessPointController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.signaling.AccessPoint;

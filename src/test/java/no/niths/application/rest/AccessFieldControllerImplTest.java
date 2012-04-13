@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.AccessFieldController;
-import no.niths.application.rest.interfaces.AccessPointController;
+import no.niths.application.rest.signaling.interfaces.AccessFieldController;
+import no.niths.application.rest.signaling.interfaces.AccessPointController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.signaling.AccessField;

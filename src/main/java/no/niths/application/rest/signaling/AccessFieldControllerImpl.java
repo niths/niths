@@ -1,19 +1,20 @@
-package no.niths.application.rest;
+package no.niths.application.rest.signaling;
 
 import no.niths.aop.ApiEvent;
+import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.AccessFieldController;
 import no.niths.application.rest.lists.AccessFieldList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.signaling.interfaces.AccessFieldController;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.signaling.AccessField;
 import no.niths.domain.signaling.AccessPoint;
-import no.niths.services.interfaces.AccessFieldService;
-import no.niths.services.interfaces.AccessPointService;
 import no.niths.services.interfaces.GenericService;
+import no.niths.services.signaling.interfaces.AccessFieldService;
+import no.niths.services.signaling.interfaces.AccessPointService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

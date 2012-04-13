@@ -7,9 +7,9 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
 import no.niths.domain.signaling.AccessPoint;
-import no.niths.services.interfaces.AccessFieldService;
-import no.niths.services.interfaces.AccessPointService;
 import no.niths.services.location.interfaces.RoomService;
+import no.niths.services.signaling.interfaces.AccessFieldService;
+import no.niths.services.signaling.interfaces.AccessPointService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
