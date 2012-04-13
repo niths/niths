@@ -1,5 +1,6 @@
-package no.niths.application.rest;
+package no.niths.application.rest.battlestation;
 
+import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.battlestation.interfaces.GameController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.GameList;
