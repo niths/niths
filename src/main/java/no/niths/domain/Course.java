@@ -53,7 +53,6 @@ public class Course implements Domain {
     @Cascade(CascadeType.ALL)
 	private List<Subject> subjects = new ArrayList<Subject>();
 	
-
     @JsonIgnore
     @XmlTransient
     @ManyToMany(fetch = FetchType.LAZY)
@@ -63,6 +62,8 @@ public class Course implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
     
+    @JsonIgnore
+   	@XmlTransient
     @OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", 
 		joinColumns = @JoinColumn(name = "courses_id"), 
@@ -70,7 +71,6 @@ public class Course implements Domain {
 		uniqueConstraints = @UniqueConstraint(columnNames = {"courses_id","representatives_id"}))
     @Cascade(CascadeType.ALL)
     private List<Student> courseRepresentatives = new ArrayList<Student>();
-
 
     public Course() {
         this(null, null, null);
@@ -135,8 +135,6 @@ public class Course implements Domain {
         return String.format("[%s][%s][%s]", id, name, description);
     }
 
-    @JsonIgnore
-	@XmlTransient
 	public List<Student> getStudents() {
 		return students;
 	}

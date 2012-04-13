@@ -66,36 +66,38 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
 		Student student = super.getById(id);
-		if (student != null) {
-			for (int i = 0; i < student.getCommittees().size(); i++) {
-				student.getCommittees().get(i).setEvents(null);
-				student.getCommittees().get(i).setLeaders(null);
-				student.getCommittees().get(i).setMembers(null);
-			}
-			
-			for (int i = 0; i < student.getCourses().size(); i++) {
-				student.getCourses().get(i).setCourseRepresentatives(null);
-				student.getCourses().get(i).setSubjects(null);
-			}
-
-			if(student.getRepresentativeFor()!=null){
-				student.getRepresentativeFor().setCourseRepresentatives(null);
-				student.getRepresentativeFor().setSubjects(null);
-				
-			}
-			
-			for(Feed f: student.getFeeds()){
-				f.setStudent(null);
-				f.setLocation(null);
-			}
-			
-			for (Loan l : student.getLoans()) {
-			    l.setConsoles(null);
-			    l.setGames(null);
-			    l.setStudent(null);
-			}
-			
-		}
+//		if (student != null) {
+//			for (int i = 0; i < student.getCommittees().size(); i++) {
+//				student.getCommittees().get(i).setEvents(null);
+//				student.getCommittees().get(i).setLeaders(null);
+//				student.getCommittees().get(i).setMembers(null);
+//			}
+//			
+//			for (Course c : student.getCourses()){
+//				c.setCourseRepresentatives(null);
+//				c.setStudents(null);
+//				c.setSubjects(null);
+//			}
+//
+//			if(student.getRepresentativeFor()!=null){
+//				student.getRepresentativeFor().setCourseRepresentatives(null);
+//				student.getRepresentativeFor().setStudents(null);
+//				student.getRepresentativeFor().setSubjects(null);
+//				
+//			}
+//			
+//			for(Feed f: student.getFeeds()){
+//				f.setStudent(null);
+//				f.setLocation(null);
+//			}
+//			
+//			for (Loan l : student.getLoans()) {
+//			    l.setConsoles(null);
+//			    l.setGames(null);
+//			    l.setStudent(null);
+//			}
+//			
+//		}
 		return student;
 	}
 	

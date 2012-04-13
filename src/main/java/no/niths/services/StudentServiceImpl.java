@@ -17,7 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentServiceImpl extends AbstractGenericService<Student> implements StudentService {
+public class StudentServiceImpl extends AbstractGenericService<Student>
+		implements StudentService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentServiceImpl.class);
@@ -64,7 +65,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Finds and returns a student with a given id. Returns the student with
 	 * courses, committees, loaned games, loaned consoles and feeds
@@ -78,10 +79,13 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 		if (s != null) {
 			s.getCommittees().size();
 			s.getCourses().size();
-            s.getLoans().size();
-            s.getFeeds().size();
-            s.getRoles().size();
-		}		
+			s.getLoans().size();
+			s.getFeeds().size();
+			s.getRoles().size();
+			if (s.getRepresentativeFor() != null) {
+				s.getRepresentativeFor().getName();
+			}
+		}
 		return s;
 	}
 
@@ -97,11 +101,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student> implemen
 	public List<Student> getStudentsWithNamedCourse(String name) {
 		return repo.getStudentsWithNamedCourse(name);
 	}
-	
+
 	@Override
 	public List<Student> getStudentsAndRoles(Student s) {
 		List<Student> list = repo.getAll(s);
-		
+
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).getRoles().size();
 		}

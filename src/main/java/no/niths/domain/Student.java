@@ -50,7 +50,7 @@ import org.hibernate.validator.constraints.Email;
 @Table(name = AppConstants.STUDENTS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@JsonIgnoreProperties({"representativeFor"})
+@JsonIgnoreProperties({ "representativeFor" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Student implements Domain {
 
@@ -126,8 +126,8 @@ public class Student implements Domain {
 	@Cascade(CascadeType.ALL)
 	private List<Subject> tutorInSubjects = new ArrayList<Subject>();
 
-	@JsonIgnore
-	@XmlTransient
+	// @JsonIgnore
+	// @XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", joinColumns = @JoinColumn(name = "representatives_id"), inverseJoinColumns = @JoinColumn(name = "courses_id"))
 	@Cascade(CascadeType.ALL)
@@ -287,6 +287,7 @@ public class Student implements Domain {
 		this.description = description;
 	}
 
+	@JsonSerialize(contentAs = Course.class)
 	public List<Course> getCourses() {
 		return courses;
 	}
