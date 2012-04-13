@@ -11,6 +11,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import no.niths.domain.battlestation.Console;
+import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.Loan;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

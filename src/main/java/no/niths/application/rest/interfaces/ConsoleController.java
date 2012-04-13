@@ -1,6 +1,6 @@
 package no.niths.application.rest.interfaces;
 
-import no.niths.domain.Console;
+import no.niths.domain.battlestation.Console;
 
 /**
  * Controller for games

@@ -1,6 +1,6 @@
 package no.niths.services;
 
-import no.niths.domain.Console;
+import no.niths.domain.battlestation.Console;
 import no.niths.infrastructure.interfaces.ConsoleRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.interfaces.ConsoleService;

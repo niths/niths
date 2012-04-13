@@ -1,5 +1,9 @@
 package no.niths.domain;
 
+import no.niths.domain.battlestation.Console;
+import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.Loan;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package no.niths.application.rest.interfaces;
 
-import no.niths.domain.Loan;
+import no.niths.domain.battlestation.Loan;
 
 /**
  * Controller for loans

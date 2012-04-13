@@ -35,6 +35,7 @@ import no.niths.domain.adapter.JsonDateDeserializerAdapter;
 import no.niths.domain.adapter.JsonDateSerializerAdapter;
 import no.niths.domain.adapter.XmlCharAdapter;
 import no.niths.domain.adapter.XmlDateAdapter;
+import no.niths.domain.battlestation.Loan;
 import no.niths.domain.constraints.StudentGender;
 import no.niths.domain.security.Role;
 

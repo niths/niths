@@ -1,7 +1,7 @@
 package no.niths.application.rest.lists;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Console;
+import no.niths.domain.battlestation.Console;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

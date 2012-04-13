@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Console;
+import no.niths.domain.battlestation.Console;
 import no.niths.infrastructure.interfaces.ConsoleRepository;
 
 import org.junit.Test;

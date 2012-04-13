@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Loan;
+import no.niths.domain.battlestation.Loan;
 import no.niths.infrastructure.interfaces.LoanRepository;
 import org.springframework.stereotype.Repository;
 

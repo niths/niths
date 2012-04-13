@@ -7,10 +7,11 @@ import no.niths.application.rest.interfaces.LoanController;
 import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Console;
-import no.niths.domain.Game;
-import no.niths.domain.Loan;
 import no.niths.domain.Student;
+import no.niths.domain.battlestation.Console;
+import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.Loan;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

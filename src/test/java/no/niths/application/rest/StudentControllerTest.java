@@ -12,6 +12,7 @@ import no.niths.application.rest.interfaces.*;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.*;
+import no.niths.domain.battlestation.Loan;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

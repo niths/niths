@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Game;
+import no.niths.domain.battlestation.Game;
 import no.niths.infrastructure.interfaces.GameRepository;
 import org.springframework.stereotype.Repository;
 

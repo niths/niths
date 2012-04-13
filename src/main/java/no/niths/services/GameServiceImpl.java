@@ -1,6 +1,6 @@
 package no.niths.services;
 
-import no.niths.domain.Game;
+import no.niths.domain.battlestation.Game;
 import no.niths.infrastructure.interfaces.GameRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.interfaces.GameService;

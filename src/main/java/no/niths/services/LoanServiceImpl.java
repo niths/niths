@@ -1,6 +1,6 @@
 package no.niths.services;
 
-import no.niths.domain.Loan;
+import no.niths.domain.battlestation.Loan;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.interfaces.LoanRepository;
 import no.niths.services.interfaces.LoanService;

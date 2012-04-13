@@ -10,10 +10,10 @@ import java.util.GregorianCalendar;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Console;
-import no.niths.domain.Game;
-import no.niths.domain.Loan;
 import no.niths.domain.Student;
+import no.niths.domain.battlestation.Console;
+import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.Loan;
 import no.niths.services.interfaces.ConsoleService;
 import no.niths.services.interfaces.GameService;
 import no.niths.services.interfaces.LoanService;

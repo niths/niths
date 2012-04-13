@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Console;
+import no.niths.domain.battlestation.Console;
 import no.niths.infrastructure.interfaces.ConsoleRepository;
 import org.springframework.stereotype.Repository;
 
