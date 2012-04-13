@@ -8,8 +8,8 @@ import no.niths.domain.Feed;
 import no.niths.domain.Student;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.FeedService;
-import no.niths.services.interfaces.LocationService;
 import no.niths.services.interfaces.StudentService;
+import no.niths.services.location.interfaces.LocationService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

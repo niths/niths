@@ -1,12 +1,13 @@
-package no.niths.application.rest;
+package no.niths.application.rest.location;
 
+import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.interfaces.LocationController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LocationList;
 import no.niths.common.AppConstants;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.LocationService;
+import no.niths.services.location.interfaces.LocationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -9,7 +9,7 @@ import no.niths.domain.signaling.AccessField;
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.services.interfaces.AccessFieldService;
 import no.niths.services.interfaces.AccessPointService;
-import no.niths.services.interfaces.RoomService;
+import no.niths.services.location.interfaces.RoomService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

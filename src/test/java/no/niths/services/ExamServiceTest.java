@@ -9,8 +9,8 @@ import no.niths.domain.Exam;
 import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
 import no.niths.services.interfaces.ExamService;
-import no.niths.services.interfaces.RoomService;
 import no.niths.services.interfaces.SubjectService;
+import no.niths.services.location.interfaces.RoomService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

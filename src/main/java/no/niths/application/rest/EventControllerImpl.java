@@ -15,7 +15,7 @@ import no.niths.domain.Event;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.LocationService;
+import no.niths.services.location.interfaces.LocationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

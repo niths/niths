@@ -1,11 +1,12 @@
-package no.niths.services;
+package no.niths.services.location;
 
 import java.util.List;
 
 import no.niths.domain.location.Room;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.interfaces.RoomRepository;
-import no.niths.services.interfaces.RoomService;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.location.interfaces.RoomService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.location.Location;
-import no.niths.services.interfaces.LocationService;
+import no.niths.services.location.interfaces.LocationService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

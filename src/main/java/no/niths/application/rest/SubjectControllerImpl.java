@@ -15,9 +15,9 @@ import no.niths.domain.Student;
 import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.RoomService;
 import no.niths.services.interfaces.StudentService;
 import no.niths.services.interfaces.SubjectService;
+import no.niths.services.location.interfaces.RoomService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

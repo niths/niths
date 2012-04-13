@@ -1,5 +1,6 @@
-package no.niths.application.rest;
+package no.niths.application.rest.location;
 
+import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
@@ -12,7 +13,7 @@ import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
 import no.niths.services.interfaces.AccessFieldService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.RoomService;
+import no.niths.services.location.interfaces.RoomService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
