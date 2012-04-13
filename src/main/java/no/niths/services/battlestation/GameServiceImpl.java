@@ -1,9 +1,11 @@
-package no.niths.services;
+package no.niths.services.battlestation;
 
 import no.niths.domain.battlestation.Game;
 import no.niths.infrastructure.interfaces.GameRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.services.interfaces.GameService;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.battlestation.interfaces.GameService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

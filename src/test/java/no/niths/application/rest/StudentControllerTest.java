@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.validation.ConstraintViolationException;
 
+import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.*;
 import no.niths.common.config.HibernateConfig;

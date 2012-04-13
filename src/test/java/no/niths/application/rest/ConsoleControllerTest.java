@@ -7,10 +7,10 @@ import static org.junit.Assert.assertThat;
 
 import javax.validation.ConstraintViolationException;
 
+import no.niths.application.rest.battlestation.interfaces.ConsoleController;
+import no.niths.application.rest.battlestation.interfaces.GameController;
+import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.ConsoleController;
-import no.niths.application.rest.interfaces.GameController;
-import no.niths.application.rest.interfaces.LoanController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Console;

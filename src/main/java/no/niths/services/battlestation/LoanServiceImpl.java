@@ -1,9 +1,11 @@
-package no.niths.services;
+package no.niths.services.battlestation;
 
 import no.niths.domain.battlestation.Loan;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.interfaces.LoanRepository;
-import no.niths.services.interfaces.LoanService;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.battlestation.interfaces.LoanService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

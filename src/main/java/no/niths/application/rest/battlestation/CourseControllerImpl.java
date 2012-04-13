@@ -1,7 +1,9 @@
-package no.niths.application.rest;
+package no.niths.application.rest.battlestation;
 
 import java.util.List;
 
+import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CourseController;

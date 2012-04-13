@@ -1,7 +1,8 @@
-package no.niths.application.rest;
+package no.niths.application.rest.battlestation;
 
+import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.battlestation.interfaces.ConsoleController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.ConsoleController;
 import no.niths.application.rest.lists.ConsoleList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
@@ -9,10 +10,10 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
-import no.niths.services.interfaces.ConsoleService;
-import no.niths.services.interfaces.GameService;
+import no.niths.services.battlestation.interfaces.ConsoleService;
+import no.niths.services.battlestation.interfaces.GameService;
+import no.niths.services.battlestation.interfaces.LoanService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.LoanService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

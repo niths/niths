@@ -15,11 +15,11 @@ import no.niths.domain.Course;
 import no.niths.domain.Feed;
 import no.niths.domain.Student;
 import no.niths.domain.battlestation.Loan;
+import no.niths.services.battlestation.interfaces.LoanService;
 import no.niths.services.interfaces.CommitteeService;
 import no.niths.services.interfaces.CourseService;
 import no.niths.services.interfaces.FeedService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.LoanService;
 import no.niths.services.interfaces.StudentService;
 
 import org.slf4j.Logger;

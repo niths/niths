@@ -13,6 +13,7 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.*;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.security.Role;
+import no.niths.services.battlestation.interfaces.LoanService;
 import no.niths.services.interfaces.*;
 
 import org.junit.Test;

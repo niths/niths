@@ -8,9 +8,9 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
-import no.niths.services.interfaces.ConsoleService;
-import no.niths.services.interfaces.GameService;
-import no.niths.services.interfaces.LoanService;
+import no.niths.services.battlestation.interfaces.ConsoleService;
+import no.niths.services.battlestation.interfaces.GameService;
+import no.niths.services.battlestation.interfaces.LoanService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
