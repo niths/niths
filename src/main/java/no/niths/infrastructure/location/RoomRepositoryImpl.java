@@ -1,6 +1,7 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.location;
 
 import no.niths.domain.location.Room;
+import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.interfaces.RoomRepository;
 
 import org.springframework.stereotype.Repository;
