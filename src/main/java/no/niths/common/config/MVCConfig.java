@@ -24,9 +24,9 @@ public class MVCConfig {
         return viewResolver;
     }
 
-    @Bean
-    public MultipartResolver multipartResolver() {
-        MultipartResolver multipartResolver = new CommonsMultipartResolver();
-        return multipartResolver;
-    }
+//    @Bean
+//    public MultipartResolver multipartResolver() {
+//        MultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        return multipartResolver;
+//    }
 }
