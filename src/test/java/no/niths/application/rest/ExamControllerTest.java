@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.validation.ConstraintViolationException;
 
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ExamController;
 import no.niths.application.rest.interfaces.RoomController;
@@ -36,9 +37,9 @@ public class ExamControllerTest {
     @Autowired
     private SubjectController subjectController;
 
-    @Test(expected= ConstraintViolationException.class)
+    @Test(expected= BadRequestException.class)
     public void testInsertNullObject_shallThrowException() {
-        Exam exam = new Exam("P");
+        Exam exam = new Exam("X");
         examController.create(exam);
     }
 

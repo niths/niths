@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
 import no.niths.application.rest.battlestation.interfaces.GameController;
 import no.niths.application.rest.battlestation.interfaces.LoanController;
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -39,9 +40,9 @@ public class ConsoleControllerTest {
     @Autowired
     private LoanController loanController;
 
-    @Test(expected= ConstraintViolationException.class)
+    @Test(expected= BadRequestException.class)
     public void testInsertNullObject_shallThrowException() {
-        Console console = new Console("P");
+        Console console = new Console("X");
         consoleController.create(console);
     }
 

@@ -12,33 +12,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoomServiceImpl extends AbstractGenericService<Room> implements RoomService {
+public class RoomServiceImpl extends AbstractGenericService<Room>
+        implements RoomService {
 
+    @Autowired
+    private RoomRepository repo;
 
-	@Autowired
-	private RoomRepository repo;
+    @Override
+    public List<Room> getAll(Room domain) {
+        List<Room> rooms = repo.getAll(domain);
+        for (Room r : rooms) {
+            r.getAccessFields().size();
+        }
+        return rooms;
+    }
 
-	@Override
-	public List<Room> getAll(Room domain) {
-		List<Room> rooms = repo.getAll(domain);
-		for (Room r : rooms) {
-			r.getAccessFields().size();
-		}
-		return rooms;
-	}
+    @Override
+    public Room getById(long id) {
+        Room room = repo.getById(id);
+        if (room != null) {
+            room.getAccessFields().size();
+        }
+        return room;
+    }
 
-	@Override
-	public Room getById(long id) {
-		Room room = repo.getById(id);
-		if (room != null) {
-			room.getAccessFields().size();
-		}
-		return room;
-	}
-
-	@Override
-	public GenericRepository<Room> getRepository() {
-		return repo;
-	}
-
+    @Override
+    public GenericRepository<Room> getRepository() {
+        return repo;
+    }
 }

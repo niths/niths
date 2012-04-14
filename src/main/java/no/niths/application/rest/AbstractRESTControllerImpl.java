@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.HasNotRoleException;
@@ -574,5 +575,13 @@ public abstract class AbstractRESTControllerImpl<T> implements
     protected String buildStatusMsg(Class<?> mainDomain, Status status) {
         return String.format(
                 "%s %s", mainDomain.getSimpleName(), status.getMsg());
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public void handleBadRequestException(
+            BadRequestException e,
+            HttpServletResponse res) {
+        res.setHeader(ERROR, e.getMessage());
     }
 }

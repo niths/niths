@@ -2,7 +2,13 @@ package no.niths.services;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import no.niths.application.rest.exception.BadRequestException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.infrastructure.interfaces.GenericRepository;
@@ -50,6 +56,9 @@ public abstract class AbstractGenericService<T extends Domain> implements
 			.getLogger(AbstractGenericService.class);
 	private CustomBeanUtilsBean mergeBean = new CustomBeanUtilsBean();
 
+	private Validator validator =
+	        Validation.buildDefaultValidatorFactory().getValidator();
+
 	/**
 	 * Calls on repository to persist the domain
 	 * 
@@ -60,7 +69,17 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	@Override
 	public Long create(T domain) {
+	    validateFields(domain);
 		return getRepository().create(domain);
+	}
+	
+	private void validateFields(T domain) {
+	    Set<ConstraintViolation<T>> violations = validator.validate(domain);
+	    for (ConstraintViolation<T> violation : violations) {
+	        throw new BadRequestException(String.format(
+	                "Invalid values - %s",
+	                violation.getMessage()));
+	    }
 	}
 
 	/**
