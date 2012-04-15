@@ -114,6 +114,9 @@ public class LazyFixer<T> {
 
     public void fetchChildren(List<T> list) {
         for (Object element : list) {
+            if (element == null) {
+                return;
+            }
             Class<?> type0 = element.getClass();
 
             try {

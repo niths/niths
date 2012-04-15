@@ -3,6 +3,7 @@ package no.niths.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.common.LazyFixer;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
@@ -22,6 +23,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(StudentServiceImpl.class);
+	
+	private LazyFixer<Student> lazyFixer = new LazyFixer<Student>();
 
 	@Autowired
 	private StudentRepository repo;
@@ -76,16 +79,19 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 	 */
 	public Student getById(long id) {
 		Student s = repo.getById(id);
-		if (s != null) {
-			s.getCommittees().size();
-			s.getCourses().size();
-			s.getLoans().size();
-			s.getFeeds().size();
-			s.getRoles().size();
-			if (s.getRepresentativeFor() != null) {
-				s.getRepresentativeFor().getName();
-			}
-		}
+		ArrayList<Student> sl = new ArrayList<Student>();
+		sl.add(s);
+		lazyFixer.fetchChildren(sl);
+//		if (s != null) {
+//			s.getCommittees().size();
+//			s.getCourses().size();
+//			s.getLoans().size();
+//			s.getFeeds().size();
+//			s.getRoles().size();
+//			if (s.getRepresentativeFor() != null) {
+//				s.getRepresentativeFor().getName();
+//			}
+//		}
 		return s;
 	}
 
