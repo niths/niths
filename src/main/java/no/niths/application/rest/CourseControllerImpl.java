@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CourseController;
@@ -138,8 +140,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Course domain) {
-		super.create(domain);
+	public void create(@RequestBody Course domain, HttpServletResponse res) {
+		super.create(domain, res);
 	}
 
 	/**

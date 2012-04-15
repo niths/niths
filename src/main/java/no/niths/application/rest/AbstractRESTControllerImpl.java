@@ -99,9 +99,11 @@ public abstract class AbstractRESTControllerImpl<T> implements
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void create(@RequestBody T domain) {
+    public void create(@RequestBody T domain, HttpServletResponse res) {
             logger.debug(domain +"");
-            getService().create(domain);
+            res.addHeader(
+                    "location",
+                    String.valueOf(getService().create(domain)));
     }
 
     /**

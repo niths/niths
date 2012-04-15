@@ -6,9 +6,11 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Course;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,10 +21,17 @@ public class CourseControllerTest {
     @Autowired
     private CourseController controller;
 
+    private MockHttpServletResponse res;
+
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
     @Test
     public void testCreateAndGetCourse() {
         Course firstCourse = new Course("aCourse", "desc");
-        controller.create(firstCourse);
+        controller.create(firstCourse, res);
 
         Course secondCourse = controller.getAll(firstCourse).get(0);
 
@@ -38,14 +47,14 @@ public class CourseControllerTest {
         // Persist two courses to ensure the database is not empty
         Course foo = new Course("grault", "garply");
         Course bar = new Course("baz", "qux");
-        controller.create(foo);
-        controller.create(bar);
+        controller.create(foo, res);
+        controller.create(bar, res);
 
         final int originalCount = controller.getAll(null).size();
 
         // Persist a course
         Course firstCourse = getRandomCourse();
-        controller.create(firstCourse);
+        controller.create(firstCourse, res);
 
         // Delete the same course
         Course secondCourse = controller.getAll(firstCourse).get(0);
@@ -57,7 +66,7 @@ public class CourseControllerTest {
     @Test
     public void testUpdateCourse() {
         Course firstCourse = new Course("foo", "bar");
-        controller.create(firstCourse);
+        controller.create(firstCourse, res);
 
         firstCourse.setName("corge");
         controller.update(firstCourse);

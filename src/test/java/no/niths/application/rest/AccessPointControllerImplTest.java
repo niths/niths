@@ -14,12 +14,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class AccessPointControllerImplTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private AccessPointController controller;
@@ -31,15 +34,17 @@ public class AccessPointControllerImplTest {
 	
 	@Before
 	public  void setUp() throws Exception {
+	    res = new MockHttpServletResponse();
+
 		testAP01 = new AccessPoint("00:22:AB:CF:FF");
 		testAP02 = new AccessPoint("00:23:AB:CF:FF");
 		testAP03 = new AccessPoint("00:24:AD:CF:AF");
 		testAP04 = new AccessPoint("00:25:AB:AF:FF");
 		
-		controller.create(testAP01);
-		controller.create(testAP02);
-		controller.create(testAP03);
-		controller.create(testAP04);
+		controller.create(testAP01, res);
+		controller.create(testAP02, res);
+		controller.create(testAP03, res);
+		controller.create(testAP04, res);
 	}
 
 	@After

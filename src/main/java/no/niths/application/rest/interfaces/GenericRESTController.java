@@ -3,6 +3,8 @@ package no.niths.application.rest.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.AbstractRESTControllerImpl;
 /**
  * Generic interface for Controllers
@@ -18,7 +20,7 @@ public interface GenericRESTController<T> {
 	 * 
 	 * @param domain
 	 */
-    public void create( T domain) ;
+    public void create(T domain, HttpServletResponse res) ;
     
     /**
      * Returns the domain object with the given id

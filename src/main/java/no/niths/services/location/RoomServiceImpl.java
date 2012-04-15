@@ -1,5 +1,6 @@
 package no.niths.services.location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -23,26 +24,24 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
 
     private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 
+    LazyFixer<Room> lazyFixer = new LazyFixer<Room>();
+
     @Autowired
     private RoomRepository repo;
 
     @Override
     public List<Room> getAll(Room domain) {
-        LazyFixer lazyFixer = new LazyFixer();
         List<Room> rooms = repo.getAll(domain);
         lazyFixer.fetchChildren(rooms);
-        for (Room r : rooms) {
-            r.getAccessFields().size();
-        }
         return rooms;
     }
 
     @Override
     public Room getById(long id) {
         Room room = repo.getById(id);
-        if (room != null) {
-            room.getAccessFields().size();
-        }
+        List<Room> roomList = new ArrayList<Room>();
+        roomList.add(room);
+        lazyFixer.fetchChildren(roomList);
         return room;
     }
 

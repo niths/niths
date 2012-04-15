@@ -67,8 +67,10 @@ public class FadderGroupControllerImpl
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    public void create(@RequestBody FadderGroup domain) {
-        super.create(domain);
+    public void create(
+            @RequestBody FadderGroup domain,
+            HttpServletResponse res) {
+        super.create(domain, res);
     }
 
     /**

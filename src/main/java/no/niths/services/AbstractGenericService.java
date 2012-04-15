@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import no.niths.application.rest.exception.BadRequestException;
+import no.niths.common.LazyFixer;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.infrastructure.interfaces.GenericRepository;
@@ -59,6 +60,8 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	private Validator validator =
 	        Validation.buildDefaultValidatorFactory().getValidator();
 
+	private LazyFixer<T> lazyFixer = new LazyFixer<T>();
+
 	/**
 	 * Calls on repository to persist the domain
 	 * 
@@ -92,7 +95,9 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	@Override
 	public List<T> getAll(T domain) {
-		return getRepository().getAll(domain);
+	    List<T> list = getRepository().getAll(domain);
+	    lazyFixer.fetchChildren(list);
+		return list;
 	}
 
 	@Override

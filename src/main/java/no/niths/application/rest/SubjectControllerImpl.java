@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -197,8 +199,8 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Subject domain) {
-		super.create(domain);
+	public void create(@RequestBody Subject domain, HttpServletResponse res) {
+		super.create(domain, res);
 	}
 
 	/**

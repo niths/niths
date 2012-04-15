@@ -9,9 +9,12 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,12 +23,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class FadderGroupControllerTest {
 	
+    private MockHttpServletResponse res;
+
 	@Autowired
 	private FadderGroupController fadderController;
 
 	@Autowired 
 	private StudentController studentController;
-	
+
+	@Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
 	@Test
 	public void testAddAndRemoveLeaders(){
 		Student s1 = new Student("mail@nith.com");
@@ -36,7 +46,7 @@ public class FadderGroupControllerTest {
 
 		g1.getLeaders().add(s1);
 		g1.getLeaders().add(s2);
-		fadderController.create(g1);
+		fadderController.create(g1, res);
 		
 		assertEquals(g1, fadderController.getById(g1.getId()));
 				
@@ -75,7 +85,7 @@ public class FadderGroupControllerTest {
 
 		g1.getFadderChildren().add(s1);
 		g1.getFadderChildren().add(s2);
-		fadderController.create(g1);
+		fadderController.create(g1, res);
 		
 		assertEquals(g1, fadderController.getById(g1.getId()));
 				
@@ -115,7 +125,7 @@ public class FadderGroupControllerTest {
 		
 		FadderGroup group = new FadderGroup(1337);
 		
-		fadderController.create(group);
+		fadderController.create(group, res);
 		
 		assertEquals(size + 1, fadderController.getAll(null).size());
 		

@@ -18,15 +18,19 @@ import no.niths.domain.Exam;
 import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class ExamControllerTest {
+
+    private MockHttpServletResponse res;
 
     @Autowired
     private ExamController examController;
@@ -37,10 +41,15 @@ public class ExamControllerTest {
     @Autowired
     private SubjectController subjectController;
 
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
     @Test(expected= BadRequestException.class)
     public void testInsertNullObject_shallThrowException() {
         Exam exam = new Exam("X");
-        examController.create(exam);
+        examController.create(exam, res);
     }
 
     @Test
@@ -53,7 +62,7 @@ public class ExamControllerTest {
         }
 
         Exam exam = new Exam("PG210");
-        examController.create(exam);
+        examController.create(exam, res);
 
         assertThat(size + 1, is(equalTo(examController.getAll(null).size())));
 
@@ -72,15 +81,15 @@ public class ExamControllerTest {
     @Test
     public void testCreateAndDeleteOfRooms() {
         Exam exam = new Exam("PG210");
-        examController.create(exam);
+        examController.create(exam, res);
 
         assertThat(exam, is(equalTo(examController.getById(exam.getId()))));
 
         Room room = new Room("45");
         Room otherRoom = new Room("84");
 
-        roomController.create(room);
-        roomController.create(otherRoom);
+        roomController.create(room, res);
+        roomController.create(otherRoom, res);
 
         examController.addRoom(exam.getId(), room.getId());
         examController.addRoom(exam.getId(), otherRoom.getId());
@@ -100,13 +109,13 @@ public class ExamControllerTest {
     @Test
     public void testCreateAndDeleteOfSubject() {
         Exam exam = new Exam("Eksamen i PG210");
-        examController.create(exam);
+        examController.create(exam, res);
 
         assertThat(exam, is(equalTo(examController.getById(exam.getId()))));
 
         Subject subject = new Subject("Programmering");
 
-        subjectController.create(subject);
+        subjectController.create(subject, res);
 
         examController.addSubject(exam.getId(), subject.getId());
 

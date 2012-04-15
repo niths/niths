@@ -7,9 +7,11 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Committee;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,8 +19,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class CommitteeControllerTest {
 
+    private MockHttpServletResponse res;
+
     @Autowired
     private CommitteeController controller;
+
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
 
     @Test
     public void testCreateAndGetCommittee() {
@@ -29,7 +38,7 @@ public class CommitteeControllerTest {
         }
 
         Committee firstCommittee = new Committee("qux", "corge");
-        controller.create(firstCommittee);
+        controller.create(firstCommittee, res);
 
         assertEquals(size + 1, controller.getAll(null).size());
 
@@ -43,13 +52,13 @@ public class CommitteeControllerTest {
 
         // Ensure there is one committee when the next is deleted
         Committee firstCommittee = new Committee("foo", "bar");
-        controller.create(firstCommittee);
+        controller.create(firstCommittee, res);
 
         final int originalCount = controller.getAll(null).size();
 
         // Persist a Committee to be deleted
         Committee secondCommittee = new Committee("bar", "baz");
-        controller.create(secondCommittee);
+        controller.create(secondCommittee, res);
 
         controller.hibernateDelete(firstCommittee.getId());
 
@@ -59,7 +68,7 @@ public class CommitteeControllerTest {
     @Test
     public void testUpdateCommitteeController() {
         Committee firstCommittee = new Committee("foo", "bar");
-        controller.create(firstCommittee);
+        controller.create(firstCommittee, res);
 
         firstCommittee.setName("xyzzy");
         controller.update(firstCommittee);

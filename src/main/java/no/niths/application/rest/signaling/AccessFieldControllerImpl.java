@@ -1,5 +1,7 @@
 package no.niths.application.rest.signaling;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.aop.ApiEvent;
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
@@ -60,8 +62,10 @@ public class AccessFieldControllerImpl extends
     @Override
     @ApiEvent(title = "Access field created")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void create(@RequestBody AccessField domain) {
-        super.create(domain);
+    public void create(
+            @RequestBody AccessField domain,
+            HttpServletResponse res) {
+        super.create(domain, res);
     }
 
     @Override

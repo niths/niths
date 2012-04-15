@@ -23,12 +23,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class EventControllerImplTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private EventController controller;
@@ -62,6 +65,8 @@ public class EventControllerImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+	    res = new MockHttpServletResponse();
+
 		testEvent01 = new Event("NITH Party", "awesome", startTime01,
 				endTime01, "Beer, Party");
 		testEvent02 = new Event("LUG event", "awesome", startTime02, endTime02,
@@ -70,13 +75,13 @@ public class EventControllerImplTest {
 				endTime03);
 		testEvent04 = new Event("Mac attack", "awesome", startTime04, endTime04);
 
-		controller.create(testEvent01);
-		controller.create(testEvent02);
-		controller.create(testEvent03);
-		controller.create(testEvent04);
+		controller.create(testEvent01, res);
+		controller.create(testEvent02, res);
+		controller.create(testEvent03, res);
+		controller.create(testEvent04, res);
 
 		testLocation = new Location("School", 12.123, 12.3122);
-		locationController.create(testLocation);
+		locationController.create(testLocation, res);
 	}
 
 	@After
