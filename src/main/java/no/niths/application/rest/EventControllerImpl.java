@@ -112,13 +112,18 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "add/location/{eventId}/{locId}", method = RequestMethod.PUT)
+	@RequestMapping(
+	        value  = "{event-id}/add-location/{locId}",
+	        method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
-	public void addLocation(@PathVariable Long eventId,@PathVariable Long locId) {
+	public void addLocation(
+	        @PathVariable Long eventId,
+	        @PathVariable Long locId) {
 		Event event = service.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
 		
-		if (event.getLocation() != null && event.getLocation().getId() == locId) {
+		if (event.getLocation() != null
+		        && event.getLocation().getId() == locId) {
 			logger.debug("location exist");
 			throw new DuplicateEntryCollectionException("Location exist");
 		}
@@ -136,9 +141,13 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "remove/location/{eventId}/{locId}", method = RequestMethod.PUT)
+	@RequestMapping(
+	        value  = "{eventId}/remove-location/{locId}",
+	        method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
-	public void removeLocation(@PathVariable Long eventId,@PathVariable Long locId) {
+	public void removeLocation(
+	        @PathVariable Long eventId,
+	        @PathVariable Long locId) {
 		Event event = service.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
 		
