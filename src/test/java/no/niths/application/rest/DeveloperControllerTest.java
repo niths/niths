@@ -10,10 +10,11 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.Application;
 import no.niths.domain.Developer;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,12 +22,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class DeveloperControllerTest {
 
+    private MockHttpServletResponse res;
+
 	@Autowired 
 	private DeveloperController controller;
 	
 	@Autowired
 	private ApplicationController aController;
-	
+
+	@Before
+	public void setUp() {
+	    res = new MockHttpServletResponse();
+	}
+
 	@Test
 	public void addApp(){
 		int size = 0;
@@ -35,11 +43,11 @@ public class DeveloperControllerTest {
 		}catch(ObjectNotFoundException e){}
 		
 		Developer dev = new Developer("Per", "person@nith.no");
-		controller.create(dev);
+		controller.create(dev, res);
 		assertEquals(size + 1, controller.getAll(new Developer()).size());
 		
 		Application app = new Application("The title");
-		aController.create(app);
+		aController.create(app, res);
 		
 		Developer fetched = controller.getById(dev.getId());
 		Application aFetched = aController.getById(app.getId());
@@ -64,7 +72,7 @@ public class DeveloperControllerTest {
 		Developer dev = new Developer();
 		dev.setEmail("mail@mail.com");
 		dev.setName("DevName");
-		controller.create(dev);
+		controller.create(dev, res);
 		
 		assertEquals(size + 1, controller.getAll(new Developer()).size());
 		Developer get = controller.getById(dev.getId());

@@ -19,12 +19,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class RoleControllerImplTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private RoleController controller;
@@ -41,18 +44,19 @@ public class RoleControllerImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+	    res = new MockHttpServletResponse();
 		testRole01 = new Role("ROLE_ADMIN");
 		testRole02 = new Role("ROLE_STUDENT");
 		testRole03 = new Role("ROLE_COMMITTE_LEADER");
 		testRole04 = new Role("ROLE_ANO");
 
-		controller.create(testRole01);
-		controller.create(testRole02);
-		controller.create(testRole03);
-		controller.create(testRole04);
+		controller.create(testRole01, res);
+		controller.create(testRole02, res);
+		controller.create(testRole03, res);
+		controller.create(testRole04, res);
 
 		testStudent = new Student("am@nith.no");
-		studentController.create(testStudent);
+		studentController.create(testStudent, res);
 
 	}
 
@@ -153,6 +157,6 @@ public class RoleControllerImplTest {
 	@Test(expected=org.hibernate.exception.ConstraintViolationException.class)
 	public void testConstraint(){
 		Role r1 = new Role("ROLE_ADMIN");
-		controller.create(r1);
+		controller.create(r1, res);
 	}
 }

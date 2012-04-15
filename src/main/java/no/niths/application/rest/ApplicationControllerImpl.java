@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.ApplicationController;
 import no.niths.application.rest.lists.ApplicationList;
@@ -63,8 +65,10 @@ public class ApplicationControllerImpl extends
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Application domain) {
-		super.create(domain);
+	public void create(
+	        @RequestBody Application domain,
+	        HttpServletResponse res) {
+		super.create(domain, res);
 	}
 
 	@Override

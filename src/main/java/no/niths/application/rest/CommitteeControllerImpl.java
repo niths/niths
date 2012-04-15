@@ -1,5 +1,7 @@
 package no.niths.application.rest;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.interfaces.CommitteeController;
@@ -69,8 +71,8 @@ public class CommitteeControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void create(@RequestBody Committee domain) {
-        super.create(domain);
+    public void create(@RequestBody Committee domain, HttpServletResponse res) {
+        super.create(domain, res);
     }
 
     /**

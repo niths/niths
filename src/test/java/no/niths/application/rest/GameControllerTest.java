@@ -18,9 +18,11 @@ import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,6 +31,8 @@ import java.util.GregorianCalendar;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class GameControllerTest {
+
+    private MockHttpServletResponse res;
 
     @Autowired
     private GameController gameController;
@@ -39,10 +43,15 @@ public class GameControllerTest {
     @Autowired
     private LoanController loanController;
 
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
     @Test(expected= BadRequestException.class)
     public void testInsertNullObject_shallThrowException() {
         Game game = new Game("X");
-        gameController.create(game);
+        gameController.create(game, res);
     }
 
     @Test
@@ -55,7 +64,7 @@ public class GameControllerTest {
         }
 
         Game game = new Game("Super Mario");
-        gameController.create(game);
+        gameController.create(game, res);
 
         assertThat(size + 1, is(equalTo(gameController.getAll(null).size())));
 
@@ -74,13 +83,13 @@ public class GameControllerTest {
     @Test
     public void testCreateAndDeleteOfConsole() {
         Game game = new Game("Super Mario");
-        gameController.create(game);
+        gameController.create(game, res);
 
         assertThat(game, is(equalTo(gameController.getById(game.getId()))));
 
         Console console = new Console("Wii");
 
-        consoleController.create(console);
+        consoleController.create(console, res);
 
         gameController.addConsole(game.getId(), console.getId());
 
@@ -97,12 +106,12 @@ public class GameControllerTest {
     @Test
     public void testCreateAndDeleteOfLoan() {
         Game game = new Game("Super Mario");
-        gameController.create(game);
+        gameController.create(game, res);
 
         assertThat(game, is(equalTo(gameController.getById(game.getId()))));
 
         Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan);
+        loanController.create(loan, res);
 
         gameController.addLoan(game.getId(), loan.getId());
 

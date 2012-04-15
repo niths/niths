@@ -3,6 +3,8 @@ package no.niths.application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.StudentController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -112,8 +114,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Student domain) {
-		super.create(domain);
+	public void create(@RequestBody Student domain, HttpServletResponse res) {
+		super.create(domain, res);
 	}
 	
 	@Override

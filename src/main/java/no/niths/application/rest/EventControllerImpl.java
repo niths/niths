@@ -2,6 +2,8 @@ package no.niths.application.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.TimeDTO;
@@ -54,8 +56,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Event domain) {
-		super.create(domain);
+	public void create(@RequestBody Event domain, HttpServletResponse res) {
+		super.create(domain, res);
 	}
 	
 	/**

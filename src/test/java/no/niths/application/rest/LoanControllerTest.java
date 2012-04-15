@@ -12,9 +12,11 @@ import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,6 +33,8 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class LoanControllerTest {
 
+    private MockHttpServletResponse res;
+
     @Autowired
     private LoanController loanController;
 
@@ -43,6 +47,11 @@ public class LoanControllerTest {
     @Autowired
     private StudentController studentController;
 
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
     @Test
     public void testCreateAndDelete() {
         int size = 0;
@@ -54,7 +63,7 @@ public class LoanControllerTest {
         }
 
         Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan);
+        loanController.create(loan, res);
 
         assertThat(size + 1, is(equalTo(loanController.getAll(null).size())));
 
@@ -73,15 +82,15 @@ public class LoanControllerTest {
     @Test
     public void testCreateAndDeleteOfConsole() {
         Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan);
+        loanController.create(loan, res);
 
         assertThat(loan, is(equalTo(loanController.getById(loan.getId()))));
 
         Console console = new Console("Wii");
         Console otherConsole = new Console("Xbox");
 
-        consoleController.create(console);
-        consoleController.create(otherConsole);
+        consoleController.create(console, res);
+        consoleController.create(otherConsole, res);
 
         loanController.addConsole(loan.getId(), console.getId());
         loanController.addConsole(loan.getId(), otherConsole.getId());
@@ -101,12 +110,12 @@ public class LoanControllerTest {
      @Test
     public void testCreateAndDeleteOfStudent() {
         Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan);
+        loanController.create(loan, res);
 
         assertThat(loan, is(equalTo(loanController.getById(loan.getId()))));
 
         Student loanedBy = new Student("nyMail@nith.no");
-        studentController.create(loanedBy);
+        studentController.create(loanedBy, res);
 
         loanController.addStudent(loan.getId(), loanedBy.getId());
 

@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import javax.validation.ConstraintViolationException;
+import java.util.GregorianCalendar;
 
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
 import no.niths.application.rest.battlestation.interfaces.GameController;
@@ -18,18 +18,19 @@ import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.GregorianCalendar;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class ConsoleControllerTest {
 
+    private MockHttpServletResponse res;
 
     @Autowired
     private ConsoleController consoleController;
@@ -40,10 +41,15 @@ public class ConsoleControllerTest {
     @Autowired
     private LoanController loanController;
 
+    @Before
+    public void setUp() {
+        res = new MockHttpServletResponse();
+    }
+
     @Test(expected= BadRequestException.class)
     public void testInsertNullObject_shallThrowException() {
         Console console = new Console("X");
-        consoleController.create(console);
+        consoleController.create(console, res);
     }
 
     @Test
@@ -56,7 +62,7 @@ public class ConsoleControllerTest {
         }
 
         Console console = new Console("Wii");
-        consoleController.create(console);
+        consoleController.create(console, res);
 
         assertThat(size + 1, is(equalTo(consoleController.getAll(null).size())));
 
@@ -75,15 +81,15 @@ public class ConsoleControllerTest {
     @Test
     public void testCreateAndDeleteOfGames() {
         Console console = new Console("Wii");
-        consoleController.create(console);
+        consoleController.create(console, res);
 
         assertThat(console, is(equalTo(consoleController.getById(console.getId()))));
 
         Game game = new Game("Super Mario");
         Game otherGame = new Game("Halo");
 
-        gameController.create(game);
-        gameController.create(otherGame);
+        gameController.create(game, res);
+        gameController.create(otherGame, res);
 
         consoleController.addGame(console.getId(), game.getId());
         consoleController.addGame(console.getId(), otherGame.getId());
@@ -103,13 +109,13 @@ public class ConsoleControllerTest {
     @Test
     public void testCreateAndDeleteOfLoan() {
         Console console = new Console("Wii");
-        consoleController.create(console);
+        consoleController.create(console, res);
 
         assertThat(console, is(equalTo(consoleController.getById(console.getId()))));
 
         Loan loan = new Loan(new GregorianCalendar());
 
-        loanController.create(loan);
+        loanController.create(loan, res);
 
         consoleController.addLoan(console.getId(), loan.getId());
 

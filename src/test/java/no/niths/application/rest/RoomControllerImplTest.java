@@ -18,12 +18,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class RoomControllerImplTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private RoomController controller;
@@ -40,17 +44,18 @@ public class RoomControllerImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+	    res = new MockHttpServletResponse();
 		testRoom01 = new Room("81");
 		testRoom02 = new Room("40");
 		testRoom03 = new Room("Kantina");
 		testRoom04 = new Room("41");
 		testAF = new AccessField(22, 50);
 
-		controller.create(testRoom01);
-		controller.create(testRoom02);
-		controller.create(testRoom03);
-		controller.create(testRoom04);
-		afController.create(testAF);
+		controller.create(testRoom01, res);
+		controller.create(testRoom02, res);
+		controller.create(testRoom03, res);
+		controller.create(testRoom04, res);
+		afController.create(testAF, res);
 
 	}
 

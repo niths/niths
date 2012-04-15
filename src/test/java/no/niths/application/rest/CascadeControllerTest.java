@@ -15,15 +15,19 @@ import no.niths.domain.FadderGroup;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class CascadeControllerTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private StudentController studController;
@@ -39,6 +43,11 @@ public class CascadeControllerTest {
 	
 	@Autowired
 	private RoleController roleController;
+
+	@Before
+	public void setUp() {
+	    res = new MockHttpServletResponse();
+	}
 	
 	@Test
 	public void testCascadeOperationsOnStudent(){
@@ -50,12 +59,12 @@ public class CascadeControllerTest {
 		}
 		//Create a students and persist
 		Student s1 = new Student("mail1@nith.no");
-		studController.create(s1);
+		studController.create(s1, res);
 		assertEquals(studSize + 1, studController.getAll(null).size());
 		
 		//Add some courses to the student
 		Course c = new Course();
-		courseController.create(c);
+		courseController.create(c, res);
 		s1.getCourses().add(c);
 		studController.update(s1);
 		assertEquals(1, studController.getById(s1.getId()).getCourses().size());
@@ -64,17 +73,17 @@ public class CascadeControllerTest {
 		FadderGroup g = new FadderGroup(99);
 		g.getLeaders().add(s1);
 		g.getFadderChildren().add(s1);
-		fadderGroupController.create(g);
+		fadderGroupController.create(g, res);
 		//Add student to a committee as leader
 		Committee com = new Committee("Super","asd");
 		com.getLeaders().add(s1);
-		committeeController.create(com);
+		committeeController.create(com, res);
 		//Add as a member
 		s1.getCommittees().add(com);
 		
 		//Add some roles
 		Role role = new Role("ROLE_SOME");
-		roleController.create(role);
+		roleController.create(role, res);
 		s1.getRoles().add(role);
 		
 		studController.update(s1);

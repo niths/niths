@@ -15,12 +15,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class LocationControllerImplTest {
+
+    private MockHttpServletResponse res;
 
 	@Autowired
 	private LocationController controller;
@@ -32,15 +35,16 @@ public class LocationControllerImplTest {
 
 	@Before
 	public void setUp() throws Exception {
+	    res = new MockHttpServletResponse();
 		testLocation01 = new Location("Oslo", 90.2030, 20.2341);
 		testLocation02 = new Location("Stavanger", 10.230, 10.2326);
 		testLocation03 = new Location("Sandefjord", 10.2030, 10.2347);
 		testLocation04 = new Location("Haugesund", 10.2030, 11.4341);
 
-		controller.create(testLocation01);
-		controller.create(testLocation02);
-		controller.create(testLocation03);
-		controller.create(testLocation04);
+		controller.create(testLocation01, res);
+		controller.create(testLocation02, res);
+		controller.create(testLocation03, res);
+		controller.create(testLocation04, res);
 	}
 
 	@After
