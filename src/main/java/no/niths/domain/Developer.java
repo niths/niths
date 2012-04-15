@@ -76,7 +76,7 @@ public class Developer implements Domain {
 	@Cascade(CascadeType.ALL)
 	@OneToMany
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
-	List<Application> apps = new ArrayList<Application>();
+	private List<Application> apps = new ArrayList<Application>();
 
 	public Developer() {
 		this(null);

@@ -17,10 +17,12 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -45,6 +47,8 @@ public class FadderGroup implements Domain {
 	private Long id;
 		
 	@Column(name="group_number", unique=true)
+	@XmlElement(name="groupnumber")
+	@JsonProperty("groupnumber")
 	private Integer groupNumber;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -57,6 +61,8 @@ public class FadderGroup implements Domain {
 	@Cascade(CascadeType.ALL)
 	@JoinTable(	name="fadder_children_students", 
 	uniqueConstraints={@UniqueConstraint(columnNames ={"fadder_groups_id", "fadderChildren_id"})} )
+	@XmlElement(name="fadderchildren")
+	@JsonProperty("fadderchildren")
 	private List<Student> fadderChildren = new ArrayList<Student>();
 	
 	
@@ -114,7 +120,6 @@ public class FadderGroup implements Domain {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return String.format("[%s][%d]", id, groupNumber);
 	}
 

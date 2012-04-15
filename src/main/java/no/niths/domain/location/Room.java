@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,6 +27,7 @@ import no.niths.domain.Subject;
 import no.niths.domain.signaling.AccessField;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -49,6 +49,8 @@ public class Room implements Domain {
     @Pattern(
             regexp  = "\\w+[\\w\\s]*\\w",
             message = "Invalid room name: only alphanumeric characters allowed")
+	@XmlElement(name="roomname")
+	@JsonProperty("roomname")
     private String roomName;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -57,6 +59,8 @@ public class Room implements Domain {
             name               = "rooms_accessfields",
             joinColumns        = @JoinColumn(name = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
+	@XmlElement(name="accessfields")
+	@JsonProperty("accessfields")
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     @JsonIgnore

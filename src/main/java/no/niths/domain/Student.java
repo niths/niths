@@ -26,6 +26,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -41,6 +42,7 @@ import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -64,10 +66,14 @@ public class Student implements Domain {
 
 	@Column(name = "first_name")
 	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	@XmlElement(name="firstname")
+	@JsonProperty("lastname")
 	private String firstName;
 
 	@Column(name = "last_name")
 	@Size(min = 1, max = 55, message = "Must be minimun 1 char and max 55 chars")
+	@XmlElement(name="lastname")
+	@JsonProperty("lastname")
 	private String lastName;
 
 	@Column
@@ -97,6 +103,8 @@ public class Student implements Domain {
 
 	@Column(name = "phone_number", unique = true)
 	@Pattern(regexp = "(^$)|([1-9][0-9]{7})", message = "Not a valid number")
+	@XmlElement(name="telephonenumber")
+	@JsonProperty("telephonenumber")
 	private String telephoneNumber;
 
 	@Column
@@ -127,11 +135,11 @@ public class Student implements Domain {
 	@Cascade(CascadeType.ALL)
 	private List<Subject> tutorInSubjects = new ArrayList<Subject>();
 
-	// @JsonIgnore
-	// @XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", joinColumns = @JoinColumn(name = "representatives_id"), inverseJoinColumns = @JoinColumn(name = "courses_id"))
 	@Cascade(CascadeType.ALL)
+	@XmlElement(name="repesentativefor")
+	@JsonProperty("representativefor")
 	private Course representativeFor;
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Committee.class)

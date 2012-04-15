@@ -12,12 +12,14 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -55,6 +57,8 @@ public class Application implements Domain {
 
 	@Column(name = "icon_url")
 	@Size(max = 200, message = "Url to long, max length = 200")
+	@JsonProperty("iconurl")
+	@XmlElement(name="iconurl")
 	private String iconUrl;
 
 	@JsonIgnore
@@ -73,8 +77,6 @@ public class Application implements Domain {
 	@Column
 	private Boolean enabled;
 
-//	@JsonIgnore
-//	@XmlTransient
 	@ManyToOne
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
 	@Cascade(CascadeType.ALL)
@@ -82,6 +84,7 @@ public class Application implements Domain {
 
 	public Application() {
 		this(null, null, null, null);
+		setDeveloper(null);
 	}
 	
 	public Application(String title){

@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -26,6 +27,7 @@ import no.niths.domain.constraints.Weekday;
 import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -67,10 +69,14 @@ public class Subject implements Domain {
     
     @Column(name = "start_time")
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
+	@XmlElement(name="starttime")
+	@JsonProperty("starttime")
     private String startTime;
     
     @Column(name = "end_time")
     @Pattern(regexp = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})", message = "Not a valid time")
+	@XmlElement(name="endtime")
+	@JsonProperty("endtiem")
     private String endTime;
     
     @JsonIgnore

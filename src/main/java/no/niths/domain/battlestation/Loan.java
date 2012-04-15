@@ -8,6 +8,7 @@ import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -16,6 +17,7 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -42,12 +44,16 @@ public class Loan implements Domain {
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	@XmlElement(name="loandate")
+	@JsonProperty("loandate")
 	private Calendar loanDate;
 
 	@Column(name = "return_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	@XmlElement(name="returndate")
+	@JsonProperty("returndate")
 	private Calendar returnDate;
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)

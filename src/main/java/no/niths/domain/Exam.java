@@ -22,9 +22,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.AppConstants;
@@ -33,6 +33,7 @@ import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 
@@ -56,21 +57,29 @@ public class Exam implements Domain {
 
     @Column(name="exam_type")
     @Size(min = 2, max = 30, message ="The length of the exam_type must be between 2 to 30 letters")
+	@XmlElement(name="examtype")
+	@JsonProperty("examtype")
     private String examType;
 
     @Column(name="start_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	@XmlElement(name="starttime")
+	@JsonProperty("starttime")
     private Calendar startTime;
 
     @Column(name="end_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	@XmlElement(name="endtime")
+	@JsonProperty("endtime")
     private Calendar endTime;
 
     @Column(name="allowed_aid")
+	@XmlElement(name="allowaid")
+	@JsonProperty("allowaid")
     private String allowedAid;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity= Subject.class)

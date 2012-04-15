@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -21,6 +22,7 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @XmlRootElement(name = "accesspoint")
 @Entity
@@ -38,7 +40,9 @@ public class AccessPoint implements Domain {
     private String address;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "accessfields_accesspoints", joinColumns = @JoinColumn(name = "accesspoint_id"), inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
+    @JoinTable(name = "accessfields_accesspoints",
+    joinColumns = @JoinColumn(name = "accesspoint_id"), 
+    inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     public AccessPoint() {
