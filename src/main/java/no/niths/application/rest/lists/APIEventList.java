@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.common.AppConstants;
 import no.niths.domain.APIEvent;
 
-@XmlRootElement(name = AppConstants.API_EVENTS)
+@XmlRootElement(name = AppConstants.APIEVENTS)
 public class APIEventList extends ListAdapter<APIEvent> {
 
     private static final long serialVersionUID = 2794068992188408350L;
     @SuppressWarnings("unused")
-    @XmlElement(name = "APIEvent")
+    @XmlElement(name = "apievent")
     private List<APIEvent> data;
 
     @Override

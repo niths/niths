@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import no.niths.aop.ApiEvent;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.StudentController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -67,43 +68,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public Student getById(@PathVariable Long id) {
-		Student student = super.getById(id);
-//		if (student != null) {
-//			for (int i = 0; i < student.getCommittees().size(); i++) {
-//				student.getCommittees().get(i).setEvents(null);
-//				student.getCommittees().get(i).setLeaders(null);
-//				student.getCommittees().get(i).setMembers(null);
-//			}
-//			
-//			for (Course c : student.getCourses()){
-//				c.setCourseRepresentatives(null);
-//				c.setStudents(null);
-//				c.setSubjects(null);
-//			}
-//
-//			if(student.getRepresentativeFor()!=null){
-//				student.getRepresentativeFor().setCourseRepresentatives(null);
-//				student.getRepresentativeFor().setStudents(null);
-//				student.getRepresentativeFor().setSubjects(null);
-//				
-//			}
-//			
-//			for(Feed f: student.getFeeds()){
-//				f.setStudent(null);
-//				f.setLocation(null);
-//			}
-//			
-//			for (Loan l : student.getLoans()) {
-//			    l.setConsoles(null);
-//			    l.setGames(null);
-//			    l.setStudent(null);
-//			}
-//			
-//		}
-		return student;
+		return super.getById(id);
 	}
-	
-	
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
@@ -114,6 +80,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@ApiEvent(title="Student crated")
 	public void create(@RequestBody Student domain, HttpServletResponse res) {
 		super.create(domain, res);
 	}

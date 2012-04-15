@@ -11,7 +11,6 @@ import javax.validation.ValidatorFactory;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
 import no.niths.domain.Committee;
-import no.niths.domain.Domain;
 import no.niths.domain.Student;
 
 public class ValidationHelper {

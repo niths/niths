@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,6 +25,7 @@ import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
@@ -41,13 +43,15 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
  * 
  *
  */
-@XmlRootElement(name = AppConstants.API_EVENTS)
+@XmlRootElement(name = "apievent")
 @Entity
 @Table(name = AppConstants.API_EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class APIEvent implements Domain{
 	
+	private static final String EVENTTIME = "eventtime";
+
 	@Transient
 	private static final long serialVersionUID = -5311081154825173386L;
 
@@ -63,6 +67,8 @@ public class APIEvent implements Domain{
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+	@XmlElement(name=EVENTTIME)
+	@JsonProperty(EVENTTIME)
 	private Calendar eventTime;
 	
     @Column(length=500)
