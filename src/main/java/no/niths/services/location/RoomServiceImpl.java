@@ -23,17 +23,15 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
 
     private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 
+    LazyFixer<Room> lazyFixer = new LazyFixer<Room>();
+
     @Autowired
     private RoomRepository repo;
 
     @Override
     public List<Room> getAll(Room domain) {
-        LazyFixer lazyFixer = new LazyFixer();
         List<Room> rooms = repo.getAll(domain);
         lazyFixer.fetchChildren(rooms);
-        for (Room r : rooms) {
-            r.getAccessFields().size();
-        }
         return rooms;
     }
 

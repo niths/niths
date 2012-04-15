@@ -68,7 +68,7 @@ public class LazyFixer<T> {
 
                     // Find the collection's getter method
                     Method outerMethod = domainType.getMethod(
-                            generateAccessorString(
+                            generateAccessorHeader(
                                     outerFieldName, Accessor.GET),
                             (Class<?>[]) null);
 
@@ -87,7 +87,7 @@ public class LazyFixer<T> {
 
                         // Nullify domain that are transient
                         domainType.getDeclaredMethod(
-                                generateAccessorString(
+                                generateAccessorHeader(
                                         outerFieldName, Accessor.SET),
                                 outerType)
                                     .invoke(domain, varargsNull);
@@ -95,7 +95,7 @@ public class LazyFixer<T> {
                     // Nullify all domains and collections in the domain
                     } else {
                         Domain result = (Domain) domainType.getMethod(
-                                generateAccessorString(
+                                generateAccessorHeader(
                                         outerFieldName, Accessor.GET),
                                 (Class<?>[]) null).invoke(domain);
                         
@@ -112,16 +112,30 @@ public class LazyFixer<T> {
         }
     }
 
-    public void fetchChildren(List<Object> list) {
+    public void fetchChildren(List<T> list) {
         for (Object element : list) {
-            for (Field field : element.getClass().getDeclaredFields()) {
-                Class<?> type = field.getType();
+            Class<?> type0 = element.getClass();
 
-                if (!checkAnnotations(field.getAnnotations())
-                        && Collection.class.isAssignableFrom(type)) {
-                    generateAccessorString("foo", Accessor.GET);
-                    
+            try {
+                for (Field field : element.getClass().getDeclaredFields()) {
+                    Class<?> type = field.getType();
+
+                    if (!checkAnnotations(field.getAnnotations())
+                            && Collection.class.isAssignableFrom(type)) {
+                        
+                        Method m = type0.getMethod(
+                                generateAccessorHeader(
+                                        field.getName(), Accessor.GET),
+                                (Class<?>[]) null);
+                        Object result = m.invoke(element);
+                        if (result != null) {
+                            Collection<Domain> domains =
+                                    (Collection<Domain>) result;
+                        }
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -146,11 +160,7 @@ public class LazyFixer<T> {
         return isTransient;
     }
 
-    private Object invokeGetterMethod(String fieldName) {
-        return null;
-    }
-
-    private String generateAccessorString(String fieldName, Accessor accessor) {
+    private String generateAccessorHeader(String fieldName, Accessor accessor) {
         return String.format(
                 "%s%s", accessor, Character.toUpperCase(fieldName.charAt(0))
                         + fieldName.substring(1));
@@ -167,7 +177,7 @@ public class LazyFixer<T> {
      * @throws InvocationTargetException
      */
     private void removeChild(Object target, Class<?> type)
-            throws NoSuchMethodException, SecurityException,
+            throws NoSuchMethodException,  SecurityException,
                    IllegalAccessException, IllegalArgumentException,
                    InvocationTargetException {
 
@@ -178,9 +188,22 @@ public class LazyFixer<T> {
             if (Collection.class.isAssignableFrom(fieldType)
                     || Domain.class.isAssignableFrom(fieldType)) {
                 type.getMethod(
-                        generateAccessorString(field.getName(), Accessor.SET),
+                        generateAccessorHeader(field.getName(), Accessor.SET),
                         fieldType).invoke(target, varargsNull);
             }
         }
+    }
+
+    private void triggerFetch(Object target, Class<?> type)
+            throws NoSuchMethodException,  SecurityException,
+                   IllegalAccessException, IllegalArgumentException,
+                   InvocationTargetException {
+        System.err.println("===========");
+        System.err.println(target.getClass() + ", " + type);
+        System.err.println("===========");
+        
+        Method m = type.getMethod("size", (Class<?>[]) null);
+        
+        System.err.println("--" + m.getName());
     }
 }
