@@ -81,7 +81,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
      */
     @Override
     @RequestMapping(
-            value  = "remove-accessfield/{roomId}/{accessFieldId}",
+            value  = "{roomId}/remove-accessfield/{accessFieldId}",
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Access Field Removed")
     public void removeAccessField(
