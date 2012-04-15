@@ -36,12 +36,10 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	private static final String LOCATION_EXIST = "Location exist";
 	private static final String LOCATION_REMOVED = "Location removed";
 	private static final String LOCATION_NOT_FOUND = "Location not Found";
-	private static final String STUDENT_DOES_NOT_EXIST = "Student does not exist";
 	private static final String STUDENT_EXIST = "Student exist";
 	private static final String STUDENT_ADDED_TO_FEED = "Student added to feed";
 	private static final String STUDENT_NOT_FOUND = "Student not Found";
-	private static final String FEED_DOSE_NOT_EXIST = "Feed dose not exist";
-
+	
 	private Logger logger = org.slf4j.LoggerFactory
 			.getLogger(FeedController.class);
 
