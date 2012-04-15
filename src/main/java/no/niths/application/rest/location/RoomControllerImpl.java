@@ -80,27 +80,13 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/accessfield/{roomId}/{afId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "AcessField Removed")
-    public void removeAccessField(@PathVariable long roomId,
-            @PathVariable long afId) {
-        Room room = service.getById(roomId);
-        ValidationHelper.isObjectNull(room, "Room does not exist");
-
-        boolean isRemoved = false;
-        for (int i = 0; i < room.getAccessFields().size(); i++) {
-            if (room.getAccessFields().get(i).getId() == afId) {
-                room.getAccessFields().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            service.update(room);
-        } else {
-            logger.debug("Accss field not Found");
-            throw new ObjectNotFoundException("Accss field not Found");
-        }
+    @RequestMapping(
+            value  = "remove-accessfield/{roomId}/{accessFieldId}",
+            method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Access Field Removed")
+    public void removeAccessField(
+            @PathVariable long roomId,
+            @PathVariable long accessFieldId) {
+        service.removeAccessField(roomId, accessFieldId);
     }
 }

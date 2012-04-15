@@ -2,18 +2,25 @@ package no.niths.services.location;
 
 import java.util.List;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
+import no.niths.domain.signaling.AccessField;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.interfaces.RoomRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.location.interfaces.RoomService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RoomServiceImpl extends AbstractGenericService<Room>
         implements RoomService {
+
+    private Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 
     @Autowired
     private RoomRepository repo;
@@ -34,6 +41,33 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
             room.getAccessFields().size();
         }
         return room;
+    }
+
+    public void removeAccessField(long roomId, long accessFieldId) {
+        Room room                      = getById(roomId);
+        
+        ValidationHelper.isObjectNull(room, "Room does not exist");
+
+        List<AccessField> accessFields = room.getAccessFields();
+
+        boolean wasRemoved = false;
+        for (int i = 0; i < accessFields.size(); i++) {
+            AccessField accessField = accessFields.get(i);
+
+            if (accessField.getId() == accessFieldId) {
+                accessFields.remove(i);
+                wasRemoved = true;
+                break;
+            }
+        }
+
+        if (wasRemoved) {
+            super.mergeUpdate(room);
+        } else {
+            final String message = "Access field not found";
+            logger.error(message);
+            throw new ObjectNotFoundException(message);
+        }
     }
 
     @Override
