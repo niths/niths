@@ -131,6 +131,7 @@ public class LazyFixer<T> {
                         if (result != null) {
                             Collection<Domain> domains =
                                     (Collection<Domain>) result;
+                            domains.size();
                         }
                     }
                 }

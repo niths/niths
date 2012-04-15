@@ -1,5 +1,6 @@
 package no.niths.services.location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -38,9 +39,9 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
     @Override
     public Room getById(long id) {
         Room room = repo.getById(id);
-        if (room != null) {
-            room.getAccessFields().size();
-        }
+        List<Room> roomList = new ArrayList<Room>();
+        roomList.add(room);
+        lazyFixer.fetchChildren(roomList);
         return room;
     }
 
