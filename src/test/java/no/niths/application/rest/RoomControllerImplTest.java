@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.RoomController;
+import no.niths.application.rest.location.interfaces.RoomController;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;

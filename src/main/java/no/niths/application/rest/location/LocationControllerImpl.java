@@ -1,9 +1,9 @@
 package no.niths.application.rest.location;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.interfaces.LocationController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LocationList;
+import no.niths.application.rest.location.interfaces.LocationController;
 import no.niths.common.AppConstants;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.GenericService;
