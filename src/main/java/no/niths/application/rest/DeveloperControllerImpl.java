@@ -129,7 +129,7 @@ public class DeveloperControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Developer enabled")
 	public void enableDeveloper(@PathVariable Long developerId){
 		Developer developer = service.getById(developerId);
-		ValidationHelper.isObjectNull(developer, "Developer not found");
+		ValidationHelper.isObjectNull(developer, Developer.class);
 		boolean update = false;
 		if(developer.getEnabled() != null){
 			if(!developer.getEnabled()){
@@ -154,7 +154,7 @@ public class DeveloperControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void resetDeveloperKey(@PathVariable Long devId){
 		Developer dev = service.getById(devId);
-		ValidationHelper.isObjectNull(dev, "Developer not found");
+		ValidationHelper.isObjectNull(dev, Developer.class);
 		dev.setDeveloperKey(keyService.generateDeveloperKey());
 		
 		service.update(dev);
@@ -170,10 +170,10 @@ public class DeveloperControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void addApp(@PathVariable Long devId,@PathVariable Long appId) {
 		Developer developer = service.getById(devId);
-		ValidationHelper.isObjectNull(developer, "Developer not found");
+		ValidationHelper.isObjectNull(developer, Developer.class);
 
 		Application app = appService.getById(appId);
-		ValidationHelper.isObjectNull(app, "Application not found");
+		ValidationHelper.isObjectNull(app, Application.class);
 
 		if(!developer.getApps().contains(app)){
 			developer.getApps().add(app);
@@ -193,7 +193,7 @@ public class DeveloperControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
 	public void removeApp(@PathVariable Long devId,@PathVariable Long appId) {
 		Developer developer = service.getById(devId);
-		ValidationHelper.isObjectNull(developer, "Developer not found");
+		ValidationHelper.isObjectNull(developer, Developer.class);
 
 		boolean isRemoved = false;
 		for (int i = 0; i < developer.getApps().size(); i++) {

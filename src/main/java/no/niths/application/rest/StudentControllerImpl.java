@@ -178,10 +178,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Added")
     public void addCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         Course course = courseService.getById(courseId);
-        ValidationHelper.isObjectNull(course, "Course does not exist");
+        ValidationHelper.isObjectNull(course, Course.class);
 
         student.getCourses().add(course);
         service.update(student);
@@ -196,7 +196,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Removed")
     public void removeCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         boolean isRemoved = false;
 
@@ -224,10 +224,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Added")
     public void addCommittee(@PathVariable Long studentId, @PathVariable Long committeeId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee does not exist");
+        ValidationHelper.isObjectNull(committee, Committee.class);
 
         student.getCommittees().add(committee);
         service.update(student);
@@ -242,7 +242,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Removed")
     public void removeCommittee(@PathVariable Long studentId, @PathVariable Long committeeId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         boolean isRemoved = false;
 
@@ -270,10 +270,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Added")
     public void addFeed(@PathVariable Long studentId, @PathVariable Long feedId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         Feed feed = feedService.getById(feedId);
-        ValidationHelper.isObjectNull(feed, "Feed does not exist");
+        ValidationHelper.isObjectNull(feed, Feed.class);
 
         student.getFeeds().add(feed);
         service.update(student);
@@ -288,7 +288,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Removed")
     public void removeFeed(@PathVariable Long studentId, @PathVariable Long feedId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         boolean isRemoved = false;
 
@@ -316,10 +316,10 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         student.getLoans().add(loan);
         service.update(student);
@@ -334,7 +334,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
     public void removeLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
         Student student = service.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         boolean isRemoved = false;
 

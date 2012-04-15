@@ -81,10 +81,10 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long gameId, @PathVariable Long consoleId) {
         Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
+        ValidationHelper.isObjectNull(game, Game.class);
 
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         game.setConsole(console);
         gameService.update(game);
@@ -99,7 +99,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
     public void removeConsole(@PathVariable Long gameId) {
         Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
+        ValidationHelper.isObjectNull(game, Game.class);
 
         boolean isRemoved = false;
 
@@ -124,10 +124,10 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long gameId, @PathVariable Long loanId) {
         Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
+        ValidationHelper.isObjectNull(game, Game.class);
 
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         gameService.update(game);
         logger.debug("Game updated");
@@ -141,7 +141,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
     public void removeLoan(Long gameId) {
         Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
+        ValidationHelper.isObjectNull(game, Game.class);
 
         boolean isRemoved = false;
 

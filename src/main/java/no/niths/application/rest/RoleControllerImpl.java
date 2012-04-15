@@ -9,6 +9,7 @@ import no.niths.application.rest.lists.RoleList;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
+import no.niths.domain.Domain;
 import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
@@ -56,7 +57,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 	public void addStudentRole(@PathVariable Long roleId,
 			@PathVariable Long studentId) {
 		Student stud = studentService.getStudentWithRoles(studentId);
-		validateObject(stud, Student.class.getSimpleName());
+		validateObject(stud, Student.class);
 
 		boolean hasRole = false;
 		for (Role r : stud.getRoles()) {
@@ -69,7 +70,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 		if (!hasRole) {
 
 			Role role = roleService.getById(roleId);
-			validateObject(role, Role.class.getSimpleName());
+			validateObject(role, Role.class);
 
 			stud.getRoles().add(role);
 			studentService.update(stud);
@@ -82,8 +83,8 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 
 	}
 
-	private void validateObject(Object obj, String domain) {
-		ValidationHelper.isObjectNull(obj, domain + " dose not exist");
+	private void validateObject(Domain obj, Class<?> clazz) {
+		ValidationHelper.isObjectNull(obj, clazz);
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 	public void removeStudentRole(@PathVariable Long roleId,
 			@PathVariable Long studentId) {
 		Student stud = studentService.getStudentWithRoles(studentId);
-		validateObject(stud, Student.class.getSimpleName());
+		validateObject(stud, Student.class);
 
 		boolean hasRole = false;
 		for (Role r : stud.getRoles()) {
@@ -123,7 +124,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
 	public void removeAllRolesFromStudent(@PathVariable Long studId) {
 		Student stud = studentService.getStudentWithRoles(studId);
-		validateObject(stud, Student.class.getSimpleName());
+		validateObject(stud, Student.class);
 
 		if (!(stud.getRoles().isEmpty())) {
 			stud.getRoles().clear();
@@ -148,7 +149,7 @@ public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 	public void isStudentInRole(@PathVariable Long studId,
 			@PathVariable String roleName) {
 		Student stud = studentService.getStudentWithRoles(studId);
-		validateObject(stud, Student.class.getSimpleName());
+		validateObject(stud, Student.class);
 
 		boolean hasRole = false;
 

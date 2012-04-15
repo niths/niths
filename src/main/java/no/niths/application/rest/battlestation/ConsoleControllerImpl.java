@@ -54,10 +54,10 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     @ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
     public void addGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, "Game does not exist");
+        ValidationHelper.isObjectNull(game, Game.class);
 
         console.getGames().add(game);
         consoleService.update(console);
@@ -73,7 +73,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     public void removeGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
 
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         boolean isRemoved = false;
 
@@ -101,10 +101,10 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long consoleId, @PathVariable Long loanId) {
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         console.setLoan(loan);
         consoleService.update(console);
@@ -119,7 +119,7 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
     public void removeLoan(@PathVariable Long consoleId) {
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         boolean isRemoved = false;
 

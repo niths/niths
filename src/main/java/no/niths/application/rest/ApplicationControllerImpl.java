@@ -96,7 +96,7 @@ public class ApplicationControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application enabled")
 	public void enableApplication(@PathVariable Long applicationId) {
 		Application app = service.getById(applicationId);
-		ValidationHelper.isObjectNull(app, "Application not found");
+		ValidationHelper.isObjectNull(app, Application.class);
 		boolean update = false;
 		if (app.getEnabled() != null) {
 			if (!app.getEnabled()) {

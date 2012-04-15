@@ -76,7 +76,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	@ResponseBody
 	public List<Subject> getCourseSubjects(@PathVariable Long id) {
 		Course course = courseService.getById(id);
-		ValidationHelper.isObjectNull(course, "Course not found");
+		ValidationHelper.isObjectNull(course, Course.class);
 		subjectList.clear();
 		subjectList.addAll(course.getSubjects());
 		subjectList.setData(course.getSubjects());
@@ -94,9 +94,9 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 			@PathVariable Long studentId) {
 
 		Course c = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(c, "Course not found");
+		ValidationHelper.isObjectNull(c, Course.class);
 		Student student = studentService.getById(studentId);
-		ValidationHelper.isObjectNull(student, "Student not found");
+		ValidationHelper.isObjectNull(student, Student.class);
 		if (c.getCourseRepresentatives().contains(student)) {
 			throw new DuplicateEntryCollectionException(
 					"Student already a representative");
@@ -114,7 +114,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	public void removeRepresentative(@PathVariable Long courseId,
 			@PathVariable Long studentId) {
 		Course c = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(c, "Course not found");
+		ValidationHelper.isObjectNull(c, Course.class);
 
 		boolean isRemoved = false;
 		for (int i = 0; i < c.getCourseRepresentatives().size(); i++) {
@@ -176,10 +176,10 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 			@PathVariable Long subjectId) {
 
 		Course course = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(course, "Course not found");
+		ValidationHelper.isObjectNull(course, Course.class);
 
 		Subject subject = subjectService.getById(subjectId);
-		ValidationHelper.isObjectNull(subject, "Subject not found");
+		ValidationHelper.isObjectNull(subject, Subject.class);
 
 		course.getSubjects().add(subject);
 		courseService.update(course);
@@ -191,7 +191,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
 	public void reomveSubjectToCourse(@PathVariable Long courseId,@PathVariable Long subjectId) {
 		Course course = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(course, "Course not found");
+		ValidationHelper.isObjectNull(course, Course.class);
 		
 		boolean isRemoved = false;
 		for (int i = 0; i < course.getSubjects().size(); i++) {

@@ -54,10 +54,10 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
 	public void addRoom(@PathVariable Long examId, @PathVariable Long roomId) {
 		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+		ValidationHelper.isObjectNull(exam, Exam.class);
 
 		Room room = roomService.getById(roomId);
-		ValidationHelper.isObjectNull(room, "Room does not exist");
+		ValidationHelper.isObjectNull(room, Room.class);
 
 		exam.getRooms().add(room);
 		examService.update(exam);
@@ -72,7 +72,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
 	public void removeRoom(@PathVariable Long examId, @PathVariable Long roomId) {
 		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+		ValidationHelper.isObjectNull(exam, Exam.class);
 
 		boolean isRemoved = false;
 
@@ -101,10 +101,10 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	public void addSubject(@PathVariable Long examId,
 			@PathVariable Long subjectId) {
 		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+		ValidationHelper.isObjectNull(exam, Exam.class);
 
 		Subject subject = subjectService.getById(subjectId);
-		ValidationHelper.isObjectNull(subject, "Subject does not exist");
+		ValidationHelper.isObjectNull(subject, Subject.class);
 
 		exam.setSubject(subject);
 		examService.update(exam);
@@ -120,7 +120,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	public void removeSubject(@PathVariable Long examId,
 			@PathVariable Long subjectId) {
 		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, "Exam does not exist");
+		ValidationHelper.isObjectNull(exam, Exam.class);
 
 		boolean isRemoved = false;
 

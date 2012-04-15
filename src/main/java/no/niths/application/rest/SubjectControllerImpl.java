@@ -64,10 +64,10 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     public void addTutor(@PathVariable Long subjectId,
                          @PathVariable Long studentId) {
         Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, "Subject not found");
+        ValidationHelper.isObjectNull(subject, Subject.class);
 
         Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student not found");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         if (!subject.getTutors().contains(student)) {
             subject.getTutors().add(student);
@@ -88,7 +88,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     public void removeTutor(@PathVariable Long subjectId,
                             @PathVariable Long studentId) {
         Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, "Subject not found");
+        ValidationHelper.isObjectNull(subject, Subject.class);
 
         boolean isRemoved = false;
         for (int i = 0; i < subject.getTutors().size(); i++) {
@@ -117,10 +117,10 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     public void addRoom(@PathVariable Long subjectId,
                          @PathVariable Long roomId) {
         Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, "Subject not found");
+        ValidationHelper.isObjectNull(subject, Subject.class);
 
         Room room = roomService.getById(roomId);
-        ValidationHelper.isObjectNull(room, "Room not found");
+        ValidationHelper.isObjectNull(room, Room.class);
 
         subject.setRoom(room);
         service.update(subject);
@@ -136,7 +136,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     @ResponseStatus(value = HttpStatus.OK, reason = "Room removed from subject")
     public void removeRoom(@PathVariable Long subjectId) {
         Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, "Subject not found");
+        ValidationHelper.isObjectNull(subject, Subject.class);
 
         boolean isRemoved = false;
         if (subject.getRoom() != null) {

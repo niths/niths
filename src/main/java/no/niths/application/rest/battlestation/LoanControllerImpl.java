@@ -86,7 +86,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Game Removed")
     public void removeGame(@PathVariable Long loanId, @PathVariable Long gameId) {
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         boolean isRemoved = false;
 
@@ -106,10 +106,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, "Console does not exist");
+        ValidationHelper.isObjectNull(console, Console.class);
 
         loan.getConsoles().add(console);
         loanService.update(loan);
@@ -124,7 +124,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
     public void removeConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         boolean isRemoved = false;
 
@@ -152,10 +152,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Student Added")
     public void addStudent(@PathVariable Long loanId, @PathVariable Long studentId) {
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student does not exist");
+        ValidationHelper.isObjectNull(student, Student.class);
 
         loan.setStudent(student);
         loanService.update(loan);
@@ -170,7 +170,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     @ResponseStatus(value = HttpStatus.OK, reason = "Student Removed")
     public void removeStudent(Long loanId) {
         Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, "Loan does not exist");
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
         boolean isRemoved = false;
 

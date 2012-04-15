@@ -69,7 +69,7 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	@Override
 	public Long create(T domain) {
-	    //validateFields(domain);
+	    validateFields(domain);
 		return getRepository().create(domain);
 	}
 	

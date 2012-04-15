@@ -114,7 +114,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
 	public void addLocation(@PathVariable Long eventId,@PathVariable Long locId) {
 		Event event = service.getById(eventId);
-		ValidationHelper.isObjectNull(event, "Event not exist");
+		ValidationHelper.isObjectNull(event, Event.class);
 		
 		if (event.getLocation() != null && event.getLocation().getId() == locId) {
 			logger.debug("location exist");
@@ -122,7 +122,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 		}
 		
 		Location location = locService.getById(locId);
-		ValidationHelper.isObjectNull(location, "Location does not exist");
+		ValidationHelper.isObjectNull(location, Location.class);
 		
 		event.setLocation(location);
 		service.update(event);
@@ -138,7 +138,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
 	public void removeLocation(@PathVariable Long eventId,@PathVariable Long locId) {
 		Event event = service.getById(eventId);
-		ValidationHelper.isObjectNull(event, "Event not exist");
+		ValidationHelper.isObjectNull(event, Event.class);
 		
 		boolean isRemoved = false;
 		if (event.getLocation() != null && event.getLocation().getId() == locId) {

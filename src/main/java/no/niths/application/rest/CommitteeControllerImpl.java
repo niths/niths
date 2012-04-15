@@ -97,9 +97,9 @@ public class CommitteeControllerImpl extends
     public void addLeader(@PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
+        ValidationHelper.isObjectNull(committee, Committee.class);
         Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, "Student not found");
+        ValidationHelper.isObjectNull(student, Student.class);
         if (committee.getLeaders().contains(student)) {
             throw new DuplicateEntryCollectionException(
                     "Student already a leader");
@@ -123,7 +123,7 @@ public class CommitteeControllerImpl extends
     public void removeLeader(@PathVariable Long committeeId,
             @PathVariable Long studentId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
+        ValidationHelper.isObjectNull(committee, Committee.class);
 
         boolean isRemoved = false;
         for (int i = 0; i < committee.getLeaders().size(); i++) {
@@ -151,10 +151,10 @@ public class CommitteeControllerImpl extends
     public void addEvent(@PathVariable Long committeeId,
             @PathVariable Long eventId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
+        ValidationHelper.isObjectNull(committee, Committee.class);
 
         Event event = eventService.getById(eventId);
-        ValidationHelper.isObjectNull(event, "Event not found");
+        ValidationHelper.isObjectNull(event, Event.class);
 
         if (committee.getEvents().contains(event)) {
             throw new DuplicateEntryCollectionException("Event already added");
@@ -175,7 +175,7 @@ public class CommitteeControllerImpl extends
     public void removeEvent(@PathVariable Long committeeId,
             @PathVariable Long eventId) {
         Committee committee = committeeService.getById(committeeId);
-        ValidationHelper.isObjectNull(committee, "Committee not found");
+        ValidationHelper.isObjectNull(committee, Committee.class);
 
         boolean isRemoved = false;
 

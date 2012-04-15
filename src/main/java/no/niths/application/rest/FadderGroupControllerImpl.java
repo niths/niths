@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,9 +101,9 @@ public class FadderGroupControllerImpl
     public FadderGroup getGroupBelongingToStudent(
             @PathVariable Long studentId) {
         Student s = studService.getById(studentId);
-        ValidationHelper.isObjectNull(s, "Cant find the student");
+        ValidationHelper.isObjectNull(s, Student.class);
         FadderGroup g = service.getGroupBelongingToStudent(studentId);
-        ValidationHelper.isObjectNull(g, "A Student is not a child");
+        ValidationHelper.isObjectNull(g, FadderGroup.class);
         g.setFadderChildren(null);
         g.setLeaders(null);
 
@@ -344,13 +343,13 @@ public class FadderGroupControllerImpl
 
     private Student getStudent(Long studId) {
         Student stud = studService.getById(studId);
-        ValidationHelper.isObjectNull(stud, "Student not found");
+        ValidationHelper.isObjectNull(stud, Student.class);
         return stud;
     }
 
     private FadderGroup getGroup(Long groupId) {
         FadderGroup group = service.getById(groupId);
-        ValidationHelper.isObjectNull(group, "Faddergroup not found");
+        ValidationHelper.isObjectNull(group, FadderGroup.class);
         return group;
     }
 }

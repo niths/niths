@@ -78,7 +78,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_ADDED)
 	public void addLocation(@PathVariable Long feedId,@PathVariable Long locId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
+		ValidationHelper.isObjectNull(feed, Feed.class);
 		
 		if (feed.getLocation() != null && feed.getLocation().getId() == locId) {
 			logger.debug(LOCATION_EXIST);
@@ -86,7 +86,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		}
 		
 		Location location = locService.getById(locId);
-		ValidationHelper.isObjectNull(location, "Location does not exist");
+		ValidationHelper.isObjectNull(location, Location.class);
 		
 		feed.setLocation(location);
 		service.update(feed);
@@ -102,7 +102,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_REMOVED)
 	public void removeLocation(@PathVariable Long feedId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
+		ValidationHelper.isObjectNull(feed, Feed.class);
 		
 		boolean isRemoved = false;
 		if (feed.getLocation() != null) {
@@ -127,14 +127,14 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@ResponseStatus(value = HttpStatus.OK, reason = "STUDENT_ADDED_TO_FEED")
 	public void addStudent(@PathVariable Long feedId,@PathVariable Long studentId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
+		ValidationHelper.isObjectNull(feed, Feed.class);
 		if (feed.getStudent() != null && feed.getStudent().getId() == studentId) {
 			logger.debug(STUDENT_EXIST);
 			throw new DuplicateEntryCollectionException(STUDENT_EXIST);
 		}
 		
 		Student student = studentService.getById(studentId);
-		ValidationHelper.isObjectNull(student, STUDENT_DOES_NOT_EXIST);
+		ValidationHelper.isObjectNull(student, Student.class);
 		
 		feed.setStudent(student);
 		service.update(feed);
@@ -150,7 +150,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	@ResponseStatus(value = HttpStatus.OK, reason = STUDENT_REMOVED)
 	public void removeStudent(@PathVariable Long feedId) {
 		Feed feed = service.getById(feedId);
-		ValidationHelper.isObjectNull(feed, FEED_DOSE_NOT_EXIST);
+		ValidationHelper.isObjectNull(feed, Feed.class);
 	
 		boolean isRemoved = false;
 		if (feed.getStudent() != null) {

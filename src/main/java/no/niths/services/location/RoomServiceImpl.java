@@ -3,6 +3,7 @@ package no.niths.services.location;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.MsgBuilder;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
@@ -43,10 +44,16 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
         return room;
     }
 
-    public void removeAccessField(long roomId, long accessFieldId) {
-        Room room                      = getById(roomId);
+    public void addAccessField(long roomId, long AccessFieldId) {
+        Room room = getById(roomId);
         
-        ValidationHelper.isObjectNull(room, "Room does not exist");
+    }
+
+    @Override
+    public void removeAccessField(long roomId, long accessFieldId) {
+        Room room = getById(roomId);
+        
+        ValidationHelper.isObjectNull(room, Room.class);
 
         List<AccessField> accessFields = room.getAccessFields();
 

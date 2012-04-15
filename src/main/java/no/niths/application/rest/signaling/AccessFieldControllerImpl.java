@@ -84,14 +84,14 @@ public class AccessFieldControllerImpl extends
     @ResponseStatus(value = HttpStatus.OK, reason = "AcessPoint Added")
     public void addAccessPoint(@PathVariable long afId, @PathVariable long apId) {
         AccessField af = service.getById(afId);
-        ValidationHelper.isObjectNull(af, "Acess field does not exist");
+        ValidationHelper.isObjectNull(af, AccessField.class);
         if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
             logger.debug("Acess Point exist");
             throw new DuplicateEntryCollectionException("Acess Point exist");
         }
         
         AccessPoint ap = apService.getById(apId);
-        ValidationHelper.isObjectNull(ap, "Access point does not exist");
+        ValidationHelper.isObjectNull(ap, AccessPoint.class);
         af.setAccessPoint(ap);
         service.update(af);
         logger.debug("Accss field updated and changed");
@@ -105,7 +105,7 @@ public class AccessFieldControllerImpl extends
     public void removeAccessPoint(@PathVariable long afId,
             @PathVariable long apId) {
         AccessField af = service.getById(afId);
-        ValidationHelper.isObjectNull(af, "Room does not exist");
+        ValidationHelper.isObjectNull(af, AccessField.class);
 
         boolean isRemoved = false;
         if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
