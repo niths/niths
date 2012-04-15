@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author NITHs
  *
  */
-public class Nullifier<T> {
+public class LazyFixer<T> {
 
     private final Object[] varargsNull = new Object[] { null };
 

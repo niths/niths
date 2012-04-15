@@ -17,7 +17,7 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.helper.Error;
-import no.niths.application.rest.helper.Nullifier;
+import no.niths.application.rest.helper.LazyFixer;
 import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -79,7 +79,7 @@ public abstract class AbstractRESTControllerImpl<T> implements
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractRESTControllerImpl.class);
 
-    private Nullifier<T> nullifier = new Nullifier<T>();
+    private LazyFixer<T> nullifier = new LazyFixer<T>();
 
     /**
      * Persists the domain
