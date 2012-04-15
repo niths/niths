@@ -50,13 +50,6 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     public ListAdapter<Room> getList() {
         return roomList;
     }
-    
-    @Override
-    public Room getById(@PathVariable Long id) {
-    	Room r = super.getById(id);
-
-    	return r;
-    }
 
     /**
      * {@inheritDoc}
