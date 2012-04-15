@@ -3,7 +3,7 @@ package no.niths.services.location;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.helper.MsgBuilder;
+import no.niths.common.LazyFixer;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
@@ -28,7 +28,9 @@ public class RoomServiceImpl extends AbstractGenericService<Room>
 
     @Override
     public List<Room> getAll(Room domain) {
+        LazyFixer lazyFixer = new LazyFixer();
         List<Room> rooms = repo.getAll(domain);
+        lazyFixer.fetchChildren(rooms);
         for (Room r : rooms) {
             r.getAccessFields().size();
         }

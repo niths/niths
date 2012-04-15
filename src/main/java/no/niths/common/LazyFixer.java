@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -67,8 +68,9 @@ public class LazyFixer<T> {
 
                     // Find the collection's getter method
                     Method outerMethod = domainType.getMethod(
-                            generateGetterName(outerFieldName), // Name
-                            (Class<?>[]) null); // Parameter(s)
+                            generateAccessorString(
+                                    outerFieldName, Accessor.GET),
+                            (Class<?>[]) null);
 
                     Object result = outerMethod.invoke(domain);
                     if (result != null) {
@@ -85,14 +87,16 @@ public class LazyFixer<T> {
 
                         // Nullify domain that are transient
                         domainType.getDeclaredMethod(
-                                generateSetterName(outerFieldName),
+                                generateAccessorString(
+                                        outerFieldName, Accessor.SET),
                                 outerType)
                                     .invoke(domain, varargsNull);
 
                     // Nullify all domains and collections in the domain
                     } else {
                         Domain result = (Domain) domainType.getMethod(
-                                generateGetterName(outerFieldName),
+                                generateAccessorString(
+                                        outerFieldName, Accessor.GET),
                                 (Class<?>[]) null).invoke(domain);
                         
                         if (result != null) {
@@ -104,6 +108,20 @@ public class LazyFixer<T> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void fetchChildren(List<Object> list) {
+        for (Object element : list) {
+            for (Field field : element.getClass().getDeclaredFields()) {
+                Class<?> type = field.getType();
+
+                if (!checkAnnotations(field.getAnnotations())
+                        && Collection.class.isAssignableFrom(type)) {
+                    generateAccessorString("foo", Accessor.GET);
+                    
+                }
             }
         }
     }
@@ -128,16 +146,14 @@ public class LazyFixer<T> {
         return isTransient;
     }
 
-    private String generateGetterName(String fieldName) {
-        return String.format("get%s", captialize(fieldName));
+    private Object invokeGetterMethod(String fieldName) {
+        return null;
     }
 
-    private String generateSetterName(String fieldName) {
-        return String.format("set%s", captialize(fieldName));
-    }
-
-    private String captialize(String text) {
-        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    private String generateAccessorString(String fieldName, Accessor accessor) {
+        return String.format(
+                "%s%s", accessor, Character.toUpperCase(fieldName.charAt(0))
+                        + fieldName.substring(1));
     }
 
     /**
@@ -162,7 +178,7 @@ public class LazyFixer<T> {
             if (Collection.class.isAssignableFrom(fieldType)
                     || Domain.class.isAssignableFrom(fieldType)) {
                 type.getMethod(
-                        generateSetterName(field.getName()),
+                        generateAccessorString(field.getName(), Accessor.SET),
                         fieldType).invoke(target, varargsNull);
             }
         }
