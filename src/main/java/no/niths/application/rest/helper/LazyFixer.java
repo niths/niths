@@ -22,6 +22,10 @@ public class LazyFixer<T> {
 
     private final Object[] varargsNull = new Object[] { null };
 
+    /**
+     * Sets any children in the list of domains to null
+     * @param list the list of which the relations are to be cleared
+     */
     public void clearRelations(ListAdapter<T> list) {
 
         try {
@@ -37,6 +41,10 @@ public class LazyFixer<T> {
         }
     }
 
+    /**
+     * Sets any 2nd level children to null
+     * @param domain the domain of which 2nd level children are to be removed
+     */
     @SuppressWarnings("unchecked")
     public void clearSubRelations(T domain) {
         Class<?> domainType = domain.getClass();
@@ -100,6 +108,12 @@ public class LazyFixer<T> {
         }
     }
 
+    /**
+     * 
+     * @param annotations the field's annotations
+     * @return whether the annotations indicate that the field is transient or
+     *         not 
+     */
     private boolean checkAnnotations(Annotation[] annotations) {
         boolean isTransient = false;
 
@@ -126,6 +140,16 @@ public class LazyFixer<T> {
         return Character.toUpperCase(text.charAt(0)) + text.substring(1);
     }
 
+    /**
+     * 
+     * @param target the object to be set to null
+     * @param type the class
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
     private void removeChild(Object target, Class<?> type)
             throws NoSuchMethodException, SecurityException,
                    IllegalAccessException, IllegalArgumentException,
