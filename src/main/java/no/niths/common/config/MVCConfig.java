@@ -1,10 +1,11 @@
 package no.niths.common.config;
 
+import no.niths.application.rest.helper.CustomMultipartResolver;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -24,9 +25,8 @@ public class MVCConfig {
         return viewResolver;
     }
 
-//    @Bean
-//    public MultipartResolver multipartResolver() {
-//        MultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        return multipartResolver;
-//    }
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new CustomMultipartResolver();
+    }
 }
