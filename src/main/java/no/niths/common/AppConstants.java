@@ -8,6 +8,7 @@ public final class AppConstants {
     public static final String ADMIN = "admin";
     public static final String ADMIN_DEV = "admin/developer";
     public static final String API_EVENTS = "api_events";
+    public static final String APIEVENTS = "apievents";
     public static final String APPLICATIONS = "applications";
     public static final String AUTH = "auth";
     public static final String BROADCAST = "broadcast";

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(AppConstants.API_EVENTS)
+@RequestMapping(AppConstants.APIEVENTS)
 public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent> implements APIEventController{
 
 	@Autowired
