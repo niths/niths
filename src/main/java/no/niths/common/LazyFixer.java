@@ -1,4 +1,4 @@
-package no.niths.application.rest.helper;
+package no.niths.common;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
