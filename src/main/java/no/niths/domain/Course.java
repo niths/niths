@@ -37,39 +37,46 @@ import org.hibernate.annotations.CascadeType;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Course implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = -1898014630305240760L;
+    @Transient
+    private static final long serialVersionUID = -1898014630305240760L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique=true)
-    @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
+    @Column(unique = true)
+    @Size(
+            min     = 3,
+            max     = 30,
+            message = "The length of the name must be between 3 to 30 chars")
     private String name;
 
-    @Column(length=500)
-    @Size(max = 500, message ="The length of the description must not exceed 500 letters")
+    @Column(length = 500)
+    @Size(
+            max     = 500,
+            message = "The length of the description must not exceed 500 chars")
     private String description;
     
     @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-	private List<Subject> subjects = new ArrayList<Subject>();
-	
+    private List<Subject> subjects = new ArrayList<Subject>();
+    
     @JsonIgnore
     @XmlTransient
     @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "students_courses", 
-		joinColumns = @JoinColumn(name = "courses_id"), 
-		inverseJoinColumns = @JoinColumn(name = "students_id"))
+    @JoinTable(name = "students_courses", 
+        joinColumns = @JoinColumn(name = "courses_id"), 
+        inverseJoinColumns = @JoinColumn(name = "students_id"))
     @Cascade(CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
     
     @OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "courses_representatives", 
-		joinColumns = @JoinColumn(name = "courses_id"), 
-		inverseJoinColumns = @JoinColumn(name = "representatives_id"),
-		uniqueConstraints = @UniqueConstraint(columnNames = {"courses_id","representatives_id"}))
+    @JoinTable(
+            name               = "courses_representatives",
+            joinColumns        = @JoinColumn(name = "courses_id"),
+            inverseJoinColumns = @JoinColumn(name = "representatives_id"),
+            uniqueConstraints  = @UniqueConstraint(
+                    columnNames = {"courses_id","representatives_id"}))
     @Cascade(CascadeType.ALL)
     private List<Student> courseRepresentatives = new ArrayList<Student>();
 
@@ -99,14 +106,14 @@ public class Course implements Domain {
     }
 
     public List<Subject> getSubjects() {
-		return subjects;
-	}
+        return subjects;
+    }
 
-	public void setSubjects(List<Subject> subject) {
-		this.subjects = subject;
-	}
+    public void setSubjects(List<Subject> subject) {
+        this.subjects = subject;
+    }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -122,9 +129,9 @@ public class Course implements Domain {
         this.description = description;
     }
 
-	@Override
+    @Override
     public boolean equals(Object that) {
-    	if(!(that instanceof Course)) return false;
+        if(!(that instanceof Course)) return false;
         Course course = (Course) that;
 
         return course == this ? true : course.getId() == id
@@ -136,19 +143,19 @@ public class Course implements Domain {
         return String.format("[%s][%s][%s]", id, name, description);
     }
 
-	public List<Student> getStudents() {
-		return students;
-	}
+    public List<Student> getStudents() {
+        return students;
+    }
 
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
-	public List<Student> getCourseRepresentatives() {
-		return courseRepresentatives;
-	}
+    public List<Student> getCourseRepresentatives() {
+        return courseRepresentatives;
+    }
 
-	public void setCourseRepresentatives(List<Student> courseRepresentatives) {
-		this.courseRepresentatives = courseRepresentatives;
-	}
+    public void setCourseRepresentatives(List<Student> courseRepresentatives) {
+        this.courseRepresentatives = courseRepresentatives;
+    }
 }
