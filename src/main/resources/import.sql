@@ -384,6 +384,7 @@ insert into exam_subjects (subjects_id, exams_id) values(2, 2);
 insert into courses_representatives (courses_id, representatives_id) values (1, 1);
 insert into courses_representatives (courses_id, representatives_id) values (1, 2);
 insert into courses_representatives (courses_id, representatives_id) values (2, 3);
+<<<<<<< HEAD
 ---------------------------------------------------------------------
 --------------------------consoles--------------------------------
 INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Nintendo Wii', 'Seventh generation', 1);
@@ -416,7 +417,149 @@ INSERT INTO students_loans (student_id, loan_id) VALUES(3, 3);
 INSERT INTO students_loans (student_id, loan_id) VALUES(2, 4);
 
 
+INSERT INTO games (id, category, title) VALUES (1, 'PLATFORM', 'Super Mario Galaxy');
+INSERT INTO games (id, category, title) VALUES (2, 'BEAT_EM_UP', 'MadWorld');
+INSERT INTO games (id, category, title) VALUES (3, 'LIFE_SIMULATION', 'Little Kings Story');
+INSERT INTO games (id, category, title) VALUES (4, 'PARTY', 'Wario Ware: Smooth Moves');
+INSERT INTO games (id, category, title) VALUES (5, 'FIGHTING', 'Super Smash Bros. Brawl');
+INSERT INTO games (id, category, title) VALUES (6, 'ACTION_ADVENTURE', 'No More Heroes');
+INSERT INTO games (id, category, title) VALUES (7, 'RACING', 'Mario Kart Wii');
+INSERT INTO games (id, category, title) VALUES (8, 'PARTY', 'Mario Party 8');
+INSERT INTO games (id, category, title) VALUES (9, 'THIRD_PERSON_SHOOTER', 'Resident Evil 4');
+INSERT INTO games (id, category, title) VALUES (10, 'BEAT_EM_UP', 'Marvel Super Hero Squad');
+INSERT INTO games (id, category, title) VALUES (11, 'SPORTS', 'Mario & Sonic at the Olympic Games');
+INSERT INTO games (id, category, title) VALUES (12, 'RAIL_SHOOTER', 'The House of the Dead: Overkill');
+INSERT INTO games (id, category, title) VALUES (13, 'SPORTS', 'Wii Sports');
 
+INSERT INTO games (id, category, title) VALUES (14, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (15, 'ACTION_ADVENTURE', 'Mirrors Edge');
+INSERT INTO games (id, category, title) VALUES (16, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (17, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (18, 'SPORTS', 'FIFA 11');
+INSERT INTO games (id, category, title) VALUES (19, 'FIGHTING', 'Super Street Fighter IV');
+INSERT INTO games (id, category, title) VALUES (20, 'ACTION_ADVENTURE', 'Batman: Arkham Asylum');
+INSERT INTO games (id, category, title) VALUES (21, 'SPORTS', 'NHL 10');
+INSERT INTO games (id, category, title) VALUES (22, 'THIRD_PERSON_SHOOTER', 'Alan Wake');
+INSERT INTO games (id, category, title) VALUES (23, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (24, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Black Ops');
+INSERT INTO games (id, category, title) VALUES (25, 'FIRST_PERSON_SHOOTER', 'Borderlands');
+
+INSERT INTO games (id, category, title) VALUES (26, 'PLATFORM', 'Ratchet & Clank: Size Matters');
+INSERT INTO games (id, category, title) VALUES (27, 'SURVIVAL_HORROR', 'Silent Hill: Origins');
+INSERT INTO games (id, category, title) VALUES (28, 'ACTION_ADVENTURE', 'God of War');
+INSERT INTO games (id, category, title) VALUES (29, 'ROLE_PLAYING_GAME', 'Shin Megami Tensei: Persona 4');
+INSERT INTO games (id, category, title) VALUES (30, 'THIRD_PERSON_SHOOTER', 'Resident Evil 4');
+
+INSERT INTO games (id, category, title) VALUES (31, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (32, 'THIRD_PERSON_SHOOTER', 'Gears of War 2');
+INSERT INTO games (id, category, title) VALUES (33, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (34, 'FIGHTING', 'Tekken 6');
+INSERT INTO games (id, category, title) VALUES (35, 'FIRST_PERSON_SHOOTER', 'Halo 3');
+INSERT INTO games (id, category, title) VALUES (36, 'FIRST_PERSON_SHOOTER', 'The Orange Box');
+INSERT INTO games (id, category, title) VALUES (37, 'PUZZLE_PLATFORM', 'Portal 2');
+INSERT INTO games (id, category, title) VALUES (38, 'FIGHTING', 'Marvel vs. Capcom 3: Fate of Two Worlds');
+INSERT INTO games (id, category, title) VALUES (39, 'ACTION_ADVENTURE', 'Majin and the Forsaken Kingdom');
+INSERT INTO games (id, category, title) VALUES (40, 'ACTION_ADVENTURE', 'Lego Indiana Jones: The Original Adventures / Kung Fu Panda');
+INSERT INTO games (id, category, title) VALUES (41, 'DIGITAL_PET', 'Kinectimals');
+INSERT INTO games (id, category, title) VALUES (42, 'MUSIC', 'Dance Central');
+
+INSERT INTO games (id, category, title) VALUES (43, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (44, 'ACTION_ADVENTURE', 'Lego Indiana Jones: The Original Adventures / Kung Fu Panda');
+INSERT INTO games (id, category, title) VALUES (45, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (46, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (47, 'FIRST_PERSON_SHOOTER', 'Halo 3');
+INSERT INTO games (id, category, title) VALUES (48, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (49, 'SURVIVAL_HORROR', 'Dead Rising');
+INSERT INTO games (id, category, title) VALUES (50, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Modern Warfare 2');
+
+INSERT INTO games (id, category, title) VALUES (51, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (52, 'ACTION_ROLEPLAYING', 'Fable II');
+INSERT INTO games (id, category, title) VALUES (53, 'REAL_TIME_TACTICS', 'Tom Clancys EndWar');
+INSERT INTO games (id, category, title) VALUES (54, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (55, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Black Ops');
+INSERT INTO games (id, category, title) VALUES (56, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (57, 'SPORTS', 'FIFA 10');
+INSERT INTO games (id, category, title) VALUES (58, 'SPORTS', 'FIFA 11');
+INSERT INTO games (id, category, title) VALUES (59, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (60, 'FIRST_PERSON_SHOOTER', 'Halo 3: ODST');
+INSERT INTO games (id, category, title) VALUES (61, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (62, 'LIFE_SIMULATION', 'Viva Pinata');
+INSERT INTO games (id, category, title) VALUES (63, 'FIRST_PERSON_SHOOTER', 'Borderlands');
+INSERT INTO games (id, category, title) VALUES (64, 'PUZZLE_PLATFORM', 'Portal 2');
+
+
+INSERT INTO consoles (id, name, locker) VALUES (1, 'Nintendo Wii', 1);
+INSERT INTO consoles (id, name, locker) VALUES (2, 'Xbox 360', 2);
+INSERT INTO consoles (id, name, locker) VALUES (3, 'Playstation 2', 2);
+INSERT INTO consoles (id, name, locker) VALUES (4, 'Xbox 360', 3);
+INSERT INTO consoles (id, name, locker) VALUES (5, 'Xbox 360', 4);
+INSERT INTO consoles (id, name, locker) VALUES (6, 'Playstation 3', 4);
+INSERT INTO consoles (id, name, locker) VALUES (7, 'Xbox 360', 5);
+
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,1);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,2);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,3);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,4);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,5);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,6);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,7);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,8);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,9);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,10);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,11);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,12);
+INSERT INTO games_consoles (console_id, game_id) VALUES (1,13);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,14);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,15);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,16);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,17);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,18);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,19);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,20);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,21);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,22);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,23);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,24);
+INSERT INTO games_consoles (console_id, game_id) VALUES (2,25);
+INSERT INTO games_consoles (console_id, game_id) VALUES (3,26);
+INSERT INTO games_consoles (console_id, game_id) VALUES (3,27);
+INSERT INTO games_consoles (console_id, game_id) VALUES (3,28);
+INSERT INTO games_consoles (console_id, game_id) VALUES (3,29);
+INSERT INTO games_consoles (console_id, game_id) VALUES (3,30);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,31);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,32);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,33);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,34);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,35);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,36);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,37);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,38);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,39);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,40);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,41);
+INSERT INTO games_consoles (console_id, game_id) VALUES (4,42);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,43);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,44);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,45);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,46);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,47);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,48);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,49);
+INSERT INTO games_consoles (console_id, game_id) VALUES (5,50);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,51);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,52);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,53);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,54);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,55);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,56);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,57);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,58);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,59);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,60);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,61);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,62);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,63);
+INSERT INTO games_consoles (console_id, game_id) VALUES (7,64);
 
 
 
