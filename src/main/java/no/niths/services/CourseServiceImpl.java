@@ -14,17 +14,7 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
 
 	@Autowired
 	private CourseRepository repo;
-	
-	@Override
-    public Course getById(long id) {
-    	Course c = repo.getById(id);
-    	if(c != null){
-    		c.getSubjects().size();
-    		c.getCourseRepresentatives().size();
-    	}
-        return c;
-   }
-   
+
 	@Override
 	public GenericRepository<Course> getRepository() {
 		return repo;

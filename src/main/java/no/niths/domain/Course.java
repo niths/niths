@@ -62,8 +62,6 @@ public class Course implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
     
-    @JsonIgnore
-   	@XmlTransient
     @OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "courses_representatives", 
 		joinColumns = @JoinColumn(name = "courses_id"), 
