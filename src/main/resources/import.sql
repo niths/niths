@@ -429,17 +429,76 @@ INSERT INTO consoles (id, name, console_type, locker) VALUES (2, 'Playstation 3'
 INSERT INTO consoles (id, name, console_type, locker) VALUES (3, 'Xbox 360', 'Seventh generation', 1);
 INSERT INTO consoles (id, name, console_type, locker) VALUES (4, 'Playstation 2', 'Seventh generation', 1);
 
-INSERT INTO games (id, category, title) VALUES (1, 'ACTION', 'CoD MW2');
+INSERT INTO games (id, category, title) VALUES (1, 'PLATFORM', 'Super Mario Galaxy');
+INSERT INTO games (id, category, title) VALUES (2, 'BEAT_EM_UP', 'MadWorld');
+INSERT INTO games (id, category, title) VALUES (3, 'LIFE_SIMULATION', 'Little Kings Story');
+INSERT INTO games (id, category, title) VALUES (4, 'PARTY', 'Wario Ware: Smooth Moves');
+INSERT INTO games (id, category, title) VALUES (5, 'FIGHTING', 'Super Smash Bros. Brawl');
+INSERT INTO games (id, category, title) VALUES (6, 'ACTION_ADVENTURE', 'No More Heroes');
+INSERT INTO games (id, category, title) VALUES (7, 'RACING', 'Mario Kart Wii');
+INSERT INTO games (id, category, title) VALUES (8, 'PARTY', 'Mario Party 8');
+INSERT INTO games (id, category, title) VALUES (9, 'THIRD_PERSON_SHOOTER', 'Resident Evil 4');
+INSERT INTO games (id, category, title) VALUES (10, 'BEAT_EM_UP', 'Marvel Super Hero Squad');
+INSERT INTO games (id, category, title) VALUES (11, 'SPORTS', 'Mario & Sonic at the Olympic Games');
+INSERT INTO games (id, category, title) VALUES (12, 'RAIL_SHOOTER', 'The House of the Dead: Overkill');
+INSERT INTO games (id, category, title) VALUES (13, 'SPORTS', 'Wii Sports');
 
-INSERT INTO games_consoles(console_id, game_id) VALUES (1, 1);
+INSERT INTO games (id, category, title) VALUES (14, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (15, 'ACTION_ADVENTURE', 'Mirrors Edge');
+INSERT INTO games (id, category, title) VALUES (16, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (17, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (18, 'SPORTS', 'FIFA 11');
+INSERT INTO games (id, category, title) VALUES (19, 'FIGHTING', 'Super Street Fighter IV');
+INSERT INTO games (id, category, title) VALUES (20, 'ACTION_ADVENTURE', 'Batman: Arkham Asylum');
+INSERT INTO games (id, category, title) VALUES (21, 'SPORTS', 'NHL 10');
+INSERT INTO games (id, category, title) VALUES (22, 'THIRD_PERSON_SHOOTER', 'Alan Wake');
+INSERT INTO games (id, category, title) VALUES (23, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (24, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Black Ops');
+INSERT INTO games (id, category, title) VALUES (25, 'FIRST_PERSON_SHOOTER', 'Borderlands');
+INSERT INTO games (id, category, title) VALUES (26, 'PARTY', 'Wario Ware: Smooth Moves');
 
-INSERT INTO loans (id, loan_date, return_date) VALUES(1, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
+INSERT INTO games (id, category, title) VALUES (27, 'PLATFORM', 'Ratchet & Clank: Size Matters');
+INSERT INTO games (id, category, title) VALUES (28, 'SURVIVAL_HORROR', 'Silent Hill: Origins');
+INSERT INTO games (id, category, title) VALUES (29, 'ACTION_ADVENTURE', 'God of War');
+INSERT INTO games (id, category, title) VALUES (30, 'ROLE_PLAYING_GAME', 'Shin Megami Tensei: Persona 4');
+INSERT INTO games (id, category, title) VALUES (31, 'THIRD_PERSON_SHOOTER', 'Resident Evil 4');
 
-INSERT INTO loans_consoles (loan_id, console_id) VALUES(1, 1);
+INSERT INTO games (id, category, title) VALUES (32, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (33, 'THIRD_PERSON_SHOOTER', 'Gears of War 2');
+INSERT INTO games (id, category, title) VALUES (34, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (35, 'FIGHTING', 'Tekken 6');
+INSERT INTO games (id, category, title) VALUES (36, 'FIRST_PERSON_SHOOTER', 'Halo 3');
+INSERT INTO games (id, category, title) VALUES (37, 'FIRST_PERSON_SHOOTER', 'The Orange Box');
+INSERT INTO games (id, category, title) VALUES (38, 'PUZZLE_PLATFORM', 'Portal 2');
+INSERT INTO games (id, category, title) VALUES (39, 'FIGHTING', 'Marvel vs. Capcom 3: Fate of Two Worlds');
+INSERT INTO games (id, category, title) VALUES (40, 'ACTION_ADVENTURE', 'Majin and the Forsaken Kingdom');
+INSERT INTO games (id, category, title) VALUES (41, 'ACTION_ADVENTURE', 'Lego Indiana Jones: The Original Adventures / Kung Fu Panda');
+INSERT INTO games (id, category, title) VALUES (42, 'DIGITAL_PET', 'Kinectimals');
+INSERT INTO games (id, category, title) VALUES (43, 'MUSIC', 'Dance Central');
 
-INSERT INTO students_loans (student_id, loan_id) VALUES(1, 1);
+INSERT INTO games (id, category, title) VALUES (44, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (45, 'ACTION_ADVENTURE', 'Lego Indiana Jones: The Original Adventures / Kung Fu Panda');
+INSERT INTO games (id, category, title) VALUES (46, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (47, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (48, 'FIRST_PERSON_SHOOTER', 'Halo 3');
+INSERT INTO games (id, category, title) VALUES (49, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (50, 'SURVIVAL_HORROR', 'Dead Rising');
+INSERT INTO games (id, category, title) VALUES (51, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Modern Warfare 2');
 
-
+INSERT INTO games (id, category, title) VALUES (52, 'FIRST_PERSON_SHOOTER', 'Left 4 Dead');
+INSERT INTO games (id, category, title) VALUES (53, 'ACTION_ROLEPLAYING', 'Fable II');
+INSERT INTO games (id, category, title) VALUES (54, 'REAL_TIME_TACTICS', 'Tom Clancys EndWar');
+INSERT INTO games (id, category, title) VALUES (55, 'FIRST_PERSON_SHOOTER', 'Call of Duty 4: Modern Warfare');
+INSERT INTO games (id, category, title) VALUES (56, 'FIRST_PERSON_SHOOTER', 'Call of Duty: Black Ops');
+INSERT INTO games (id, category, title) VALUES (57, 'SPORTS', 'FIFA 09');
+INSERT INTO games (id, category, title) VALUES (58, 'SPORTS', 'FIFA 10');
+INSERT INTO games (id, category, title) VALUES (59, 'SPORTS', 'FIFA 11');
+INSERT INTO games (id, category, title) VALUES (60, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (61, 'FIRST_PERSON_SHOOTER', 'Halo 3: ODST');
+INSERT INTO games (id, category, title) VALUES (62, 'FIRST_PERSON_SHOOTER', 'Halo: Reach');
+INSERT INTO games (id, category, title) VALUES (63, 'LIFE_SIMULATION', 'Viva Pinata');
+INSERT INTO games (id, category, title) VALUES (64, 'FIRST_PERSON_SHOOTER', 'Borderlands');
+INSERT INTO games (id, category, title) VALUES (65, 'PUZZLE_PLATFORM', 'Portal 2');
 
 
 
