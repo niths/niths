@@ -384,7 +384,6 @@ insert into exam_subjects (subjects_id, exams_id) values(2, 2);
 insert into courses_representatives (courses_id, representatives_id) values (1, 1);
 insert into courses_representatives (courses_id, representatives_id) values (1, 2);
 insert into courses_representatives (courses_id, representatives_id) values (2, 3);
-<<<<<<< HEAD
 ---------------------------------------------------------------------
 --------------------------consoles--------------------------------
 INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Nintendo Wii', 'Seventh generation', 1);
