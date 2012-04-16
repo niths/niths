@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import no.niths.common.AppConstants;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
