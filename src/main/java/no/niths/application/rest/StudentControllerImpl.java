@@ -273,7 +273,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @RequestMapping(value = "{studentId}/add/loan/{loanId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
-        Student student = service.getStudentWithRoles(studentId);
+        Student student = service.getById(studentId);
         ValidationHelper.isObjectNull(student, Student.class);
 
         Loan loan = loanService.getById(loanId);
