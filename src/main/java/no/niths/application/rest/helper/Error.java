@@ -7,7 +7,9 @@ package no.niths.application.rest.helper;
  */
 public enum Error {
 
-    DOES_NOT_EXIST("does not exist");
+    DOES_NOT_EXIST("does not exist"),
+    
+    OBJECT_IN_COLLECTION(" in collection");
 
     private String msg;
 

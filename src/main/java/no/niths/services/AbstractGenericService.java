@@ -142,7 +142,6 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 *            the domain to update
 	 */
 	public void mergeUpdate(T domain) {
-		ValidationHelper.isObjectNull(domain.getId());
 		T domaineToUpdate = getRepository().getById(domain.getId());
 		ValidationHelper.isObjectNull(domaineToUpdate);
 
@@ -152,8 +151,6 @@ public abstract class AbstractGenericService<T extends Domain> implements
 			logger.error("error", e);
 			e.printStackTrace();
 		}
-		getRepository().update(domaineToUpdate);
-
 	}
 
 	/**

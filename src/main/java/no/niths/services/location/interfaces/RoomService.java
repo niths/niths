@@ -7,7 +7,7 @@ public interface RoomService extends GenericService<Room> {
 
     /**
      * 
-     * @param roomId the room's id
+     * @param room the room's id
      * @param accessFieldId the access field's id which will be added
      */
     void addAccessField(long roomId, long accessFieldId);
