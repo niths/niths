@@ -384,37 +384,6 @@ insert into exam_subjects (subjects_id, exams_id) values(2, 2);
 insert into courses_representatives (courses_id, representatives_id) values (1, 1);
 insert into courses_representatives (courses_id, representatives_id) values (1, 2);
 insert into courses_representatives (courses_id, representatives_id) values (2, 3);
----------------------------------------------------------------------
---------------------------consoles--------------------------------
-INSERT INTO consoles (id, name, console_type, locker) VALUES (1, 'Nintendo Wii', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (2, 'Playstation 3', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (3, 'Xbox 360', 'Seventh generation', 1);
-INSERT INTO consoles (id, name, console_type, locker) VALUES (4, 'Playstation 2', 'Seventh generation', 1);
----------------------------------------------------------------------
---------------------------games--------------------------------
-INSERT INTO games (id, category, title) VALUES (1, 'ACTION', 'CoD MW2');
----------------------------------------------------------------------
---------------------------games_consoles--------------------------------
-INSERT INTO games_consoles(console_id, game_id) VALUES (1, 1);
----------------------------------------------------------------------
---------------------------loans--------------------------------
-INSERT INTO loans (id, loan_date, return_date) VALUES(1, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
-INSERT INTO loans (id, loan_date, return_date) VALUES(2, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
-INSERT INTO loans (id, loan_date, return_date) VALUES(3, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
-INSERT INTO loans (id, loan_date, return_date) VALUES(4, '2012-03-09 11:05:32', '2012-03-13 11:05:32');
----------------------------------------------------------------------
---------------------------loans_consoles--------------------------------
-INSERT INTO loans_consoles (loan_id, console_id) VALUES(1, 1);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES(2, 2);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES(3, 3);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES(4, 4);
----------------------------------------------------------------------
---------------------------students_loans--------------------------------
-INSERT INTO students_loans (student_id, loan_id) VALUES(1, 1);
-INSERT INTO students_loans (student_id, loan_id) VALUES(2, 2);
-INSERT INTO students_loans (student_id, loan_id) VALUES(3, 3);
-INSERT INTO students_loans (student_id, loan_id) VALUES(2, 4);
-
 
 INSERT INTO games (id, category, title) VALUES (1, 'PLATFORM', 'Super Mario Galaxy');
 INSERT INTO games (id, category, title) VALUES (2, 'BEAT_EM_UP', 'MadWorld');
@@ -569,15 +538,11 @@ INSERT INTO loans_consoles (loan_id, console_id) VALUES (1, 2);
 INSERT INTO loans_consoles (loan_id, console_id) VALUES (2, 3);
 INSERT INTO loans_consoles (loan_id, console_id) VALUES (3, 4);
 INSERT INTO loans_consoles (loan_id, console_id) VALUES (4, 1);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES (5, 7);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES (6, 6);
-INSERT INTO loans_consoles (loan_id, console_id) VALUES (7, 2);
 
 INSERT INTO students_loans (student_id, loan_id) VALUES (1, 1);
 INSERT INTO students_loans (student_id, loan_id) VALUES (1, 2);
 INSERT INTO students_loans (student_id, loan_id) VALUES (2, 3);
 INSERT INTO students_loans (student_id, loan_id) VALUES (3, 4);
-INSERT INTO students_loans (student_id, loan_id) VALUES (4, 5);
 
 
 
