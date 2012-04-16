@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,6 +40,7 @@ parameters = {
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.DEVELOPERS)
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Developer implements Domain {
 
@@ -142,8 +146,6 @@ public class Developer implements Domain {
 		return s == this ? true : s.getId() == id ? true : false;
 	}
 
-	@JsonIgnore
-	@XmlTransient
 	public String getDeveloperToken() {
 		return developerToken;
 	}
@@ -152,8 +154,6 @@ public class Developer implements Domain {
 		this.developerToken = developerToken;
 	}
 
-	@JsonIgnore
-	@XmlTransient
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -163,8 +163,6 @@ public class Developer implements Domain {
 	}
 
 
-	@JsonIgnore
-	@XmlTransient
 	public String getDeveloperKey() {
 		return developerKey;
 	}

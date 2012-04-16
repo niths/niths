@@ -16,16 +16,6 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer> impl
     @Autowired
     private DeveloperRepository repo;
 
-    @Override
-    public Developer getById(long id) {
-    	Developer dev = repo.getById(id);
-    	if(dev != null) {
-    		dev.getApps().size();
-    	}
-    	return dev;
-   }
-
-   
 	/**
 	 * {@inheritDoc}
 	 */

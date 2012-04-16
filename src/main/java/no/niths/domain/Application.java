@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,6 +38,7 @@ parameters = {
 @XmlRootElement
 @Entity
 @Table(name = AppConstants.APPLICATIONS)
+@XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Application implements Domain {
 
@@ -57,7 +60,6 @@ public class Application implements Domain {
 
 	@Column(name = "icon_url")
 	@Size(max = 200, message = "Url to long, max length = 200")
-	@JsonProperty("iconurl")
 	@XmlElement(name="iconurl")
 	private String iconUrl;
 
