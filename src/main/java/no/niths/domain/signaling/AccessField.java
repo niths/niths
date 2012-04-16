@@ -24,7 +24,6 @@ import no.niths.domain.Domain;
 import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Entity
@@ -40,11 +39,9 @@ public class AccessField implements Domain {
     private Long id;
 
     @Column(name = "min_range")
-    @JsonProperty("minrange")
     private Integer minRange;
 
     @Column(name = "max_range")
-    @JsonProperty("maxrange")
     private Integer maxRange;
 
     @JsonIgnore
@@ -59,7 +56,6 @@ public class AccessField implements Domain {
     @JoinTable(name = "accessfields_accesspoints",
         joinColumns =        @JoinColumn(name = "accessfield_id"),
         inverseJoinColumns = @JoinColumn(name = "accesspoint_id"))
-    @JsonProperty("accesspoint")
     private AccessPoint accessPoint;
 
     public AccessField() {

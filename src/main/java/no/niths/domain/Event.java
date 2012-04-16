@@ -35,7 +35,6 @@ import no.niths.domain.adapter.XmlCalendarAdapter;
 import no.niths.domain.location.Location;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
@@ -68,7 +67,6 @@ public class Event implements Domain {
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	@XmlElement(name = "starttime")
-	@JsonProperty("starttime")
 	private Calendar startTime;
 
 	@Column(name = "endTime")
@@ -76,7 +74,6 @@ public class Event implements Domain {
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	@XmlElement(name = "endtime")
-	@JsonProperty("endtime")
 	private Calendar endTime;
 
 	@Column(name = "tags")

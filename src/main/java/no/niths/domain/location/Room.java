@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,7 +29,6 @@ import no.niths.domain.Subject;
 import no.niths.domain.signaling.AccessField;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -36,6 +37,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.ROOMS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Room implements Domain {
 
     @Transient
@@ -50,7 +52,6 @@ public class Room implements Domain {
             regexp  = "\\w+[\\w\\s]*\\w",
             message = "Invalid room name: only alphanumeric characters allowed")
 	@XmlElement(name="roomname")
-	@JsonProperty("roomname")
     private String roomName;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -60,7 +61,6 @@ public class Room implements Domain {
             joinColumns        = @JoinColumn(name = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
 	@XmlElement(name="accessfields")
-	@JsonProperty("accessfields")
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     @JsonIgnore
@@ -100,7 +100,6 @@ public class Room implements Domain {
         this.roomName = roomName;
     }
 
-    @XmlElement(name = "roomname")
     public String getRoomName() {
         return roomName;
     }
@@ -117,8 +116,6 @@ public class Room implements Domain {
         this.exams = exams;
     }
 
-    @XmlTransient
-    @JsonIgnore
     public List<Exam> getExams() {
         return exams;
     }
@@ -128,8 +125,6 @@ public class Room implements Domain {
         return String.format("[%s][%s]", id, roomName);
     }
 
-    @XmlTransient
-    @JsonIgnore
     public List<Subject> getSubjects() {
         return subjects;
     }

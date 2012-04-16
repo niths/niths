@@ -25,7 +25,6 @@ import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
@@ -68,7 +67,6 @@ public class APIEvent implements Domain{
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
 	@XmlElement(name=EVENTTIME)
-	@JsonProperty(EVENTTIME)
 	private Calendar eventTime;
 	
     @Column(length=500)

@@ -1,7 +1,6 @@
 package no.niths.application.rest.location;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
 import no.niths.application.rest.lists.ListAdapter;

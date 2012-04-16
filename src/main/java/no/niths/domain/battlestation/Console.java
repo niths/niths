@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,7 +25,6 @@ import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 
@@ -31,6 +32,7 @@ import org.hibernate.annotations.Cascade;
 @Entity
 @Table(name = AppConstants.CONSOLES)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Console implements Domain {
 
     @Transient
@@ -46,7 +48,6 @@ public class Console implements Domain {
 
     @Column(name="console_type")
 	@XmlElement(name="consoletype")
-	@JsonProperty("consoletype")
     private String consoleType;
 
     @Column

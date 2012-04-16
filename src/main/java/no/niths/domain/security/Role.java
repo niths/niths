@@ -25,7 +25,6 @@ import no.niths.domain.Domain;
 import no.niths.domain.Student;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -46,7 +45,6 @@ public class Role implements Domain {
 	
 	@Column(unique = true, name="role_name")
 	@XmlElement(name="rolename")
-	@JsonProperty("rolename")
 	private String roleName;
 
 	@JsonIgnore

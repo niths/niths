@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -48,7 +47,6 @@ public class FadderGroup implements Domain {
 		
 	@Column(name="group_number", unique=true)
 	@XmlElement(name="groupnumber")
-	@JsonProperty("groupnumber")
 	private Integer groupNumber;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -62,7 +60,6 @@ public class FadderGroup implements Domain {
 	@JoinTable(	name="fadder_children_students", 
 	uniqueConstraints={@UniqueConstraint(columnNames ={"fadder_groups_id", "fadderChildren_id"})} )
 	@XmlElement(name="fadderchildren")
-	@JsonProperty("fadderchildren")
 	private List<Student> fadderChildren = new ArrayList<Student>();
 	
 	
