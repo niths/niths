@@ -561,6 +561,24 @@ INSERT INTO games_consoles (console_id, game_id) VALUES (7,62);
 INSERT INTO games_consoles (console_id, game_id) VALUES (7,63);
 INSERT INTO games_consoles (console_id, game_id) VALUES (7,64);
 
+INSERT INTO loans (id, loan_date, return_date) VALUES (1, '2012-03-09 11:05:32', '2012-03-10 11:05:32');
+INSERT INTO loans (id, loan_date, return_date) VALUES (2, '2012-04-09 11:05:32', '2012-04-11 11:05:32');
+INSERT INTO loans (id, loan_date, return_date) VALUES (3, '2012-05-09 11:05:32', '2012-05-12 11:05:32');
+INSERT INTO loans (id, loan_date, return_date) VALUES (4, '2012-06-09 11:05:32', '2012-06-13 11:05:32');
+
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (1, 2);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (2, 3);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (3, 4);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (4, 1);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (5, 7);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (6, 6);
+INSERT INTO loans_consoles (loan_id, console_id) VALUES (7, 2);
+
+INSERT INTO students_loans (student_id, loan_id) VALUES (1, 1);
+INSERT INTO students_loans (student_id, loan_id) VALUES (1, 2);
+INSERT INTO students_loans (student_id, loan_id) VALUES (2, 3);
+INSERT INTO students_loans (student_id, loan_id) VALUES (3, 4);
+INSERT INTO students_loans (student_id, loan_id) VALUES (4, 5);
 
 
 
