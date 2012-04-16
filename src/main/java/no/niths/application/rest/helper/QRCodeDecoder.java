@@ -3,6 +3,7 @@ package no.niths.application.rest.helper;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 
@@ -55,6 +56,9 @@ public class QRCodeDecoder {
         groupNumber = parseGroupNumber(result.getText());
 
         } catch (NotFoundException e) {
+            System.err.println("=============================");
+            System.err.println("Kan ikke lese koden...");
+            System.err.println("=============================");
             throw new QRCodeException(
                     "Could not read the contents of the QR code");
         } catch (IOException e) {
@@ -71,10 +75,21 @@ public class QRCodeDecoder {
         g.drawImage(originalImg, 0, 0, 100, 100, null); // 100x100 px
         g.dispose();
 
+        // TODO: Check if this works
+        // You may need to change the File's path 
+        try {
+            ImageIO.write(resizedImg, "JPG", new File(System.getProperty("user.home") + "/balle.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return resizedImg;
     }
 
     private Long parseGroupNumber(String data) throws QRCodeException {
+        System.err.println("=============================");
+        System.err.println("You did it! The data stored is: " + data);
+        System.err.println("=============================");
         String[] info = data.split(":");
         Long groupNumber = null;
 
