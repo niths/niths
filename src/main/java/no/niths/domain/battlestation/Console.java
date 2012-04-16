@@ -46,10 +46,6 @@ public class Console implements Domain {
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
     private String name;
 
-    @Column(name="console_type")
-	@XmlElement(name="consoletype")
-    private String consoleType;
-
     @Column
     private Integer locker;
 
@@ -79,7 +75,6 @@ public class Console implements Domain {
 
     public Console(String name, String consoleType, Integer locker){
         setName(name);
-        setConsoleType(consoleType);
         setLocker(locker);
     }
 
@@ -99,14 +94,6 @@ public class Console implements Domain {
 
     public String getName() {
         return name;
-    }
-
-    public void setConsoleType(String consoleType) {
-        this.consoleType = consoleType;
-    }
-
-    public String getConsoleType() {
-        return consoleType;
     }
 
     public void setLocker(Integer locker) {
