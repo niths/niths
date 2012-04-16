@@ -121,7 +121,7 @@ public class ExamControllerTest {
 
         assertThat(subjectController.getById(subject.getId()), is(equalTo(examController.getById(exam.getId()).getSubject())));
 
-        examController.removeSubject(exam.getId(), subject.getId());
+        examController.removeSubject(exam.getId());
 
         assertThat(examController.getById(exam.getId()).getSubject(), is(nullValue()));
 
