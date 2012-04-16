@@ -15,23 +15,6 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 	@Autowired	
 	private CommitteeRepositorty repo;
 
-	/**
-	 * 
-	 * @param cid
-	 * @return
-	 */
-	public Committee getById(long cid) {
-		Committee c = repo.getById(cid);
-
-		if (c != null) {
-			c.getLeaders().size();
-			c.getEvents().size();
-			c.getMembers().size();
-
-		}
-		return c;
-	}
-
 	@Override
 	public GenericRepository<Committee> getRepository() {
 		return repo;
