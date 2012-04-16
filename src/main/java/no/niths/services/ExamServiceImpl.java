@@ -16,17 +16,6 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
 	@Autowired
 	private ExamRepository examRepository;
 
-	public Exam getById(long id) {
-		Exam exam = examRepository.getById(id);
-		if (exam != null) {
-			exam.getRooms().size();
-			if (exam.getSubject() != null) {
-				exam.getSubject().getEndTime();
-			}
-		}
-		return exam;
-	}
-
 	@Override
 	public GenericRepository<Exam> getRepository() {
 		return examRepository;

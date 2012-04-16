@@ -124,17 +124,29 @@ public class LazyFixer<T> {
                     Class<?> type = field.getType();
 
                     if (!checkAnnotations(field.getAnnotations())
-                            && Collection.class.isAssignableFrom(type)) {
+                            && (Collection.class.isAssignableFrom(type)
+                                    || Domain.class.isAssignableFrom(type))) {
                         
                         Method m = type0.getMethod(
                                 generateAccessorHeader(
                                         field.getName(), Accessor.GET),
                                 (Class<?>[]) null);
+                        System.err.println("method: " + m.getName());
                         Object result = m.invoke(element);
                         if (result != null) {
-                            Collection<Domain> domains =
-                                    (Collection<Domain>) result;
-                            domains.size();
+                            Class<?> resultClass = result.getClass();
+                            if (Collection.class.isAssignableFrom(resultClass)) {
+                                System.err.println("IAC: " + m.getName());
+                                Collection<Domain> domains =
+                                        (Collection<Domain>) result;
+                                domains.size();
+                            } else if (Domain.class.isAssignableFrom(resultClass)) {
+                                System.err.println("IAD: " + m.getName());
+                                Domain domain = (Domain) result;
+                                domain.getId();
+                            } else {
+                                System.err.println("ERR, other: " +result.getClass());
+                            }
                         }
                     }
                 }
@@ -191,9 +203,10 @@ public class LazyFixer<T> {
             // Nullify any domain or collection
             if (Collection.class.isAssignableFrom(fieldType)
                     || Domain.class.isAssignableFrom(fieldType)) {
-                type.getMethod(
+                Method m = type.getMethod(
                         generateAccessorHeader(field.getName(), Accessor.SET),
-                        fieldType).invoke(target, varargsNull);
+                        fieldType);
+                m.invoke(target, varargsNull);
             }
         }
     }

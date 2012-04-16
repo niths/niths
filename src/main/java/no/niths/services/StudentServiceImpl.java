@@ -69,33 +69,6 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 		return null;
 	}
 
-	/**
-	 * Finds and returns a student with a given id. Returns the student with
-	 * courses, committees, loaned games, loaned consoles and feeds
-	 * 
-	 * @param id
-	 *            ID of student to find
-	 * @return the student
-	 */
-	public Student getById(long id) {
-		Student s = repo.getById(id);
-		ArrayList<Student> sl = new ArrayList<Student>();
-		sl.add(s);
-		lazyFixer.fetchChildren(sl);
-		
-//		if (s != null) {
-//			s.getCommittees().size();
-//			s.getCourses().size();
-//			s.getLoans().size();
-//			s.getFeeds().size();
-//			s.getRoles().size();
-//			if (s.getRepresentativeFor() != null) {
-//				s.getRepresentativeFor().getName();
-//			}
-//		}
-		return sl.get(0);
-	}
-
 	@Override
 	public Student getStudentWithRoles(Long id) {
 		Student s = repo.getById(id);

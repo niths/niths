@@ -1,6 +1,7 @@
 package no.niths.services;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -114,7 +115,11 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	@Override
 	public T getById(long id) {
-		return getRepository().getById(id);
+	    T t = getRepository().getById(id);
+	    ArrayList<T> ts = new ArrayList<T>();
+	    ts.add(t);
+	    lazyFixer.fetchChildren(ts);
+	    return ts.get(0);
 	}
 
 	/**
