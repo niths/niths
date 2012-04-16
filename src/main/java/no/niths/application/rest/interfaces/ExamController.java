@@ -35,7 +35,6 @@ public interface ExamController extends GenericRESTController<Exam> {
      * Removes a subject from an exam
      *
      * @param examId id of the exam
-     * @param subjectId if of the subject
      */
-    public void removeSubject(Long examId, Long subjectId);
+    public void removeSubject(Long examId);
 }
