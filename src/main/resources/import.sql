@@ -48,7 +48,7 @@ INSERT INTO courses_subjects VALUES(4,5);
 ---------------------------------------------------------------------
 --------------------------Students-----------------------------------
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Øyvind', 'Ødegård','1990-02-02','degyvi09@nith.no','M','super awesome','41549300',3);
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','super awesome','81549300',3);
+INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Andre', 'Dockinsen', '1989-08-07','kriand09@nith.no','M','super awesome','81549300',3);
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3);
 INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3);
 ---------------------------------------------------------------------
