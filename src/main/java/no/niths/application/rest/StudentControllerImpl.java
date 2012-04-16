@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.aop.ApiEvent;
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.StudentController;
 import no.niths.application.rest.lists.ListAdapter;
@@ -272,7 +273,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @RequestMapping(value = "{studentId}/add/loan/{loanId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
-        Student student = service.getById(studentId);
+        Student student = service.getStudentWithRoles(studentId);
         ValidationHelper.isObjectNull(student, Student.class);
 
         Loan loan = loanService.getById(loanId);
@@ -330,7 +331,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "{studentId}/add/role/{roleId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
+	@ResponseStatus(value = HttpStatus.OK, reason = "Role added")
 	public void addRole(@PathVariable Long studentId,@PathVariable Long roleId) {
 		Student stud = service.getStudentWithRoles(studentId);
 		validateObject(stud, Student.class);
@@ -353,7 +354,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 			logger.debug("Added role to student: " + role.getRoleName());
 
 		}else{
-			throw new DuplicateEntryCollectionException("Student got the provided the role");
+			throw new DuplicateEntryCollectionException("Student got the role");
 		}
 		
 	}
@@ -365,9 +366,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 	@Override
 	@PreAuthorize(SecurityConstants.ONLY_ADMIN)
 	@RequestMapping(value = { "{studentId}/remove/role/{roleId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Role added")
+	@ResponseStatus(value = HttpStatus.OK, reason = "Role removed")
 	public void removeRole(@PathVariable Long studentId,@PathVariable Long roleId) {
-		Student stud = service.getStudentWithRoles(studentId);
+		Student stud = service.getById(studentId);
 		validateObject(stud, Student.class);
 
 		boolean hasRole = false;
@@ -382,7 +383,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		}
 		
 		if(!hasRole){
-			throw new ObjectNotFoundException("Role does not exist");
+			throw new ObjectNotFoundException("Student does not have the role");
 		}
 	}
 
@@ -403,5 +404,28 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 		}
 		
 
+	}
+
+	@RequestMapping(value = { "{studId}/{roleName}" }, method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
+	public void isStudentInRole(@PathVariable Long studId,
+			@PathVariable String roleName) {
+		Student stud = service.getStudentWithRoles(studId);
+		validateObject(stud, Student.class);
+
+		boolean hasRole = false;
+
+		for (Role r : stud.getRoles()) {
+			logger.debug(r.getRoleName());
+			if (r.getRoleName().equals(roleName)) {
+				hasRole = true;
+				break;
+			}
+		}
+
+		if (!hasRole) {
+			throw new NotInCollectionException("Student does not have the role");
+		}
+		
 	}
 }

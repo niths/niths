@@ -82,6 +82,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 		ArrayList<Student> sl = new ArrayList<Student>();
 		sl.add(s);
 		lazyFixer.fetchChildren(sl);
+		
 //		if (s != null) {
 //			s.getCommittees().size();
 //			s.getCourses().size();
@@ -92,7 +93,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 //				s.getRepresentativeFor().getName();
 //			}
 //		}
-		return s;
+		return sl.get(0);
 	}
 
 	@Override

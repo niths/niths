@@ -4,14 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
-import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.RoleController;
-import no.niths.application.rest.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Student;
 import no.niths.domain.security.Role;
 
 import org.junit.After;
@@ -32,15 +28,15 @@ public class RoleControllerImplTest {
 	@Autowired
 	private RoleController controller;
 
-	@Autowired
-	private StudentController studentController;
+//	@Autowired
+//	private StudentController studentController;
 
 	private Role testRole01;
 	private Role testRole02;
 	private Role testRole03;
 	private Role testRole04;
 
-	private Student testStudent;
+//	private Student testStudent;
 
 	@Before
 	public void setUp() throws Exception {
@@ -55,8 +51,8 @@ public class RoleControllerImplTest {
 		controller.create(testRole03, res);
 		controller.create(testRole04, res);
 
-		testStudent = new Student("am@nith.no");
-		studentController.create(testStudent, res);
+//		testStudent = new Student("am@nith.no");
+//		studentController.create(testStudent, res);
 
 	}
 
@@ -66,7 +62,7 @@ public class RoleControllerImplTest {
 		controller.hibernateDelete(testRole02.getId());
 		controller.hibernateDelete(testRole03.getId());
 		controller.hibernateDelete(testRole04.getId());
-		studentController.hibernateDelete(testStudent.getId());
+//		studentController.hibernateDelete(testStudent.getId());
 	}
 
 	@Test
@@ -99,51 +95,51 @@ public class RoleControllerImplTest {
 		assertEquals(2, roles.size());
 	}
 
-	@Test
-	public void testAddAndRemovenStudentRole() {
-
-		List<Role> studentRoles = studentController
-				.getById(testStudent.getId()).getRoles();
-
-		controller.addStudentRole(testRole01.getId(), testStudent.getId());
-
-		assertEquals(studentRoles.size() + 1,
-				studentController.getById(testStudent.getId()).getRoles()
-						.size());
-
-		controller.removeStudentRole(testRole01.getId(), testStudent.getId());
-		assertEquals(studentRoles.size(),
-				studentController.getById(testStudent.getId()).getRoles()
-						.size());
-	}
-
-	@Test(expected = DuplicateEntryCollectionException.class)
-	public void testAddSameRoleTwice() {
-		controller.addStudentRole(testRole01.getId(), testStudent.getId());
-		controller.addStudentRole(testRole01.getId(), testStudent.getId());
-	}
-
-	@Test(expected = ObjectNotFoundException.class)
-	public void testRemoveANonExistingRoleFromStudent() {
-		controller.removeStudentRole(new Long(-1), testStudent.getId());
-	}
-
-	@Test
-	public void testRemoveAllRolesFromStudent() {
-		controller.removeAllRolesFromStudent(testStudent.getId());
-		assertEquals(0, studentController.getById(testStudent.getId())
-				.getRoles().size());
-	}
-
-	@Test
-	public void testIsStudentInRole() {
-		controller.isStudentInRole(testStudent.getId(), "ROLE_STUDENT");
-	}
-
-	@Test(expected = NotInCollectionException.class)
-	public void testIsStudentNotInRole() {
-		controller.isStudentInRole(testStudent.getId(), "NOT_EXISTING_ROLE");
-	}
+//	@Test
+//	public void testAddAndRemovenStudentRole() {
+//
+//		List<Role> studentRoles = studentController
+//				.getById(testStudent.getId()).getRoles();
+//
+//		controller.addStudentRole(testRole01.getId(), testStudent.getId());
+//
+//		assertEquals(studentRoles.size() + 1,
+//				studentController.getById(testStudent.getId()).getRoles()
+//						.size());
+//
+//		controller.removeStudentRole(testRole01.getId(), testStudent.getId());
+//		assertEquals(studentRoles.size(),
+//				studentController.getById(testStudent.getId()).getRoles()
+//						.size());
+//	}
+//
+//	@Test(expected = DuplicateEntryCollectionException.class)
+//	public void testAddSameRoleTwice() {
+//		controller.addStudentRole(testRole01.getId(), testStudent.getId());
+//		controller.addStudentRole(testRole01.getId(), testStudent.getId());
+//	}
+//
+//	@Test(expected = ObjectNotFoundException.class)
+//	public void testRemoveANonExistingRoleFromStudent() {
+//		controller.removeStudentRole(new Long(-1), testStudent.getId());
+//	}
+//
+//	@Test
+//	public void testRemoveAllRolesFromStudent() {
+//		controller.removeAllRolesFromStudent(testStudent.getId());
+//		assertEquals(0, studentController.getById(testStudent.getId())
+//				.getRoles().size());
+//	}
+//
+//	@Test
+//	public void testIsStudentInRole() {
+//		controller.isStudentInRole(testStudent.getId(), "ROLE_STUDENT");
+//	}
+//
+//	@Test(expected = NotInCollectionException.class)
+//	public void testIsStudentNotInRole() {
+//		controller.isStudentInRole(testStudent.getId(), "NOT_EXISTING_ROLE");
+//	}
 
 	@Test
 	public void testUpdateRole() {

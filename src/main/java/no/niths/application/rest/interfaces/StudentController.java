@@ -115,4 +115,11 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param studId
      */
     void removeAllRolesFromStudent(Long studId);
+    
+    /**
+	 * Return 200 ok is student is in role, else 204, no content
+	 * @param studId
+	 * @param roleId
+	 */
+	void isStudentInRole(Long studId, String roleName);
 }
