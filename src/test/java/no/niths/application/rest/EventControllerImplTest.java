@@ -8,8 +8,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.TagProvider;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.EventController;
 import no.niths.application.rest.location.interfaces.LocationController;
@@ -137,13 +138,13 @@ public class EventControllerImplTest {
 
 	@Test
 	public void testGetEventsByTag() {
-		List<Event> events = controller.getEventsByTag("Beer");
+		List<Event> events = controller.getEventsByTag(new TagProvider("Beer"));
 		assertEquals(2, events.size());
 	}
 
 	@Test
 	public void testGetEventsByTwoTag() {
-		List<Event> events = controller.getEventsByTag("Beer& Party");
+		List<Event> events = controller.getEventsByTag(new TagProvider("Beer& Party"));
 		assertEquals(1, events.size());
 	}
 	
@@ -157,7 +158,7 @@ public class EventControllerImplTest {
 		assertNull(controller.getById(testEvent01.getId()).getLocation());
 	}
 
-	@Test(expected = DuplicateEntryCollectionException.class)
+	@Test(expected = ObjectInCollectionException.class)
 	public void testAddSameLocationTwice() {
 		controller.addLocation(testEvent01.getId(), testLocation.getId());
 		controller.addLocation(testEvent01.getId(), testLocation.getId());

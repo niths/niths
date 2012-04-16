@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.location.interfaces.RoomController;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
@@ -12,13 +13,11 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
 
-import org.hibernate.NonUniqueObjectException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -128,7 +127,7 @@ public class RoomControllerImplTest {
 		assertEquals(0, room.getAccessFields().size());
 	}
 	
-	@Test(expected=NonUniqueObjectException.class)
+	@Test(expected=ObjectInCollectionException.class)
 	public void testAddTheSameAccessFieldTwice(){
 		controller.addAccessField(testRoom04.getId(), testAF.getId());
 		controller.addAccessField(testRoom04.getId(), testAF.getId());

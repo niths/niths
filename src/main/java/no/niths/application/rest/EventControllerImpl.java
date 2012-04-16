@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.aop.ApiEvent;
+import no.niths.application.rest.helper.TagProvider;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.EventController;
 import no.niths.application.rest.lists.EventList;
@@ -14,10 +14,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Event;
-import no.niths.domain.location.Location;
 import no.niths.services.interfaces.EventsService;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.location.interfaces.LocationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +40,6 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 
 	@Autowired
 	private EventsService service;
-
-	@Autowired
-	private LocationService locService;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(EventControllerImpl.class);
@@ -56,6 +51,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@ApiEvent(title="Event created")
 	public void create(@RequestBody Event domain, HttpServletResponse res) {
 		super.create(domain, res);
 	}
@@ -65,6 +61,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@ApiEvent(title="Event updated")
 	public void update(@RequestBody Event domain) {
 		super.update(domain);
 	}
@@ -74,6 +71,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@ApiEvent(title="Event removed")
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
 	}
@@ -98,13 +96,13 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { "tag={tag}" }, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = { "search" }, 
+	method = RequestMethod.GET, 
+	headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<Event> getEventsByTag(@PathVariable String tag) {
-		renewList(service.getEventsByTag(tag));
-		for (Event e : eventList) {
-			e.setLocation(null);
-		}	
+	public List<Event> getEventsByTag(TagProvider tag) {
+		logger.debug(tag+"");
+		renewList(service.getEventsByTag(tag+""));	
 		return eventList;
 	}
 	
@@ -113,28 +111,14 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{event-id}/add-location/{locId}",
+	        value  = "{eventId}/add/location/{locId}",
 	        method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
 	public void addLocation(
 	        @PathVariable Long eventId,
 	        @PathVariable Long locId) {
-		Event event = service.getById(eventId);
-		ValidationHelper.isObjectNull(event, Event.class);
 		
-		if (event.getLocation() != null
-		        && event.getLocation().getId() == locId) {
-			logger.debug("location exist");
-			throw new DuplicateEntryCollectionException("Location exist");
-		}
-		
-		Location location = locService.getById(locId);
-		ValidationHelper.isObjectNull(location, Location.class);
-		
-		event.setLocation(location);
-		service.update(event);
-		logger.debug("Location added to event");
-		
+		service.addLocation(eventId,locId);
 	}
 	
 	/**
@@ -142,27 +126,14 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/remove-location/{locId}",
+	        value  = "{eventId}/remove/location/{locId}",
 	        method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
 	public void removeLocation(
 	        @PathVariable Long eventId,
 	        @PathVariable Long locId) {
-		Event event = service.getById(eventId);
-		ValidationHelper.isObjectNull(event, Event.class);
 		
-		boolean isRemoved = false;
-		if (event.getLocation() != null && event.getLocation().getId() == locId) {
-			isRemoved = true;
-			event.setLocation(null);
-		}
-
-		if (isRemoved) {
-			service.update(event);
-		} else {
-			logger.debug("Event not Found");
-			throw new ObjectNotFoundException("Event not Found");
-		}
+		service.removeLocation(eventId,locId);
 	}
 	
 	@Override
@@ -176,10 +147,6 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
 		}else{
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
-		}
-		
-		for (Event e : eventList) {
-			e.setLocation(null);
 		}
 		return eventList;
 	}

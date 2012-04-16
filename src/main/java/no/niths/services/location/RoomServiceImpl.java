@@ -53,6 +53,7 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
 		return roomList.get(0);
 	}
 
+	@Override
 	public void addAccessField(long roomId, long accessFieldId) {
 		Room room = repo.getById(roomId);
 		ValidationHelper.isObjectNull(room, Room.class);
