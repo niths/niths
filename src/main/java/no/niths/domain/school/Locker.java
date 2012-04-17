@@ -36,7 +36,7 @@ public class Locker {
 
     @Column(name = "locker_number")
     @Pattern(regexp = "[1-9]([0-9]{1,2})?")
-    @XmlElement(name = "locker_name")
+    @XmlElement(name = "lockernumber")
     private Long lockerNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
