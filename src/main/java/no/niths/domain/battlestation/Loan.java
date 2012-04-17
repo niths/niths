@@ -57,18 +57,18 @@ public class Loan implements Domain {
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="loandate")
-	private Calendar loanDate;
+	@XmlElement(name="starttime")
+	private Calendar startTime;
 
 	@Column(name = "return_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="returndate")
-	private Calendar returnDate;
+	@XmlElement(name="endtime")
+	private Calendar endTime;
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
+	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loans_id"), inverseJoinColumns = @JoinColumn(name = "consoles_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Console> consoles = new ArrayList<Console>();
 
@@ -84,12 +84,12 @@ public class Loan implements Domain {
 	}
 
 	public Loan(GregorianCalendar loanDate) {
-		setLoanDate(loanDate);
+		setStartTime(loanDate);
 	}
 
-	public Loan(GregorianCalendar loanDate, GregorianCalendar returnDate) {
-		setLoanDate(loanDate);
-		setReturnDate(returnDate);
+	public Loan(GregorianCalendar startTime, GregorianCalendar endTime) {
+		setStartTime(startTime);
+		setEndTime(endTime);
 	}
 
 	@Override
@@ -103,23 +103,23 @@ public class Loan implements Domain {
 	}
 
 	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-	public void setLoanDate(Calendar loanDate) {
-		this.loanDate = loanDate;
+	public void setStartTime(Calendar startTime) {
+		this.startTime = startTime;
 	}
 
 	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-	public Calendar getLoanDate() {
-		return loanDate;
+	public Calendar getStartTime() {
+		return startTime;
 	}
 
 	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-	public void setReturnDate(Calendar returnDate) {
-		this.returnDate = returnDate;
+	public void setEndTime(Calendar endTime) {
+		this.endTime = endTime;
 	}
 
 	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-	public Calendar getReturnDate() {
-		return returnDate;
+	public Calendar getEndTime() {
+		return endTime;
 	}
 
 	public void setConsoles(List<Console> consoles) {
@@ -150,7 +150,7 @@ public class Loan implements Domain {
 
 	@JsonIgnore
 	public boolean isEmpty() {
-		return (id == null && loanDate == null && returnDate == null);
+		return (id == null && startTime == null && endTime == null);
 	}
 
 	@Override
@@ -158,10 +158,10 @@ public class Loan implements Domain {
 
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(String.format("[%s]", id));
-		buffer.append(String.format("[%s]", (loanDate == null) ? null
-				: loanDate.getTime()));
-		buffer.append(String.format("[%s]", (returnDate == null) ? null
-				: returnDate.getTime()));
+		buffer.append(String.format("[%s]", (startTime == null) ? null
+				: startTime.getTime()));
+		buffer.append(String.format("[%s]", (endTime == null) ? null
+				: endTime.getTime()));
 		return buffer.toString();
 
 	}

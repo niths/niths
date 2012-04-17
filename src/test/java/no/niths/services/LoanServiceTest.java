@@ -7,11 +7,11 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Console;
-import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Student;
 import no.niths.services.battlestation.interfaces.ConsoleService;
@@ -63,44 +63,20 @@ public class LoanServiceTest {
         loanDate.set(Calendar.MILLISECOND, 0);
         returnDate.set(Calendar.MILLISECOND, 0);
         
-        Calendar loanDate = tempLoan.getLoanDate();
+        Calendar loanDate = tempLoan.getStartTime();
         loanDate.set(Calendar.MILLISECOND, 0);
         assertEquals(loanDate, loanDate);
                 
-        tempLoan.setReturnDate(returnDate);
+        tempLoan.setEndTime(returnDate);
         loanService.update(tempLoan);
 
         tempLoan = loanService.getById(loan.getId());
-        Calendar returnDate = tempLoan.getReturnDate();
+        Calendar returnDate = tempLoan.getEndTime();
                 returnDate.set(Calendar.MILLISECOND, 0);
         assertThat(returnDate, is(equalTo(returnDate)));
 
         loanService.hibernateDelete(loan.getId());
         assertThat(size, is(equalTo(loanService.getAll(null).size())));
-    }
-
-    @Test
-    public void testRelationsBetweenLoanAndGame(){
-        Game game = new Game("Super Mario");
-        Game otherGame = new Game("Halo");
-
-        gameService.create(game);
-        gameService.create(otherGame);
-
-
-
-        Loan loan = new Loan(loanDate, returnDate);
-        loanService.create(loan);
-
-        //loan.getGames().add(game);
-        //loan.getGames().add(otherGame);
-        loanService.update(loan);
-
-        //assertThat(2, is(equalTo(loanService.getById(loan.getId()).getGames().size())));
-
-        loanService.hibernateDelete(loan.getId());
-        gameService.hibernateDelete(game.getId());
-        gameService.hibernateDelete(otherGame.getId());
     }
 
     @Test
@@ -142,5 +118,36 @@ public class LoanServiceTest {
 
         loanService.hibernateDelete(loan.getId());
         studentService.hibernateDelete(student.getId());
+    }
+
+    @Test
+    public void testGetLoansGreaterThanAGivenDay(){
+        GregorianCalendar cal = new GregorianCalendar(2012, Calendar.DECEMBER, 23, 22, 21, 23);
+        Loan loan = new Loan(cal);
+        loanService.create(loan);
+
+        List<Loan> loans = loanService.getLoansBetweenDates(cal, null);
+        assertEquals(1, loans.size());
+
+        loanService.hibernateDelete(loan.getId());
+    }
+
+    @Test
+    public void testGetloansBetweenDates(){
+        GregorianCalendar cal = new GregorianCalendar(2012, Calendar.MARCH, 9, 22, 21, 23);
+        GregorianCalendar cal2 = new GregorianCalendar(2012, Calendar.APRIL, 25, 22, 21, 23);
+        Loan loan = new Loan(cal);
+        Loan otherLoan = new Loan(cal2);
+        loanService.create(loan);
+        loanService.create(otherLoan);
+
+        System.out.println(cal.getTime());
+        System.out.println(cal2.getTime());
+
+        List<Loan> loans = loanService.getLoansBetweenDates(cal, cal2);
+        assertEquals(2, loans.size());
+
+        loanService.hibernateDelete(loan.getId());
+        loanService.hibernateDelete(otherLoan.getId());
     }
 }

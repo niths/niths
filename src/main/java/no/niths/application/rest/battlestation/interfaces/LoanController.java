@@ -1,20 +1,15 @@
 package no.niths.application.rest.battlestation.interfaces;
 
+import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.battlestation.Loan;
+
+import java.util.List;
 
 /**
  * Controller for loans
  */
 public interface LoanController extends GenericRESTController<Loan> {
-
-    /**
-     * Removes a game from a loan
-     *
-     * @param loanId id of the loan
-     * @param gameId if of the game
-     */
-    public void removeGame(Long loanId, Long gameId);
 
     /**
      * Adds a console too a loan
@@ -46,4 +41,11 @@ public interface LoanController extends GenericRESTController<Loan> {
      * @param loanId id of the loan
      */
     public void removeStudent(Long loanId);
+
+    /**
+     * Returns loans between or from timeDTO's startTime or / and endTime
+     * @param timeDTO
+     * @return
+     */
+    List<Loan> getLoansBetweenDates(TimeDTO timeDTO);
 }

@@ -15,7 +15,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import no.niths.domain.battlestation.Console;
-import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Student;
 
@@ -37,11 +36,11 @@ public class LoanTest {
     @Test
     public void testShouldGenerateNewLoan() {
         Loan loan = new Loan();
-        loan.setLoanDate(LOAN_DATE);
-        loan.setReturnDate(RETURN_DATE);
+        loan.setStartTime(LOAN_DATE);
+        loan.setEndTime(RETURN_DATE);
 
-        assertThat(LOAN_DATE, is(equalTo(loan.getLoanDate())));
-        assertThat(RETURN_DATE, is(equalTo(loan.getReturnDate())));
+        assertThat(LOAN_DATE, is(equalTo(loan.getStartTime())));
+        assertThat(RETURN_DATE, is(equalTo(loan.getEndTime())));
     }
 
     @Test
@@ -65,19 +64,6 @@ public class LoanTest {
         loan.setConsoles(consoles);
 
         assertThat(consoles.size(), is(equalTo(loan.getConsoles().size())));
-    }
-
-    @Test
-    public void testGettingGameFromLoan() {
-        Game game = new Game();
-
-        List<Game> games = new ArrayList<>();
-        games.add(game);
-
-        Loan loan = new Loan();
-        //loan.setGames(games);
-
-        //assertThat(games.size(), is(equalTo(loan.getGames().size())));
     }
 
     @Test
