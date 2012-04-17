@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.signaling;
 
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.domain.signaling.AccessField;

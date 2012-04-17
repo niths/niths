@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.location;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

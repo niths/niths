@@ -1,4 +1,4 @@
-package no.niths.domain;
+package no.niths.domain.location;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
