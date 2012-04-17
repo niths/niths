@@ -38,6 +38,7 @@ import no.niths.domain.location.Location;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -45,7 +46,7 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name = AppConstants.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class Event implements Domain {
 
 	@Transient
