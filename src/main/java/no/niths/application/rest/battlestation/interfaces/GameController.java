@@ -22,19 +22,4 @@ public interface GameController extends GenericRESTController<Game> {
      * @param gameId id of the game
      */
     public void removeConsole(Long gameId);
-
-    /**
-     * Adds a loan too a game
-     *
-     * @param gameId id of the game
-     * @param loanId id of the loan
-     */
-    public void addLoan(Long gameId, Long loanId);
-
-    /**
-     * Removes a loan from a game
-     *
-     * @param gameId id of the game
-     */
-    public void removeLoan(Long gameId);
 }

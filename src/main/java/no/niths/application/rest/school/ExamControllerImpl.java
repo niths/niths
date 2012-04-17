@@ -56,20 +56,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@RequestMapping(value = "{examId}/add/room/{roomId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
 	public void addRoom(@PathVariable Long examId, @PathVariable Long roomId) {
-		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, Exam.class);
-
-		Room room = roomService.getById(roomId);
-		ValidationHelper.isObjectNull(room, Room.class);
-
-        if (!exam.getRooms().contains(room)) {
-            exam.getRooms().add(room);
-            examService.update(exam);
-            logger.debug("Exam updated");
-        } else {
-            throw new DuplicateEntryCollectionException(
-                    "Room is already added to the exam");
-        }
+		examService.addRoom(examId, roomId);
 	}
 
 	/**
@@ -79,25 +66,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@RequestMapping(value = "{examId}/remove/room/{roomId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
 	public void removeRoom(@PathVariable Long examId, @PathVariable Long roomId) {
-		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, Exam.class);
-
-		boolean isRemoved = false;
-
-		for (int i = 0; i < exam.getRooms().size(); i++) {
-			if (exam.getRooms().get(i).getId() == roomId) {
-				exam.getRooms().remove(i);
-				isRemoved = true;
-				break;
-			}
-		}
-
-        if (isRemoved) {
-            examService.update(exam);
-            logger.debug("Room removed from exam " + exam.getName());
-        } else {
-            throw new ObjectNotFoundException("Room not found in exam");
-        }
+		examService.removeRoom(examId, roomId);
 	}
 
 	/**
@@ -108,20 +77,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Added")
 	public void addSubject(@PathVariable Long examId,
 			@PathVariable Long subjectId) {
-		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, Exam.class);
-
-		Subject subject = subjectService.getById(subjectId);
-		ValidationHelper.isObjectNull(subject, Subject.class);
-
-        if (exam.getSubject() == null) {
-            exam.setSubject(subject);
-            examService.update(exam);
-            logger.debug("Exam updated");
-        } else {
-            throw new DuplicateEntryCollectionException(
-                    "Exam already has a subject");
-        }
+		examService.addSubject(examId, subjectId);
 	}
 
 	/**
@@ -131,22 +87,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	@RequestMapping(value = "{examId}/remove/subject", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Removed")
 	public void removeSubject(@PathVariable Long examId) {
-		Exam exam = examService.getById(examId);
-		ValidationHelper.isObjectNull(exam, Exam.class);
-
-		boolean isRemoved = false;
-
-		if (exam.getSubject() != null) {
-			exam.setSubject(null);
-			isRemoved = true;
-		}
-
-		if (isRemoved) {
-			examService.update(exam);
-		} else {
-			logger.debug("Subject not found");
-			throw new ObjectNotFoundException("Subject not found in exam");
-		}
+		examService.removeSubject(examId);
 	}
 
 	/**
