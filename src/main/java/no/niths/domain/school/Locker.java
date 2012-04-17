@@ -47,6 +47,14 @@ public class Locker {
     @Cascade(CascadeType.ALL)
     private Student owner;
 
+    public Locker(){
+    	this(null);
+    	setOwner(null);
+    }
+    
+    public Locker(Long lockerNumber){
+    	setLockerNumber(lockerNumber);
+    }
     public Long getId() {
         return id;
     }

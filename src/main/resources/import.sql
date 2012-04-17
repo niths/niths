@@ -158,12 +158,11 @@ INSERT INTO lockers (id, locker_number) VALUES (2, 2);
 INSERT INTO lockers (id, locker_number) VALUES (3, 3);
 
 -- Students - Lockers (dummy data)
-INSERT INTO lockers_students (locker_id, student_id) VALUES (1, 1);
-INSERT INTO lockers_students (locker_id, student_id) VALUES (2, 2);
-INSERT INTO lockers_students (locker_id, student_id) VALUES (3, 3);
-
+INSERT INTO students_lockers (locker_id, student_id) VALUES (1, 1);
+INSERT INTO students_lockers (locker_id, student_id) VALUES (2, 2);
+INSERT INTO students_lockers (locker_id, student_id) VALUES (3, 3);
 ---------------------------------------------------------------------
---------------------------rooms_accessfields-----------------------------------
+--------------------------rooms_accessfields-------------------------
 INSERT INTO rooms_accessfields(accessfield_id, room_id) VALUES(1, 1);
 INSERT INTO rooms_accessfields(accessfield_id, room_id) VALUES(2, 2);
 INSERT INTO rooms_accessfields(accessfield_id, room_id) VALUES(3, 3);
