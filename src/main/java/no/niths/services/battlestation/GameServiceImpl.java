@@ -70,14 +70,7 @@ public class GameServiceImpl extends AbstractGenericService<Game> implements Gam
         Game game = super.getById(gameId);
         ValidationHelper.isObjectNull(game, Game.class);
 
-        boolean isRemoved = false;
-
         if (game.getConsole() != null) {
-            game.setConsole(null);
-            isRemoved = true;
-        }
-
-        if (isRemoved) {
             game.setConsole(null);
         } else {
             logger.debug("Console not found");
