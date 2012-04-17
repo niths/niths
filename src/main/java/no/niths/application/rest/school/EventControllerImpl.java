@@ -52,7 +52,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@ApiEvent(title="Event created")
 	public void create(@RequestBody Event domain, HttpServletResponse res) {
 		super.create(domain, res);
@@ -62,7 +62,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@ApiEvent(title="Event updated")
 	public void update(@RequestBody Event domain) {
 		super.update(domain);
@@ -72,7 +72,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@ApiEvent(title="Event removed")
 	public void hibernateDelete(@PathVariable long id) {
 		super.hibernateDelete(id);
