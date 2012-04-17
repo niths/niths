@@ -49,7 +49,7 @@ public class APIEventLogger {
 		logger.debug("onAPICreateEvent() intercepted call");
 		//Get the title of the apiEvent
 		String title = apiEvent.title();
-		if(pjp.getArgs().length == 1){
+		if(pjp.getArgs().length >= 1){
 			loggAPIEvent(title, pjp.getArgs()[0]);
 		}else{
 			logger.debug("Parameter list longer then 1 or is 0");
@@ -63,7 +63,7 @@ public class APIEventLogger {
 	private void loggAPIEvent(String title, Object obj){
 		logger.debug("Saving api event to db: " + title + ":" + obj.toString());
 
-		APIEvent event = new APIEvent(title, obj.toString(), new GregorianCalendar());
+		APIEvent event = new APIEvent(title, obj + "", new GregorianCalendar());
 		if(ValidationHelper.hasObjectValidAttributes(event)){
 			service.create(event);			
 		}else{

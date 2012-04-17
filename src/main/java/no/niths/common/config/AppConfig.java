@@ -3,6 +3,7 @@ package no.niths.common.config;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
  *
  */
 @Configuration
+@ImportResource( { "classpath*:timerTaskConfig.xml" } )
 public class AppConfig {
 
     public static final String BASE_PACKAGE =
