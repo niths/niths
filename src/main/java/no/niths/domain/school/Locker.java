@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,6 +19,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
+import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
@@ -28,16 +31,19 @@ import org.hibernate.annotations.CascadeType;
 @Table(name = AppConstants.LOCKERS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = Inclusion.NON_NULL)
-public class Locker {
+public class Locker implements Domain {
+
+    @Transient
+    private static final long serialVersionUID = -1430199434685615379L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "locker_number")
-    @Pattern(regexp = "[1-9]([0-9]{1,2})?")
+    @Column(name = "locker_number", unique = true)
+    @Pattern(regexp = "\\d{1,3}")
     @XmlElement(name = "locker_name")
-    private Long lockerNumber;
+    private String lockerNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
     @JoinTable(
@@ -47,6 +53,17 @@ public class Locker {
     @Cascade(CascadeType.ALL)
     private Student owner;
 
+    public Locker() {}
+
+    public Locker(String lockerNumber) {
+        this.lockerNumber = lockerNumber;
+    }
+
+    public Locker(Long id, String lockerNumber) {
+        this.id           = id;
+        this.lockerNumber = lockerNumber;
+    }
+
     public Long getId() {
         return id;
     }
@@ -55,11 +72,11 @@ public class Locker {
         this.id = id;
     }
 
-    public Long getLockerNumber() {
+    public String getLockerNumber() {
         return lockerNumber;
     }
 
-    public void setLockerNumber(Long lockerNumber) {
+    public void setLockerNumber(String lockerNumber) {
         this.lockerNumber = lockerNumber;
     }
 
@@ -69,5 +86,20 @@ public class Locker {
 
     public void setOwner(Student owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Locker) {
+            Locker locker = (Locker) obj;
+            equal = locker == this
+                    ? true : locker.getId() == id
+                    || locker.getLockerNumber() == lockerNumber
+                            ? true : false;
+        }
+
+        return equal;
     }
 }
