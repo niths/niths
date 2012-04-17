@@ -9,10 +9,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
-import no.niths.domain.battlestation.Loan;
 import no.niths.services.battlestation.interfaces.ConsoleService;
 import no.niths.services.battlestation.interfaces.GameService;
-import no.niths.services.battlestation.interfaces.LoanService;
 import no.niths.services.interfaces.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,9 +39,6 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
 
     @Autowired
     private ConsoleService consoleService;
-
-    @Autowired
-    private LoanService loanService;
 
     private GameList gameList = new GameList();
 
@@ -77,85 +72,20 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "add/console/{gameId}/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{gameId}/add/console/{consoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long gameId, @PathVariable Long consoleId) {
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
-
-        Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        game.setConsole(console);
-        gameService.update(game);
-        logger.debug("Game updated");
+        gameService.addConsole(gameId, consoleId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/console/{gameId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{gameId}/remove/console", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
     public void removeConsole(@PathVariable Long gameId) {
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
-
-        boolean isRemoved = false;
-
-        if (game.getConsole() != null) {
-            game.setConsole(null);
-            isRemoved = true;
-        }
-
-        if (isRemoved) {
-            gameService.update(game);
-        } else {
-            logger.debug("Console not found");
-            throw new ObjectNotFoundException("Console not found");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "add/loan/{gameId}/{loanId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
-    public void addLoan(@PathVariable Long gameId, @PathVariable Long loanId) {
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
-
-        Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
-
-        gameService.update(game);
-        logger.debug("Game updated");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "remove/loan/{gameId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
-    public void removeLoan(Long gameId) {
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
-
-        boolean isRemoved = false;
-
-//        if (game.getLoan() != null) {
-//            game.setLoan(null);
-//            isRemoved = true;
-//        }
-//
-//        if (isRemoved) {
-//            gameService.update(game);
-//        } else {
-//            logger.debug("Loan not found");
-//            throw new ObjectNotFoundException("Loan not found");
-//        }
+        gameService.removeConsole(gameId);
     }
 
     /**
