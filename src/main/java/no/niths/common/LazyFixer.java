@@ -112,7 +112,8 @@ public class LazyFixer<T> {
         }
     }
 
-    public void fetchChildren(List<T> list) {
+    @SuppressWarnings("unchecked")
+	public void fetchChildren(List<T> list) {
         for (Object element : list) {
             if (element == null) {
                 return;
@@ -211,7 +212,8 @@ public class LazyFixer<T> {
         }
     }
 
-    private void triggerFetch(Object target, Class<?> type)
+    @SuppressWarnings("unused")
+	private void triggerFetch(Object target, Class<?> type)
             throws NoSuchMethodException,  SecurityException,
                    IllegalAccessException, IllegalArgumentException,
                    InvocationTargetException {

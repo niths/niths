@@ -1,10 +1,7 @@
 package no.niths.services.battlestation;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
-import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.helper.*;
-import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;

@@ -157,7 +157,6 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @ResponseBody
     public ArrayList<T> getAll(T domain,@PathVariable int firstResult, @PathVariable int maxResults) {
         renewList(getService().getAll(domain, firstResult, maxResults));
-        nullifier.clearRelations(getList());
         return getList();
     }
 
@@ -217,6 +216,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
         getList().addAll(list);
         getList().setData(getList()); // Used for XML marshaling
         ValidationHelper.isListEmpty(getList());
+        nullifier.clearRelations(getList());
     }
 
     /**
