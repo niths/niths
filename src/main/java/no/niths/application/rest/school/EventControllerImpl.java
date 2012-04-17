@@ -98,7 +98,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = { "search" }, 
+	@RequestMapping(value = { "search" }, 	
 	method = RequestMethod.GET, 
 	headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody

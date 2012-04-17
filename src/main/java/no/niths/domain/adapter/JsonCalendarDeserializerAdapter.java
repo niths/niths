@@ -28,7 +28,9 @@ public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> 
 			throws IOException, JsonProcessingException { 
 		Calendar calendar = new GregorianCalendar();		
 		try {
+			logger.debug("calendarDezerializer is entred" + jp.getText());
 			calendar.setTime(df.parse(jp.getText()));
+			
 		} catch (ParseException px) {
 			logger.error(px.getMessage(),px);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
