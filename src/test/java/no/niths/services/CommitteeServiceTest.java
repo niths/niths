@@ -3,12 +3,12 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Event;
-import no.niths.domain.Student;
-import no.niths.services.interfaces.CommitteeService;
-import no.niths.services.interfaces.EventsService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.domain.school.Committee;
+import no.niths.domain.school.Event;
+import no.niths.domain.school.Student;
+import no.niths.services.school.interfaces.CommitteeService;
+import no.niths.services.school.interfaces.EventsService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

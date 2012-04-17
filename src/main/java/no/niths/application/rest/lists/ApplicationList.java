@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Application;
+import no.niths.domain.developing.Application;
 
 @XmlRootElement(name = AppConstants.APPLICATIONS)
 public class ApplicationList extends ListAdapter<Application> {

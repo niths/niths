@@ -2,7 +2,7 @@ package no.niths.infrastructure.interfaces;
 
 import java.util.List;
 
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 
 
 public interface StudentRepository extends GenericRepository<Student>{

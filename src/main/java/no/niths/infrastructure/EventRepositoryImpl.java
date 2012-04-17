@@ -3,7 +3,7 @@ package no.niths.infrastructure;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import no.niths.domain.Event;
+import no.niths.domain.school.Event;
 import no.niths.infrastructure.interfaces.EventRepository;
 
 import org.hibernate.Query;

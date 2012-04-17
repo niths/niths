@@ -12,12 +12,12 @@ import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.TagProvider;
 import no.niths.application.rest.helper.TimeDTO;
-import no.niths.application.rest.interfaces.EventController;
 import no.niths.application.rest.location.interfaces.LocationController;
+import no.niths.application.rest.school.interfaces.EventController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Event;
 import no.niths.domain.location.Location;
+import no.niths.domain.school.Event;
 
 import org.junit.After;
 import org.junit.Before;

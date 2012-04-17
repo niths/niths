@@ -9,8 +9,8 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Course;
-import no.niths.domain.Subject;
+import no.niths.domain.school.Course;
+import no.niths.domain.school.Subject;
 import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.infrastructure.interfaces.SubjectRepository;
 

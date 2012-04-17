@@ -8,8 +8,8 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Event;
 import no.niths.domain.location.Location;
+import no.niths.domain.school.Event;
 import no.niths.infrastructure.interfaces.EventRepository;
 
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Course;
+import no.niths.domain.school.Course;
 import no.niths.infrastructure.interfaces.CourseRepository;
 
 import org.springframework.stereotype.Repository;

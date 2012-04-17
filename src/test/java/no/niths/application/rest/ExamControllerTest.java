@@ -4,19 +4,16 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-
-import javax.validation.ConstraintViolationException;
-
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.ExamController;
-import no.niths.application.rest.interfaces.SubjectController;
 import no.niths.application.rest.location.interfaces.RoomController;
+import no.niths.application.rest.school.interfaces.ExamController;
+import no.niths.application.rest.school.interfaces.SubjectController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Exam;
-import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
+import no.niths.domain.school.Exam;
+import no.niths.domain.school.Subject;
 
 import org.junit.Before;
 import org.junit.Test;

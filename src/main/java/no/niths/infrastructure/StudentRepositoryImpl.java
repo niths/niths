@@ -2,7 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.List;
 
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.infrastructure.interfaces.StudentRepository;
 
 import org.hibernate.Criteria;

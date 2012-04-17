@@ -1,6 +1,6 @@
 package no.niths.infrastructure.interfaces;
 
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Developer;
 
 public interface DeveloperRepository extends GenericRepository<Developer> {
 	@Deprecated

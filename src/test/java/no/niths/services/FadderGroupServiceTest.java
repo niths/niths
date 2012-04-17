@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.FadderGroup;
-import no.niths.domain.Student;
-import no.niths.services.interfaces.FadderGroupService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.domain.school.FadderGroup;
+import no.niths.domain.school.Student;
+import no.niths.services.school.interfaces.FadderGroupService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

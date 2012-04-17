@@ -24,8 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
-import no.niths.domain.Exam;
-import no.niths.domain.Subject;
+import no.niths.domain.school.Exam;
+import no.niths.domain.school.Subject;
 import no.niths.domain.signaling.AccessField;
 
 import org.codehaus.jackson.annotate.JsonIgnore;

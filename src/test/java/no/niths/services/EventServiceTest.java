@@ -9,10 +9,10 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Event;
 import no.niths.domain.location.Location;
-import no.niths.services.interfaces.EventsService;
+import no.niths.domain.school.Event;
 import no.niths.services.location.interfaces.LocationService;
+import no.niths.services.school.interfaces.EventsService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

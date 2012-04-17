@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.FadderGroup;
+import no.niths.domain.school.FadderGroup;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
 
 import org.springframework.stereotype.Repository;

@@ -3,7 +3,7 @@ package no.niths.infrastructure.interfaces;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import no.niths.domain.Event;
+import no.niths.domain.school.Event;
 
 
 public interface EventRepository extends GenericRepository<Event> {

@@ -3,8 +3,8 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.FadderGroup;
-import no.niths.domain.Student;
+import no.niths.domain.school.FadderGroup;
+import no.niths.domain.school.Student;
 import no.niths.infrastructure.interfaces.FadderGroupRepository;
 import no.niths.infrastructure.interfaces.StudentRepository;
 

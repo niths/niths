@@ -3,8 +3,8 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Application;
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
 import no.niths.infrastructure.interfaces.ApplicationRepository;
 import no.niths.infrastructure.interfaces.DeveloperRepository;
 

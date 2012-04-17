@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Subject;
+import no.niths.domain.school.Subject;
 
 @XmlRootElement(name = AppConstants.SUBJECTS)
 public class SubjectList extends ListAdapter<Subject> {

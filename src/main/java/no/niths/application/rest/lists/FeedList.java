@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Feed;
+import no.niths.domain.school.Feed;
 
 @XmlRootElement(name = AppConstants.FEEDS)
 public class FeedList extends ListAdapter<Feed> {

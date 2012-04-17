@@ -3,8 +3,8 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Feed;
 import no.niths.domain.location.Location;
+import no.niths.domain.school.Feed;
 import no.niths.infrastructure.interfaces.FeedRepoistory;
 
 import org.junit.Test;

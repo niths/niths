@@ -1,6 +1,6 @@
 package no.niths.application.rest.auth;
 
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
 
 /**

@@ -2,13 +2,13 @@ package no.niths.application.rest;
 
 
 import static org.junit.Assert.assertEquals;
+import no.niths.application.rest.developing.interfaces.ApplicationController;
+import no.niths.application.rest.developing.interfaces.DeveloperController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.ApplicationController;
-import no.niths.application.rest.interfaces.DeveloperController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Application;
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
 
 import org.junit.Before;
 import org.junit.Test;

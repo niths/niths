@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Developer;
 import no.niths.infrastructure.interfaces.DeveloperRepository;
 
 import org.springframework.stereotype.Repository;

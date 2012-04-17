@@ -1,6 +1,6 @@
 package no.niths.infrastructure.interfaces;
 
-import no.niths.domain.Application;
+import no.niths.domain.developing.Application;
 
 public interface ApplicationRepository extends GenericRepository<Application> {
 

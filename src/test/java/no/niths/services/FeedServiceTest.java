@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Feed;
-import no.niths.domain.Student;
 import no.niths.domain.location.Location;
-import no.niths.services.interfaces.FeedService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.domain.school.Feed;
+import no.niths.domain.school.Student;
 import no.niths.services.location.interfaces.LocationService;
+import no.niths.services.school.interfaces.FeedService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

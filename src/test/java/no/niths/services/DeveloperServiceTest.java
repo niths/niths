@@ -3,10 +3,10 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Application;
-import no.niths.domain.Developer;
-import no.niths.services.interfaces.ApplicationService;
-import no.niths.services.interfaces.DeveloperService;
+import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
+import no.niths.services.developing.interfaces.ApplicationService;
+import no.niths.services.developing.interfaces.DeveloperService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

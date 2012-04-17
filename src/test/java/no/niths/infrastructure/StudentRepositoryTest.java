@@ -8,9 +8,9 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Course;
-import no.niths.domain.Student;
+import no.niths.domain.school.Committee;
+import no.niths.domain.school.Course;
+import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.CourseRepository;

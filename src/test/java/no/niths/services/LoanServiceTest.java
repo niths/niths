@@ -10,14 +10,14 @@ import java.util.GregorianCalendar;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Student;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
+import no.niths.domain.school.Student;
 import no.niths.services.battlestation.interfaces.ConsoleService;
 import no.niths.services.battlestation.interfaces.GameService;
 import no.niths.services.battlestation.interfaces.LoanService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Before;
 import org.junit.Test;

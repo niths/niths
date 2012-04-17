@@ -2,18 +2,17 @@ package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.FadderGroupController;
-import no.niths.application.rest.interfaces.StudentController;
+import no.niths.application.rest.school.interfaces.FadderGroupController;
+import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.FadderGroup;
-import no.niths.domain.Student;
+import no.niths.domain.school.FadderGroup;
+import no.niths.domain.school.Student;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

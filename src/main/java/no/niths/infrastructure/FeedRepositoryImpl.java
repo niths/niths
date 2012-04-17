@@ -2,7 +2,7 @@ package no.niths.infrastructure;
 
 import java.util.GregorianCalendar;
 
-import no.niths.domain.Feed;
+import no.niths.domain.school.Feed;
 import no.niths.infrastructure.interfaces.FeedRepoistory;
 
 import org.springframework.stereotype.Repository;

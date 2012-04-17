@@ -3,6 +3,7 @@ package no.niths.domain;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import no.niths.domain.school.FadderGroup;
 
 import org.junit.Test;
 

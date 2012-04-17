@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.web.interfaces.AdminController;
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.RoleService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

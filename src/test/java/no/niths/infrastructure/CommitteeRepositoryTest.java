@@ -3,9 +3,9 @@ package no.niths.infrastructure;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Committee;
-import no.niths.domain.Event;
-import no.niths.domain.Student;
+import no.niths.domain.school.Committee;
+import no.niths.domain.school.Event;
+import no.niths.domain.school.Student;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.StudentRepository;
 

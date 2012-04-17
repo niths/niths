@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Developer;
 
 @XmlRootElement(name = AppConstants.DEVELOPERS)
 public class DeveloperList extends ListAdapter<Developer> {

@@ -6,14 +6,14 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.SecurityConstants;
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.security.RequestHolderDetails;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.AuthenticationServiceImpl;
 import no.niths.services.auth.interfaces.GoogleAuthenticationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
-import no.niths.services.interfaces.StudentService;
+import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

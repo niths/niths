@@ -7,7 +7,7 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.common.AppConstants;
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
 

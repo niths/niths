@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;

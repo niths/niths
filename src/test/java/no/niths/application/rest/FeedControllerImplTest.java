@@ -8,14 +8,14 @@ import java.util.List;
 
 import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.FeedController;
-import no.niths.application.rest.interfaces.StudentController;
 import no.niths.application.rest.location.interfaces.LocationController;
+import no.niths.application.rest.school.interfaces.FeedController;
+import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Feed;
-import no.niths.domain.Student;
 import no.niths.domain.location.Location;
+import no.niths.domain.school.Feed;
+import no.niths.domain.school.Student;
 
 import org.junit.After;
 import org.junit.Before;

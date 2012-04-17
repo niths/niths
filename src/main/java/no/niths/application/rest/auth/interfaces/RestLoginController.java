@@ -3,7 +3,7 @@ package no.niths.application.rest.auth.interfaces;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.domain.Student;
+import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
 
 /**

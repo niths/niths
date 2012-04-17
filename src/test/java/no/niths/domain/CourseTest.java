@@ -13,6 +13,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import no.niths.domain.school.Course;
+import no.niths.domain.school.Student;
+import no.niths.domain.school.Subject;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

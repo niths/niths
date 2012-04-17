@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Application;
+import no.niths.domain.developing.Application;
 import no.niths.infrastructure.interfaces.ApplicationRepository;
 
 import org.springframework.stereotype.Repository;

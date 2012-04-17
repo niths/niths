@@ -1,7 +1,7 @@
 package no.niths.application.rest.auth.interfaces;
 
-import no.niths.domain.Application;
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
 import no.niths.security.ApplicationToken;
 import no.niths.security.DeveloperToken;
 

@@ -1,10 +1,10 @@
 package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
-import no.niths.application.rest.interfaces.CourseController;
+import no.niths.application.rest.school.interfaces.CourseController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Course;
+import no.niths.domain.school.Course;
 
 import org.junit.Before;
 import org.junit.Test;

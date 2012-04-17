@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Subject;
+import no.niths.domain.school.Subject;
 import no.niths.infrastructure.interfaces.SubjectRepository;
 
 import org.junit.Test;

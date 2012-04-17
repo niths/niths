@@ -1,24 +1,26 @@
 package no.niths.domain;
 
-import no.niths.domain.battlestation.Console;
-import no.niths.domain.battlestation.Game;
-import no.niths.domain.battlestation.Loan;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import no.niths.domain.battlestation.Console;
+import no.niths.domain.battlestation.Game;
+import no.niths.domain.battlestation.Loan;
+import no.niths.domain.school.Student;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class LoanTest {
     private static final GregorianCalendar LOAN_DATE = new GregorianCalendar();

@@ -1,7 +1,7 @@
 package no.niths.common;
 
-import no.niths.domain.Application;
-import no.niths.domain.Developer;
+import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
 /**
  * Class that holds email templates
  * used in MailService

@@ -19,8 +19,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.AppConstants;
 import no.niths.domain.Domain;
-import no.niths.domain.Event;
-import no.niths.domain.Feed;
+import no.niths.domain.school.Event;
+import no.niths.domain.school.Feed;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;

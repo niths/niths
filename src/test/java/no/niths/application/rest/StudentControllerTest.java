@@ -5,15 +5,23 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.util.GregorianCalendar;
+
 import javax.validation.ConstraintViolationException;
 
 import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.*;
+import no.niths.application.rest.school.interfaces.CommitteeController;
+import no.niths.application.rest.school.interfaces.CourseController;
+import no.niths.application.rest.school.interfaces.FeedController;
+import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.*;
 import no.niths.domain.battlestation.Loan;
+import no.niths.domain.school.Committee;
+import no.niths.domain.school.Course;
+import no.niths.domain.school.Feed;
+import no.niths.domain.school.Student;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.GregorianCalendar;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })

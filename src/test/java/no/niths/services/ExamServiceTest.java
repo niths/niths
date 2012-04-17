@@ -5,12 +5,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.Exam;
-import no.niths.domain.Subject;
 import no.niths.domain.location.Room;
-import no.niths.services.interfaces.ExamService;
-import no.niths.services.interfaces.SubjectService;
+import no.niths.domain.school.Exam;
+import no.niths.domain.school.Subject;
 import no.niths.services.location.interfaces.RoomService;
+import no.niths.services.school.interfaces.ExamService;
+import no.niths.services.school.interfaces.SubjectService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

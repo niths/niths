@@ -1,0 +1,111 @@
+package no.niths.services.school;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import no.niths.common.LazyFixer;
+import no.niths.common.SecurityConstants;
+import no.niths.domain.school.Student;
+import no.niths.domain.security.Role;
+import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.interfaces.RoleRepository;
+import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.school.interfaces.StudentService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentServiceImpl extends AbstractGenericService<Student>
+		implements StudentService {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(StudentServiceImpl.class);
+	
+	private LazyFixer<Student> lazyFixer = new LazyFixer<Student>();
+
+	@Autowired
+	private StudentRepository repo;
+
+	@Autowired
+	private RoleRepository roleRepo;
+
+	public Long create(Student student) {
+		Role r = new Role(SecurityConstants.R_STUDENT);
+		List<Role> roles = roleRepo.getAll(r);
+		if (!roles.isEmpty() && roles.size() == 1) {
+			logger.debug("Role given to created student: "
+					+ roles.get(0).getRoleName());
+			student.setRoles(new ArrayList<Role>());
+			student.getRoles().add(roles.get(0));
+		}
+		return repo.create(student);
+	}
+
+	@Override
+	public Student getStudentByEmail(String email) {
+		Student s = new Student(email);
+		List<Student> all = getAll(s);
+		if (!all.isEmpty()) {
+			Student s2 = all.get(0);
+			s2.getRoles().size();
+			return s2;
+		}
+		return null;
+	}
+
+	@Override
+	public Student getStudentBySessionToken(String token) {
+		Student s = new Student();
+		s.setSessionToken(token);
+		List<Student> all = getAll(s);
+		if (!all.isEmpty()) {
+			Student s2 = all.get(0);
+			s2.getRoles().size();
+			return s2;
+		}
+		return null;
+	}
+
+	@Override
+	public Student getStudentWithRoles(Long id) {
+		Student s = repo.getById(id);
+		if (s != null) {
+			s.getRoles().size();
+		}
+		return s;
+	}
+
+	public List<Student> getStudentsWithNamedCourse(String name) {
+		return repo.getStudentsWithNamedCourse(name);
+	}
+
+	@Override
+	public List<Student> getStudentsAndRoles(Student s) {
+		List<Student> list = repo.getAll(s);
+
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).getRoles().size();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Student> getStudentByColumn(String column, String criteria) {
+		List<Student> list = repo.getStudentByColumn(column, criteria);
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).getRoles().size();
+		}
+
+		return list;
+	}
+
+	@Override
+	public GenericRepository<Student> getRepository() {
+		return repo;
+	}
+
+}

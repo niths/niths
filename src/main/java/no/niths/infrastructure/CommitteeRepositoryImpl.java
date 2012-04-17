@@ -1,6 +1,6 @@
 package no.niths.infrastructure;
 
-import no.niths.domain.Committee;
+import no.niths.domain.school.Committee;
 import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 
 import org.springframework.stereotype.Repository;

@@ -7,14 +7,16 @@ import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LoanList;
 import no.niths.common.AppConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Student;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.Loan;
+import no.niths.domain.school.Student;
 import no.niths.services.battlestation.interfaces.ConsoleService;
 import no.niths.services.battlestation.interfaces.GameService;
 import no.niths.services.battlestation.interfaces.LoanService;
 import no.niths.services.interfaces.*;
+import no.niths.services.school.interfaces.StudentService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

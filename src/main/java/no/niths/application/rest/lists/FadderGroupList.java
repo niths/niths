@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.domain.FadderGroup;
+import no.niths.domain.school.FadderGroup;
 
 @XmlRootElement(name = "faddergroups")
 public class FadderGroupList extends ListAdapter<FadderGroup> {

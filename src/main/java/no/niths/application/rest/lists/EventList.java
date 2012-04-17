@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Event;
+import no.niths.domain.school.Event;
 
 @XmlRootElement(name = AppConstants.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)

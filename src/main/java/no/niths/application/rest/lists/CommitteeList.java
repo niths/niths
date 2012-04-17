@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppConstants;
-import no.niths.domain.Committee;
+import no.niths.domain.school.Committee;
 
 @XmlRootElement(name = AppConstants.COMMITTEES)
 public class CommitteeList extends ListAdapter<Committee> {

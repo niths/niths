@@ -1,6 +1,6 @@
 package no.niths.infrastructure.interfaces;
 
-import no.niths.domain.Course;
+import no.niths.domain.school.Course;
 
 
 
