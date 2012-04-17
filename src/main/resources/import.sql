@@ -262,6 +262,7 @@ INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(6, 1);
 --------------------------fadder_children----------------------------
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 2);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 6);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 3);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 7);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 8);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 9);

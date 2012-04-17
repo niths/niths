@@ -2,14 +2,10 @@ package no.niths.application.rest.battlestation;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ConsoleList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppConstants;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
-import no.niths.domain.battlestation.Game;
-import no.niths.domain.battlestation.Loan;
 import no.niths.services.battlestation.interfaces.ConsoleService;
 import no.niths.services.battlestation.interfaces.GameService;
 import no.niths.services.battlestation.interfaces.LoanService;
@@ -50,90 +46,40 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console> i
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "add/game/{consoleId}/{gameId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{consoleId}/add/game/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
     public void addGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
-        Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        Game game = gameService.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
-
-        console.getGames().add(game);
-        consoleService.update(console);
-        logger.debug("Console updated");
+        consoleService.addGame(consoleId, gameId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/game/{consoleId}/{gameId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{consoleId}/remove/game/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Game Removed")
     public void removeGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
-
-        Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < console.getGames().size(); i++) {
-            if (console.getGames().get(i).getId() == gameId) {
-                console.getGames().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            consoleService.update(console);
-        } else {
-            logger.debug("Game not found");
-            throw new ObjectNotFoundException("Game not found");
-        }
+        consoleService.removeGame(consoleId, gameId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "add/loan/{consoleId}/{loanId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{consoleId}/add/loan/{loanId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(@PathVariable Long consoleId, @PathVariable Long loanId) {
-        Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        Loan loan = loanService.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
-
-        console.setLoan(loan);
-        consoleService.update(console);
-        logger.debug("Console updated");
+        consoleService.addLoan(consoleId, loanId);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "remove/loan/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{consoleId}/remove/loan", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
     public void removeLoan(@PathVariable Long consoleId) {
-        Console console = consoleService.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        boolean isRemoved = false;
-
-        if (console.getLoan() != null) {
-            console.setLoan(null);
-            isRemoved = true;
-        }
-
-        if (isRemoved) {
-            consoleService.update(console);
-        } else {
-            logger.debug("Loan not found");
-            throw new ObjectNotFoundException("Loan not found");
-        }
+        consoleService.removeLoan(consoleId);
     }
 
     @Override

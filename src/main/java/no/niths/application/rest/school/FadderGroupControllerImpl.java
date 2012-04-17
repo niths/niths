@@ -352,7 +352,7 @@ public class FadderGroupControllerImpl
     }
 
     private FadderGroup getGroup(Long groupId) {
-        FadderGroup group = service.getById(groupId);
+        FadderGroup group = super.getById(groupId);
         ValidationHelper.isObjectNull(group, FadderGroup.class);
         return group;
     }
