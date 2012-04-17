@@ -47,8 +47,8 @@ public class Game implements Domain {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Console.class)
     @JoinTable(name = "games_consoles",
-            joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "console_id"))
+            joinColumns = @JoinColumn(name = "games_id"),
+            inverseJoinColumns = @JoinColumn(name = "consoles_id"))
     @Cascade(CascadeType.ALL)
     private Console console;
 

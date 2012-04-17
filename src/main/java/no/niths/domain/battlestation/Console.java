@@ -51,8 +51,8 @@ public class Console implements Domain {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Game.class)
     @JoinTable(name = "games_consoles",
-            joinColumns = @JoinColumn(name = "console_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
+            joinColumns = @JoinColumn(name = "consoles_id"),
+            inverseJoinColumns = @JoinColumn(name = "games_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Game> games = new ArrayList<Game>();
 
