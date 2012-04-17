@@ -1,11 +1,5 @@
 package no.niths.infrastructure;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.GregorianCalendar;
-
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Loan;
@@ -18,6 +12,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
@@ -41,7 +44,7 @@ public class LoanRepositoryTest {
         int size = loanRepository.getAll(null).size();
 
         Loan loan = new Loan();
-        loan.setLoanDate(LOAN_DATE);
+        loan.setStartTime(LOAN_DATE);
         loanRepository.create(loan);
 
         assertThat(size + 1, is(equalTo(loanRepository.getAll(null).size())));
@@ -52,8 +55,8 @@ public class LoanRepositoryTest {
         int size = loanRepository.getAll(null).size();
 
         Loan loan = new Loan();
-        loan.setLoanDate(LOAN_DATE);
-        loan.setReturnDate(RETURN_DATE);
+        loan.setStartTime(LOAN_DATE);
+        loan.setEndTime(RETURN_DATE);
         loanRepository.create(loan);
 
         assertThat(size + 1, is(equalTo(loanRepository.getAll(null).size())));
@@ -70,15 +73,15 @@ public class LoanRepositoryTest {
         int size = loanRepository.getAll(null).size();
 
         Loan loan = new Loan();
-        loan.setLoanDate(LOAN_DATE);
+        loan.setStartTime(LOAN_DATE);
         loanRepository.create(loan);
 
         assertThat(size + 1, is(equalTo(loanRepository.getAll(null).size())));
 
-        loan.setReturnDate(RETURN_DATE);
+        loan.setEndTime(RETURN_DATE);
         loanRepository.update(loan);
 
-        assertThat(RETURN_DATE, is(equalTo(loanRepository.getById(loan.getId()).getReturnDate())));
+        assertThat(RETURN_DATE, is(equalTo(loanRepository.getById(loan.getId()).getEndTime())));
     }
 
     @Test
@@ -86,18 +89,56 @@ public class LoanRepositoryTest {
         int size = loanRepository.getAll(null).size();
 
         Loan loan = new Loan();
-        loan.setLoanDate(LOAN_DATE);
-        loan.setReturnDate(RETURN_DATE);
+        loan.setStartTime(new GregorianCalendar(2011, Calendar.APRIL, 10, 15, 10));
         loanRepository.create(loan);
         Loan otherLoan = new Loan();
-        otherLoan.setLoanDate(LOAN_DATE);
+        otherLoan.setStartTime(new GregorianCalendar(2011, Calendar.APRIL, 10, 15, 10));
         loanRepository.create(otherLoan);
         Loan thirdLoan = new Loan();
-        thirdLoan.setLoanDate(new GregorianCalendar());
+        thirdLoan.setStartTime(new GregorianCalendar(2009, Calendar.APRIL, 10, 15, 10));
         loanRepository.create(thirdLoan);
 
         assertThat(size + 3, is(equalTo(loanRepository.getAll(null).size())));
 
-        assertThat(size + 1, is(equalTo(loanRepository.getAll(loan).size())));
+        assertThat(1, is(equalTo(loanRepository.getAll(thirdLoan).size())));
+    }
+
+    @Test
+    public void testGetLoansBetweenToDates(){
+        GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.APRIL, 10, 15, 10);
+        GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 20);
+        GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 21);
+
+        Loan loan = new Loan(startTime);
+        Loan otherLoan = new Loan(endDate);
+        Loan thirdLoan = new Loan(oldDate);
+        loanRepository.create(loan);
+        loanRepository.create(otherLoan);
+        loanRepository.create(thirdLoan);
+
+
+        List<Loan> loans = loanRepository.getLoansBetweenDates(startTime, endDate);
+
+        assertEquals(2, loans.size());
+    }
+
+
+    @Test
+    public void testGetEventsAfterADate(){
+        GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.MAY, 10, 15, 10);
+        GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.MAY, 15, 22, 20);
+        GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.MAY, 15, 22, 21);
+
+        Loan loan = new Loan(startTime);
+        Loan otherLoan = new Loan(endDate);
+        Loan thirdLoan = new Loan(oldDate);
+        loanRepository.create(loan);
+        loanRepository.create(otherLoan);
+        loanRepository.create(thirdLoan);
+
+
+        List<Loan> loans = loanRepository.getLoansBetweenDates(endDate, null);
+
+        assertEquals(2, loans.size());
     }
 }

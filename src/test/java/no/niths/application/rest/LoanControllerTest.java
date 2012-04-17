@@ -3,14 +3,16 @@ package no.niths.application.rest;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
-import no.niths.application.rest.battlestation.interfaces.GameController;
 import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -34,9 +36,6 @@ public class LoanControllerTest {
 
     @Autowired
     private LoanController loanController;
-//
-//    @Autowired
-//    private GameController gameController;
 
     @Autowired
     private ConsoleController consoleController;
@@ -124,5 +123,30 @@ public class LoanControllerTest {
 
         loanController.hibernateDelete(loan.getId());
         studentController.hibernateDelete(loanedBy.getId());
+    }
+
+    @Test
+    public void testGetLoansBetweenDates() {
+        Loan loan = new Loan(new GregorianCalendar(2012, 4, 9, 10, 55));
+        loanController.create(loan, res);
+
+        String start = "09/04/2012-10:55";
+        String end = "09/05/2012-10:55";
+
+        TimeDTO tdto = new TimeDTO(start, end);
+        List<Loan> events = loanController.getLoansBetweenDates(tdto);
+
+        assertEquals(1, events.size());
+    }
+
+    @Test
+    public void testGetEventsFromADate() {
+        Loan loan = new Loan(new GregorianCalendar(2012, 4, 9, 11, 55));
+        loanController.create(loan, res);
+
+        String start = "09/05/2012-11:55";
+        TimeDTO tdto = new TimeDTO(start, null);
+        List<Loan> events = loanController.getLoansBetweenDates(tdto);
+        assertEquals(1, events.size());
     }
 }
