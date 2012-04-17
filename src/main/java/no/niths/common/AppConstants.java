@@ -26,7 +26,8 @@ public final class AppConstants {
     public static final String GAMES = "games";
     public static final String LOANS = "loans";
     public static final String LOCATIONS = "locations";
-    public static final String LOCKERS = "lockers";
+    public static final String LOCKER = "locker";
+    public static final String LOCKERS = LOCKER + 's';
     public static final String QR = "qr";
     public static final String ROLES = "roles";
     public static final String ROOMS = "rooms";
