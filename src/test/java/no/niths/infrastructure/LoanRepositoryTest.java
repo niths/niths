@@ -3,7 +3,7 @@ package no.niths.infrastructure;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Loan;
-import no.niths.infrastructure.interfaces.LoanRepository;
+import no.niths.infrastructure.battlestation.interfaces.LoanRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

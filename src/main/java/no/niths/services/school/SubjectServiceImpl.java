@@ -2,7 +2,7 @@ package no.niths.services.school;
 
 import no.niths.domain.school.Subject;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
+import no.niths.infrastructure.school.interfaces.SubjectRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.SubjectService;
 

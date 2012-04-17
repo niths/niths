@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.domain.school.FadderGroup;
-import no.niths.infrastructure.interfaces.FadderGroupRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.school.interfaces.FadderGroupRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.FadderGroupService;
 

@@ -1,7 +1,7 @@
 package no.niths.services.developing;
 
 import no.niths.domain.developing.Application;
-import no.niths.infrastructure.interfaces.ApplicationRepository;
+import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.developing.interfaces.ApplicationService;

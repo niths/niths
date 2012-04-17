@@ -1,8 +1,8 @@
 package no.niths.services.signaling;
 
 import no.niths.domain.signaling.AccessField;
-import no.niths.infrastructure.interfaces.AccessFieldRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessFieldRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.signaling.interfaces.AccessFieldService;
 

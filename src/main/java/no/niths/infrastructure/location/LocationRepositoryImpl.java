@@ -2,7 +2,7 @@ package no.niths.infrastructure.location;
 
 import no.niths.domain.location.Location;
 import no.niths.infrastructure.AbstractGenericRepositoryImpl;
-import no.niths.infrastructure.interfaces.LocationRepository;
+import no.niths.infrastructure.location.interfaces.LocationRepository;
 
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package no.niths.services.location;
 
 import no.niths.domain.location.Location;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.LocationRepository;
+import no.niths.infrastructure.location.interfaces.LocationRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.location.interfaces.LocationService;
 

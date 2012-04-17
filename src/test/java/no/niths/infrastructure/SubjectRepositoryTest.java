@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNull;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Subject;
-import no.niths.infrastructure.interfaces.SubjectRepository;
+import no.niths.infrastructure.school.interfaces.SubjectRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

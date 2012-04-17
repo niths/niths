@@ -11,9 +11,9 @@ import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Location;
 import no.niths.domain.school.Event;
-import no.niths.infrastructure.interfaces.EventRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.LocationRepository;
+import no.niths.infrastructure.location.interfaces.LocationRepository;
+import no.niths.infrastructure.school.interfaces.EventRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.EventsService;
 

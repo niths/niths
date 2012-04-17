@@ -3,7 +3,7 @@ package no.niths.services.developing;
 import java.util.List;
 
 import no.niths.domain.developing.Developer;
-import no.niths.infrastructure.interfaces.DeveloperRepository;
+import no.niths.infrastructure.developing.interfaces.DeveloperRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.developing.interfaces.DeveloperService;

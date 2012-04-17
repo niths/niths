@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.signaling.AccessPoint;
-import no.niths.infrastructure.interfaces.AccessPointRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessPointRepository;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;

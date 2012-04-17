@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.signaling.AccessField;
-import no.niths.infrastructure.interfaces.AccessFieldRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessFieldRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

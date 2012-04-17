@@ -7,7 +7,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Game;
 import no.niths.domain.battlestation.GameCategory;
-import no.niths.infrastructure.interfaces.GameRepository;
+import no.niths.infrastructure.battlestation.interfaces.GameRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

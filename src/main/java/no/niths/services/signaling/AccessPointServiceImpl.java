@@ -1,8 +1,8 @@
 package no.niths.services.signaling;
 
 import no.niths.domain.signaling.AccessPoint;
-import no.niths.infrastructure.interfaces.AccessPointRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessPointRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.signaling.interfaces.AccessPointService;
 

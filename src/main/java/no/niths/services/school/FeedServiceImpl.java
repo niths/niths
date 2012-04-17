@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.domain.school.Feed;
-import no.niths.infrastructure.interfaces.FeedRepoistory;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.school.interfaces.FeedRepoistory;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.FeedService;
 

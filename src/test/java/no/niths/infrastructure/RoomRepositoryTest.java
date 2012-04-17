@@ -2,7 +2,7 @@ package no.niths.infrastructure;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.infrastructure.interfaces.RoomRepository;
+import no.niths.infrastructure.location.interfaces.RoomRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

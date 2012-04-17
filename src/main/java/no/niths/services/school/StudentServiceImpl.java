@@ -18,13 +18,13 @@ import no.niths.domain.school.Course;
 import no.niths.domain.school.Feed;
 import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
-import no.niths.infrastructure.interfaces.CommitteeRepositorty;
-import no.niths.infrastructure.interfaces.CourseRepository;
-import no.niths.infrastructure.interfaces.FeedRepoistory;
+import no.niths.infrastructure.battlestation.interfaces.LoanRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.LoanRepository;
 import no.niths.infrastructure.interfaces.RoleRepository;
-import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
+import no.niths.infrastructure.school.interfaces.CourseRepository;
+import no.niths.infrastructure.school.interfaces.FeedRepoistory;
+import no.niths.infrastructure.school.interfaces.StudentRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.StudentService;
 

@@ -5,7 +5,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.location.Location;
 import no.niths.domain.school.Feed;
-import no.niths.infrastructure.interfaces.FeedRepoistory;
+import no.niths.infrastructure.school.interfaces.FeedRepoistory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

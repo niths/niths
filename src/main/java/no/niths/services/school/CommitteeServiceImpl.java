@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.domain.school.Committee;
-import no.niths.infrastructure.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.CommitteeService;
 

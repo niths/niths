@@ -6,10 +6,10 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.school.Exam;
 import no.niths.domain.school.Subject;
-import no.niths.infrastructure.interfaces.ExamRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.RoomRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
+import no.niths.infrastructure.location.interfaces.RoomRepository;
+import no.niths.infrastructure.school.interfaces.ExamRepository;
+import no.niths.infrastructure.school.interfaces.SubjectRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.ExamService;
 

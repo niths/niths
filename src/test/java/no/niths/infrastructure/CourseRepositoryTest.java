@@ -11,8 +11,8 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Subject;
-import no.niths.infrastructure.interfaces.CourseRepository;
-import no.niths.infrastructure.interfaces.SubjectRepository;
+import no.niths.infrastructure.school.interfaces.CourseRepository;
+import no.niths.infrastructure.school.interfaces.SubjectRepository;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;

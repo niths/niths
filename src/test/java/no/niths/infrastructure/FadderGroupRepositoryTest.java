@@ -5,8 +5,8 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.FadderGroup;
 import no.niths.domain.school.Student;
-import no.niths.infrastructure.interfaces.FadderGroupRepository;
-import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.infrastructure.school.interfaces.FadderGroupRepository;
+import no.niths.infrastructure.school.interfaces.StudentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

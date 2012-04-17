@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Exam;
-import no.niths.infrastructure.interfaces.ExamRepository;
+import no.niths.infrastructure.school.interfaces.ExamRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

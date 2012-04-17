@@ -7,10 +7,10 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Student;
-import no.niths.infrastructure.interfaces.ConsoleRepository;
+import no.niths.infrastructure.battlestation.interfaces.ConsoleRepository;
+import no.niths.infrastructure.battlestation.interfaces.LoanRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.LoanRepository;
-import no.niths.infrastructure.interfaces.StudentRepository;
+import no.niths.infrastructure.school.interfaces.StudentRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.battlestation.interfaces.LoanService;
 

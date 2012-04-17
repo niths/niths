@@ -12,9 +12,9 @@ import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
-import no.niths.infrastructure.interfaces.AccessFieldRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.RoomRepository;
+import no.niths.infrastructure.location.interfaces.RoomRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessFieldRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.location.interfaces.RoomService;
 

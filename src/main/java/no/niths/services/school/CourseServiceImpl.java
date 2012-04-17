@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.domain.school.Course;
-import no.niths.infrastructure.interfaces.CourseRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.school.interfaces.CourseRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.school.interfaces.CourseService;
 
