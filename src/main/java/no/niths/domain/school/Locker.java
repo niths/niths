@@ -40,8 +40,8 @@ public class Locker implements Domain {
     private Long id;
 
     @Column(name = "locker_number", unique = true)
-    @Pattern(regexp = "\\d{1,3}")
-    @XmlElement(name = "locker_name")
+    @Pattern(regexp = "\\d{1,3}", message = "Invalid locker number")
+    @XmlElement(name = "locker_number")
     private String lockerNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
