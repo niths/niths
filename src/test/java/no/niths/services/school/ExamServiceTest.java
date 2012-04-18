@@ -1,4 +1,4 @@
-package no.niths.services;
+package no.niths.services.school;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

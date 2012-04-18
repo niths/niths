@@ -1,4 +1,4 @@
-package no.niths.services;
+package no.niths.services.school;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
