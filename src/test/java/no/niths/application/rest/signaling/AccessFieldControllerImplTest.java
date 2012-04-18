@@ -1,4 +1,4 @@
-package no.niths.application.rest;
+package no.niths.application.rest.signaling;
 
 import static org.junit.Assert.assertEquals;
 

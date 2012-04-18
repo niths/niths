@@ -1,4 +1,4 @@
-package no.niths.application.rest.school;
+package no.niths.application.rest.battlestation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
