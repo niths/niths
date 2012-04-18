@@ -63,7 +63,7 @@ public class ExamControllerTest {
 
         assertThat(size + 1, is(equalTo(examController.getAll(null).size())));
 
-        examController.hibernateDelete(exam.getId());
+        examController.delete(exam.getId());
 
         int currentSize = 0;
 
@@ -98,9 +98,9 @@ public class ExamControllerTest {
         assertThat(1, is(equalTo(examController.getById(exam.getId()).getRooms().size())));
         assertThat(roomController.getById(otherRoom.getId()).getId(), is(equalTo(examController.getById(exam.getId()).getRooms().get(0).getId())));
 
-        examController.hibernateDelete(exam.getId());
-        roomController.hibernateDelete(room.getId());
-        roomController.hibernateDelete(otherRoom.getId());
+        examController.delete(exam.getId());
+        roomController.delete(room.getId());
+        roomController.delete(otherRoom.getId());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class ExamControllerTest {
 
         assertThat(examController.getById(exam.getId()).getSubject(), is(nullValue()));
 
-        examController.hibernateDelete(exam.getId());
-        subjectController.hibernateDelete(subject.getId());
+        examController.delete(exam.getId());
+        subjectController.delete(subject.getId());
     }
 }

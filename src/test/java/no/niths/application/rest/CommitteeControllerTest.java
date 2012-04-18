@@ -60,7 +60,7 @@ public class CommitteeControllerTest {
         Committee secondCommittee = new Committee("bar", "baz");
         controller.create(secondCommittee, res);
 
-        controller.hibernateDelete(firstCommittee.getId());
+        controller.delete(firstCommittee.getId());
 
         assertEquals(originalCount, controller.getAll(null).size());
     }

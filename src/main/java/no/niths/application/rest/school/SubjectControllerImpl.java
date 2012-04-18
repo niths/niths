@@ -131,8 +131,8 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void hibernateDelete(@PathVariable long id) {
-        super.hibernateDelete(id);
+    public void delete(@PathVariable long id) {
+        super.delete(id);
     }
 
     /**

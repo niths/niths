@@ -59,12 +59,12 @@ public class AccessFieldControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testAF01.getId());
-		controller.hibernateDelete(testAF02.getId());
-		controller.hibernateDelete(testAF03.getId());
-		controller.hibernateDelete(testAF04.getId());
+		controller.delete(testAF01.getId());
+		controller.delete(testAF02.getId());
+		controller.delete(testAF03.getId());
+		controller.delete(testAF04.getId());
 	
-		apController.hibernateDelete(testAP.getId());
+		apController.delete(testAP.getId());
 	}
 
 	@Test

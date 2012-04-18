@@ -229,7 +229,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void hibernateDelete(@PathVariable long id) {
+    public void delete(@PathVariable long id) {
         try {
             getService().hibernateDelete(id);
         } catch (HibernateOptimisticLockingFailureException e) {

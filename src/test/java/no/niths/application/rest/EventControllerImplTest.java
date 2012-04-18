@@ -87,11 +87,11 @@ public class EventControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testEvent01.getId());
-		controller.hibernateDelete(testEvent02.getId());
-		controller.hibernateDelete(testEvent03.getId());
-		controller.hibernateDelete(testEvent04.getId());
-		locationController.hibernateDelete(testLocation.getId());
+		controller.delete(testEvent01.getId());
+		controller.delete(testEvent02.getId());
+		controller.delete(testEvent03.getId());
+		controller.delete(testEvent04.getId());
+		locationController.delete(testLocation.getId());
 	}
 
 	@Test

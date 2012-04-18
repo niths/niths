@@ -62,10 +62,10 @@ public class FadderGroupControllerTest {
 		assertEquals(1, fadderController.getById(g1.getId()).getLeaders().size());
 		
 		
-		fadderController.hibernateDelete(g1.getId());
+		fadderController.delete(g1.getId());
 		
-		studentController.hibernateDelete(s1.getId());
-		studentController.hibernateDelete(s2.getId());
+		studentController.delete(s1.getId());
+		studentController.delete(s2.getId());
 		int remainingGroups= -1;
 		try{
 			remainingGroups=fadderController.getAll(null).size();
@@ -101,9 +101,9 @@ public class FadderGroupControllerTest {
 		assertEquals(1, fadderController.getById(g1.getId()).getFadderChildren().size());
 		
 		
-		fadderController.hibernateDelete(g1.getId());
-		studentController.hibernateDelete(s1.getId());
-		studentController.hibernateDelete(s2.getId());
+		fadderController.delete(g1.getId());
+		studentController.delete(s1.getId());
+		studentController.delete(s2.getId());
 		
 		int remainingGroups= -1;
 		try{
@@ -135,7 +135,7 @@ public class FadderGroupControllerTest {
 		
 		assertEquals(new Integer(1338), fadderController.getAll(group).get(0).getGroupNumber());
 		
-		fadderController.hibernateDelete(group.getId());
+		fadderController.delete(group.getId());
 	}
 	
 }

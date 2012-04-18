@@ -66,7 +66,7 @@ public class ConsoleControllerTest {
 
         assertThat(size + 1, is(equalTo(consoleController.getAll(null).size())));
 
-        consoleController.hibernateDelete(console.getId());
+        consoleController.delete(console.getId());
 
         int currentSize = 0;
 
@@ -101,9 +101,9 @@ public class ConsoleControllerTest {
         assertThat(1, is(equalTo(consoleController.getById(console.getId()).getGames().size())));
         assertThat(gameController.getById(otherGame.getId()).getId(), is(equalTo(consoleController.getById(console.getId()).getGames().get(0).getId())));
 
-        consoleController.hibernateDelete(console.getId());
-        gameController.hibernateDelete(game.getId());
-        gameController.hibernateDelete(otherGame.getId());
+        consoleController.delete(console.getId());
+        gameController.delete(game.getId());
+        gameController.delete(otherGame.getId());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class ConsoleControllerTest {
 
         assertThat(consoleController.getById(console.getId()).getLoan(), is(nullValue()));
 
-        consoleController.hibernateDelete(console.getId());
-        loanController.hibernateDelete(loan.getId());
+        consoleController.delete(console.getId());
+        loanController.delete(loan.getId());
     }
 }

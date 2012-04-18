@@ -60,12 +60,12 @@ public class RoomControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testRoom01.getId());
-		controller.hibernateDelete(testRoom02.getId());
-		controller.hibernateDelete(testRoom03.getId());
-		controller.hibernateDelete(testRoom04.getId());
+		controller.delete(testRoom01.getId());
+		controller.delete(testRoom02.getId());
+		controller.delete(testRoom03.getId());
+		controller.delete(testRoom04.getId());
 
-		afController.hibernateDelete(testAF.getId());
+		afController.delete(testAF.getId());
 	}
 
 	@Test

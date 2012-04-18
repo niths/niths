@@ -49,10 +49,10 @@ public class LocationControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testLocation01.getId());
-		controller.hibernateDelete(testLocation02.getId());
-		controller.hibernateDelete(testLocation03.getId());
-		controller.hibernateDelete(testLocation04.getId());
+		controller.delete(testLocation01.getId());
+		controller.delete(testLocation02.getId());
+		controller.delete(testLocation03.getId());
+		controller.delete(testLocation04.getId());
 	}
 
 	@Test

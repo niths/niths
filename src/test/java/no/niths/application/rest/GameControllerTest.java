@@ -66,7 +66,7 @@ public class GameControllerTest {
 
         assertThat(size + 1, is(equalTo(gameController.getAll(null).size())));
 
-        gameController.hibernateDelete(game.getId());
+        gameController.delete(game.getId());
 
         int currentSize = 0;
 
@@ -97,7 +97,7 @@ public class GameControllerTest {
 
         assertThat(gameController.getById(game.getId()).getConsole(), is(nullValue()));
 
-        gameController.hibernateDelete(game.getId());
-        consoleController.hibernateDelete(console.getId());
+        gameController.delete(game.getId());
+        consoleController.delete(console.getId());
     }
 }

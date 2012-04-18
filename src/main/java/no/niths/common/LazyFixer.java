@@ -7,8 +7,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlTransient;
-
+import javax.xml.bind.annotation.XmlTransient; 
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.domain.Domain;
 
@@ -132,6 +131,7 @@ public class LazyFixer<T> {
                                 generateAccessorHeader(
                                         field.getName(), Accessor.GET),
                                 (Class<?>[]) null);
+                        System.err.println("method: " + m.getName());
                         Object result = m.invoke(element);
                         if (result != null) {
                             Class<?> resultClass = result.getClass();

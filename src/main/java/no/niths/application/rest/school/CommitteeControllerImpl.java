@@ -63,8 +63,8 @@ public class CommitteeControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-    public void hibernateDelete(@PathVariable long id) {
-        super.hibernateDelete(id);
+    public void delete(@PathVariable long id) {
+        super.delete(id);
     }
 
     /**

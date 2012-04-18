@@ -89,8 +89,8 @@ public class FadderGroupControllerImpl
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    public void hibernateDelete(@PathVariable long id) {
-        super.hibernateDelete(id);
+    public void delete(@PathVariable long id) {
+        super.delete(id);
     }
 
     /**

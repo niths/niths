@@ -43,6 +43,10 @@ public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>
         super.update(locker);
     }
 
+//    @Override
+//    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+//    public void hiber
+
     /**
      * {@inheritDoc}
      */

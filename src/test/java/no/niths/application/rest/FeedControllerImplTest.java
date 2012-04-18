@@ -71,12 +71,12 @@ public class FeedControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testFeed01.getId());
-		controller.hibernateDelete(testFeed02.getId());
-		controller.hibernateDelete(testFeed03.getId());
-		controller.hibernateDelete(testFeed04.getId());
-		locationController.hibernateDelete(testLocation.getId());
-		studentcontroller.hibernateDelete(testStudents.getId());
+		controller.delete(testFeed01.getId());
+		controller.delete(testFeed02.getId());
+		controller.delete(testFeed03.getId());
+		controller.delete(testFeed04.getId());
+		locationController.delete(testLocation.getId());
+		studentcontroller.delete(testStudents.getId());
 	}
 
 	@Test
