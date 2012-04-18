@@ -46,32 +46,6 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game> impleme
      * {@inheritDoc}
      */
     @Override
-    public ArrayList<Game> getAll(Game domain) {
-        gameList = (GameList) super.getAll(domain);
-        clearRelations();
-        return gameList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Game> getAll(Game domain, @PathVariable int firstResult, @PathVariable int maxResults) {
-        gameList = (GameList) super.getAll(domain, firstResult, maxResults);
-        clearRelations();
-        return gameList;
-    }
-
-    private void clearRelations(){
-        for(Game game : gameList){
-            game.setConsole(null);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     @RequestMapping(value = "{gameId}/add/console/{consoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long gameId, @PathVariable Long consoleId) {

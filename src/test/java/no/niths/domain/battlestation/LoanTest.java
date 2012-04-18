@@ -57,7 +57,7 @@ public class LoanTest {
     public void testGettingConsoleFromLoan() {
         Console console = new Console();
 
-        List<Console> consoles = new ArrayList<>();
+        List<Console> consoles = new ArrayList<Console>();
         consoles.add(console);
 
         Loan loan = new Loan();

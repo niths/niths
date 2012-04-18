@@ -58,7 +58,7 @@ public class Console implements Domain {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Loan.class)
     @JoinTable(name = "loans_consoles",
             joinColumns = @JoinColumn(name = "console_id"),
-            inverseJoinColumns = @JoinColumn(name = "loansid"))
+            inverseJoinColumns = @JoinColumn(name = "loan_id"))
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Loan loan;
 
