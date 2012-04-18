@@ -15,6 +15,7 @@ import no.niths.services.school.interfaces.LockerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AppConstants.LOCKERS)
 public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>
         implements LockerController {
-
-    //private final Logger logger = LoggerFactory.getLogger(Locker.class);
 
     @Autowired
     private LockerService service;
@@ -43,9 +42,11 @@ public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>
         super.update(locker);
     }
 
-//    @Override
-//    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-//    public void hiber
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void delete(@PathVariable long id) {
+        super.delete(id);
+    }
 
     /**
      * {@inheritDoc}

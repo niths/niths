@@ -1,4 +1,4 @@
-package no.niths.application.rest;
+package no.niths.application.rest.school;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.application.rest.school.interfaces.CourseController;
