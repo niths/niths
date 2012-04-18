@@ -1,4 +1,4 @@
-package no.niths.external;
+package no.niths.application.rest.helper;
 
 import static org.junit.Assert.assertEquals;
 
