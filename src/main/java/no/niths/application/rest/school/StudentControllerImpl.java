@@ -296,13 +296,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
     
     @RequestMapping(
-            value  = { "{studId}/{roleName}" },
+            value  = { "{studentId}/{roleName}" },
             method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
     public void isStudentInRole(
-            @PathVariable Long studId,
+            @PathVariable Long studentId,
             @PathVariable String roleName) {
-        Student stud = service.getStudentWithRoles(studId);
+        Student stud = service.getStudentWithRoles(studentId);
         validateObject(stud, Student.class);
 
         boolean hasRole = false;
