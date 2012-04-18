@@ -55,14 +55,19 @@ public class Locker implements Domain {
         this.lockerNumber = lockerNumber;
     }
 
-    public Locker(){
-    	this(null,null);
-    	setOwner(null);
+    public Locker() {
+        this(null,null);
+        setOwner(null);
     }
-    
-    public Locker(String lockerNumber){
-    	setLockerNumber(lockerNumber);
+
+    public Locker(Long id) {
+        this.id = id;
     }
+
+    public Locker(String lockerNumber) {
+        this.lockerNumber = lockerNumber;
+    }
+
     public Long getId() {
         return id;
     }
