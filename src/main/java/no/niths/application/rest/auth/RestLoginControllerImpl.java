@@ -7,6 +7,7 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.common.AppConstants;
+import no.niths.common.LazyFixer;
 import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.interfaces.AuthenticationService;
@@ -67,16 +68,8 @@ public class RestLoginControllerImpl implements RestLoginController{
             logger.debug("Authentication success");
 
             authenticatedStudent = sessionParcel.getAuthenticatedStudent();
-            authenticatedStudent.setCommittees(null);
-            authenticatedStudent.setCommitteesLeader(null);
-            authenticatedStudent.setCourses(null);
-            authenticatedStudent.setFadderGroup(null);
-            authenticatedStudent.setFeeds(null);
-            authenticatedStudent.setGroupLeaders(null);
-            authenticatedStudent.setRoles(null);
-            authenticatedStudent.setRepresentativeFor(null);
-            authenticatedStudent.setTutorInSubjects(null);
-            authenticatedStudent.setLoans(null);
+            LazyFixer<Student> fix = new LazyFixer<Student>();
+            fix.clearSubRelations(authenticatedStudent);
         }
 
         return authenticatedStudent;
