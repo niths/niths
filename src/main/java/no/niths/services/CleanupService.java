@@ -30,20 +30,18 @@ public class CleanupService {
 	private final int max = 100;
 
 	
-	/**
-	 * 
-	 * 
-	 * 0 0 6 6 9 ? 
-	 * | | | | | | 
-	 * | | | | | | 
-	 * | | | | | +----- any day of the week. 
-	 * | | | | +------- 9th month (September).
-	 * | | | +--------- 6th day of the month.
-	 * | | +----------- 6th hour of the day.
-	 * | +------------- Top of the hour (minutes = 0).
-	 * +--------------- Top of the minute (seconds = 0).
-	 */
+	
 	@Scheduled(cron = "0 0 6 * * *")
+     /**               | | | | | | 
+     *                 | | | | | | 
+     *                 | | | | | +----- any day of the week. 
+     *                 | | | | +------- any month (September).
+     *                 | | | +--------- any day of the month.
+     *                 | | +----------- 6th hour of the day.
+     *                 | +------------- top of the hour (minutes = 0).
+     *                 +--------------- top of the minute (seconds = 0).
+     */
+
 	public void cleanUpAPIEvents() {
 		logger.debug("Starting API repo cleanup at "
 				+ new Date(System.currentTimeMillis()));
