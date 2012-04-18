@@ -47,7 +47,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 			.getLogger(SubjectControllerImpl.class);
 
 	@Autowired
-	private SubjectService service;
+	private SubjectService subjectService;
 
 	@Autowired
 	private StudentService studentService;
@@ -62,23 +62,11 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "add/tutor/{subjectId}/{studentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{subjectId}/add/tutor/{studentId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor added to subject")
     public void addTutor(@PathVariable Long subjectId,
                          @PathVariable Long studentId) {
-        Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
-
-        Student student = studentService.getById(studentId);
-        ValidationHelper.isObjectNull(student, Student.class);
-
-        if (!subject.getTutors().contains(student)) {
-            subject.getTutors().add(student);
-            service.update(subject);
-        } else {
-            throw new DuplicateEntryCollectionException(
-                    "Tutor is already added to the subject");
-        }
+        subjectService.addTutor(subjectId, studentId);
     }
 
     /**
@@ -86,28 +74,11 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "remove/tutor/{subjectId}/{studentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{subjectId}/remove/tutor/{studentId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor removed to subject")
     public void removeTutor(@PathVariable Long subjectId,
                             @PathVariable Long studentId) {
-        Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
-
-        boolean isRemoved = false;
-        for (int i = 0; i < subject.getTutors().size(); i++) {
-            if (subject.getTutors().get(i).getId() == studentId) {
-                subject.getTutors().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            service.update(subject);
-            logger.debug("Tutor removed from subject " + subject.getName());
-        } else {
-            throw new NotInCollectionException("Student is not a tutor");
-        }
-
+        subjectService.removeTutor(subjectId, studentId);
     }
 
     /**
@@ -115,19 +86,11 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "add/room/{subjectId}/{roomId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{subjectId}/add/room/{roomId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room added to subject")
     public void addRoom(@PathVariable Long subjectId,
                          @PathVariable Long roomId) {
-        Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
-
-        Room room = roomService.getById(roomId);
-        ValidationHelper.isObjectNull(room, Room.class);
-
-        subject.setRoom(room);
-        service.update(subject);
-        logger.debug("Subject updated");
+        subjectService.addRoom(subjectId, roomId);
     }
 
     /**
@@ -135,25 +98,10 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "remove/room/{subjectId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{subjectId}/remove/room", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room removed from subject")
     public void removeRoom(@PathVariable Long subjectId) {
-        Subject subject = service.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
-
-        boolean isRemoved = false;
-        if (subject.getRoom() != null) {
-            subject.setRoom(null);
-            isRemoved = true;
-        }
-
-        if (isRemoved) {
-            service.update(subject);
-            logger.debug("Room removed from subject " + subject.getName());
-        } else {
-            throw new ObjectNotFoundException("Room not found");
-        }
-
+        subjectService.removeRoom(subjectId);
     }
 
 //	@Override
@@ -227,7 +175,7 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 	 */
 	@Override
 	public GenericService<Subject> getService() {
-		return service;
+		return subjectService;
 	}
 
 	/**
