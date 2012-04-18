@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlTransient; 
-import no.niths.application.rest.lists.ListAdapter;
+import javax.xml.bind.annotation.XmlTransient;
+
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -26,7 +26,7 @@ public class LazyFixer<T> {
      * Sets any children in the list of domains to null
      * @param list the list of which the relations are to be cleared
      */
-    public void clearRelations(ListAdapter<T> list) {
+    public void clearRelations(List<T> list) {
 
         try {
             for (Object domain : list) {

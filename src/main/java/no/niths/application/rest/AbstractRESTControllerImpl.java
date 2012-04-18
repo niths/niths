@@ -140,7 +140,6 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @ResponseBody
     public ArrayList<T> getAll(T domain) {
         renewList(getService().getAll(domain));
-        nullifier.clearRelations(getList());
         return getList();
     }
 
