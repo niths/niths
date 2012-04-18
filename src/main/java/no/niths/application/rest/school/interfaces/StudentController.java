@@ -12,26 +12,27 @@ import no.niths.domain.school.Student;
  */
 public interface StudentController extends GenericRESTController<Student> {
 
-	/**
-	 * HOW TO USE SECURITY ANNOTATIONS:
-	 * 
-	 * One role allowed:
-	 * @PreAuthorize("hasRole('ROLE_ADMIN')")
-	 * Multiple roles allowed:
-	 * @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEST')")
-	 * 
-	 */
-//  EXAMPLE OF HOW TO USE:	
-//	@Override
-//	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEST')")
-//	public ArrayList<Student> getAll(Student domain);
-	
-	/**
-	 * Returns a list of all students in a given course
-	 * @param course the course to get students from
-	 * @return list of students
-	 */
-	List<Student> getStudentsWithNamedCourse(Course course);
+    /**
+     * HOW TO USE SECURITY ANNOTATIONS:
+     * 
+     * One role allowed:
+     * @PreAuthorize("hasRole('ROLE_ADMIN')")
+     * Multiple roles allowed:
+     * @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEST')")
+     * 
+     */
+
+//  EXAMPLE OF HOW TO USE:    
+//    @Override
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEST')")
+//    public ArrayList<Student> getAll(Student domain);
+
+    /**
+     * Returns a list of all students in a given course
+     * @param course the course to get students from
+     * @return list of students
+     */
+    List<Student> getStudentsWithNamedCourse(Course course);
 
     /**
      * Adds a course too a student
@@ -96,31 +97,31 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param loanId if of the loan
      */
     void removeLoan(Long studentId, Long loanId);
-    
+
     /**
      * 
      * @param studentId
      * @param roleId
      */
     void addRole(Long studentId, Long roleId);
-    
+
     /**
      * 
      * @param studentId
      * @param roleId
      */
     void removeRole(Long studentId, Long roleId);
-    
+
     /**
      * 
      * @param studId
      */
     void removeAllRolesFromStudent(Long studId);
-    
+
     /**
-	 * Return 200 ok is student is in role, else 204, no content
-	 * @param studId
-	 * @param roleId
-	 */
-	void isStudentInRole(Long studId, String roleName);
+     * Return 200 ok is student is in role, else 204, no content
+     * @param studId
+     * @param roleId
+     */
+    void isStudentInRole(Long studId, String roleName);
 }
