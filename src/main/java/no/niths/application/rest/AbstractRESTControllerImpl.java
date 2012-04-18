@@ -198,19 +198,6 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     /**
      * {@inheritDoc}
      */
-    @Override
-    @Deprecated
-    @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void delete(@PathVariable Long id) {
-        if (!getService().delete(id)) {
-            throw new ObjectNotFoundException(
-                    "Could not find the object to delete");
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public void renewList(List<T> list) {
         getList().clear();
         getList().addAll(list);

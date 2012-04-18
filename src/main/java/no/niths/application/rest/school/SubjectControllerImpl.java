@@ -5,17 +5,11 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
-import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.application.rest.school.interfaces.SubjectController;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
-import no.niths.domain.location.Room;
-import no.niths.domain.school.Student;
 import no.niths.domain.school.Subject;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.RoomService;
@@ -41,23 +35,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.SUBJECTS)
 public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
-		implements SubjectController {
+        implements SubjectController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(SubjectControllerImpl.class);
-
-	@Autowired
-	private SubjectService subjectService;
-
-	@Autowired
-	private StudentService studentService;
+    private static final Logger logger = LoggerFactory
+            .getLogger(SubjectControllerImpl.class);
 
     @Autowired
-    private RoomService roomService;
+    private SubjectService subjectService;
 
-	private SubjectList subjectList = new SubjectList();
+    private SubjectList subjectList = new SubjectList();
 
-	/**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -98,92 +86,78 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{subjectId}/remove/room", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{subjectId}/remove/room",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room removed from subject")
     public void removeRoom(@PathVariable Long subjectId) {
         subjectService.removeRoom(subjectId);
     }
 
-//	@Override
-//	public Subject getById(@PathVariable Long id) {
-//		Subject s = super.getById(id);
-////		for (Student stud : s.getTutors()) {
-////			stud.setCommittees(null);
-////			stud.setCourses(null);
-////			stud.setFeeds(null);
-////			stud.setLoans(null);
-////			stud.setRepresentativeFor(null);
-////		}
-////		if (s.getRoom() != null) {
-////			s.getRoom().setAccessFields(null);
-////		}
-//		return s;
-//	}
+    @Override
+    public ArrayList<Subject> getAll(Subject domain) {
+         super.getAll(domain);
+        clearRelations();
+        return subjectList;
+    }
 
-	@Override
-	public ArrayList<Subject> getAll(Subject domain) {
-		 super.getAll(domain);
-		clearRelations();
-		return subjectList;
-	}
+    @Override
+    public ArrayList<Subject> getAll(Subject domain,
+            @PathVariable int firstResult, @PathVariable int maxResults) {
+         super.getAll(domain, firstResult,
+                maxResults);
+        clearRelations();
+        return subjectList;
+    }
 
-	@Override
-	public ArrayList<Subject> getAll(Subject domain,
-			@PathVariable int firstResult, @PathVariable int maxResults) {
-		 super.getAll(domain, firstResult,
-				maxResults);
-		clearRelations();
-		return subjectList;
-	}
+    private void clearRelations() {
+        for (int i = 0; i < subjectList.size(); i++) {
+            subjectList.get(i).setTutors(null);
+            subjectList.get(i).setRoom(null);
+        }
+    }
 
-	private void clearRelations() {
-		for (int i = 0; i < subjectList.size(); i++) {
-			subjectList.get(i).setTutors(null);
-			subjectList.get(i).setRoom(null);
-		}
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void create(@RequestBody Subject domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Subject domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void hibernateDelete(@PathVariable long id) {
+        super.hibernateDelete(id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void hibernateDelete(@PathVariable long id) {
-		super.hibernateDelete(id);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void update(@RequestBody Subject domain) {
+        super.update(domain);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void update(@RequestBody Subject domain) {
-		super.update(domain);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Subject> getService() {
+        return subjectService;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Subject> getService() {
-		return subjectService;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Subject> getList() {
-		return subjectList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Subject> getList() {
+        return subjectList;
+    }
 
 }

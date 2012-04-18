@@ -43,185 +43,185 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppConstants.COURSES)
 public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
-		implements CourseController {
+        implements CourseController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(CourseControllerImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(CourseControllerImpl.class);
 
-	@Autowired
-	private CourseService courseService;
+    @Autowired
+    private CourseService courseService;
 
-	@Autowired
-	private StudentService studentService;
+    @Autowired
+    private StudentService studentService;
 
-	@Autowired
-	private SubjectService subjectService;
+    @Autowired
+    private SubjectService subjectService;
 
-	private CourseList courseList = new CourseList();
+    private CourseList courseList = new CourseList();
 
-	private SubjectList subjectList = new SubjectList();
+    private SubjectList subjectList = new SubjectList();
 
-	@Override
-	public Course getById(@PathVariable Long id) {
-		Course course = super.getById(id);
-		
-		return course;
-	}
+    @Override
+    public Course getById(@PathVariable Long id) {
+        Course course = super.getById(id);
+        
+        return course;
+    }
 
-	/**
-	 * Returns all topics inside a course
-	 * 
-	 * @param id
-	 *            the course id
-	 * @return List with subject
-	 */
-	@Override
-	@RequestMapping(value = "subject/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Subject> getCourseSubjects(@PathVariable Long id) {
-		Course course = courseService.getById(id);
-		ValidationHelper.isObjectNull(course, Course.class);
-		subjectList.clear();
-		subjectList.addAll(course.getSubjects());
-		subjectList.setData(course.getSubjects());
-		ValidationHelper.isListEmpty(subjectList);
-		return subjectList;
-	}
+    /**
+     * Returns all topics inside a course
+     * 
+     * @param id
+     *            the course id
+     * @return List with subject
+     */
+    @Override
+    @RequestMapping(value = "subject/{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Subject> getCourseSubjects(@PathVariable Long id) {
+        Course course = courseService.getById(id);
+        ValidationHelper.isObjectNull(course, Course.class);
+        subjectList.clear();
+        subjectList.addAll(course.getSubjects());
+        subjectList.setData(course.getSubjects());
+        ValidationHelper.isListEmpty(subjectList);
+        return subjectList;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "add/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
-	public void addRepresentative(@PathVariable Long courseId,
-			@PathVariable Long studentId) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "add/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
+    public void addRepresentative(@PathVariable Long courseId,
+            @PathVariable Long studentId) {
 
-		Course c = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(c, Course.class);
-		Student student = studentService.getById(studentId);
-		ValidationHelper.isObjectNull(student, Student.class);
-		if (c.getCourseRepresentatives().contains(student)) {
-			throw new DuplicateEntryCollectionException(
-					"Student already a representative");
-		}
-		c.getCourseRepresentatives().add(student);
-		courseService.update(c);
-	}
+        Course c = courseService.getById(courseId);
+        ValidationHelper.isObjectNull(c, Course.class);
+        Student student = studentService.getById(studentId);
+        ValidationHelper.isObjectNull(student, Student.class);
+        if (c.getCourseRepresentatives().contains(student)) {
+            throw new DuplicateEntryCollectionException(
+                    "Student already a representative");
+        }
+        c.getCourseRepresentatives().add(student);
+        courseService.update(c);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "remove/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
-	public void removeRepresentative(@PathVariable Long courseId,
-			@PathVariable Long studentId) {
-		Course c = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(c, Course.class);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "remove/representative/{courseId}/{studentId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
+    public void removeRepresentative(@PathVariable Long courseId,
+            @PathVariable Long studentId) {
+        Course c = courseService.getById(courseId);
+        ValidationHelper.isObjectNull(c, Course.class);
 
-		boolean isRemoved = false;
-		for (int i = 0; i < c.getCourseRepresentatives().size(); i++) {
-			if (c.getCourseRepresentatives().get(i).getId() == studentId) {
-				c.getCourseRepresentatives().remove(i);
-				isRemoved = true;
-			}
-		}
+        boolean isRemoved = false;
+        for (int i = 0; i < c.getCourseRepresentatives().size(); i++) {
+            if (c.getCourseRepresentatives().get(i).getId() == studentId) {
+                c.getCourseRepresentatives().remove(i);
+                isRemoved = true;
+            }
+        }
 
-		if (isRemoved) {
-			courseService.update(c);
-			logger.debug("representive removed");
-		} else {
-			throw new NotInCollectionException(
-					"Student not a representative for that class");
-		}
-	}
+        if (isRemoved) {
+            courseService.update(c);
+            logger.debug("representive removed");
+        } else {
+            throw new NotInCollectionException(
+                    "Student not a representative for that class");
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Course domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void create(@RequestBody Course domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void update(@RequestBody Course domain) {
-		super.update(domain);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void update(@RequestBody Course domain) {
+        super.update(domain);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void hibernateDelete(@PathVariable long id) {
-		super.hibernateDelete(id);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void hibernateDelete(@PathVariable long id) {
+        super.hibernateDelete(id);
+    }
 
-	/**
-	 * Adds a topic to a course
-	 * 
-	 * @param courseId
-	 *            the id of the course
-	 * @param subjectId
-	 *            the id of the topic to be added
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "add/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-	public void addSubjectToCourse(@PathVariable Long courseId,
-			@PathVariable Long subjectId) {
+    /**
+     * Adds a topic to a course
+     * 
+     * @param courseId
+     *            the id of the course
+     * @param subjectId
+     *            the id of the topic to be added
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = { "add/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
+    public void addSubjectToCourse(@PathVariable Long courseId,
+            @PathVariable Long subjectId) {
 
-		Course course = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(course, Course.class);
+        Course course = courseService.getById(courseId);
+        ValidationHelper.isObjectNull(course, Course.class);
 
-		Subject subject = subjectService.getById(subjectId);
-		ValidationHelper.isObjectNull(subject, Subject.class);
+        Subject subject = subjectService.getById(subjectId);
+        ValidationHelper.isObjectNull(subject, Subject.class);
 
-		course.getSubjects().add(subject);
-		courseService.update(course);
-	}
+        course.getSubjects().add(subject);
+        courseService.update(course);
+    }
 
 
-	@Override
-	@RequestMapping(value = { "remove/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-	public void reomveSubjectToCourse(@PathVariable Long courseId,@PathVariable Long subjectId) {
-		Course course = courseService.getById(courseId);
-		ValidationHelper.isObjectNull(course, Course.class);
-		
-		boolean isRemoved = false;
-		for (int i = 0; i < course.getSubjects().size(); i++) {
-			if (course.getSubjects().get(i).getId() == subjectId) {
-				course.getSubjects().remove(i);
-				isRemoved = true;
-			}
-		}
+    @Override
+    @RequestMapping(value = { "remove/subject/{courseId}/{subjectId}" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
+    public void reomveSubjectToCourse(@PathVariable Long courseId,@PathVariable Long subjectId) {
+        Course course = courseService.getById(courseId);
+        ValidationHelper.isObjectNull(course, Course.class);
+        
+        boolean isRemoved = false;
+        for (int i = 0; i < course.getSubjects().size(); i++) {
+            if (course.getSubjects().get(i).getId() == subjectId) {
+                course.getSubjects().remove(i);
+                isRemoved = true;
+            }
+        }
 
-		if (isRemoved) {
-			courseService.update(course);
-			logger.debug("subject removed");
-		} else {
-			throw new NotInCollectionException(
-					"Subject is not in this course");
-		}
-	}
-	
-	@Override
-	public GenericService<Course> getService() {
-		return courseService;
-	}
-	
-	@Override
-	public ListAdapter<Course> getList() {
-		return courseList;
-	}
+        if (isRemoved) {
+            courseService.update(course);
+            logger.debug("subject removed");
+        } else {
+            throw new NotInCollectionException(
+                    "Subject is not in this course");
+        }
+    }
+    
+    @Override
+    public GenericService<Course> getService() {
+        return courseService;
+    }
+    
+    @Override
+    public ListAdapter<Course> getList() {
+        return courseList;
+    }
 
 }
