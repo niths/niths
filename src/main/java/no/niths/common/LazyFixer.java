@@ -132,7 +132,6 @@ public class LazyFixer<T> {
                                 generateAccessorHeader(
                                         field.getName(), Accessor.GET),
                                 (Class<?>[]) null);
-                        System.err.println("method: " + m.getName());
                         Object result = m.invoke(element);
                         if (result != null) {
                             Class<?> resultClass = result.getClass();
@@ -142,11 +141,8 @@ public class LazyFixer<T> {
                                         (Collection<Domain>) result;
                                 domains.size();
                             } else if (Domain.class.isAssignableFrom(resultClass)) {
-                                System.err.println("IAD: " + m.getName());
                                 Domain domain = (Domain) result;
                                 domain.getId();
-                            } else {
-                                System.err.println("ERR, other: " +result.getClass());
                             }
                         }
                     }
@@ -210,19 +206,5 @@ public class LazyFixer<T> {
                 m.invoke(target, varargsNull);
             }
         }
-    }
-
-    @SuppressWarnings("unused")
-	private void triggerFetch(Object target, Class<?> type)
-            throws NoSuchMethodException,  SecurityException,
-                   IllegalAccessException, IllegalArgumentException,
-                   InvocationTargetException {
-        System.err.println("===========");
-        System.err.println(target.getClass() + ", " + type);
-        System.err.println("===========");
-        
-        Method m = type.getMethod("size", (Class<?>[]) null);
-        
-        System.err.println("--" + m.getName());
     }
 }
