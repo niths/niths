@@ -113,8 +113,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
-		return repo.getStudentByColumn(column, criteria);
-
+		List<Student> list = repo.getStudentByColumn(column, criteria);
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).getRoles().size();
+		}
+		return list;	
 	}
 
 	@Override
@@ -308,5 +311,21 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
             }
         }
     	checkIfIsRemoved(isRemoved, Loan.class);
+	}
+
+	@Override
+	public void updateRoles(Long studentId, Long[] roleIds) {
+		Student student = validateStudent(repo.getById(studentId));
+		student.getRoles().clear();
+		List<Role> roles = roleRepo.getAll(null);
+		
+		for (Role r: roles) {
+			for (long rId : roleIds) {
+				if (r.getId() == rId) {
+					student.getRoles().add(r);
+				}
+			}
+		}
+		
 	}
 }
