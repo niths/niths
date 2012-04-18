@@ -42,6 +42,12 @@ public class LockerTest {
     }
 
     @Test
+    public void testValid(){
+    	
+    }
+    
+    @SuppressWarnings("serial")
+	@Test
     public void testGettingLockersOwner() {
         final Locker locker = new Locker(ID, LOCKER_NUMBER);
 
