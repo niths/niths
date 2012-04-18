@@ -163,6 +163,7 @@ public class Student implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Course> courses = new ArrayList<Course>();
 
+    @JsonSerialize(contentAs = FadderGroup.class)
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
     @JoinTable(
             name               = "fadder_leaders_students",

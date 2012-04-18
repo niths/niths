@@ -44,12 +44,12 @@ public class Locker implements Domain {
     @XmlElement(name = "locker_number")
     private String lockerNumber;
 
+    @JsonSerialize(as = Student.class)
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
     @JoinTable(
             name               = "students_lockers",
             joinColumns        = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "locker_id"))
-    @Cascade(CascadeType.ALL)
     private Student owner;
 
     public Locker() {

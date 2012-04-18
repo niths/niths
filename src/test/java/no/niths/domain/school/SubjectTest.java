@@ -34,14 +34,5 @@ public class SubjectTest {
         assertThat(WEEKDAY, is(equalTo(subject.getWeekday())));
         assertThat(START_TIME, is(equalTo(subject.getStartTime())));
         assertThat(END_TIME, is(equalTo(subject.getEndTime())));
-
-        assertThat(false, is(equalTo(subject.isEmpty())));
-    }
-    
-    @Test
-    public void testEmptySubjectObject() {
-        Subject subject = new Subject();
-
-        assertThat(true, is(equalTo(subject.isEmpty())));
     }
 }
