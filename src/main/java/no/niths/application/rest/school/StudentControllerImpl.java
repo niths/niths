@@ -49,33 +49,43 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     private StudentService service;
 
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
+    @RequestMapping(
+            value   = "{id}",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public Student getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or " +
+            "(hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
     public void update(@RequestBody Student domain) {
-        logger.info(domain.getEmail() +" : "+ domain.getId() +" : " + domain.getFirstName()  +" : "+ domain.getLastName() +" : " + domain.getGender());
+        logger.info(
+                domain.getEmail()     + " : " +
+                domain.getId()        + " : " +
+                domain.getFirstName() + " : " +
+                domain.getLastName()  + " : " +
+                domain.getGender());
         super.update(domain);
     }
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @ApiEvent(title="Student crated")
+    @ApiEvent(title="Student created")
     public void create(@RequestBody Student domain, HttpServletResponse res) {
         super.create(domain, res);
     }
 
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
     public void delete(@PathVariable long id) {
         super.delete(id);
     }
-    
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
@@ -85,16 +95,21 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public ArrayList<Student> getAll(Student domain, @PathVariable int firstResult,
+    public ArrayList<Student> getAll(
+            Student domain,
+            @PathVariable int firstResult,
             @PathVariable int maxResults) {
-        return super.getAll(domain, firstResult, maxResults);                
+        return super.getAll(domain, firstResult, maxResults);
     }
 
     /**
      * {@inheritDoc}
      */
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "course", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(
+            value   = "course",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getStudentsWithNamedCourse(Course course) {
         String name = course.getName();
@@ -108,9 +123,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/add/course/{courseId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/add/course/{courseId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Added")
-    public void addCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+    public void addCourse(
+            @PathVariable Long studentId,
+            @PathVariable Long courseId) {
         service.addCourse(studentId,courseId);
     }
 
@@ -119,9 +138,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/remove/course/{courseId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/remove/course/{courseId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Removed")
-    public void removeCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+    public void removeCourse(
+            @PathVariable Long studentId,
+            @PathVariable Long courseId) {
         service.removeCourse(studentId,courseId);
     }
 
@@ -130,9 +153,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/add/committee/{committeeId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/add/committee/{committeeId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Added")
-    public void addCommittee(@PathVariable Long studentId, @PathVariable Long committeeId) {
+    public void addCommittee(
+            @PathVariable Long studentId,
+            @PathVariable Long committeeId) {
         service.addCommittee(studentId,committeeId);
     }
 
@@ -141,9 +168,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/remove/committee/{committeeId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/remove/committee/{committeeId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Removed")
-    public void removeCommittee(@PathVariable Long studentId, @PathVariable Long committeeId) {
+    public void removeCommittee(
+            @PathVariable Long studentId,
+            @PathVariable Long committeeId) {
         service.removeCommittee(studentId,committeeId);
     }
 
@@ -152,9 +183,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/add/feed/{feedId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/add/feed/{feedId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Added")
-    public void addFeed(@PathVariable Long studentId, @PathVariable Long feedId) {
+    public void addFeed(
+            @PathVariable Long studentId,
+            @PathVariable Long feedId) {
         service.addFeed(studentId,feedId);
     }
 
@@ -163,9 +198,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/remove/feed/{feedId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/remove/feed/{feedId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Removed")
-    public void removeFeed(@PathVariable Long studentId, @PathVariable Long feedId) {
+    public void removeFeed(
+            @PathVariable Long studentId,
+            @PathVariable Long feedId) {
         service.removeFeed(studentId,feedId);
     }
 
@@ -174,9 +213,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/add/loan/{loanId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/add/loan/{loanId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
-    public void addLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
+    public void addLoan(
+            @PathVariable Long studentId,
+            @PathVariable Long loanId) {
         service.addLoan(studentId,loanId); 
     }
 
@@ -185,9 +228,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{studentId}/remove/loan/{loanId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{studentId}/remove/loan/{loanId}",
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
-    public void removeLoan(@PathVariable Long studentId, @PathVariable Long loanId) {
+    public void removeLoan(
+            @PathVariable Long studentId,
+            @PathVariable Long loanId) {
         service.removeLoan(studentId,loanId);
     }
 
@@ -209,9 +256,13 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    @RequestMapping(value = { "{studentId}/add/role/{roleId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = { "{studentId}/add/role/{roleId}" },
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Role added")
-    public void addRole(@PathVariable Long studentId,@PathVariable Long roleId) {
+    public void addRole(
+            @PathVariable Long studentId,
+            @PathVariable Long roleId) {
         service.addRole(studentId,roleId);
     }
 
@@ -221,24 +272,35 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    @RequestMapping(value = { "{studentId}/remove/role/{roleId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = { "{studentId}/remove/role/{roleId}" },
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Role removed")
-    public void removeRole(@PathVariable Long studentId,@PathVariable Long roleId) {
+    public void removeRole(
+            @PathVariable Long studentId,
+            @PathVariable Long roleId) {
         service.removeRole(studentId,roleId);
     }
 
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    @RequestMapping(value = { "{studentId}/remove/roles" }, method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Roles removed from student")
+    @RequestMapping(
+            value  = { "{studentId}/remove/roles" },
+            method = RequestMethod.PUT)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Roles removed from student")
     public void removeAllRolesFromStudent(@PathVariable Long studentId) {
         service.removeAllRoles(studentId);
     }
 
     
-    @RequestMapping(value = { "{studId}/{roleName}" }, method = RequestMethod.GET)
+    @RequestMapping(
+            value  = { "{studId}/{roleName}" },
+            method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student has role")
-    public void isStudentInRole(@PathVariable Long studId,
+    public void isStudentInRole(
+            @PathVariable Long studId,
             @PathVariable String roleName) {
         Student stud = service.getStudentWithRoles(studId);
         validateObject(stud, Student.class);
@@ -254,7 +316,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         }
 
         if (!hasRole) {
-            throw new NotInCollectionException("Student does not have the role");
+            throw new NotInCollectionException(
+                    "Student does not have the role");
         }
         
     }
