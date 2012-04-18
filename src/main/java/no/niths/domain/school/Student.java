@@ -207,7 +207,6 @@ public class Student implements Domain {
 
     public Student() {
 
-        // FIXME: ???
         this(null, null, null, null, null, null, null);
         setCommittees(null);
         setCommitteesLeader(null);
@@ -218,6 +217,7 @@ public class Student implements Domain {
         setRoles(null);
         setTutorInSubjects(null);
         setLoans(null);
+        this.lockers = null;
     }
 
     public Student(String email) {

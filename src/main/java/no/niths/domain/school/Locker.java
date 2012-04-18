@@ -52,7 +52,10 @@ public class Locker implements Domain {
     @Cascade(CascadeType.ALL)
     private Student owner;
 
-    public Locker() {}
+    public Locker() {
+        this(null);
+        owner = null;
+    }
 
     public Locker(String lockerNumber) {
         this.lockerNumber = lockerNumber;
