@@ -88,5 +88,4 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public List<Student> getAllStudentsFromFadderGroup(Long id);
 
-	FadderGroup getGroupBelongingToStudent(Long studentId);
 }
