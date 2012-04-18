@@ -94,27 +94,6 @@ public class FadderGroupControllerImpl
     }
 
     /**
-     * @return FadderGroup the fadder group in which the student resides
-     */
-    @Override
-    @RequestMapping(
-            value   = "getGroupBelongingTo/{studentId}",
-            method  = RequestMethod.GET,
-            headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public FadderGroup getGroupBelongingToStudent(
-            @PathVariable Long studentId) {
-        Student s = studService.getById(studentId);
-        ValidationHelper.isObjectNull(s, Student.class);
-        FadderGroup g = service.getGroupBelongingToStudent(studentId);
-        ValidationHelper.isObjectNull(g, FadderGroup.class);
-        g.setFadderChildren(null);
-        g.setLeaders(null);
-
-        return g;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
