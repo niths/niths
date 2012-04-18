@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.location;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;

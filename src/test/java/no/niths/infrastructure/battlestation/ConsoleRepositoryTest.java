@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.battlestation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
