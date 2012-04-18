@@ -21,8 +21,6 @@ public class LockerServiceImplTest {
     @Autowired
     private LockerService service;
 
-    private int numOfLockers;
-
     private Locker locker1;
     private Locker locker2;
     private Locker locker3;
@@ -40,7 +38,6 @@ public class LockerServiceImplTest {
 
     @After
     public void tearDown() {
-        service.delete(locker1.getId());
         service.delete(locker2.getId());
         service.delete(locker3.getId());
     }
@@ -51,6 +48,7 @@ public class LockerServiceImplTest {
         // Read
         assertEquals(locker1, service.getAll(locker1).get(0));
 
+        // Update
         final String newLockerNumber = "004";
         locker1.setLockerNumber(newLockerNumber);
         service.update(locker1);
@@ -58,12 +56,8 @@ public class LockerServiceImplTest {
                 newLockerNumber,
                 service.getById(locker1.getId()).getLockerNumber());
 
-//        // Update
-//        String newLockerNumber = "004";
-//        locker1.setLockerNumber(newLockerNumber);
-//        service.update(locker1);
-//        assertEquals(
-//                newLockerNumber,
-//                service.getById(locker1.getId()).getLockerNumber());
+        // Delete
+        service.delete(locker1.getId());
+        assertEquals(null, service.getById(locker1.getId()));
     }
 }

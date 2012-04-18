@@ -131,7 +131,6 @@ public class LazyFixer<T> {
                                 generateAccessorHeader(
                                         field.getName(), Accessor.GET),
                                 (Class<?>[]) null);
-                        System.err.println("method: " + m.getName());
                         Object result = m.invoke(element);
                         if (result != null) {
                             Class<?> resultClass = result.getClass();
