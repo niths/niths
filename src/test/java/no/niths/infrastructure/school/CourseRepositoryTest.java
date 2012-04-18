@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class })
 @Transactional
 public class CourseRepositoryTest {
 
