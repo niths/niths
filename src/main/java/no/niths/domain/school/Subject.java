@@ -84,21 +84,21 @@ public class Subject implements Domain {
     @Pattern(
             regexp  = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})",
             message = "Not a valid time")
-    @XmlElement(name="starttime")
+    @XmlElement(name = "starttime")
     private String startTime;
 
     @Column(name = "end_time")
     @Pattern(
             regexp  = "(^$)|([0-2]{1}[0-9]{1}:[0-9]{2})",
             message = "Not a valid time")
-    @XmlElement(name="endtime")
+    @XmlElement(name = "endtime")
     private String endTime;
 
     @JsonIgnore
     @XmlTransient
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity= Course.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Course.class)
     @JoinTable(
-            name               = "courses_subjects", 
+            name               = "courses_subjects",
             joinColumns        = @JoinColumn(name = "subjects_id"), 
             inverseJoinColumns = @JoinColumn(name = "courses_id"))
     @Cascade(CascadeType.ALL)
