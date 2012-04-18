@@ -12,91 +12,84 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-@Transactional
-@TransactionConfiguration(transactionManager = "transactionManager") 
+@Transactional 
 public class SubjectRepositoryTest {
 
-	@Autowired
-	private SubjectRepository repo;
+    @Autowired
+    private SubjectRepository repo;
 
-	@Test(expected = IllegalArgumentException.class)	
-	public void whenInsertNull_persistenceShouldFail() {
-		repo.create(null);
-	}
+    @Test(expected = IllegalArgumentException.class)    
+    public void whenInsertNull_persistenceShouldFail() {
+        repo.create(null);
+    }
 
-	@Test
+    @Test
+    public void whenCreateSubject_subjectShouldBePersisted() {
+        int size = repo.getAll(null).size();
 
-	public void whenCreateTopic_topicShouldBePersisted() {
-		int size = repo.getAll(null).size();
+        Subject subject = new Subject();
+        subject.setSubjectCode("PG111");
+        repo.create(subject);
 
-		Subject t1 = new Subject();
-		t1.setSubjectCode("PG111");
-		repo.create(t1);
+        assertEquals(size + 1, repo.getAll(null).size());
+    }
 
-		assertEquals(size + 1, repo.getAll(null).size());
-	}
+    @Test
+    public void whenGetById_SubjectShouldBeReturned() {
+        int size = repo.getAll(null).size();
 
-	@Test
-	public void whenGetById_TopicShouldBeReturned() {
-		int size = repo.getAll(null).size();
+        Subject subject = new Subject();
+        subject.setName("Java 1");
+        subject.setSubjectCode("PG111");
+        repo.create(subject);
 
-		Subject t1 = new Subject();
-		t1.setName("Java 1");
-		t1.setSubjectCode("PG111");
-		repo.create(t1);
+        assertEquals(size + 1, repo.getAll(null).size());
+        
+        Subject result = repo.getById(subject.getId());
+        assertEquals(result, subject);
+        
+        result = repo.getById(new Long(999));
+        assertNull(result);
+    }
+    
+    @Test
+    public void whenUpdateSubject_SubjectShouldBeUpdatet() {
+        int size = repo.getAll(null).size();
+        
+        Subject subject = new Subject();
+        subject.setName("Java 1");
+        subject.setSubjectCode("PG111");
+        repo.create(subject);
+        
+        assertEquals(size + 1, repo.getAll(null).size());
+        
+        subject.setSubjectCode("PG211");
+        repo.update(subject);
+        
+        assertEquals("PG211", repo.getById(subject.getId()).getSubjectCode());
+        
+    }
+    
+    @Test
+    public void whenGetAll_allShouldBeReturnedt() {
+        int size = repo.getAll(null).size();
+        
+        Subject subject1 = new Subject();
+        subject1.setName("Java 1");
+        repo.create(subject1);
+        Subject subject2 = new Subject();
+        subject2.setName("Java 2");
+        repo.create(subject2);
+        Subject subject3 = new Subject();
+        subject3.setName("Java 3");
+        repo.create(subject3);
 
-		assertEquals(size + 1, repo.getAll(null).size());
-		
-		Subject result = repo.getById(t1.getId());
-		assertEquals(result, t1);
-		
-		result = repo.getById(new Long(999));
-		assertNull(result);
-	}
-	
-	@Test
-	public void whenUpdateTopic_TopicShouldBeUpdatet() {
-		int size = repo.getAll(null).size();
-		
-		Subject t1 = new Subject();
-		t1.setName("Java 1");
-		t1.setSubjectCode("PG111");
-		repo.create(t1);
-		
-		assertEquals(size + 1, repo.getAll(null).size());
-		
-		t1.setSubjectCode("PG211");
-		repo.update(t1);
-		
-		assertEquals("PG211", repo.getById(t1.getId()).getSubjectCode());
-		
-	}
-	
-	@Test
-	public void whenGetAll_allShouldBeReturnedt() {
-		int size = repo.getAll(null).size();
-		
-		Subject t1 = new Subject();
-		t1.setName("Java 1");
-		repo.create(t1);
-		Subject t2 = new Subject();
-		t2.setName("Java 2");
-		repo.create(t2);
-		Subject t3 = new Subject();
-		t3.setName("Java 3");
-		repo.create(t3);
-		
-		assertEquals(size + 3, repo.getAll(null).size());
-		
-		assertEquals(size + 1, repo.getAll(t1).size());
-		
-	}
-	
-	
+        assertEquals(size + 3, repo.getAll(null).size());
 
+        assertEquals(size + 1, repo.getAll(subject1).size());
+    }
 }
