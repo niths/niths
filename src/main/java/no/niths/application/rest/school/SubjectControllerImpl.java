@@ -5,25 +5,15 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
-import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.application.rest.school.interfaces.SubjectController;
 import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
-import no.niths.domain.location.Room;
-import no.niths.domain.school.Student;
 import no.niths.domain.school.Subject;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.location.interfaces.RoomService;
-import no.niths.services.school.interfaces.StudentService;
 import no.niths.services.school.interfaces.SubjectService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,17 +33,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
 		implements SubjectController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(SubjectControllerImpl.class);
-
 	@Autowired
 	private SubjectService subjectService;
-
-	@Autowired
-	private StudentService studentService;
-
-    @Autowired
-    private RoomService roomService;
 
 	private SubjectList subjectList = new SubjectList();
 
