@@ -37,7 +37,7 @@ public class LockerRepositoryTest {
     }
 
     @After
-    public void bar() {
+    public void tearDown() {
         repo.delete(ID);
     }
 
