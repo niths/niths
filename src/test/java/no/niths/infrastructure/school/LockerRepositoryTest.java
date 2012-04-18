@@ -16,4 +16,9 @@ public class LockerRepositoryTest {
 
     @Autowired
     private LockerRepository repo;
+
+    @Test
+    public void testCreateAndPersistLocker() {
+        
+    }
 }

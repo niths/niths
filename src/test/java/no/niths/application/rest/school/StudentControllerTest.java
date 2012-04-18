@@ -124,6 +124,10 @@ public class StudentControllerTest {
 		
 		studController.update(s1);
 		assertEquals("xxx@mail.com", studController.getById(s1.getId()).getEmail());
+		
+		studController.delete(s1.getId());
+		studController.delete(s2.getId());
+		studController.delete(s3.getId());
 	}
 
     @Test
