@@ -7,129 +7,143 @@ import no.niths.services.interfaces.GenericService;
 
 public interface StudentService extends GenericService<Student> {
 
-	/**
-	 * 
-	 * @param name
-	 * @return
-	 */
-	List<Student> getStudentsWithNamedCourse(String name);
-	
-	/**
-	 * 
-	 * @param student
-	 * @return
-	 */
-	List<Student> getStudentsAndRoles(Student student);
-	
-	/**
-	 * 
-	 * @param column
-	 * @param criteria
-	 * @return
-	 */
-	List<Student> getStudentByColumn(String column, String criteria);
-	
-	/**
-	 * 
-	 * @param token
-	 * @return
-	 */
-	Student getStudentBySessionToken(String token);
-	
-	/**
-	 * 
-	 * @param email
-	 * @return
-	 */
-	Student getStudentByEmail(String email);
-	
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Student getStudentWithRoles(Long id);
+    /**
+     * 
+     * @param name
+     * @return
+     */
+    List<Student> getStudentsWithNamedCourse(String name);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param courseId
-	 */
-	void addCourse(Long studentId, Long courseId);
+    /**
+     * 
+     * @param student
+     * @return
+     */
+    List<Student> getStudentsAndRoles(Student student);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param courseId
-	 */
-	void removeCourse(Long studentId, Long courseId);
+    /**
+     * 
+     * @param column
+     * @param criteria
+     * @return
+     */
+    List<Student> getStudentByColumn(String column, String criteria);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param committeeId
-	 */
-	void addCommittee(Long studentId, Long committeeId);
+    /**
+     * 
+     * @param token
+     * @return
+     */
+    Student getStudentBySessionToken(String token);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param committeeId
-	 */
-	void removeCommittee(Long studentId, Long committeeId);
+    /**
+     * 
+     * @param email
+     * @return
+     */
+    Student getStudentByEmail(String email);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param feedId
-	 */
-	void addFeed(Long studentId, Long feedId);
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    Student getStudentWithRoles(Long id);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param feedId
-	 */
-	void removeFeed(Long studentId, Long feedId);
+    /**
+     * 
+     * @param studentId
+     * @param courseId
+     */
+    void addCourse(Long studentId, Long courseId);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param roleId
-	 */
-	void addRole(Long studentId, Long roleId);
+    /**
+     * 
+     * @param studentId
+     * @param courseId
+     */
+    void removeCourse(Long studentId, Long courseId);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param roleId
-	 */
-	void removeRole(Long studentId, Long roleId);
-	
-	/**
-	 * 
-	 * @param studId
-	 */
-	void removeAllRoles(Long studId);
+    /**
+     * 
+     * @param studentId
+     * @param committeeId
+     */
+    void addCommittee(Long studentId, Long committeeId);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param loanId
-	 */
-	void addLoan(Long studentId, Long loanId);
+    /**
+     * 
+     * @param studentId
+     * @param committeeId
+     */
+    void removeCommittee(Long studentId, Long committeeId);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param loanId
-	 */
-	void removeLoan(Long studentId, Long loanId);
+    /**
+     * 
+     * @param studentId
+     * @param feedId
+     */
+    void addFeed(Long studentId, Long feedId);
 
-	/**
-	 * 
-	 * @param studentId
-	 * @param roles
-	 */
-	void updateRoles(Long studentId, Long[] roleIds);
+    /**
+     * 
+     * @param studentId
+     * @param feedId
+     */
+    void removeFeed(Long studentId, Long feedId);
+
+    /**
+     * 
+     * @param studentId
+     * @param roleId
+     */
+    void addRole(Long studentId, Long roleId);
+
+    /**
+     * 
+     * @param studentId
+     * @param roleId
+     */
+    void removeRole(Long studentId, Long roleId);
+
+    /**
+     * 
+     * @param studId
+     */
+    void removeAllRoles(Long studId);
+
+    /**
+     * 
+     * @param studentId
+     * @param loanId
+     */
+    void addLoan(Long studentId, Long loanId);
+
+    /**
+     * 
+     * @param studentId
+     * @param loanId
+     */
+    void removeLoan(Long studentId, Long loanId);
+
+    /**
+     * 
+     * @param studentId
+     * @param roles
+     */
+    void updateRoles(Long studentId, Long[] roleIds);
+
+    /**
+     * 
+     * @param studentId
+     * @param lockerId
+     */
+    void addLocker(Long studentId, Long lockerId);
+
+    /**
+     * 
+     * @param studentId
+     * @param lockerId
+     */
+    void removeLocker(Long studentId, Long lockerId);
 }

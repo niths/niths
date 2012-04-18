@@ -322,6 +322,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
@@ -331,9 +334,12 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void addLocker(
             @PathVariable Long studentId,
             @PathVariable Long lockerId) {
-        // TODO: Implement this
+        service.addLocker(studentId, lockerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
@@ -343,6 +349,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void removeLocker(
             @PathVariable Long studentId,
             @PathVariable Long lockerId) {
-        // TODO: Implement this
+        service.removeLocker(studentId, lockerId);
     }
 }
