@@ -124,4 +124,18 @@ public interface StudentController extends GenericRESTController<Student> {
      * @param roleId
      */
     void isStudentInRole(Long studId, String roleName);
+
+    /**
+     * 
+     * @param studentId the student's id of which the locker will be added
+     * @param lockerId the locker's id of which the student will get
+     */
+    void addLocker(Long studentId, Long lockerId);
+
+    /**
+     * 
+     * @param studentId the student's id of which the locker will be removed
+     * @param lockerId the locker's id of which the student will get
+     */
+    void removeLocker(Long studentId, Long lockerId);
 }
