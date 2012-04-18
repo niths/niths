@@ -13,15 +13,12 @@ public class CourseList extends ListAdapter<Course> {
 
     private static final long serialVersionUID = 8082915037044141181L;
 
+    @SuppressWarnings("unused")
     @XmlElement(name = "course")
     private List<Course> courseData;
 
     @Override
     public void setData(List<Course> data) {
         this.courseData = data;
-    }
-
-    public List<Course> getCourseData() {
-        return courseData;
     }
 }
