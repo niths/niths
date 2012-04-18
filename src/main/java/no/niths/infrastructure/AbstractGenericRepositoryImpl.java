@@ -197,5 +197,4 @@ public abstract class AbstractGenericRepositoryImpl<T extends Domain>
 	public SessionFactory getSession() {
 		return session;
 	}
-
 }

@@ -12,12 +12,8 @@ import no.niths.common.AppConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.school.Subject;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.location.interfaces.RoomService;
-import no.niths.services.school.interfaces.StudentService;
 import no.niths.services.school.interfaces.SubjectService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,9 +32,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping(AppConstants.SUBJECTS)
 public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
         implements SubjectController {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(SubjectControllerImpl.class);
 
     @Autowired
     private SubjectService subjectService;

@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.lists.StudentList;
 import no.niths.application.web.interfaces.AdminController;
-import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.school.interfaces.StudentService;
@@ -34,9 +34,7 @@ public class AdminControllerImpl implements AdminController {
 	private RoleService roles;
 
 	private List<Role> listOfRoles = new ArrayList<Role>();
-	private List<Student> students = new ArrayList<Student>();
-	private List<Role> newRoles = new ArrayList<Role>();
-
+	private StudentList students = new StudentList();
 	private String query = "";
 	private String columnName = "firstName";
 
@@ -48,32 +46,8 @@ public class AdminControllerImpl implements AdminController {
 	public String updateRoles(
 			@RequestParam(value = "studentId") Long studentId,
 			@RequestParam(value = "checkedRoles", defaultValue = "") Long[] checkedRoles) {
-		try {
 
-			newRoles.clear();
-
-			logger.debug("updateRoles: student id " + studentId
-					+ " CheckedRoles size " + checkedRoles.length);
-
-			Student student = service.getById(studentId);
-			logger.debug("Found student = " + (student != null));
-			if (student != null) {
-				student.setRoles(null);
-				for (int i = 0; i < listOfRoles.size(); i++) {
-					for (long roles : checkedRoles) {
-						if (listOfRoles.get(i).getId() == roles) {
-							newRoles.add(listOfRoles.get(i));
-						}
-					}
-				}
-				student.setRoles(newRoles);
-				service.update(student);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug(e.getMessage(), e);
-		}
+		service.updateRoles(studentId, checkedRoles);
 		return "redirect:?columnName=" + columnName + "&query=" + query;
 	}
 
@@ -123,24 +97,24 @@ public class AdminControllerImpl implements AdminController {
 				students.addAll(service.getStudentByColumn(columnName, query));
 			}
 
-			// Detach students committees and courses
-			for (int i = 0; i < students.size(); i++) {
-				students.get(i).setCommittees(null);
-				students.get(i).setCourses(null);
-			}
-
 			getRoles();
 
 			// add students and roles to MaV
 			view.addObject("studentList", students);
 			view.addObject("listOfRoles", listOfRoles);
-			view.addObject("exception",errorMessage);
-			
+			view.addObject("exception", errorMessage);
+
 			setLastQuery(columnName, query);
 		}
 		return view;
 	}
 
+	/**
+	 * Converts a ISO-8859-1 to UTF-8
+	 * 
+	 * @param query
+	 * @return
+	 */
 	private String[] convertToUTF(String query) {
 		String errorMessage = null;
 		try {

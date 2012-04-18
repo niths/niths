@@ -125,4 +125,11 @@ public interface StudentService extends GenericService<Student> {
 	 * @param loanId
 	 */
 	void removeLoan(Long studentId, Long loanId);
+
+	/**
+	 * 
+	 * @param studentId
+	 * @param roles
+	 */
+	void updateRoles(Long studentId, Long[] roleIds);
 }
