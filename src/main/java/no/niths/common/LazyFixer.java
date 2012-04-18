@@ -136,7 +136,6 @@ public class LazyFixer<T> {
                         if (result != null) {
                             Class<?> resultClass = result.getClass();
                             if (Collection.class.isAssignableFrom(resultClass)) {
-                                System.err.println("IAC: " + m.getName());
                                 Collection<Domain> domains =
                                         (Collection<Domain>) result;
                                 domains.size();
