@@ -14,6 +14,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.school.interfaces.CommitteeController;
 import no.niths.application.rest.school.interfaces.CourseController;
 import no.niths.application.rest.school.interfaces.FeedController;
+import no.niths.application.rest.school.interfaces.LockerController;
 import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -21,8 +22,10 @@ import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Feed;
+import no.niths.domain.school.Locker;
 import no.niths.domain.school.Student;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +39,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class StudentControllerTest {
 
     private MockHttpServletResponse res;
+
+    private Student student1;
+    private Student student2;
 
     public static final String EMAIL = "epost@nith.no";
 
@@ -54,9 +60,23 @@ public class StudentControllerTest {
     @Autowired
 	private LoanController loanController;
 
+    @Autowired
+    private LockerController lockerController;
+
     @Before
     public void setUp() {
         res = new MockHttpServletResponse();
+
+        student1 = new Student("foo@bar.com");
+        student2 = new Student("baz@qux.com");
+        studController.create(student1, res);
+        studController.create(student2, res);
+    }
+
+    @After
+    public void tearDown() {
+        studController.delete(student1.getId());
+        studController.delete(student2.getId());
     }
 
 	@Test(expected= ConstraintViolationException.class)
@@ -241,9 +261,27 @@ public class StudentControllerTest {
         loanController.delete(loan.getId());
         loanController.delete(otherLoan.getId());
     }
-    
+
     @Test
     public void testGetStudentWithRoles(){
-    	//TODO make test here!
+    	//TODO: make test here!
+    }
+
+    // XXX: Should this and similar methods be moved to the service layer?
+    @Test
+    public void testFlipLockerToStudent() {
+        Locker locker = new Locker("001");
+        lockerController.create(locker, res);
+
+        studController.addLocker(student1.getId(), locker.getId());
+        assertEquals(
+                student1,
+                lockerController.getById(locker.getId()).getOwner());
+
+        studController.removeLocker(student1.getId(), locker.getId());
+        assertEquals(
+                null,
+                lockerController.getById(locker.getId()).getOwner());
+        lockerController.delete(locker.getId());
     }
 }

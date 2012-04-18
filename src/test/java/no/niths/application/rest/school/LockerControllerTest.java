@@ -33,7 +33,6 @@ public class LockerControllerTest {
         locker1 = new Locker("001");
         locker2 = new Locker("002");
         locker3 = new Locker("003");
-        
         controller.create(locker1, res);
         controller.create(locker2, res);
         controller.create(locker3, res);
