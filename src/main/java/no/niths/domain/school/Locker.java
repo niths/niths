@@ -22,8 +22,6 @@ import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @XmlRootElement(name = AppConstants.LOCKERS)

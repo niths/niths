@@ -63,7 +63,7 @@ public class LoanControllerTest {
 
         assertThat(size + 1, is(equalTo(loanController.getAll(null).size())));
 
-        loanController.hibernateDelete(loan.getId());
+        loanController.delete(loan.getId());
 
         int currentSize = 0;
 
@@ -98,9 +98,9 @@ public class LoanControllerTest {
         assertThat(1, is(equalTo(loanController.getById(loan.getId()).getConsoles().size())));
         assertThat(consoleController.getById(otherConsole.getId()).getId(), is(equalTo(loanController.getById(loan.getId()).getConsoles().get(0).getId())));
 
-        loanController.hibernateDelete(loan.getId());
-        consoleController.hibernateDelete(console.getId());
-        consoleController.hibernateDelete(otherConsole.getId());
+        loanController.delete(loan.getId());
+        consoleController.delete(console.getId());
+        consoleController.delete(otherConsole.getId());
     }
 
      @Test
@@ -121,8 +121,8 @@ public class LoanControllerTest {
 
         assertThat(loanController.getById(loan.getId()).getStudent(), is(nullValue()));
 
-        loanController.hibernateDelete(loan.getId());
-        studentController.hibernateDelete(loanedBy.getId());
+        loanController.delete(loan.getId());
+        studentController.delete(loanedBy.getId());
     }
 
     @Test

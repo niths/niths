@@ -58,10 +58,10 @@ public class RoleControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {
-		controller.hibernateDelete(testRole01.getId());
-		controller.hibernateDelete(testRole02.getId());
-		controller.hibernateDelete(testRole03.getId());
-		controller.hibernateDelete(testRole04.getId());
+		controller.delete(testRole01.getId());
+		controller.delete(testRole02.getId());
+		controller.delete(testRole03.getId());
+		controller.delete(testRole04.getId());
 //		studentController.hibernateDelete(testStudent.getId());
 	}
 

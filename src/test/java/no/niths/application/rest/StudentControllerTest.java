@@ -80,7 +80,7 @@ public class StudentControllerTest {
 		
 		assertEquals(size + 1, studController.getAll(null).size());
 		
-		studController.hibernateDelete(s.getId());
+		studController.delete(s.getId());
 		int currentSize = 0;
 		try {
 			currentSize  = studController.getAll(null).size();
@@ -94,7 +94,7 @@ public class StudentControllerTest {
 	
 	@Test(expected = ObjectNotFoundException.class)
 	public void testDeleteWithUnvalidId(){
-		studController.hibernateDelete(new Long(9391));
+		studController.delete(new Long(9391));
 	}
 	
 	@Test
@@ -149,9 +149,9 @@ public class StudentControllerTest {
         assertThat(1, is(equalTo(studController.getById(student.getId()).getCourses().size())));
         assertThat(courseController.getById(otherCourse.getId()).getId(), is(equalTo(studController.getById(student.getId()).getCourses().get(0).getId())));
 
-        studController.hibernateDelete(student.getId());
-        courseController.hibernateDelete(course.getId());
-        courseController.hibernateDelete(otherCourse.getId());
+        studController.delete(student.getId());
+        courseController.delete(course.getId());
+        courseController.delete(otherCourse.getId());
     }
 
     @Test
@@ -177,9 +177,9 @@ public class StudentControllerTest {
         assertThat(1, is(equalTo(studController.getById(student.getId()).getCommittees().size())));
         assertThat(committeeController.getById(otherCommittee.getId()).getId(), is(equalTo(studController.getById(student.getId()).getCommittees().get(0).getId())));
 
-        studController.hibernateDelete(student.getId());
-        committeeController.hibernateDelete(committee.getId());
-        committeeController.hibernateDelete(otherCommittee.getId());
+        studController.delete(student.getId());
+        committeeController.delete(committee.getId());
+        committeeController.delete(otherCommittee.getId());
     }
 
     @Test
@@ -205,9 +205,9 @@ public class StudentControllerTest {
         assertThat(1, is(equalTo(studController.getById(student.getId()).getFeeds().size())));
         assertThat(feedController.getById(otherFeed.getId()).getId(), is(equalTo(studController.getById(student.getId()).getFeeds().get(0).getId())));
 
-        studController.hibernateDelete(student.getId());
-        feedController.hibernateDelete(feed.getId());
-        feedController.hibernateDelete(otherFeed.getId());
+        studController.delete(student.getId());
+        feedController.delete(feed.getId());
+        feedController.delete(otherFeed.getId());
     }
 
     @Test
@@ -233,9 +233,9 @@ public class StudentControllerTest {
         assertThat(1, is(equalTo(studController.getById(student.getId()).getLoans().size())));
         assertThat(loanController.getById(otherLoan.getId()).getId(), is(equalTo(studController.getById(student.getId()).getLoans().get(0).getId())));
 
-        studController.hibernateDelete(student.getId());
-        loanController.hibernateDelete(loan.getId());
-        loanController.hibernateDelete(otherLoan.getId());
+        studController.delete(student.getId());
+        loanController.delete(loan.getId());
+        loanController.delete(otherLoan.getId());
     }
     
     @Test

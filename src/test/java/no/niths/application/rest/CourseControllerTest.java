@@ -37,7 +37,7 @@ public class CourseControllerTest {
 
         assertEquals(firstCourse.getName(), secondCourse.getName());
         
-        controller.hibernateDelete(firstCourse.getId());
+        controller.delete(firstCourse.getId());
         
     }
 
@@ -58,7 +58,7 @@ public class CourseControllerTest {
 
         // Delete the same course
         Course secondCourse = controller.getAll(firstCourse).get(0);
-        controller.hibernateDelete(secondCourse.getId());
+        controller.delete(secondCourse.getId());
 
         assertEquals(originalCount, controller.getAll(null).size());
     }

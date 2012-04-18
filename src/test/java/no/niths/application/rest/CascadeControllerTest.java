@@ -88,7 +88,7 @@ public class CascadeControllerTest {
 		
 		studController.update(s1);
 		//Delete the student
-		studController.hibernateDelete(s1.getId());
+		studController.delete(s1.getId());
 		//Course should still be in db
 		assertEquals(c, courseController.getById(c.getId()));
 		
@@ -97,10 +97,10 @@ public class CascadeControllerTest {
 		Committee com2 = committeeController.getById(com.getId());
 		assertEquals(false, com2.getLeaders().contains(s1));
 		
-		committeeController.hibernateDelete(com.getId());
-		courseController.hibernateDelete(c.getId());
-		fadderGroupController.hibernateDelete(g.getId());
-		roleController.hibernateDelete(role.getId());
+		committeeController.delete(com.getId());
+		courseController.delete(c.getId());
+		fadderGroupController.delete(g.getId());
+		roleController.delete(role.getId());
 		
 	}
 	

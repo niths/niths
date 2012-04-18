@@ -49,10 +49,10 @@ public class AccessPointControllerImplTest {
 
 	@After
 	public void tearDown() throws Exception {		
-		controller.hibernateDelete(testAP01.getId());
-		controller.hibernateDelete(testAP02.getId());
-		controller.hibernateDelete(testAP03.getId());
-		controller.hibernateDelete(testAP04.getId());
+		controller.delete(testAP01.getId());
+		controller.delete(testAP02.getId());
+		controller.delete(testAP03.getId());
+		controller.delete(testAP04.getId());
 	}
 
 	@Test

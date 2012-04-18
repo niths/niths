@@ -78,8 +78,8 @@ public class AccessFieldControllerImpl extends
     @Override
     @ApiEvent(title = "Access field deleted")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void hibernateDelete(@PathVariable long id) {
-        super.hibernateDelete(id);
+    public void delete(@PathVariable long id) {
+        super.delete(id);
     }
 
     @Override
