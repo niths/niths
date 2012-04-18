@@ -3,15 +3,11 @@ package no.niths.services.school;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
 import no.niths.common.LazyFixer;
 import no.niths.common.MessageProvider;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
-import no.niths.domain.Domain;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
@@ -26,6 +22,7 @@ import no.niths.infrastructure.school.interfaces.CourseRepository;
 import no.niths.infrastructure.school.interfaces.FeedRepoistory;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
 import no.niths.services.AbstractGenericService;
+import no.niths.services.ServiceHelper;
 import no.niths.services.school.interfaces.StudentService;
 
 import org.slf4j.Logger;
@@ -42,7 +39,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	private LazyFixer<Student> lazyFixer = new LazyFixer<Student>();
 
-	@Autowired
+	private ServiceHelper<Student> helper  = new ServiceHelper<Student>();
+	@Autowired	
 	private StudentRepository repo;
 
 	@Autowired
@@ -113,8 +111,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
-		return repo.getStudentByColumn(column, criteria);
-
+		List<Student> list = repo.getStudentByColumn(column, criteria);
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).getRoles().size();
+		}
+		return list;	
 	}
 
 	@Override
@@ -124,8 +125,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public void addCourse(Long studentId, Long courseId) {
-		Student student = validateStudent(repo.getById(studentId));
-		checkIfObjectIsInCollection(student.getCourses(), courseId,Course.class);
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		helper.checkIfObjectIsInCollection(student.getCourses(), courseId,Course.class);
 
 		Course course = courseRepo.getById(courseId);
 		ValidationHelper.isObjectNull(course, Course.class);
@@ -137,7 +138,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public void removeCourse(Long studentId, Long courseId) {
-		Student student = validateStudent(repo.getById(studentId));
+		Student student = helper.validate(repo.getById(studentId),Student.class);
 
 		boolean isRemoved = false;
 
@@ -149,13 +150,13 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 			}
 		}
 
-		checkIfIsRemoved(isRemoved, Course.class);
+		helper.checkIfIsRemoved(isRemoved, Course.class);
 	}
 
 	@Override
 	public void addCommittee(Long studentId, Long committeeId) {
-		Student student = validateStudent(repo.getById(studentId));
-		checkIfObjectIsInCollection(student.getCommittees(), committeeId,Committee.class);
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		helper.checkIfObjectIsInCollection(student.getCommittees(), committeeId,Committee.class);
 
 		Committee committee = committeeService.getById(committeeId);
 		ValidationHelper.isObjectNull(committee, Committee.class);
@@ -165,38 +166,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 				Status.UPDATED));
 	}
 
-	/**
-	 * Helper method for checking if the the list element is a instance of
-	 * Domain and then we can cast the list element to a Domain for using the
-	 * getId() method
-	 * 
-	 * @throws ObjectInCollectionException
-	 *             () if the object is found
-	 * @param list
-	 * @param id
-	 */
-	@SuppressWarnings("rawtypes")
-	private void checkIfObjectIsInCollection(List list, long id,Class clazz) {
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) instanceof Domain) {
-				Domain d = (Domain) list.get(i);
-				if (d.getId() == id) {
-					throw new ObjectInCollectionException(
-							MessageProvider.buildErrorMsg(clazz,
-									Error.OBJECT_IN_COLLECTION));
-				}
-			}
-		}
-	}
-
-	private Student validateStudent(Student student) {
-		ValidationHelper.isObjectNull(student, Student.class);
-		return student;
-	}
-
 	@Override
 	public void removeCommittee(Long studentId, Long committeeId) {
-		Student student = validateStudent(repo.getById(studentId));
+		Student student = helper.validate(repo.getById(studentId),Student.class);
 		boolean isRemoved = false;
 
 		for (Committee c : student.getCommittees()) {
@@ -207,24 +179,25 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 			}
 		}
 
-		checkIfIsRemoved(isRemoved, Committee.class);
+		helper.checkIfIsRemoved(isRemoved, Committee.class);
 	}
 
 	@Override
 	public void addFeed(Long studentId, Long feedId) {
-		Student student = validateStudent(repo.getById(studentId));
-		checkIfObjectIsInCollection(student.getFeeds(), feedId,Feed.class);
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		helper.checkIfObjectIsInCollection(student.getFeeds(), feedId,Feed.class);
 
 		Feed feed = feedRepo.getById(feedId);
 		ValidationHelper.isObjectNull(feed, Feed.class);
 
+		
 		student.getFeeds().add(feed);
 		logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
 	}
 
 	@Override
 	public void removeFeed(Long studentId, Long feedId) {
-		Student student = validateStudent(repo.getById(studentId));
+		Student student = helper.validate(repo.getById(studentId),Student.class);
 		boolean isRemoved = false;
 
 		for (int i = 0; i < student.getFeeds().size(); i++) {
@@ -235,22 +208,15 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 			}
 		}
 
-		checkIfIsRemoved(isRemoved, Feed.class);
+		helper.checkIfIsRemoved(isRemoved, Feed.class);
 	}
 
-	@SuppressWarnings("rawtypes")
-	private void checkIfIsRemoved(boolean isRemoved, Class clazz) {
-		if (!isRemoved) {
-			String msg = MessageProvider.buildErrorMsg(clazz, Error.NOT_FOUND);
-			logger.debug(msg);
-			throw new ObjectNotFoundException(msg);
-		}
-	}
-
+	
+	
 	@Override
 	public void addRole(Long studentId, Long roleId) {
-		Student student = validateStudent(repo.getById(studentId));
-		checkIfObjectIsInCollection(student.getRoles(), roleId,Role.class);
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		helper.checkIfObjectIsInCollection(student.getRoles(), roleId,Role.class);
 
 		Role role = roleRepo.getById(roleId);
 		ValidationHelper.isObjectNull(role, Role.class);
@@ -261,7 +227,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public void removeRole(Long studentId, Long roleId) {
-		Student student = validateStudent(repo.getById(studentId));
+		Student student = helper.validate(repo.getById(studentId),Student.class);
 
 		boolean isRemoved = false;
 		for (Role r : student.getRoles()) {
@@ -272,20 +238,20 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 				break;
 			}
 		}
-		checkIfIsRemoved(isRemoved, Role.class);
+		helper.checkIfIsRemoved(isRemoved, Role.class);
 	}
 
 	@Override
 	public void removeAllRoles(Long studId) {
-		Student student = validateStudent(repo.getById(studId));
+		Student student = helper.validate(repo.getById(studId),Student.class);
 		student.setRoles(null);
 	}
 	
 
 	@Override
 	public void addLoan(Long studentId, Long loanId) {
-		Student student = validateStudent(repo.getById(studentId));
-		checkIfObjectIsInCollection(student.getLoans(), loanId,Loan.class);
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		helper.checkIfObjectIsInCollection(student.getLoans(), loanId,Loan.class);
 
 		Loan loan = loanRepo.getById(loanId);
 		ValidationHelper.isObjectNull(loan, Loan.class);
@@ -298,7 +264,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
 	@Override
 	public void removeLoan(Long studentId, Long loanId) {
-		Student student = validateStudent(repo.getById(studentId));
+		Student student = helper.validate(repo.getById(studentId),Student.class);
         boolean isRemoved = false;
         for (Loan l: student.getLoans()) {
             if (l.getId() == loanId) {
@@ -307,6 +273,21 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 break;
             }
         }
-    	checkIfIsRemoved(isRemoved, Loan.class);
+    	helper.checkIfIsRemoved(isRemoved, Loan.class);
+	}
+
+	@Override
+	public void updateRoles(Long studentId, Long[] roleIds) {
+		Student student = helper.validate(repo.getById(studentId),Student.class);
+		student.getRoles().clear();
+		List<Role> roles = roleRepo.getAll(null);
+		
+		for (Role r: roles) {
+			for (long rId : roleIds) {
+				if (r.getId() == rId) {
+					student.getRoles().add(r);
+				}
+			}
+		}	
 	}
 }

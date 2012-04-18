@@ -68,7 +68,7 @@ public class Loan implements Domain {
 	private Calendar endTime;
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loans_id"), inverseJoinColumns = @JoinColumn(name = "consoles_id"))
+	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
 	@Cascade(CascadeType.ALL)
 	private List<Console> consoles = new ArrayList<Console>();
 

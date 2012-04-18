@@ -86,7 +86,7 @@ public class DeveloperControllerTest {
 		assertEquals(get, dev);
 		assertEquals(true, get.getEnabled());
 		
-		controller.hibernateDelete(get.getId());
+		controller.delete(get.getId());
 		
 	}
 }

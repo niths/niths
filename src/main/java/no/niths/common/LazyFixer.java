@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.application.rest.lists.ListAdapter;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -27,7 +26,7 @@ public class LazyFixer<T> {
      * Sets any children in the list of domains to null
      * @param list the list of which the relations are to be cleared
      */
-    public void clearRelations(ListAdapter<T> list) {
+    public void clearRelations(List<T> list) {
 
         try {
             for (Object domain : list) {
@@ -132,21 +131,16 @@ public class LazyFixer<T> {
                                 generateAccessorHeader(
                                         field.getName(), Accessor.GET),
                                 (Class<?>[]) null);
-                        System.err.println("method: " + m.getName());
                         Object result = m.invoke(element);
                         if (result != null) {
                             Class<?> resultClass = result.getClass();
                             if (Collection.class.isAssignableFrom(resultClass)) {
-                                System.err.println("IAC: " + m.getName());
                                 Collection<Domain> domains =
                                         (Collection<Domain>) result;
                                 domains.size();
                             } else if (Domain.class.isAssignableFrom(resultClass)) {
-                                System.err.println("IAD: " + m.getName());
                                 Domain domain = (Domain) result;
                                 domain.getId();
-                            } else {
-                                System.err.println("ERR, other: " +result.getClass());
                             }
                         }
                     }
@@ -210,19 +204,5 @@ public class LazyFixer<T> {
                 m.invoke(target, varargsNull);
             }
         }
-    }
-
-    @SuppressWarnings("unused")
-	private void triggerFetch(Object target, Class<?> type)
-            throws NoSuchMethodException,  SecurityException,
-                   IllegalAccessException, IllegalArgumentException,
-                   InvocationTargetException {
-        System.err.println("===========");
-        System.err.println(target.getClass() + ", " + type);
-        System.err.println("===========");
-        
-        Method m = type.getMethod("size", (Class<?>[]) null);
-        
-        System.err.println("--" + m.getName());
     }
 }

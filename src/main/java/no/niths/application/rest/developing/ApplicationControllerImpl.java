@@ -74,8 +74,8 @@ public class ApplicationControllerImpl extends
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void hibernateDelete(@PathVariable long id) {
-		super.hibernateDelete(id);
+	public void delete(@PathVariable long id) {
+		super.delete(id);
 	}
 
 	@Override

@@ -74,8 +74,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	@Override
 	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@ApiEvent(title="Event removed")
-	public void hibernateDelete(@PathVariable long id) {
-		super.hibernateDelete(id);
+	public void delete(@PathVariable long id) {
+		super.delete(id);
 	}
 
 	/**

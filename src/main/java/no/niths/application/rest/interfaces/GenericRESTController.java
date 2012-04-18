@@ -49,18 +49,9 @@ public interface GenericRESTController<T> {
 
     /**
      * Deletes the domain object with the given id
-     * 
-     * @param id the id of the domain object to be deleted
-     * @deprecated
-     */
-	@Deprecated
-    public void delete(Long id);
-    
-    /**
-     * Deletes the domain object with the given id
      * @param id the id of the domain object to be deleted
      */
-    public void hibernateDelete(long id);
+    public void delete(long id);
     
     /**
      * Clears the old list, fill the new list and checks if is empty.

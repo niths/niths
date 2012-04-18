@@ -22,45 +22,45 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * Adds a leader to a group
      * 
      * @param groupId id of the group
-     * @param studId id of the leader
+     * @param studentId id of the leader
      * @throws ObjectNotFoundException if student of group does not exists
      */
-    public void addLeaderToAGroup(Long groupId, Long studId);
+    public void addLeader(Long groupId, Long studentId);
 
     /**
      * Removes a leader from a group
      * 
      * @param groupId id of the group to remove a leader from
-     * @param studId id of the student to remove as a leader
+     * @param studentId id of the student to remove as a leader
      * @throws ObjectNotFoundException if student of group does not exists
      */
-    public void removeLeaderFromAGroup(Long groupId, Long studId);
+    public void removeLeader(Long groupId, Long studentId);
 
     /**
      * Adds a child to a group
      * 
      * @param groupId id of the group to add a child to
-     * @param studId id of the student to add
+     * @param studentId id of the student to add
      * @throws ObjectNotFoundException if student of group does not exists
      */
-    public void addChildToAGroup(Long groupId, Long studId);
+    public void addChild(Long groupId, Long studentId);
 
     /**
      * Remove a child from a group
      * 
      * @param groupId id of the group to remove the child from
-     * @param studId if of the student to remove
+     * @param studentId if of the student to remove
      * @throws ObjectNotFoundException if student in the group does not exist
      */
-    public void removeChildFromGroup(Long groupId, Long studId);
+    public void removeChild(Long groupId, Long studentId);
 
     /**
      * 
      * @param groupId id of the group to remove the children from
-     * @param studId id of the student to remove
+     * @param studentId id of the student to remove
      * @throws ObjectNotFoundException if the students in group do not exist
      */
-    public void removeChildrenFromGroup(Long groupId, Long[] studId);
+    public void removeChildren(Long groupId, Long[] studentId);
 
     /**
      * Removes all children from a group
@@ -68,7 +68,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @param groupId id of the group to remove child from
      * @throws ObjectNotFoundException if the group does not exists
      */
-    public void removeAllChildrenFromGroup(Long groupId);
+    public void removeAllChildren(Long groupId);
 
     /**
      * Removes all leaders from a group
@@ -76,17 +76,16 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @param groupId id of the group to remove leaders from
      * @throws ObjectNotFoundException if the group does not exists
      */
-    public void removeAllLeadersFromGroup(Long groupId);
+    public void removeAllLeaders(Long groupId);
 
     void scanImage(HttpServletRequest request, HttpServletResponse response)
             throws QRCodeException;
 
     /**
      * Gets all the students in a given fadder group
-     * @param The id of the FadderGroup
+     * @param groupId id of the FadderGroup
      * @return List of students
      */
-    public List<Student> getAllStudentsFromFadderGroup(Long id);
+    public List<Student> getAllStudents(Long groupId);
 
-	FadderGroup getGroupBelongingToStudent(Long studentId);
 }
