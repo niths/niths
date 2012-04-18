@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.school;
 
 
 import static org.junit.Assert.assertEquals;

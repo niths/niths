@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.signaling;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

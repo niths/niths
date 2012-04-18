@@ -1,4 +1,4 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.battlestation;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
