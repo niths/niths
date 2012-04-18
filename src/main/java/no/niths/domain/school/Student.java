@@ -163,8 +163,6 @@ public class Student implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Course> courses = new ArrayList<Course>();
 
-    @JsonIgnore
-    @XmlTransient
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
     @JoinTable(
             name               = "fadder_leaders_students",
@@ -173,8 +171,6 @@ public class Student implements Domain {
     @Cascade(CascadeType.ALL)
     private List<FadderGroup> groupLeaders = new ArrayList<FadderGroup>();
 
-    @JsonIgnore
-    @XmlTransient
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = FadderGroup.class)
     @JoinTable(
             name               = "fadder_children_students",
@@ -400,6 +396,7 @@ public class Student implements Domain {
         this.committeesLeader = committesLeader;
     }
 
+    @JsonSerialize(as = FadderGroup.class)
     public FadderGroup getFadderGroup() {
         return fadderGroup;
     }
