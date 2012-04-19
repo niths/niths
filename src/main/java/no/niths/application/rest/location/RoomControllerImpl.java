@@ -6,6 +6,7 @@ import no.niths.application.rest.lists.RoomList;
 import no.niths.application.rest.location.interfaces.RoomController;
 import no.niths.common.AppNames;
 import no.niths.domain.location.Room;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.RoomService;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -57,5 +59,14 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     public void removeAccessField(@PathVariable long roomId,
             @PathVariable long accessFieldId) {
         service.removeAccessField(roomId, accessFieldId);
+    }
+
+    @Override
+    @RequestMapping(
+            value  = "search/accesspoint")
+    @ResponseBody
+    public Room findRoom(AccessPoint accessPoint) {
+        
+        return null;
     }
 }
