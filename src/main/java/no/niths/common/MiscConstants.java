@@ -4,6 +4,7 @@ public class MiscConstants {
 
     public static final String API_EVENTS = "api_events";
     public static final String AUTH = "auth";
+    public static final String BROADCAST = "broadcast";
     public static final String FADDER_GROUPS = "fadder_groups";
     public static final String LOCKER = "locker";
 

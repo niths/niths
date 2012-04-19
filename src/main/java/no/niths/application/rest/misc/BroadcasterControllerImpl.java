@@ -4,7 +4,7 @@ import java.io.EOFException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.common.AppNames;
+import no.niths.common.MiscConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.misc.Email;
 import no.niths.services.interfaces.MailSenderService;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.sun.mail.smtp.SMTPAddressFailedException;
 
 @Controller
-@RequestMapping(AppNames.BROADCAST)
+@RequestMapping(MiscConstants.BROADCAST)
 public class BroadcasterControllerImpl {
 
     @Autowired
