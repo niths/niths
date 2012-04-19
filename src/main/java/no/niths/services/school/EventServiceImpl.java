@@ -3,9 +3,9 @@ package no.niths.services.school;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
+import no.niths.application.rest.helper.Status;
 import no.niths.common.LazyFixer;
 import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
@@ -60,31 +60,28 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		Event event = super.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
 
-		if (event.getLocation() != null && event.getLocation().getId() == locId) {
-			logger.debug("location exist");
-			throw new ObjectInCollectionException(
-					MessageProvider.buildErrorMsg(Location.class,
-							Error.OBJECT_IN_COLLECTION));
-		}
+		checkIfObjectExists(event.getLocation(), locId, Location.class);
 
 		Location location = locationRepo.getById(locId);
 		ValidationHelper.isObjectNull(location, Location.class);
+
 		event.setLocation(location);
-		logger.debug("Location added to event");
+		logger.debug(MessageProvider
+				.buildStatusMsg(Event.class, Status.UPDATED));
 	}
 
 	@Override
 	public void removeLocation(Long eventId, Long locId) {
 		Event event = super.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
-		
+
 		if (event.getLocation() != null && event.getLocation().getId() == locId) {
 			event.setLocation(null);
-		}else{
-			logger.debug("Event not Found");
-			throw new ObjectNotFoundException(MessageProvider.buildErrorMsg(
-					Location.class,
-					Error.DOES_NOT_EXIST));
+		} else {
+			String msg = MessageProvider.buildErrorMsg(Location.class,
+					Error.DOES_NOT_EXIST);
+			logger.debug(msg);
+			throw new ObjectNotFoundException(msg);
 		}
 	}
 
