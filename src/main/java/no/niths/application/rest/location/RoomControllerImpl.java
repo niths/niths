@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(AppNames.ROOMS)
 public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
-		implements RoomController {
+        implements RoomController {
 
-	@Autowired
-	private RoomService service;
+    @Autowired
+    private RoomService service;
 
-	private RoomList roomList = new RoomList();
+    private RoomList roomList = new RoomList();
 
-	@Override
-	public GenericService<Room> getService() {
-		return service;
-	}
+    @Override
+    public GenericService<Room> getService() {
+        return service;
+    }
 
-	@Override
-	public ListAdapter<Room> getList() {
-		return roomList;
-	}
+    @Override
+    public ListAdapter<Room> getList() {
+        return roomList;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "{roomId}/add/accessfield/{accessFieldId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "AcessField added")
-	public void addAccessField(@PathVariable long roomId,
-			@PathVariable long accessFieldId) {	
-		service.addAccessField(roomId, accessFieldId);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "{roomId}/add/accessfield/{accessFieldId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "AcessField added")
+    public void addAccessField(@PathVariable long roomId,
+            @PathVariable long accessFieldId) {    
+        service.addAccessField(roomId, accessFieldId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = "{roomId}/remove/accessfield/{accessFieldId}", method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Access Field Removed")
-	public void removeAccessField(@PathVariable long roomId,
-			@PathVariable long accessFieldId) {
-		service.removeAccessField(roomId, accessFieldId);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = "{roomId}/remove/accessfield/{accessFieldId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Access Field Removed")
+    public void removeAccessField(@PathVariable long roomId,
+            @PathVariable long accessFieldId) {
+        service.removeAccessField(roomId, accessFieldId);
+    }
 }
