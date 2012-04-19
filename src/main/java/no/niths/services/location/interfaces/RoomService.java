@@ -1,7 +1,7 @@
 package no.niths.services.location.interfaces;
 
 import no.niths.domain.location.Room;
-import no.niths.domain.signaling.AccessPoint;
+import no.niths.domain.signaling.AccessField;
 import no.niths.services.interfaces.GenericService;
 
 public interface RoomService extends GenericService<Room> {
@@ -25,5 +25,5 @@ public interface RoomService extends GenericService<Room> {
      * @param accessPoint the access point of which the room belongs to
      * @return the Room with the given access point
      */
-    Room getRoom(AccessPoint accessPoint);
+    Room getRoom(AccessField accessField);
 }

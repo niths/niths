@@ -103,7 +103,21 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
         return repo;
     }
 
-    public Room getRoom(AccessPoint accessPoint) {
+    @Override
+    public Room getRoom(AccessField accessField) {
+        System.err.println("checking room.................................");
+        List<Room> rooms = repo.getAll(null);
+
+        for (Room room : rooms) {
+            for (AccessField innerAccessField : room.getAccessFields()) {
+                if (accessField.isWithinRanges(innerAccessField)) {
+                    System.err.println("================");
+                    System.err.println(room.getRoomName());
+                    System.err.println("================");
+                }
+            }
+        }
+
         return null;
     }
 }

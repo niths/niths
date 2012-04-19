@@ -6,7 +6,7 @@ import no.niths.application.rest.lists.RoomList;
 import no.niths.application.rest.location.interfaces.RoomController;
 import no.niths.common.AppNames;
 import no.niths.domain.location.Room;
-import no.niths.domain.signaling.AccessPoint;
+import no.niths.domain.signaling.AccessField;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.RoomService;
 
@@ -65,8 +65,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
     @RequestMapping(
             value  = "search/accesspoint")
     @ResponseBody
-    public Room findRoom(AccessPoint accessPoint) {
-        
-        return null;
+    public Room findRoom(AccessField accessField) {
+        return service.getRoom(accessField);
     }
 }

@@ -77,6 +77,13 @@ public class AccessField implements Domain {
         }
     }
 
+    public boolean isWithinRanges(AccessField accessField) {
+        return
+                accessField.getId() == id &&
+                accessField.getMaxRange() <= maxRange &&
+                accessField.getMinRange() >= minRange;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
