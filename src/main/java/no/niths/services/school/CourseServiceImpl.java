@@ -1,7 +1,7 @@
 package no.niths.services.school;
 
-import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectInCollectionException;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Student;
@@ -40,79 +40,41 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
 
     @Override
     public void addRepresentative(Long courseId, Long studentId) {
-        Course course = super.getById(courseId);
-        ValidationHelper.isObjectNull(course, Course.class);
+        Course course = validate(courseRepository.getById(courseId), Course.class);
+        checkIfObjectIsInCollection(course.getStudents(), studentId, Student.class);
 
         Student student = studentRepository.getById(studentId);
         ValidationHelper.isObjectNull(student, Student.class);
 
-        if (!course.getCourseRepresentatives().contains(student)) {
-            course.getCourseRepresentatives().add(student);
-            logger.debug("Course updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Student already a representative");
-        }
+        course.getCourseRepresentatives().add(student);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeRepresentative(Long courseId, Long studentId) {
-        Course course = super.getById(courseId);
-        ValidationHelper.isObjectNull(course, Course.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < course.getCourseRepresentatives().size(); i++) {
-            if (course.getCourseRepresentatives().get(i).getId() == studentId) {
-                course.getCourseRepresentatives().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Representative removed");
-        } else {
-            throw new NotInCollectionException(
-                    "Student not a representative for that course");
-        }
+        Course course = validate(courseRepository.getById(courseId), Course.class);
+        checkIfIsRemoved(course.getCourseRepresentatives().remove(new Student(studentId)),
+                Course.class);
     }
 
     @Override
     public void addSubject(Long courseId, Long subjectId) {
-        Course course = super.getById(courseId);
-        ValidationHelper.isObjectNull(course, Course.class);
+        Course course = validate(courseRepository.getById(courseId), Course.class);
+        checkIfObjectIsInCollection(course.getSubjects(), subjectId, Subject.class);
 
         Subject subject = subjectRepository.getById(subjectId);
         ValidationHelper.isObjectNull(subject, Subject.class);
 
-        if (!course.getSubjects().contains(subject)) {
-            course.getSubjects().add(subject);
-            logger.debug("Course updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Subject is already added to the course");
-        }
+        course.getSubjects().add(subject);
+        logger.debug(MessageProvider.buildStatusMsg(Subject.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeSubject(Long courseId, Long subjectId) {
-        Course course = super.getById(courseId);
-        ValidationHelper.isObjectNull(course, Course.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < course.getSubjects().size(); i++) {
-            if (course.getSubjects().get(i).getId() == subjectId) {
-                course.getSubjects().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Subject removed");
-        } else {
-            throw new NotInCollectionException(
-                    "Subject is not in this course");
-        }
+        Course course = validate(courseRepository.getById(courseId), Course.class);
+        checkIfIsRemoved(course.getSubjects().remove(new Subject(subjectId)),
+                Course.class);
     }
 }

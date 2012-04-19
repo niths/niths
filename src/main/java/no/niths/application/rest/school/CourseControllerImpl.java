@@ -58,25 +58,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
     }
 
     /**
-     * Returns all topics inside a course
-     * 
-     * @param courseId the course id
-     * @return List with subject
-     */
-    @Override
-    @RequestMapping(value = "{courseId}/subject", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-    @ResponseBody
-    public List<Subject> getCourseSubjects(@PathVariable Long courseId) {
-        Course course = courseService.getById(courseId);
-        ValidationHelper.isObjectNull(course, Course.class);
-        subjectList.clear();
-        subjectList.addAll(course.getSubjects());
-        subjectList.setData(course.getSubjects());
-        ValidationHelper.isListEmpty(subjectList);
-        return subjectList;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
