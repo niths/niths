@@ -1,4 +1,4 @@
-package no.niths.application.rest.interfaces;
+package no.niths.application.rest.misc.interfaces;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +10,5 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public interface DiscoverabilityController {
-	void root(HttpServletRequest request, HttpServletResponse response);
-	
+    String root(HttpServletRequest request, HttpServletResponse response);
 }
