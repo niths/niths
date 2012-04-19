@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.FeedList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.FeedController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.school.Feed;
 import no.niths.services.interfaces.GenericService;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.FEEDS)
+@RequestMapping(AppNames.FEEDS)
 public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		implements FeedController {
 

@@ -14,7 +14,7 @@ import no.niths.application.rest.lists.FadderGroupList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.application.rest.school.interfaces.FadderGroupController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.LazyFixer;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
@@ -46,7 +46,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.FADDER)
+@RequestMapping(AppNames.FADDER)
 public class FadderGroupControllerImpl extends
 		AbstractRESTControllerImpl<FadderGroup> implements
 		FadderGroupController {
@@ -292,7 +292,7 @@ public class FadderGroupControllerImpl extends
                         .getValue();
                 response.setHeader(
                         "location",
-                        AppConstants.FADDER
+                        AppNames.FADDER
                                 + '/'
                                 + new QRCodeDecoder()
                                 .decodeFadderGroupQRCode(file

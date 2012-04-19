@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.signaling.AccessPoint;
 
-@XmlRootElement(name = AppConstants.ACCESS_POINTS)
+@XmlRootElement(name = AppNames.ACCESS_POINTS)
 public class AccessPointList extends ListAdapter<AccessPoint> {
 
     private static final long serialVersionUID = 1L;

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -39,7 +39,7 @@ parameters = {
 })
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.DEVELOPERS)
+@Table(name = AppNames.DEVELOPERS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Developer implements Domain {

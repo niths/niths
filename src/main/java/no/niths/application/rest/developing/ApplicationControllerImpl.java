@@ -9,7 +9,7 @@ import no.niths.application.rest.developing.interfaces.ApplicationController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ApplicationList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.developing.Application;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.APPLICATIONS)
+@RequestMapping(AppNames.APPLICATIONS)
 public class ApplicationControllerImpl extends
 		AbstractRESTControllerImpl<Application> implements
 		ApplicationController {

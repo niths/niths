@@ -17,14 +17,14 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 @XmlRootElement(name = "accesspoint")
 @Entity
-@Table(name = AppConstants.ACCESS_POINTS)
+@Table(name = AppNames.ACCESS_POINTS)
 public class AccessPoint implements Domain {
 
     @Transient

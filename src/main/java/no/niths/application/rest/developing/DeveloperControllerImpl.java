@@ -11,7 +11,7 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.DeveloperList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.developing.Application;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.DEVELOPERS)
+@RequestMapping(AppNames.DEVELOPERS)
 public class DeveloperControllerImpl extends
 		AbstractRESTControllerImpl<Developer> implements DeveloperController {
 

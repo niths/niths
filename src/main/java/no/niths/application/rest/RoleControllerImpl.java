@@ -3,7 +3,7 @@ package no.niths.application.rest;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoleService;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.ROLES)
+@RequestMapping(AppNames.ROLES)
 public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
 		implements RoleController {
 

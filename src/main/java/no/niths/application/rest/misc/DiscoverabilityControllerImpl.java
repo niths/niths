@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.interfaces.DiscoverabilityController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,29 +28,29 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController{
 	private static final Logger logger = LoggerFactory
 			.getLogger(DiscoverabilityControllerImpl.class);
 	
-	private final String[] domains = {AppConstants.ACCESS_FIELDS, 
-										AppConstants.ACCESS_POINTS,
-										AppConstants.ADMIN,
-										AppConstants.ADMIN_DEV,
-										AppConstants.API_EVENTS,
-										AppConstants.APPLICATIONS,
-										AppConstants.AUTH,
-										AppConstants.COMMITTEES,
-										AppConstants.COURSES,
-										AppConstants.CONSOLES,
-										AppConstants.COURSES,
-										AppConstants.DEVELOPERS,
-										AppConstants.EVENTS,
-										AppConstants.EXAMS,
-										AppConstants.FADDER,
-										AppConstants.FADDER_GROUPS,
-										AppConstants.FEEDS,
-										AppConstants.GAMES,
-										AppConstants.LOCATIONS,
-										AppConstants.ROLES,
-										AppConstants.ROOMS,
-										AppConstants.STUDENTS,
-										AppConstants.SUBJECTS};
+	private final String[] domains = {AppNames.ACCESS_FIELDS,
+										AppNames.ACCESS_POINTS,
+										AppNames.ADMIN,
+										AppNames.ADMIN_DEV,
+										AppNames.API_EVENTS,
+										AppNames.APPLICATIONS,
+										AppNames.AUTH,
+										AppNames.COMMITTEES,
+										AppNames.COURSES,
+										AppNames.CONSOLES,
+										AppNames.COURSES,
+										AppNames.DEVELOPERS,
+										AppNames.EVENTS,
+										AppNames.EXAMS,
+										AppNames.FADDER,
+										AppNames.FADDER_GROUPS,
+										AppNames.FEEDS,
+										AppNames.GAMES,
+										AppNames.LOCATIONS,
+										AppNames.ROLES,
+										AppNames.ROOMS,
+										AppNames.STUDENTS,
+										AppNames.SUBJECTS};
 	
 	@Override
 	@RequestMapping( value = "/",method = RequestMethod.GET )

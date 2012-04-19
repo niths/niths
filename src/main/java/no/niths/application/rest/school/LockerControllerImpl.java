@@ -6,7 +6,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LockerList;
 import no.niths.application.rest.school.interfaces.LockerController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.school.Locker;
 import no.niths.services.interfaces.GenericService;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(AppConstants.LOCKERS)
+@RequestMapping(AppNames.LOCKERS)
 public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>
         implements LockerController {
 

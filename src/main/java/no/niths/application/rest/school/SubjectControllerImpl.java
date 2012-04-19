@@ -8,7 +8,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.application.rest.school.interfaces.SubjectController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.school.Subject;
 import no.niths.services.interfaces.GenericService;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.SUBJECTS)
+@RequestMapping(AppNames.SUBJECTS)
 public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
         implements SubjectController {
 

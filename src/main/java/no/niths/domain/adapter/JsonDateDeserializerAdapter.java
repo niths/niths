@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class JsonDateDeserializerAdapter extends JsonDeserializer<Date>{
 	private Logger logger = LoggerFactory
 			.getLogger(JsonDateDeserializerAdapter.class);
-	private DateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT);
+	private DateFormat df = new SimpleDateFormat(AppNames.DATE_FORMAT);
 	
 	@Override
 	public Date deserialize(JsonParser jp, DeserializationContext ctxt)
@@ -29,7 +29,7 @@ public class JsonDateDeserializerAdapter extends JsonDeserializer<Date>{
 		} catch (ParseException e) {
 			logger.error(e.getMessage(),e);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ AppConstants.DATE_FORMAT + " ErrorOffset:"
+					+ AppNames.DATE_FORMAT + " ErrorOffset:"
 					+ e.getErrorOffset());
 		}
 	}

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -29,7 +29,7 @@ import org.hibernate.annotations.Cascade;
 
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.CONSOLES)
+@Table(name = AppNames.CONSOLES)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Console implements Domain {

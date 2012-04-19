@@ -64,7 +64,7 @@ public class DeveloperServiceTest {
 		assertEquals(appSize + 1, appService.getAll(null).size());
 		
 		appService.hibernateDelete(app2.getId());
-		assertEquals(0, appService.getAll(null).size());
+		assertEquals(appSize, appService.getAll(null).size());
 	}
 	
 

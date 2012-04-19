@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.school.Course;
 
-@XmlRootElement(name = AppConstants.COURSES)
+@XmlRootElement(name = AppNames.COURSES)
 public class CourseList extends ListAdapter<Course> {
 
     private static final long serialVersionUID = 8082915037044141181L;

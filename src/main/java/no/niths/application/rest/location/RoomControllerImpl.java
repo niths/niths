@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoomList;
 import no.niths.application.rest.location.interfaces.RoomController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.location.Room;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.RoomService;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.ROOMS)
+@RequestMapping(AppNames.ROOMS)
 public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
 		implements RoomController {
 
