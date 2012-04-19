@@ -256,7 +256,11 @@ public class Student implements Domain {
         this.description     = description;
     }
 
-    public Long getId() {
+    public Student(Long studentId) {
+		setId(studentId);
+	}
+
+	public Long getId() {
         return id;
     }
 

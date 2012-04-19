@@ -74,7 +74,7 @@ public class Feed implements Domain {
 	private Student student;
 
 	public Feed() {
-		this(null);
+		this(null,null);
 		setPublished(null);
 		setStudent(null);
 		setLocation(null);
@@ -85,6 +85,14 @@ public class Feed implements Domain {
 		setPublished(new GregorianCalendar());
 	}
 
+	public Feed(Long feedId) {
+		setId(feedId);
+	}
+
+	public Feed(Long feedId, String message){
+		setId(feedId);
+		setMessage(message);
+	}
 	public Long getId() {
 		return id;
 	}

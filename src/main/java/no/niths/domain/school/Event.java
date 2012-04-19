@@ -129,6 +129,10 @@ public class Event implements Domain {
 		setTags(tags);
 	}
 
+	public Event(Long eventId) {
+		setId(eventId);
+	}
+
 	public Long getId() {
 		return id;
 	}

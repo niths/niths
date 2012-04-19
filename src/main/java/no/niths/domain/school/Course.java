@@ -98,7 +98,11 @@ public class Course implements Domain {
         this.description = description;
     }
 
-    public Long getId() {
+    public Course(Long courseId) {
+		setId(courseId);
+	}
+
+	public Long getId() {
         return id;
     }
 

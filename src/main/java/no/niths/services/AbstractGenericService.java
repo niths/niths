@@ -10,7 +10,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import no.niths.application.rest.exception.BadRequestException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
+import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Error;
 import no.niths.common.LazyFixer;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.infrastructure.interfaces.GenericRepository;
@@ -191,4 +195,52 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	public abstract GenericRepository<T> getRepository();
 
+	
+	/**
+	 * Helper method for checking if the the list element is a instance of
+	 * Domain and then we can cast the list element to a Domain for using the
+	 * getId() method
+	 * 
+	 * @throws ObjectInCollectionException
+	 *             () if the object is found
+	 * @param list
+	 * @param id
+	 */
+	@SuppressWarnings("rawtypes")
+	public void checkIfObjectIsInCollection(List list, long id,Class clazz) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof Domain) {
+				Domain d = (Domain) list.get(i);
+				if (d.getId() == id) {
+					throw new ObjectInCollectionException(
+							MessageProvider.buildErrorMsg(clazz,
+									Error.OBJECT_IN_COLLECTION));
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public T validate(T domain, Class clazz) {
+		ValidationHelper.isObjectNull(domain, clazz);
+		return domain;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void checkIfIsRemoved(boolean isRemoved, Class clazz) {
+		if (!isRemoved) {
+			String msg = MessageProvider.buildErrorMsg(clazz, Error.NOT_FOUND);
+			logger.debug(msg);
+			throw new ObjectNotFoundException(msg);
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void checkIfObjectExists(Domain domain, Long id,Class clazz) {
+		if (domain != null && domain.getId() == id) {
+			String msg = MessageProvider.buildErrorMsg(clazz, Error.OBJECT_IN_COLLECTION);
+			logger.debug(msg);
+			throw new ObjectInCollectionException(msg);
+		}
+	}
 }

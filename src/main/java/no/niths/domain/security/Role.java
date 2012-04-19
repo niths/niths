@@ -63,7 +63,7 @@ public class Role implements Domain {
 	private List<Student> students = new ArrayList<Student>();
 	
 	public Role(){
-		this(null);
+		this(null,null);
 		setStudents(null);
 		
 	}
@@ -72,6 +72,15 @@ public class Role implements Domain {
 		this.roleName = roleName;
 	}
 	
+	public Role(Long roleId) {
+		setId(roleId);
+	}
+	
+	public Role(Long roleId,String roleName) {
+		setId(roleId);
+		setRoleName(roleName);
+	}
+
 	public Long getId() {
 		return id;
 	}

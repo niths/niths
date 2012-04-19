@@ -92,6 +92,10 @@ public class Loan implements Domain {
 		setEndTime(endTime);
 	}
 
+	public Loan(Long loanId) {
+		setId(null);
+	}
+
 	@Override
 	public void setId(Long id) {
 		this.id = id;

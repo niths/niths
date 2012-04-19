@@ -84,7 +84,11 @@ public class Committee implements Domain {
         this.description = description;
     }
 
-    public Long getId() {
+    public Committee(Long committeeId) {
+		setId(committeeId);
+	}
+
+	public Long getId() {
         return id;
     }
 

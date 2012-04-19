@@ -10,7 +10,7 @@ public interface FeedController extends GenericRESTController<Feed> {
 	 * @param feedId
 	 * @param locId
 	 */
-	void addLocation(Long feedId, Long locId);
+	void addLocation(Long feedId, Long locationId);
 
 	/**
 	 * Removing a location from a feed

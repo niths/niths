@@ -12,7 +12,6 @@ import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.school.interfaces.EventRepository;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
 import no.niths.services.AbstractGenericService;
-import no.niths.services.ServiceHelper;
 import no.niths.services.school.interfaces.CommitteeService;
 
 import org.slf4j.Logger;
@@ -31,11 +30,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 
 	@Autowired
 	private EventRepository eventRepo;
-	
+
 	@Autowired
 	private StudentRepository studentRepo;
-
-	private ServiceHelper<Committee> helper = new ServiceHelper<Committee>();
 
 	@Override
 	public GenericRepository<Committee> getRepository() {
@@ -44,9 +41,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 
 	@Override
 	public void addLeader(Long committeeId, Long studentId) {
-		Committee committee = helper.validate(repo.getById(committeeId),
+		Committee committee = validate(repo.getById(committeeId),
 				Committee.class);
-		helper.checkIfObjectIsInCollection(committee.getLeaders(), studentId,
+		checkIfObjectIsInCollection(committee.getLeaders(), studentId,
 				Student.class);
 
 		Student student = studentRepo.getById(studentId);
@@ -58,47 +55,32 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 
 	@Override
 	public void removeLeader(Long committeeId, Long studentId) {
-		Committee committee = helper.validate(repo.getById(committeeId),
+		Committee committee = validate(repo.getById(committeeId),
 				Committee.class);
-		boolean isRemoved = false;
-		for (Student s : committee.getLeaders()) {
-			if (s.getId() == studentId) {
-				committee.getLeaders().remove(s);
-				isRemoved = true;
-				break;
-			}
-		}
-		helper.checkIfIsRemoved(isRemoved, Student.class);
+		checkIfIsRemoved(committee.getLeaders().remove(new Student(studentId)),
+				Student.class);
 	}
 
 	@Override
 	public void addEvent(Long committeeId, Long eventId) {
-		Committee committee = helper.validate(repo.getById(committeeId),
+		Committee committee = validate(repo.getById(committeeId),
 				Committee.class);
-		helper.checkIfObjectIsInCollection(committee.getEvents(), eventId,
-				Event.class);
+		checkIfObjectIsInCollection(committee.getEvents(), eventId, Event.class);
 
 		Event event = eventRepo.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
 
 		committee.getEvents().add(event);
-		logger.debug(MessageProvider.buildStatusMsg(Event.class, Status.UPDATED));
+		logger.debug(MessageProvider
+				.buildStatusMsg(Event.class, Status.UPDATED));
 	}
 
 	@Override
 	public void removeEvent(Long committeeId, Long eventId) {
-		Committee committee = helper.validate(repo.getById(committeeId),
+		Committee committee = validate(repo.getById(committeeId),
 				Committee.class);
-		boolean isRemoved = false;
 
-		for (Event e: committee.getEvents()) {
-			if (e.getId() == eventId) {
-				committee.getEvents().remove(e);
-				isRemoved = true;
-				break;
-			}
-		}
-		
-		helper.checkIfIsRemoved(isRemoved, Event.class);
+		checkIfIsRemoved(committee.getEvents().remove(new Event(eventId)),
+				Event.class);
 	}
 }
