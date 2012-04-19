@@ -33,4 +33,15 @@ public interface DeveloperService extends GenericService<Developer> {
 	 */
 	Developer getDeveloperByDeveloperKey(String key);
 
+	void enableDeveloper(Long developerId);
+
+	void disableDeveloper(Long developerId);
+
+	void resetDeveloperKey(Long developerId, String generatedDeveloperKey);
+
+	void addApplication(Long developerId, Long applicationId);
+
+	void removeApplicaiton(Long developerId, Long applicationId);
+
+	
 }

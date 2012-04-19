@@ -1,5 +1,7 @@
 package no.niths.application.rest.developing.interfaces;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.developing.Developer;
@@ -14,14 +16,14 @@ public interface DeveloperController extends GenericRESTController<Developer> {
 	 * @param devId
 	 * @param AppId
 	 */
-	void addApp(Long devId, Long AppId);
+	void addApplication(Long devId, Long applicationId);
 	
 	/**
 	 * Removes a app from a developer
 	 * @param devId
 	 * @param AppId
 	 */
-	void removeApp(Long devId, Long AppId);
+	void removeApplication(Long devId, Long applicationId);
 
 	/**
 	 * Enables a developer
@@ -38,6 +40,13 @@ public interface DeveloperController extends GenericRESTController<Developer> {
 	 * @param devId id of the developer
 	 * @throws ObjectNotFoundException id no dev is found
 	 */
-	void resetDeveloperKey(Long devId);
+	void resetDeveloperKey(Long devloperId);
+	
+	
+	/**
+	 * Disables a developer, so he can't make request
+	 * @param developerId
+	 */
+	void disableDeveloper(@PathVariable Long developerId);
 
 }

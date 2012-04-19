@@ -102,6 +102,10 @@ public class Application implements Domain {
 		setDeveloper(developer);
 	}
 
+	public Application(Long applicationId) {
+		setId(applicationId);
+	}
+
 	@JsonIgnore
 	@XmlTransient
 	public String getApplicationToken() {

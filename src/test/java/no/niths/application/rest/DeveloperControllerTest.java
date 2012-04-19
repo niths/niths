@@ -52,11 +52,11 @@ public class DeveloperControllerTest {
 		Developer fetched = controller.getById(dev.getId());
 		Application aFetched = aController.getById(app.getId());
 		assertEquals(true, fetched.getApps().isEmpty());
-		controller.addApp(fetched.getId(), aFetched.getId());
+		controller.addApplication(fetched.getId(), aFetched.getId());
 		fetched = controller.getById(dev.getId());
 		assertEquals(1, fetched.getApps().size());
 		
-		controller.removeApp(fetched.getId(), aFetched.getId());
+		controller.removeApplication(fetched.getId(), aFetched.getId());
 		fetched = controller.getById(dev.getId());
 		assertEquals(true, fetched.getApps().isEmpty());
 	}
