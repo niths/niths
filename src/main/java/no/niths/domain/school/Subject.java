@@ -142,6 +142,10 @@ public class Subject implements Domain {
         setEndTime(endTime);
     }
 
+    public Subject(Long subjectId) {
+        setId(subjectId);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s][%s][%s]", id, name, description);
