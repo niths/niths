@@ -88,4 +88,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public List<Student> getAllStudents(Long groupId);
 
+    /**
+     * Returns all students that has no fadder group
+     * @return list with students
+     * @throws ObjectNotFoundException if all students has a group
+     */
+	List<Student> getAllStudentsNotInAGroup();
+
 }
