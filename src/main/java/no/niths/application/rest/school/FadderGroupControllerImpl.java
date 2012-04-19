@@ -246,7 +246,7 @@ public class FadderGroupControllerImpl extends
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{groupId}/get/all/children", method = RequestMethod.GET)
+    @RequestMapping(value = "{groupId}/children", method = RequestMethod.GET)
     @ResponseBody
     public List<Student> getAllStudents(@PathVariable Long groupId) {
 
