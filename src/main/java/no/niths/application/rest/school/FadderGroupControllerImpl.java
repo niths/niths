@@ -24,10 +24,7 @@ import no.niths.domain.school.FadderGroup;
 import no.niths.domain.school.Student;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.FadderGroupService;
-import no.niths.services.school.interfaces.StudentService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,14 +50,8 @@ public class FadderGroupControllerImpl extends
 		AbstractRESTControllerImpl<FadderGroup> implements
 		FadderGroupController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(FadderGroupControllerImpl.class);
-
 	@Autowired
 	private FadderGroupService service;
-
-	@Autowired
-	private StudentService studService;
 
 	private FadderGroupList fadderGroupList = new FadderGroupList();
 
@@ -332,12 +323,6 @@ public class FadderGroupControllerImpl extends
                                        HttpServletResponse response) {
         response.setHeader(ERROR, e.getMessage());
     }
-
-	private Student getStudent(Long studId) {
-		Student stud = studService.getById(studId);
-		ValidationHelper.isObjectNull(stud, Student.class);
-		return stud;
-	}
 
 	private FadderGroup getGroup(Long groupId) {
 		FadderGroup group = super.getById(groupId);

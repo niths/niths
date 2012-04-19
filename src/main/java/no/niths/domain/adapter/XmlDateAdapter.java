@@ -7,13 +7,11 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import no.niths.common.AppNames;
+import no.niths.application.rest.exception.CustomParseException;
 import no.niths.common.MiscConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import no.niths.application.rest.exception.CustomParseException;
 
 public class XmlDateAdapter extends XmlAdapter<String,Date>{
 

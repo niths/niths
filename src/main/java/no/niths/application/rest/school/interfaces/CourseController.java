@@ -1,10 +1,7 @@
 package no.niths.application.rest.school.interfaces;
 
-import java.util.List;
-
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.school.Course;
-import no.niths.domain.school.Subject;
 /**
  * Controller for course
  *

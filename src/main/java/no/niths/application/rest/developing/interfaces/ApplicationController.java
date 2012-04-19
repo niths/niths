@@ -19,4 +19,10 @@ public interface ApplicationController extends GenericRESTController<Application
 	 */
 	void enableApplication(Long applicationId);
 
+	/**
+	 * 
+	 * @param applicationId
+	 */
+	void disableApplication(Long applicationId);
+
 }

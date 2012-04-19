@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.AppNames;
 import no.niths.common.MiscConstants;
 
 import org.codehaus.jackson.JsonParser;

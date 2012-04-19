@@ -8,7 +8,6 @@ import no.niths.common.ValidationHelper;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.domain.school.Committee;
-import no.niths.domain.school.Locker;
 import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
 import no.niths.infrastructure.developing.interfaces.DeveloperRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
@@ -89,7 +88,6 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 			developer.setEnabled(false);
 			logger.debug("Developer " + developer.getName() + " is disabled");
 		}
-
 	}
 
 	@Override

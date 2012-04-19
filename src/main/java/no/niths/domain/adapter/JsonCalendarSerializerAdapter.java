@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import no.niths.common.AppNames;
 import no.niths.common.MiscConstants;
 
 import org.codehaus.jackson.JsonGenerationException;

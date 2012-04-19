@@ -1,18 +1,24 @@
 package no.niths.services.developing;
 
 import no.niths.domain.developing.Application;
+import no.niths.domain.developing.Developer;
 import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.developing.interfaces.ApplicationService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		implements ApplicationService {
-
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ApplicationServiceImpl.class);
+	
 	@Autowired
 	private ApplicationRepository repo;
 
@@ -40,5 +46,27 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 	@Override
 	public GenericRepository<Application> getRepository() {
 		return repo;
+	}
+
+	@Override
+	public void enableApplication(Long applicationId) {
+		Application applications = validate(repo.getById(applicationId),
+				Application.class);
+		if ((applications.getEnabled() != null) || (!applications.getEnabled())) {
+			applications.setEnabled(true);
+			logger.debug("Application " + applications.getTitle() + " is enabled");
+		}
+		
+	}
+
+	@Override
+	public void disableApplication(Long applicationId) {
+		Application applicatipns = validate(repo.getById(applicationId),
+				Developer.class);
+		if (applicatipns.getEnabled() != null && applicatipns.getEnabled()) {
+			applicatipns.setEnabled(false);
+			logger.debug("Application " + applicatipns.getTitle() + " is disabled");
+		}
+		
 	}
 }

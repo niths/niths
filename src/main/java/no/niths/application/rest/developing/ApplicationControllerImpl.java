@@ -9,13 +9,10 @@ import no.niths.application.rest.lists.ApplicationList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
 import no.niths.domain.developing.Application;
 import no.niths.services.developing.interfaces.ApplicationService;
 import no.niths.services.interfaces.GenericService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,9 +32,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ApplicationControllerImpl extends
 		AbstractRESTControllerImpl<Application> implements
 		ApplicationController {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(ApplicationControllerImpl.class);
 
 	@Autowired
 	private ApplicationService service;
@@ -77,27 +71,20 @@ public class ApplicationControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "enable/{applicationId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "{applicationId}/enable" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application enabled")
 	public void enableApplication(@PathVariable Long applicationId) {
-		Application app = service.getById(applicationId);
-		ValidationHelper.isObjectNull(app, Application.class);
-		boolean update = false;
-		if (app.getEnabled() != null) {
-			if (!app.getEnabled()) {
-				update = true;
-			}
-		} else {
-			update = true;
-		}
-
-		if (update) {
-			app.setEnabled(true);
-			service.update(app);
-			logger.debug("application is enabled");
-		}
+		service.enableApplication(applicationId);
 	}
 
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Application disable")
+	public void disableApplication(@PathVariable Long applicationId){
+		service.disableApplication(applicationId);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
