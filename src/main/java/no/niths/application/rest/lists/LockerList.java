@@ -15,10 +15,10 @@ public class LockerList extends ListAdapter<Locker> {
 
     @SuppressWarnings("unused")
     @XmlElement(name = "locker")
-    private List<Locker> lockerData;
+    private List<Locker> data;
 
     @Override
     public void setData(List<Locker> data) {
-        this.lockerData = data;
+        this.data = data;
     }
 }

@@ -6,25 +6,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppNames;
-import no.niths.common.MiscConstants;
 import no.niths.domain.school.Feed;
 
 @XmlRootElement(name = AppNames.FEEDS)
 public class FeedList extends ListAdapter<Feed> {
 
-	private static final long serialVersionUID = -3367467710179177824L;
+    private static final long serialVersionUID = -3367467710179177824L;
 
-	@XmlElement(name = MiscConstants.FEED)
-	private List<Feed> data;
+    @SuppressWarnings("unused")
+    @XmlElement(name = "feed")
+    private List<Feed> data;
 
-	@Override
-	public void setData(List<Feed> list) {
-		this.data = list;
-
-	}
-
-	public List<Feed> getData() {
-		return data;
-	}
-
+    @Override
+    public void setData(List<Feed> list) {
+        this.data = list;
+    }
 }

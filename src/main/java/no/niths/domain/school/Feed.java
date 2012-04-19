@@ -36,7 +36,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement(name = MiscConstants.FEED)
+@XmlRootElement
 @Entity
 @Table(name = AppNames.FEEDS)
 @XmlAccessorType(XmlAccessType.FIELD)
