@@ -1,6 +1,9 @@
 package no.niths.services.school.interfaces;
 
+import java.util.List;
+
 import no.niths.domain.school.FadderGroup;
+import no.niths.domain.school.Student;
 import no.niths.services.interfaces.GenericService;
 
 public interface FadderGroupService extends GenericService<FadderGroup> {
@@ -18,4 +21,10 @@ public interface FadderGroupService extends GenericService<FadderGroup> {
     void removeChildren(Long groupId, Long [] studentIds);
 
     void removeAllChildren(Long groupId);
+
+    /**
+     * Returns all students without a fadder group
+     * @return list with students
+     */
+	List<Student> getStudentsNotInAGroup();
 }

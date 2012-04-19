@@ -1,6 +1,9 @@
 package no.niths.infrastructure.school;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.FadderGroup;
@@ -8,6 +11,7 @@ import no.niths.domain.school.Student;
 import no.niths.infrastructure.school.interfaces.FadderGroupRepository;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,42 @@ public class FadderGroupRepositoryTest {
 	
 	@Autowired
 	private StudentRepository studRepo;
+	
+	@Test
+	public void testGetAllStudentsNotInAGroup(){
+		Student s1 = new Student("mail1234@nith.no");
+		Student s2 = new Student("mail2345@nith.no");
+		Student s3 = new Student("mail3456@nith.no");
+		studRepo.create(s1);
+		studRepo.create(s2);
+		studRepo.create(s3);
+		
+		FadderGroup group = new FadderGroup(928);
+		group.getFadderChildren().add(s1);
+		fadderRepo.create(group);
+		
+		FadderGroup fetched = fadderRepo.getById(group.getId());
+		assertEquals(fetched, group);
+		
+		List<Student> all = fadderRepo.getStudentsNotInAGroup();
+		assertEquals(2, all.size());
+		
+		FadderGroup group2 = new FadderGroup(923);
+		group2.getFadderChildren().add(s2);
+		group2.getFadderChildren().add(s3);
+		fadderRepo.create(group2);
+		
+		all = fadderRepo.getStudentsNotInAGroup();
+		assertEquals(true, all.isEmpty());
+		
+		fetched = fadderRepo.getById(group2.getId());
+		fetched.setFadderChildren(null);
+		fadderRepo.update(fetched);
+		
+		all = fadderRepo.getStudentsNotInAGroup();
+		assertEquals(2, all.size());
+
+	}
 
 	@Test
 	public void testCRUD(){
@@ -51,6 +91,7 @@ public class FadderGroupRepositoryTest {
 		assertEquals(size, fadderRepo.getAll(null).size());
 		
 	}
+
 	
 	@Test
 	public void testAddAndRemoveLeaders(){
@@ -89,7 +130,7 @@ public class FadderGroupRepositoryTest {
 		
 		
 	}
-	
+
 	@Test
 	public void testAddAndRemoveChildren(){
 		int studSize = studRepo.getAll(null).size();

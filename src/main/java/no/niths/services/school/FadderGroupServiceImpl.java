@@ -1,5 +1,6 @@
 package no.niths.services.school;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectInCollectionException;
@@ -159,5 +160,14 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
             throw new ObjectNotFoundException(
                     "List was empty no need for update");
         }
+    }
+    
+    /**
+     * Returns all students without a fadder group
+     * @return list with students
+     */
+    @Override
+    public List<Student> getStudentsNotInAGroup(){
+    	return fadderGroupRepository.getStudentsNotInAGroup();
     }
 }
