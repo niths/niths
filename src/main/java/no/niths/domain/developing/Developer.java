@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -74,9 +75,12 @@ public class Developer implements Domain {
 	@Column(name = "developer_key")
 	private String developerKey;
 
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = Application.class)
+	@JoinTable(
+	        name = "developers_applications", 
+	        joinColumns = @JoinColumn(name = "developers_id"),
+	        inverseJoinColumns = @JoinColumn(name = "applications_id"))
 	@Cascade(CascadeType.ALL)
-	@OneToMany
-	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
 	private List<Application> apps = new ArrayList<Application>();
 
 	public Developer() {

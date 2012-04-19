@@ -55,7 +55,6 @@ public class LazyFixer<T> {
 		outer: for (Field outerField : domainType.getDeclaredFields()) {
 			Class<?> outerType = outerField.getType();
 			String outerFieldName = outerField.getName();
-			System.err.println(outerFieldName);
 			try {
 
 				// The current domain's (collection) child will yield true
@@ -64,7 +63,6 @@ public class LazyFixer<T> {
 					// If the annotations indicate they are transient, skip to
 					// the next attribute
 					if (checkAnnotations(outerField.getDeclaredAnnotations())) {
-						System.err.println("GOT IT DIG'EM");
 						continue outer;
 					}
 
@@ -73,10 +71,8 @@ public class LazyFixer<T> {
 							.getMethod(
 									generateAccessorHeader(outerFieldName,
 											Accessor.GET), (Class<?>[]) null);
-					System.err.println(outerMethod.getName());
 					Object result = outerMethod.invoke(domain);
 					if (result != null) {
-						System.err.println(result.getClass().getSimpleName());
 						for (Domain innerCollection : (Collection<Domain>) result) {
 							removeChild(innerCollection,
 									innerCollection.getClass());
@@ -94,13 +90,13 @@ public class LazyFixer<T> {
 
 						// Nullify all domains and collections in the domain
 					} else {
-						Domain result = (Domain) domainType.getMethod(
-								generateAccessorHeader(outerFieldName,
-										Accessor.GET), (Class<?>[]) null)
-								.invoke(domain);
+					    Method m = domainType.getMethod(
+                                generateAccessorHeader(outerFieldName,
+                                        Accessor.GET), (Class<?>[]) null);
+						Domain result = (Domain) m.invoke(domain);
 
 						if (result != null) {
-						
+						    System.out.println("the class: " + result.getClass() + ", the superclass" + result.getClass().getSuperclass());
 							removeChild(result, result.getClass()
 									.getSuperclass());
 						}
@@ -199,14 +195,12 @@ public class LazyFixer<T> {
 
 		for (Field field : type.getDeclaredFields()) {
 			Class<?> fieldType = field.getType();
-			System.err.println(field.getName());
 			// Nullify any domain or collection
 			if (Collection.class.isAssignableFrom(fieldType)
 					|| Domain.class.isAssignableFrom(fieldType)) {
 				Method m = type.getMethod(
 						generateAccessorHeader(field.getName(), Accessor.SET),
 						fieldType);
-				System.err.println(field.getName());
 				m.invoke(target, varargsNull);
 			}
 		}
