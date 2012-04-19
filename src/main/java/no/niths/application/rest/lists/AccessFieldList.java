@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.signaling.AccessField;
 
-@XmlRootElement(name = AppConstants.ACCESS_FIELDS)
+@XmlRootElement(name = AppNames.ACCESS_FIELDS)
 public class AccessFieldList extends ListAdapter<AccessField> {
 
     private static final long serialVersionUID = -5120021637809836989L;

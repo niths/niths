@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
@@ -45,7 +45,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
  */
 @XmlRootElement(name = "apievent")
 @Entity
-@Table(name = AppConstants.API_EVENTS)
+@Table(name = AppNames.API_EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class APIEvent implements Domain{

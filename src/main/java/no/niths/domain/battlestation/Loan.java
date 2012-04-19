@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
@@ -41,7 +41,7 @@ import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.LOANS)
+@Table(name = AppNames.LOANS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Loan implements Domain {

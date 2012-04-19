@@ -9,7 +9,7 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
@@ -71,7 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * is either fetched from DB or if the student is a first time user, he/she
      * gets persisted.
      * <p>
-     * Returns a session token valid for {@value AppConstants.SESSION_VALID_TIME}
+     * Returns a session token valid for {@value no.niths.common.AppNames.SESSION_VALID_TIME}
      * minutes.
      * <p> 
      * Use this session token for future requests against the API
@@ -230,7 +230,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         
 //        devToken.setMessage("Failed to send an email, but now worries! \n"
 //                    + "To enable your new developer account paste this into a browser\n" +
-//                    AppConstants.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperKey());
+//                    AppNames.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperKey());
         
         
         return devToken;
@@ -450,9 +450,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     private void isUserValid(String email) throws UnvalidEmailException{
         isEmailValid(email);
-        if (!email.endsWith(AppConstants.VALID_EMAIL_DOMAIN)) {
+        if (!email.endsWith(AppNames.VALID_EMAIL_DOMAIN)) {
             logger.debug("email is unvalid: " + email);
-            throw new UnvalidEmailException("Unvalid email, must end with " + AppConstants.VALID_EMAIL_DOMAIN);
+            throw new UnvalidEmailException("Unvalid email, must end with " + AppNames.VALID_EMAIL_DOMAIN);
         }
         logger.debug("Email valid: " + email);
     }

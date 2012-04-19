@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.school.Student;
 
-@XmlRootElement(name = AppConstants.STUDENTS)
+@XmlRootElement(name = AppNames.STUDENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StudentList extends ListAdapter<Student> {
 

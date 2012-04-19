@@ -9,7 +9,7 @@ import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LoanList;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Loan;
 import no.niths.services.battlestation.interfaces.LoanService;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for loan
  */
 @Controller
-@RequestMapping(AppConstants.LOANS)
+@RequestMapping(AppNames.LOANS)
 public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> implements LoanController{
 
     private static final Logger logger = LoggerFactory

@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ExamList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.ExamController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.school.Exam;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.ExamService;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for exams
  */
 @Controller
-@RequestMapping(AppConstants.EXAMS)
+@RequestMapping(AppNames.EXAMS)
 public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 		implements ExamController {
 

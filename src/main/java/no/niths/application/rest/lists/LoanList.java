@@ -1,13 +1,13 @@
 package no.niths.application.rest.lists;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.battlestation.Loan;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement(name = AppConstants.LOANS)
+@XmlRootElement(name = AppNames.LOANS)
 public class LoanList extends ListAdapter<Loan> {
 
     private static final long serialVersionUID = 6932632501082726953L;

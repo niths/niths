@@ -6,7 +6,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.FeedList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.FeedController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Location;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.FEEDS)
+@RequestMapping(AppNames.FEEDS)
 public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 		implements FeedController {
 

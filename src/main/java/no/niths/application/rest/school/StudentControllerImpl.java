@@ -12,7 +12,7 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.application.rest.school.interfaces.StudentController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.Domain;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppConstants.STUDENTS)
+@RequestMapping(AppNames.STUDENTS)
 public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         implements StudentController {
 
@@ -130,7 +130,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void addCourse(
             @PathVariable Long studentId,
             @PathVariable Long courseId) {
-        service.addCourse(studentId,courseId);
+        service.addCourse(studentId, courseId);
     }
 
     /**
@@ -145,7 +145,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void removeCourse(
             @PathVariable Long studentId,
             @PathVariable Long courseId) {
-        service.removeCourse(studentId,courseId);
+        service.removeCourse(studentId, courseId);
     }
 
     /**
@@ -205,7 +205,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void removeFeed(
             @PathVariable Long studentId,
             @PathVariable Long feedId) {
-        service.removeFeed(studentId,feedId);
+        service.removeFeed(studentId, feedId);
     }
 
     /**
@@ -235,7 +235,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     public void removeLoan(
             @PathVariable Long studentId,
             @PathVariable Long loanId) {
-        service.removeLoan(studentId,loanId);
+        service.removeLoan(studentId, loanId);
     }
 
     /**

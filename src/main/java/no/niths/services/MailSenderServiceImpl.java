@@ -2,7 +2,7 @@ package no.niths.services;
 
 import javax.mail.internet.MimeMessage;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.EmailTexts;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
@@ -65,24 +65,24 @@ public class MailSenderServiceImpl implements MailSenderService {
 	 */
 	public void sendDeveloperRegistratedConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Registration success, verification needed";
-		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev)));
+		sendMimeMessage(prepare(dev.getEmail(), AppNames.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev)));
 	}
 	
 	public void sendDeveloperAddedAppConfirmation(Developer dev, Application app){
 		String subject = "Hi " + dev.getName()+ ". Your app has been registrated";
-		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app)));
+		sendMimeMessage(prepare(dev.getEmail(), AppNames.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app)));
 	}
 	
 	public void sendDeveloperEnabledConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Your are now enabled!";
-		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev)));
+		sendMimeMessage(prepare(dev.getEmail(), AppNames.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev)));
 	}
 	
 	@Override
 	public void sendApplicationEnabledConfirmation(Developer dev,
 			Application app) {
 		String subject = "Hi " + dev.getName()+ ". Your app now enabled!";
-		sendMimeMessage(prepare(dev.getEmail(), AppConstants.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app)));
+		sendMimeMessage(prepare(dev.getEmail(), AppNames.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app)));
 	}
 	
 	

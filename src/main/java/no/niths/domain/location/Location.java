@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Event;
 import no.niths.domain.school.Feed;
@@ -28,7 +28,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = AppConstants.LOCATIONS)
+@Table(name = AppNames.LOCATIONS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlRootElement
 public class Location implements Domain {

@@ -9,7 +9,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.AccessFieldList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.signaling.AccessField;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for AccessField
  */
 @Controller
-@RequestMapping(AppConstants.ACCESS_FIELDS)
+@RequestMapping(AppNames.ACCESS_FIELDS)
 public class AccessFieldControllerImpl extends
         AbstractRESTControllerImpl<AccessField> implements
         AccessFieldController {

@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.school.Event;
 
-@XmlRootElement(name = AppConstants.EVENTS)
+@XmlRootElement(name = AppNames.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EventList extends ListAdapter<Event> {
 	private static final long serialVersionUID = 3045223036129251886L;

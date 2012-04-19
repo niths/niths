@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.Domain;
 import no.niths.domain.constraints.Weekday;
 import no.niths.domain.location.Room;
@@ -36,7 +36,7 @@ import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement
 @Entity
-@Table(name = AppConstants.SUBJECTS)
+@Table(name = AppNames.SUBJECTS)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Subject implements Domain {

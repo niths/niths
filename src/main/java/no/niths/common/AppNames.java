@@ -1,6 +1,6 @@
 package no.niths.common;
 
-public final class AppConstants {
+public final class AppNames {
 
     //Tables names and URLs sorted alphabetically
     public static final String ACCESS_FIELDS = "accessfields";

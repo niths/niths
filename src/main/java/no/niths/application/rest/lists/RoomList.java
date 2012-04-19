@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.location.Room;
 
-@XmlRootElement(name = AppConstants.ROOMS)
+@XmlRootElement(name = AppNames.ROOMS)
 public class RoomList extends ListAdapter<Room> {
 
     private static final long serialVersionUID = 6226301072582936953L;

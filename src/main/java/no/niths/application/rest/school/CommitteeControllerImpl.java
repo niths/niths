@@ -6,7 +6,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.CommitteeList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.CommitteeController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.school.Committee;
 import no.niths.services.interfaces.GenericService;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppConstants.COMMITTEES)
+@RequestMapping(AppNames.COMMITTEES)
 public class CommitteeControllerImpl extends
 		AbstractRESTControllerImpl<Committee> implements CommitteeController {
 

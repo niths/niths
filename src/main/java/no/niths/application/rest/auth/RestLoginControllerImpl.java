@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.application.rest.exception.UnvalidEmailException;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.common.LazyFixer;
 import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
@@ -29,7 +29,7 @@ import org.springframework.web.client.HttpClientErrorException;
  *
  */
 @Controller
-@RequestMapping(AppConstants.AUTH)
+@RequestMapping(AppNames.AUTH)
 public class RestLoginControllerImpl implements RestLoginController{
     
     Logger logger = org.slf4j.LoggerFactory
@@ -42,7 +42,7 @@ public class RestLoginControllerImpl implements RestLoginController{
      * Authorize the user. Use the returned session token for future requests
      * 
      * @param token The token issued from google
-     * @remove: @return encrypted session token valid for (See AppConstants.SESSION_VALID_TIME)
+     * @remove: @return encrypted session token valid for (See AppNames.SESSION_VALID_TIME)
      * 
      */
     @Override

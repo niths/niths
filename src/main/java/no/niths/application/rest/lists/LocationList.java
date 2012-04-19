@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.location.Location;
 
-@XmlRootElement(name = AppConstants.LOCATIONS)
+@XmlRootElement(name = AppNames.LOCATIONS)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LocationList extends ListAdapter<Location> {
 

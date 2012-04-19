@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.LocationList;
 import no.niths.application.rest.location.interfaces.LocationController;
-import no.niths.common.AppConstants;
+import no.niths.common.AppNames;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.LocationService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(AppConstants.LOCATIONS)
+@RequestMapping(AppNames.LOCATIONS)
 public class LocationControllerImpl extends AbstractRESTControllerImpl<Location>
 implements LocationController {
 
