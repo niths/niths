@@ -1,6 +1,6 @@
 package no.niths.services.battlestation;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
@@ -64,7 +64,7 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
             console.getGames().add(game);
             logger.debug("Console updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Game is already added to the console");
         }
     }
@@ -104,7 +104,7 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
             console.setLoan(loan);
             logger.debug("Console updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Loan is already added to the console");
         }
     }

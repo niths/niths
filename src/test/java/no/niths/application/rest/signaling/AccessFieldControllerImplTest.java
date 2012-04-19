@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
 import no.niths.application.rest.signaling.interfaces.AccessPointController;
@@ -113,7 +113,7 @@ public class AccessFieldControllerImplTest {
 		
 	}
 	
-	@Test(expected=DuplicateEntryCollectionException.class)
+	@Test(expected=ObjectInCollectionException.class)
 	public void testAddTheSameAccessPointTwice_shouldThrowException(){
 		controller.addAccessPoint(testAF02.getId(), testAP.getId());
 		controller.addAccessPoint(testAF02.getId(), testAP.getId());

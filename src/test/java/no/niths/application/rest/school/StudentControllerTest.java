@@ -235,7 +235,7 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testCreateAndDeleteOfConsoles() {
+    public void testCreateAndDeleteOfLoans() {
         Student student = new Student(EMAIL);
         studController.create(student, res);
 
@@ -252,6 +252,7 @@ public class StudentControllerTest {
 
         assertThat(2, is(equalTo(studController.getById(student.getId()).getLoans().size())));
 
+        System.err.println(loan.getId());
         studController.removeLoan(student.getId(), loan.getId());
 
         assertThat(1, is(equalTo(studController.getById(student.getId()).getLoans().size())));

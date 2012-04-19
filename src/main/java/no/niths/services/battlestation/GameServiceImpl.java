@@ -1,6 +1,6 @@
 package no.niths.services.battlestation;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
@@ -57,7 +57,7 @@ public class GameServiceImpl extends AbstractGenericService<Game> implements Gam
             game.setConsole(console);
             logger.debug("Console added too game");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Game already has a console");
         }
     }
