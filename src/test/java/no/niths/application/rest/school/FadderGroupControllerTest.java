@@ -1,6 +1,9 @@
 package no.niths.application.rest.school;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.school.interfaces.FadderGroupController;
 import no.niths.application.rest.school.interfaces.StudentController;
@@ -34,6 +37,30 @@ public class FadderGroupControllerTest {
     public void setUp() {
         res = new MockHttpServletResponse();
     }
+	
+	@Test
+	public void testGetStudentsWithoutAGroup(){
+		Student s1 = new Student("ssss1234@sss.com");
+		Student s2 = new Student("sss2345@sss.com");
+		Student s3 = new Student("sss3456@sss.com");
+		studentController.create(s1, res);
+		studentController.create(s2, res);
+		studentController.create(s3, res);
+		
+		FadderGroup g1 = new FadderGroup(981);
+		g1.getFadderChildren().add(s1);
+		g1.getFadderChildren().add(s2);
+		fadderController.create(g1, res);
+		
+		List<Student> fetched = fadderController.getAllStudentsNotInAGroup();
+		assertEquals(1, fetched.size());
+		assertEquals(s3, fetched.get(0));
+		
+		fadderController.delete(g1.getId());
+		studentController.delete(s1.getId());
+		studentController.delete(s2.getId());
+		studentController.delete(s3.getId());
+	}
 
 	@Test
 	public void testAddAndRemoveLeaders(){
