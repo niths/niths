@@ -93,7 +93,7 @@ public class Loan implements Domain {
 	}
 
 	public Loan(Long loanId) {
-		setId(null);
+		setId(loanId);
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class Loan implements Domain {
 			return false;
 		Loan loan = (Loan) that;
 
-		return loan == this || loan.getId().equals(id);
+		return loan == this || loan.getId() == id;
 	}
 
 	@JsonIgnore

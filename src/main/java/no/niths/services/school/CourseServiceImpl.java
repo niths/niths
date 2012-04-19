@@ -1,7 +1,7 @@
 package no.niths.services.school;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Student;
@@ -50,7 +50,7 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
             course.getCourseRepresentatives().add(student);
             logger.debug("Course updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Student already a representative");
         }
     }
@@ -89,7 +89,7 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
             course.getSubjects().add(subject);
             logger.debug("Course updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Subject is already added to the course");
         }
     }

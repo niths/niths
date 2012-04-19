@@ -9,7 +9,7 @@ import javax.validation.ConstraintViolation;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestDeveloperAccessController;
 import no.niths.application.rest.exception.BadRequestException;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.domain.developing.Application;
@@ -175,9 +175,9 @@ public class RestDeveloperAccessControllerImpl implements
 		return view;
 	}
 
-	@ExceptionHandler(DuplicateEntryCollectionException.class)
+	@ExceptionHandler(ObjectInCollectionException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public void dataIntegrity(DuplicateEntryCollectionException e,
+	public void dataIntegrity(ObjectInCollectionException e,
 			HttpServletResponse res) {
 		res.setHeader("Error", e.getMessage().toString());
 	}

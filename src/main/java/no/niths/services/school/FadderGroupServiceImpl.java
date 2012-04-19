@@ -2,7 +2,7 @@ package no.niths.services.school;
 
 import java.util.List;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.school.FadderGroup;
@@ -56,7 +56,7 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
             group.getLeaders().add(leader);
             logger.debug("Fadder group updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Leader is already added to the fadder group");
         }
     }
@@ -98,7 +98,7 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
             group.getFadderChildren().add(child);
             logger.debug("Fadder group updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Child is already added to the fadder group");
         }
     }

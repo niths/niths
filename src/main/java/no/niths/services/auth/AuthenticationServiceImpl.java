@@ -4,8 +4,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import no.niths.application.rest.auth.SessionParcel;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.ExpiredTokenException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
@@ -250,7 +250,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     @Override
     public ApplicationToken registerApplication(Application app, String developerKey) 
-            throws ObjectNotFoundException, DuplicateEntryCollectionException {
+            throws ObjectNotFoundException, ObjectInCollectionException {
         
     	logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
@@ -265,7 +265,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         
         if(dev.getApps().contains(app)){
-            throw new DuplicateEntryCollectionException("App already added to developer");
+            throw new ObjectInCollectionException("App already added to developer");
         }
         appToken.setAppKey(appKey);
         app.setApplicationKey(appKey);

@@ -1,4 +1,4 @@
-package no.niths.application.rest;
+package no.niths.application.rest.school;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.location.interfaces.LocationController;
 import no.niths.application.rest.school.interfaces.FeedController;
@@ -117,7 +117,7 @@ public class FeedControllerImplTest {
 		assertNull(controller.getById(testFeed01.getId()).getLocation());
 	}
 
-	@Test(expected = DuplicateEntryCollectionException.class)
+	@Test(expected = ObjectInCollectionException.class)
 	public void testAddSameLocationTwice() {
 		controller.addLocation(testFeed01.getId(), testLocation.getId());
 		controller.addLocation(testFeed01.getId(), testLocation.getId());
@@ -143,7 +143,7 @@ public class FeedControllerImplTest {
 		assertNull(controller.getById(testFeed01.getId()).getStudent());
 	}
 
-	@Test(expected = DuplicateEntryCollectionException.class)
+	@Test(expected = ObjectInCollectionException.class)
 	public void testAddSameStudentTwice() {
 		controller.addStudent(testFeed01.getId(), testStudents.getId());
 		controller.addStudent(testFeed01.getId(), testStudents.getId());

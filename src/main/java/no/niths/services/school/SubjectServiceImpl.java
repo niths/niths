@@ -1,7 +1,7 @@
 package no.niths.services.school;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
@@ -63,7 +63,7 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
             subject.getTutors().add(student);
             logger.debug("Subject updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Tutor is already added to the subject");
         }
     }
@@ -101,7 +101,7 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
             subject.setRoom(room);
             logger.debug("Subject updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Room is already added to the subject");
         }
     }

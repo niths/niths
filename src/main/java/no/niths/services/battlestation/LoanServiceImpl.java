@@ -1,6 +1,9 @@
 package no.niths.services.battlestation;
 
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.LazyFixer;
 import no.niths.common.ValidationHelper;
@@ -19,9 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.GregorianCalendar;
-import java.util.List;
 
 @Service
 @Transactional
@@ -70,7 +70,7 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
             loan.getConsoles().add(console);
             logger.debug("Loan updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Console is already added to the loan");
         }
     }
@@ -110,7 +110,7 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
             loan.setStudent(student);
             logger.debug("Loan updated");
         } else {
-            throw new DuplicateEntryCollectionException(
+            throw new ObjectInCollectionException(
                     "Student is already added to loan");
         }
     }

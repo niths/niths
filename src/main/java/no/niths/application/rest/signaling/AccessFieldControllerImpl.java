@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.aop.ApiEvent;
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.AccessFieldList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -91,7 +91,7 @@ public class AccessFieldControllerImpl extends
         ValidationHelper.isObjectNull(af, AccessField.class);
         if (af.getAccessPoint() != null && af.getAccessPoint().getId() == apId) {
             logger.debug("Acess Point exist");
-            throw new DuplicateEntryCollectionException("Acess Point exist");
+            throw new ObjectInCollectionException("Acess Point exist");
         }
         
         AccessPoint ap = apService.getById(apId);

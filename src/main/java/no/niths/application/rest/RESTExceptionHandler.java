@@ -9,7 +9,6 @@ import javax.validation.ConstraintViolation;
 
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectInCollectionException;
@@ -196,24 +195,6 @@ public class RESTExceptionHandler {
 	 * @param e
 	 * @param res
 	 */
-	@ExceptionHandler(DuplicateEntryCollectionException.class)
-	@ResponseStatus(value = HttpStatus.CONFLICT)
-	public void duplicateEntryCollectionException(
-			DuplicateEntryCollectionException e, HttpServletResponse res) {
-		if (e.getMessage() == null) {
-			res.setHeader(ERROR, "DuplicateEntry");
-		} else {
-			res.setHeader(ERROR, e.getMessage());
-
-		}
-		logger.debug("DuplicateEntry");
-	}
-
-	/**
-	 * 
-	 * @param e
-	 * @param res
-	 */
 	@ExceptionHandler(HasNotRoleException.class)
 	@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 	public void hasNotRole(HasNotRoleException e, HttpServletResponse res) {
@@ -299,7 +280,7 @@ public class RESTExceptionHandler {
 	}
 
 	@ExceptionHandler(ObjectInCollectionException.class)
-	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public void objectInCollectionException(ObjectInCollectionException e,
 			HttpServletResponse res) {
 		if (e.getMessage() == null) {

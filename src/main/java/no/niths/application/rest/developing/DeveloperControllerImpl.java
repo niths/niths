@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.developing.interfaces.DeveloperController;
-import no.niths.application.rest.exception.DuplicateEntryCollectionException;
 import no.niths.application.rest.exception.NotInCollectionException;
+import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.DeveloperList;
 import no.niths.application.rest.lists.ListAdapter;
@@ -183,7 +183,7 @@ public class DeveloperControllerImpl extends
 			service.update(developer);
 			logger.debug("developer adde a new app:"+ app.getTitle());			
 		}else{
-			throw new DuplicateEntryCollectionException("Application already added");
+			throw new ObjectInCollectionException("Application already added");
 		}
 	}
 
