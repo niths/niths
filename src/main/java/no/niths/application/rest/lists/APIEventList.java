@@ -12,6 +12,7 @@ import no.niths.domain.APIEvent;
 public class APIEventList extends ListAdapter<APIEvent> {
 
     private static final long serialVersionUID = 2794068992188408350L;
+
     @SuppressWarnings("unused")
     @XmlElement(name = "apievent")
     private List<APIEvent> data;

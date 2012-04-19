@@ -42,7 +42,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement(name = AppNames.EVENT)
+@XmlRootElement
 @Entity
 @Table(name = AppNames.EVENTS)
 @XmlAccessorType(XmlAccessType.FIELD)
