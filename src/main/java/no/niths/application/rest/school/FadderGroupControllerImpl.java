@@ -260,11 +260,7 @@ public class FadderGroupControllerImpl extends
         studentList.setData(studentList); // for XML marshalling
         ValidationHelper.isListEmpty(studentList);
 
-        for (int i = 0; i < studentList.size(); i++) {
-            studentList.get(i).setFeeds(null);
-            studentList.get(i).setCommittees(null);
-            studentList.get(i).setCourses(null);
-        }
+        lazyFixertStudent.clearRelations(studentList);
 
         return studentList;
     }
