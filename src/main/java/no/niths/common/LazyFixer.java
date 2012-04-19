@@ -16,193 +16,199 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 /**
  * 
  * @author NITHs
- *
+ * 
  */
 public class LazyFixer<T> {
 
-    private final Object[] varargsNull = new Object[] { null };
+	private final Object[] varargsNull = new Object[] { null };
 
-    /**
-     * Sets any children in the list of domains to null
-     * @param list the list of which the relations are to be cleared
-     */
-    public void clearRelations(List<T> list) {
+	/**
+	 * Sets any children in the list of domains to null
+	 * 
+	 * @param list
+	 *            the list of which the relations are to be cleared
+	 */
+	public void clearRelations(List<T> list) {
 
-        try {
-            for (Object domain : list) {
-                removeChild(domain, domain.getClass());
-            }
-        } catch (
-                  NoSuchMethodException
-                | SecurityException        | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+		try {
+			for (Object domain : list) {
+				removeChild(domain, domain.getClass());
+			}
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
 
-            e.printStackTrace();
-        }
-    }
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Sets any 2nd level children to null
-     * @param domain the domain of which 2nd level children are to be removed
-     */
-    @SuppressWarnings("unchecked")
-    public void clearSubRelations(T domain) {
-        Class<?> domainType = domain.getClass();
+	/**
+	 * Sets any 2nd level children to null
+	 * 
+	 * @param domain
+	 *            the domain of which 2nd level children are to be removed
+	 */
+	@SuppressWarnings("unchecked")
+	public void clearSubRelations(T domain) {
+		Class<?> domainType = domain.getClass();
 
-        outer:
-        for (Field outerField : domainType.getDeclaredFields()) {
-            Class<?> outerType         = outerField.getType();
-            String outerFieldName = outerField.getName();
+		outer: for (Field outerField : domainType.getDeclaredFields()) {
+			Class<?> outerType = outerField.getType();
+			String outerFieldName = outerField.getName();
+			System.err.println(outerFieldName);
+			try {
 
-            try {
+				// The current domain's (collection) child will yield true
+				if (Collection.class.isAssignableFrom(outerType)) {
 
-                // The current domain's (collection) child will yield true
-                if (Collection.class.isAssignableFrom(outerType)) {
+					// If the annotations indicate they are transient, skip to
+					// the next attribute
+					if (checkAnnotations(outerField.getDeclaredAnnotations())) {
+						System.err.println("GOT IT DIG'EM");
+						continue outer;
+					}
 
-                    // If the annotations indicate they are transient, skip to
-                    // the next attribute
-                    if (checkAnnotations(outerField.getDeclaredAnnotations())) {
-                        continue outer;
-                    }
+					// Find the collection's getter method
+					Method outerMethod = domainType
+							.getMethod(
+									generateAccessorHeader(outerFieldName,
+											Accessor.GET), (Class<?>[]) null);
+					System.err.println(outerMethod.getName());
+					Object result = outerMethod.invoke(domain);
+					if (result != null) {
+						System.err.println(result.getClass().getSimpleName());
+						for (Domain innerCollection : (Collection<Domain>) result) {
+							removeChild(innerCollection,
+									innerCollection.getClass());
+						}
+					}
+				} else if (Domain.class.isAssignableFrom(outerType)) {
 
-                    // Find the collection's getter method
-                    Method outerMethod = domainType.getMethod(
-                            generateAccessorHeader(
-                                    outerFieldName, Accessor.GET),
-                            (Class<?>[]) null);
+					if (checkAnnotations(outerField.getAnnotations())) {
 
-                    Object result = outerMethod.invoke(domain);
-                    if (result != null) {
-                        for (Domain innerCollection :
-                                (Collection<Domain>) result) {
-                            removeChild(
-                                    innerCollection,
-                                    innerCollection.getClass());
-                        }
-                    }
-                } else if (Domain.class.isAssignableFrom(outerType)) {
+						// Nullify domain that are transient
+						domainType.getDeclaredMethod(
+								generateAccessorHeader(outerFieldName,
+										Accessor.SET), outerType).invoke(
+								domain, varargsNull);
 
-                    if (checkAnnotations(outerField.getAnnotations())) {
+						// Nullify all domains and collections in the domain
+					} else {
+						Domain result = (Domain) domainType.getMethod(
+								generateAccessorHeader(outerFieldName,
+										Accessor.GET), (Class<?>[]) null)
+								.invoke(domain);
 
-                        // Nullify domain that are transient
-                        domainType.getDeclaredMethod(
-                                generateAccessorHeader(
-                                        outerFieldName, Accessor.SET),
-                                outerType)
-                                    .invoke(domain, varargsNull);
+						if (result != null) {
+						
+							removeChild(result, result.getClass()
+									.getSuperclass());
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-                    // Nullify all domains and collections in the domain
-                    } else {
-                        Domain result = (Domain) domainType.getMethod(
-                                generateAccessorHeader(
-                                        outerFieldName, Accessor.GET),
-                                (Class<?>[]) null).invoke(domain);
-                        
-                        if (result != null) {
-                            removeChild(
-                                    result,
-                                    result.getClass().getSuperclass());
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void fetchChildren(List<T> list) {
-        for (Object element : list) {
-            if (element == null) {
-                return;
-            }
-            Class<?> type0 = element.getClass();
+		for (Object element : list) {
+			if (element == null) {
+				return;
+			}
+			Class<?> type0 = element.getClass();
 
-            try {
-                for (Field field : element.getClass().getDeclaredFields()) {
-                    Class<?> type = field.getType();
+			try {
+				for (Field field : element.getClass().getDeclaredFields()) {
+					Class<?> type = field.getType();
 
-                    if (!checkAnnotations(field.getAnnotations())
-                            && (Collection.class.isAssignableFrom(type)
-                                    || Domain.class.isAssignableFrom(type))) {
-                        
-                        Method m = type0.getMethod(
-                                generateAccessorHeader(
-                                        field.getName(), Accessor.GET),
-                                (Class<?>[]) null);
-                        Object result = m.invoke(element);
-                        if (result != null) {
-                            Class<?> resultClass = result.getClass();
-                            if (Collection.class.isAssignableFrom(resultClass)) {
-                                Collection<Domain> domains =
-                                        (Collection<Domain>) result;
-                                domains.size();
-                            } else if (Domain.class.isAssignableFrom(resultClass)) {
-                                Domain domain = (Domain) result;
-                                domain.getId();
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+					if (!checkAnnotations(field.getAnnotations())
+							&& (Collection.class.isAssignableFrom(type) || Domain.class
+									.isAssignableFrom(type))) {
 
-    /**
-     * 
-     * @param annotations the field's annotations
-     * @return whether the annotations indicate that the field is transient or
-     *         not 
-     */
-    private boolean checkAnnotations(Annotation[] annotations) {
-        boolean isTransient = false;
+						Method m = type0.getMethod(
+								generateAccessorHeader(field.getName(),
+										Accessor.GET), (Class<?>[]) null);
+						Object result = m.invoke(element);
+						if (result != null) {
+							Class<?> resultClass = result.getClass();
+							if (Collection.class.isAssignableFrom(resultClass)) {
+								Collection<Domain> domains = (Collection<Domain>) result;
+								domains.size();
+							} else if (Domain.class
+									.isAssignableFrom(resultClass)) {
+								Domain domain = (Domain) result;
+								domain.getId();
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-        for (Annotation annotation : annotations) {
-            Class<?> annotationType = annotation.annotationType();
-            if (annotationType == JsonIgnore.class
-                    || annotationType == XmlTransient.class) {
-                isTransient = true;
-            }
-        }
+	/**
+	 * 
+	 * @param annotations
+	 *            the field's annotations
+	 * @return whether the annotations indicate that the field is transient or
+	 *         not
+	 */
+	private boolean checkAnnotations(Annotation[] annotations) {
+		boolean isTransient = false;
 
-        return isTransient;
-    }
+		for (Annotation annotation : annotations) {
+			Class<?> annotationType = annotation.annotationType();
+			if (annotationType == JsonIgnore.class
+					|| annotationType == XmlTransient.class) {
+				isTransient = true;
+			}
+		}
 
-    private String generateAccessorHeader(String fieldName, Accessor accessor) {
-        return String.format(
-                "%s%s", accessor, Character.toUpperCase(fieldName.charAt(0))
-                        + fieldName.substring(1));
-    }
+		return isTransient;
+	}
 
-    /**
-     * 
-     * @param target the object to be set to null
-     * @param type the class
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     */
-    private void removeChild(Object target, Class<?> type)
-            throws NoSuchMethodException,  SecurityException,
-                   IllegalAccessException, IllegalArgumentException,
-                   InvocationTargetException {
+	private String generateAccessorHeader(String fieldName, Accessor accessor) {
+		return String.format(
+				"%s%s",
+				accessor,
+				Character.toUpperCase(fieldName.charAt(0))
+						+ fieldName.substring(1));
+	}
 
-        for (Field field : type.getDeclaredFields()) {
-            Class<?> fieldType = field.getType();
+	/**
+	 * 
+	 * @param target
+	 *            the object to be set to null
+	 * @param type
+	 *            the class
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	private void removeChild(Object target, Class<?> type)
+			throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException {
 
-            // Nullify any domain or collection
-            if (Collection.class.isAssignableFrom(fieldType)
-                    || Domain.class.isAssignableFrom(fieldType)) {
-                Method m = type.getMethod(
-                        generateAccessorHeader(field.getName(), Accessor.SET),
-                        fieldType);
-                m.invoke(target, varargsNull);
-            }
-        }
-    }
+		for (Field field : type.getDeclaredFields()) {
+			Class<?> fieldType = field.getType();
+			System.err.println(field.getName());
+			// Nullify any domain or collection
+			if (Collection.class.isAssignableFrom(fieldType)
+					|| Domain.class.isAssignableFrom(fieldType)) {
+				Method m = type.getMethod(
+						generateAccessorHeader(field.getName(), Accessor.SET),
+						fieldType);
+				System.err.println(field.getName());
+				m.invoke(target, varargsNull);
+			}
+		}
+	}
 }

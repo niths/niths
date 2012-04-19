@@ -32,11 +32,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Email;
 import org.jasypt.hibernate4.type.EncryptedStringType;
-@TypeDef(name = "encryptedString" ,
-typeClass = EncryptedStringType.class,
-parameters = {
-	@Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
-})
+
+@TypeDef(name = "encryptedString", typeClass = EncryptedStringType.class, parameters = { @Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor") })
 @XmlRootElement
 @Entity
 @Table(name = AppNames.DEVELOPERS)
@@ -69,14 +66,14 @@ public class Developer implements Domain {
 	@JsonIgnore
 	@XmlTransient
 	@Column(name = "developer_token")
-	@Type(type="encryptedString")
+	@Type(type = "encryptedString")
 	private String developerToken;
-	
+
 	@JsonIgnore
 	@XmlTransient
 	@Column(name = "developer_key")
 	private String developerKey;
-	
+
 	@Cascade(CascadeType.ALL)
 	@OneToMany
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "developers_id"), inverseJoinColumns = @JoinColumn(name = "applications_id"))
@@ -90,17 +87,16 @@ public class Developer implements Domain {
 		setDeveloperToken(null);
 		setApps(null);
 	}
-	
 
 	public Developer(String name) {
 		setName(name);
 	}
-	
-	public Developer(String name, String email){
+
+	public Developer(String name, String email) {
 		setName(name);
 		setEmail(email);
 	}
-	
+
 	public List<Application> getApps() {
 		return apps;
 	}
@@ -162,11 +158,9 @@ public class Developer implements Domain {
 		this.enabled = enabled;
 	}
 
-
 	public String getDeveloperKey() {
 		return developerKey;
 	}
-
 
 	public void setDeveloperKey(String developerKey) {
 		this.developerKey = developerKey;

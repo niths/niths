@@ -1,6 +1,5 @@
 package no.niths.application.rest.battlestation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
@@ -40,33 +39,6 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     private LoanService loanService;
 
     private LoanList loanList = new LoanList();
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Loan> getAll(Loan domain) {
-        loanList = (LoanList) super.getAll(domain);
-        clearRelations();
-        return loanList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ArrayList<Loan> getAll(Loan domain, @PathVariable int firstResult, @PathVariable int maxResults) {
-        loanList = (LoanList) super.getAll(domain, firstResult, maxResults);
-        clearRelations();
-        return loanList;
-    }
-
-    private void clearRelations(){
-        for(Loan loan : loanList){
-            loan.setConsoles(null);
-            loan.setStudent(null);
-        }
-    }
 
     /**
      * {@inheritDoc}

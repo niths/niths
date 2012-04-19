@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.hibernate4.HibernateOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
@@ -169,16 +168,6 @@ public class RESTExceptionHandler {
 		logger.debug("Invalid search param");
 	}
 
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public void httpMessageNotReadableException(
-			HttpMessageNotReadableException e, HttpServletResponse res) {
-
-		res.setHeader(ERROR, "Error with HTTP body");
-
-		logger.debug("Error with request header body");
-	}
-
 	/**
 	 * 
 	 * @param e
@@ -290,4 +279,13 @@ public class RESTExceptionHandler {
 		}
 		logger.debug("ObjectInCollectionException");
 	}
+
+	@ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void notReadable(
+			org.springframework.http.converter.HttpMessageNotReadableException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", "Request body is not correct");
+	}
+
 }

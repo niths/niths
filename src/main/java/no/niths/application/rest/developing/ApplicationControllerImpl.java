@@ -1,7 +1,5 @@
 package no.niths.application.rest.developing;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
@@ -45,24 +43,6 @@ public class ApplicationControllerImpl extends
 	private ApplicationService service;
 
 	private ApplicationList applicationList = new ApplicationList();
-
-	@Override
-	public ArrayList<Application> getAll(Application domain) {
-		applicationList = (ApplicationList) super.getAll(domain);
-		for (Application a: applicationList){
-			a.setDeveloper(null);
-		}
-		return applicationList;
-	}
-	
-	@Override
-	public Application getById(@PathVariable Long id) {
-		Application a = super.getById(id);
-		if(a.getDeveloper() != null){
-			a.getDeveloper().setApps(null);			
-		}
-		return a;
-	}
 
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)

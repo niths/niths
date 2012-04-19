@@ -79,6 +79,7 @@ public class Application implements Domain {
 	@Column
 	private Boolean enabled;
 
+	@JsonSerialize(as=Developer.class)
 	@ManyToOne
 	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
 	@Cascade(CascadeType.ALL)
@@ -159,8 +160,6 @@ public class Application implements Domain {
 		this.iconUrl = iconUrl;
 	}
 
-//	@JsonIgnore
-//	@XmlTransient
 	public Developer getDeveloper() {
 		return developer;
 	}
@@ -177,8 +176,6 @@ public class Application implements Domain {
 		return s == this ? true : s.getId() == id ? true : false;
 	}
 
-	@JsonIgnore
-	@XmlTransient
 	public String getApplicationKey() {
 		return applicationKey;
 	}

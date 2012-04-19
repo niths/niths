@@ -82,7 +82,6 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
                     "location",
                     String.valueOf(getService().create(domain)));
     }
-
     /**
      * Returns the domain object with the given id
      * 
@@ -107,12 +106,13 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
+    
     public T getById(@PathVariable Long id) {
-        T domain = getService().getById(id);
-        ValidationHelper.isObjectNull(domain);
-        nullifier.clearSubRelations(domain);
-        logger.debug(domain.toString());
-        return domain;
+    	T domain = getService().getById(id);
+    	ValidationHelper.isObjectNull(domain);
+    	nullifier.clearSubRelations(domain);
+    	logger.debug(domain.toString());
+    	return domain;
     }
 
     /**

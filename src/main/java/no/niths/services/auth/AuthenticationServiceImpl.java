@@ -9,7 +9,6 @@ import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
-import no.niths.common.AppNames;
 import no.niths.common.MiscConstants;
 import no.niths.common.SecurityConstants;
 import no.niths.domain.developing.Application;
