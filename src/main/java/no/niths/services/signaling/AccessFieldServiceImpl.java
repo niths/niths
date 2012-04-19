@@ -1,8 +1,11 @@
 package no.niths.services.signaling;
 
+import no.niths.common.ValidationHelper;
 import no.niths.domain.signaling.AccessField;
+import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.signaling.interfaces.AccessFieldRepository;
+import no.niths.infrastructure.signaling.interfaces.AccessPointRepository;
 import no.niths.services.AbstractGenericService;
 import no.niths.services.signaling.interfaces.AccessFieldService;
 
@@ -16,22 +19,35 @@ public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 	@Autowired
 	private AccessFieldRepository repo;
 
+	@Autowired
+	private AccessPointRepository accessPointRepo;
+
 	@Override
 	public GenericRepository<AccessField> getRepository() {
 		return repo;
 	}
 
-	
 	@Override
-	public AccessField getById(long id) {
-		AccessField af= super.getById(id);
-		if(af != null){
-			af.getRooms().size();
-			if(af.getAccessPoint() != null){
-				af.getAccessPoint().getAddress();
-			}
+	public void addAccessPoint(long afId, long apId) {
+		AccessField accessField = validate(repo.getById(afId),
+				AccessField.class);
+		checkIfObjectExists(accessField.getAccessPoint(), apId,
+				AccessPoint.class);
+
+		AccessPoint accessPoint = accessPointRepo.getById(apId);
+		ValidationHelper.isObjectNull(accessPoint, AccessPoint.class);
+		accessField.setAccessPoint(accessPoint);
+	}
+
+	@Override
+	public void removeAccessPoint(long afId) {
+		AccessField accessField = validate(repo.getById(afId),
+				AccessField.class);
+		boolean isRemoved = false;
+		if (accessField.getAccessPoint() != null) {
+			accessField.setAccessPoint(null);
+			isRemoved = true;
 		}
-		
-		return af;
+		checkIfIsRemoved(isRemoved, AccessPoint.class);
 	}
 }

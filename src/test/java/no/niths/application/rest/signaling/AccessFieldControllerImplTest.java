@@ -105,7 +105,7 @@ public class AccessFieldControllerImplTest {
 		assertEquals(testAP, af.getAccessPoint());
 		
 		// remove access point from access field
-		controller.removeAccessPoint(testAF02.getId(), testAP.getId());
+		controller.removeAccessPoint(testAF02.getId());
 		
 		// access field should not have access point
 		af = controller.getById(testAF02.getId());
@@ -121,6 +121,6 @@ public class AccessFieldControllerImplTest {
 	
 	@Test(expected=ObjectNotFoundException.class)
 	public void testRemoveANonExistingRelationship_shouldThrowException(){
-		controller.removeAccessPoint(testAF01.getId(), testAP.getId());
+		controller.removeAccessPoint(testAF01.getId());
 	}
 }

@@ -8,7 +8,9 @@ import no.niths.domain.signaling.AccessField;
  */
 public interface AccessFieldController
     extends GenericRESTController<AccessField> {
+	
 	void addAccessPoint(long afId, long apId);
-	void removeAccessPoint(long afId, long apId);
+	
+	void removeAccessPoint(long afId);
 	
 }
