@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.exception.QRCodeException;
 import no.niths.application.rest.helper.QRCodeDecoder;
 import no.niths.application.rest.lists.FadderGroupList;
@@ -246,7 +247,9 @@ public class FadderGroupControllerImpl extends
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{groupId}/children", method = RequestMethod.GET)
+    @RequestMapping(value = "{groupId}/children", 
+    				method = RequestMethod.GET, 
+    				headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getAllStudents(@PathVariable Long groupId) {
 
