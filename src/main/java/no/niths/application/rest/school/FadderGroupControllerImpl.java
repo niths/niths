@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.QRCodeException;
 import no.niths.application.rest.helper.QRCodeDecoder;
 import no.niths.application.rest.lists.FadderGroupList;
@@ -266,6 +267,31 @@ public class FadderGroupControllerImpl extends
         lazyFixertStudent.clearRelations(studentList);
 
         return studentList;
+    }
+    
+    /**
+     * Returns all students without a fadder group
+     * @return list with students
+     * @throws ObjectNotFoundException if all students has a group
+     */
+    @Override
+    @RequestMapping(value = "groupless", 
+    				method = RequestMethod.GET, 
+    				headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Student> getAllStudentsNotInAGroup() {
+    	
+    	// Clear the list as it is never newed up more than once.
+    	studentList.clear();
+    	
+    	// Adds the current students to the list.
+    	studentList.addAll(service.getStudentsNotInAGroup());
+    	studentList.setData(studentList); // for XML marshalling
+    	ValidationHelper.isListEmpty(studentList);
+    	
+    	lazyFixertStudent.clearRelations(studentList);
+    	
+    	return studentList;
     }
 
     /**

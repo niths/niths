@@ -2,8 +2,8 @@ package no.niths.application.rest.battlestation;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
-import no.niths.application.rest.lists.ConsoleList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.battlestation.ConsoleList;
 import no.niths.common.AppNames;
 import no.niths.domain.battlestation.Console;
 import no.niths.services.battlestation.interfaces.ConsoleService;

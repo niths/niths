@@ -7,7 +7,7 @@ import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.LoanList;
+import no.niths.application.rest.lists.battlestation.LoanList;
 import no.niths.common.AppNames;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Loan;

@@ -2,6 +2,7 @@ package no.niths.domain.developing;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -80,8 +81,11 @@ public class Application implements Domain {
 	private Boolean enabled;
 
 	@JsonSerialize(as=Developer.class)
-	@ManyToOne
-	@JoinTable(name = "developers_applications", joinColumns = @JoinColumn(name = "applications_id"), inverseJoinColumns = @JoinColumn(name = "developers_id"))
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Developer.class)
+	@JoinTable(
+	        name = "developers_applications",
+	        joinColumns = @JoinColumn(name = "applications_id"),
+	        inverseJoinColumns = @JoinColumn(name = "developers_id"))
 	@Cascade(CascadeType.ALL)
 	private Developer developer;
 

@@ -2,7 +2,7 @@ package no.niths.application.rest.location;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.RoomList;
+import no.niths.application.rest.lists.location.RoomList;
 import no.niths.application.rest.location.interfaces.RoomController;
 import no.niths.common.AppNames;
 import no.niths.domain.location.Room;

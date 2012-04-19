@@ -3,6 +3,7 @@ package no.niths.services.school;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
@@ -49,6 +50,30 @@ public class FadderGroupServiceTest {
 		
 		fadderService.hibernateDelete(g1.getId());
 		assertEquals(size, fadderService.getAll(null).size());
+	}
+	
+	@Test
+	public void testGetStudentsWithoutGroup(){
+		Student s1 = new Student("ssss1234@sss.com");
+		Student s2 = new Student("sss2345@sss.com");
+		Student s3 = new Student("sss3456@sss.com");
+		studService.create(s1);
+		studService.create(s2);
+		studService.create(s3);
+		
+		FadderGroup g1 = new FadderGroup(981);
+		g1.getFadderChildren().add(s1);
+		g1.getFadderChildren().add(s2);
+		fadderService.create(g1);
+		
+		List<Student> fetched = fadderService.getStudentsNotInAGroup();
+		assertEquals(1, fetched.size());
+		assertEquals(s3, fetched.get(0));
+		
+		fadderService.hibernateDelete(g1.getId());
+		studService.hibernateDelete(s1.getId());
+		studService.hibernateDelete(s2.getId());
+		studService.hibernateDelete(s3.getId());
 	}
 	
 	@Test
