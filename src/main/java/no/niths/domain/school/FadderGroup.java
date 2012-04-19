@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.AppNames;
+import no.niths.common.MiscConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -34,7 +35,7 @@ import org.hibernate.annotations.CascadeType;
  */
 @XmlRootElement
 @Entity
-@Table(name = AppNames.FADDER_GROUPS)
+@Table(name = MiscConstants.FADDER_GROUPS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @XmlAccessorType(XmlAccessType.FIELD)  
 public class FadderGroup implements Domain {

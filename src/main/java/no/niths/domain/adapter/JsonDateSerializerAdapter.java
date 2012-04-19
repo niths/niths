@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import no.niths.common.AppNames;
+import no.niths.common.MiscConstants;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
@@ -16,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonDateSerializerAdapter extends JsonSerializer<Date> {
-	private DateFormat df = new SimpleDateFormat(AppNames.DATE_FORMAT);
+	private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
 	private static final Logger logger = LoggerFactory
 			.getLogger(JsonDateSerializerAdapter.class);
 
