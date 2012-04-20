@@ -82,10 +82,14 @@ public class Room implements Domain {
     }
 
     public Room() {
-        this(null);
+        this((String) null);
         setSubjects(null);
         setExams(null);
         setAccessFields(null);
+    }
+
+    public Room(Long id) {
+        setId(id);
     }
 
     public void setId(Long id) {
@@ -141,6 +145,6 @@ public class Room implements Domain {
             return false;
 
         Room room = (Room) obj;
-        return room.getId() == id && room.getRoomName().equals(roomName);
+        return room.getId() == id || (room.getRoomName().equals(roomName) && room.getId() == id);
     }
 }

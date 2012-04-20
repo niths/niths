@@ -1,8 +1,7 @@
 package no.niths.services.school;
 
-import no.niths.application.rest.exception.NotInCollectionException;
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.school.Student;
@@ -53,69 +52,48 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
 
     @Override
     public void addTutor(Long subjectId, Long studentId) {
-        Subject subject = super.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
+        Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
+        checkIfObjectIsInCollection(subject.getTutors(), studentId, Student.class);
 
-        Student student = studentRepository.getById(studentId);
-        ValidationHelper.isObjectNull(student, Student.class);
+        Student tutor = studentRepository.getById(studentId);
+        ValidationHelper.isObjectNull(tutor, Student.class);
 
-        if (!subject.getTutors().contains(student)) {
-            subject.getTutors().add(student);
-            logger.debug("Subject updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Tutor is already added to the subject");
-        }
+        subject.getTutors().add(tutor);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeTutor(Long subjectId, Long studentId) {
-        Subject subject = super.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < subject.getTutors().size(); i++) {
-            if (subject.getTutors().get(i).getId() == studentId) {
-                subject.getTutors().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Tutor removed from subject " + subject.getName());
-        } else {
-            throw new NotInCollectionException("Student is not a tutor");
-        }
+        Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
+        checkIfIsRemoved(subject.getTutors().remove(new Student(studentId)),
+                Student.class);
     }
 
     @Override
     public void addRoom(Long subjectId, Long roomId) {
-        Subject subject = super.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
+        Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
+        checkIfObjectExists(subject.getRoom(), roomId, Room.class);
 
         Room room = roomRepository.getById(roomId);
         ValidationHelper.isObjectNull(room, Room.class);
 
-        if (subject.getRoom() == null) {
-            subject.setRoom(room);
-            logger.debug("Subject updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Room is already added to the subject");
-        }
+        subject.setRoom(room);
+        logger.debug(MessageProvider.buildStatusMsg(Room.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeRoom(Long subjectId) {
-        Subject subject = super.getById(subjectId);
-        ValidationHelper.isObjectNull(subject, Subject.class);
+        Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
+
+        boolean isRemoved = false;
 
         if (subject.getRoom() != null) {
             subject.setRoom(null);
-        } else {
-            logger.debug("Room not found");
-            throw new ObjectNotFoundException("Room not found in subject");
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Room.class);
     }
 }

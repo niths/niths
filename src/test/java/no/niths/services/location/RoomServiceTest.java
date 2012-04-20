@@ -82,7 +82,7 @@ public class RoomServiceTest {
 		assertNotNull(temp.getAccessFields().get(0).getAccessPoint());
 		
 		roomService.hibernateDelete(r.getId());
-		assertEquals(0, roomService.getAll(null).size());
+		assertEquals(size, roomService.getAll(null).size());
 		
 		assertEquals(1, afService.getAll(null).size());
 		
