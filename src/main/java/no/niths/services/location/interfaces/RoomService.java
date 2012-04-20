@@ -8,21 +8,21 @@ public interface RoomService extends GenericService<Room> {
 
     /**
      * 
-     * @param room the room's id
+     * @param roomId the room's id
      * @param accessFieldId the access field's id which will be added
      */
     void addAccessField(long roomId, long accessFieldId);
 
     /**
      * 
-     * @param room the room's id
+     * @param roomId the room's id
      * @param accessFieldId the access field's id which will be removed
      */
     void removeAccessField(long roomId, long accessFieldId);
 
     /**
      * 
-     * @param accessPoint the access point of which the room belongs to
+     * @param accessField the access point of which the room belongs to
      * @return the Room with the given access point
      */
     Room getRoom(AccessField accessField);

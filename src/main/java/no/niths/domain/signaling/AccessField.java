@@ -70,6 +70,10 @@ public class AccessField implements Domain {
         validateRanges();
     }
 
+    public AccessField(Long id) {
+        this.id = id;
+    }
+
     private void validateRanges() {
         if (minRange != null && maxRange != null && minRange > maxRange) {
             throw new BadRequestException(
