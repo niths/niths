@@ -11,10 +11,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import no.niths.domain.battlestation.Console;
-import no.niths.domain.battlestation.Game;
-import no.niths.domain.battlestation.GameCategory;
-import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Student;
 
 import org.junit.BeforeClass;
@@ -44,7 +40,7 @@ public class GameTest {
 
     @Test
     public void testValidationOfCorrectGameValues() {
-        Game game = new Game(NAME, CATEGORY, 1);
+        Game game = new Game(NAME, CATEGORY);
 
         Set<ConstraintViolation<Game>> constraintViolations = validator
                 .validate(game);
@@ -54,7 +50,7 @@ public class GameTest {
 
     @Test
     public void testValidationOfIncorrectGameValues() {
-        Game game = new Game("KM", CATEGORY, 1);
+        Game game = new Game("KM", CATEGORY);
 
         Set<ConstraintViolation<Game>> constraintViolations = validator
                 .validate(game);
@@ -74,18 +70,8 @@ public class GameTest {
     }
 
     @Test
-    public void testGettingLoanFromGame() {
-        Loan loan = new Loan();
-
-        Game game = new Game();
-        //game.setLoan(loan);
-
-        //assertThat(loan, is(equalTo(game.getLoan())));
-    }
-
-    @Test
     public void testTwoEqualGames() {
-        Game game = new Game(NAME, CATEGORY, 1);
+        Game game = new Game(NAME, CATEGORY);
 
         Game equalGame = game;
 
@@ -94,10 +80,10 @@ public class GameTest {
 
     @Test
     public void testTwoGamesWhichIsNotEqual() {
-        Game game = new Game(NAME, CATEGORY, 1);
+        Game game = new Game(NAME, CATEGORY);
         game.setId(1L);
 
-        Game notEqualGame = new Game(NAME, GameCategory.ACTION, 1);
+        Game notEqualGame = new Game(NAME, GameCategory.ACTION);
         notEqualGame.setId(2L);
 
         assertThat(false, is(equalTo(game.equals(notEqualGame))));
@@ -105,7 +91,7 @@ public class GameTest {
 
     @Test
     public void testEqualsBetweenNotEqualObjects() {
-        Game game = new Game(NAME, CATEGORY, 1);
+        Game game = new Game(NAME, CATEGORY);
 
         Student student = new Student();
 

@@ -1,7 +1,7 @@
 package no.niths.services.battlestation;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
@@ -47,31 +47,28 @@ public class GameServiceImpl extends AbstractGenericService<Game> implements Gam
 
     @Override
     public void addConsole(Long gameId, Long consoleId) {
-        Game game = super.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
+        Game game = validate(gameRepository.getById(gameId), Game.class);
+        checkIfObjectExists(game.getConsole(), consoleId, Console.class);
 
         Console console = consoleRepository.getById(consoleId);
         ValidationHelper.isObjectNull(console, Console.class);
 
-        if (game.getConsole() == null) {
-            game.setConsole(console);
-            logger.debug("Console added too game");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Game already has a console");
-        }
+        game.setConsole(console);
+        logger.debug(MessageProvider.buildStatusMsg(Console.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeConsole(Long gameId) {
-        Game game = super.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
+        Game game = validate(gameRepository.getById(gameId), Game.class);
+
+        boolean isRemoved = false;
 
         if (game.getConsole() != null) {
             game.setConsole(null);
-        } else {
-            logger.debug("Console not found");
-            throw new ObjectNotFoundException("Console not found");
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Console.class);
     }
 }

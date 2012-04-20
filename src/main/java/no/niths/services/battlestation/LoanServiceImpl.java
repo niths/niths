@@ -3,9 +3,9 @@ package no.niths.services.battlestation;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Status;
 import no.niths.common.LazyFixer;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Loan;
@@ -60,72 +60,49 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
 
     @Override
     public void addConsole(Long loanId, Long consoleId) {
-        Loan loan = super.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
+        Loan loan = validate(loanRepository.getById(loanId), Loan.class);
+        checkIfObjectIsInCollection(loan.getConsoles(), consoleId, Console.class);
 
         Console console = consoleRepository.getById(consoleId);
         ValidationHelper.isObjectNull(console, Console.class);
 
-        if (!loan.getConsoles().contains(console)) {
-            loan.getConsoles().add(console);
-            logger.debug("Loan updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Console is already added to the loan");
-        }
+        loan.getConsoles().add(console);
+        logger.debug(MessageProvider.buildStatusMsg(Console.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeConsole(Long loanId, Long consoleId) {
-        Loan loan = super.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < loan.getConsoles().size(); i++) {
-            if (loan.getConsoles().get(i).getId() == consoleId) {
-                loan.getConsoles().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Console removed from loan ");
-        } else {
-            logger.debug("Console not found");
-            throw new ObjectNotFoundException("Console not found in loan");
-        }
+        Loan loan = validate(loanRepository.getById(loanId), Loan.class);
+        checkIfIsRemoved(loan.getConsoles().remove(new Console(consoleId)),
+                Console.class);
     }
 
     @Override
     public void addStudent(Long loanId, Long studentId) {
-        Loan loan = super.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
+        Loan loan = validate(loanRepository.getById(loanId), Loan.class);
+        checkIfObjectExists(loan.getStudent(), studentId, Student.class);
 
         Student student = studentRepository.getById(studentId);
         ValidationHelper.isObjectNull(student, Student.class);
 
-        if (loan.getStudent() == null) {
-            loan.setStudent(student);
-            logger.debug("Loan updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Student is already added to loan");
-        }
+        loan.setStudent(student);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeStudent(Long loanId) {
-        Loan loan = super.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
+        Loan loan = validate(loanRepository.getById(loanId), Loan.class);
+
+        boolean isRemoved = false;
 
         if (loan.getStudent() != null) {
             loan.setStudent(null);
-        } else {
-            logger.debug("Student not found");
-            throw new ObjectNotFoundException("Student not found in loan");
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Student.class);
     }
 
     @Override

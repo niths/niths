@@ -1,7 +1,7 @@
 package no.niths.services.battlestation;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.MessageProvider;
 import no.niths.common.ValidationHelper;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
@@ -54,71 +54,48 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
 
     @Override
     public void addGame(Long consoleId, Long gameId) {
-        Console console = super.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
+        Console console = validate(consoleRepository.getById(consoleId), Console.class);
+        checkIfObjectIsInCollection(console.getGames(), gameId, Game.class);
 
         Game game = gameRepository.getById(gameId);
         ValidationHelper.isObjectNull(game, Game.class);
 
-        if (!console.getGames().contains(game)) {
-            console.getGames().add(game);
-            logger.debug("Console updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Game is already added to the console");
-        }
+        console.getGames().add(game);
+        logger.debug(MessageProvider.buildStatusMsg(Game.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeGame(Long consoleId, Long gameId) {
-        Console console = super.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < console.getGames().size(); i++) {
-            if (console.getGames().get(i).getId() == gameId) {
-                console.getGames().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Game removed from console " + console.getName());
-        } else {
-            logger.debug("Game not found");
-            throw new ObjectNotFoundException("Game not found in console");
-        }
+        Console console = validate(consoleRepository.getById(consoleId), Console.class);
+        checkIfIsRemoved(console.getGames().remove(new Game(gameId)),
+                Game.class);
     }
 
     @Override
     public void addLoan(Long consoleId, Long loanId) {
-        Console console = super.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
+        Console console = validate(consoleRepository.getById(consoleId), Console.class);
+        checkIfObjectExists(console.getLoan(), loanId, Loan.class);
 
         Loan loan = loanRepository.getById(loanId);
         ValidationHelper.isObjectNull(loan, Loan.class);
 
-        if (console.getLoan() == null) {
-            console.setLoan(loan);
-            logger.debug("Console updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Loan is already added to the console");
-        }
+        console.setLoan(loan);
+        logger.debug(MessageProvider.buildStatusMsg(Loan.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeLoan(Long consoleId) {
-        Console console = super.getById(consoleId);
-        ValidationHelper.isObjectNull(console, Console.class);
+        Console console = validate(consoleRepository.getById(consoleId), Console.class);
+
+        boolean isRemoved = false;
 
         if (console.getLoan() != null) {
             console.setLoan(null);
-        } else {
-            logger.debug("Loan not found");
-            throw new ObjectNotFoundException("Loan not found in console");
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Loan.class);
     }
 }
