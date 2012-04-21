@@ -74,20 +74,17 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 	public void enableDeveloper(Long developerId) {
 		Developer developer = validate(repo.getById(developerId),
 				Developer.class);
-		if ((developer.getEnabled() != null) || (!developer.getEnabled())) {
-			developer.setEnabled(true);
-			logger.debug("Developer " + developer.getName() + " is enabled");
-		}
+		developer.setEnabled(true);
+		logger.debug("Developer " + developer.getName() + " is enabled");
 	}
 
 	@Override
 	public void disableDeveloper(Long developerId) {
 		Developer developer = validate(repo.getById(developerId),
 				Developer.class);
-		if (developer.getEnabled() != null && developer.getEnabled()) {
-			developer.setEnabled(false);
-			logger.debug("Developer " + developer.getName() + " is disabled");
-		}
+		developer.setEnabled(false);
+		logger.debug("Developer " + developer.getName() + " is disabled");
+
 	}
 
 	@Override
@@ -118,7 +115,8 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 	public void removeApplicaiton(Long developerId, Long applicationId) {
 		Developer developer = validate(repo.getById(developerId),
 				Developer.class);
-		checkIfIsRemoved(developer.getApps().remove(new Application(applicationId)),
+		checkIfIsRemoved(
+				developer.getApps().remove(new Application(applicationId)),
 				Application.class);
 	}
 }
