@@ -185,6 +185,21 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
+    		value  = { "{groupId}/add/children/{studentIds}" },
+    		method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Children added")
+    public void addChildren(
+    		@PathVariable Long groupId,
+    		@PathVariable Long[] studentIds) {
+    	service.addChildren(groupId, studentIds);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @RequestMapping(
             value  = "{groupId}/remove/child/{studentId}",
             method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")

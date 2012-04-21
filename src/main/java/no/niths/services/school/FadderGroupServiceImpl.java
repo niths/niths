@@ -76,6 +76,13 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
         logger.debug(MessageProvider.buildStatusMsg(Student.class,
                 Status.UPDATED));
     }
+    
+	@Override
+	public void addChildren(Long groupId, Long[] studentIds) {
+		for (Long studentId : studentIds) {
+            addChild(groupId, studentId);
+        }
+	}
 
     @Override
     public void removeChild(Long groupId, Long studentId) {
@@ -127,4 +134,6 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
     public List<Student> getStudentsNotInAGroup(){
     	return fadderGroupRepository.getStudentsNotInAGroup();
     }
+
+
 }

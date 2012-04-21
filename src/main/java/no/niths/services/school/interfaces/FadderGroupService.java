@@ -27,4 +27,6 @@ public interface FadderGroupService extends GenericService<FadderGroup> {
      * @return list with students
      */
 	List<Student> getStudentsNotInAGroup();
+
+	void addChildren(Long groupId, Long[] studentIds);
 }

@@ -1,7 +1,7 @@
 package no.niths.common;
 
 public final class SecurityConstants {
-	//Session times
+	//Session times -- TODO: CHANGE TO: 3600000 --> 1 hour
 	public static final long MAX_SESSION_VALID_TIME = 360000; //1 hour -->Max time session is valid from user logging in
 	public static final long SESSION_VALID_TIME = 360000; //1 hour -->Time session is valid between each request. Above field trumps this.
 	
