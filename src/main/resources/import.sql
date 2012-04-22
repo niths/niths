@@ -232,27 +232,27 @@ INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 9);
 INSERT INTO committee_leaders (committees_id, leaders_id) VALUES (3, 10);
 ---------------------------------------------------------------------
 --------------------------events-------------------------------------
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distro',' distro fest','2012-04-19 11:05:32','2012-03-09 11:05:32','Linux, utvalg');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa','Valentine party','2012-05-09 11:05:32','2012-03-09 11:05:32','kroa, utvalg');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop',' Android workshop','2012-04-20 11:05:32','2012-03-09 11:05:32','Android workshop');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte',' Obligatorisk','2012-03-09 11:05:32','2012-03-09 11:05:32','årsmøte, møte');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte','Damenes møte','2012-03-09 11:05:32','2012-03-09 11:05:32','kit, møte');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke kickoff','kickoff fest','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, kroa');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke party','party','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Ølsmaking','Super cool smaking','2012-04-20 11:05:32','2012-04-11 12:05:32','Linux, utvalg');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa3','Valentine party','2012-04-11 13:05:32','2012-04-11 16:05:32','kroa, utvalg');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshopxx',' Android workshop','2012-04-13 11:05:32','2012-04-13 11:05:32','Androworkshop');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte4',' Obligatorisk','2012-04-18 11:05:32','2012-04-12 14:05:32','årsmøte, møte');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte4','Damenes møte','2012-04-19 11:05:32','2012-04-14 11:05:32','kit, møte');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distro',' distro fest','2012-04-23 11:05:32','2012-03-23 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa','Valentine party','2012-04-23 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop',' Android workshop','2012-04-23 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte',' Obligatorisk','2012-04-24 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte','Damenes møte','2012-04-25 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke kickoff','kickoff fest','2012-04-26 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke party','party','2012-04-27 11:05:32','2012-03-09 11:05:32','fadderuke12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Ølsmaking','Super cool smaking','2012-04-24 11:05:32','2012-04-11 12:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa3','Valentine party','2012-04-25 13:05:32','2012-04-11 16:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshopxx',' Android workshop','2012-04-24 11:05:32','2012-04-13 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte4',' Obligatorisk','2012-04-26 11:05:32','2012-04-12 14:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte4','Damenes møte','2012-04-26 11:05:32','2012-04-14 11:05:32','fadderuka12, public');
 INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 kickoff','kickoff fest lorem ipsum ald adskaevmz,xvn en lang beskrivelse skal se hvorda det ser ut','2012-04-16 11:05:32','2012-04-16 11:05:32','fadderuke, kroa');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 party','party','2012-04-15 10:05:32','2012-04-15 11:05:32','fadderuke');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distrod',' distro fest','2012-05-19 11:05:32','2012-03-09 11:05:32','Linux, utvalg');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroad','Valentine party','2012-05-10 11:05:32','2012-03-09 11:05:32','kroa, utvalg, hjerte');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop2x',' Android workshop','2012-05-09 11:05:32','2012-03-09 11:05:32','Androworkshop,ruben');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte2x',' Obligatorisk','2012-04-18 11:05:32','2012-03-09 11:05:32','årsmøte, møte,bøker');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte3x','Damenes møte','2012-04-19 11:05:32','2012-03-09 11:05:32','kit, møte, alkoholfritt');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukezx3 kickoff','kickoff fest','2012-03-09 11:05:32','2012-03-09 11:05:32','fadderuke, kroa');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukex3 party','party','2012-04-22 11:05:32','2012-03-09 11:05:32','fadderuke, fest');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 party','party','2012-04-25 10:05:32','2012-04-15 11:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distrod',' distro fest','2012-04-24 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe3');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroad','Valentine party','2012-04-25 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop2x',' Android workshop','2012-04-26 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Årsmøte2x',' Obligatorisk','2012-04-24 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe3');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-møte3x','Damenes møte','2012-04-25 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe2');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukezx3 kickoff','kickoff fest','2012-04-26 11:05:32','2012-03-09 11:05:32','fadderuka12, grupp1');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukex3 party','party','2012-04-26 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
 ---------------------------------------------------------------------
 --------------------------fadder-----------------------------------
 INSERT INTO fadder_groups(id, group_number) VALUES (1, 1);
