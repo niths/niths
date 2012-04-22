@@ -6,7 +6,6 @@ public class MiscConstants {
     public static final String AUTH = "auth";
     public static final String BROADCAST = "broadcast";
     public static final String FADDER_GROUPS = "fadder_groups";
-    public static final String LOCKER = "locker";
 
     public static final String VALID_EMAIL_DOMAIN = "nith.no";
     public static final String CALENDAR_FORMAT = "dd/MM/yyyy-HH:mm";
