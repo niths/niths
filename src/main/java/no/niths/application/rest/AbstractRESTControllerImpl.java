@@ -198,6 +198,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * {@inheritDoc}
      */
     public void renewList(List<T> list) {
+    	System.err.println(list.size());
         getList().clear();
         getList().addAll(list);
         getList().setData(getList()); // Used for XML marshaling

@@ -2,7 +2,7 @@ package no.niths.application.rest.helper;
 
 import java.io.Serializable;
 
-public class TagProvider implements Serializable {
+public class TagProvider extends TimeDTO implements Serializable {
 	
 	private static final long serialVersionUID = -1339434700493159630L;
 	private String tag;

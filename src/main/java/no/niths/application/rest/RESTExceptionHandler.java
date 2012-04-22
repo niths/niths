@@ -285,7 +285,8 @@ public class RESTExceptionHandler {
 	public void notReadable(
 			org.springframework.http.converter.HttpMessageNotReadableException cve,
 			HttpServletResponse res) {
-		res.setHeader("Error", "Request body is not correct");
+		res.setHeader("Error", cve.getMessage());
+//		res.setHeader("Error", "Request body is not correct");
 	}
 
 }

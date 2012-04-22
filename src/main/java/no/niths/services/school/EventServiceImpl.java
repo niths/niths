@@ -85,4 +85,10 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		}
 	}
 
+	@Override
+	public List<Event> getEventsBetweenDatesAndByTag(String tag,
+			GregorianCalendar startTime, GregorianCalendar endTime) {
+		return repo.getEventsBetweenDatesAndByTag(tag, startTime, endTime);
+	}
+
 }

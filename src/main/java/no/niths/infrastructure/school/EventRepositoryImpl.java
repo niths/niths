@@ -8,7 +8,9 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.QueryGenerator;
 import no.niths.infrastructure.school.interfaces.EventRepository;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Repository;
 public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		implements EventRepository {
 
+	private static final String START_TIME = "startTime";
 	private QueryGenerator<Event> queryGen;
 	private final String COLUMNAME = "tags";
 	private Logger logger = LoggerFactory.getLogger(Event.class);
@@ -36,22 +39,29 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 	@Override
 	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
 			GregorianCalendar endTime) {
-		String sql = "FROM " + Event.class.getName() + " e WHERE e.startTime";
+		
+		Criteria crit = getSession().getCurrentSession().createCriteria(Event.class);
+		
+	
 		boolean isEndTimeNull = endTime == null;
 		if (isEndTimeNull) {
-			sql += " >= :startTime";
-		} else {
-			sql += " BETWEEN :startTime AND :endTime ORDER BY e.startTime asc";
-		}
-		
-		Query query = getSession().getCurrentSession().createQuery(sql);
-		query.setTimestamp("startTime", startTime.getTime());
-		if(!isEndTimeNull){
-			query.setTimestamp("endTime", endTime.getTime());
-		}
-		
+			crit.add(Restrictions.ge(START_TIME, startTime));
 
-		logger.debug(query.getQueryString());
-		return query.list();
+		} else if (startTime !=  null){
+			crit.add(Restrictions.between(START_TIME, startTime,endTime));
+		}
+		
+		crit.addOrder(Order.asc(START_TIME));	
+		
+		logger.debug(crit.toString());
+
+		return crit.list();
+
+	}
+
+	@Override
+	public List<Event> getEventsBetweenDatesAndByTag(String tag,
+			GregorianCalendar startTime, GregorianCalendar endTime) {
+		return queryGen.whereAndBetween(tag, COLUMNAME,START_TIME, getSession().getCurrentSession(), startTime, endTime);
 	}
 }

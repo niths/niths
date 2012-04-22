@@ -43,4 +43,11 @@ public interface EventController extends GenericRESTController<Event> {
 	 * @return
 	 */
 	List<Event> getEventsBetweenDates(TimeDTO timeDTO);
+	
+	/**
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	List<Event> getEventsBetweenDatesAndByTag(TagProvider tag);
 }
