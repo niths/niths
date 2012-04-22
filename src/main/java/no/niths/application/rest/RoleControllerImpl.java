@@ -3,7 +3,7 @@ package no.niths.application.rest;
 import no.niths.application.rest.interfaces.RoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.RoleList;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.interfaces.RoleService;

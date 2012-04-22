@@ -3,7 +3,7 @@ package no.niths.application.rest;
 import no.niths.application.rest.interfaces.APIEventController;
 import no.niths.application.rest.lists.APIEventList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.GenericService;

@@ -1,6 +1,6 @@
 package no.niths.services.school;
 
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.location.Location;
 import no.niths.domain.school.Feed;
 import no.niths.domain.school.Student;

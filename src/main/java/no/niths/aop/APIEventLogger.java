@@ -2,7 +2,7 @@ package no.niths.aop;
 
 import java.util.GregorianCalendar;
 
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
 

@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.application.rest.helper.Status;
-import no.niths.common.MessageProvider;
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.school.Student;
 import no.niths.domain.school.Subject;

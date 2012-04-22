@@ -1,7 +1,7 @@
 package no.niths.application.rest.lists.battlestation;
 
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.battlestation.Console;
 
 import javax.xml.bind.annotation.XmlElement;

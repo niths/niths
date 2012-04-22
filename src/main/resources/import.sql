@@ -10,15 +10,15 @@ INSERT INTO roles(role_name) VALUES('ROLE_STUDENT');
 INSERT INTO roles(role_name) VALUES('ROLE_DEVELOPER');
 ---------------------------------------------------------------------
 --------------------------Subjects-----------------------------------
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'Monday'); 
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'Monday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'Tuesday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
-INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'Friday');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG111', 'Java 1', 'Innføring i java', '10:00', '11:00', 'MONDAY'); 
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG211', 'Java 2', 'Innføring i java 2', '11:00', '12:00', 'MONDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('BU410', 'E-Business', 'Skolen sparer penger', '10:00', '11:00', 'TUESDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ111', 'Gruppearbeid', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('DB110', 'Database 01', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PB210', 'Database 02', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG650', 'J2E del 01', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PG660', 'J2E del 02', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
+INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('PJ600', 'Hovedprosjekt', 'Arbeid i grupper', '14:00', '17:00', 'FRIDAY');
 ---------------------------------------------------------------------
 --------------------------courses------------------------------------
 INSERT INTO courses (name, description) VALUES('Mobil apputvikling', 'Mobil apputvikling har blitt et stort forretningsområde, der både profesjonelle og amatører kan tjene gode penger på applikasjonene sine.');

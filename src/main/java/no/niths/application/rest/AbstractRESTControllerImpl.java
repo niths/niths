@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.LazyFixer;
-import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
+import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.LazyFixer;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
 import org.hibernate.TransientObjectException;

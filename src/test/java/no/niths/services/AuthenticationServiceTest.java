@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
-import no.niths.common.SecurityConstants;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.security.RequestHolderDetails;

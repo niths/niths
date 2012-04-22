@@ -2,8 +2,8 @@ package no.niths.services;
 
 import javax.mail.internet.MimeMessage;
 
-import no.niths.common.EmailTexts;
-import no.niths.common.MiscConstants;
+import no.niths.common.constants.MiscConstants;
+import no.niths.common.misc.EmailTexts;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.services.interfaces.MailSenderService;

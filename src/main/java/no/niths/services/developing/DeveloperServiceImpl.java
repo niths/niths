@@ -3,8 +3,8 @@ package no.niths.services.developing;
 import java.util.List;
 
 import no.niths.application.rest.helper.Status;
-import no.niths.common.MessageProvider;
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.domain.school.Committee;

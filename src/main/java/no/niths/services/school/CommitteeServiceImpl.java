@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
 import no.niths.application.rest.helper.Status;
-import no.niths.common.MessageProvider;
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Event;
 import no.niths.domain.school.Feed;

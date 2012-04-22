@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,9 +26,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.Domain;
-import no.niths.domain.constraints.Weekday;
 import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -69,8 +70,8 @@ public class Subject implements Domain {
     private String description;
 
     @Column
-    @Weekday
-    private String weekday;
+    @Enumerated(EnumType.STRING)
+    private Weekday weekday;
 
     @JsonSerialize(as = Room.class)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -183,11 +184,11 @@ public class Subject implements Domain {
         this.description = description;
     }
 
-    public String getWeekday() {
+    public Weekday getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(String weekday) {
+    public void setWeekday(Weekday weekday) {
         this.weekday = weekday;
     }
 

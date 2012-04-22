@@ -1,6 +1,6 @@
 package no.niths.services.interfaces;
 
-import no.niths.common.GenericCRUDActions;
+import no.niths.common.misc.GenericCRUDActions;
 /**
  * Generic interface for Services
  * 

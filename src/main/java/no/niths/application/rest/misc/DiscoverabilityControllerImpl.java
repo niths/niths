@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.misc.interfaces.DiscoverabilityController;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

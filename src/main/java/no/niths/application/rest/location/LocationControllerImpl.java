@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.location.LocationList;
 import no.niths.application.rest.location.interfaces.LocationController;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.location.Location;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.location.interfaces.LocationService;

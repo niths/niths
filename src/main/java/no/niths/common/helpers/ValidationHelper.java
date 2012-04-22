@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.common.helpers;
 
 import java.util.ArrayList;
 import java.util.Set;

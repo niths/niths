@@ -1,5 +1,6 @@
-package no.niths.common;
+package no.niths.common.misc;
 
+import no.niths.common.constants.MiscConstants;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 /**

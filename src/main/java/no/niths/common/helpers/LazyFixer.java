@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.common.helpers;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+import no.niths.common.misc.Accessor;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;

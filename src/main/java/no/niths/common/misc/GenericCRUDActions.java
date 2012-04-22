@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.common.misc;
 
 import java.util.List;
 /**

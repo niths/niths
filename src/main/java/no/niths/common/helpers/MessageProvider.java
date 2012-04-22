@@ -1,4 +1,4 @@
-package no.niths.common;
+package no.niths.common.helpers;
 
 import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
