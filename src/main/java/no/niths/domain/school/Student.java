@@ -38,6 +38,7 @@ import no.niths.domain.adapter.JsonDateSerializerAdapter;
 import no.niths.domain.adapter.XmlCharAdapter;
 import no.niths.domain.adapter.XmlDateAdapter;
 import no.niths.domain.battlestation.Loan;
+import no.niths.domain.constraints.StudentGender;
 import no.niths.domain.security.Role;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -78,6 +79,7 @@ public class Student implements Domain {
     private String lastName;
 
     @Column
+    @StudentGender
     @XmlJavaTypeAdapter(value = XmlCharAdapter.class)
     private Character gender;
 
