@@ -113,8 +113,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/add/location/{locId}",
-	        method = RequestMethod.PUT)
+	        value  = "{eventId}/location/{locId}",
+	        method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
 	public void addLocation(
 	        @PathVariable Long eventId,
@@ -128,8 +128,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/remove/location/{locId}",
-	        method = RequestMethod.PUT)
+	        value  = "{eventId}/location/{locId}",
+	        method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
 	public void removeLocation(
 	        @PathVariable Long eventId,

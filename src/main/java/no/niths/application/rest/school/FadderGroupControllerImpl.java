@@ -140,8 +140,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/add/leader/{studentId}",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/leader/{studentId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
     public void addLeader(
             @PathVariable Long groupId,
@@ -155,8 +155,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/remove/leader/{studentId}",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/leader/{studentId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
     public void removeLeader(
             @PathVariable Long groupId,
@@ -170,8 +170,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/add/child/{studentId}",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/child/{studentId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
     public void addChild(
             @PathVariable Long groupId,
@@ -185,8 +185,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-    		value  = { "{groupId}/add/children/{studentIds}" },
-    		method = RequestMethod.PUT)
+    		value  = { "{groupId}/children/{studentIds}" },
+    		method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Children added")
     public void addChildren(
     		@PathVariable Long groupId,
@@ -200,8 +200,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/remove/child/{studentId}",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/child/{studentId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
     public void removeChild(
             @PathVariable Long groupId,
@@ -215,7 +215,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = { "{groupId}/remove/children/{studentIds}" },
+            value  = { "{groupId}/children/{studentIds}" },
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Children removed")
     public void removeChildren(
@@ -230,8 +230,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/remove/all/children",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/children",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildren(@PathVariable Long groupId) {
         service.removeAllChildren(groupId);
@@ -243,8 +243,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{groupId}/remove/all/leaders",
-            method = RequestMethod.PUT)
+            value  = "{groupId}/leaders",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeaders(@PathVariable Long groupId) {
         service.removeAllLeaders(groupId);
