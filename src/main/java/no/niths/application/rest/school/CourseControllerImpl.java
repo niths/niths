@@ -47,9 +47,14 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{courseId}/add/representative/{studentId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
-    public void addRepresentative(@PathVariable Long courseId,
+    @RequestMapping(
+            value  = "{courseId}/representative/{studentId}",
+            method = RequestMethod.POST)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Representative added to course")
+    public void addRepresentative(
+            @PathVariable Long courseId,
             @PathVariable Long studentId) {
         courseService.addRepresentative(courseId, studentId);
     }
@@ -58,9 +63,14 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{courseId}/remove/representative/{studentId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
-    public void removeRepresentative(@PathVariable Long courseId,
+    @RequestMapping(
+            value  = "{courseId}/representative/{studentId}",
+            method = RequestMethod.DELETE)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Representative removed from course")
+    public void removeRepresentative(
+            @PathVariable Long courseId,
             @PathVariable Long studentId) {
         courseService.removeRepresentative(courseId, studentId);
     }
@@ -102,18 +112,25 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = { "{courseId}/add/subject/{subjectId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value = "{courseId}/subject/{subjectId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-    public void addSubject(@PathVariable Long courseId,
+    public void addSubject(
+            @PathVariable Long courseId,
             @PathVariable Long subjectId) {
         courseService.addSubject(courseId, subjectId);
     }
 
 
     @Override
-    @RequestMapping(value = { "{courseId}/remove/subject/{subjectId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{courseId}/subject/{subjectId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-    public void removeSubject(@PathVariable Long courseId,@PathVariable Long subjectId) {
+    public void removeSubject(
+            @PathVariable Long courseId,
+            @PathVariable Long subjectId) {
         courseService.removeSubject(courseId, subjectId);
     }
     
