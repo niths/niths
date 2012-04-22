@@ -36,35 +36,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 
     private CourseList courseList = new CourseList();
 
-    @Override
-    public Course getById(@PathVariable Long id) {
-        Course course = super.getById(id);
-        
-        return course;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "{courseId}/add/representative/{studentId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative added to course")
-    public void addRepresentative(@PathVariable Long courseId,
-            @PathVariable Long studentId) {
-        courseService.addRepresentative(courseId, studentId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @RequestMapping(value = "{courseId}/remove/representative/{studentId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Representative removed from course")
-    public void removeRepresentative(@PathVariable Long courseId,
-            @PathVariable Long studentId) {
-        courseService.removeRepresentative(courseId, studentId);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -93,38 +64,75 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
     }
 
     /**
-     * Adds a topic to a course
-     * 
-     * @param courseId
-     *            the id of the course
-     * @param subjectId
-     *            the id of the topic to be added
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+            value  = "{courseId}/representative/{studentId}",
+            method = RequestMethod.POST)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Representative added to course")
+    public void addRepresentative(
+            @PathVariable Long courseId,
+            @PathVariable Long studentId) {
+        courseService.addRepresentative(courseId, studentId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+            value  = "{courseId}/representative/{studentId}",
+            method = RequestMethod.DELETE)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Representative removed from course")
+    public void removeRepresentative(
+            @PathVariable Long courseId,
+            @PathVariable Long studentId) {
+        courseService.removeRepresentative(courseId, studentId);
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = { "{courseId}/add/subject/{subjectId}" }, method = RequestMethod.PUT)
+    @RequestMapping(
+            value = "{courseId}/subject/{subjectId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-    public void addSubject(@PathVariable Long courseId,
+    public void addSubject(
+            @PathVariable Long courseId,
             @PathVariable Long subjectId) {
         courseService.addSubject(courseId, subjectId);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    @RequestMapping(value = { "{courseId}/remove/subject/{subjectId}" }, method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
-    public void removeSubject(@PathVariable Long courseId,@PathVariable Long subjectId) {
+    @RequestMapping(
+            value  = "{courseId}/subject/{subjectId}",
+            method = RequestMethod.DELETE)
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Subject removed from course")
+    public void removeSubject(
+            @PathVariable Long courseId,
+            @PathVariable Long subjectId) {
         courseService.removeSubject(courseId, subjectId);
     }
-    
+
     @Override
     public GenericService<Course> getService() {
         return courseService;
     }
-    
+
     @Override
     public ListAdapter<Course> getList() {
         return courseList;
     }
-
 }

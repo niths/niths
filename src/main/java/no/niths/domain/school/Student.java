@@ -146,7 +146,7 @@ public class Student implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Subject> tutorInSubjects = new ArrayList<Subject>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
     @JoinTable(
             name               = "courses_representatives",
             joinColumns        = @JoinColumn(name = "representatives_id"),

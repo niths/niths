@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for games
  */
 @Controller
-@RequestMapping(AppNames.GAMES)
+@RequestMapping("hamess")
 public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 		implements GameController {
 
