@@ -36,11 +36,31 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
 
     private CourseList courseList = new CourseList();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Course getById(@PathVariable Long id) {
-        Course course = super.getById(id);
-        
-        return course;
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void create(@RequestBody Course domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void update(@RequestBody Course domain) {
+        super.update(domain);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void delete(@PathVariable long id) {
+        super.delete(id);
     }
 
     /**
@@ -80,38 +100,6 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void create(@RequestBody Course domain, HttpServletResponse res) {
-        super.create(domain, res);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void update(@RequestBody Course domain) {
-        super.update(domain);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void delete(@PathVariable long id) {
-        super.delete(id);
-    }
-
-    /**
-     * Adds a topic to a course
-     * 
-     * @param courseId
-     *            the id of the course
-     * @param subjectId
-     *            the id of the topic to be added
-     */
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
             value = "{courseId}/subject/{subjectId}",
             method = RequestMethod.POST)
@@ -122,6 +110,9 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
         courseService.addSubject(courseId, subjectId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(
             value  = "{courseId}/subject/{subjectId}",
