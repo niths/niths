@@ -23,7 +23,7 @@ public class QueryGenerator<T> {
 
 	private static final String START_TIME = "startTime";
 
-	private final String SPLITT = "&";
+	private final String SPLITT = ",";
 
 	private Class<T> persistentClass;
 

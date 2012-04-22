@@ -89,7 +89,7 @@ public class EventRepositoryTest {
 		List<Event> e = eventRepo.getEventsByTag("L");
 		assertEquals(2, e.size());
 
-		e = eventRepo.getEventsByTag("a&X");
+		e = eventRepo.getEventsByTag("a,X");
 		assertEquals(2, e.size());
 
 		e = eventRepo.getEventsByTag("a");
@@ -98,7 +98,7 @@ public class EventRepositoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetEventsBy5tags() {
-		eventRepo.getEventsByTag("L&c&d&4&a");
+		eventRepo.getEventsByTag("L,c,d,4,a");
 	}
 
 	@Test
