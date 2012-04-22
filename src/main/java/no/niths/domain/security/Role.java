@@ -101,12 +101,12 @@ public class Role implements Domain {
 	public boolean equals( final Object obj ){
 		if( this == obj )
 			return true;
-		if( obj == null )
+		if( obj == null)
 			return false;
 		if( this.getClass() != obj.getClass() )
 			return false;
 		final Role other = (Role) obj;
-		if(roleName.equals(other.roleName)){
+		if( roleName != null && roleName.equals(other.roleName)){
 			return true;
 		}
 		return false;

@@ -208,7 +208,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 	@Override
 	public void removeRole(Long studentId, Long roleId) {
 		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getRoles().remove(new Role(roleId)),
+		Role role = roleRepo.getById(roleId);
+		checkIfIsRemoved(student.getRoles().remove(role),
 				Role.class);
 	}
 
