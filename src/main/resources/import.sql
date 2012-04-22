@@ -156,6 +156,7 @@ INSERT INTO accessfields_accesspoints (accesspoint_id, accessfield_id) VALUES(19
 INSERT INTO lockers (id, locker_number) VALUES (1, 1);
 INSERT INTO lockers (id, locker_number) VALUES (2, 2);
 INSERT INTO lockers (id, locker_number) VALUES (3, 3);
+INSERT INTO lockers (id, locker_number) VALUES (4, 4);
 
 -- Students - Lockers (dummy data)
 INSERT INTO students_lockers (locker_id, student_id) VALUES (1, 1);

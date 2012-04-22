@@ -328,7 +328,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = { "{studentId}/locker/{lockerId}}" },
+            value  = { "{studentId}/locker/{lockerId}" },
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Locker add to student")
     public void addLocker(
