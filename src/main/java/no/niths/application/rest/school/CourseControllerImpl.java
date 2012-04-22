@@ -122,26 +122,26 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
         courseService.addSubject(courseId, subjectId);
     }
 
-
     @Override
     @RequestMapping(
             value  = "{courseId}/subject/{subjectId}",
             method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK, reason = "Subject added to course")
+    @ResponseStatus(
+            value  = HttpStatus.OK,
+            reason = "Subject removed from course")
     public void removeSubject(
             @PathVariable Long courseId,
             @PathVariable Long subjectId) {
         courseService.removeSubject(courseId, subjectId);
     }
-    
+
     @Override
     public GenericService<Course> getService() {
         return courseService;
     }
-    
+
     @Override
     public ListAdapter<Course> getList() {
         return courseList;
     }
-
 }
