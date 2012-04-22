@@ -24,16 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class LockerRepositoryTest {
 
     private final Long ID = 1L;
-    private final String lockerName = "001"; 
-
-    private int size;
 
     @Autowired
     private LockerRepository repo;
 
     @Before
     public void setUp() {
-        size = repo.getAll(null).size();
+        
     }
 
     @After

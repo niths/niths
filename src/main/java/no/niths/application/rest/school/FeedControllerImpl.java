@@ -50,7 +50,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	}
 
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(value = "{feedId}/add/location/{locationId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_ADDED)
 	public void addLocation(@PathVariable Long feedId,
@@ -62,7 +62,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(value = "{feedId}/remove/location", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_REMOVED)
 	public void removeLocation(@PathVariable Long feedId) {
@@ -73,7 +73,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(value = "{feedId}/add/student/{studentId}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "STUDENT_ADDED_TO_FEED")
 	public void addStudent(@PathVariable Long feedId,
@@ -85,7 +85,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(value = "{feedId}/remove/student", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = STUDENT_REMOVED)
 	public void removeStudent(@PathVariable Long feedId) {

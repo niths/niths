@@ -198,7 +198,6 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * {@inheritDoc}
      */
     public void renewList(List<T> list) {
-    	System.err.println(list.size());
         getList().clear();
         getList().addAll(list);
         getList().setData(getList()); // Used for XML marshaling
@@ -255,7 +254,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     public abstract GenericService<T> getService();
 
     /**
-     * Adapter for xml presentation of a list
+     * Adapter for XML presentation of a list
      * 
      * Must override in own implementation
      * 
@@ -267,7 +266,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * }
      * </pre>
      * 
-     * @return Arraylist of a given type
+     * @return Array list of a given type
      */
     public abstract ListAdapter<T> getList();
 

@@ -12,7 +12,6 @@ import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
-import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.school.interfaces.CourseRepository;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
@@ -39,9 +38,6 @@ public class StudentRepositoryTest {
 
 	@Autowired
 	private CommitteeRepositorty comRepo;
-	
-	@Autowired
-	private RoleRepository roleRepo;
 
 	/**
 	 * Testing of basic CRUD functions

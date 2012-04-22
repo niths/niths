@@ -23,11 +23,9 @@ import no.niths.services.school.interfaces.CourseService;
 import no.niths.services.school.interfaces.FeedService;
 import no.niths.services.school.interfaces.StudentService;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 

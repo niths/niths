@@ -157,21 +157,11 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	@RequestMapping(value = "tags-and-dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<Event> getEventsBetweenDatesAndByTag(TagProvider tag) {
-		
-		System.err.println(tag);
-		System.err.println("endtim" + tag.getEndTime() != null);
-		System.err.println("start time" +tag.getStartTime());
-		System.err.println("endtim" +tag.getEndTime());
-		System.out.println("start time" +tag.getStartTime() != null);
-		
 		if(tag.getEndTime() != null){
 			renewList(service.getEventsBetweenDatesAndByTag(tag+"",tag.getStartTimeCal(), tag.getEndTimeCal()));
-			System.err.println(tag.getStartTimeCal().getTime() + "-- " + tag.getEndTimeCal().getTime());
 		}else if(tag.getStartTime() != null){
 			renewList(service.getEventsBetweenDatesAndByTag(tag+" ",tag.getStartTimeCal(), null));
-			System.err.println("hello" +tag.getStartTimeCal().getTime() + " " +eventList.size());
 		}else{
-			System.err.println("her");
 			eventList.clear();
 			renewList(eventList);
 		}
