@@ -78,7 +78,6 @@ public class Student implements Domain {
     private String lastName;
 
     @Column
-    @Pattern(regexp = "m|f")
     @XmlJavaTypeAdapter(value = XmlCharAdapter.class)
     private Character gender;
 
