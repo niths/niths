@@ -33,18 +33,6 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
     @Autowired
 	private RoomRepository roomRepository;
 
-	public Subject getById(long id) {
-		Subject s = subjectRepository.getById(id);
-		if(s!= null){
-			s.getTutors().size();
-			if(s.getRoom() != null){
-				s.getRoom().getRoomName();
-			}
-		}
-		
-		return s;
-	}
-
 	@Override
 	public GenericRepository<Subject> getRepository() {
 		return subjectRepository;

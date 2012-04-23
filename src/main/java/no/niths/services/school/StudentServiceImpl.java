@@ -239,6 +239,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 				Loan.class);
 	}
 
+	/**
+	 * method for admin panel
+	 */
 	@Override
 	public void updateRoles(Long studentId, Long[] roleIds) {
 		Student student = validate(repo.getById(studentId), Student.class);

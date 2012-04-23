@@ -124,6 +124,7 @@ public class Student implements Domain {
             inverseJoinColumns = @JoinColumn(name = "roles_id"),
             uniqueConstraints  = @UniqueConstraint(
                     columnNames = {"students_id", "roles_id" }))
+    @Cascade(CascadeType.ALL)
     private List<Role> roles = new ArrayList<Role>();
 
     @JsonIgnore
