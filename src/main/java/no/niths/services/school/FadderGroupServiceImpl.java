@@ -97,7 +97,7 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 	public void addChild(Long groupId, Long studentId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
 				FadderGroup.class);
-		checkIfObjectIsInCollection(group.getLeaders(), studentId,
+		checkIfObjectIsInCollection(group.getFadderChildren(), studentId,
 				Student.class);
 
 		Student child = studentRepository.getById(studentId);
