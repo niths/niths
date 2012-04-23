@@ -74,7 +74,7 @@ public class AccessFieldControllerImpl extends
 
 	@Override
 	@ApiEvent(title = "Access point added to access field")
-	@RequestMapping(value = "{afId}/add/accesspoint/{apId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{afId}/accesspoint/{apId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "AcessPoint Added")
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void addAccessPoint(@PathVariable long afId, @PathVariable long apId) {
@@ -83,7 +83,7 @@ public class AccessFieldControllerImpl extends
 
 	@Override
 	@ApiEvent(title = "Access point removed from access field")
-	@RequestMapping(value = "{afId}/remove/accesspoint", method = RequestMethod.PUT)
+	@RequestMapping(value = "{afId}/accesspoint", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "AcessPoint Removed")
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void removeAccessPoint(@PathVariable long afId) {
