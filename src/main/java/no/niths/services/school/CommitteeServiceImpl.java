@@ -1,5 +1,7 @@
 package no.niths.services.school;
 
+import java.util.List;
+
 import no.niths.application.rest.helper.Status;
 import no.niths.common.helpers.MessageProvider;
 import no.niths.common.helpers.ValidationHelper;
@@ -7,7 +9,9 @@ import no.niths.domain.school.Committee;
 import no.niths.domain.school.Event;
 import no.niths.domain.school.Feed;
 import no.niths.domain.school.Student;
+import no.niths.domain.security.Role;
 import no.niths.infrastructure.interfaces.GenericRepository;
+import no.niths.infrastructure.interfaces.RoleRepository;
 import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.school.interfaces.EventRepository;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
@@ -34,6 +38,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 	@Autowired
 	private StudentRepository studentRepo;
 
+	@Autowired
+	private RoleRepository roleRepo;
+	
 	@Override
 	public GenericRepository<Committee> getRepository() {
 		return repo;
@@ -49,6 +56,14 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		Student student = studentRepo.getById(studentId);
 		ValidationHelper.isObjectNull(student, Student.class);
 
+		Role r = new Role();
+		r.setRoleName("ROLE_COMMITTEE_LEADER");
+		List<Role> roles = roleRepo.getAll(r);
+		if (roles.size() > 0) {
+			student.getRoles().add(roles.get(0));
+		}
+		
+		
 		committee.getLeaders().add(student);
 		logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
 	}
@@ -57,8 +72,17 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 	public void removeLeader(Long committeeId, Long studentId) {
 		Committee committee = validate(repo.getById(committeeId),
 				Committee.class);
-		checkIfIsRemoved(committee.getLeaders().remove(new Student(studentId)),
+		Student student = studentRepo.getById(studentId);
+
+		checkIfIsRemoved(committee.getLeaders().remove(student),
 				Student.class);
+				
+		for(Role r:student.getRoles()){
+			if(r.getRoleName().equals("ROLE_COMMITTEE_LEADER")){
+				student.getRoles().remove(r);
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -83,4 +107,5 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		checkIfIsRemoved(committee.getEvents().remove(new Event(eventId)),
 				Event.class);
 	}
+
 }

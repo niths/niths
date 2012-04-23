@@ -1,7 +1,5 @@
 package no.niths.application.rest.school;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
@@ -94,29 +92,6 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     @ResponseStatus(value = HttpStatus.OK, reason = "Room removed from subject")
     public void removeRoom(@PathVariable Long subjectId) {
         subjectService.removeRoom(subjectId);
-    }
-
-    @Override
-    public ArrayList<Subject> getAll(Subject domain) {
-         super.getAll(domain);
-        clearRelations();
-        return subjectList;
-    }
-
-    @Override
-    public ArrayList<Subject> getAll(Subject domain,
-            @PathVariable int firstResult, @PathVariable int maxResults) {
-         super.getAll(domain, firstResult,
-                maxResults);
-        clearRelations();
-        return subjectList;
-    }
-
-    private void clearRelations() {
-        for (int i = 0; i < subjectList.size(); i++) {
-            subjectList.get(i).setTutors(null);
-            subjectList.get(i).setRoom(null);
-        }
     }
 
     /**

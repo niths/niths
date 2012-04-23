@@ -12,5 +12,4 @@ public interface CommitteeService extends GenericService<Committee> {
 	void addEvent(Long committeeId, Long eventId);
 
 	void removeEvent(Long committeeId, Long eventId);
-	
 }

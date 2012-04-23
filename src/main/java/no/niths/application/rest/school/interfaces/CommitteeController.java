@@ -43,5 +43,4 @@ public interface CommitteeController extends GenericRESTController<Committee> {
 	 * @param eventId if of the event
 	 */
 	public void removeEvent(Long committeeId, Long eventId);
-
 }

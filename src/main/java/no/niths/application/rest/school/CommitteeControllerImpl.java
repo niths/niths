@@ -82,7 +82,7 @@ public class CommitteeControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/add/leader/{studentId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
 	public void addLeader(@PathVariable Long committeeId,
 			@PathVariable Long studentId) {
@@ -99,7 +99,7 @@ public class CommitteeControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/remove/leader/{studentId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
 	public void removeLeader(@PathVariable Long committeeId,
 			@PathVariable Long studentId) {
@@ -111,7 +111,7 @@ public class CommitteeControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/add/event/{eventId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Event added")
 	public void addEvent(@PathVariable Long committeeId,
 			@PathVariable Long eventId) {
@@ -123,7 +123,7 @@ public class CommitteeControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/remove/event/{eventId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
 	public void removeEvent(@PathVariable Long committeeId,
 			@PathVariable Long eventId) {
@@ -145,4 +145,5 @@ public class CommitteeControllerImpl extends
 	public ListAdapter<Committee> getList() {
 		return committeeList;
 	}
+
 }

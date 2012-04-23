@@ -83,7 +83,6 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		checkIfIsRemoved(group.getLeaders().remove(student),
 				Student.class);
 		
-		System.err.println("hello");
 		// remove role
 		for(Role r:student.getRoles()){
 			if(r.getRoleName().equals("ROLE_FADDER_LEADER")){
