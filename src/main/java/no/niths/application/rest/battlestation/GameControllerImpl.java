@@ -34,7 +34,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{gameId}/add/console/{consoleId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{gameId}/console/{consoleId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
 	public void addConsole(@PathVariable Long gameId,
 			@PathVariable Long consoleId) {
@@ -45,7 +45,7 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{gameId}/remove/console", method = RequestMethod.PUT)
+	@RequestMapping(value = "{gameId}/console", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
 	public void removeConsole(@PathVariable Long gameId) {
 		gameService.removeConsole(gameId);

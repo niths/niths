@@ -44,7 +44,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{loanId}/add/console/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
         loanService.addConsole(loanId, consoleId);
@@ -54,7 +54,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{loanId}/remove/console/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
     public void removeConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
         loanService.removeConsole(loanId, consoleId);
@@ -64,7 +64,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{loanId}/add/student/{studentId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{loanId}/student/{studentId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student Added")
     public void addStudent(@PathVariable Long loanId, @PathVariable Long studentId) {
         loanService.addStudent(loanId, studentId);
@@ -74,7 +74,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{loanId}/remove/student", method = RequestMethod.PUT)
+    @RequestMapping(value = "{loanId}/student", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student Removed")
     public void removeStudent(@PathVariable Long loanId) {
         loanService.removeStudent(loanId);

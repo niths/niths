@@ -43,7 +43,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{roomId}/add/accessfield/{accessFieldId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{roomId}/accessfield/{accessFieldId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "AcessField added")
     public void addAccessField(@PathVariable long roomId,
             @PathVariable long accessFieldId) {    
@@ -54,7 +54,7 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
      * {@inheritDoc}
      */
     @Override
-    @RequestMapping(value = "{roomId}/remove/accessfield/{accessFieldId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{roomId}/accessfield/{accessFieldId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Access Field Removed")
     public void removeAccessField(@PathVariable long roomId,
             @PathVariable long accessFieldId) {
