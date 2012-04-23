@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.MiscConstants;
+import no.niths.common.constants.MiscConstants;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;

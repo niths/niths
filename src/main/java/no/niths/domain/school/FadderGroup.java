@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.MiscConstants;
+import no.niths.common.constants.MiscConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -32,7 +32,7 @@ import org.hibernate.annotations.CascadeType;
  *
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "faddergroup")
 @Entity
 @Table(name = MiscConstants.FADDER_GROUPS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)

@@ -12,9 +12,9 @@ import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.EventController;
-import no.niths.common.AppNames;
-import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
+import no.niths.common.constants.AppNames;
+import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.school.Event;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.EventsService;
@@ -113,8 +113,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/add/location/{locId}",
-	        method = RequestMethod.PUT)
+	        value  = "{eventId}/location/{locId}",
+	        method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
 	public void addLocation(
 	        @PathVariable Long eventId,
@@ -128,8 +128,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/remove/location/{locId}",
-	        method = RequestMethod.PUT)
+	        value  = "{eventId}/location/{locId}",
+	        method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
 	public void removeLocation(
 	        @PathVariable Long eventId,
@@ -149,6 +149,21 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
 		}else{
 			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
+		}
+		return eventList;
+	}
+
+	@Override
+	@RequestMapping(value = "tags-and-dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Event> getEventsBetweenDatesAndByTag(TagProvider tag) {
+		if(tag.getEndTime() != null){
+			renewList(service.getEventsBetweenDatesAndByTag(tag+"",tag.getStartTimeCal(), tag.getEndTimeCal()));
+		}else if(tag.getStartTime() != null){
+			renewList(service.getEventsBetweenDatesAndByTag(tag+" ",tag.getStartTimeCal(), null));
+		}else{
+			eventList.clear();
+			renewList(eventList);
 		}
 		return eventList;
 	}

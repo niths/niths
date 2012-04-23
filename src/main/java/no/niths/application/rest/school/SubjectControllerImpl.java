@@ -8,8 +8,8 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.SubjectList;
 import no.niths.application.rest.school.interfaces.SubjectController;
-import no.niths.common.AppNames;
-import no.niths.common.SecurityConstants;
+import no.niths.common.constants.AppNames;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.school.Subject;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.SubjectService;
@@ -43,10 +43,13 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{subjectId}/add/tutor/{studentId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{subjectId}/tutor/{studentId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor added to subject")
-    public void addTutor(@PathVariable Long subjectId,
-                         @PathVariable Long studentId) {
+    public void addTutor(
+            @PathVariable Long subjectId,
+            @PathVariable Long studentId) {
         subjectService.addTutor(subjectId, studentId);
     }
 
@@ -55,10 +58,13 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{subjectId}/remove/tutor/{studentId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{subjectId}/tutor/{studentId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Tutor removed to subject")
-    public void removeTutor(@PathVariable Long subjectId,
-                            @PathVariable Long studentId) {
+    public void removeTutor(
+            @PathVariable Long subjectId,
+            @PathVariable Long studentId) {
         subjectService.removeTutor(subjectId, studentId);
     }
 
@@ -67,10 +73,13 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "{subjectId}/add/room/{roomId}", method = RequestMethod.PUT)
+    @RequestMapping(
+            value  = "{subjectId}/room/{roomId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room added to subject")
-    public void addRoom(@PathVariable Long subjectId,
-                         @PathVariable Long roomId) {
+    public void addRoom(
+            @PathVariable Long subjectId,
+            @PathVariable Long roomId) {
         subjectService.addRoom(subjectId, roomId);
     }
 
@@ -80,8 +89,8 @@ public class SubjectControllerImpl extends AbstractRESTControllerImpl<Subject>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{subjectId}/remove/room",
-            method = RequestMethod.PUT)
+            value  = "{subjectId}/room",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Room removed from subject")
     public void removeRoom(@PathVariable Long subjectId) {
         subjectService.removeRoom(subjectId);

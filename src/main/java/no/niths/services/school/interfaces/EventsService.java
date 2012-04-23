@@ -15,5 +15,8 @@ public interface EventsService extends GenericService<Event> {
 	void addLocation(Long eventId, Long locId);
 	
 	void removeLocation(Long eventId, Long locId);
+	
+	List<Event> getEventsBetweenDatesAndByTag(String tag,
+			GregorianCalendar startTime, GregorianCalendar endTime);
 
 }

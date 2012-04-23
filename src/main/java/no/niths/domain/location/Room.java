@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Exam;
 import no.niths.domain.school.Subject;
@@ -82,10 +82,14 @@ public class Room implements Domain {
     }
 
     public Room() {
-        this(null);
+        this((String) null);
         setSubjects(null);
         setExams(null);
         setAccessFields(null);
+    }
+
+    public Room(Long id) {
+        setId(id);
     }
 
     public void setId(Long id) {
@@ -141,6 +145,6 @@ public class Room implements Domain {
             return false;
 
         Room room = (Room) obj;
-        return room.getId() == id && room.getRoomName().equals(roomName);
+        return room.getId() == id || (room.getRoomName().equals(roomName) && room.getId() == id);
     }
 }

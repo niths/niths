@@ -11,7 +11,6 @@ import no.niths.domain.school.Student;
 import no.niths.infrastructure.school.interfaces.FadderGroupRepository;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

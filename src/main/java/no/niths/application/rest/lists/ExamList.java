@@ -1,6 +1,6 @@
 package no.niths.application.rest.lists;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.school.Exam;
 
 import javax.xml.bind.annotation.XmlElement;

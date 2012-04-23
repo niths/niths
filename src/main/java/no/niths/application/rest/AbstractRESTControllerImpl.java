@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.LazyFixer;
-import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
+import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.LazyFixer;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.services.interfaces.GenericService;
 
 import org.hibernate.TransientObjectException;
@@ -254,7 +254,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     public abstract GenericService<T> getService();
 
     /**
-     * Adapter for xml presentation of a list
+     * Adapter for XML presentation of a list
      * 
      * Must override in own implementation
      * 
@@ -266,7 +266,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * }
      * </pre>
      * 
-     * @return Arraylist of a given type
+     * @return Array list of a given type
      */
     public abstract ListAdapter<T> getList();
 

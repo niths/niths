@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
-import no.niths.common.SecurityConstants;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.services.auth.interfaces.StringCryptationService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 

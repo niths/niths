@@ -4,19 +4,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-
-import java.util.GregorianCalendar;
-
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
 import no.niths.application.rest.battlestation.interfaces.GameController;
-import no.niths.application.rest.battlestation.interfaces.LoanController;
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.battlestation.Console;
 import no.niths.domain.battlestation.Game;
-import no.niths.domain.battlestation.Loan;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,10 +32,7 @@ public class GameControllerTest {
 
     @Autowired
     private ConsoleController consoleController;
-
-    @Autowired
-    private LoanController loanController;
-
+   
     @Before
     public void setUp() {
         res = new MockHttpServletResponse();

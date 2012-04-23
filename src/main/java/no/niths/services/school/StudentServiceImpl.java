@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.helper.Status;
-import no.niths.common.LazyFixer;
-import no.niths.common.MessageProvider;
-import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
+import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.LazyFixer;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
@@ -208,7 +208,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 	@Override
 	public void removeRole(Long studentId, Long roleId) {
 		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getRoles().remove(new Role(roleId)),
+		Role role = roleRepo.getById(roleId);
+		checkIfIsRemoved(student.getRoles().remove(role),
 				Role.class);
 	}
 

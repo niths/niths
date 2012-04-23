@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.web.interfaces.DeveloperController;
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.services.auth.interfaces.KeyGeneratorService;

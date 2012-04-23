@@ -144,7 +144,7 @@ public class EventControllerImplTest {
 
 	@Test
 	public void testGetEventsByTwoTag() {
-		List<Event> events = controller.getEventsByTag(new TagProvider("Beer& Party"));
+		List<Event> events = controller.getEventsByTag(new TagProvider("Beer,Party"));
 		assertEquals(1, events.size());
 	}
 	

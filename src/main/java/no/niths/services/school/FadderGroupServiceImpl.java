@@ -1,11 +1,10 @@
 package no.niths.services.school;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.common.ValidationHelper;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.school.FadderGroup;
 import no.niths.domain.school.Student;
 import no.niths.infrastructure.interfaces.GenericRepository;
@@ -47,86 +46,49 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 
     @Override
     public void addLeader(Long groupId, Long studentId) {
-        FadderGroup group = super.getById(groupId);
-        ValidationHelper.isObjectNull(group, FadderGroup.class);
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
+        checkIfObjectIsInCollection(group.getLeaders(), studentId, Student.class);
 
         Student leader = studentRepository.getById(studentId);
         ValidationHelper.isObjectNull(leader, Student.class);
 
-        if (!group.getLeaders().contains(leader)) {
-            group.getLeaders().add(leader);
-            logger.debug("Fadder group updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Leader is already added to the fadder group");
-        }
+        group.getLeaders().add(leader);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeLeader(Long groupId, Long studentId) {
-        FadderGroup group = super.getById(groupId);
-        ValidationHelper.isObjectNull(group, FadderGroup.class);
-
-        Student leader = studentRepository.getById(studentId);
-        ValidationHelper.isObjectNull(leader, Student.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < group.getLeaders().size(); i++) {
-            if (group.getLeaders().get(i).getId() == studentId) {
-                group.getLeaders().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Leader removed from fadder group");
-        } else {
-            logger.debug("Leader not found");
-            throw new ObjectNotFoundException("Leader not found in fadder group");
-        }
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
+        checkIfIsRemoved(group.getLeaders().remove(new Student(studentId)),
+                Student.class);
     }
 
     @Override
     public void addChild(Long groupId, Long studentId) {
-        FadderGroup group = super.getById(groupId);
-        ValidationHelper.isObjectNull(group, FadderGroup.class);
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
+        checkIfObjectIsInCollection(group.getLeaders(), studentId, Student.class);
 
         Student child = studentRepository.getById(studentId);
         ValidationHelper.isObjectNull(child, Student.class);
 
-        if (!group.getFadderChildren().contains(child)) {
-            group.getFadderChildren().add(child);
-            logger.debug("Fadder group updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Child is already added to the fadder group");
-        }
+        group.getFadderChildren().add(child);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
     }
+    
+	@Override
+	public void addChildren(Long groupId, Long[] studentIds) {
+		for (Long studentId : studentIds) {
+            addChild(groupId, studentId);
+        }
+	}
 
     @Override
     public void removeChild(Long groupId, Long studentId) {
-        FadderGroup group = super.getById(groupId);
-        ValidationHelper.isObjectNull(group, FadderGroup.class);
-
-        Student child = studentRepository.getById(studentId);
-        ValidationHelper.isObjectNull(child, Student.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < group.getFadderChildren().size(); i++) {
-            if (group.getFadderChildren().get(i).getId() == studentId) {
-                group.getFadderChildren().remove(i);
-                isRemoved = true;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Child removed from fadder group");
-        } else {
-            logger.debug("Child not found");
-            throw new ObjectNotFoundException("Child not found in fadder group");
-        }
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
+        checkIfIsRemoved(group.getFadderChildren().remove(new Student(studentId)),
+                Student.class);
     }
 
     @Override
@@ -138,28 +100,30 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 
     @Override
     public void removeAllChildren(Long groupId) {
-        FadderGroup group = super.getById(groupId);
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
 
-        if(!group.getFadderChildren().isEmpty()){
-            group.setFadderChildren(null);
-        }else{
-            logger.debug("List was empty no need for update");
-            throw new ObjectNotFoundException(
-                    "List was empty no need for update");
+        boolean isRemoved = false;
+
+        if (group.getFadderChildren() != null) {
+            group.getFadderChildren().clear();
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Student.class);
     }
 
     @Override
     public void removeAllLeaders(Long groupId) {
-        FadderGroup group = super.getById(groupId);
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId), FadderGroup.class);
 
-        if(!group.getLeaders().isEmpty()){
-            group.setLeaders(null);
-        } else {
-            logger.debug("List was empty no need for update");
-            throw new ObjectNotFoundException(
-                    "List was empty no need for update");
+        boolean isRemoved = false;
+
+        if (group.getLeaders() != null) {
+            group.getLeaders().clear();
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Student.class);
     }
     
     /**
@@ -170,4 +134,6 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
     public List<Student> getStudentsNotInAGroup(){
     	return fadderGroupRepository.getStudentsNotInAGroup();
     }
+
+
 }

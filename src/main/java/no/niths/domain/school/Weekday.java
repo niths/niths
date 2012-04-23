@@ -1,0 +1,5 @@
+package no.niths.domain.school;
+
+public enum Weekday {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}

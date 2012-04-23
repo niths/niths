@@ -3,16 +3,12 @@ package no.niths.services.location;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
-import no.niths.common.LazyFixer;
-import no.niths.common.MessageProvider;
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.LazyFixer;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.signaling.AccessField;
-import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.location.interfaces.RoomRepository;
 import no.niths.infrastructure.signaling.interfaces.AccessFieldRepository;
@@ -56,46 +52,22 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
 
     @Override
     public void addAccessField(long roomId, long accessFieldId) {
-        Room room = repo.getById(roomId);
-        ValidationHelper.isObjectNull(room, Room.class);
-        room.getAccessFields().size();
+        Room room = validate(repo.getById(roomId), Room.class);
+        checkIfObjectIsInCollection(room.getAccessFields(), accessFieldId, AccessField.class);
 
-        for (AccessField a : room.getAccessFields()) {
-            if (a.getId() == accessFieldId) {
-                throw new ObjectInCollectionException(
-                        MessageProvider.buildErrorMsg(AccessField.class,
-                                Error.OBJECT_IN_COLLECTION));
-            }
-        }
+        AccessField accessField = afRepo.getById(accessFieldId);
+        ValidationHelper.isObjectNull(accessField, AccessField.class);
 
-        AccessField af = afRepo.getById(accessFieldId);
-        ValidationHelper.isObjectNull(af, AccessField.class);
-
-        room.getAccessFields().add(af);
-        logger.debug(MessageProvider.buildStatusMsg(Room.class, Status.UPDATED));
+        room.getAccessFields().add(accessField);
+        logger.debug(MessageProvider.buildStatusMsg(AccessField.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeAccessField(long roomId, long accessFieldId) {
-        Room room = getById(roomId);
-        ValidationHelper.isObjectNull(room, Room.class);
-
-        room.getAccessFields().size();
-
-        boolean isRemoved = false;
-        for (AccessField af: room.getAccessFields()) {
-            if (af.getId() == accessFieldId) {
-                room.getAccessFields().remove(af);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (!isRemoved) {
-            final String message = "Access field not found";
-            logger.error(message);
-            throw new ObjectNotFoundException(message);
-        }
+        Room room = validate(repo.getById(roomId), Room.class);
+        checkIfIsRemoved(room.getAccessFields().remove(new AccessField(accessFieldId)),
+                AccessField.class);
     }
 
     @Override

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -71,7 +71,7 @@ public class Course implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
     
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
     @JoinTable(
             name               = "courses_representatives",
             joinColumns        = @JoinColumn(name = "courses_id"),

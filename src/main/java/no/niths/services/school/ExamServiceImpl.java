@@ -1,8 +1,8 @@
 package no.niths.services.school;
 
-import no.niths.application.rest.exception.ObjectInCollectionException;
-import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.common.ValidationHelper;
+import no.niths.application.rest.helper.Status;
+import no.niths.common.helpers.MessageProvider;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.location.Room;
 import no.niths.domain.school.Exam;
 import no.niths.domain.school.Subject;
@@ -42,70 +42,49 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
 
     @Override
     public void addRoom(Long examId, Long roomId) {
-        Exam exam = super.getById(examId);
-        ValidationHelper.isObjectNull(exam, Exam.class);
+        Exam exam = validate(examRepository.getById(examId), Exam.class);
+        checkIfObjectIsInCollection(exam.getRooms(), roomId, Room.class);
 
         Room room = roomRepository.getById(roomId);
         ValidationHelper.isObjectNull(room, Room.class);
 
-        if (!exam.getRooms().contains(room)) {
-            exam.getRooms().add(room);
-            logger.debug("Exam updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Room is already added to the exam");
-        }
+        exam.getRooms().add(room);
+        logger.debug(MessageProvider.buildStatusMsg(Room.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeRoom(Long examId, Long roomId) {
-        Exam exam = super.getById(examId);
-        ValidationHelper.isObjectNull(exam, Exam.class);
-
-        boolean isRemoved = false;
-
-        for (int i = 0; i < exam.getRooms().size(); i++) {
-            if (exam.getRooms().get(i).getId() == roomId) {
-                exam.getRooms().remove(i);
-                isRemoved = true;
-                break;
-            }
-        }
-
-        if (isRemoved) {
-            logger.debug("Room removed from exam " + exam.getName());
-        } else {
-            throw new ObjectNotFoundException("Room not found in exam");
-        }
+        Exam exam = validate(examRepository.getById(examId),
+                Exam.class);
+        checkIfIsRemoved(exam.getRooms().remove(new Room(roomId)),
+                Room.class);
     }
 
     @Override
     public void addSubject(Long examId, Long subjectId) {
-        Exam exam = super.getById(examId);
-        ValidationHelper.isObjectNull(exam, Exam.class);
+        Exam exam = validate(examRepository.getById(examId), Exam.class);
+        checkIfObjectExists(exam.getSubject(), subjectId, Subject.class);
 
         Subject subject = subjectRepository.getById(subjectId);
         ValidationHelper.isObjectNull(subject, Subject.class);
 
-        if (exam.getSubject() == null) {
-            exam.setSubject(subject);
-            logger.debug("Exam updated");
-        } else {
-            throw new ObjectInCollectionException(
-                    "Exam already has a subject");
-        }
+        exam.setSubject(subject);
+        logger.debug(MessageProvider.buildStatusMsg(Subject.class,
+                Status.UPDATED));
     }
 
     @Override
     public void removeSubject(Long examId) {
-        Exam exam = super.getById(examId);
-        ValidationHelper.isObjectNull(exam, Exam.class);
+        Exam exam = validate(examRepository.getById(examId), Exam.class);
+
+        boolean isRemoved = false;
 
         if (exam.getSubject() != null) {
             exam.setSubject(null);
-        } else {
-            logger.debug("Subject not found");
-            throw new ObjectNotFoundException("Subject not found in exam");
+            isRemoved = true;
         }
+
+        checkIfIsRemoved(isRemoved, Subject.class);
     }
 }

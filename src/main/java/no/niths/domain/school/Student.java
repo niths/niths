@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonDateDeserializerAdapter;
 import no.niths.domain.adapter.JsonDateSerializerAdapter;
@@ -146,7 +146,7 @@ public class Student implements Domain {
     @Cascade(CascadeType.ALL)
     private List<Subject> tutorInSubjects = new ArrayList<Subject>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Course.class)
     @JoinTable(
             name               = "courses_representatives",
             joinColumns        = @JoinColumn(name = "representatives_id"),

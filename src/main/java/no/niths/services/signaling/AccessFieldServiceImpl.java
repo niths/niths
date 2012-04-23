@@ -1,6 +1,6 @@
 package no.niths.services.signaling;
 
-import no.niths.common.ValidationHelper;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.signaling.AccessField;
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.infrastructure.interfaces.GenericRepository;

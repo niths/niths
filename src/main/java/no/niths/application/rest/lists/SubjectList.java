@@ -4,7 +4,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.AppNames;
+import no.niths.common.constants.AppNames;
 import no.niths.domain.school.Subject;
 
 @XmlRootElement(name = AppNames.SUBJECTS)

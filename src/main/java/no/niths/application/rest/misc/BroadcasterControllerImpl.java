@@ -4,8 +4,8 @@ import java.io.EOFException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.common.MiscConstants;
-import no.niths.common.SecurityConstants;
+import no.niths.common.constants.MiscConstants;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.misc.Email;
 import no.niths.services.interfaces.MailSenderService;
 

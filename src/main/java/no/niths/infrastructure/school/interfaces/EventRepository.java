@@ -12,4 +12,6 @@ public interface EventRepository extends GenericRepository<Event> {
 	List<Event> getEventsByTag(String tag);
 	
 	List<Event> getEventsBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime);
+	
+	List<Event> getEventsBetweenDatesAndByTag(String tag,GregorianCalendar startTime, GregorianCalendar endTime);
 }

@@ -11,6 +11,7 @@ import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Subject;
+import no.niths.domain.school.Weekday;
 import no.niths.infrastructure.school.interfaces.CourseRepository;
 import no.niths.infrastructure.school.interfaces.SubjectRepository;
 
@@ -46,7 +47,7 @@ public class CourseRepositoryTest {
                 "Lær java",
                 "10:00",
                 "12:00");
-        pg111.setWeekday("Monday");
+        pg111.setWeekday(Weekday.MONDAY);
         subjectRepo.create(pg111);
 
         // Subject 2
@@ -56,7 +57,7 @@ public class CourseRepositoryTest {
                 "Lær java",
                 "12:00",
                 "14:00");
-        pg211.setWeekday("Monday");
+        pg211.setWeekday(Weekday.MONDAY);
         subjectRepo.create(pg211);
 
         // Add both to a Course

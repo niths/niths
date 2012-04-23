@@ -4,8 +4,8 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.FeedList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.FeedController;
-import no.niths.common.AppNames;
-import no.niths.common.SecurityConstants;
+import no.niths.common.constants.AppNames;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.school.Feed;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.FeedService;
@@ -67,6 +67,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 * {@inheritDoc}
 	 */
 	@Override
+
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = "{feedId}/location", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_REMOVED)

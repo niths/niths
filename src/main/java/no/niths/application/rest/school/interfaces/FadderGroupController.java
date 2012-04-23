@@ -95,4 +95,6 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
 	List<Student> getAllStudentsNotInAGroup();
 
+	void addChildren(Long groupId, Long[] studentIds);
+
 }

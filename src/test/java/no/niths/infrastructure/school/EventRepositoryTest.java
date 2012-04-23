@@ -19,7 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 @Transactional
@@ -80,7 +79,7 @@ public class EventRepositoryTest {
 		Event c2 = new Event("Halloween Fest", "Skummelt selskap", null, null);
 		Event c3 = new Event("Party", "Rock on brah", cal, null);
 
-		c1.setTags("Linux, FUDORA,a KROA");
+		c1.setTags("Linux, FUDORA,a KROA X");
 		c2.setTags("FadderUKA, Kroa");
 		c3.setTags("LAXa");
 		eventRepo.create(c1);
@@ -90,75 +89,82 @@ public class EventRepositoryTest {
 		List<Event> e = eventRepo.getEventsByTag("L");
 		assertEquals(2, e.size());
 
-		//
-		// e = eventRepo.getEventsByTag("Kroa&K");
-		// assertEquals(2, e.size());
+		e = eventRepo.getEventsByTag("a,X");
+		assertEquals(2, e.size());
 
 		e = eventRepo.getEventsByTag("a");
 		assertEquals(3, e.size());
 	}
-	
-	@Test 
-	public void testEventLocation(){
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetEventsBy5tags() {
+		eventRepo.getEventsByTag("L,c,d,4,a");
+	}
+
+	@Test
+	public void testEventLocation() {
 		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
 		Event event = new Event("LUG Party", "Linux", cal, null);
-		Location loc = new Location("Oslo",10.2304,90.2030);
+		Location loc = new Location("Oslo", 10.2304, 90.2030);
 		event.setLocation(loc);
-		
+
 		eventRepo.create(event);
 		Event temp = eventRepo.getAll(event).get(0);
-		assertEquals(event,temp);
-		
-		
+		assertEquals(event, temp);
+
 		assertEquals(loc, temp.getLocation());
-		
-		// update 
-		event.setEndTime(cal);		
+
+		// update
+		event.setEndTime(cal);
 		temp = eventRepo.getAll(event).get(0);
-		
+
 		assertEquals(event.getEndTime(), temp.getEndTime());
-	
+
 		assertEquals(loc, temp.getLocation());
 	}
-	
+
 	@Test
-	public void testGetEventsBetweenToDates(){
-		GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.APRIL, 10, 15, 10);
-		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 20);
-		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 21);
-		
+	public void testGetEventsBetweenToDates() {
+		GregorianCalendar startTime = new GregorianCalendar(2012,
+				Calendar.APRIL, 10, 15, 10);
+		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL,
+				15, 22, 20);
+		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL,
+				15, 22, 21);
+
 		Event event = new Event("LUG Party", "Linux", startTime, null);
 		Event event2 = new Event("LUG", "Linux", endDate, null);
-		Event event3 = new Event("KAG", "Linux", oldDate, null);
+		Event event3 = new Event("KAG", "sas", oldDate, null);
 		eventRepo.create(event);
 		eventRepo.create(event2);
 		eventRepo.create(event3);
-		
-		
-		List<Event> events = eventRepo.getEventsBetweenDates(startTime, endDate);
-		
+
+		List<Event> events = eventRepo
+				.getEventsBetweenDates(startTime, endDate);
 		assertEquals(2, events.size());
-	
+		startTime.set(2012, Calendar.APRIL, 9, 15, 10);
+
 	}
-	
-	
+
 	@Test
-	public void testGetEventsAfterADate(){
-		GregorianCalendar startTime = new GregorianCalendar(2012, Calendar.APRIL, 10, 15, 10);
-		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 20);
-		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL, 15, 22, 21);
-		
+	public void testGetEventsAfterADate() {
+		GregorianCalendar startTime = new GregorianCalendar(2012,
+				Calendar.APRIL, 10, 15, 10);
+		GregorianCalendar endDate = new GregorianCalendar(2012, Calendar.APRIL,
+				15, 22, 20);
+		GregorianCalendar oldDate = new GregorianCalendar(2012, Calendar.APRIL,
+				15, 22, 21);
+
 		Event event = new Event("LUG Party", "Linux", startTime, null);
 		Event event2 = new Event("LUG", "Linux", endDate, null);
 		Event event3 = new Event("KAG", "Linux", oldDate, null);
 		eventRepo.create(event);
 		eventRepo.create(event2);
 		eventRepo.create(event3);
-		
-		
+
 		List<Event> events = eventRepo.getEventsBetweenDates(startTime, null);
-		
+
 		assertEquals(3, events.size());
-	
+
 	}
 }

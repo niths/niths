@@ -12,9 +12,9 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.application.rest.school.interfaces.StudentController;
-import no.niths.common.AppNames;
-import no.niths.common.SecurityConstants;
-import no.niths.common.ValidationHelper;
+import no.niths.common.constants.AppNames;
+import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Student;
@@ -124,8 +124,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/add/course/{courseId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/course/{courseId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Added")
     public void addCourse(
             @PathVariable Long studentId,
@@ -139,8 +139,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/remove/course/{courseId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/course/{courseId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Course Removed")
     public void removeCourse(
             @PathVariable Long studentId,
@@ -154,8 +154,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/add/committee/{committeeId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/committee/{committeeId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Added")
     public void addCommittee(
             @PathVariable Long studentId,
@@ -169,8 +169,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/remove/committee/{committeeId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/committee/{committeeId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Committee Removed")
     public void removeCommittee(
             @PathVariable Long studentId,
@@ -184,8 +184,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/add/feed/{feedId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/feed/{feedId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Added")
     public void addFeed(
             @PathVariable Long studentId,
@@ -199,8 +199,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/remove/feed/{feedId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/feed/{feedId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Feed Removed")
     public void removeFeed(
             @PathVariable Long studentId,
@@ -214,8 +214,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/add/loan/{loanId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/loan/{loanId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
     public void addLoan(
             @PathVariable Long studentId,
@@ -229,8 +229,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{studentId}/remove/loan/{loanId}",
-            method = RequestMethod.PUT)
+            value  = "{studentId}/loan/{loanId}",
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
     public void removeLoan(
             @PathVariable Long studentId,
@@ -257,8 +257,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
-            value  = { "{studentId}/add/role/{roleId}" },
-            method = RequestMethod.PUT)
+            value  = { "{studentId}/role/{roleId}" },
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Role added")
     public void addRole(
             @PathVariable Long studentId,
@@ -273,8 +273,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
-            value  = { "{studentId}/remove/role/{roleId}" },
-            method = RequestMethod.PUT)
+            value  = { "{studentId}/role/{roleId}" },
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Role removed")
     public void removeRole(
             @PathVariable Long studentId,
@@ -285,8 +285,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
-            value  = { "{studentId}/remove/roles" },
-            method = RequestMethod.PUT)
+            value  = { "{studentId}/roles" },
+            method = RequestMethod.DELETE)
     @ResponseStatus(
             value  = HttpStatus.OK,
             reason = "Roles removed from student")
@@ -328,8 +328,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = { "{studentId}/add/locker/{lockerId}}" },
-            method = RequestMethod.PUT)
+            value  = { "{studentId}/locker/{lockerId}" },
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Locker add to student")
     public void addLocker(
             @PathVariable Long studentId,
@@ -343,8 +343,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = { "{studentId}/remove/locker/{lockerId}}" },
-            method = RequestMethod.PUT)
+            value  = { "{studentId}/locker/{lockerId}" },
+            method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Locker add to student")
     public void removeLocker(
             @PathVariable Long studentId,
