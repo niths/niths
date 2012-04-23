@@ -47,10 +47,10 @@ INSERT INTO courses_subjects VALUES(4,3);
 INSERT INTO courses_subjects VALUES(4,5);
 ---------------------------------------------------------------------
 --------------------------Students-----------------------------------
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Øyvind', 'Ødegård','1990-02-02','degyvi09@nith.no','M','super awesome','41549300',3);
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','super awesome','81549300',3);
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Bendik', 'Rostad', '2012-02-02','rosben09@nith.no','M','super awesome','81249300',3);
-INSERT INTO students (first_name, last_name, birthday,email,gender,description,phone_number,grade) VALUES('Liv', 'Kolås', '2012-02-02','tea@mail.com','F','super awesome','15492300',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Øyvind', 'Ødegård', '1990-09-30','degyvi09@nith.no','M','Snill','47309117',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','Snill','81549300',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Bendik', 'Rostad', '1983-03-29','rosben09@nith.no','M','Snill','971610680',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Liv', 'Kolås', '1987-03-02', 'kolliv@nith.com','F','Snill','92263169',3);
 ---------------------------------------------------------------------
 --------------------------Students_roles-----------------------------------
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 1);
