@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -66,6 +67,14 @@ public class Committee implements Domain {
 		joinColumns = @JoinColumn(name = "committees_id"), 
 		inverseJoinColumns = @JoinColumn(name = "students_id"))
     private List<Student> members = new ArrayList<Student>();
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name               = "feeds_committee",
+            joinColumns        = @JoinColumn(name = "committee_id"),
+            inverseJoinColumns = @JoinColumn(name = "feeds_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Feed> feeds = new ArrayList<Feed>();
     
     public Committee() {
         this(null, null,null);
@@ -161,5 +170,13 @@ public class Committee implements Domain {
 
 	public void setMembers(List<Student> members) {
 		this.members = members;
+	}
+
+	public List<Feed> getFeeds() {
+		return feeds;
+	}
+
+	public void setFeeds(List<Feed> feeds) {
+		this.feeds = feeds;
 	}
 }

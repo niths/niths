@@ -2,10 +2,12 @@ package no.niths.services.school;
 
 import no.niths.common.ValidationHelper;
 import no.niths.domain.location.Location;
+import no.niths.domain.school.Committee;
 import no.niths.domain.school.Feed;
 import no.niths.domain.school.Student;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.location.interfaces.LocationRepository;
+import no.niths.infrastructure.school.interfaces.CommitteeRepositorty;
 import no.niths.infrastructure.school.interfaces.FeedRepoistory;
 import no.niths.infrastructure.school.interfaces.StudentRepository;
 import no.niths.services.AbstractGenericService;
@@ -27,6 +29,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 	@Autowired
 	private StudentRepository studentRepo;
 
+	@Autowired
+	private CommitteeRepositorty committeeRepo;
+	
 	@Override
 	public GenericRepository<Feed> getRepository() {
 		return repo;
@@ -74,6 +79,29 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		}
 
 		checkIfIsRemoved(isRemoved, Student.class);
+	}
+
+	@Override
+	public void removeCommittee(Long feedId) {
+		Feed feed = validate(repo.getById(feedId), Feed.class);
+
+		boolean isRemoved = false;
+		if (feed.getCommittee() != null) {
+			isRemoved = true;
+			feed.setCommittee(null);
+		}
+
+		checkIfIsRemoved(isRemoved, Committee.class);
+		
+	}
+
+	@Override
+	public void addCommittee(Long feedId, Long committeeId) {
+		Feed feed = validate(repo.getById(feedId), Feed.class);
+		checkIfObjectExists(feed.getCommittee(), committeeId, Committee.class);
+		Committee committee = committeeRepo.getById(committeeId);
+		ValidationHelper.isObjectNull(committee, Committee.class);
+		feed.setCommittee(committee);
 	}
 
 }

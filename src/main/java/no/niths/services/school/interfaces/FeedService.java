@@ -13,4 +13,8 @@ public interface FeedService extends GenericService<Feed>{
 
 	void removeStudent(Long feedId);
 
+	void removeCommittee(Long feedId);
+
+	void addCommittee(Long feedId, Long committeeId);
+
 }

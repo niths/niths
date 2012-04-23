@@ -60,24 +60,27 @@ public class Feed implements Domain {
 	private Calendar published;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_location", 
-		joinColumns = @JoinColumn(name = "feeds_id"), 
-		inverseJoinColumns = @JoinColumn(name = "location_id"))
+	@JoinTable(name = "feeds_location", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	@Cascade(CascadeType.ALL)
 	private Location location;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_student", 
-		joinColumns = @JoinColumn(name = "feeds_id"), 
-		inverseJoinColumns = @JoinColumn(name = "student_id"))
+	@JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
 	@Cascade(CascadeType.ALL)
 	private Student student;
 
+	@JsonSerialize(as=Committee.class)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "feeds_committee", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "committee_id"))
+	@Cascade(CascadeType.ALL)
+	private Committee committee;
+
 	public Feed() {
-		this(null,null);
+		this(null, null);
 		setPublished(null);
 		setStudent(null);
 		setLocation(null);
+		setCommittee(null);
 	}
 
 	public Feed(String message) {
@@ -89,10 +92,11 @@ public class Feed implements Domain {
 		setId(feedId);
 	}
 
-	public Feed(Long feedId, String message){
+	public Feed(Long feedId, String message) {
 		setId(feedId);
 		setMessage(message);
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -109,7 +113,7 @@ public class Feed implements Domain {
 		this.message = message;
 	}
 
-	@JsonSerialize(as=Student.class)
+	@JsonSerialize(as = Student.class)
 	public Student getStudent() {
 		return student;
 	}
@@ -126,9 +130,9 @@ public class Feed implements Domain {
 		if (!(that instanceof Feed))
 			return false;
 
-		Feed feed = (Feed)that;
+		Feed feed = (Feed) that;
 
-		return (getId()==(feed.getId()));
+		return (getId() == (feed.getId()));
 	}
 
 	@Override
@@ -150,8 +154,16 @@ public class Feed implements Domain {
 		return published;
 	}
 
-	@JsonDeserialize(using=JsonCalendarDeserializerAdapter.class)
+	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
 	public void setPublished(Calendar published) {
 		this.published = published;
+	}
+
+	public Committee getCommittee() {
+		return committee;
+	}
+
+	public void setCommittee(Committee committee) {
+		this.committee = committee;
 	}
 }

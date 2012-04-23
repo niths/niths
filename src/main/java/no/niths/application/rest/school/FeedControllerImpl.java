@@ -27,7 +27,12 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	private static final String STUDENT_REMOVED = "Student removed";
 	private static final String LOCATION_ADDED = "Location Added";
 	private static final String LOCATION_REMOVED = "Location removed";
-
+	private static final String ADMIN_SR_AND_STUDENT_ID = SecurityConstants.ADMIN_AND_SR + " or " +
+            "(hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)";
+	private static final String COMMITTEE_ADDED = "Committe added";
+	private static final String COMMITTEE_REMOVED = "Committe added";
+	
+	
 	@Autowired
 	private FeedService service;
 
@@ -50,8 +55,8 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	}
 
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{feedId}/add/location/{locationId}", method = RequestMethod.PUT)
+	@PreAuthorize(ADMIN_SR_AND_STUDENT_ID)
+	@RequestMapping(value = "{feedId}/location/{locationId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_ADDED)
 	public void addLocation(@PathVariable Long feedId,
 			@PathVariable Long locationId) {
@@ -63,7 +68,7 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{feedId}/remove/location", method = RequestMethod.PUT)
+	@RequestMapping(value = "{feedId}/location", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = LOCATION_REMOVED)
 	public void removeLocation(@PathVariable Long feedId) {
 		service.removeLocation(feedId);
@@ -73,8 +78,8 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{feedId}/add/student/{studentId}", method = RequestMethod.PUT)
+	@PreAuthorize(ADMIN_SR_AND_STUDENT_ID)
+	@RequestMapping(value = "{feedId}/student/{studentId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "STUDENT_ADDED_TO_FEED")
 	public void addStudent(@PathVariable Long feedId,
 			@PathVariable Long studentId) {
@@ -86,9 +91,32 @@ public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{feedId}/remove/student", method = RequestMethod.PUT)
+	@RequestMapping(value = "{feedId}/student", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = STUDENT_REMOVED)
 	public void removeStudent(@PathVariable Long feedId) {
 		service.removeStudent(feedId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "{feedId}/committee/{committeeId}", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK, reason = COMMITTEE_ADDED)
+	public void addCommittee(@PathVariable Long feedId,@PathVariable Long committeeId) {
+		service.addCommittee(feedId, committeeId);		
+	}
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+	@RequestMapping(value = "{feedId}/committee", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = COMMITTEE_REMOVED)
+	public void removeCommittee(@PathVariable Long feedId) {
+		service.removeCommittee(feedId);
 	}
 }
