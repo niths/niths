@@ -346,12 +346,12 @@ INSERT INTO developers_applications(developers_id, applications_id) VALUES (5, 5
 INSERT INTO subjects_tutors VALUES (1,1);
 ---------------------------------------------------------------------
 --------------------------locations--------------------------------
-INSERT INTO locations (latitude, longitude, place) VALUES(59.911264, 10.760290, 'NITH');
-INSERT INTO locations (latitude, longitude, place) VALUES(59.9378, 10.7354, 'Nedre ullevål');
-INSERT INTO locations (latitude, longitude, place) VALUES(59.942022, 10.809506, 'Bjerke');
-INSERT INTO locations (latitude, longitude, place) VALUES(59.925200, 10.733449, 'Bislett Stadion');
-INSERT INTO locations (latitude, longitude, place) VALUES(59.941234, 10.724695, 'Blindern');
-INSERT INTO locations (latitude, longitude, place) VALUES(59.871351, 10.761897, 'Kaninøya');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(1, 59.911264, 10.760290, 'NITH');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(2, 59.9378, 10.7354, 'Nedre ullevål');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(3, 59.942022, 10.809506, 'Bjerke');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(4, 59.925200, 10.733449, 'Bislett Stadion');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(5, 59.941234, 10.724695, 'Blindern');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(6, 59.871351, 10.761897, 'Kaninøya');
 
 ---------------------------------------------------------------------
 --------------------------events_location--------------------------------
