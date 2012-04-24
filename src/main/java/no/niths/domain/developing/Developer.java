@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -37,7 +37,7 @@ import org.jasypt.hibernate4.type.EncryptedStringType;
 @TypeDef(name = "encryptedString", typeClass = EncryptedStringType.class, parameters = { @Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor") })
 @XmlRootElement
 @Entity
-@Table(name = AppNames.DEVELOPERS)
+@Table(name = DomainConstantNames.DEVELOPERS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Developer implements Domain {

@@ -9,6 +9,8 @@ import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
+import org.imgscalr.Scalr;
+
 import no.niths.application.rest.exception.QRCodeException;
 
 import com.google.zxing.BinaryBitmap;
@@ -69,21 +71,26 @@ public class QRCodeDecoder {
     }
 
     private BufferedImage resizeImage(BufferedImage originalImg) {
-        BufferedImage resizedImg = new BufferedImage(
-                100, 100, originalImg.getType());
-        Graphics2D g = resizedImg.createGraphics();
-        g.drawImage(originalImg, 0, 0, 100, 100, null); // 100x100 px
-        g.dispose();
-
-        // TODO: Check if this works
-        // You may need to change the File's path 
-        try {
-            ImageIO.write(resizedImg, "JPG", new File(System.getProperty("user.home") + "/balle.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return resizedImg;
+    	
+    	return Scalr.resize(originalImg, 300);
+    	
+//    	int w = originalImg.getWidth()/5;
+//    	int h = originalImg.getHeight()/5;
+//        BufferedImage resizedImg = new BufferedImage(
+//                w, h, originalImg.getType());
+//        Graphics2D g = resizedImg.createGraphics();
+//        g.drawImage(originalImg, 0, 0, w, h, null); // 100x100 px
+//        g.dispose();
+//
+//        // TODO: Check if this works
+//        // You may need to change the File's path 
+//        try {
+//            ImageIO.write(resizedImg, "JPG", new File(System.getProperty("user.home") + "/balle.jpg"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return resizedImg;
     }
 
     private Long parseGroupNumber(String data) throws QRCodeException {
@@ -92,13 +99,19 @@ public class QRCodeDecoder {
         System.err.println("=============================");
         String[] info = data.split(":");
         Long groupNumber = null;
-
-        try {
-            groupNumber = Long.parseLong(info[1]);
-        } catch (NumberFormatException e) {
-            throw new QRCodeException("Invalid QR code format");
+        if(info.length == 2){
+        	try {
+        		if(info[0].equals("gruppe")){
+        			groupNumber = Long.parseLong(info[1]);
+        			System.err.println("FOUND GROUPNUMBER : " + groupNumber);        			
+        		}else{
+        			throw new QRCodeException("Invalid QR code content");
+        		}
+        	} catch (NumberFormatException e) {
+        		throw new QRCodeException("Invalid QR code format");
+        	}
+        	
         }
-
-        return groupNumber;
+        return groupNumber;        	
     }
 }

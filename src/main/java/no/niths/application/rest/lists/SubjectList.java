@@ -4,10 +4,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Subject;
 
-@XmlRootElement(name = AppNames.SUBJECTS)
+@XmlRootElement(name = DomainConstantNames.SUBJECTS)
 public class SubjectList extends ListAdapter<Subject> {
 
     private static final long serialVersionUID = 7386282831236634626L;

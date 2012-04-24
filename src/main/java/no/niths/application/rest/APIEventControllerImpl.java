@@ -3,7 +3,7 @@ package no.niths.application.rest;
 import no.niths.application.rest.interfaces.APIEventController;
 import no.niths.application.rest.lists.APIEventList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.APIEvent;
 import no.niths.services.interfaces.APIEventService;
 import no.niths.services.interfaces.GenericService;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(AppNames.APIEVENTS)
+@RequestMapping(DomainConstantNames.APIEVENTS)
 public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent> implements APIEventController{
 
 	@Autowired

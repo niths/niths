@@ -12,7 +12,7 @@ import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.StudentList;
 import no.niths.application.rest.school.interfaces.StudentController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.Domain;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(AppNames.STUDENTS)
+@RequestMapping(DomainConstantNames.STUDENTS)
 public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         implements StudentController {
 

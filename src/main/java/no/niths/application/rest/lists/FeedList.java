@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Feed;
 
-@XmlRootElement(name = AppNames.FEEDS)
+@XmlRootElement(name = DomainConstantNames.FEEDS)
 public class FeedList extends ListAdapter<Feed> {
 
     private static final long serialVersionUID = -3367467710179177824L;

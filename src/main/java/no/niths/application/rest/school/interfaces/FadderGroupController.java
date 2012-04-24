@@ -78,7 +78,7 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      */
     public void removeAllLeaders(Long groupId);
 
-    void scanImage(HttpServletRequest request, HttpServletResponse response)
+    void scanImage(Long studentId, HttpServletRequest request, HttpServletResponse response)
             throws QRCodeException;
 
     /**
@@ -96,5 +96,6 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 	List<Student> getAllStudentsNotInAGroup();
 
 	void addChildren(Long groupId, Long[] studentIds);
+
 
 }

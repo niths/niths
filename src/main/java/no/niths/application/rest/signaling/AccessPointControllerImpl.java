@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.AccessPointList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.signaling.interfaces.AccessPointController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.signaling.AccessPoint;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.signaling.interfaces.AccessPointService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(AppNames.ACCESS_POINTS)
+@RequestMapping(DomainConstantNames.ACCESS_POINTS)
 public class AccessPointControllerImpl extends
 		AbstractRESTControllerImpl<AccessPoint> implements
 		AccessPointController {

@@ -7,7 +7,7 @@ import no.niths.application.rest.developing.interfaces.DeveloperController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.DeveloperList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.developing.Developer;
 import no.niths.services.auth.interfaces.KeyGeneratorService;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppNames.DEVELOPERS)
+@RequestMapping(DomainConstantNames.DEVELOPERS)
 public class DeveloperControllerImpl extends
 		AbstractRESTControllerImpl<Developer> implements DeveloperController {
 
@@ -110,7 +110,7 @@ public class DeveloperControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/add/application/{applicationId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
 		service.addApplication(developerId,applicationId);
@@ -121,7 +121,7 @@ public class DeveloperControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/remove/application/{applicationId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
 	public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
 		service.removeApplicaiton(developerId,applicationId);

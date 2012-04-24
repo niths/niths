@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Student;
 
@@ -31,7 +31,7 @@ import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement
 @Entity
-@Table(name = AppNames.ROLES)
+@Table(name = DomainConstantNames.ROLES)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Role implements Domain {

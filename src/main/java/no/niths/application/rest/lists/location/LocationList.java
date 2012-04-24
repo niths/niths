@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.location.Location;
 
-@XmlRootElement(name = AppNames.LOCATIONS)
+@XmlRootElement(name = DomainConstantNames.LOCATIONS)
 public class LocationList extends ListAdapter<Location> {
 
     private static final long serialVersionUID = 7284616637714631167L;

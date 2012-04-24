@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Exam;
 import no.niths.domain.school.Subject;
@@ -34,7 +34,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = AppNames.ROOMS)
+@Table(name = DomainConstantNames.ROOMS)
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 @XmlAccessorType(XmlAccessType.FIELD)

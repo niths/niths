@@ -22,5 +22,12 @@ public interface RestLoginController {
 
 	Student login(SessionToken token, HttpServletRequest req,
 			HttpServletResponse res);
+
+	/**
+     * Logs out the student
+     * 
+     * @param studentId is of the student top log out
+     */
+	void logout(Long studentId);
 	
 }

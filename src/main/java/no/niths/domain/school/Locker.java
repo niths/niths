@@ -17,15 +17,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 @Entity
-@XmlRootElement(name = AppNames.LOCKERS)
-@Table(name = AppNames.LOCKERS)
+@XmlRootElement(name = DomainConstantNames.LOCKERS)
+@Table(name = DomainConstantNames.LOCKERS)
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class Locker implements Domain {

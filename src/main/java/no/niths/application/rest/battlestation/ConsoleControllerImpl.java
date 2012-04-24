@@ -4,7 +4,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.battlestation.interfaces.ConsoleController;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.battlestation.ConsoleList;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.battlestation.Console;
 import no.niths.services.battlestation.interfaces.ConsoleService;
 import no.niths.services.interfaces.GenericService;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for games
  */
 @Controller
-@RequestMapping(AppNames.CONSOLES)
+@RequestMapping(DomainConstantNames.CONSOLES)
 public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 		implements ConsoleController {
 

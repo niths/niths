@@ -7,7 +7,7 @@ import no.niths.application.rest.developing.interfaces.ApplicationController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ApplicationList;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.developing.Application;
 import no.niths.services.developing.interfaces.ApplicationService;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppNames.APPLICATIONS)
+@RequestMapping(DomainConstantNames.APPLICATIONS)
 public class ApplicationControllerImpl extends
 		AbstractRESTControllerImpl<Application> implements
 		ApplicationController {

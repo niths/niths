@@ -6,7 +6,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.CourseController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.school.Course;
 import no.niths.services.interfaces.GenericService;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 
  */
 @Controller
-@RequestMapping(AppNames.COURSES)
+@RequestMapping(DomainConstantNames.COURSES)
 public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
         implements CourseController {
 

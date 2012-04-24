@@ -7,7 +7,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.AccessFieldList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.signaling.AccessField;
 import no.niths.services.interfaces.GenericService;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for AccessField
  */
 @Controller
-@RequestMapping(AppNames.ACCESS_FIELDS)
+@RequestMapping(DomainConstantNames.ACCESS_FIELDS)
 public class AccessFieldControllerImpl extends
 		AbstractRESTControllerImpl<AccessField> implements
 		AccessFieldController {

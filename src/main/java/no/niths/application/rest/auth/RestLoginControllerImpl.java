@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.auth.interfaces.RestLoginController;
 import no.niths.application.rest.exception.UnvalidEmailException;
-import no.niths.common.constants.MiscConstants;
+import no.niths.common.constants.AdminConstantNames;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.LazyFixer;
 import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
@@ -15,8 +16,10 @@ import no.niths.services.auth.interfaces.AuthenticationService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,12 +32,12 @@ import org.springframework.web.client.HttpClientErrorException;
  *
  */
 @Controller
-@RequestMapping(MiscConstants.AUTH)
+@RequestMapping(AdminConstantNames.AUTH)
 public class RestLoginControllerImpl implements RestLoginController{
     
     Logger logger = org.slf4j.LoggerFactory
             .getLogger(RestLoginControllerImpl.class);
-    
+
     @Autowired
     private AuthenticationService service;
 
@@ -42,7 +45,8 @@ public class RestLoginControllerImpl implements RestLoginController{
      * Authorize the user. Use the returned session token for future requests
      * 
      * @param token The token issued from google
-     * @remove: @return encrypted session token valid for (See AppNames.SESSION_VALID_TIME)
+     * @remove: @return encrypted session token valid for
+     *   (See AppNames.SESSION_VALID_TIME)
      * 
      */
     @Override
@@ -73,6 +77,22 @@ public class RestLoginControllerImpl implements RestLoginController{
         }
 
         return authenticatedStudent;
+    }
+    
+    /**
+     * Logs out the student
+     * @param studentId is of the student top log out
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
+    @RequestMapping(
+    		value   = { "logout/{studentId}" },
+    		method  = RequestMethod.POST,
+    		headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Student logged out")
+    public void logout(@PathVariable Long studentId) {
+    	service.logout(studentId);	
     }
     
     
