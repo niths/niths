@@ -1,6 +1,7 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.security;
 
 import no.niths.domain.security.Role;
+import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.interfaces.RoleRepository;
 
 import org.springframework.stereotype.Repository;

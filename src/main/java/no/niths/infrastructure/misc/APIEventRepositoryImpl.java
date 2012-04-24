@@ -1,6 +1,7 @@
-package no.niths.infrastructure;
+package no.niths.infrastructure.misc;
 
 import no.niths.domain.APIEvent;
+import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.interfaces.APIEventRepository;
 
 import org.springframework.stereotype.Repository;
