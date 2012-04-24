@@ -110,7 +110,7 @@ public class DeveloperControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/add/application/{applicationId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
 		service.addApplication(developerId,applicationId);
@@ -121,7 +121,7 @@ public class DeveloperControllerImpl extends
 	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/remove/application/{applicationId}" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
 	public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
 		service.removeApplicaiton(developerId,applicationId);

@@ -35,7 +35,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{examId}/add/room/{roomId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{examId}/room/{roomId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Added")
 	public void addRoom(@PathVariable Long examId, @PathVariable Long roomId) {
 		examService.addRoom(examId, roomId);
@@ -45,7 +45,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{examId}/remove/room/{roomId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{examId}/room/{roomId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Room Removed")
 	public void removeRoom(@PathVariable Long examId, @PathVariable Long roomId) {
 		examService.removeRoom(examId, roomId);
@@ -55,7 +55,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{examId}/add/subject/{subjectId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "{examId}/subject/{subjectId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Added")
 	public void addSubject(@PathVariable Long examId,
 			@PathVariable Long subjectId) {
@@ -66,7 +66,7 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	 * {@inheritDoc}
 	 */
 	@Override
-	@RequestMapping(value = "{examId}/remove/subject", method = RequestMethod.PUT)
+	@RequestMapping(value = "{examId}/subject", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Subject Removed")
 	public void removeSubject(@PathVariable Long examId) {
 		examService.removeSubject(examId);
