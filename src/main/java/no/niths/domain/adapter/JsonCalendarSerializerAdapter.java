@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import no.niths.common.constants.MiscConstantNames;
+import no.niths.common.constants.AdminConstantNames;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
@@ -20,7 +20,7 @@ public class JsonCalendarSerializerAdapter extends JsonSerializer<Calendar> {
 	private static final Logger logger = LoggerFactory
 			.getLogger(JsonCalendarSerializerAdapter.class);
 
-	private DateFormat df = new SimpleDateFormat(MiscConstantNames.CALENDAR_FORMAT);
+	private DateFormat df = new SimpleDateFormat(AdminConstantNames.CALENDAR_FORMAT);
 
 	@Override
 	public void serialize(Calendar calendar, JsonGenerator gen,

@@ -9,14 +9,14 @@ import java.util.GregorianCalendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.constants.MiscConstantNames;
+import no.niths.common.constants.AdminConstantNames;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlCalendarAdapter extends XmlAdapter<String, Calendar> {
 
-	private DateFormat df = new SimpleDateFormat(MiscConstantNames.CALENDAR_FORMAT);
+	private DateFormat df = new SimpleDateFormat(AdminConstantNames.CALENDAR_FORMAT);
 	private Logger logger = LoggerFactory
 			.getLogger(XmlCalendarAdapter.class);
 	@Override
@@ -29,7 +29,7 @@ public class XmlCalendarAdapter extends XmlAdapter<String, Calendar> {
 		} catch (ParseException px) {
 			logger.error(px.getMessage(),px);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstantNames.CALENDAR_FORMAT + " ErrorOffset:"
+					+ AdminConstantNames.CALENDAR_FORMAT + " ErrorOffset:"
 					+ px.getErrorOffset());
 		}
 		

@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.constants.MiscConstantNames;
+import no.niths.common.constants.AdminConstantNames;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class XmlDateAdapter extends XmlAdapter<String,Date>{
 
 	private Logger logger = LoggerFactory
 			.getLogger(XmlDateAdapter.class);
-	private DateFormat df = new SimpleDateFormat(MiscConstantNames.DATE_FORMAT);
+	private DateFormat df = new SimpleDateFormat(AdminConstantNames.DATE_FORMAT);
 	@Override
 	public Date unmarshal(String date){
 		
@@ -26,7 +26,7 @@ public class XmlDateAdapter extends XmlAdapter<String,Date>{
 		} catch (ParseException px) {
 			logger.error(px.getMessage(),px);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstantNames.DATE_FORMAT + " ErrorOffset:"
+					+ AdminConstantNames.DATE_FORMAT + " ErrorOffset:"
 					+ px.getErrorOffset());
 		}
 	}

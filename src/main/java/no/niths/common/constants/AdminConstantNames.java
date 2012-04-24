@@ -5,7 +5,7 @@ package no.niths.common.constants;
  * Constants that don't fit anywhere else in the code
  *
  */
-public class MiscConstantNames {
+public class AdminConstantNames {
 
     public static final String ADMIN_DEV     = "admin/developer",
                                API_EVENTS    = "api_events",
