@@ -343,59 +343,62 @@ INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (5, 5);
 ---------------------------------------------------------------------
 --------------------------subjects_tutors--------------------------------
-insert into subjects_tutors values (1,1);
+INSERT INTO subjects_tutors VALUES (1,1);
 ---------------------------------------------------------------------
 --------------------------locations--------------------------------
-insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Stord');
-insert into locations (latitude, longitude, place) values(12.344, 12.1245, 'Oslo');
-insert into locations (latitude, longitude, place) values(59.91128, 10.7606, 'NITH');
-insert into locations (latitude, longitude, place) values(59.9378, 10.7354, 'Nedre ullevål');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.911264, 10.760290, 'NITH');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.9378, 10.7354, 'Nedre ullevål');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.942022, 10.809506, 'Bjerke');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.925200, 10.733449, 'Bislett Stadion');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.941234, 10.724695, 'Blindern');
+INSERT INTO locations (latitude, longitude, place) VALUES(59.871351, 10.761897, 'Kaninøya');
+
 ---------------------------------------------------------------------
 --------------------------events_location--------------------------------
-insert into events_location (location_id, events_id) values(1, 1);
-insert into events_location (location_id, events_id) values(1, 2);
-insert into events_location (location_id, events_id) values(2, 3);
-insert into events_location (location_id, events_id) values(4, 5);
-insert into events_location (location_id, events_id) values(4, 4);
-insert into events_location (location_id, events_id) values(3, 6);
-insert into events_location (location_id, events_id) values(4, 7);
-insert into events_location (location_id, events_id) values(3, 8);
-insert into events_location (location_id, events_id) values(4, 9);
-insert into events_location (location_id, events_id) values(3, 10);
-insert into events_location (location_id, events_id) values(4, 11);
-insert into events_location (location_id, events_id) values(3, 12);
-insert into events_location (location_id, events_id) values(4, 13);
-insert into events_location (location_id, events_id) values(3, 14);
+INSERT INTO events_location (location_id, events_id) VALUES(1, 1);
+INSERT INTO events_location (location_id, events_id) VALUES(1, 2);
+INSERT INTO events_location (location_id, events_id) VALUES(2, 3);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 5);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 4);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 6);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 7);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 8);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 9);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 10);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 11);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 12);
+INSERT INTO events_location (location_id, events_id) VALUES(4, 13);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 14);
 ---------------------------------------------------------------------
 --------------------------feeds------------------------------------
-insert into feeds (id, message, published) values(1, 'Kroa åpner 14:00 ', '2012-03-21 13:00');
-insert into feeds (id, message, published) values(2, 'Salg i kantina ', '2012-03-21 13:00');
+INSERT INTO feeds (id, message, published) VALUES(1, 'Kroa åpner 14:00 ', '2012-03-21 13:00');
+INSERT INTO feeds (id, message, published) VALUES(2, 'Salg i kantina ', '2012-03-21 13:00');
 ---------------------------------------------------------------------
 --------------------------feeds_location--------------------------------
-insert into feeds_location (location_id, feeds_id) values(1, 1);
-insert into feeds_location (location_id, feeds_id) values(1, 2);
+INSERT INTO feeds_location (location_id, feeds_id) VALUES(1, 1);
+INSERT INTO feeds_location (location_id, feeds_id) VALUES(1, 2);
 ---------------------------------------------------------------------
 --------------------------feeds_student--------------------------------
-insert into feeds_student (student_id, feeds_id) values(1, 1);
-insert into feeds_student (student_id, feeds_id) values(1, 2);
+INSERT INTO feeds_student (student_id, feeds_id) VALUES(1, 1);
+INSERT INTO feeds_student (student_id, feeds_id) VALUES(1, 2);
 ---------------------------------------------------------------------
 --------------------------subjects_room--------------------------------
-insert into subjects_room (room_id, subjects_id) values(1, 1);
-insert into subjects_room (room_id, subjects_id) values(1, 2);
+INSERT INTO subjects_room (room_id, subjects_id) VALUES(1, 1);
+INSERT INTO subjects_room (room_id, subjects_id) VALUES(1, 2);
 ---------------------------------------------------------------------
 --------------------------exams--------------------------------
-insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'Jave ex', '2012-03-09 11:05:32');
-insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'C++ ex', '2012-03-09 11:05:32');
-insert into exams (allowed_aid, end_time, exam_type, name, start_time) values('No aid', '2012-03-09 11:05:33', 'Writtend', 'Math ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'Jave ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'C++ ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'Math ex', '2012-03-09 11:05:32');
 ---------------------------------------------------------------------
 --------------------------exam_subjects--------------------------------
-insert into exam_subjects (subjects_id, exams_id) values(1, 1);
-insert into exam_subjects (subjects_id, exams_id) values(2, 2);
+INSERT INTO exam_subjects (subjects_id, exams_id) VALUES(1, 1);
+INSERT INTO exam_subjects (subjects_id, exams_id) VALUES(2, 2);
 ---------------------------------------------------------------------
 --------------------------courses_representatives--------------------------------
-insert into courses_representatives (courses_id, representatives_id) values (1, 1);
-insert into courses_representatives (courses_id, representatives_id) values (1, 2);
-insert into courses_representatives (courses_id, representatives_id) values (2, 3);
+INSERT INTO courses_representatives (courses_id, representatives_id) VALUES (1, 1);
+INSERT INTO courses_representatives (courses_id, representatives_id) VALUES (1, 2);
+INSERT INTO courses_representatives (courses_id, representatives_id) VALUES (2, 3);
 
 INSERT INTO games (id, category, title) VALUES (1, 'PLATFORM', 'Super Mario Galaxy');
 INSERT INTO games (id, category, title) VALUES (2, 'BEAT_EM_UP', 'MadWorld');
