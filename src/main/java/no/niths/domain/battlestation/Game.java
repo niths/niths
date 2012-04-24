@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -26,7 +26,7 @@ import org.hibernate.annotations.CascadeType;
 
 @XmlRootElement
 @Entity
-@Table(name = AppNames.GAMES)
+@Table(name = DomainConstantNames.GAMES)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Game implements Domain {
 

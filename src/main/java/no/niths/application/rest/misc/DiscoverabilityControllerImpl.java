@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.misc.interfaces.DiscoverabilityController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +40,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController{
         StringBuilder jsonBuilder = new StringBuilder("[");
 
         try {
-            for (Field field : AppNames.class.getFields()) {
+            for (Field field : DomainConstantNames.class.getFields()) {
 
                 jsonBuilder.append(String.format(
                         "{ \"url\": \"%s%s\"},",

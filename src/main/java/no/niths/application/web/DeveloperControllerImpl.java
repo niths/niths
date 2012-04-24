@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.web.interfaces.DeveloperController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.MiscConstantNames;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.services.auth.interfaces.KeyGeneratorService;
@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller(value = "adminDeveloperImpl")
-@RequestMapping(AppNames.ADMIN_DEV)
+@RequestMapping(MiscConstantNames.ADMIN_DEV)
 public class DeveloperControllerImpl implements DeveloperController {
 
 	private Logger logger = org.slf4j.LoggerFactory

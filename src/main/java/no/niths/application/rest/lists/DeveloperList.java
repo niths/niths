@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.developing.Developer;
 
-@XmlRootElement(name = AppNames.DEVELOPERS)
+@XmlRootElement(name = DomainConstantNames.DEVELOPERS)
 public class DeveloperList extends ListAdapter<Developer> {
 
     private static final long serialVersionUID = 7176343871162986392L;

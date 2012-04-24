@@ -5,10 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.security.Role;
 
-@XmlRootElement(name = AppNames.ROLES)
+@XmlRootElement(name = DomainConstantNames.ROLES)
 public class RoleList extends ListAdapter<Role> {
 
     private static final long serialVersionUID = 7386282831236634626L;

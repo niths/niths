@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.constants.MiscConstants;
+import no.niths.common.constants.MiscConstantNames;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +58,7 @@ private Logger logger = LoggerFactory.getLogger(TimeDTO.class);
 	}
 	
 	private GregorianCalendar parseHelper(String parseableString) {
-		DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
+		DateFormat df = new SimpleDateFormat(MiscConstantNames.CALENDAR_FORMAT);
 		GregorianCalendar calendar = new GregorianCalendar(2012, Calendar.MARCH, 9, 22, 21, 23);
 		try {	
 			calendar.setTime(df.parse(parseableString));
@@ -67,7 +67,7 @@ private Logger logger = LoggerFactory.getLogger(TimeDTO.class);
 		} catch (ParseException px) {
 			logger.debug(px.getMessage(),px);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstants.CALENDAR_FORMAT + " ErrorOffset:"
+					+ MiscConstantNames.CALENDAR_FORMAT + " ErrorOffset:"
 					+ px.getErrorOffset());
 		}
 	}

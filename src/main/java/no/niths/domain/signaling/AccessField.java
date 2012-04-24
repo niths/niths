@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.application.rest.exception.BadRequestException;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 import no.niths.domain.location.Room;
 
@@ -27,7 +27,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Entity
-@Table(name = AppNames.ACCESS_FIELDS)
+@Table(name = DomainConstantNames.ACCESS_FIELDS)
 @XmlRootElement(name = "accessfield")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class AccessField implements Domain {

@@ -12,7 +12,7 @@ import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.EventList;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.school.interfaces.EventController;
-import no.niths.common.constants.AppNames;
+import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.school.Event;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Controller for events
  */
 @Controller
-@RequestMapping(AppNames.EVENTS)
+@RequestMapping(DomainConstantNames.EVENTS)
 public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 		implements EventController {
 

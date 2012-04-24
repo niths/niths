@@ -1,6 +1,6 @@
 package no.niths.common.misc;
 
-import no.niths.common.constants.MiscConstants;
+import no.niths.common.constants.MiscConstantNames;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 /**
@@ -11,7 +11,7 @@ import no.niths.domain.developing.Developer;
 public final class EmailTexts {
 	
 	public static String getDeveloperConfirmationBody(Developer dev){
-		String linkUrl = MiscConstants.NITHS_BASE_DOMAIN + "register/enableDeveloper/" + dev.getDeveloperKey();
+		String linkUrl = MiscConstantNames.NITHS_BASE_DOMAIN + "register/enableDeveloper/" + dev.getDeveloperKey();
 		String body = "<h2>Congratulations, you are almost there!</h2>"+
 						"<br /><br />" +
 						//"Your developer token is: " + dev.getDeveloperToken() +
@@ -53,7 +53,7 @@ public final class EmailTexts {
 	}
 	
 	public static String getAddedAppToDevelioperBody(Application app){
-		String linkUrl = MiscConstants.NITHS_BASE_DOMAIN + "register/enableApp/" + app.getApplicationKey();
+		String linkUrl = MiscConstantNames.NITHS_BASE_DOMAIN + "register/enableApp/" + app.getApplicationKey();
 		String body = "<h2>Your application is ready to use!</h2>" +
 					"<br /><br />" +
 					"Your application key is: " + app.getApplicationKey() + 
