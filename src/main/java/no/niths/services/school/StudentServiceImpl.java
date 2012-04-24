@@ -91,8 +91,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 		Student s = new Student();
 		s.setSessionToken(token);
 		List<Student> all = getAll(s);
-		lazyFixer.fetchChildren(all);
-		return all.get(0);
+		if(!all.isEmpty()){
+			lazyFixer.fetchChildren(all);
+			return all.get(0);	
+		}
+		throw new ObjectNotFoundException("No student with token");
 	}
 
 	@Override
