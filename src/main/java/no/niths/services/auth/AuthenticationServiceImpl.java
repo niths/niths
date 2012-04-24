@@ -260,17 +260,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public ApplicationToken registerApplication(Application app, String developerKey) 
             throws ObjectNotFoundException, ObjectInCollectionException {
         
-    	logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Developer dev = developerService.getDeveloperByDeveloperKey(developerKey);
-        logger.debug("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb");
         if(dev == null){
             throw new ObjectNotFoundException("No developer found");
         }
         ApplicationToken appToken = new ApplicationToken("No token");
 
-        logger.debug("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         String appKey = keyService.generateApplicationKey();
-        logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         
         if(dev.getApps().contains(app)){
             throw new ObjectInCollectionException("App already added to developer");
