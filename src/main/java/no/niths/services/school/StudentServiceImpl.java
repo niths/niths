@@ -3,6 +3,7 @@ package no.niths.services.school;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Status;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.LazyFixer;
@@ -78,8 +79,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 	public Student getStudentByEmail(String email) {
 		Student student = new Student(email);
 		List<Student> all = getAll(student);
-		lazyFixer.fetchChildren(all);
-		return all.get(0);
+		if(!all.isEmpty()){
+			lazyFixer.fetchChildren(all);
+			return all.get(0);			
+		}
+		throw new ObjectNotFoundException("No student matching the email");
 	}
 
 	@Override
