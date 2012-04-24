@@ -11,6 +11,7 @@ import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.constants.MiscConstants;
 import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.domain.school.Student;
@@ -145,14 +146,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public RequestHolderDetails authenticateSessionToken(String sessionToken)
             throws AuthenticationException {
         logger.debug("Will authenticate session-token: " + sessionToken);
-
-        //TEST MODE:
-//        RequestHolderDetails testUser = new RequestHolderDetails("rosen09@nith.no");
-//        testUser.addRoleName("ROLE_STUDENT");
-//        testUser.addRoleName("ROLE_SR");
-//        testUser.setStudentId(new Long(1));
-//        return testUser;
-        //END TESTMODE
         
         // First check the format of the token        
         tokenService.verifyTokenFormat(sessionToken, true);
@@ -197,6 +190,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return authenticatedUser;
     }
+    
+    /**
+     * Logs out the student with macthing student id
+     * 
+     * Sets the session token to null
+     * 
+     * @param studentId Id of the student to log out
+     */
+	@Override
+	public void logout(Long studentId) {
+		Student wantToLogout = studentService.getById(studentId);
+		ValidationHelper.isObjectNull(wantToLogout, Student.class);
+		wantToLogout.setSessionToken(null);
+		studentService.update(wantToLogout);
+	}
     
     /**
      * Register a developer and generates a developer token that the
@@ -472,4 +480,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private long getCurrentTime() {
         return new GregorianCalendar().getTimeInMillis();
     }
+
+
 }

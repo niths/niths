@@ -123,4 +123,13 @@ public interface AuthenticationService {
 	 */
 	Application enableApplication(String applicationKey)
 			throws AuthenticationException;
+
+	/**
+     * Logs out the student with macthing student id
+     * 
+     * Sets the session token to null
+     * 
+     * @param studentId Id of the student to log out
+     */
+	void logout(Long studentId);
 }

@@ -104,7 +104,7 @@ public class Student implements Domain {
     private String email;
 
     @Column(name = "phone_number", unique = true)
-    @Pattern(regexp = "(^$)|([1-9][0-9]{7})", message = "Not a valid number")
+    @Pattern(regexp = "(^$)|([1-9][0-9]{8})", message = "Not a valid number")
     @XmlElement(name="telephonenumber")
     private String telephoneNumber;
 
