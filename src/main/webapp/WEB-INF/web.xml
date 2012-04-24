@@ -61,7 +61,7 @@
 	<!-- Disables servlet container welcome file handling. Needed for compatibility 
 		with Servlet 3.0 and Tomcat 7.0 -->
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>admin.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>

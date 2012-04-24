@@ -1,6 +1,5 @@
 package no.niths.application.web.interfaces;
 
-import org.springframework.web.servlet.ModelAndView;
 /**
  * A administrator control panel for searching 
  * students and giving them roles and the possibility to delete them.
@@ -22,12 +21,12 @@ public interface AdminController {
 	 */
 	public String delete(Long studentId);
 
-	/**
-	 * Method for retrieving students by a given query and columName
-	 * @param columnName
-	 * @param query
-	 * @return
-	 */
-	public ModelAndView getStudents(String columnName, String query);
+//	/**
+//	 * Method for retrieving students by a given query and columName
+//	 * @param columnName
+//	 * @param query
+//	 * @return
+//	 */
+//	public ModelAndView getStudents(String columnName, String query);
 
 }

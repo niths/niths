@@ -30,6 +30,16 @@ hr {
   margin-top: 10px;
 }
 
+li {
+  list-style: none;
+  padding: 5px;
+  margin: 3px;  
+}
+
+li:nth-child(even) {
+  background-color: #DDD;
+}
+
 #container {
   margin-left: auto;
   margin-right: auto;
@@ -67,12 +77,6 @@ hr {
 
 #searcher label {
   margin-right: 5px;
-}
-
-.list{
-  list-style: none;
-  padding: 5px;
-  margin: 3px;  
 }
 
 .right{
