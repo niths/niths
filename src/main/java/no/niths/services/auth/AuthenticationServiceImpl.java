@@ -10,6 +10,7 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.constants.AdminConstantNames;
+import no.niths.common.constants.MiscConstants;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.developing.Application;
@@ -454,9 +455,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     private void isUserValid(String email) throws UnvalidEmailException{
         isEmailValid(email);
-        if (!email.endsWith(AdminConstantNames.VALID_EMAIL_DOMAIN)) {
+        if (!email.endsWith(MiscConstants.VALID_EMAIL_DOMAIN)) {
             logger.debug("email is unvalid: " + email);
-            throw new UnvalidEmailException("Unvalid email, must end with " + AdminConstantNames.VALID_EMAIL_DOMAIN);
+            throw new UnvalidEmailException("Unvalid email, must end with " + MiscConstants.VALID_EMAIL_DOMAIN);
         }
         logger.debug("Email valid: " + email);
     }

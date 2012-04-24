@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.constants.AdminConstantNames;
+import no.niths.common.constants.MiscConstants;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
@@ -21,7 +21,7 @@ public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> 
 
 	private Logger logger = LoggerFactory
 			.getLogger(JsonCalendarDeserializerAdapter.class);
-	private DateFormat df = new SimpleDateFormat(AdminConstantNames.CALENDAR_FORMAT);
+	private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
 
 	@Override
 	public Calendar deserialize(JsonParser jp, DeserializationContext ctxt)
@@ -34,7 +34,7 @@ public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> 
 		} catch (ParseException px) {
 			logger.error(px.getMessage(),px);
 			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ AdminConstantNames.CALENDAR_FORMAT + " ErrorOffset:"
+					+ MiscConstants.CALENDAR_FORMAT + " ErrorOffset:"
 					+ px.getErrorOffset());
 		}
 		return calendar;
