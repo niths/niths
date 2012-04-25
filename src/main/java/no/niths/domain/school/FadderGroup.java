@@ -28,8 +28,14 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 /**
- * Class that holds information about a student orientation group 
- *
+ * Domain class for a student orientation group(Faddergruppe)
+ * <p>
+ * Holds information about the group,
+ * its members and its leaders.
+ * </p>
+ * <p>
+ * The group number must be unique
+ * </p>
  *
  */
 @XmlRootElement(name = "faddergroup")

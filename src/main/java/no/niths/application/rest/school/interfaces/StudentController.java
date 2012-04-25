@@ -34,6 +34,8 @@ public interface StudentController extends GenericRESTController<Student> {
      */
     List<Student> getStudentsWithNamedCourse(Course course);
 
+    List<Student> getStudentWithRoles(Student student);
+
     /**
      * Adds a course too a student
      *

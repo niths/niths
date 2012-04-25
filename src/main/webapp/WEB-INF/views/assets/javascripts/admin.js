@@ -4,8 +4,20 @@ avgTimeout = 5000;
 $(document).ready(function() {
 
   $('#search-form').submit(function() {
+    var roles = {};
+
+    $.get(address + 'roles', function(data) {
+      roles = data;
+    });
+
+    $.get(address + 'students/roles', function(data) {
+      $.each(data, function(key, student) {
+        displayStudent(student, roles);
+      });
+    });
+    /*
     $.ajax({
-      url:     address + 'students',
+      url:     address + 'students/roles',
       type:    'GET',
       timeout: avgTimeout,
       success: function(data) {
@@ -18,11 +30,13 @@ $(document).ready(function() {
         alert(JSON.stringify(xhr));
       }
     });
+    */
 
     return false;
   });
 
-  function displayStudent(student) {
+  function displayStudent(student, allRoles) {
+    var gen = generateRoleCheckboxes(student.roles, allRoles);
     $('#students').append(
       '<li id="student-' + student.id + '">' +
         '<div>' +
@@ -34,10 +48,34 @@ $(document).ready(function() {
           '</a>' +
         '</div>' +
         '<div>' +
+          gen +
+        '</div>' +
+        '<div>' +
           '<button>Delete</button>' +
         '</div>' +
       '</li>'
     );
+  }
+
+  function generateRoleCheckboxes(studentRoles, allRoles) {
+    var gen = '';
+    $.each(allRoles, function(outerKey, outerRole) {
+      var chb =
+        '<div class="role">' +
+          '<input type="checkbox" name="role" value=role-"' +
+              outerRole.id + '" ';
+      $.each(studentRoles, function(innerKey, innerRole) {
+        if (outerRole.id == innerRole.id) {
+          chb += 'checked="checked"';
+        }
+      });
+
+      gen += chb + ' />';
+      gen += outerRole.roleName.toLowerCase().replace(/_/g, ' ');
+      gen += '</div>';
+    });
+
+    return gen;
   }
 });
 
