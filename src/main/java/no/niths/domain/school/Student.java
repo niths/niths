@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.misc.Searchable;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonDateDeserializerAdapter;
 import no.niths.domain.adapter.JsonDateSerializerAdapter;
@@ -77,6 +78,7 @@ public class Student implements Domain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Searchable
     @Column(name = "first_name")
     @Size(
             min     = 1,
@@ -85,6 +87,7 @@ public class Student implements Domain {
     @XmlElement(name = "firstname")
     private String firstName;
 
+    @Searchable
     @Column(name = "last_name")
     @Size(
             min     = 1,
@@ -113,6 +116,7 @@ public class Student implements Domain {
     @Min(value = 1, message = "Can not be smaller then 1")
     private Integer grade;
 
+    @Searchable
     @Column(unique = true)
     @NotNull
     @Email(message = "Not a valid email")

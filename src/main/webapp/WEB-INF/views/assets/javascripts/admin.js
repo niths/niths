@@ -16,21 +16,23 @@ $(document).ready(function() {
 
     // Do a simple search
     $.get(address + 'students/search?' + $(this).serialize(), function(data) {
-      var allStudentContent = '';
+      var allStudentsContent = '';
       $.each(data, function(key, student) {
-        allStudentContent += displayStudent(student, roles);
+        allStudentsContent += displayStudent(student, roles);
       });
 
+      // Perform animation
       $('#students').hide();
-      $('#students').append(allStudentContent).fadeIn('slow');
+      $('#students').append(allStudentsContent).fadeIn('slow');
     });
 
+    // Prevent the form from executing the default action
     return false;
   });
 
   function displayStudent(student, allRoles) {
     var studentContent = '';
-    var gen = generateRoleCheckboxes(student, allRoles);
+    var generatedCheckboxes = generateRoleCheckboxes(student, allRoles);
     studentContent +=
       '<li id="student-' + student.id + '">' +
         '<form action="#">' +
@@ -43,7 +45,7 @@ $(document).ready(function() {
             '</a>' +
           '</div>' +
           '<div>' +
-            gen + // Generated checkboxes
+            generatedCheckboxes +
           '</div>' +
         '</form>' +
         '<div>' +
