@@ -35,6 +35,22 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/**
+ * 
+ * Domain class for Feed
+ * <p>
+ * Holds information about a feed,
+ * which student published it and
+ * if it belongs to a committee.
+ * </p>
+ * <p>
+ * An application utilizing this class could
+ * be a "home work helper" app.
+ * Students can post questions which others could read
+ * and respond to like in Twitter.
+ * </p>
+ * 
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.FEEDS)

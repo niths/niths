@@ -48,6 +48,21 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
+/**
+ * 
+ * Domain class for student
+ * <p>
+ * Holds information about a student. Email are required,
+ * all other attributes are optional.
+ * </p>
+ * <p>
+ * Also holds information about a students roles, 
+ * if the student is a committee leader, which committees
+ * the student is a member of, courses, battlestation loans,
+ * faddergroups, if he/she is the course representative etc
+ * </p>
+ * 
+ */
 @Entity
 @Table(name = DomainConstantNames.STUDENTS)
 @XmlRootElement
