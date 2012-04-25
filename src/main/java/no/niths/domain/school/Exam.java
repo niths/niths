@@ -36,7 +36,15 @@ import no.niths.domain.location.Room;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
-
+/**
+ * Domain class for an exam
+ * <p>
+ * Holds information about a specific exam,
+ * the rooms it being held in and which subjects
+ * it belong to.
+ * </p>
+ *
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.EXAMS)
