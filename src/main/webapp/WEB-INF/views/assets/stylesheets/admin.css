@@ -79,6 +79,11 @@ li:nth-child(even) {
   margin-right: 5px;
 }
 
+.role {
+  display:      inline;
+  margin-right: 10px;
+}
+
 .right{
 	text-align: right;
 }
