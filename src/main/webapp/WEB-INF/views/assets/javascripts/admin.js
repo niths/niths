@@ -36,7 +36,7 @@ $(document).ready(function() {
   });
 
   function displayStudent(student, allRoles) {
-    var gen = generateRoleCheckboxes(student.roles, allRoles);
+    var gen = generateRoleCheckboxes(student, allRoles);
     $('#students').append(
       '<li id="student-' + student.id + '">' +
         '<div>' +
@@ -57,21 +57,23 @@ $(document).ready(function() {
     );
   }
 
-  function generateRoleCheckboxes(studentRoles, allRoles) {
+  function generateRoleCheckboxes(student, allRoles) {
     var gen = '';
     $.each(allRoles, function(outerKey, outerRole) {
       var chb =
         '<div class="role">' +
-          '<input type="checkbox" name="role" value=role-"' +
-              outerRole.id + '" ';
-      $.each(studentRoles, function(innerKey, innerRole) {
+          '<input type="checkbox" id="chb-' + student.id + '-' + outerKey +
+              '" name="role" value="role-' + outerRole.id + '" ';
+      $.each(student.roles, function(innerKey, innerRole) {
         if (outerRole.id == innerRole.id) {
           chb += 'checked="checked"';
         }
       });
 
-      gen += chb + ' />';
-      gen += outerRole.roleName.toLowerCase().replace(/_/g, ' ');
+      gen += chb + ' />' +
+      '<label for="chb-' + student.id + '-' + outerKey + '">' +
+          outerRole.roleName.toLowerCase().replace(/_/g, ' ') +
+      '</label>';
       gen += '</div>';
     });
 
