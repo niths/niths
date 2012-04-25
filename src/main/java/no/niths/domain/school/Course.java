@@ -30,7 +30,16 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-
+/**
+ * 
+ * Domain class for Course
+ * <p>
+ * Holds information about a Course,
+ * subjects belonging to the course,
+ * its students, and the course representatives(Translation: Tillitsvalgt)
+ * </p>
+ *
+ */
 @Entity
 @Table(name= DomainConstantNames.COURSES)
 @XmlRootElement

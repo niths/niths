@@ -42,6 +42,15 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/**
+ * Domain class for Events
+ * <p>
+ * Holds information about an event.
+ * Supports tags, for example all events belonging
+ * to fadderuka 2012, gets the tag fadderuka12.
+ * </p>
+ *
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.EVENTS)

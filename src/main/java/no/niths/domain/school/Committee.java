@@ -26,7 +26,16 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+/**
+ * 
+ * Domain class for Committee
+ * <p>
+ * Holds information about a committee, name description etc.
+ * Also have information about the leaders, members, the events
+ * and feeds belonging to the committee
+ * </p>
+ *
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.COMMITTEES)
