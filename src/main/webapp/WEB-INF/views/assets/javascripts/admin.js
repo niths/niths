@@ -88,6 +88,7 @@ $(document).on('click', 'input[type=checkbox]', function(event) {
     url:     address + 'students/' + /chb-(\d+)-\d+/.exec(event.target.id)[1] +
                  '/role/' + /chb-\d+-(\d+)/.exec(event.target.id)[1],
     type:    $(event.target).is(':checked') ? 'POST' : 'DELETE',
+    timeout: avgTimeout,
     success: function(data) {
       
     },
