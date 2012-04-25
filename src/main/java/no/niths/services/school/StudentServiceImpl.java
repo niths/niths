@@ -131,10 +131,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
     public List<Student> search(String column, String query) {
         if (!checkColumn(column)) {
             // Defaults to firstName
-            System.err.println("=======================================" + query);
             column = "firstName";
         }
-        System.err.println("===========================================end " + query);
 
         List<Student> list = null;
         try {
