@@ -1,11 +1,10 @@
 address = 'http://10.110.58.108:8080/niths/';
 avgTimeout = 5000;
+roles = '';
 
 $(document).ready(function() {
 
   $('#search-form').submit(function() {
-    var roles = {};
-
     $.get(address + 'roles', function(data) {
       roles = data;
     });
@@ -15,22 +14,6 @@ $(document).ready(function() {
         displayStudent(student, roles);
       });
     });
-    /*
-    $.ajax({
-      url:     address + 'students/roles',
-      type:    'GET',
-      timeout: avgTimeout,
-      success: function(data) {
-        alert(JSON.stringify(data));
-        $.each(data, function(key, student) {
-          displayStudent(student);
-        });
-      },
-      error:   function(xhr) {
-        alert(JSON.stringify(xhr));
-      }
-    });
-    */
 
     return false;
   });
@@ -39,17 +22,19 @@ $(document).ready(function() {
     var gen = generateRoleCheckboxes(student, allRoles);
     $('#students').append(
       '<li id="student-' + student.id + '">' +
-        '<div>' +
-          '<span class="name">' +
-            student.firstName + ' ' + student.lastName + ' ' +
-          '</span>' +
-          '<a href="mailto:' + student.email + '">' +
-            student.email +
-          '</a>' +
-        '</div>' +
-        '<div>' +
-          gen +
-        '</div>' +
+        '<form action="#">' +
+          '<div>' +
+            '<span class="name">' +
+              student.firstName + ' ' + student.lastName + ' ' +
+            '</span>' +
+            '<a href="mailto:' + student.email + '">' +
+              student.email +
+            '</a>' +
+          '</div>' +
+          '<div>' +
+            gen +
+          '</div>' +
+        '</form>' +
         '<div>' +
           '<button>Delete</button>' +
         '</div>' +
@@ -62,7 +47,7 @@ $(document).ready(function() {
     $.each(allRoles, function(outerKey, outerRole) {
       var chb =
         '<div class="role">' +
-          '<input type="checkbox" id="chb-' + student.id + '-' + outerKey +
+          '<input type="checkbox" id="chb-' + student.id + '-' + outerRole.id +
               '" name="role" value="role-' + outerRole.id + '" ';
       $.each(student.roles, function(innerKey, innerRole) {
         if (outerRole.id == innerRole.id) {
@@ -71,7 +56,7 @@ $(document).ready(function() {
       });
 
       gen += chb + ' />' +
-      '<label for="chb-' + student.id + '-' + outerKey + '">' +
+      '<label for="chb-' + student.id + '-' + outerRole.id + '">' +
           outerRole.roleName.toLowerCase().replace(/_/g, ' ') +
       '</label>';
       gen += '</div>';
@@ -91,6 +76,20 @@ $(document).on('click', 'button', function(event) {
     timeout: avgTimeout,
     success: function(data) {
       $('#' + currentListElementId).fadeOut('slow', function() {});
+    },
+    error:   function(xhr) {
+      alert(JSON.stringify(xhr));
+    }
+  });
+});
+
+$(document).on('click', 'input[type=checkbox]', function(event) {
+  $.ajax({
+    url:     address + 'students/' + /chb-(\d+)-\d+/.exec(event.target.id)[1] +
+                 '/role/' + /chb-\d+-(\d+)/.exec(event.target.id)[1],
+    type:    $(event.target).is(':checked') ? 'POST' : 'DELETE',
+    success: function(data) {
+      
     },
     error:   function(xhr) {
       alert(JSON.stringify(xhr));
