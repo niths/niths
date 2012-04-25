@@ -34,255 +34,265 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentServiceImpl extends AbstractGenericService<Student>
-		implements StudentService {
+        implements StudentService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(StudentServiceImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(StudentServiceImpl.class);
 
-	private LazyFixer<Student> lazyFixer = new LazyFixer<Student>();
+    private LazyFixer<Student> lazyFixer = new LazyFixer<Student>();
 
-	@Autowired
-	private StudentRepository repo;
+    @Autowired
+    private StudentRepository repo;
 
-	@Autowired
-	private CourseRepository courseRepo;
+    @Autowired
+    private CourseRepository courseRepo;
 
-	@Autowired
-	private RoleRepository roleRepo;
+    @Autowired
+    private RoleRepository roleRepo;
 
-	@Autowired
-	private CommitteeRepositorty committeeService;
+    @Autowired
+    private CommitteeRepositorty committeeService;
 
-	@Autowired
-	private FeedRepoistory feedRepo;
+    @Autowired
+    private FeedRepoistory feedRepo;
 
-	@Autowired
-	private LoanRepository loanRepo;
+    @Autowired
+    private LoanRepository loanRepo;
 
-	@Autowired
-	private LockerRepository lockerRepo;
+    @Autowired
+    private LockerRepository lockerRepo;
 
-	public Long create(Student student) {
-		Role role = new Role(SecurityConstants.R_STUDENT);
-		List<Role> roles = roleRepo.getAll(role);
-		if (!roles.isEmpty() && roles.size() == 1) {
-			logger.debug("Role given to created student: "
-					+ roles.get(0).getRoleName());
-			student.setRoles(new ArrayList<Role>());
-			student.getRoles().add(roles.get(0));
-		}
+    public Long create(Student student) {
+        Role role = new Role(SecurityConstants.R_STUDENT);
+        List<Role> roles = roleRepo.getAll(role);
+        if (!roles.isEmpty() && roles.size() == 1) {
+            logger.debug("Role given to created student: "
+                    + roles.get(0).getRoleName());
+            student.setRoles(new ArrayList<Role>());
+            student.getRoles().add(roles.get(0));
+        }
 
-		return repo.create(student);
-	}
+        return repo.create(student);
+    }
 
-	@Override
-	public Student getStudentByEmail(String email) {
-		Student student = new Student(email);
-		List<Student> all = getAll(student);
-		if(!all.isEmpty()){
-			lazyFixer.fetchChildren(all);
-			return all.get(0);			
-		}
-		return null;
-	}
+    @Override
+    public Student getStudentByEmail(String email) {
+        Student student = new Student(email);
+        List<Student> all = getAll(student);
+        if(!all.isEmpty()){
+            lazyFixer.fetchChildren(all);
+            return all.get(0);            
+        }
+        return null;
+    }
 
-	@Override
-	public Student getStudentBySessionToken(String token) {
-		Student s = new Student();
-		s.setSessionToken(token);
-		List<Student> all = getAll(s);
-		if(!all.isEmpty()){
-			lazyFixer.fetchChildren(all);
-			return all.get(0);	
-		}
-		throw new ObjectNotFoundException("No student with token");
-	}
+    @Override
+    public Student getStudentBySessionToken(String token) {
+        Student s = new Student();
+        s.setSessionToken(token);
+        List<Student> all = getAll(s);
+        if(!all.isEmpty()){
+            lazyFixer.fetchChildren(all);
+            return all.get(0);    
+        }
+        throw new ObjectNotFoundException("No student with token");
+    }
 
-	@Override
-	public Student getStudentWithRoles(Long id) {
-		Student s = repo.getById(id);
-		if (s != null) {
-			s.getRoles().size();
-		}
+    @Override
+    public Student getStudentWithRoles(Long id) {
+        Student s = repo.getById(id);
+        if (s != null) {
+            s.getRoles().size();
+        }
 
-		return s;
-	}
+        return s;
+    }
 
-	public List<Student> getStudentsWithNamedCourse(String name) {
-		return repo.getStudentsWithNamedCourse(name);
-	}
+    public List<Student> getStudentsWithNamedCourse(String name) {
+        return repo.getStudentsWithNamedCourse(name);
+    }
 
-	@Override
-	public List<Student> getStudentsAndRoles(Student s) {
-		List<Student> list = repo.getAll(s);
-		lazyFixer.fetchChildren(list);
-//		for (int i = 0; i < list.size(); i++) {
-//			list.get(i).getRoles().size();
-//		}
+    @Override
+    public List<Student> getStudentsAndRoles(Student s) {
+        List<Student> list = repo.getAll(s);
+        lazyFixer.fetchChildren(list);
+//        for (int i = 0; i < list.size(); i++) {
+//            list.get(i).getRoles().size();
+//        }
 
-		return list;
-	}
+        return list;
+    }
 
-	@Override
-	public List<Student> getStudentByColumn(String column, String criteria) {
-		List<Student> list = repo.getStudentByColumn(column, criteria);
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).getRoles().size();
-		}
+    @Override
+    public List<Student> getStudentByColumn(String column, String criteria) {
+        List<Student> list = repo.getStudentByColumn(column, criteria);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).getRoles().size();
+        }
 
-		return list;
-	}
+        return list;
+    }
 
-	@Override
-	public GenericRepository<Student> getRepository() {
-		return repo;
-	}
+    @Override
+    public List<Student> search(String column, String query) {
+        List<Student> students = repo.getStudentByColumn(column, query);
+        for (Student student : students) {
+            student.getRoles().size();
+        }
 
-	@Override
-	public void addCourse(Long studentId, Long courseId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getCourses(), courseId,
-				Course.class);
+        return students;
+    }
 
-		Course course = courseRepo.getById(courseId);
-		ValidationHelper.isObjectNull(course, Course.class);
+    @Override
+    public GenericRepository<Student> getRepository() {
+        return repo;
+    }
 
-		student.getCourses().add(course);
-		logger.debug(MessageProvider.buildStatusMsg(Course.class,
-				Status.UPDATED));
-	}
+    @Override
+    public void addCourse(Long studentId, Long courseId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getCourses(), courseId,
+                Course.class);
 
-	@Override
-	public void removeCourse(Long studentId, Long courseId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getCourses().remove(new Course(courseId)),
-				Course.class);
-	}
+        Course course = courseRepo.getById(courseId);
+        ValidationHelper.isObjectNull(course, Course.class);
 
-	@Override
-	public void addCommittee(Long studentId, Long committeeId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getCommittees(), committeeId,
-				Committee.class);
+        student.getCourses().add(course);
+        logger.debug(MessageProvider.buildStatusMsg(Course.class,
+                Status.UPDATED));
+    }
 
-		Committee committee = committeeService.getById(committeeId);
-		ValidationHelper.isObjectNull(committee, Committee.class);
+    @Override
+    public void removeCourse(Long studentId, Long courseId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfIsRemoved(student.getCourses().remove(new Course(courseId)),
+                Course.class);
+    }
 
-		student.getCommittees().add(committee);
-		logger.debug(MessageProvider.buildStatusMsg(Committee.class,
-				Status.UPDATED));
-	}
+    @Override
+    public void addCommittee(Long studentId, Long committeeId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getCommittees(), committeeId,
+                Committee.class);
 
-	@Override
-	public void removeCommittee(Long studentId, Long committeeId) {
-		Student student = validate(repo.getById(studentId), Student.class);
+        Committee committee = committeeService.getById(committeeId);
+        ValidationHelper.isObjectNull(committee, Committee.class);
 
-		checkIfIsRemoved(
-				student.getCommittees().remove(new Committee(committeeId)),
-				Committee.class);
-	}
+        student.getCommittees().add(committee);
+        logger.debug(MessageProvider.buildStatusMsg(Committee.class,
+                Status.UPDATED));
+    }
 
-	@Override
-	public void addFeed(Long studentId, Long feedId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getFeeds(), feedId, Feed.class);
+    @Override
+    public void removeCommittee(Long studentId, Long committeeId) {
+        Student student = validate(repo.getById(studentId), Student.class);
 
-		Feed feed = feedRepo.getById(feedId);
-		ValidationHelper.isObjectNull(feed, Feed.class);
+        checkIfIsRemoved(
+                student.getCommittees().remove(new Committee(committeeId)),
+                Committee.class);
+    }
 
-		student.getFeeds().add(feed);
-		logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
-	}
+    @Override
+    public void addFeed(Long studentId, Long feedId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getFeeds(), feedId, Feed.class);
 
-	@Override
-	public void removeFeed(Long studentId, Long feedId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getFeeds().remove(new Feed(feedId)),
-				Feed.class);
-	}
+        Feed feed = feedRepo.getById(feedId);
+        ValidationHelper.isObjectNull(feed, Feed.class);
 
-	@Override
-	public void addRole(Long studentId, Long roleId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getRoles(), roleId, Role.class);
+        student.getFeeds().add(feed);
+        logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
+    }
 
-		Role role = roleRepo.getById(roleId);
-		ValidationHelper.isObjectNull(role, Role.class);
+    @Override
+    public void removeFeed(Long studentId, Long feedId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfIsRemoved(student.getFeeds().remove(new Feed(feedId)),
+                Feed.class);
+    }
 
-		student.getRoles().add(role);
-		logger.debug(MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
-	}
+    @Override
+    public void addRole(Long studentId, Long roleId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getRoles(), roleId, Role.class);
 
-	@Override
-	public void removeRole(Long studentId, Long roleId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		Role role = roleRepo.getById(roleId);
-		checkIfIsRemoved(student.getRoles().remove(role),
-				Role.class);
-	}
+        Role role = roleRepo.getById(roleId);
+        ValidationHelper.isObjectNull(role, Role.class);
 
-	@Override
-	public void removeAllRoles(Long studId) {
-		Student student = validate(repo.getById(studId), Student.class);
-		student.setRoles(null);
-	}
+        student.getRoles().add(role);
+        logger.debug(MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
+    }
 
-	@Override
-	public void addLoan(Long studentId, Long loanId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getLoans(), loanId, Loan.class);
+    @Override
+    public void removeRole(Long studentId, Long roleId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        Role role = roleRepo.getById(roleId);
+        checkIfIsRemoved(student.getRoles().remove(role),
+                Role.class);
+    }
 
-		Loan loan = loanRepo.getById(loanId);
-		ValidationHelper.isObjectNull(loan, Loan.class);
+    @Override
+    public void removeAllRoles(Long studId) {
+        Student student = validate(repo.getById(studId), Student.class);
+        student.setRoles(null);
+    }
 
-		student.getLoans().add(loan);
-		logger.debug(MessageProvider.buildStatusMsg(Loan.class, Status.UPDATED));
+    @Override
+    public void addLoan(Long studentId, Long loanId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getLoans(), loanId, Loan.class);
 
-	}
+        Loan loan = loanRepo.getById(loanId);
+        ValidationHelper.isObjectNull(loan, Loan.class);
 
-	@Override
-	public void removeLoan(Long studentId, Long loanId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getLoans().remove(new Loan(loanId)),
-				Loan.class);
-	}
+        student.getLoans().add(loan);
+        logger.debug(MessageProvider.buildStatusMsg(Loan.class, Status.UPDATED));
 
-	/**
-	 * method for admin panel
-	 */
-	@Override
-	public void updateRoles(Long studentId, Long[] roleIds) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		student.getRoles().clear();
-		List<Role> roles = roleRepo.getAll(null);
+    }
 
-		for (Role role : roles) {
-			for (long rId : roleIds) {
-				if (role.getId() == rId) {
-					student.getRoles().add(role);
-				}
-			}
-		}
-	}
+    @Override
+    public void removeLoan(Long studentId, Long loanId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfIsRemoved(student.getLoans().remove(new Loan(loanId)),
+                Loan.class);
+    }
 
-	@Override
-	public void addLocker(Long studentId, Long lockerId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfObjectIsInCollection(student.getLockers(), lockerId,
-				Locker.class);
+    /**
+     * method for admin panel
+     */
+    @Override
+    public void updateRoles(Long studentId, Long[] roleIds) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        student.getRoles().clear();
+        List<Role> roles = roleRepo.getAll(null);
 
-		Locker locker = lockerRepo.getById(lockerId);
-		ValidationHelper.isObjectNull(locker, Locker.class);
+        for (Role role : roles) {
+            for (long rId : roleIds) {
+                if (role.getId() == rId) {
+                    student.getRoles().add(role);
+                }
+            }
+        }
+    }
 
-		student.getLockers().add(locker);
-		logger.debug(MessageProvider.buildStatusMsg(Locker.class,
-				Status.UPDATED));
-	}
+    @Override
+    public void addLocker(Long studentId, Long lockerId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfObjectIsInCollection(student.getLockers(), lockerId,
+                Locker.class);
 
-	@Override
-	public void removeLocker(Long studentId, Long lockerId) {
-		Student student = validate(repo.getById(studentId), Student.class);
-		checkIfIsRemoved(student.getLockers().remove(new Locker(lockerId)),
-				Locker.class);
-	}
+        Locker locker = lockerRepo.getById(lockerId);
+        ValidationHelper.isObjectNull(locker, Locker.class);
+
+        student.getLockers().add(locker);
+        logger.debug(MessageProvider.buildStatusMsg(Locker.class,
+                Status.UPDATED));
+    }
+
+    @Override
+    public void removeLocker(Long studentId, Long lockerId) {
+        Student student = validate(repo.getById(studentId), Student.class);
+        checkIfIsRemoved(student.getLockers().remove(new Locker(lockerId)),
+                Locker.class);
+    }
 }

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -116,6 +117,28 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         logger.info(name);
         renewList(service.getStudentsWithNamedCourse(name));
         return studentList;
+    }
+
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Student> search(
+            @RequestParam(required = true) String column,
+            @RequestParam String query) {
+        List<Student> students = service.search(column, query);
+        for (Student s : students) {
+            s.setCommittees(null);
+            s.setCommitteesLeader(null);
+            s.setCourses(null);
+            s.setFadderGroup(null);
+            s.setFeeds(null);
+            s.setGroupLeaders(null);
+            s.setLoans(null);
+            s.setRepresentativeFor(null);
+            s.setTutorInSubjects(null);
+        }
+
+        return students;
     }
 
     @Override

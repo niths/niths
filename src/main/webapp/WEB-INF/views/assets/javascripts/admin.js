@@ -5,22 +5,33 @@ roles = '';
 $(document).ready(function() {
 
   $('#search-form').submit(function() {
+
+    // Empty the list every time a new search is issued
+    $('#students').empty();
+
+    // Get all roles
     $.get(address + 'roles', function(data) {
       roles = data;
     });
 
-    $.get(address + 'students/roles', function(data) {
+    // Do a simple search
+    $.get(address + 'students/search?' + $(this).serialize(), function(data) {
+      var allStudentContent = '';
       $.each(data, function(key, student) {
-        displayStudent(student, roles);
+        allStudentContent += displayStudent(student, roles);
       });
+
+      $('#students').hide();
+      $('#students').append(allStudentContent).fadeIn('slow');
     });
 
     return false;
   });
 
   function displayStudent(student, allRoles) {
+    var studentContent = '';
     var gen = generateRoleCheckboxes(student, allRoles);
-    $('#students').append(
+    studentContent +=
       '<li id="student-' + student.id + '">' +
         '<form action="#">' +
           '<div>' +
@@ -32,16 +43,19 @@ $(document).ready(function() {
             '</a>' +
           '</div>' +
           '<div>' +
-            gen +
+            gen + // Generated checkboxes
           '</div>' +
         '</form>' +
         '<div>' +
           '<button>Delete</button>' +
         '</div>' +
-      '</li>'
-    );
+      '</li>';
+
+    return studentContent;
   }
 
+  // Displays checkboxes for all roles available, if the student already has the
+  // role, the checkbox will appear as checked
   function generateRoleCheckboxes(student, allRoles) {
     var gen = '';
     $.each(allRoles, function(outerKey, outerRole) {
@@ -66,10 +80,12 @@ $(document).ready(function() {
   }
 });
 
+// Delete a student
 $(document).on('click', 'button', function(event) {
   var currentListElementId = $(event.target).parent().parent().attr('id');
 
   $.ajax({
+             // Forge the URL with the extracted student's id
     url:     address + 'students/' + /student-(\d+)/g.exec(
                  $(event.target).parent().parent().attr('id'))[1],
     type:    'DELETE',
@@ -83,8 +99,11 @@ $(document).on('click', 'button', function(event) {
   });
 });
 
+// Update a student's roles
 $(document).on('click', 'input[type=checkbox]', function(event) {
   $.ajax({
+
+             // Extracting the student id and the role id to be added / removed
     url:     address + 'students/' + /chb-(\d+)-\d+/.exec(event.target.id)[1] +
                  '/role/' + /chb-\d+-(\d+)/.exec(event.target.id)[1],
     type:    $(event.target).is(':checked') ? 'POST' : 'DELETE',

@@ -22,11 +22,11 @@
       <section id="content">
         <div id="searcher">
           <form id="search-form" method="get" action="#">
-            <input type="radio" value="firstName" name="columnName"
+            <input type="radio" value="firstName" name="column"
                 checked="checked" id="r1"><label for="r1">Fornavn</label>
-            <input type="radio" value="lastName" name="columnName"
+            <input type="radio" value="lastName" name="column"
                 id="r2"> <label for="r2">Etternavn</label>
-            <input type="radio" value="email" name="columnName"
+            <input type="radio" value="email" name="column"
                 id="r3"> <label for="r3">Email</label>
             <input type="text" name="query" id= "query"
                 placeholder="Søkeord..."/> 

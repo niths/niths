@@ -52,6 +52,14 @@ public interface StudentService extends GenericService<Student> {
 
     /**
      * 
+     * @param column the column of which the search will perform the search on
+     * @param query the query to get the students
+     * @return a list of matched students
+     */
+    List<Student> search(String column, String query);
+
+    /**
+     * 
      * @param studentId
      * @param courseId
      */
