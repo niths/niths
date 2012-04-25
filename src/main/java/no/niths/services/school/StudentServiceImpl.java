@@ -83,7 +83,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 			lazyFixer.fetchChildren(all);
 			return all.get(0);			
 		}
-		throw new ObjectNotFoundException("No student matching the email");
+		return null;
 	}
 
 	@Override

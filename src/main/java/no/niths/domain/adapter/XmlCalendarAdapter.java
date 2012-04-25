@@ -9,7 +9,6 @@ import java.util.GregorianCalendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import no.niths.application.rest.exception.CustomParseException;
-import no.niths.common.constants.AdminConstantNames;
 import no.niths.common.constants.MiscConstants;
 
 import org.slf4j.Logger;

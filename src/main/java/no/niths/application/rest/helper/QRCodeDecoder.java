@@ -1,17 +1,15 @@
 package no.niths.application.rest.helper;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
-import org.imgscalr.Scalr;
-
 import no.niths.application.rest.exception.QRCodeException;
+
+import org.imgscalr.Scalr;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;

@@ -1,9 +1,7 @@
 package no.niths.application.rest.school;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,14 +14,12 @@ import no.niths.application.rest.lists.StudentList;
 import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;
-import no.niths.common.helpers.LazyFixer;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Student;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.RoleService;
 import no.niths.services.school.interfaces.StudentService;
 
 import org.slf4j.Logger;
@@ -48,13 +44,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
             .getLogger(StudentControllerImpl.class);
 
     private StudentList studentList = new StudentList();
-    private List<Role> roles = new ArrayList<Role>();
 
     @Autowired
     private StudentService service;
-
-    @Autowired
-    private RoleService roleService;
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
@@ -132,7 +124,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @ResponseBody
     public List<Student> getStudentWithRoles(Student student) {
         List<Student> students = service.getStudentsAndRoles(student);
-        LazyFixer<Student> lf = new LazyFixer<Student>();
         for (Student s : students) {
             s.setCommittees(null);
             s.setCommitteesLeader(null);
@@ -148,15 +139,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         return students;
     }
 
-    /**
-     * Helper method for getting all roles
-     */
-    private void getRoles() {
-        roles.clear();
-        roles.addAll(roleService.getAll(null));
-    }
-
-    /**
+     /**
      * {@inheritDoc}
      */
     @Override
