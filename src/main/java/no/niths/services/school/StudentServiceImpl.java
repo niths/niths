@@ -218,7 +218,16 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
         Role role = roleRepo.getById(roleId);
         ValidationHelper.isObjectNull(role, Role.class);
-
+/*
+        // TODO  need to provide a group number
+        if(role.getRoleName().equals("ROLE_FADDER_LEADER")){
+        
+        	
+ 		// TODO  need to provide a committee
+        }else if(role.getRoleName().equals("ROLE_COMMITTEE_LEADER")){        
+              	
+        }
+  */      
         student.getRoles().add(role);
         logger.debug(MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
     }
