@@ -180,8 +180,11 @@ public class FadderGroupControllerImpl extends
     }
 
     /**
-     * {@inheritDoc}
-     */
+	 * Adds multiple students as children to a group
+	 * 
+	 * @param groupId the group to add children to
+	 * @param studentIds array with student ids
+	 */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
@@ -301,10 +304,15 @@ public class FadderGroupControllerImpl extends
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws QRCodeException
-     *             an exception describing what went wrong during scanning
+     * Scans a provided QR code and adds a student to the group in the qr.
+     * <p>
+     * The qr code must contain a string on the form: 
+     * gruppe:gruppeid (ex: gruppe:3)
+     * </p>
+     * @param studentId the student to add to the group
+     * @param request 
+     * @param response
+     * @throws QRCodeException when QR is in wrong format or unreadble
      */
     @Override
     @RequestMapping(value = "scan-qr-code/{studentId}", method = RequestMethod.POST)
