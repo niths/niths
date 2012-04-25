@@ -423,6 +423,7 @@ INSERT INTO rooms_accessfields(accessfield_id, room_id) VALUES(20, 18);
 INSERT INTO rooms_accessfields(accessfield_id, room_id) VALUES(22, 19);
 ---------------------------------------------------------------------
 --------------------------Students-----------------------------------
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('omaola09@nith.no','Simone','Weaver','1972-02-18','34191510','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('herale09@nith.no','Abraham','Branch','1986-06-08','12003434','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('breale@nith.no','Xavier','Rodgers','1979-05-21','88501167','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('houale11@nith.no','Julie','Lynch','1988-05-10','23532544','3');
@@ -446,7 +447,6 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('niemar09@nith.no','Jelani','Knapp','1979-10-30','94080151','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('skaodd09@nith.no','Tanek','Cohen','1972-01-18','90422830','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('myknik09@nith.no','Roth','Vazquez','1986-11-08','44160310','3');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('omaola09@nith.no','Simone','Weaver','1972-02-18','34191510','2');
 ---------------------------------------------------------------------
 --------------------------committees---------------------------------
 INSERT INTO committees (name,description) VALUES('Linx utvalget','Linux');
