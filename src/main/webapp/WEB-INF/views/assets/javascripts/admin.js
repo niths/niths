@@ -1,4 +1,4 @@
-address = 'http://10.110.58.108:8080/niths/';
+address = 'http://localhost:8080/niths/';
 avgTimeout = 5000;
 roles = '';
 
