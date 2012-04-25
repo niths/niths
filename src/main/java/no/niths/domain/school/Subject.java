@@ -35,6 +35,14 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/**
+ * Domain class for subject
+ * <p>
+ * Name and subject code must be unique.
+ * Also holds information about the subjects tutors.
+ * </p>
+ *
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.SUBJECTS)
