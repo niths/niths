@@ -1,5 +1,8 @@
 package no.niths.services.school;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.LazyFixer;
 import no.niths.common.helpers.MessageProvider;
 import no.niths.common.helpers.ValidationHelper;
+import no.niths.common.misc.Searchable;
 import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
@@ -124,23 +128,42 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
     }
 
     @Override
-    public List<Student> getStudentByColumn(String column, String criteria) {
-        List<Student> list = repo.getStudentByColumn(column, criteria);
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).getRoles().size();
+    public List<Student> search(String column, String query) {
+        if (!checkColumn(column)) {
+            // Defaults to firstName
+            column = "firstName";
+        }
+
+        List<Student> list = null;
+        try {
+            list = repo.getStudentByColumn(
+                    column, new String(query.getBytes(), "UTF-8"));
+
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).getRoles().size();
+            }
+        } catch (UnsupportedEncodingException e) {
+            // Let null be returned
         }
 
         return list;
     }
 
-    @Override
-    public List<Student> search(String column, String query) {
-        List<Student> students = repo.getStudentByColumn(column, query);
-        for (Student student : students) {
-            student.getRoles().size();
+    // Check whether or not the column is searchable
+    private final boolean checkColumn(final String column) {
+        boolean valid = false;
+
+        for (Field field : Student.class.getDeclaredFields()) {
+            if (field.getName().equals(column)) {
+                for (Annotation anno : field.getAnnotations()) {
+                    if (anno.annotationType() == Searchable.class) {
+                        valid = true;
+                    }
+                }
+            }
         }
 
-        return students;
+        return valid;
     }
 
     @Override
@@ -303,5 +326,11 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         Student student = validate(repo.getById(studentId), Student.class);
         checkIfIsRemoved(student.getLockers().remove(new Locker(lockerId)),
                 Locker.class);
+    }
+
+    @Override
+    public List<Student> getStudentByColumn(String column, String criteria) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
