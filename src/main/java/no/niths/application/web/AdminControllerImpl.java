@@ -6,12 +6,14 @@ import java.util.List;
 
 import no.niths.application.rest.lists.StudentList;
 import no.niths.application.web.interfaces.AdminController;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.security.Role;
 import no.niths.services.interfaces.RoleService;
 import no.niths.services.school.interfaces.StudentService;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,42 +79,50 @@ public class AdminControllerImpl implements AdminController {
         return mav;
     }
 
-//    /**
-//     * {@inheritDoc} <br />
-//     * Request mapping: GET
-//     */
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ModelAndView getStudents(
-//            @RequestParam(value = "columnName", defaultValue = "FIRST") String columnName,
-//            @RequestParam(value = "query", required = false, defaultValue = "") String query) {
-//        ModelAndView view = new ModelAndView(ADMIN);
-//        columnName = validColumName(columnName);
-//        String[] temp = convertToUTF(query);
-//        query = temp[0];
-//        String errorMessage = temp[1];
-//
-//        logger.debug("Method name: getAllStudents columnName " + columnName
-//                + " Query: " + query);
-//
-//        if (!columnName.equals("FIRST")) {
-//            students.clear();
-//            if (query.equals("")) {
-//                students.addAll(service.getStudentsAndRoles(null));
-//            } else {
-//                students.addAll(service.getStudentByColumn(columnName, query));
-//            }
-//
-//            getRoles();
-//
-//            // add students and roles to MaV
-//            view.addObject("studentList", students);
-//            view.addObject("listOfRoles", listOfRoles);
-//            view.addObject("exception", errorMessage);
-//
-//            setLastQuery(columnName, query);
-//        }
-//        return view;
-//    }
+    /**
+     * {@inheritDoc} <br />
+     * Request mapping: GET
+     */
+    @RequestMapping(
+            value  = "search",
+            method = RequestMethod.GET)
+    @PreAuthorize(SecurityConstants.ONLY_ADMIN)
+    public ModelAndView getStudents(
+            @RequestParam(
+                    value        = "column-name",
+                    defaultValue = "FIRST") String columnName,
+            @RequestParam(
+                    value        = "query",
+                    required     = false,
+                    defaultValue = "") String query) {
+        ModelAndView view = new ModelAndView(ADMIN);
+        columnName = validColumName(columnName);
+        String[] temp = convertToUTF(query);
+        query = temp[0];
+        String errorMessage = temp[1];
+
+        logger.debug("Method name: getAllStudents columnName " + columnName
+                + " Query: " + query);
+
+        if (!columnName.equals("FIRST")) {
+            students.clear();
+            if (query.equals("")) {
+                students.addAll(service.getStudentsAndRoles(null));
+            } else {
+                students.addAll(service.getStudentByColumn(columnName, query));
+            }
+
+            getRoles();
+
+            // add students and roles to MaV
+            view.addObject("studentList", students);
+            view.addObject("listOfRoles", listOfRoles);
+            view.addObject("exception", errorMessage);
+
+            setLastQuery(columnName, query);
+        }
+        return view;
+    }
 
     /**
      * Converts a ISO-8859-1 to UTF-8

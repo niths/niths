@@ -1,4 +1,5 @@
-address = 'http://146.247.156.31:8080/niths/';
+address = 'http://10.110.58.108:8080/niths/';
+avgTimeout = 5000;
 
 $(document).ready(function() {
 
@@ -6,6 +7,7 @@ $(document).ready(function() {
     $.ajax({
       url:     address + 'students',
       type:    'GET',
+      timeout: avgTimeout,
       success: function(data) {
         alert(JSON.stringify(data));
         $.each(data, function(key, student) {
@@ -39,4 +41,19 @@ $(document).ready(function() {
   }
 });
 
-$(document).on('click', 'button', function() { alert("foo"); });
+$(document).on('click', 'button', function(event) {
+  var currentListElementId = $(event.target).parent().parent().attr('id');
+
+  $.ajax({
+    url:     address + 'students/' + /student-(\d+)/g.exec(
+                 $(event.target).parent().parent().attr('id'))[1],
+    type:    'DELETE',
+    timeout: avgTimeout,
+    success: function(data) {
+      $('#' + currentListElementId).fadeOut('slow', function() {});
+    },
+    error:   function(xhr) {
+      alert(JSON.stringify(xhr));
+    }
+  });
+});
