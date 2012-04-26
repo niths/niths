@@ -9,6 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 /**
  * Configuration class for mail service
+ * <p>
+ * @see application.properties
+ * </p>
  *
  */
 @Configuration
