@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for Application
+ *
+ */
 @Service
 public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		implements ApplicationService {
@@ -48,6 +52,12 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		return repo;
 	}
 
+	/**
+	 * Enables an application
+	 * 
+	 * @param applicationId id of the application to enable
+	 * @throws ObjectNotFoundException if the app does not exist
+	 */
 	@Override
 	public void enableApplication(Long applicationId) {
 		Application applications = validate(repo.getById(applicationId),
@@ -59,6 +69,12 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		
 	}
 
+	/**
+	 * Disables an application
+	 * 
+	 * @param applicationId id of the application to enable
+	 * @throws ObjectNotFoundException if the app does not exist
+	 */
 	@Override
 	public void disableApplication(Long applicationId) {
 		Application applicatipns = validate(repo.getById(applicationId),
