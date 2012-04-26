@@ -10,10 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * Authenticates requests
+ * Authenticates requests from the @see {@link RequestAuthenticationFilter}
  * <p>
  * This class is responsible for delegating the authentication
- * to the UserDetailService
+ * to the @see {@link UserDetailService}
+ * </p>
  * 
  */
 public class RequestAuthenticationProvider implements AuthenticationProvider {

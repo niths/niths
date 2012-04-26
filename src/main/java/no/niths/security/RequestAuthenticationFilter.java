@@ -16,6 +16,25 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Security filter that checks for session token and validates user
+ * <p>
+ * This filter runs after BasicAuthenticationFilter @see BasicAuthenticationFilter
+ * and checks for developer key+token, key+application token and session-token
+ * </p>
+ * <p>
+ * If no developer key+token and no application key+token is provided
+ * in the request, the session-token will not be validated. In other words
+ * Developer token+key and application token+key must be provided to access
+ * restricted resources.
+ * </p>
+ * <p>
+ * This class does not handle the actual verification, it only extracts the
+ * tokens from the http request and passes them to the class responsible for
+ * the verification @see {@link RequestAuthenticationProvider}
+ * </p>
+ * <p>
+ * For an understanding of how Spring security works, I recommend the book:
+ * "Spring security 3" from Peter Mularien {@link http://www.springsecuritybook.com/}
+ * </p>
  * 
  */
 public class RequestAuthenticationFilter extends OncePerRequestFilter {

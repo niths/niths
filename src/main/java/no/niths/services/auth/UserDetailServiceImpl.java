@@ -10,7 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 /**
- * Class responsible for fetching the user holding the request  
+ * <p>
+ * Class responsible for fetching the student, application and
+ * the developer holding the HTTP request.
+ * </p>
+ * <p>
+ * Delegates the information to @see {@link AuthenticationService}.
+ * The actual verification is handled in @see {@link AuthenticationService}
+ * </p>
  * 
  */
 @Component
