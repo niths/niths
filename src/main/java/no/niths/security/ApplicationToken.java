@@ -6,7 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
- * Wrapper class for token
+ * Wrapper class for application token
+ * <p>
+ * Contains the application key and application token
+ * together with a message to show the User.
+ * </p>
  *
  */
 @XmlRootElement

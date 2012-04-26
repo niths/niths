@@ -6,7 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 /**
- * Wrapper class for token
+ * Wrapper class for developer token
+ * <p>
+ * Contains the developer token + key,
+ * and also a message to show the user
+ * </p>
  *
  */
 @XmlRootElement

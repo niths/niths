@@ -1,5 +1,9 @@
 package no.niths.common.constants;
 
+/**
+ * Constants for security
+ *
+ */
 public final class SecurityConstants {
     //Session times -- TODO: CHANGE TO: 3600000 --> 1 hour
     public static final long MAX_SESSION_VALID_TIME = 7200000; //2 hours -->Max time session is valid from user logging in
