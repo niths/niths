@@ -96,6 +96,11 @@ public class Application implements Domain {
 	@XmlTransient
 	@Column
 	private Boolean enabled;
+	
+	// Counter that keeps track of number of requests
+	// towards the API
+	@Column
+	private Long requests;
 
 	@JsonSerialize(as=Developer.class)
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Developer.class)
@@ -207,5 +212,13 @@ public class Application implements Domain {
 
 	public void setApplicationKey(String applicationKey) {
 		this.applicationKey = applicationKey;
+	}
+
+	public Long getRequests() {
+		return requests;
+	}
+
+	public void setRequests(Long requests) {
+		this.requests = requests;
 	}
 }
