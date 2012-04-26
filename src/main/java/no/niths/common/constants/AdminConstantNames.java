@@ -7,7 +7,8 @@ package no.niths.common.constants;
  */
 public class AdminConstantNames {
 
-    public static final String ADMIN_DEV     = "admin/developer",
+    public static final String ADMIN         = "admin",
+                               ADMIN_DEV     = "admin/developer",
                                API_EVENTS    = "api_events",
                                AUTH          = "auth",
                                BROADCAST     = "broadcast",

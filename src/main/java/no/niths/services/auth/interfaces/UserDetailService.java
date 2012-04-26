@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 /**
- * Class responsible for feching the user holding the request  
+ * Class responsible for fetching the user holding the request  
  * 
  */
 public interface UserDetailService extends UserDetailsService {
