@@ -495,6 +495,28 @@ INSERT INTO fadder_groups(id, group_number) VALUES (1, 1);
 INSERT INTO fadder_groups(id, group_number) VALUES (2, 2);
 INSERT INTO fadder_groups(id, group_number) VALUES (3, 3);
 INSERT INTO fadder_groups(id, group_number) VALUES (4, 4);
+INSERT INTO fadder_groups(group_number) VALUES (5);
+INSERT INTO fadder_groups(group_number) VALUES (6);
+INSERT INTO fadder_groups(group_number) VALUES (7);
+INSERT INTO fadder_groups(group_number) VALUES (8);
+INSERT INTO fadder_groups(group_number) VALUES (9);
+INSERT INTO fadder_groups(group_number) VALUES (10);
+INSERT INTO fadder_groups(group_number) VALUES (11);
+INSERT INTO fadder_groups(group_number) VALUES (12);
+INSERT INTO fadder_groups(group_number) VALUES (13);
+INSERT INTO fadder_groups(group_number) VALUES (14);
+INSERT INTO fadder_groups(group_number) VALUES (15);
+INSERT INTO fadder_groups(group_number) VALUES (16);
+INSERT INTO fadder_groups(group_number) VALUES (17);
+INSERT INTO fadder_groups(group_number) VALUES (18);
+INSERT INTO fadder_groups(group_number) VALUES (19);
+INSERT INTO fadder_groups(group_number) VALUES (20);
+INSERT INTO fadder_groups(group_number) VALUES (21);
+INSERT INTO fadder_groups(group_number) VALUES (22);
+INSERT INTO fadder_groups(group_number) VALUES (23);
+INSERT INTO fadder_groups(group_number) VALUES (24);
+INSERT INTO fadder_groups(group_number) VALUES (25);
+INSERT INTO fadder_groups(group_number) VALUES (26);
 ---------------------------------------------------------------------
 --------------------------fadder_leaders-----------------------------
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 1);

@@ -5,7 +5,10 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.school.interfaces.LockerRepository;
 
 import org.springframework.stereotype.Repository;
-
+/**
+ * Repository class for Locker
+ *
+ */
 @Repository
 public class LockerRepositoryImpl
         extends AbstractGenericRepositoryImpl<Locker>
