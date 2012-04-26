@@ -1,5 +1,7 @@
 package no.niths.application.rest.developing.interfaces;
 
+import java.util.List;
+
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.developing.Application;
@@ -26,5 +28,7 @@ public interface ApplicationController extends GenericRESTController<Application
 	 * @throws ObjectNotFoundException if no application is found
 	 */
 	void disableApplication(Long applicationId);
+
+	List<Application> getTopApps(int maxResults);
 
 }

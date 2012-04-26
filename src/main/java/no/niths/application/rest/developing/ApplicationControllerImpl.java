@@ -1,8 +1,11 @@
 package no.niths.application.rest.developing;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.developing.interfaces.ApplicationController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ApplicationList;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -98,6 +102,14 @@ public class ApplicationControllerImpl extends
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application disable")
 	public void disableApplication(@PathVariable Long applicationId){
 		service.disableApplication(applicationId);
+	}
+	
+	@Override
+	@RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Application> getTopApps(@PathVariable int maxResults){
+		renewList(service.getTopApps(maxResults));
+		return applicationList;
 	}
 	
 	/**

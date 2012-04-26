@@ -1,5 +1,7 @@
 package no.niths.services.developing;
 
+import java.util.List;
+
 import no.niths.domain.developing.Application;
 import no.niths.domain.developing.Developer;
 import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
@@ -30,6 +32,18 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 	@Deprecated
 	public Application getByApplicationToken(String token) {
 		return repo.getByApplicationToken(token);
+	}
+	
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
+	@Override
+	public List<Application> getTopApps(int maxResults){
+		return repo.getTopApps(maxResults);
 	}
 
 	/**

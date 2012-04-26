@@ -46,7 +46,13 @@ public class ApplicationRepositoryImpl extends
 		
 	}
 	
-	
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Application> getTopApps(int maxResults){

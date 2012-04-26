@@ -2,6 +2,9 @@ package no.niths.application.rest;
 
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import no.niths.application.rest.developing.interfaces.ApplicationController;
 import no.niths.application.rest.developing.interfaces.DeveloperController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -20,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
-public class DeveloperControllerTest {
+public class ApplicationDeveloperControllerTest {
 
     private MockHttpServletResponse res;
 
@@ -35,6 +38,28 @@ public class DeveloperControllerTest {
 	    res = new MockHttpServletResponse();
 	}
 
+	@Test
+	public void getTopApps(){
+		Application a1 = new Application("application xzy1");
+		Application a2 = new Application("application xxs2");
+		Application a3 = new Application("application xsy3");
+		a1.setRequests(new Long(10));
+		a2.setRequests(new Long(20));
+		a3.setRequests(new Long(5));
+		aController.create(a1, res);
+		aController.create(a2, res);
+		aController.create(a3, res);
+		
+		List<Application> all = aController.getTopApps(5);
+		assertEquals(all.get(0), a2);
+		assertEquals(all.get(1), a1);
+		assertEquals(all.get(2), a3);
+		
+		aController.delete(a1.getId());
+		aController.delete(a2.getId());
+		aController.delete(a3.getId());
+	}
+	
 	@Test
 	public void addApp(){
 		int size = 0;
