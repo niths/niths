@@ -7,7 +7,11 @@ import no.niths.domain.school.Student;
 import no.niths.security.SessionToken;
 
 /**
+ * 
  * Login controller for the API
+ * <p>
+ * To log in, a access token from Google must be provided
+ * </p>
  * 
  */
 public interface RestLoginController {
@@ -18,8 +22,6 @@ public interface RestLoginController {
 	 * @param token for authentication via Google
 	 * @return Session token to use for login after authentication
 	 */
-	//SessionToken login(SessionToken token);
-
 	Student login(SessionToken token, HttpServletRequest req,
 			HttpServletResponse res);
 

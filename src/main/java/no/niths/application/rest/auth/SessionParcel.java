@@ -5,8 +5,12 @@ import no.niths.security.SessionToken;
 
 /**
  * 
- * @author NITHs
- *
+ * Wrapper class used in the login process
+ * <p>
+ * An instace of this class is returned
+ * when a Student logs in
+ * </p>
+ * 
  */
 public class SessionParcel {
 

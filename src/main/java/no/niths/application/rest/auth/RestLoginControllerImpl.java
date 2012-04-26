@@ -28,8 +28,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 /**
- * Google authorization controller
- *
+ * 
+ * Login controller for the API
+ * <p>
+ * To log in, a access token from Google must be provided
+ * </p>
+ * 
  */
 @Controller
 @RequestMapping(AdminConstantNames.AUTH)

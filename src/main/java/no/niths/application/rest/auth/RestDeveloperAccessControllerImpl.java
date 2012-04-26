@@ -22,7 +22,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Register developers wanting access to the API
+ * 
+ * Handles developers wanting access to the API
+ * <p>
+ * Developers must register with the API to be able to
+ * develop applications that can access the restricted
+ * resources in the API
+ * </p>
+ * <p>
+ * Developers register, then confirms their identity and
+ * then they can register and enable applications
+ * </p>
  * 
  */
 @Controller
