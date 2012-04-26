@@ -252,7 +252,8 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         }
   */      
         student.getRoles().add(role);
-        logger.debug(MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
+        logger.debug(
+                MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
     }
 
     @Override
@@ -326,11 +327,5 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         Student student = validate(repo.getById(studentId), Student.class);
         checkIfIsRemoved(student.getLockers().remove(new Locker(lockerId)),
                 Locker.class);
-    }
-
-    @Override
-    public List<Student> getStudentByColumn(String column, String criteria) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }
