@@ -35,6 +35,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * For an understanding of how Spring security works, I recommend the book:
  * "Spring security 3" from Peter Mularien {@link http://www.springsecuritybook.com/}
  * </p>
+ * <p>
+ * This filter could be extended to log information about the developer/application
+ * Example: Which application has most users? Which application fecthes most data?
+ * </p>
+ * 
  * 
  */
 public class RequestAuthenticationFilter extends OncePerRequestFilter {
