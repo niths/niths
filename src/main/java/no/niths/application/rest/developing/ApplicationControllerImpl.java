@@ -104,6 +104,13 @@ public class ApplicationControllerImpl extends
 		service.disableApplication(applicationId);
 	}
 	
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
 	@Override
 	@RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody

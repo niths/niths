@@ -29,6 +29,13 @@ public interface ApplicationController extends GenericRESTController<Application
 	 */
 	void disableApplication(Long applicationId);
 
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
 	List<Application> getTopApps(int maxResults);
 
 }
