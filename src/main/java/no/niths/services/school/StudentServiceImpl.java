@@ -66,6 +66,10 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
     @Autowired
     private LockerRepository lockerRepo;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Long create(Student student) {
         Role role = new Role(SecurityConstants.R_STUDENT);
         List<Role> roles = roleRepo.getAll(role);
@@ -79,6 +83,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         return repo.create(student);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Student getStudentByEmail(String email) {
         Student student = new Student(email);
@@ -90,6 +97,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Student getStudentBySessionToken(String token) {
         Student s = new Student();
@@ -102,6 +112,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         throw new ObjectNotFoundException("No student with token");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Student getStudentWithRoles(Long id) {
         Student s = repo.getById(id);
@@ -112,10 +125,17 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         return s;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Student> getStudentsWithNamedCourse(String name) {
         return repo.getStudentsWithNamedCourse(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Student> getStudentsAndRoles(Student s) {
         List<Student> list = repo.getAll(s);
@@ -127,6 +147,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         return list;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Student> search(String column, String query) {
         if (!checkColumn(column)) {
@@ -166,11 +189,17 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         return valid;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GenericRepository<Student> getRepository() {
         return repo;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCourse(Long studentId, Long courseId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -185,6 +214,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeCourse(Long studentId, Long courseId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -192,6 +224,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Course.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCommittee(Long studentId, Long committeeId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -206,6 +241,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeCommittee(Long studentId, Long committeeId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -215,6 +253,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Committee.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addFeed(Long studentId, Long feedId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -227,6 +268,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeFeed(Long studentId, Long feedId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -234,6 +278,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Feed.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addRole(Long studentId, Long roleId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -255,6 +302,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         logger.debug(MessageProvider.buildStatusMsg(Role.class, Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeRole(Long studentId, Long roleId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -263,12 +313,18 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Role.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeAllRoles(Long studId) {
         Student student = validate(repo.getById(studId), Student.class);
         student.setRoles(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addLoan(Long studentId, Long loanId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -282,6 +338,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoan(Long studentId, Long loanId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -290,7 +349,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
     }
 
     /**
-     * method for admin panel
+     * {@inheritDoc}
      */
     @Override
     public void updateRoles(Long studentId, Long[] roleIds) {
@@ -307,6 +366,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addLocker(Long studentId, Long lockerId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -321,6 +383,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLocker(Long studentId, Long lockerId) {
         Student student = validate(repo.getById(studentId), Student.class);
@@ -328,6 +393,9 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
                 Locker.class);
     }
 
+    /**
+     * @see method searc(String column, String criteria);
+     */
     @Override
     public List<Student> getStudentByColumn(String column, String criteria) {
         // TODO Auto-generated method stub
