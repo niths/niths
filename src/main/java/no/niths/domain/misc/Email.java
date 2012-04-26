@@ -4,8 +4,7 @@ import javax.validation.constraints.Pattern;
 
 
 /**
- * 
- * @author NITHs
+ * Wrapper class for Email
  *
  */
 public class Email {
