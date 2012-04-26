@@ -5,17 +5,17 @@ import java.lang.reflect.Field;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.misc.interfaces.DiscoverabilityController;
 import no.niths.common.constants.DomainConstantNames;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Simple discoverability class that handles GET requests to the ROOT uri
+ * Simple discover ability class that handles GET requests to the ROOT URI
  * <p>
  * Returns all valid domain in header
  *
@@ -27,13 +27,8 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController{
     @RequestMapping(value = "/",method = RequestMethod.GET)
     @ResponseBody
     public String root(HttpServletRequest req, HttpServletResponse res) {
-        res.setContentType(RESTConstants.JSON);
-
-        String json = buildURLs(req.getRequestURL().toString());
-
-        System.err.println(json);
-        
-        return json;
+        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        return buildURLs(req.getRequestURL().toString());
     }
 
     private String buildURLs(String rootURL) {

@@ -70,6 +70,11 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * void create(@RequestBody Your_domain domain){
      *         super.create(domain); 
      * }
+     * 
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * method = RequestMethod.POST
+     * value = HttpStatus.CREATED
+     * reason = "Created"
      * </pre>
      */
     @Override
@@ -96,17 +101,19 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      *             <pre>
      * {@code
      * @Override
-     * @PreAuthorize(SecurityConstants.ONLY_ADMIN)
      * public You_Domain getById(@PathVariable Long id) {
      *         return super.getById(id);
      * }
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/{id}
+     * value = "{id}", 
+     * method = RequestMethod.GET, 
+     * headers = RESTConstants.ACCEPT_HEADER
      * </pre>
      *
      */
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
-    
     public T getById(@PathVariable Long id) {
     	T domain = getService().getById(id);
     	ValidationHelper.isObjectNull(domain);
@@ -132,8 +139,13 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * @PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
      * public ArrayList<Your_Domain> getAll(Your_Domain domain) {
      *         ArrayList<Your_Domain> all = super.getAll(domain);
-     * return roles;
+     * 		return roles;
      * }
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * method = RequestMethod.GET
+     *  headers = RESTConstants.ACCEPT_HEADER
+     * </pre>
+     * 
      */
     @Override
     @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -144,12 +156,17 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     }
 
     /**
+     * 
      * Returns an array list with all exams like getAll(domain), 
      * but also supports pagination
-     * <p>
      * @param domain object with attributes to search for
      * @param firstResult the first result in the result set
      * @param maxResults the number of result to return
+     * <pre>
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/paginated/{firstResult}/{maxResults}
+     * method = RequestMethod.GET
+     * headers = RESTConstants.ACCEPT_HEADER
+     * </pre>
      */
     @Override
     @RequestMapping(value = "paginated/{firstResult}/{maxResults}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -176,6 +193,11 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * void update(@RequestBody Your_domain domain){
      *         super.update(domain); 
      * }
+     * 
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * method = RequestMethod.PUT
+     * value = HttpStatus.OK, 
+     * reason = "Update OK"
      * </pre>
      * 
      */
@@ -220,6 +242,10 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * void hibernateDelete(@PathVariable long id){
      *         super.hibernateDelete(id); 
      * }
+     * 
+     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/{id}
+     * @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+     * @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
      * </pre>
      * 
      * 
