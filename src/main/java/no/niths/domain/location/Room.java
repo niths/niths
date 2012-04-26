@@ -33,6 +33,15 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/**
+ * 
+ * Domain class for Room
+ * <p>
+ * Room name must be unique
+ * Also hold information about the accessfields in the room
+ * </p>
+ *
+ */
 @Entity
 @Table(name = DomainConstantNames.ROOMS)
 @XmlRootElement

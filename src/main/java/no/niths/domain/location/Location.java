@@ -26,7 +26,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+/**
+ * Domain class for Location
+ * <p>
+ * The place attribute can not be null,
+ * all other attributes are optional
+ * </p>
+ *
+ */
 @Entity
 @Table(name = DomainConstantNames.LOCATIONS)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
