@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 /**
- * Class responsible for feching the user holding the request  
+ * Class responsible for fetching the user holding the request  
  * 
  */
 @Component
@@ -52,6 +52,15 @@ public class UserDetailServiceImpl implements UserDetailService {
 		return user;
 	}
 	
+	/**
+	 * Calls on authentication service to authenticate the developer
+	 * 
+	 * @param developerToken the developer token
+	 * @param developerKey the developer key
+	 * @return id of the developer
+	 * @throws UsernameNotFoundException if no developer is found
+	 * 
+	 */
 	@Override
 	public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
 		Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
