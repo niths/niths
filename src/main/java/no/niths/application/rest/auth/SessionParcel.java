@@ -7,7 +7,7 @@ import no.niths.security.SessionToken;
  * 
  * Wrapper class used in the login process
  * <p>
- * An instace of this class is returned
+ * An instance of this class is returned
  * when a Student logs in
  * </p>
  * 
