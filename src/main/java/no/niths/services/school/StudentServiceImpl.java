@@ -109,7 +109,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
             lazyFixer.fetchChildren(all);
             return all.get(0);    
         }
-        throw new ObjectNotFoundException("No student with token");
+        return null;
     }
 
     /**
