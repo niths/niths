@@ -14,7 +14,10 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
+/**
+ * Repository class for Event
+ *
+ */
 @Repository
 public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		implements EventRepository {
@@ -29,12 +32,28 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		queryGen = new QueryGenerator<Event>(Event.class);
 	}
 
+	/**
+	 * <p>
+	 * Returns all events with matching tags
+	 * </p>
+	 * @param tag comma separated string, ex: fadderuka,kroa,nith
+	 * @return list with events matching tags
+	 */
 	@Override
 	public List<Event> getEventsByTag(String tag) {
 		return queryGen.whereQuery(tag, COLUMNAME, getSession()
 				.getCurrentSession());
 	}
 
+	/**
+	 * <p>
+	 * Returns all events with start date between the two dates
+	 * provided as parameters 
+	 * </p>
+	 * @param startTime 
+	 * @param endTime
+	 * @return List of events with startdate between the param dates
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
@@ -59,6 +78,16 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 
 	}
 
+	/**
+	 * <p>
+	 * Returns all events with start date between the two dates provided
+	 * as parameters and with matching tags.
+	 * </p>
+	 * @param tag Comma separated string
+	 * @param startTime
+	 * @param endTime
+	 * @return list with events matching the params
+	 */
 	@Override
 	public List<Event> getEventsBetweenDatesAndByTag(String tag,
 			GregorianCalendar startTime, GregorianCalendar endTime) {

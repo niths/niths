@@ -6,6 +6,10 @@ import no.niths.infrastructure.school.interfaces.ExamRepository;
 
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository class for Exam
+ *
+ */
 @Repository
 public class ExamRepositoryImpl extends AbstractGenericRepositoryImpl<Exam> implements ExamRepository {
 
