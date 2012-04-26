@@ -20,8 +20,10 @@ public interface ApplicationController extends GenericRESTController<Application
 	void enableApplication(Long applicationId);
 
 	/**
+	 * Disables an application
 	 * 
-	 * @param applicationId
+	 * @param applicationId id of the application
+	 * @throws ObjectNotFoundException if no application is found
 	 */
 	void disableApplication(Long applicationId);
 

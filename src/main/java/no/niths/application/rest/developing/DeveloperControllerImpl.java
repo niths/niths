@@ -85,6 +85,11 @@ public class DeveloperControllerImpl extends
 		service.enableDeveloper(developerId);
 	}
 
+	
+	/**
+	 * Disables a developer, so he can't make request
+	 * @param developerId
+	 */
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{developerId}/disable" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Developer diabled")

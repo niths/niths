@@ -38,6 +38,9 @@ public class ApplicationControllerImpl extends
 
 	private ApplicationList applicationList = new ApplicationList();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(
@@ -46,12 +49,18 @@ public class ApplicationControllerImpl extends
 		super.create(domain, res);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void delete(@PathVariable long id) {
 		super.delete(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Application domain) {
@@ -77,6 +86,12 @@ public class ApplicationControllerImpl extends
 		service.enableApplication(applicationId);
 	}
 
+	/**
+	 * Disables an application
+	 * 
+	 * @param applicationId id of the application
+	 * @throws ObjectNotFoundException if no application is found
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
