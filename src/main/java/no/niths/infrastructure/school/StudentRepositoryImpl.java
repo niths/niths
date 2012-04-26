@@ -2,6 +2,7 @@ package no.niths.infrastructure.school;
 
 import java.util.List;
 
+import no.niths.common.misc.Searchable;
 import no.niths.domain.school.Student;
 import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.QueryGenerator;
@@ -21,7 +22,13 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 		super(Student.class, new Student());
 		queryGen = new QueryGenerator<Student>(Student.class);
 	}
-
+	
+	/**
+	 * Returns all student in the given course
+	 * 
+	 * @param name The course name
+	 * @return list of students in the course
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsWithNamedCourse(String name) {
 		String sql = "from " + Student.class.getSimpleName()
@@ -31,6 +38,17 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
+	/**
+	 * Returns all students with matching attribute
+	 * Columns must be annotated with @Searchable
+	 * 
+	 * @see Searchable
+	 * 
+	 * @param column the attribute to search for
+	 * @param criteria the search query
+	 * @return List of matching students
+	 * 
+	 */
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
 		
