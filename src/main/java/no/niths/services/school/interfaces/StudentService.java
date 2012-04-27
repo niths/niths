@@ -22,14 +22,6 @@ public interface StudentService extends GenericService<Student> {
     List<Student> getStudentsAndRoles(Student student);
 
     /**
-     * Returns students by a specified column and a provided criteria
-     * @param column
-     * @param criteria
-     * @return
-     */
-    List<Student> getStudentByColumn(String column, String criteria);
-
-    /**
      * Returns a student that contains the provided token
      * @param token
      * @return

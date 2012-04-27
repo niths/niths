@@ -1,6 +1,9 @@
 package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.developing.Application;
@@ -23,6 +26,28 @@ public class ApplicationServiceTest {
 	
 	@Autowired
 	private DeveloperService devService;
+	
+	@Test
+	public void testGetTopApps(){
+		Application a1 = new Application("application xzy1");
+		Application a2 = new Application("application xxs2");
+		Application a3 = new Application("application xsy3");
+		a1.setRequests(new Long(10));
+		a2.setRequests(new Long(20));
+		a3.setRequests(new Long(5));
+		service.create(a1);
+		service.create(a2);
+		service.create(a3);
+		
+		List<Application> all = service.getTopApps(5);
+		assertEquals(all.get(0), a2);
+		assertEquals(all.get(1), a1);
+		assertEquals(all.get(2), a3);
+		
+		service.hibernateDelete(a1.getId());
+		service.hibernateDelete(a2.getId());
+		service.hibernateDelete(a3.getId());
+	}
 	
 	@Test
 	public void testCRUD(){

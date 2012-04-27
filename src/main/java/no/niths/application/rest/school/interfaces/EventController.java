@@ -14,9 +14,9 @@ public interface EventController extends GenericRESTController<Event> {
 	/**
 	 * 
 	 * Returns a list of events on the given tag.
-	 * Here you can search on more tags by adding &
+	 * Here you can search on more tags by adding ,
 	 * between the search words like this:
-	 * tag = "party&fun"
+	 * tag = "party,fun"
 	 * @param tag
 	 * @return
 	 */
@@ -45,7 +45,8 @@ public interface EventController extends GenericRESTController<Event> {
 	List<Event> getEventsBetweenDates(TimeDTO timeDTO);
 	
 	/**
-	 * 
+	 * Returns events that starts between start and end time provide and tags,
+	 *  
 	 * @param tag
 	 * @return
 	 */

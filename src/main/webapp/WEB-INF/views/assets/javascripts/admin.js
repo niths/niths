@@ -73,7 +73,8 @@ $(document).ready(function() {
 
       gen += chb + ' />' +
       '<label for="chb-' + student.id + '-' + outerRole.id + '">' +
-          outerRole.roleName.toLowerCase().replace(/_/g, ' ') +
+        outerRole.roleName.toLowerCase()
+            .replace(/_/g, ' ').replace(/role/, '') +
       '</label>';
       gen += '</div>';
     });

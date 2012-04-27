@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
+/**
+ * Configuration class for Spring MVC (Admin panel)
+ *
+ */
 @Configuration
 @ComponentScan(AppConfig.WEB_PACKAGE)
 public class MVCConfig {

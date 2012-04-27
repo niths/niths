@@ -7,7 +7,11 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
- 
+
+/**
+ * Defining the @StudentGender annotation
+ *
+ */
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = StudentGenderValidator.class)

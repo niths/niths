@@ -1,5 +1,7 @@
 package no.niths.infrastructure.developing;
 
+import java.util.List;
+
 import no.niths.domain.developing.Application;
 import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
@@ -42,5 +44,21 @@ public class ApplicationRepositoryImpl extends
 		return (Application) getSession().getCurrentSession().createQuery(sql)
 				.setString("key", key).uniqueResult();
 		
+	}
+	
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Application> getTopApps(int maxResults){
+		String sql = "from " + Application.class.getSimpleName() + " a " +
+						" order by a.requests desc";
+		return getSession().getCurrentSession().createQuery(sql)
+						.setMaxResults(maxResults).list();
 	}
 }

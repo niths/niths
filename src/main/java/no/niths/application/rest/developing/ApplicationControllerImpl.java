@@ -1,8 +1,11 @@
 package no.niths.application.rest.developing;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.developing.interfaces.ApplicationController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ApplicationList;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -38,6 +42,9 @@ public class ApplicationControllerImpl extends
 
 	private ApplicationList applicationList = new ApplicationList();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void create(
@@ -46,12 +53,18 @@ public class ApplicationControllerImpl extends
 		super.create(domain, res);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void delete(@PathVariable long id) {
 		super.delete(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	public void update(@RequestBody Application domain) {
@@ -77,12 +90,33 @@ public class ApplicationControllerImpl extends
 		service.enableApplication(applicationId);
 	}
 
+	/**
+	 * Disables an application
+	 * 
+	 * @param applicationId id of the application
+	 * @throws ObjectNotFoundException if no application is found
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application disable")
 	public void disableApplication(@PathVariable Long applicationId){
 		service.disableApplication(applicationId);
+	}
+	
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
+	@Override
+	@RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Application> getTopApps(@PathVariable int maxResults){
+		renewList(service.getTopApps(maxResults));
+		return applicationList;
 	}
 	
 	/**

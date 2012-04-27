@@ -4,7 +4,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 /**
- * Class responsible for fetching the user holding the request  
+ * <p>
+ * Class responsible for fetching the student, application and
+ * the developer holding the HTTP request.
+ * </p>
+ * <p>
+ * Delegates the information to @see {@link AuthenticationService}.
+ * The actual verification is handled in @see {@link AuthenticationService}
+ * </p>
  * 
  */
 public interface UserDetailService extends UserDetailsService {

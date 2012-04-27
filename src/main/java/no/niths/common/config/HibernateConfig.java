@@ -18,6 +18,9 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * Configuration class for Hibernate
+ * <p>
+ * @see application.properties
+ * </p>
  *
  */
 @Configuration

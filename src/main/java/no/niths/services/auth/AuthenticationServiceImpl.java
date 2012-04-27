@@ -329,10 +329,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Long authenticateApplicationToken(String applicationKey, String applicationToken)
                         throws AuthenticationException {
-        //TEST MODE
-//        return new Long(1);
-        //TEST MODE
-        
+
         tokenService.verifyTokenFormat(applicationToken, false);
         Application app = appService.getByApplicationKey(applicationKey, true);
         if(app == null){
@@ -342,6 +339,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }else if(!app.getApplicationToken().equals(applicationToken)){
             throw new UnvalidTokenException("Application token is not correct");
         }
+
+        //Up the application request counter!
+        if(app.getRequests() != null){
+        	app.setRequests(app.getRequests() + 1);        	
+        } else {
+        	app.setRequests(new Long(1));
+        }
+        appService.update(app);
+        
         return app.getId();
     }
     

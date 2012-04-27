@@ -1,5 +1,7 @@
 package no.niths.infrastructure.developing.interfaces;
 
+import java.util.List;
+
 import no.niths.domain.developing.Application;
 import no.niths.infrastructure.interfaces.GenericRepository;
 
@@ -16,4 +18,13 @@ public interface ApplicationRepository extends GenericRepository<Application> {
 	 * @return the application or null if no matching key or app is not enabled
 	 */
 	Application getByApplicationKey(String key, boolean enabled);
+
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
+	List<Application> getTopApps(int maxResults);
 }

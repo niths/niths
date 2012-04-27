@@ -18,7 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service class for Developer
+ *
+ */
 @Service
 public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 		implements DeveloperService {
@@ -42,7 +45,10 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the developer with the matching developer token
+	 * 
+	 * @param token string with the developer key
+	 * @return the developer or null if no developer were found
 	 */
 	@Override
 	public Developer getDeveloperByDeveloperKey(String key) {
@@ -54,7 +60,10 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns all developers with and their applications
+	 * @param dev a developer object with attributes to limit the result set,
+	 * 			if null, all developers will be returned
+	 * @return list of all developers
 	 */
 	@Override
 	public List<Developer> getAllWithApps(Developer dev) {
@@ -70,6 +79,12 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 		return repo;
 	}
 
+	/**
+	 * Enables the developer with matching id
+	 * 
+	 * @param developerId id of the developer to enable
+	 * @throws ObjectNotFoundException when dev does not exist
+	 */
 	@Override
 	public void enableDeveloper(Long developerId) {
 		Developer developer = validate(repo.getById(developerId),
@@ -78,6 +93,12 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 		logger.debug("Developer " + developer.getName() + " is enabled");
 	}
 
+	/**
+	 * Disables the developer with matching id
+	 * 
+	 * @param developerId id of the developer to disable
+	 * @throws ObjectNotFoundException when dev does not exist
+	 */
 	@Override
 	public void disableDeveloper(Long developerId) {
 		Developer developer = validate(repo.getById(developerId),
@@ -86,7 +107,15 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 		logger.debug("Developer " + developer.getName() + " is disabled");
 
 	}
-
+	
+	/**
+	 * Resets the developer key.
+	 * Deletes the old one and generates a new
+	 * 
+	 * @param developerId id of the developer
+	 * @param generatedDeveloperKey the new key
+	 * @throws ObjectNotFoundException when dev does not exist
+	 */
 	@Override
 	public void resetDeveloperKey(Long developerId, String generatedDeveloperKey) {
 		Developer developer = validate(repo.getById(developerId),
@@ -96,6 +125,13 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 		developer.setDeveloperKey(generatedDeveloperKey);
 	}
 
+	/**
+	 * Adds an application to a developer
+	 * 
+	 * @param developerId id of the developer
+	 * @param applicationId id of the application
+	 * @throws ObjectNotFoundException when app or dev does not exist
+	 */
 	@Override
 	public void addApplication(Long developerId, Long applicationId) {
 		Developer developer = validate(repo.getById(developerId),
@@ -111,6 +147,13 @@ public class DeveloperServiceImpl extends AbstractGenericService<Developer>
 				Status.UPDATED));
 	}
 
+	/**
+	 * Removes an application from a developer
+	 * 
+	 * @param developerId id of the developer
+	 * @param applicationId id of the application
+	 * @throws ObjectNotFoundException when app or dev does not exist
+	 */
 	@Override
 	public void removeApplicaiton(Long developerId, Long applicationId) {
 		Developer developer = validate(repo.getById(developerId),

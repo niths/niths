@@ -1,8 +1,13 @@
 package no.niths.services.developing.interfaces;
 
+import java.util.List;
+
 import no.niths.domain.developing.Application;
 import no.niths.services.interfaces.GenericService;
-
+/**
+ * Service class for Application
+ *
+ */
 public interface ApplicationService extends GenericService<Application> {
 
 	@Deprecated
@@ -19,14 +24,27 @@ public interface ApplicationService extends GenericService<Application> {
 	Application getByApplicationKey(String key, boolean enabled);
 
 	/**
+	 * Enables an application
 	 * 
-	 * @param applicationId
+	 * @param applicationId id of the application to enable
+	 * @throws ObjectNotFoundException if the app does not exist
 	 */
 	void enableApplication(Long applicationId);
 
 	/**
+	 * Disables an application
 	 * 
-	 * @param applicationId
+	 * @param applicationId id of the application to enable
+	 * @throws ObjectNotFoundException if the app does not exist
 	 */
 	void disableApplication(Long applicationId);
+
+	/**
+	 * Returns a list applications ordered
+	 * by the number of requests @See {@link Application}
+	 * 
+	 * @param maxResults number of results
+	 * @return list with maxResults applications
+	 */
+	List<Application> getTopApps(int maxResults);
 }
