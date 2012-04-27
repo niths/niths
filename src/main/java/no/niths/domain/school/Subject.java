@@ -69,6 +69,7 @@ public class Subject implements Domain {
             min     = 2,
             max     = 10,
             message = "The length of the code must be between 2 to 10 letters")
+    @XmlElement(name="sibjectcode")
     private String subjectCode;
 
     @Column(length=500)
