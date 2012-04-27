@@ -65,8 +65,11 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		r.setRoleName("ROLE_FADDER_LEADER");
 		List<Role> roles = roleRepo.getAll(r);
 		if (roles.size() > 0) {
-			leader.getRoles().add(roles.get(0));
+			if(!leader.getRoles().contains(roles.get(0))){
+				leader.getRoles().add(roles.get(0));
+			}
 		}
+		
 		group.getLeaders().add(leader);
 
 		logger.debug(MessageProvider.buildStatusMsg(Student.class,
