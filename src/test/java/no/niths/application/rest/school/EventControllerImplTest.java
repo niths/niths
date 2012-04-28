@@ -32,7 +32,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class EventControllerImplTest {
 
-    private MockHttpServletResponse res;
+    private static final int YEAR = 2212;
+
+	private MockHttpServletResponse res;
 
 	@Autowired
 	private EventController controller;
@@ -47,21 +49,21 @@ public class EventControllerImplTest {
 	private Event testEvent03;
 	private Event testEvent04;
 
-	private GregorianCalendar startTime01 = new GregorianCalendar(2012,
+	private GregorianCalendar startTime01 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 10, 12, 20);
-	private GregorianCalendar endTime01 = new GregorianCalendar(2012,
+	private GregorianCalendar endTime01 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 11, 12, 20);
-	private GregorianCalendar startTime02 = new GregorianCalendar(2012,
+	private GregorianCalendar startTime02 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 12, 12, 20);
-	private GregorianCalendar endTime02 = new GregorianCalendar(2012,
+	private GregorianCalendar endTime02 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 13, 12, 20);
-	private GregorianCalendar startTime03 = new GregorianCalendar(2012,
+	private GregorianCalendar startTime03 = new GregorianCalendar(YEAR,
 			Calendar.MAY, 10, 12, 20);
-	private GregorianCalendar endTime03 = new GregorianCalendar(2012,
+	private GregorianCalendar endTime03 = new GregorianCalendar(YEAR,
 			Calendar.MAY, 15, 12, 20);
-	private GregorianCalendar startTime04 = new GregorianCalendar(2012,
+	private GregorianCalendar startTime04 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 17, 12, 20);
-	private GregorianCalendar endTime04 = new GregorianCalendar(2012,
+	private GregorianCalendar endTime04 = new GregorianCalendar(YEAR,
 			Calendar.APRIL, 17, 14, 20);
 
 	@Before

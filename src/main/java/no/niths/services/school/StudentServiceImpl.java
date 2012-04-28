@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Status;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.LazyFixer;

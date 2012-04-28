@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolation;
 import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.HasNotRoleException;
+import no.niths.application.rest.exception.InvalidValueException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -286,7 +287,15 @@ public class RESTExceptionHandler {
 			org.springframework.http.converter.HttpMessageNotReadableException cve,
 			HttpServletResponse res) {
 		res.setHeader("Error", cve.getMessage());
-//		res.setHeader("Error", "Request body is not correct");
+	}
+	
+	
+	@ExceptionHandler(InvalidValueException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void invalidValueException(
+			InvalidValueException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", cve.getMessage());
 	}
 
 }

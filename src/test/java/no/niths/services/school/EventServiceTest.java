@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class EventServiceTest {
 	public void testCRUD(){
 		int size = eventService.getAll(null).size();
 		Event e1 = new Event("the name xxx");
+		e1.setStartTime(new GregorianCalendar(2200,Calendar.JANUARY,10,10,10));
 		eventService.create(e1);
 		assertEquals(size + 1, eventService.getAll(null).size());
 		
@@ -99,8 +101,8 @@ public class EventServiceTest {
 	
 	@Test
 	public void testGetEventsBetweenDates(){
-		GregorianCalendar cal = new GregorianCalendar(2012, Calendar.MARCH, 9, 22, 21, 23);
-		GregorianCalendar cal2 = new GregorianCalendar(2012, Calendar.APRIL, 25, 22, 21, 23);
+		GregorianCalendar cal = new GregorianCalendar(2212, Calendar.MARCH, 9, 22, 21, 23);
+		GregorianCalendar cal2 = new GregorianCalendar(2212, Calendar.APRIL, 25, 22, 21, 23);
 		Event event = new Event("LUG PPP", "Linux", cal, null);
 		Event event2 = new Event("LUG Party", "Linux", cal, null);
 		eventService.create(event);
@@ -116,4 +118,17 @@ public class EventServiceTest {
 		eventService.hibernateDelete(event2.getId());
 	}
 	
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testCreateAndUpdate(){
+//		
+//		
+//		Date d = new Date();
+//		
+//		d.setDate(d.getDate()+1);
+//		GregorianCalendar gre = new GregorianCalendar();
+//		gre.setTime(d);
+//		
+	}
 }

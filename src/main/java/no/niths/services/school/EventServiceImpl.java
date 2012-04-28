@@ -3,6 +3,7 @@ package no.niths.services.school;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import no.niths.application.rest.exception.InvalidValueException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
@@ -45,6 +46,41 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	@Override
 	public GenericRepository<Event> getRepository() {
 		return repo;
+	}
+	
+	
+	@Override
+	public Long create(Event domain) {
+	//	validateStartAndEndTime(domain);
+		return super.create(domain);
+	}
+
+	private void validateStartAndEndTime(Event domain) {
+		
+		GregorianCalendar now = new GregorianCalendar();
+		if(domain!=null){
+			// if startTime not equal to null
+			if(domain.getStartTime() !=null){
+				if(domain.getStartTime().compareTo(now) >0){
+					if(domain.getEndTime()!= null){
+						if(domain.getStartTime().compareTo(domain.getEndTime()) >= 0){
+						throw new InvalidValueException("Star time has to be less than end time");
+						}
+					}
+				}else {
+					throw new InvalidValueException("Start time must be large than the time now " + now.getTime().toString());
+				}
+				
+			}else{
+				throw new InvalidValueException("Star time cannot be null");
+			}
+		}
+	}
+	
+	@Override
+	public void update(Event domain) {
+		//validateStartAndEndTime(domain);
+		super.update(domain);
 	}
 
 	@Override

@@ -1,6 +1,10 @@
 package no.niths.services.school;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Committee;
@@ -97,6 +101,8 @@ public class CommitteeServiceTest {
 		studService.hibernateDelete(s3.getId());
 	}
 	
+	
+	
 	@Test
 	public void testEventRelationship(){
 		int eventSize = eventService.getAll(null).size();
@@ -104,12 +110,17 @@ public class CommitteeServiceTest {
 		Committee c1 = new Committee("asd",null);
 		comService.create(c1);
 		
+		GregorianCalendar g =new GregorianCalendar(2200,Calendar.JANUARY,10,10,10);
+	
 		Event e1 = new Event();
 		e1.setName("qqqq");
+		e1.setStartTime(g);
 		Event e2 = new Event();
 		e2.setName("wwww");
+		e2.setStartTime(g);
 		Event e3 = new Event();
 		e3.setName("rrrr");
+		e3.setStartTime(g);
 		eventService.create(e1);
 		eventService.create(e2);
 		eventService.create(e3);
@@ -203,7 +214,9 @@ public class CommitteeServiceTest {
 		studService.create(s1);
 		
 		Event e1 = new Event();
+		GregorianCalendar g =new GregorianCalendar(2200,Calendar.JANUARY,10,10,10);
 		e1.setName("event-name");
+		e1.setStartTime(g);
 		eventService.create(e1);
 		
 		Committee temp = comService.getById(c1.getId());
