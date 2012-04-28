@@ -107,11 +107,11 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	}
 
 	@Override
-	public void removeLocation(Long eventId, Long locId) {
+	public void removeLocation(Long eventId) {
 		Event event = super.getById(eventId);
 		ValidationHelper.isObjectNull(event, Event.class);
 
-		if (event.getLocation() != null && event.getLocation().getId() == locId) {
+		if (event.getLocation() != null) {
 			event.setLocation(null);
 		} else {
 			String msg = MessageProvider.buildErrorMsg(Location.class,

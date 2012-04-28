@@ -28,13 +28,20 @@ public interface EventController extends GenericRESTController<Event> {
 	 * @param LocId
 	 */
 	void addLocation(Long eventId, Long LocId);
+
+	/**
+	 * Convenience method for changing a location
+	 * @param eventId the event of which the location will be changed
+	 * @param locId the id of the new location
+	 */
+	void changeLocation(Long eventId, Long locId);
 	
 	/**
 	 * Removes a location from a event
 	 * @param eventId
 	 * @param LocId
 	 */
-	void removeLocation(Long eventId, Long LocId);
+	void removeLocation(Long eventId);
 	
 	
 	/**

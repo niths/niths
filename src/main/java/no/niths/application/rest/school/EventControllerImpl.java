@@ -124,18 +124,30 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	}
 	
 	/**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(
+            value  = "{eventId}/location/{locId}",
+            method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
+    public void changeLocation(
+            @PathVariable Long eventId,
+            @PathVariable Long locId) {
+        service.removeLocation(eventId);
+    }
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	@RequestMapping(
-	        value  = "{eventId}/location/{locId}",
+	        value  = "{eventId}/location",
 	        method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
 	public void removeLocation(
-	        @PathVariable Long eventId,
-	        @PathVariable Long locId) {
-		
-		service.removeLocation(eventId,locId);
+	        @PathVariable Long eventId) {
+		service.removeLocation(eventId);
 	}
 	
 	@Override

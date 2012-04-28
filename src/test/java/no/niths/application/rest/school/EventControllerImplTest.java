@@ -156,7 +156,7 @@ public class EventControllerImplTest {
 		assertEquals(testLocation, controller.getById(testEvent01.getId())
 				.getLocation());
 
-		controller.removeLocation(testEvent01.getId(), testLocation.getId());
+		controller.removeLocation(testEvent01.getId());
 		assertNull(controller.getById(testEvent01.getId()).getLocation());
 	}
 
@@ -167,13 +167,8 @@ public class EventControllerImplTest {
 	}
 
 	@Test(expected = ObjectNotFoundException.class)
-	public void testRemoveAEventsNonExistingLocation() {
-		controller.removeLocation(testEvent01.getId(), new Long(-1));
-	}
-
-	@Test(expected = ObjectNotFoundException.class)
 	public void testRemoveANonExistingEventAndAExistingLocation() {
-		controller.removeLocation(new Long(-1), testLocation.getId());
+		controller.removeLocation(new Long(-1));
 	}
 
 	@Test
