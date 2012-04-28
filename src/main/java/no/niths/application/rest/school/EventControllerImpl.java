@@ -135,6 +135,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
             @PathVariable Long eventId,
             @PathVariable Long locId) {
         service.removeLocation(eventId);
+        service.addLocation(eventId, locId);
     }
 
 	/**
