@@ -178,8 +178,8 @@ public class EventControllerImplTest {
 
 	@Test
 	public void testGetEventsBetweenDates() {
-		String start = "09/04/2012-10:55";
-		String end = "09/05/2012-10:55";
+		String start = "09/04/2212-10:55";
+		String end = "09/05/2212-10:55";
 
 		TimeDTO tdto = new TimeDTO(start, end);
 		List<Event> events = controller.getEventsBetweenDates(tdto);
@@ -189,7 +189,7 @@ public class EventControllerImplTest {
 	
 	@Test
 	public void testGetEventsFromADate() {
-		String start = "09/05/2012-10:55";
+		String start = "09/05/2212-10:55";
 		TimeDTO tdto = new TimeDTO(start, null);
 		List<Event> events = controller.getEventsBetweenDates(tdto);
 		assertEquals(1, events.size());
