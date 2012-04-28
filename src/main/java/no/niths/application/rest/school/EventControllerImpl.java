@@ -129,7 +129,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
     @Override
     @RequestMapping(
             value  = "{eventId}/location/{locId}",
-            method = RequestMethod.DELETE)
+            method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
     public void changeLocation(
             @PathVariable Long eventId,
