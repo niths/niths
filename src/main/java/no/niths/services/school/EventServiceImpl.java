@@ -51,35 +51,40 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	
 	@Override
 	public Long create(Event domain) {
-	//	validateStartAndEndTime(domain);
+		validateStartAndEndTime(domain);
 		return super.create(domain);
 	}
 
 	private void validateStartAndEndTime(Event domain) {
-		
 		GregorianCalendar now = new GregorianCalendar();
 		if(domain!=null){
+			System.err.println("is not null");
 			// if startTime not equal to null
 			if(domain.getStartTime() !=null){
-				if(domain.getStartTime().compareTo(now) >0){
+				System.err.println(domain.getStartTime().compareTo(now) + " ");
+				if(domain.getStartTime().compareTo(now) >= 0){
 					if(domain.getEndTime()!= null){
+						System.err.println(domain.getStartTime().compareTo(domain.getEndTime()) + " start time vs end time");
 						if(domain.getStartTime().compareTo(domain.getEndTime()) >= 0){
-						throw new InvalidValueException("Star time has to be less than end time");
+							throw new InvalidValueException("Star time has to be less than end time");
 						}
 					}
 				}else {
 					throw new InvalidValueException("Start time must be large than the time now " + now.getTime().toString());
 				}
-				
 			}else{
 				throw new InvalidValueException("Star time cannot be null");
 			}
+		}else {
+			System.err.println("is null");
 		}
 	}
 	
+	
 	@Override
 	public void update(Event domain) {
-		//validateStartAndEndTime(domain);
+		
+		validateStartAndEndTime(domain);
 		super.update(domain);
 	}
 
