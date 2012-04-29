@@ -40,122 +40,122 @@ import org.hibernate.annotations.CascadeType;
 @XmlRootElement
 public class Location implements Domain {
 
-	private static final long serialVersionUID = -4834276555969698011L;
+    private static final long serialVersionUID = -4834276555969698011L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column
-	@NotNull
-	private String place;
+    @Column
+    @NotNull
+    private String place;
 
-	@Column(name = "latitude")
-	private Double latitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
-	@Column(name = "longitude")
-	private Double longitude;
+    @Column(name = "longitude")
+    private Double longitude;
 
-	@JsonIgnore
-	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
-	@JoinTable(name = "events_location", 
-	joinColumns = @JoinColumn(name = "location_id"), 
-	inverseJoinColumns = @JoinColumn(name = "events_id"))
-	@Cascade(CascadeType.ALL)
-	private List<Event> events = new ArrayList<Event>();
+    @JsonIgnore
+    @XmlTransient
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
+    @JoinTable(name = "events_location", 
+    joinColumns = @JoinColumn(name = "location_id"), 
+    inverseJoinColumns = @JoinColumn(name = "events_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Event> events = new ArrayList<Event>();
 
-	@JsonIgnore
-	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_location",
-	    joinColumns =        @JoinColumn(name = "location_id"),
-	    inverseJoinColumns = @JoinColumn(name = "feeds_id"))
-	@Cascade(CascadeType.ALL)
-	private List<Feed> feeds = new ArrayList<Feed>();
+    @JsonIgnore
+    @XmlTransient
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "feeds_location",
+        joinColumns =        @JoinColumn(name = "location_id"),
+        inverseJoinColumns = @JoinColumn(name = "feeds_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Feed> feeds = new ArrayList<Feed>();
 
-	public Location() {
-		this(null, null);
-		setFeeds(null);
-		setEvents(null);
-	}
+    public Location() {
+        this(null, null);
+        setFeeds(null);
+        setEvents(null);
+    }
 
-	public Location(Double latitude, Double longitude) {
-		setLatitude(latitude);
-		setLongitude(longitude);
-	}
+    public Location(Double latitude, Double longitude) {
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
 
-	public Location(String place, double longitude, double latitude) {
-		this(latitude, longitude);
-		setPlace(place);
-	}
+    public Location(String place, double longitude, double latitude) {
+        this(latitude, longitude);
+        setPlace(place);
+    }
 
-	public Double getLatitude() {
-		return latitude;
-	}
+    public Double getLatitude() {
+        return latitude;
+    }
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-	public Double getLongitude() {
-		return longitude;
-	}
+    public Double getLongitude() {
+        return longitude;
+    }
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getPlace() {
-		return place;
-	}
+    public String getPlace() {
+        return place;
+    }
 
-	public void setPlace(String place) {
-		this.place = place;
-	}
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
-	@Override
-	public boolean equals(Object that) {
-		if (that == this)
-			return true;
+    @Override
+    public boolean equals(Object that) {
+        if (that == this)
+            return true;
 
-		if (!(that instanceof Location))
-			return false;
+        if (!(that instanceof Location))
+            return false;
 
-		Location l = (Location) that;
+        Location l = (Location) that;
 
-		return l.toString().equals(toString());
-	}
+        return l.toString().equals(toString());
+    }
 
-	@Override
-	public String toString() {
-		return String.format("[%s][%s][Longitud:%s][Latitude:%s]", id, place,
-				longitude, latitude);
-	}
+    @Override
+    public String toString() {
+        return String.format("[%s][%s][Longitud:%s][Latitude:%s]", id, place,
+                longitude, latitude);
+    }
 
-	@XmlTransient
-	public List<Feed> getFeeds() {
-		return feeds;
-	}
+    @XmlTransient
+    public List<Feed> getFeeds() {
+        return feeds;
+    }
 
-	public void setFeeds(List<Feed> feeds) {
-		this.feeds = feeds;
-	}
+    public void setFeeds(List<Feed> feeds) {
+        this.feeds = feeds;
+    }
 
-	@XmlTransient
-	public List<Event> getEvents() {
-		return events;
-	}
+    @XmlTransient
+    public List<Event> getEvents() {
+        return events;
+    }
 
-	public void setEvents(List<Event> events) {
-		this.events = events;
-	}
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }
