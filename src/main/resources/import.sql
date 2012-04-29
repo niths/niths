@@ -272,10 +272,10 @@ INSERT INTO courses_subjects (courses_id, subjects_id) VALUES(9,71);
 INSERT INTO courses_subjects (courses_id, subjects_id) VALUES(9,72);
 ---------------------------------------------------------------------
 --------------------------Students-----------------------------------
-INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Øyvind', 'Ødegård', '1990-09-30','degyvi09@nith.no','M','Snill','47309117',3);
-INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','Snill','81549300',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Øyvind', 'Ødegård', '1990-09-30','degyvi09@nith.no','M','The meatspin-guy','47309117',3);
+INSERT INTO students (id,first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES(2,'Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','Maen','81549300',3);
 INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Bendik', 'Rostad', '1983-03-29','rosben09@nith.no','M','Snill','97160680',3);
-INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Liv', 'Kolås', '1987-03-02', 'kolliv@nith.com','F','Snill','92263169',3);
+INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Liv', 'Kolås', '1987-03-02', 'kolliv@nith.no','F','Snill','92263169',3);
 ---------------------------------------------------------------------
 --------------------------Students_roles-----------------------------------
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 1);
@@ -518,7 +518,7 @@ INSERT INTO fadder_groups(group_number) VALUES (26);
 ---------------------------------------------------------------------
 --------------------------fadder_leaders-----------------------------
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 1);
-INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 2);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(7, 5);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(2, 4);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(3, 3);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(4, 4);
@@ -526,7 +526,7 @@ INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(5, 4);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(6, 1);
 ---------------------------------------------------------------------
 --------------------------fadder_children----------------------------
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 2);
+--INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 2);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 6);
 --INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 3);
 INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 7);
@@ -585,10 +585,10 @@ INSERT INTO developers(id, name, email) VALUES (4, 'Android etc', 'android@mail.
 INSERT INTO developers(id, name, email, developer_key, developer_token, enabled) VALUES (5, 'NithsTeam', 'nithscommunity@mail.com', 'sob8gvpyk2', '1QnBcxhDpSOBWy/b32uaGd9vIYnxpFRTZ9wLWqsH4ji3yy1m1QuFXy2jfNS29xbZVJdHzZ/wsCQas2KaCkAd6q+xjcWzG/tp6AFEBhriL36BAKpAIZbsAb5uvnIJWbratFCExhxv24M=', 1);
 ---------------------------------------------------------------------
 --------------------------applications--------------------------------
-INSERT INTO applications(id, title) VALUES(1, 'Appen');
-INSERT INTO applications(id, title) VALUES(2, 'Den andre appen');
-INSERT INTO applications(id, title) VALUES(3, 'Angry Birds');
-INSERT INTO applications(id, title) VALUES(4, 'Drawsome');
+INSERT INTO applications(id, title) VALUES(1, 'Locker status');
+INSERT INTO applications(id, title) VALUES(2, 'Find my room');
+INSERT INTO applications(id, title) VALUES(3, 'Timeplan');
+INSERT INTO applications(id, title) VALUES(4, 'Battelstation');
 INSERT INTO applications(id, title, application_key, application_token, enabled) VALUES(5, 'fuNITHs','NH3E5WANTJ', '/SwLTWhow4mp5CTtF94a4lI8OtY5J8lXw4L7sYO5jIJqQ1RgUR0D7B40toaU3lzP4Za7TDwgMXKdAlg2ZwCTTR7n9us4Y+8ZZVV2NbWkPD8zPdl1y8hl3CI6ZZ+SjEKrEihppMA8Irw=', 1);
 ---------------------------------------------------------------------
 --------------------------developers_applications--------------------------------
