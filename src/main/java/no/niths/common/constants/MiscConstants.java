@@ -7,10 +7,11 @@ package no.niths.common.constants;
  */
 public class MiscConstants {
 
-    public static final String VALID_EMAIL_DOMAIN = "nith.no",
-                               CALENDAR_FORMAT    = "dd/MM/yyyy-HH:mm",
+    public static final String CALENDAR_FORMAT    = "dd/MM/yyyy-HH:mm",
                                DATE_FORMAT        = "dd/MM/yyyy",
                                NITHS_BASE_DOMAIN  =
                                        "http://localhost:8080/niths",
-                               NITHS_EMAIL        = "niths@nith.no";
+                               NITHS_EMAIL        = "niths@nith.no",
+                               REGULAR_NAME       = "(\\w[\\w\\s]*\\w){2,30}",
+                               VALID_EMAIL_DOMAIN = "nith.no";
 }
