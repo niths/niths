@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -48,6 +49,9 @@ public class Location implements Domain {
 
     @Column
     @NotNull
+    @Pattern(
+            regexp  = "[\\w]{2,30}",
+            message = "Invalid place (2 - 20 alphanumeric letters allowed)")
     private String place;
 
     @Column(name = "latitude")
@@ -78,6 +82,10 @@ public class Location implements Domain {
         this(null, null);
         setFeeds(null);
         setEvents(null);
+    }
+
+    public Location(String place) {
+        this.place = place;
     }
 
     public Location(Double latitude, Double longitude) {
