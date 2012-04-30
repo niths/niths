@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Repository class for Role
- * 
+ *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class RoleRepositoryImpl extends AbstractGenericRepositoryImpl<Role>

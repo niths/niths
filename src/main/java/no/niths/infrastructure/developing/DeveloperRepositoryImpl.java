@@ -5,7 +5,14 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.developing.interfaces.DeveloperRepository;
 
 import org.springframework.stereotype.Repository;
-
+/**
+ * Repository class for Developer
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has method
+ * for getByDeveloperKey
+ * </p>
+ */
 @Repository
 public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Developer>
 		implements DeveloperRepository {
@@ -26,14 +33,10 @@ public class DeveloperRepositoryImpl extends AbstractGenericRepositoryImpl<Devel
 										.setString("token", token).uniqueResult();
 		
 	}
-	
-	/**
-	 * Returns the developer with matching key, 
-	 * or null if no developer is found
-	 * 
-	 * @param key the developer key
-	 * @return a developer or null
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Developer getByDeveloperKey(String key) {
 		String sql = "from " + Developer.class.getSimpleName() + " d " +

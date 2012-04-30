@@ -7,7 +7,15 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
 
 import org.springframework.stereotype.Repository;
-
+/**
+ * Repository class for Application
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getByApplicationKey
+ * and getTopApps
+ * </p>
+ */
 @Repository
 public class ApplicationRepositoryImpl extends
 		AbstractGenericRepositoryImpl<Application> implements
@@ -26,14 +34,10 @@ public class ApplicationRepositoryImpl extends
 				.setString("token", token).uniqueResult();
 
 	}
-	
-	/**
-	 * Returns the application matching the key
-	 * The application must be enabled to be returned
-	 * 
-	 * @param key the application key as a string
-	 * @return the application or null if no matching key or app is not enabled
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Application getByApplicationKey(String key, boolean enabled) {
 		String sql = "from " + Application.class.getSimpleName() + " a "
@@ -45,14 +49,10 @@ public class ApplicationRepositoryImpl extends
 				.setString("key", key).uniqueResult();
 		
 	}
-	
-	/**
-	 * Returns a list applications ordered
-	 * by the number of requests @See {@link Application}
-	 * 
-	 * @param maxResults number of results
-	 * @return list with maxResults applications
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Application> getTopApps(int maxResults){

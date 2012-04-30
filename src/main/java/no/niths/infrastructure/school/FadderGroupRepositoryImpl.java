@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for FadderGroup
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getGroupBelongingToStudent
+ * and getStudentsNotInAGroup
+ * </p>
  */
 @Repository
 public class FadderGroupRepositoryImpl extends
@@ -20,11 +25,9 @@ public class FadderGroupRepositoryImpl extends
 	public FadderGroupRepositoryImpl() {
 		super(FadderGroup.class, new FadderGroup());
 	}
-	
-	/**
-     * Returns all students without a fadder group
-     * 
-     * @return list with students
+
+    /**
+     * {@inheritDoc}
      */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -34,14 +37,11 @@ public class FadderGroupRepositoryImpl extends
 		
 		return getSession().getCurrentSession().createQuery(sql).list();
 	}
-	
 
-	/**
-	 * Returns the group the student is a child in
-	 * 
-	 * @param studentId id of the student
-	 * @return FadderGroup the group the student is a child in
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public FadderGroup getGroupBelongingToStudent(Long studentId) {
 		String sql = "from " + FadderGroup.class.getSimpleName() + " f "

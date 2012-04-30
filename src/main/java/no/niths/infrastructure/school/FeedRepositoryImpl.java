@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for Feed
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class FeedRepositoryImpl extends AbstractGenericRepositoryImpl<Feed>

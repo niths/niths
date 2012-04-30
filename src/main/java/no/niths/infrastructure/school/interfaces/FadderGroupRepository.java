@@ -9,6 +9,11 @@ import no.niths.infrastructure.interfaces.GenericRepository;
 /**
  * Repository class for FadderGroup
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getGroupBelongingToStudent
+ * and getStudentsNotInAGroup
+ * </p>
  */
 public interface FadderGroupRepository extends GenericRepository<FadderGroup>{
 

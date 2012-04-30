@@ -6,6 +6,9 @@ import no.niths.infrastructure.interfaces.GenericRepository;
 /**
  * Repository class for Committee
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 public interface CommitteeRepositorty extends GenericRepository<Committee>{
 

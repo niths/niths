@@ -4,7 +4,15 @@ import java.util.List;
 
 import no.niths.domain.developing.Application;
 import no.niths.infrastructure.interfaces.GenericRepository;
-
+/**
+ * Repository class for Application
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getByApplicationKey
+ * and getTopApps
+ * </p>
+ */
 public interface ApplicationRepository extends GenericRepository<Application> {
 
 	@Deprecated

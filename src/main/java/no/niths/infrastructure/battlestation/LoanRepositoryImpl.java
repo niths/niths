@@ -11,7 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.GregorianCalendar;
 import java.util.List;
-
+/**
+ * Repository class for Loan
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has method
+ * for getLoansBetweenDates
+ * </p>
+ */
 @Repository
 public class LoanRepositoryImpl extends AbstractGenericRepositoryImpl<Loan> implements LoanRepository {
 
@@ -21,6 +28,9 @@ public class LoanRepositoryImpl extends AbstractGenericRepositoryImpl<Loan> impl
         super(Loan.class, new Loan());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Loan> getLoansBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime) {

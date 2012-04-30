@@ -9,6 +9,11 @@ import no.niths.infrastructure.interfaces.GenericRepository;
 /**
  * Repository class for Event
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getEventsByTag, getEventsBetweenDates
+ * and getEventsBetweenDatesAndByTag
+ * </p>
  */
 public interface EventRepository extends GenericRepository<Event> {
 

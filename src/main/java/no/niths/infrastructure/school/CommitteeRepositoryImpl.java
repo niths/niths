@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for Committee
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class CommitteeRepositoryImpl extends AbstractGenericRepositoryImpl<Committee>

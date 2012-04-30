@@ -5,10 +5,12 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.school.interfaces.SubjectRepository;
 
 import org.springframework.stereotype.Repository;
-
 /**
  * Repository class for Subject
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class SubjectRepositoryImpl extends AbstractGenericRepositoryImpl<Subject>

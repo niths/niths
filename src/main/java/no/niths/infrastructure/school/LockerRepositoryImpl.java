@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for Locker
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class LockerRepositoryImpl

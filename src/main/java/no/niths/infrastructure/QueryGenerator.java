@@ -72,7 +72,6 @@ public class QueryGenerator<T> {
 	/**
 	 * wrapper class for the criterion
 	 * 
-	 * @param session
 	 * @param conditionBuilder
 	 * @param columnName
 	 * @return

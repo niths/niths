@@ -5,7 +5,13 @@ import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.location.interfaces.LocationRepository;
 
 import org.springframework.stereotype.Repository;
-
+/**
+ * Repository class for Location
+ *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
+ */
 @Repository
 public class LocationRepositoryImpl extends
 		AbstractGenericRepositoryImpl<Location> implements LocationRepository {

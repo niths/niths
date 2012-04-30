@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for Exam
  *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
  */
 @Repository
 public class ExamRepositoryImpl extends AbstractGenericRepositoryImpl<Exam> implements ExamRepository {

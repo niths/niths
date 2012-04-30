@@ -17,6 +17,11 @@ import org.springframework.stereotype.Repository;
 /**
  * Repository class for Event
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getEventsByTag, getEventsBetweenDates
+ * and getEventsBetweenDatesAndByTag
+ * </p>
  */
 @Repository
 public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
@@ -32,28 +37,18 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 		queryGen = new QueryGenerator<Event>(Event.class);
 	}
 
-	/**
-	 * <p>
-	 * Returns all events with matching tags
-	 * </p>
-	 * @param tag comma separated string, ex: fadderuka,kroa,nith
-	 * @return list with events matching tags
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Event> getEventsByTag(String tag) {
 		return queryGen.whereQuery(tag, COLUMNAME, getSession()
 				.getCurrentSession());
 	}
 
-	/**
-	 * <p>
-	 * Returns all events with start date between the two dates
-	 * provided as parameters 
-	 * </p>
-	 * @param startTime 
-	 * @param endTime
-	 * @return List of events with startdate between the param dates
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
@@ -78,16 +73,9 @@ public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
 
 	}
 
-	/**
-	 * <p>
-	 * Returns all events with start date between the two dates provided
-	 * as parameters and with matching tags.
-	 * </p>
-	 * @param tag Comma separated string
-	 * @param startTime
-	 * @param endTime
-	 * @return list with events matching the params
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Event> getEventsBetweenDatesAndByTag(String tag,
 			GregorianCalendar startTime, GregorianCalendar endTime) {

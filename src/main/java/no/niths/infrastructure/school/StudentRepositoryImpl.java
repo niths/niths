@@ -11,6 +11,15 @@ import no.niths.infrastructure.school.interfaces.StudentRepository;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository class for Student
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getStudentsWithNamedCourse
+ * and getStudentByColumn
+ * </p>
+ */
 @Repository
 public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student>
 		implements StudentRepository {
@@ -24,10 +33,7 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 	}
 	
 	/**
-	 * Returns all student in the given course
-	 * 
-	 * @param name The course name
-	 * @return list of students in the course
+	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsWithNamedCourse(String name) {
@@ -37,18 +43,10 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
 				.setString("name", name)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
-	
-	/**
-	 * Returns all students with matching attribute
-	 * Columns must be annotated with @Searchable
-	 * 
-	 * @see Searchable
-	 * 
-	 * @param column the attribute to search for
-	 * @param criteria the search query
-	 * @return List of matching students
-	 * 
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
 		

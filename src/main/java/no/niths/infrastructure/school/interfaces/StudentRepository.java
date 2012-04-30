@@ -9,6 +9,11 @@ import no.niths.infrastructure.interfaces.GenericRepository;
 /**
  * Repository class for Student
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getStudentsWithNamedCourse
+ * and getStudentByColumn
+ * </p>
  */
 public interface StudentRepository extends GenericRepository<Student>{
 
