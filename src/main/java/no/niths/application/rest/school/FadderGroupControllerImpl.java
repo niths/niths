@@ -73,6 +73,7 @@ public class FadderGroupControllerImpl extends
 	}
 
 	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
 	public ArrayList<FadderGroup> getAll(FadderGroup domain) {
 		renewList(service.getAll(domain));
 		customLazyFixer();		
