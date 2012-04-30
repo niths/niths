@@ -23,7 +23,19 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+/**
+ * Domain class for Game
+ *
+ * <p>
+ * Game has these variables:
+ * title = example Super Mario,
+ * category = example PLATFORM
+ * </p>
+ * <p>
+ * And relations too:
+ * Console
+ * </p>
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.GAMES)

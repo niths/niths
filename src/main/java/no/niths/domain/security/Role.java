@@ -28,7 +28,19 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+/**
+ * Domain class for Role
+ *
+ * <p>
+ * Role has these variables:
+ * roleName = example ROLE_COMMITTEE_LEADER,
+ * trimedRoleName = example
+ * </p>
+ * <p>
+ * And relations too:
+ * Student
+ * </p>
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.ROLES)

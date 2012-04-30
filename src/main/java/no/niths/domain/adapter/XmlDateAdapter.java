@@ -12,7 +12,10 @@ import no.niths.common.constants.MiscConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Class XmlDateAdapter used too parse a String too a date
+ * or a date too a String
+ */
 public class XmlDateAdapter extends XmlAdapter<String,Date>{
 
 	private Logger logger = LoggerFactory

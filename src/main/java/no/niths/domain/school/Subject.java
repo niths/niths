@@ -34,14 +34,25 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
 /**
- * Domain class for subject
- * <p>
- * Name and subject code must be unique.
- * Also holds information about the subjects tutors.
- * </p>
+ * Domain class for Subject
  *
+ * <p>
+ * Subject has these variables:
+ * name = example Java programmering 1 (must be unique),
+ * subjectCode = example PG2100 (must be unique),
+ * description = example innføring i Java,
+ * weekday = example monday,
+ * startTime = example 10:00,
+ * endTime = example 11:00
+ * </p>
+ * <p>
+ * And relations too:
+ * Student (as tutor),
+ * Room,
+ * Course,
+ * Exam
+ * </p>
  */
 @XmlRootElement
 @Entity

@@ -38,7 +38,20 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
+/**
+ * Domain class for Loan
+ *
+ * <p>
+ * Loan has these variables:
+ * startTime = example 09/03/2012-11:05,
+ * endTime = example 12/03/2012-11:05
+ * </p>
+ * <p>
+ * And relations too:
+ * Console,
+ * Student
+ * </p>
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.LOANS)

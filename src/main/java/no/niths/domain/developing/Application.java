@@ -30,23 +30,27 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jasypt.hibernate4.type.EncryptedStringType;
-
 /**
  * Domain class for Application
+ *
  * <p>
- * Holds information about an application.
- * An application must have a title,
- * all other attributes are optional.
+ * Application has these variables:
+ * title = example Appen (can not be null),
+ * description = example ,
+ * iconUrl = example ,
+ * applicationToken = example ,
+ * applicationKey = example ,
+ * enabled = example true,
+ * requests = example
+ * </p>
+ * <p>
+ * And relations too:
+ * Developer
  * </p>
  * <p>
  * For access to the API, the app must be enabled
  * and have key+token provided in the request header.
  * </p>
- * <p>
- * Holds information about the developer of the app
- * @see Developer
- * </p>
- *
  */
 @TypeDef(name = "encryptedString" ,
 typeClass = EncryptedStringType.class,

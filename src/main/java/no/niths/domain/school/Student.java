@@ -48,21 +48,36 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
-
 /**
- * 
- * Domain class for student
+ * Domain class for Student
+ *
  * <p>
- * Holds information about a student. Email are required,
- * all other attributes are optional.
+ * Student has these variables:
+ * firstName = example Ola,
+ * lastName = example Normann,
+ * gender = example M,
+ * sessionToken = example ,
+ * birthday = example 02/02/2012,
+ * grade = example 3,
+ * email = example email@nith.no (are required),
+ * telephoneNumber = example 81549300,
+ * description = example super awesome,
+ * lastLogon = example
  * </p>
  * <p>
- * Also holds information about a students roles, 
- * if the student is a committee leader, which committees
- * the student is a member of, courses, battlestation loans,
- * faddergroups, if he/she is the course representative etc
+ * And relations too:
+ * Locker,
+ * Loan,
+ * Feed,
+ * FadderGroup,
+ * Course,
+ * Committee,
+ * Role,
+ * committeeLeader,
+ * tutorInSubject,
+ * representativeFor (a course),
+ * groupLeader (leader for a fadderGroupe)
  * </p>
- * 
  */
 @Entity
 @Table(name = DomainConstantNames.STUDENTS)

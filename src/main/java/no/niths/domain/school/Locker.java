@@ -22,14 +22,17 @@ import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
 /**
- * Domain class for Locker
- * <p>
- * Locker number must be unique. Also holds information
- * about the student owning the locker.
- * </p>
+ * Domain class for Subject
  *
+ * <p>
+ * Subject has these variables:
+ * lockerNumber = example 23 (must be unique)
+ * </p>
+ * <p>
+ * And relations too:
+ * Student (as owner)
+ * </p>
  */
 @Entity
 @XmlRootElement(name = DomainConstantNames.LOCKERS)

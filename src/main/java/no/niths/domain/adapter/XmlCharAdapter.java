@@ -1,7 +1,10 @@
 package no.niths.domain.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
+/**
+ * Class XmlCharAdapter used too get the first character from a String
+ * or return the entire String
+ */
 public class XmlCharAdapter extends XmlAdapter<String, Character> {
 
 	@Override

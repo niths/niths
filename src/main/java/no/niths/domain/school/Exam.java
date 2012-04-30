@@ -37,13 +37,21 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 /**
- * Domain class for an exam
- * <p>
- * Holds information about a specific exam,
- * the rooms it being held in and which subjects
- * it belong to.
- * </p>
+ * Domain class for Exam
  *
+ * <p>
+ * Exam has these variables:
+ * name = example Eksamen i PG2100,
+ * examType = example Skriftlig,
+ * startTime = example 9:00,
+ * endTime = example 12:00,
+ * allowedAid = example none
+ * </p>
+ * <p>
+ * And relations too:
+ * Subject,
+ * Room
+ * </p>
  */
 @XmlRootElement
 @Entity

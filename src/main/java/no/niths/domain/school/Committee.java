@@ -27,14 +27,19 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 /**
- * 
  * Domain class for Committee
- * <p>
- * Holds information about a committee, name description etc.
- * Also have information about the leaders, members, the events
- * and feeds belonging to the committee
- * </p>
  *
+ * <p>
+ * Committee has these variables:
+ * name = example KIT,
+ * description = example Kvinner og IT
+ * </p>
+ * <p>
+ * And relations too:
+ * Event,
+ * Feed,
+ * Student (as leaders and members)
+ * </p>
  */
 @XmlRootElement
 @Entity

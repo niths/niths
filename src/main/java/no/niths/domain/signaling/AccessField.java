@@ -25,7 +25,20 @@ import no.niths.domain.location.Room;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-
+/**
+ * Domain class for AccessField
+ *
+ * <p>
+ * AccessField has these variables:
+ * minRange = example 53,
+ * maxRange = example 64
+ * </p>
+ * <p>
+ * And relations too:
+ * AccessPoint,
+ * Room
+ * </p>
+ */
 @Entity
 @Table(name = DomainConstantNames.ACCESS_FIELDS)
 @XmlRootElement(name = "accessfield")

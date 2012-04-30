@@ -26,17 +26,17 @@ import no.niths.domain.Domain;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
 /**
  * Domain class for a student orientation group(Faddergruppe)
- * <p>
- * Holds information about the group,
- * its members and its leaders.
- * </p>
- * <p>
- * The group number must be unique
- * </p>
  *
+ * <p>
+ * FadderGroup has these variables:
+ * groupNumber = example 23 (must be unique)
+ * </p>
+ * <p>
+ * And relations too:
+ * Student (as leaders and fadderChildren)
+ * </p>
  */
 @XmlRootElement(name = "faddergroup")
 @Entity

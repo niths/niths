@@ -14,7 +14,9 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Class JsonDateSerializerAdapter used too parse a Date too a String
+ */
 public class JsonDateSerializerAdapter extends JsonSerializer<Date> {
 	private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
 	private static final Logger logger = LoggerFactory

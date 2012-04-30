@@ -36,12 +36,18 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 /**
- * 
  * Domain class for Feed
+ *
  * <p>
- * Holds information about a feed,
- * which student published it and
- * if it belongs to a committee.
+ * Feed has these variables:
+ * message = example Husk pub etter eksamen,
+ * published = example 21/03/2012-13:00
+ * </p>
+ * <p>
+ * And relations too:
+ * Student,
+ * Location,
+ * Committee
  * </p>
  * <p>
  * An application utilizing this class could
@@ -49,7 +55,6 @@ import org.hibernate.annotations.CascadeType;
  * Students can post questions which others could read
  * and respond to like in Twitter.
  * </p>
- * 
  */
 @XmlRootElement
 @Entity

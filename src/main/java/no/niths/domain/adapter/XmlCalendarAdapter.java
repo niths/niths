@@ -13,7 +13,10 @@ import no.niths.common.constants.MiscConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Class XmlCalendarAdapter used too parse a String too a Calendar (GregorianCalendar)
+ * or a Calendar too a String
+ */
 public class XmlCalendarAdapter extends XmlAdapter<String, Calendar> {
 
 	private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);

@@ -26,7 +26,20 @@ import no.niths.domain.Domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
-
+/**
+ * Domain class for Console
+ *
+ * <p>
+ * Console has these variables:
+ * name = example Wii,
+ * locker = example 1
+ * </p>
+ * <p>
+ * And relations too:
+ * Game,
+ * Loan
+ * </p>
+ */
 @XmlRootElement
 @Entity
 @Table(name = DomainConstantNames.CONSOLES)

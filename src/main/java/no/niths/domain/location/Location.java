@@ -32,11 +32,18 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 /**
  * Domain class for Location
- * <p>
- * The place attribute can not be null,
- * all other attributes are optional
- * </p>
  *
+ * <p>
+ * Location has these variables:
+ * place = example Kroa (can not be null),
+ * longitude = example 10.4500,
+ * latitude = example 59.5500
+ * </p>
+ * <p>
+ * And relations too:
+ * Event,
+ * Feed
+ * </p>
  */
 @Entity
 @Table(name = DomainConstantNames.LOCATIONS)

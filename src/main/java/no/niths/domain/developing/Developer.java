@@ -33,21 +33,26 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Email;
 import org.jasypt.hibernate4.type.EncryptedStringType;
-
 /**
  * Domain class for Developer
+ *
  * <p>
- * Holds information about a developer.
- * A developer must have a name and an email,
- * all other attributes are optional.
+ * Developer has these variables:
+ * email = example developer@nith.no (can not be null),
+ * name = example Ola Normann (can not be null),
+ * enabled = example true,
+ * developerToken = example,
+ * developerKey = example
+ * </p>
+ * <p>
+ * And relations too:
+ * Application
  * </p>
  * <p>
  * For access to the API, the developer must be enabled
  * and have key+token provided in the request header
  * together with the application key+token
  * </p>
- * @see Application
- *
  */
 @TypeDef(name = "encryptedString", typeClass = EncryptedStringType.class, parameters = { @Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor") })
 @XmlRootElement

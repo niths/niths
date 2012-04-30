@@ -16,7 +16,9 @@ import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Class JsonCalendarDeserializerAdapter used too parse a String too a Calendar
+ */
 public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> {
 
 	private Logger logger = LoggerFactory

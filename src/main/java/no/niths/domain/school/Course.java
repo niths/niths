@@ -29,16 +29,19 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
 /**
- * 
  * Domain class for Course
- * <p>
- * Holds information about a Course,
- * subjects belonging to the course,
- * its students, and the course representatives(Translation: Tillitsvalgt)
- * </p>
  *
+ * <p>
+ * Course has these variables:
+ * name = example Programmering,
+ * description = example Bachelor med hovedvekt på Javaprogrammering
+ * </p>
+ * <p>
+ * And relations too:
+ * Subject,
+ * Student (as students and courseRepresentatives(Tillitsvalgt))
+ * </p>
  */
 @Entity
 @Table(name= DomainConstantNames.COURSES)

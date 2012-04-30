@@ -21,7 +21,18 @@ import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-
+/**
+ * Domain class for AccessPoint
+ *
+ * <p>
+ * AccessPoint has these variables:
+ * address = example 00:21:55:60:e7:d0 (has to be unique)
+ * </p>
+ * <p>
+ * And relations too:
+ * AccessField
+ * </p>
+ */
 @XmlRootElement(name = "accesspoint")
 @Entity
 @Table(name = DomainConstantNames.ACCESS_POINTS)

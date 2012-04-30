@@ -13,8 +13,9 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
+/**
+ * Class JsonCalendarSerializerAdapter used too parse a Calendar too a String
+ */
 public class JsonCalendarSerializerAdapter extends JsonSerializer<Calendar> {
 
 	private static final Logger logger = LoggerFactory
