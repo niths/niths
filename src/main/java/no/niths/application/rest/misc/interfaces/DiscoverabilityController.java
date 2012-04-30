@@ -14,7 +14,25 @@ import no.niths.application.rest.misc.RestResource;
  *
  */
 public interface DiscoverabilityController {
+	/**
+	 * Returns all domains
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
     String root(HttpServletRequest request, HttpServletResponse response);
 
+    /**
+     * 
+     * Returns a list of all services in the API.
+     * <p>
+     * Contains path, method type, path variables,
+     * status messages, status code, headers and
+     * authorization
+     * </p>
+     * @param req the http header, specifies return format
+     * @return a list of resources in the API
+     */
 	List<RestResource> getApi(HttpServletRequest req);
 }

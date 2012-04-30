@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class DiscoverabilityControllerImpl implements DiscoverabilityController {
 
+	
+	/**
+     * 
+     * Returns a list of all services in the API.
+     * <p>
+     * Contains path, method type, path variables,
+     * status messages, status code, headers and
+     * authorization
+     * </p>
+     * @param req the http header, specifies return format
+     * @return a list of resources in the API
+     */ 
 	@Override
 	@RequestMapping(value = "api", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -46,7 +60,9 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 
 		
 		ArrayList<RestResource> list = new ArrayList<RestResource>();
-
+		
+		// Get all classes in given package with @controller
+		// Read class annotations and then read all method annotations
 		try {
 			List<Class> all = findMyTypes("no.niths.application.rest");
 			for (Class c : all) {
@@ -54,8 +70,9 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 				if (c.getAnnotation(RequestMapping.class) != null) {
 					RequestMapping mapClass = (RequestMapping) c
 							.getAnnotation(RequestMapping.class);
-					resource = new RestResource("/niths/" + mapClass.value()[0]
-							+ "/");
+					String url = req.getRequestURL().toString().replace("api", "");
+					url += mapClass.value()[0] + "/";
+					resource = new RestResource(url);
 
 					Method[] ms = c.getMethods();
 					for (int i = 0; i < ms.length; i++) {
@@ -64,7 +81,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 						String headersS = "";
 						String reasonS = "";
 						String responseCodeS = "";
-						String resAuth = "";
+						String resAuth = " ";
 						if (ms[i].getAnnotation(RequestMapping.class) != null) {
 							RequestMapping map = (RequestMapping) ms[i]
 									.getAnnotation(RequestMapping.class);
@@ -72,31 +89,35 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 							for (String h : head) {
 								headersS += h + " ";
 							}
-
 							String[] values = map.value();
 							for (String v : values) {
-								valuesS += v + " ";
+								valuesS +=  url + v + " ";
 							}
-
+							if(valuesS.equals("")) valuesS = url;
 							RequestMethod[] methods = map.method();
 							for (RequestMethod rm : methods) {
 								methodS += rm.name() + " ";
 							}
-
 							ResponseStatus status = ms[i]
 									.getAnnotation(ResponseStatus.class);
 							if (status != null) {
-								reasonS += status.reason();
-								responseCodeS += status.value().toString() + " ";
+								reasonS = status.reason();
+								responseCodeS = status.value().toString();
 							}
 
 							PreAuthorize pre = ms[i]
 									.getAnnotation(PreAuthorize.class);
-							if (pre != null) {
-								resAuth = pre.value();
+							if (pre != null) { //Extract the role names from EL
+								Pattern pattern = Pattern.compile("ROLE_([\\w]*)");
+							    Matcher matcher = pattern.matcher(pre.value());
+
+							    while (matcher.find()) {
+							      resAuth += matcher.group()  + " ";
+							    }
+							    
 							}
-							resource.getMethods().add(new MethodInfo(valuesS, methodS, headersS,
-									reasonS, responseCodeS, resAuth));
+							resource.getMethods().add(new MethodInfo(valuesS.trim(), methodS.trim(), headersS.trim(),
+									reasonS.trim(), responseCodeS.trim(), resAuth.trim()));
 						}
 					}
 					list.add(resource);
