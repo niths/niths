@@ -53,6 +53,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
      * @param req the http header, specifies return format
      * @return a list of resources in the API
      */ 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@RequestMapping(value = "api", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
