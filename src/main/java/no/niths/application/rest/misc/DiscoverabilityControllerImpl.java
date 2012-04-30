@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.application.rest.RESTConstants;
+import no.niths.application.rest.lists.RestResourceList;
 import no.niths.application.rest.misc.interfaces.DiscoverabilityController;
 import no.niths.common.constants.DomainConstantNames;
 
@@ -42,8 +42,9 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	@Override
 	@RequestMapping(value = "api", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
-	public List<RestResource> getApi() {
+	public List<RestResource> getApi(HttpServletRequest req) {
 
+		
 		ArrayList<RestResource> list = new ArrayList<RestResource>();
 
 		try {
@@ -94,8 +95,8 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 							if (pre != null) {
 								resAuth = pre.value();
 							}
-							resource.addMethod(valuesS, methodS, headersS,
-									reasonS, responseCodeS, resAuth);
+							resource.getMethods().add(new MethodInfo(valuesS, methodS, headersS,
+									reasonS, responseCodeS, resAuth));
 						}
 					}
 					list.add(resource);
@@ -109,6 +110,11 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 			e.printStackTrace();
 		}
 
+		if(req.getHeader("accept").equals("application/xml")){
+			RestResourceList list2 = new RestResourceList();
+			list2.setData(list);
+			return list2;			
+		}
 		return list;
 	}
 

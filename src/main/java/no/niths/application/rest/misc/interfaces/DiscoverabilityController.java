@@ -16,5 +16,5 @@ import no.niths.application.rest.misc.RestResource;
 public interface DiscoverabilityController {
     String root(HttpServletRequest request, HttpServletResponse response);
 
-	List<RestResource> getApi();
+	List<RestResource> getApi(HttpServletRequest req);
 }
