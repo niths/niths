@@ -257,6 +257,7 @@ public class FadderGroupControllerImpl extends
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
     @RequestMapping(value = "{groupId}/children", 
     				method = RequestMethod.GET, 
     				headers = RESTConstants.ACCEPT_HEADER)
@@ -284,6 +285,7 @@ public class FadderGroupControllerImpl extends
      * @throws ObjectNotFoundException if all students has a group
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
     @RequestMapping(value = "groupless", 
     				method = RequestMethod.GET, 
     				headers = RESTConstants.ACCEPT_HEADER)
@@ -315,13 +317,19 @@ public class FadderGroupControllerImpl extends
      * @throws QRCodeException when QR is in wrong format or unreadble
      */
     @Override
-    @RequestMapping(value = "scan-qr-code/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(
+            value  = "scan-qr-code/{studentId}",
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Added to group")
-    public void scanImage(@PathVariable Long studentId, HttpServletRequest req, HttpServletResponse response)
-            throws QRCodeException {
+    public void scanImage(
+            @PathVariable Long studentId,
+            HttpServletRequest req,
+            HttpServletResponse response)
+                    throws QRCodeException {
 
         if (req instanceof MultipartHttpServletRequest) {
-            Map<String, MultipartFile> files = ((MultipartHttpServletRequest) req)
+            Map<String, MultipartFile> files =
+                    ((MultipartHttpServletRequest) req)
                     .getFileMap();
 
             // Iterate over maps like a boss
@@ -330,13 +338,14 @@ public class FadderGroupControllerImpl extends
                 CommonsMultipartFile file = (CommonsMultipartFile) entry
                         .getValue();
                 
-                Long groupId = new QRCodeDecoder().decodeFadderGroupQRCode(file.getBytes());
-                //Add the student to the group
-                //Will throw exceptions if group/student does not exist
-                //or student is already added.
+                Long groupId = new QRCodeDecoder().decodeFadderGroupQRCode(
+                        file.getBytes());
+
+                // Add the student to the group,
+                // will throw exceptions if group/student does not exist
+                // or student is already added
                 service.addChild(groupId, studentId);
-                response.setHeader("group", groupId + ""); //PHONEGAP CANT READ IT
-                
+                response.setHeader("group", groupId + "");
             }
         }
     }
