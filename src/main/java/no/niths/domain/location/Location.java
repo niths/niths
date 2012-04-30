@@ -60,7 +60,7 @@ public class Location implements Domain {
     @Column
     @NotNull
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = "(\\w[\\w\\s,]*\\w){2,30}",
             message = ValidationConstants.REGULAR_NAME_MESSAGE)
     private String place;
 
