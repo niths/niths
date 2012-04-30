@@ -22,7 +22,7 @@
 
 ### Configure the properties file
 - If you already have been provided with this project's property file, skip this entire section
-- Create a file named `application.properties`.
+- Create a file named `application.properties`
 - Paste the contents of [this Gist](https://gist.github.com/2226677), and edit the values
 - Place the file at `niths/src/main/resources/application.properties`
 - Make a copy of the file, rename it to `test-application.properties`, and place it at `niths/src/test/resources/test-application.properties`
