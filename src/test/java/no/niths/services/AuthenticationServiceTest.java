@@ -2,12 +2,10 @@ package no.niths.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidEmailException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.constants.SecurityConstants;
 import no.niths.domain.school.Student;
-import no.niths.domain.security.Role;
 import no.niths.security.RequestHolderDetails;
 import no.niths.security.SessionToken;
 import no.niths.services.auth.AuthenticationServiceImpl;
@@ -20,7 +18,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.security.core.GrantedAuthority;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticationServiceTest {
@@ -76,39 +73,21 @@ public class AuthenticationServiceTest {
 	@Test(expected=UnvalidTokenException.class)
 	public void testStudentWithNoLastLogon(){
 		Student s = new Student(validemail);
-		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		s.setId(new Long(2));
+		when(studService.getById(s.getId())).thenReturn(s);
 		service.authenticateSessionToken(token);
 	}
 	
-	@Test(expected=ExpiredTokenException.class)
+	@Test(expected=UnvalidTokenException.class)
 	public void expiredToken(){
 		Student s = new Student(validemail);
 		long now = System.currentTimeMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME * 2);
 		s.setLastLogon(now);
-		when(studService.getStudentBySessionToken(token)).thenReturn(s);
+		s.setId(new Long(2));
+		when(studService.getById(s.getId())).thenReturn(s);
 		@SuppressWarnings("unused")
 		RequestHolderDetails u = service.authenticateSessionToken(token);
 	}
 	
-	
-	@Test
-	public void testStudentWithLastLogon(){
-		Student s = new Student(validemail);
-		long now = System.currentTimeMillis();
-		s.setLastLogon(now);
-		when(studService.getStudentBySessionToken(token)).thenReturn(s);
-		
-		RequestHolderDetails u = service.authenticateSessionToken(token);
-		assertEquals(1, u.getAuthorities().size());
-		GrantedAuthority a = u.getAuthorities().iterator().next();
-		assertEquals(SecurityConstants.R_ANONYMOUS, a.getAuthority());
-		
-		s.getRoles().add(new Role(SecurityConstants.R_STUDENT));
-		when(studService.getStudentBySessionToken(token)).thenReturn(s);
-		u = service.authenticateSessionToken(token);
-		assertEquals(1, u.getAuthorities().size());
-		a = u.getAuthorities().iterator().next();
-		assertEquals(SecurityConstants.R_STUDENT, a.getAuthority());
-	}
 	
 }
