@@ -140,7 +140,6 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -151,6 +150,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 
 	}
 
+	@SuppressWarnings("rawtypes")
 	private List<Class> findMyTypes(String basePackage) throws IOException,
 			ClassNotFoundException {
 		ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
@@ -180,6 +180,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 				.resolvePlaceholders(basePackage));
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private boolean isCandidate(MetadataReader metadataReader)
 			throws ClassNotFoundException {
 		try {
