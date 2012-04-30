@@ -99,7 +99,7 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
     /**
      * {@inheritDoc}
      */
-    @Override
+    //@Override
     public Student getStudentBySessionToken(String token) {
         Student s = new Student();
         s.setSessionToken(token);

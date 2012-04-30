@@ -47,7 +47,11 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.hibernate.validator.constraints.Email;
+import org.jasypt.hibernate4.type.EncryptedStringType;
 /**
  * Domain class for Student
  *
@@ -55,14 +59,14 @@ import org.hibernate.validator.constraints.Email;
  * Student has these variables:
  * firstName = example Ola,
  * lastName = example Normann,
- * gender = example M,
+ * gender = M or F,
  * sessionToken = example ,
  * birthday = example 02/02/2012,
  * grade = example 3,
- * email = example email@nith.no (are required),
+ * email = example email@nith.no (required),
  * telephoneNumber = example 81549300,
  * description = example super awesome,
- * lastLogon = example
+ * lastLogon = 12345678 (time in ms)
  * </p>
  * <p>
  * And relations too:
@@ -76,9 +80,14 @@ import org.hibernate.validator.constraints.Email;
  * committeeLeader,
  * tutorInSubject,
  * representativeFor (a course),
- * groupLeader (leader for a fadderGroupe)
+ * groupLeader (leader for a fadderGroup)
  * </p>
  */
+@TypeDef(name = "encryptedString" ,
+typeClass = EncryptedStringType.class,
+parameters = {
+	@Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
+})
 @Entity
 @Table(name = DomainConstantNames.STUDENTS)
 @XmlRootElement
@@ -119,6 +128,7 @@ public class Student implements Domain {
     @JsonIgnore
     @XmlTransient
     @Column(name = "session_token")
+    @Type(type="encryptedString")
     private String sessionToken;
 
     @Column(name = "birthday")

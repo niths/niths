@@ -26,7 +26,7 @@ public interface StudentService extends GenericService<Student> {
      * @param token
      * @return
      */
-    Student getStudentBySessionToken(String token);
+//    Student getStudentBySessionToken(String token);
 
     /**
      * Returns a student that contains the provided email

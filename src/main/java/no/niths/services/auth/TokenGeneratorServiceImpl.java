@@ -71,9 +71,10 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 	 *            true if we want to verify the token timestamp
 	 */
 	@Override
-	public void verifyTokenFormat(String token, boolean checkTime)
+	public Long verifyTokenFormat(String token, boolean checkTime)
 			throws AuthenticationException {
 		logger.debug("Verifying token format...");
+		Long tokenSecret = null;
 		if (token == null) {
 			throw new UnvalidTokenException("Token can not be null");
 		}
@@ -93,17 +94,24 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 			}
 			if (checkTime) {
 				long issuedAt = Long.parseLong(splittet[2]);
+				
 				if (System.currentTimeMillis() - issuedAt > SecurityConstants.MAX_SESSION_VALID_TIME) {
 					logger.debug("Token expired");
 					throw new ExpiredTokenException("Session-token has expired");
 				}
 			}
+			
+			//Return tokenSecret, in this case, the domain id
+			tokenSecret = Long.parseLong(splittet[1]);
+		
 		} catch (EncryptionOperationNotPossibleException ee) {
 			throw new UnvalidTokenException("Token not in a valid format");
 		} catch (NumberFormatException nfe) {
 			throw new UnvalidTokenException("Token not in a valid format");
 		}
 		logger.debug("Verified");
+		return tokenSecret;
+		
 	}
 
 	// Private helper

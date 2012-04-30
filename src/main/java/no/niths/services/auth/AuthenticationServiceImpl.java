@@ -149,18 +149,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         logger.debug("Will authenticate session-token: " + sessionToken);
         
         // First check the format of the token        
-        tokenService.verifyTokenFormat(sessionToken, true);
+        Long id = tokenService.verifyTokenFormat(sessionToken, true);
 
         // Fetch student owning the session token
-        Student wantAccess = studentService
-                .getStudentBySessionToken(sessionToken);
+//        Student wantAccess = studentService
+//                .getStudentBySessionToken(sessionToken);
+        Student wantAccess = studentService.getById(id);
         // Then we verify the last login time of the student
-        if (wantAccess == null) {
+        if (wantAccess == null || wantAccess.getSessionToken() == null) {
             logger.debug("No student has that session-token");
             throw new UnvalidTokenException(
                     "Token does not belong to a student");
         }
-        if(wantAccess.getLastLogon() == null){
+        if(!(wantAccess.getSessionToken().equals(sessionToken)) || wantAccess.getLastLogon() == null){
             throw new UnvalidTokenException("Can not find last login");
         }
         verifyLastLogonTime(wantAccess.getLastLogon());
@@ -237,11 +238,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         
         mailService.sendDeveloperRegistratedConfirmation(dev);
         
-//        devToken.setMessage("Failed to send an email, but now worries! \n"
-//                    + "To enable your new developer account paste this into a browser\n" +
-//                    AppNames.NITHS_BASE_DOMAIN + "register/enable/" + dev.getDeveloperKey());
-        
-        
         return devToken;
     }
     
@@ -292,21 +288,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     @Override
     public Long authenticateDeveloperToken(String devToken, String devKey) throws AuthenticationException{
-        //TEST MODE
-//        return new Long(1);
-        //TEST MODE
-
-        tokenService.verifyTokenFormat(devToken, false);
-        Developer dev = developerService.getDeveloperByDeveloperKey(devKey);
+        Long id = tokenService.verifyTokenFormat(devToken, false);
+        
+        Developer dev = developerService.getById(id);
+        
+//        Developer dev = developerService.getDeveloperByDeveloperKey(devKey);
         
         if(dev == null){
             throw new UnvalidTokenException("No developer found for token/key");
-        }else if(dev.getEnabled() == null){
+        }else if(dev.getEnabled() == null || dev.getEnabled() == false){
             throw new UnvalidTokenException("Developer is not enabled");
-        }else if (dev.getDeveloperToken() == null){
-            throw new UnvalidTokenException("Developer does not have a developer token");
-        }else if(dev.getEnabled() == false || !dev.getDeveloperToken().equals(devToken)){
-            throw new UnvalidTokenException("Not a correct token or dev is not enabled");
+        }else if (dev.getDeveloperToken() == null || !(dev.getDeveloperToken().equals(devToken))){
+            throw new UnvalidTokenException("NOMt a correct token");
+        }else if(dev.getDeveloperKey() == null || !dev.getDeveloperKey().equals(devKey)){
+            throw new UnvalidTokenException("Not a correct key");
         }
             
         return dev.getId();
@@ -330,14 +325,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public Long authenticateApplicationToken(String applicationKey, String applicationToken)
                         throws AuthenticationException {
 
-        tokenService.verifyTokenFormat(applicationToken, false);
-        Application app = appService.getByApplicationKey(applicationKey, true);
-        if(app == null){
+        Long id = tokenService.verifyTokenFormat(applicationToken, false);
+        Application app = appService.getById(id);
+//        Application app = appService.getByApplicationKey(applicationKey, true);
+        if(app == null ){
             throw new UnvalidTokenException("No app found or app is not enabled");
-        }else if(app.getApplicationToken() == null){
+        }else if(app.getApplicationToken() == null || app.getEnabled() == null){
             throw new UnvalidTokenException("Application does not have a token");
-        }else if(!app.getApplicationToken().equals(applicationToken)){
+        }else if(!(app.getApplicationToken().equals(applicationToken))){
             throw new UnvalidTokenException("Application token is not correct");
+        }else if(app.getEnabled() == false){
+        	throw new UnvalidTokenException("Application not enabled");
         }
 
         //Up the application request counter!
