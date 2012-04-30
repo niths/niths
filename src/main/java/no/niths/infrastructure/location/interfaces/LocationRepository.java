@@ -1,5 +1,7 @@
 package no.niths.infrastructure.location.interfaces;
 
+import java.util.List;
+
 import no.niths.domain.location.Location;
 import no.niths.infrastructure.interfaces.GenericRepository;
 /**
@@ -11,4 +13,5 @@ import no.niths.infrastructure.interfaces.GenericRepository;
  */
 public interface LocationRepository extends GenericRepository<Location>{
 
+    List<Location> getPredefinedLocations();
 }

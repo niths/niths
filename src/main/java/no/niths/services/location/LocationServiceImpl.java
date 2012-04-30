@@ -1,5 +1,7 @@
 package no.niths.services.location;
 
+import java.util.List;
+
 import no.niths.domain.location.Location;
 import no.niths.infrastructure.interfaces.GenericRepository;
 import no.niths.infrastructure.location.interfaces.LocationRepository;
@@ -11,14 +13,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocationServiceImpl extends AbstractGenericService<Location>
-		implements LocationService {
+        implements LocationService {
 
-	@Autowired
-	private LocationRepository repo;
+    @Autowired
+    private LocationRepository repo;
 
-	@Override
-	public GenericRepository<Location> getRepository() {
-		return repo;
-	}
+    @Override
+    public List<Location> getPredefinedLocations() {
+        return null;
+    }
 
+    @Override
+    public GenericRepository<Location> getRepository() {
+        return repo;
+    }
 }
