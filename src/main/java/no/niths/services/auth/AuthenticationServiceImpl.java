@@ -39,6 +39,10 @@ import org.springframework.stereotype.Service;
 
 /**
  * Authenticates user trying to request a resource
+ * <p>
+ * This class delegates the request to the classes responsible for
+ * verifying tokens and fetching the belonging apps, developers and students
+ * </p>
  * 
  */
 @Service
