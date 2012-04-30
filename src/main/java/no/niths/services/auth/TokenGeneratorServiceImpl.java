@@ -24,6 +24,10 @@ import org.springframework.stereotype.Service;
  * Tokens are encrypted and decrypted with  @see {@link http://www.jasypt.org/}
  * Passwords are from application.properties in res/main/resources
  * 
+ * Token structure: <random num sequence> | <token secret> | <date_time_issued>
+ * 
+ * For information about the random num sequece @see {@link http://en.wikipedia.org/wiki/Universally_unique_identifier}
+ * 
  */
 @Service
 public class TokenGeneratorServiceImpl implements TokenGeneratorService {
@@ -65,10 +69,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 	/**
 	 * Verifies the format of the provided token
 	 * 
-	 * @param token
-	 *            the string to verify
-	 * @param checkTime
-	 *            true if we want to verify the token timestamp
+	 * @param token the string to verify
+	 * @param checkUser true if we want to verify the token timestamp
+	 * @return token secret. Usually the domain id.
 	 */
 	@Override
 	public Long verifyTokenFormat(String token, boolean checkTime)

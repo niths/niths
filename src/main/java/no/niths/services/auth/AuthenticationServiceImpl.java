@@ -152,8 +152,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Long id = tokenService.verifyTokenFormat(sessionToken, true);
 
         // Fetch student owning the session token
-//        Student wantAccess = studentService
-//                .getStudentBySessionToken(sessionToken);
         Student wantAccess = studentService.getById(id);
         // Then we verify the last login time of the student
         if (wantAccess == null || wantAccess.getSessionToken() == null) {

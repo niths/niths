@@ -25,9 +25,9 @@ public interface TokenGeneratorService {
 	 * Verifies the format of the provided token
 	 * 
 	 * @param token the string to verify
-	 * @param checkUser true if we want to verify the token timestamp and return the id
-	 * @return studentId if checkUser or null
+	 * @param checkUser true if we want to verify the token timestamp
+	 * @return token secret. Usually the domain id.
 	 */
-	Long verifyTokenFormat(String token, boolean checkUser);
+	Long verifyTokenFormat(String token, boolean checkTime);
 
 }
