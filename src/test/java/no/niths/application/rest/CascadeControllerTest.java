@@ -2,7 +2,7 @@ package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.RoleController;
+import no.niths.application.rest.school.RoleController;
 import no.niths.application.rest.school.interfaces.CommitteeController;
 import no.niths.application.rest.school.interfaces.CourseController;
 import no.niths.application.rest.school.interfaces.FadderGroupController;
@@ -12,8 +12,8 @@ import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.FadderGroup;
+import no.niths.domain.school.Role;
 import no.niths.domain.school.Student;
-import no.niths.domain.security.Role;
 
 import org.junit.Before;
 import org.junit.Test;

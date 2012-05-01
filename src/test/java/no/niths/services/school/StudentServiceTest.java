@@ -14,13 +14,13 @@ import no.niths.domain.battlestation.Loan;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Course;
 import no.niths.domain.school.Feed;
+import no.niths.domain.school.Role;
 import no.niths.domain.school.Student;
-import no.niths.domain.security.Role;
 import no.niths.services.battlestation.interfaces.LoanService;
-import no.niths.services.interfaces.RoleService;
 import no.niths.services.school.interfaces.CommitteeService;
 import no.niths.services.school.interfaces.CourseService;
 import no.niths.services.school.interfaces.FeedService;
+import no.niths.services.school.interfaces.RoleService;
 import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;

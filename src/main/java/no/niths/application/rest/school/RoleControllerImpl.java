@@ -1,12 +1,12 @@
-package no.niths.application.rest;
+package no.niths.application.rest.school;
 
-import no.niths.application.rest.interfaces.RoleController;
+import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.RoleList;
+import no.niths.application.rest.lists.school.RoleList;
 import no.niths.common.constants.DomainConstantNames;
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
 import no.niths.services.interfaces.GenericService;
-import no.niths.services.interfaces.RoleService;
+import no.niths.services.school.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

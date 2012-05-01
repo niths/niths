@@ -17,8 +17,8 @@ import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Course;
+import no.niths.domain.school.Role;
 import no.niths.domain.school.Student;
-import no.niths.domain.security.Role;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.StudentService;
 

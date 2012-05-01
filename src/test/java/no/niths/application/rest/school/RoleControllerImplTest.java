@@ -5,10 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.interfaces.RoleController;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
 
 import org.junit.After;
 import org.junit.Before;

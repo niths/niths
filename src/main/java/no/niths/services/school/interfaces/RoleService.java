@@ -1,6 +1,7 @@
-package no.niths.services.interfaces;
+package no.niths.services.school.interfaces;
 
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
+import no.niths.services.interfaces.GenericService;
 /**
  * Service Class for Role
  *

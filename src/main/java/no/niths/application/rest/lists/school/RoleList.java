@@ -1,12 +1,13 @@
-package no.niths.application.rest.lists;
+package no.niths.application.rest.lists.school;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
 
 @XmlRootElement(name = DomainConstantNames.ROLES)
 public class RoleList extends ListAdapter<Role> {

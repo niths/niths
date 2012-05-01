@@ -3,9 +3,9 @@ package no.niths.services;
 import static org.junit.Assert.assertEquals;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.domain.school.Role;
 import no.niths.domain.school.Student;
-import no.niths.domain.security.Role;
-import no.niths.services.interfaces.RoleService;
+import no.niths.services.school.interfaces.RoleService;
 import no.niths.services.school.interfaces.StudentService;
 
 import org.junit.Test;

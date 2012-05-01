@@ -1,9 +1,10 @@
-package no.niths.services;
+package no.niths.services.school;
 
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
 import no.niths.infrastructure.interfaces.GenericRepository;
-import no.niths.infrastructure.interfaces.RoleRepository;
-import no.niths.services.interfaces.RoleService;
+import no.niths.infrastructure.school.interfaces.RoleRepository;
+import no.niths.services.AbstractGenericService;
+import no.niths.services.school.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

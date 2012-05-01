@@ -1,6 +1,7 @@
-package no.niths.infrastructure.interfaces;
+package no.niths.infrastructure.school.interfaces;
 
-import no.niths.domain.security.Role;
+import no.niths.domain.school.Role;
+import no.niths.infrastructure.interfaces.GenericRepository;
 
 /**
  * Repository class for Role
