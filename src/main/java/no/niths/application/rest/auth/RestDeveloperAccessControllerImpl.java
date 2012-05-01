@@ -33,6 +33,9 @@ import org.springframework.web.servlet.ModelAndView;
  * Developers register, then confirms their identity and
  * then they can register and enable applications
  * </p>
+ * <p>
+ * See the API webpage for more information
+ * </p>
  * 
  */
 @Controller
@@ -95,14 +98,16 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
 
     /**
      * Enables already registred developers. Returns a new developer token to
-     * use in all future requests
+     * use in all future requests.
      * <p>
      * How to use: Paste the url to the server +
      * /niths/register/enableDeveloper/<your_key> into your favourite browser
      * <p>
-     * 
+     * <p>
+     * A confirmation email will be sendt to the developer
+     * </p>
      * @param developerKey
-     *            the token returned from requestAccess(Developer)
+     *            the key returned from requestAccess(Developer)
      * @return a page with confirmation or error message
      */
     @Override
@@ -129,13 +134,46 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
 
         return view;
     }
+    
+    /**
+     * Enables a developer
+     * Same as method ModelAndView enableDeveloper(developerKey),
+     * but as a REST service
+     * <p>
+     * If you want to create an application that enables developers,
+     * this is the method you want to use
+     * </p>
+     * <p>
+     * A confirmation email will be sendt to the developer
+     * </p>
+     * @param developerKey the developer key
+     * @return a developertoken with token + key or a error message
+     */
+    @Override
+    @RequestMapping(
+            value  = "enable/developer/{developerKey:.+}",
+            method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public DeveloperToken enableDeveloperRest(@PathVariable String developerKey){
+    	DeveloperToken token = new DeveloperToken();
+    	try {
+            Developer dev = service.enableDeveloper(developerKey);
+            token.setKey(dev.getDeveloperKey());
+            token.setToken(dev.getDeveloperToken());
+        } catch (AuthenticationException e) {
+        	token.setMessage(e.getMessage());
+        }
+    	return token;
+    }
 
     /**
      * Registers an application
      * <p>
      * Developer must have been authorized for a successful request
+     * </p>
      * <p>
-     * 
+     * A confirmation email will be sendt to the developer
+     * </p>
      * @param app
      *            the application to add
      * @param developerKey
@@ -159,7 +197,9 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
 
     /**
      * Enables an application
-     * 
+     * <p>
+     * A confirmation email will be sendt to the developer
+     * </p>
      * @param applicationKey
      * @return a view with confirmation
      */
@@ -186,5 +226,37 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
         }
 
         return view;
+    }
+    
+	 /**
+     * Enables an application. Same as enableApplication(String applicationKey),
+     * but as a REST service
+     * <p>
+     * If you want to create an application that enables application,
+     * this is the method you want to use
+     * </p>
+     * <p>
+     * A confirmation email will be sendt to the developer
+     * </p>
+     * @param applicationKey
+     * @return a view with confirmation
+     */
+    @Override
+    @RequestMapping(
+    		value  = "enable/application/{applicationKey:.+}",
+    		method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
+    public ApplicationToken enableApplicationRest(@PathVariable String applicationKey) {
+    	logger.debug("Application wants to be enabled with application-key: "
+    			+ applicationKey);
+    	ApplicationToken token = new ApplicationToken();
+    	try {
+    		Application app = service.enableApplication(applicationKey);
+    		token.setAppKey(app.getApplicationKey());
+    		token.setToken(app.getApplicationToken());
+    	} catch (AuthenticationException e) {
+    		token.setMessage(e.getMessage());
+    	}
+    	
+    	return token;
     }
 }

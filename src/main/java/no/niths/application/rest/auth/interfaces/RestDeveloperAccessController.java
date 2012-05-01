@@ -79,5 +79,30 @@ public interface RestDeveloperAccessController {
 	 * @return a view with confirmation
 	 */
 	ModelAndView enableApplication(String applicationKey);
+
+	 /**
+     * Enables a developer
+     * Same as method ModelAndView enableDeveloper(developerKey),
+     * but as a REST service
+     * <p>
+     * If you want to create an application that enables developers,
+     * this is the method you want to use
+     * </p>
+     * @param developerKey the developer key
+     * @return a developertoken with token + key or a error message
+     */
+	DeveloperToken enableDeveloperRest(String developerKey);
+
+	 /**
+     * Enables an application. Same as enableApplication(String applicationKey),
+     * but as a REST service
+     * <p>
+     * If you want to create an application that enables application,
+     * this is the method you want to use
+     * </p>
+     * @param applicationKey
+     * @return a view with confirmation
+     */
+	ApplicationToken enableApplicationRest(String applicationKey);
 	
 }
