@@ -346,6 +346,24 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+            
+ <!-- This plugin section was added for the SpringDoclet project as an example of using the doclet from Maven. -->
+      <!-- run "mvn javadoc:javadoc" to use this plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.6.1</version>
+        <configuration>
+          <doclet>org.springdoclet.SpringDoclet</doclet>
+          <docletArtifact>
+            <groupId>org.springdoclet</groupId>
+            <artifactId>springdoclet</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+          </docletArtifact>
+          <useStandardDocletOptions>false</useStandardDocletOptions>
+        </configuration>
+        
+      </plugin>
         </plugins>
 
     </build>
