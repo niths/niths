@@ -2,7 +2,6 @@ package no.niths.infrastructure.school;
 
 import java.util.List;
 
-import no.niths.common.misc.Searchable;
 import no.niths.domain.school.Student;
 import no.niths.infrastructure.AbstractGenericRepositoryImpl;
 import no.niths.infrastructure.QueryGenerator;

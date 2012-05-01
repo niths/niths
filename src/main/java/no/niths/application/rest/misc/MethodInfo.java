@@ -1,22 +1,13 @@
 package no.niths.application.rest.misc;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-//@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class MethodInfo implements Serializable {
 
 
