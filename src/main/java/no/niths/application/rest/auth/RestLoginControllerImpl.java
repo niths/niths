@@ -85,7 +85,7 @@ public class RestLoginControllerImpl implements RestLoginController{
     
     /**
      * Logs out the student
-     * @param studentId is of the student top log out
+     * @param studentId id of the student to log out
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
