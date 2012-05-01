@@ -1,8 +1,8 @@
 package no.niths.common.misc;
 
 import no.niths.common.constants.MiscConstants;
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 /**
  * Class that holds email templates
  * used in MailService

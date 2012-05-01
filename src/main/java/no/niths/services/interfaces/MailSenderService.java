@@ -1,7 +1,7 @@
 package no.niths.services.interfaces;
 
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 
 /**
  * Service Class for sending emails

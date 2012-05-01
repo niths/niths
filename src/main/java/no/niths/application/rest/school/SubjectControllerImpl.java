@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.SubjectList;
+import no.niths.application.rest.lists.school.SubjectList;
 import no.niths.application.rest.school.interfaces.SubjectController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

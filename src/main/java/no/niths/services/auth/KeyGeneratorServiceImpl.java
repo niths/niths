@@ -1,8 +1,8 @@
 package no.niths.services.auth;
 
 import no.niths.services.auth.interfaces.KeyGeneratorService;
-import no.niths.services.developing.interfaces.ApplicationService;
-import no.niths.services.developing.interfaces.DeveloperService;
+import no.niths.services.development.interfaces.ApplicationService;
+import no.niths.services.development.interfaces.DeveloperService;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;

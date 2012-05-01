@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.LockerList;
+import no.niths.application.rest.lists.school.LockerList;
 import no.niths.application.rest.school.interfaces.LockerController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

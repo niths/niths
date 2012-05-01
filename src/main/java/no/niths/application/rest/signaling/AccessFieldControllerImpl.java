@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.aop.ApiEvent;
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.lists.AccessFieldList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.signaling.AccessFieldList;
 import no.niths.application.rest.signaling.interfaces.AccessFieldController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

@@ -1,8 +1,8 @@
 package no.niths.application.rest.signaling;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.lists.AccessPointList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.signaling.AccessPointList;
 import no.niths.application.rest.signaling.interfaces.AccessPointController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.signaling.AccessPoint;

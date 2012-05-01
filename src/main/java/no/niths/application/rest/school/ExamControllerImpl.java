@@ -1,8 +1,8 @@
 package no.niths.application.rest.school;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.lists.ExamList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.school.ExamList;
 import no.niths.application.rest.school.interfaces.ExamController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Exam;

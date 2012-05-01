@@ -6,8 +6,8 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.developing.Application;
-import no.niths.infrastructure.developing.interfaces.ApplicationRepository;
+import no.niths.domain.development.Application;
+import no.niths.infrastructure.development.interfaces.ApplicationRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

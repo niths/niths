@@ -3,8 +3,8 @@ package no.niths.application.rest.school;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.lists.CourseList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.school.CourseList;
 import no.niths.application.rest.school.interfaces.CourseController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

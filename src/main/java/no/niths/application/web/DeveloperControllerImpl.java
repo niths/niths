@@ -5,10 +5,10 @@ import java.util.List;
 
 import no.niths.application.web.interfaces.DeveloperController;
 import no.niths.common.constants.AdminConstantNames;
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 import no.niths.services.auth.interfaces.KeyGeneratorService;
-import no.niths.services.developing.interfaces.DeveloperService;
+import no.niths.services.development.interfaces.DeveloperService;
 import no.niths.services.interfaces.MailSenderService;
 
 import org.slf4j.Logger;

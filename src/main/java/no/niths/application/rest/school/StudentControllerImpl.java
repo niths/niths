@@ -10,7 +10,7 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.lists.ListAdapter;
-import no.niths.application.rest.lists.StudentList;
+import no.niths.application.rest.lists.school.StudentList;
 import no.niths.application.rest.school.interfaces.StudentController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

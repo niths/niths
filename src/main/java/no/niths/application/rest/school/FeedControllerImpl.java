@@ -1,8 +1,8 @@
 package no.niths.application.rest.school;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
-import no.niths.application.rest.lists.FeedList;
 import no.niths.application.rest.lists.ListAdapter;
+import no.niths.application.rest.lists.school.FeedList;
 import no.niths.application.rest.school.interfaces.FeedController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.SecurityConstants;

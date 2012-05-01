@@ -6,10 +6,10 @@ import java.util.List;
 
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
-import no.niths.services.developing.interfaces.ApplicationService;
-import no.niths.services.developing.interfaces.DeveloperService;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
+import no.niths.services.development.interfaces.ApplicationService;
+import no.niths.services.development.interfaces.DeveloperService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

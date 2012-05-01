@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import no.niths.application.rest.developing.interfaces.ApplicationController;
-import no.niths.application.rest.developing.interfaces.DeveloperController;
+import no.niths.application.rest.development.interfaces.ApplicationController;
+import no.niths.application.rest.development.interfaces.DeveloperController;
 import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 
 import org.junit.Before;
 import org.junit.Test;

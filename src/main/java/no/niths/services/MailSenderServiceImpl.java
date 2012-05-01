@@ -4,8 +4,8 @@ import javax.mail.internet.MimeMessage;
 
 import no.niths.common.constants.MiscConstants;
 import no.niths.common.misc.EmailTexts;
-import no.niths.domain.developing.Application;
-import no.niths.domain.developing.Developer;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 import no.niths.services.interfaces.MailSenderService;
 
 import org.slf4j.Logger;
