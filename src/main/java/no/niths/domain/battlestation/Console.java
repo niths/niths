@@ -58,7 +58,7 @@ public class Console implements Domain {
 
     @Column
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = "\\w[\\w\\s]*\\w",
             message = ValidationConstants.REGULAR_NAME_MESSAGE)
     private String name;
 
