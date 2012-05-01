@@ -7,11 +7,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-//@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class RestResource implements Serializable {
 	private static final long serialVersionUID = 7911809711592253431L;
 

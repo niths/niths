@@ -13,14 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.constants.DomainConstantNames;
-import no.niths.common.constants.MiscConstants;
 import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 import no.niths.domain.school.Event;
