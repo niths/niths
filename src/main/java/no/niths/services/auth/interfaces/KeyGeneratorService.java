@@ -1,6 +1,10 @@
 package no.niths.services.auth.interfaces;
 
-
+/**
+ *
+ * Service for generating and developer and application keys
+ *
+ */
 public interface KeyGeneratorService {
 	
 	/**

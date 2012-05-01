@@ -34,7 +34,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Student
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getStudentsWithNamedCourse, getStudentsAndRoles,
+ * getStudentByEmail, getStudentWithRoles,
+ * search, addCourse, removeCourse,
+ * addCommittee, removeCommittee,
+ * addFeed, removeFeed, addRole,
+ * removeRole, removeAllRoles, updateRoles,
+ * addLoan, removeLoan, addLocker
+ * and removeLocker
+ * </p>
+ */
 @Service
 public class StudentServiceImpl extends AbstractGenericService<Student>
         implements StudentService {

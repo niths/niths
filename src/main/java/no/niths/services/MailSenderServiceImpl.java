@@ -22,6 +22,11 @@ import org.springframework.stereotype.Service;
 /**
  * Service Class for sending emails
  *
+ * <p>
+ * Has methods for composeAndSend, sendDeveloperRegistratedConfirmation,
+ * sendDeveloperAddedAppConfirmation, sendDeveloperEnabledConfirmation
+ * and sendApplicationEnabledConfirmation
+ * </p>
  */
 @Service
 public class MailSenderServiceImpl implements MailSenderService {
@@ -59,63 +64,44 @@ public class MailSenderServiceImpl implements MailSenderService {
 	         
 	         return preparator;
 	}
-	
-	/**
-	 * Sends developer a confirmation email when a developer
-	 * is registered
-	 * 
-	 * @param dev the developer to send an email
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	public void sendDeveloperRegistratedConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Registration success, verification needed";
 		sendMimeMessage(prepare(dev.getEmail(), MiscConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperConfirmationBody(dev)));
 	}
-	
-	/**
-	 * Sends developer an email when an app has been added
-	 * 
-	 * @param dev Developer to send an email
-	 * @param app application that has been added
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	public void sendDeveloperAddedAppConfirmation(Developer dev, Application app){
 		String subject = "Hi " + dev.getName()+ ". Your app has been registrated";
 		sendMimeMessage(prepare(dev.getEmail(), MiscConstants.NITHS_EMAIL, subject, EmailTexts.getAddedAppToDevelioperBody(app)));
 	}
-	
-	/**
-	 * Sends a developer an email with confirmation when
-	 * the developer has been enabled
-	 * 
-	 * @param dev the developer that has been enabled
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	public void sendDeveloperEnabledConfirmation(Developer dev){
 		String subject = "Hi " + dev.getName()+ ". Your are now enabled!";
 		sendMimeMessage(prepare(dev.getEmail(), MiscConstants.NITHS_EMAIL, subject, EmailTexts.getDeveloperEnabledBody(dev)));
 	}
-	
-	/**
-	 * Sends an email to the developer when an application has
-	 * been enabled
-	 * 
-	 * @param dev the developer to send an email to
-	 * @param app the application that has been enabled
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void sendApplicationEnabledConfirmation(Developer dev,
 			Application app) {
 		String subject = "Hi " + dev.getName()+ ". Your app now enabled!";
 		sendMimeMessage(prepare(dev.getEmail(), MiscConstants.NITHS_EMAIL, subject, EmailTexts.getApplicationEnabledBody(dev, app)));
 	}
-	
-	/**
-	 * Sends a email
-	 * 
-	 * @param to email to
-	 * @param from email from
-	 * @param subject 
-	 * @param body
-	 * 
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void composeAndSend(String to, String from, String subject, String body) {
 		sendMessage(composeMail(to, from, subject, body));

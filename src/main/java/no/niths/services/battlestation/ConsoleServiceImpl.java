@@ -18,7 +18,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Service Class for Console
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addGame, removeGame,
+ * addLoan and removeLoan
+ * </p>
+ */
 @Service
 @Transactional
 public class ConsoleServiceImpl extends AbstractGenericService<Console> implements ConsoleService {
@@ -52,6 +60,9 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
         return consoleRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addGame(Long consoleId, Long gameId) {
         Console console = validate(consoleRepository.getById(consoleId), Console.class);
@@ -65,6 +76,9 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeGame(Long consoleId, Long gameId) {
         Console console = validate(consoleRepository.getById(consoleId), Console.class);
@@ -72,6 +86,9 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
                 Game.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addLoan(Long consoleId, Long loanId) {
         Console console = validate(consoleRepository.getById(consoleId), Console.class);
@@ -85,6 +102,9 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console> implemen
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeLoan(Long consoleId) {
         Console console = validate(consoleRepository.getById(consoleId), Console.class);

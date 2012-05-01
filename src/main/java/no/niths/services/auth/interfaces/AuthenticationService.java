@@ -9,6 +9,11 @@ import no.niths.security.RequestHolderDetails;
 import org.springframework.security.core.AuthenticationException;
 /**
  * Authenticates user trying to request a resource
+ * <p>
+ * This class delegates the request to the classes responsible for
+ * verifying tokens and fetching the belonging apps, developers and students
+ * </p>
+ *
  */
 public interface AuthenticationService {
 	
@@ -46,7 +51,7 @@ public interface AuthenticationService {
 	 * Accept: Application/xml
 	 * }
 	 * </pre>
-	 * @param googleToken	the string to authenticate. If null, or not correct
+	 * @param token	the string to authenticate. If null, or not correct
 	 * 						a 401 will be in the response.
 	 * 
 	 * @return SessionToken the string to use in future requests against the 
@@ -55,34 +60,43 @@ public interface AuthenticationService {
 	 * 						
 	 */
 	SessionParcel authenticateAtGoogle(String token);
-	
-	/**
-	 * Register a developer and generates a developer token that the
-	 * developer uses in future requests
-	 * <p>
-	 * @param developer the developer to persist
-	 * @return DeveloperToken the token and a confirmation message 
-	 */
+
+    /**
+     * Register a developer and generates a developer token that the
+     * developer uses in future requests
+     * <p>
+     * Sends an email to the developer with confirmation and instructions
+     * on how to enable the account
+     * <p>
+     * @param dev the developer to persist
+     * @return DeveloperToken the developer key and a confirmation message
+     */
 	DeveloperToken registerDeveloper(Developer dev);
-	
-	/**
-	 * Enables a developer
-	 * <p>
-	 * Developer must exist in the DB, or else enabling will fail...
-	 * <p>
-	 * @param developerToken string return from registerDeveloper(Dev)
-	 * @return the developer object, null if not found
-	 */
+
+    /**
+     * Enables a developer, needed to be able to do requests towards the API
+     * <p>
+     * Developer must exist in the DB, or else enabling will fail...
+     * <p>
+     * Sends the developer a confirmation email with instructions
+     * <p>
+     * @param developerToken string return from registerDeveloper(Dev)
+     * @return the developer object, null if not found
+     */
 	Developer enableDeveloper(String developerToken);
-	
-	/**
-	 * Registers an application to the matching developer
-	 * <p>
-	 * @param app the application to add
-	 * @param devId id of the dev to add application to
-	 * @return an application token to use in furture requests
-	 * 
-	 */
+
+    /**
+     * Registers an application to the matching developer
+     * <p>
+     * Sends an email to the developer with confirmation and
+     * information on how to proceed
+     * <p>
+     *
+     * @param app the application to add
+     * @param developerKey id of the dev to add application to
+     * @return an application token to use in future requests
+     *
+     */
 	ApplicationToken registerApplication(Application app, String developerKey);
 
 	/**
@@ -93,7 +107,7 @@ public interface AuthenticationService {
 	 * @param devToken the developer token
 	 * @param devKey the developer key
 	 * @throws AuthenticationException if no matching student is found
-	 * 
+	 * </p>
 	 */
 	Long authenticateDeveloperToken(String devToken, String devKey)
 			throws AuthenticationException;
@@ -113,14 +127,17 @@ public interface AuthenticationService {
 	Long authenticateApplicationToken(String applicationKey,
 			String applicationToken) throws AuthenticationException;
 
-	/**
-	 * 
-	 * Enables an application
-	 * 
-	 * @param applicationKey 
-	 * @return the Application
-	 * @throws AuthenticationException
-	 */
+    /**
+     *
+     * Enables an application
+     * <p>
+     * Sends the developer a confirmation email with instructions
+     * <p>
+     *
+     * @param applicationKey
+     * @return the Application
+     * @throws AuthenticationException
+     */
 	Application enableApplication(String applicationKey)
 			throws AuthenticationException;
 

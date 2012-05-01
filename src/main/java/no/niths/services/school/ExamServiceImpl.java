@@ -18,7 +18,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Service Class for Exam
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addRoom, removeRoom,
+ * addSubject and removeSubject
+ * </p>
+ */
 @Service
 @Transactional
 public class ExamServiceImpl extends AbstractGenericService<Exam> implements
@@ -40,6 +48,9 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
 		return examRepository;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addRoom(Long examId, Long roomId) {
         Exam exam = validate(examRepository.getById(examId), Exam.class);
@@ -53,6 +64,9 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeRoom(Long examId, Long roomId) {
         Exam exam = validate(examRepository.getById(examId),
@@ -61,6 +75,9 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
                 Room.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addSubject(Long examId, Long subjectId) {
         Exam exam = validate(examRepository.getById(examId), Exam.class);
@@ -74,6 +91,9 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeSubject(Long examId) {
         Exam exam = validate(examRepository.getById(examId), Exam.class);

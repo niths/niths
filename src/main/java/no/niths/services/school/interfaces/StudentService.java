@@ -4,20 +4,34 @@ import java.util.List;
 
 import no.niths.domain.school.Student;
 import no.niths.services.interfaces.GenericService;
-
+/**
+ * Service Class for Student
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getStudentsWithNamedCourse, getStudentsAndRoles,
+ * getStudentByEmail, getStudentWithRoles,
+ * search, addCourse, removeCourse,
+ * addCommittee, removeCommittee,
+ * addFeed, removeFeed, addRole,
+ * removeRole, removeAllRoles, updateRoles,
+ * addLoan, removeLoan, addLocker
+ * and removeLocker
+ * </p>
+ */
 public interface StudentService extends GenericService<Student> {
 
     /**
      * Returns a list with students with the provided course
-     * @param name
-     * @return
+     * @param name of the course
+     * @return a list with students and courses
      */
     List<Student> getStudentsWithNamedCourse(String name);
 
     /**
      * Returns student with roles
-     * @param student
-     * @return
+     * @param student the student which should be returned with roles
+     * @return student with roles
      */
     List<Student> getStudentsAndRoles(Student student);
 
@@ -129,7 +143,7 @@ public interface StudentService extends GenericService<Student> {
     /**
      * Updates roles for a student
      * @param studentId
-     * @param roles
+     * @param roleIds
      */
     void updateRoles(Long studentId, Long[] roleIds);
 

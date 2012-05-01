@@ -29,23 +29,19 @@ public class KeyGeneratorServiceImpl implements KeyGeneratorService {
 	
 	@Autowired
 	private ApplicationService applicationService;
-	
-	/**
-	 * Generates a Developer key
-	 * 
-	 * @return the key as a String
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public String generateDeveloperKey() {
 		logger.debug("Generating developer key");
 		return generateKey(DEVELOPER);
 	}
 
-	/**
-	 * Generates an Application key
-	 * 
-	 * @return the key as a String
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public String generateApplicationKey() {
 		logger.debug("Generating application key");

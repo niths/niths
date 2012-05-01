@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class DiscoverabilityControllerImpl implements DiscoverabilityController {
 
-	
+	private RestResourceList list = new RestResourceList();
 	/**
      * 
      * Returns a list of all services in the API.
@@ -59,9 +59,8 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	@ResponseBody
 	public List<RestResource> getApi(HttpServletRequest req) {
 
-		
-		ArrayList<RestResource> list = new ArrayList<RestResource>();
-		
+		list.clear();
+			
 		// Get all classes in given package with @controller
 		// Read class annotations and then read all method annotations
 		try {
@@ -125,18 +124,12 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 				}
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		if(req.getHeader("accept").equals("application/xml")){
-			RestResourceList list2 = new RestResourceList();
-			list2.setData(list);
-			return list2;			
-		}
+		list.setData(list);
 		return list;
 	}
 

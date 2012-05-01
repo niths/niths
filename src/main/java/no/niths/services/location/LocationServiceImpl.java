@@ -10,7 +10,13 @@ import no.niths.services.location.interfaces.LocationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Location
+ *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
+ */
 @Service
 public class LocationServiceImpl extends AbstractGenericService<Location>
         implements LocationService {

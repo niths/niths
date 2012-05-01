@@ -22,7 +22,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Event
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getEventsByTag, getEventsBetweenDates,
+ * getEventsBetweenDatesAndByTag,
+ * addLocation and removeLocation
+ * </p>
+ */
 @Service
 public class EventServiceImpl extends AbstractGenericService<Event> implements
 		EventsService {
@@ -36,6 +45,9 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	@Autowired
 	private LocationRepository locationRepo;
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Event> getEventsByTag(String tag) {
 		List<Event> events = repo.getEventsByTag(tag);
@@ -88,6 +100,9 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		super.update(domain);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
 			GregorianCalendar endTime) {
@@ -96,6 +111,9 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		return events;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addLocation(Long eventId, Long locId) {
 		Event event = super.getById(eventId);
@@ -111,6 +129,9 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 				.buildStatusMsg(Event.class, Status.UPDATED));
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeLocation(Long eventId) {
 		Event event = super.getById(eventId);
@@ -126,6 +147,9 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Event> getEventsBetweenDatesAndByTag(String tag,
 			GregorianCalendar startTime, GregorianCalendar endTime) {

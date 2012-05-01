@@ -17,7 +17,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Course
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addRepresentative,
+ * removeRepresentative,
+ * addSubject and removeSubject
+ * </p>
+ */
 @Service
 public class CourseServiceImpl extends AbstractGenericService<Course> implements
 		CourseService {
@@ -38,6 +47,9 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
 		return courseRepository;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addRepresentative(Long courseId, Long studentId) {
         Course course = validate(courseRepository.getById(courseId), Course.class);
@@ -51,6 +63,9 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeRepresentative(Long courseId, Long studentId) {
         Course course = validate(courseRepository.getById(courseId), Course.class);
@@ -58,6 +73,9 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
                 Course.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addSubject(Long courseId, Long subjectId) {
         Course course = validate(courseRepository.getById(courseId), Course.class);
@@ -71,6 +89,9 @@ public class CourseServiceImpl extends AbstractGenericService<Course> implements
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeSubject(Long courseId, Long subjectId) {
         Course course = validate(courseRepository.getById(courseId), Course.class);

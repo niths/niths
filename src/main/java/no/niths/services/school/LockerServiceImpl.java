@@ -8,7 +8,13 @@ import no.niths.services.school.interfaces.LockerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Locker
+ *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
+ */
 @Service
 public class LockerServiceImpl extends AbstractGenericService<Locker>
         implements LockerService {

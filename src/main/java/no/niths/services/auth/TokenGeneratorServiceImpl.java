@@ -38,12 +38,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 	@Autowired
 	private StringCryptationService stringCrypt;
 
-	/**
-	 * Generates a token based on the userId
-	 * 
-	 * @param userId
-	 *            id of the user
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public String generateToken(Long userId) {
 		if (userId == null) {
@@ -66,13 +63,9 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 		return encryptedToked;
 	}
 
-	/**
-	 * Verifies the format of the provided token
-	 * 
-	 * @param token the string to verify
-	 * @param checkUser true if we want to verify the token timestamp
-	 * @return token secret. Usually the domain id.
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Long verifyTokenFormat(String token, boolean checkTime)
 			throws AuthenticationException {

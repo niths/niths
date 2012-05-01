@@ -22,7 +22,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Committee
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addLeader, removeLeader,
+ * addEvent and removeEvent
+ * </p>
+ */
 @Service
 public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		implements CommitteeService {
@@ -46,6 +54,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		return repo;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addLeader(Long committeeId, Long studentId) {
 		Committee committee = validate(repo.getById(committeeId),
@@ -68,6 +79,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeLeader(Long committeeId, Long studentId) {
 		Committee committee = validate(repo.getById(committeeId),
@@ -85,6 +99,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addEvent(Long committeeId, Long eventId) {
 		Committee committee = validate(repo.getById(committeeId),
@@ -99,6 +116,9 @@ public class CommitteeServiceImpl extends AbstractGenericService<Committee>
 				.buildStatusMsg(Event.class, Status.UPDATED));
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeEvent(Long committeeId, Long eventId) {
 		Committee committee = validate(repo.getById(committeeId),

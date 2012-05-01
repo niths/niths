@@ -22,7 +22,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Service Class for Loan
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getLoansBetweenDates, addConsole,
+ * removeConsole, addStudent
+ * and removeStudent
+ * </p>
+ */
 @Service
 @Transactional
 public class LoanServiceImpl extends AbstractGenericService<Loan> implements LoanService {
@@ -58,6 +67,9 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
         return loanRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addConsole(Long loanId, Long consoleId) {
         Loan loan = validate(loanRepository.getById(loanId), Loan.class);
@@ -71,6 +83,9 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeConsole(Long loanId, Long consoleId) {
         Loan loan = validate(loanRepository.getById(loanId), Loan.class);
@@ -78,6 +93,9 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
                 Console.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addStudent(Long loanId, Long studentId) {
         Loan loan = validate(loanRepository.getById(loanId), Loan.class);
@@ -91,6 +109,9 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeStudent(Long loanId) {
         Loan loan = validate(loanRepository.getById(loanId), Loan.class);
@@ -105,6 +126,9 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements Loa
         checkIfIsRemoved(isRemoved, Student.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Loan> getLoansBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime) {
         List<Loan> loans = loanRepository.getLoansBetweenDates(startTime, endTime);

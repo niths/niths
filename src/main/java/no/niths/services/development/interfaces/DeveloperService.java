@@ -5,8 +5,15 @@ import java.util.List;
 import no.niths.domain.development.Developer;
 import no.niths.services.interfaces.GenericService;
 /**
- * Service class for Developer
+ * Service Class for Developer
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getAllWithApps, getDeveloperByDeveloperKey,
+ * enableDeveloper, disableDeveloper,
+ * resetDeveloperKey, addApplication
+ * and removeApplicaiton
+ * </p>
  */
 public interface DeveloperService extends GenericService<Developer> {
 	
@@ -31,7 +38,7 @@ public interface DeveloperService extends GenericService<Developer> {
 	/**
 	 * Returns the developer with the matching developer token
 	 * 
-	 * @param token string with the developer key
+	 * @param key string with the developer key
 	 * @return the developer or null if no developer were found
 	 */
 	Developer getDeveloperByDeveloperKey(String key);

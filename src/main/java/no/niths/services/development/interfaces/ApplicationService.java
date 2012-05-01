@@ -5,8 +5,13 @@ import java.util.List;
 import no.niths.domain.development.Application;
 import no.niths.services.interfaces.GenericService;
 /**
- * Service class for Application
+ * Service Class for Application
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getByApplicationKey, getTopApps,
+ * enableApplication and disableApplication
+ * </p>
  */
 public interface ApplicationService extends GenericService<Application> {
 
