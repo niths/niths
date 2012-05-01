@@ -16,10 +16,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @XmlRootElement
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class DeveloperToken implements Serializable{ 
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1415495457020406132L;
 	private String token;
 	private String message;
@@ -60,7 +57,4 @@ public class DeveloperToken implements Serializable{
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-
 }

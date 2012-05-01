@@ -6,6 +6,11 @@ import no.niths.domain.developing.Developer;
 /**
  * Service Class for sending emails
  *
+ * <p>
+ * Has methods for composeAndSend, sendDeveloperRegistratedConfirmation,
+ * sendDeveloperAddedAppConfirmation, sendDeveloperEnabledConfirmation
+ * and sendApplicationEnabledConfirmation
+ * </p>
  */
 public interface MailSenderService {
 	
@@ -14,8 +19,8 @@ public interface MailSenderService {
 	 * 
 	 * @param to email to
 	 * @param from email from
-	 * @param subject 
-	 * @param body
+	 * @param subject for email
+	 * @param body for email
 	 * 
 	 */
 	void composeAndSend(String to, String from, String subject, String body);

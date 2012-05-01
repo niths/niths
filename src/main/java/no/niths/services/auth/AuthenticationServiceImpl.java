@@ -72,30 +72,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private KeyGeneratorService keyService;
 
     /**
-     * Authenticates a student via Google. If authentication succeeds, student
-     * is either fetched from DB or if the student is a first time user, he/she
-     * gets persisted.
-     * <p>
-     * Returns a session token valid for {@value no.niths.common.AppNames.SESSION_VALID_TIME}
-     * minutes.
-     * <p> 
-     * Use this session token for future requests against the API
-     * <p>
-     * How to use:
-     * <pre>
-     * {@code
-     * Place in header:
-     * Session-token: ojejcndiu23io2hjUILHDSDW21.wqi8h2
-     * Accept: Application/xml
-     * }
-     * </pre>
-     * @param googleToken    the string to authenticate. If null, or not correct
-     *                         a 401 will be in the response.
-     * 
-     * @return SessionToken the string to use in future requests against the 
-     *                         API. It is valid for {@value SecurityConstants.SESSION_VALID_TIME} ms.
-     *                         Max concurrent session is {@value SecurityConstants.MAX_SESSION_VALID_TIME} ms.
-     *                         
+     * {@inheritDoc}
      */
     @Override
     public SessionParcel authenticateAtGoogle(String googleToken)
@@ -131,20 +108,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     /**
-     * Authenticates the session token from a request. 
-     * <p>
-     * Uses a TokenGeneratorService to verify the format of the token and any
-     * errors will throw an AuthenticationException with an "Error" header.
-     * If format is verified we then fetches belonging student from DB.
-     * <p>
-     * We then create a User wrapper object with roles copied from the student and
-     * return that user to the class responsible for doing the actual authentication.
-     * 
-     * @param sessionToken     the string to verify. If not correct, an Authentication
-     *                         exception will occur with an "Error header" explaining
-     *                         the issue.
-     * @return a user object with roles from student belonging to the session
-     *         token
+     * {@inheritDoc}
      */
     @Override
     public RequestHolderDetails authenticateSessionToken(String sessionToken)
@@ -193,13 +157,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return authenticatedUser;
     }
-    
+
     /**
-     * Logs out the student with macthing student id
-     * 
-     * Sets the session token to null
-     * 
-     * @param studentId Id of the student to log out
+     * {@inheritDoc}
      */
 	@Override
 	public void logout(Long studentId) {
@@ -208,16 +168,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		wantToLogout.setSessionToken(null);
 		studentService.update(wantToLogout);
 	}
-    
+
     /**
-     * Register a developer and generates a developer token that the
-     * developer uses in future requests
-     * <p>
-     * Sends an email to the developer with confirmation and instructions
-     * on how to enable the account
-     * <p>
-     * @param developer the developer to persist
-     * @return DeveloperToken the developer key and a confirmation message 
+     * {@inheritDoc}
      */
     @Override
     public DeveloperToken registerDeveloper(Developer dev) {
@@ -241,18 +194,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         
         return devToken;
     }
-    
+
     /**
-     * Registers an application to the matching developer
-     * <p>
-     * Sends an email to the developer with confirmation and 
-     * information on how to proceed
-     * <p>
-     * 
-     * @param app the application to add
-     * @param devId id of the dev to add application to
-     * @return an application token to use in future requests
-     * 
+     * {@inheritDoc}
      */
     @Override
     public ApplicationToken registerApplication(Application app, String developerKey) 
@@ -276,16 +220,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         mailService.sendDeveloperAddedAppConfirmation(dev, app);
         return appToken;
     }
-    
+
     /**
-     * Authenticates the developer token. Verifies the format of the token and 
-     * and fetches matching student from DB based on the key. Then checks if 
-     * developer token is correct
-     * 
-     * @param devToken the developer token
-     * @param devKey the developer key
-     * @throws AuthenticationException if no matching student is found
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Long authenticateDeveloperToken(String devToken, String devKey) throws AuthenticationException{
@@ -308,19 +245,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return dev.getId();
         
     }
-    
+
 
     /**
-     * Authenticates the application token.
-     * <p>
-     * Verifies the token format and, based on the key,
-     * fetches the matching application from DB,
-     * if it is enabled.
-     * <p>
-     * @param applicationKey the application key
-     * @param applicationToken the application token
-     * @return id of the application
-     * @throws AuthenticationException if no matching app is found
+     * {@inheritDoc}
      */
     @Override
     public Long authenticateApplicationToken(String applicationKey, String applicationToken)
@@ -349,17 +277,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         
         return app.getId();
     }
-    
-    
+
+
     /**
-     * Enables a developer, needed to be able to do requests towards the API
-     * <p>
-     * Developer must exist in the DB, or else enabling will fail...
-     * <p>
-     * Sends the developer a confirmation email with instructions
-     * <p>
-     * @param developerToken string return from registerDeveloper(Dev)
-     * @return the developer object, null if not found
+     * {@inheritDoc}
      */
     @Override
     public Developer enableDeveloper(String developerKey) throws AuthenticationException{
@@ -381,17 +302,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         
         return dev;
     }
-    
+
     /**
-     * 
-     * Enables an application
-     * <p>
-     * Sends the developer a confirmation email with instructions
-     * <p>
-     * 
-     * @param applicationKey 
-     * @return the Application
-     * @throws AuthenticationException
+     * {@inheritDoc}
      */
     @Override
     public Application enableApplication(String applicationKey) throws AuthenticationException{

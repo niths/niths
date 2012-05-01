@@ -17,7 +17,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Subject
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addTutor, removeTutor, addRoom
+ * and removeRoom
+ * </p>
+ */
 @Service
 public class SubjectServiceImpl extends AbstractGenericService<Subject>
 		implements SubjectService {
@@ -38,6 +46,9 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
 		return subjectRepository;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addTutor(Long subjectId, Long studentId) {
         Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
@@ -51,6 +62,9 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeTutor(Long subjectId, Long studentId) {
         Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
@@ -58,6 +72,9 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
                 Student.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addRoom(Long subjectId, Long roomId) {
         Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);
@@ -71,6 +88,9 @@ public class SubjectServiceImpl extends AbstractGenericService<Subject>
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeRoom(Long subjectId) {
         Subject subject = validate(subjectRepository.getById(subjectId), Subject.class);

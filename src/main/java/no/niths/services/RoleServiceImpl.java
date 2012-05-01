@@ -7,7 +7,13 @@ import no.niths.services.interfaces.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Role
+ *
+ * <p>
+ * Inherits the basic CRUD actions
+ * </p>
+ */
 @Service
 public class RoleServiceImpl extends AbstractGenericService<Role> implements RoleService{
 

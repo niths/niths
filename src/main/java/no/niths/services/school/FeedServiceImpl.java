@@ -15,7 +15,17 @@ import no.niths.services.school.interfaces.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Feed
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addLocation, removeLocation,
+ * addStudent, removeStudent,
+ * addCommittee
+ * and removeCommittee
+ * </p>
+ */
 @Service
 public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		FeedService {
@@ -37,6 +47,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		return repo;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addLocation(Long feedId, Long locationId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);
@@ -46,6 +59,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		feed.setLocation(location);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeLocation(Long feedId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);
@@ -59,6 +75,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		checkIfIsRemoved(isRemoved, Location.class);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addStudent(Long feedId, Long studentId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);
@@ -68,6 +87,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		feed.setStudent(student);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeStudent(Long feedId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);
@@ -81,6 +103,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		checkIfIsRemoved(isRemoved, Student.class);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeCommittee(Long feedId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);
@@ -95,6 +120,9 @@ public class FeedServiceImpl extends AbstractGenericService<Feed> implements
 		
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addCommittee(Long feedId, Long committeeId) {
 		Feed feed = validate(repo.getById(feedId), Feed.class);

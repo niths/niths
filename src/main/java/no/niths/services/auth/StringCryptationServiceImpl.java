@@ -25,25 +25,17 @@ public class StringCryptationServiceImpl implements StringCryptationService {
 		jasypt = new StandardPBEStringEncryptor();
 		jasypt.setPassword(password);
 	}
-	
-	/**
-	 * Returns an encrypted String
-	 * 
-	 * @param txt the string to encrypt
-	 * @return the encrypted string
-	 * @throws EncryptionOperationNotPossibleException
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	public String encrypt(String txt) throws EncryptionOperationNotPossibleException{
 		return jasypt.encrypt(txt);
 	}
-	
-	/**
-	 * Returns a decrypted string
-	 * 
-	 * @param txt string to decrypt
-	 * @return the decrypted string
-	 * @throws EncryptionOperationNotPossibleException
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	public String decrypt(String txt) throws EncryptionOperationNotPossibleException{
 		return jasypt.decrypt(txt);
 	}

@@ -14,12 +14,9 @@ import org.springframework.web.client.HttpClientErrorException;
 @Service
 public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationService{
 
-	/**
-	 * Authenticates a user through Google and returns the profiles email
-	 * 
-	 * @param the token provided by Google
-	 * @return string containg the users email
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public String authenticateAndGetEmail(String token) throws HttpClientErrorException {
 		Google google = new GoogleTemplate(token);
@@ -27,12 +24,9 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
 		return profile.getEmail();
 	}
 
-	/**
-	 * Authenticates user via Google and return their account
-	 * 
-	 * @param token the token provided by Google
-	 * @return the Google account
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Google authenticateAndGetGoogleAccount(String token) {
 		return new GoogleTemplate(token);

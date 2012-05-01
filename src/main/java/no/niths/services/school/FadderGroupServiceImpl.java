@@ -19,7 +19,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for FadderGroup
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addLeader, removeLeader,
+ * removeAllLeaders, addChild,
+ * removeChild, removeChildren,
+ * addChildren, removeAllChildren
+ * and getStudentsNotInAGroup
+ * </p>
+ */
 @Service
 public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		implements FadderGroupService {
@@ -50,6 +61,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		return list;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addLeader(Long groupId, Long studentId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -76,6 +90,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 				Status.UPDATED));
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeLeader(Long groupId, Long studentId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -95,6 +112,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addChild(Long groupId, Long studentId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -110,6 +130,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 				Status.UPDATED));
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addChildren(Long groupId, Long[] studentIds) {
 		for (Long studentId : studentIds) {
@@ -117,6 +140,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeChild(Long groupId, Long studentId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -126,6 +152,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 				Student.class);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeChildren(Long groupId, Long[] studentIds) {
 		for (Long studentId : studentIds) {
@@ -133,6 +162,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeAllChildren(Long groupId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -148,6 +180,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		checkIfIsRemoved(isRemoved, Student.class);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeAllLeaders(Long groupId) {
 		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
@@ -163,11 +198,9 @@ public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
 		checkIfIsRemoved(isRemoved, Student.class);
 	}
 
-	/**
-	 * Returns all students without a fadder group
-	 * 
-	 * @return list with students
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Student> getStudentsNotInAGroup() {
 		return fadderGroupRepository.getStudentsNotInAGroup();

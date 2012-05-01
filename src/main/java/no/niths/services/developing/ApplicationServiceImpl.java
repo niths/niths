@@ -15,8 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service class for Application
+ * Service Class for Application
  *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for getByApplicationKey, getTopApps,
+ * enableApplication and disableApplication
+ * </p>
  */
 @Service
 public class ApplicationServiceImpl extends AbstractGenericService<Application>
@@ -33,29 +38,18 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 	public Application getByApplicationToken(String token) {
 		return repo.getByApplicationToken(token);
 	}
-	
-	/**
-	 * Returns a list applications ordered
-	 * by the number of requests @See {@link Application}
-	 * 
-	 * @param maxResults number of results
-	 * @return list with maxResults applications
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public List<Application> getTopApps(int maxResults){
 		return repo.getTopApps(maxResults);
 	}
 
-	/**
-	 * Returns the application matching the key The application must be enabled
-	 * to be returned
-	 * 
-	 * @param key
-	 *            the application key as a string
-	 * @param enabled
-	 *            if the app needs to be enabled or not
-	 * @return the application or null if no matching key
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public Application getByApplicationKey(String key, boolean enabled) {
 		return repo.getByApplicationKey(key, enabled);
@@ -66,12 +60,9 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		return repo;
 	}
 
-	/**
-	 * Enables an application
-	 * 
-	 * @param applicationId id of the application to enable
-	 * @throws ObjectNotFoundException if the app does not exist
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void enableApplication(Long applicationId) {
 		Application applications = validate(repo.getById(applicationId),
@@ -83,12 +74,9 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 		
 	}
 
-	/**
-	 * Disables an application
-	 * 
-	 * @param applicationId id of the application to enable
-	 * @throws ObjectNotFoundException if the app does not exist
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void disableApplication(Long applicationId) {
 		Application applicatipns = validate(repo.getById(applicationId),

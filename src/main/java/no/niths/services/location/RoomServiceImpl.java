@@ -19,7 +19,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for Room
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addAccessField, removeAccessField,
+ * and getRoom
+ * </p>
+ */
 @Service
 public class RoomServiceImpl extends AbstractGenericService<Room> implements
         RoomService {
@@ -50,6 +58,9 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
         return roomList.get(0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addAccessField(long roomId, long accessFieldId) {
         Room room = validate(repo.getById(roomId), Room.class);
@@ -63,6 +74,9 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
                 Status.UPDATED));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeAccessField(long roomId, long accessFieldId) {
         Room room = validate(repo.getById(roomId), Room.class);
@@ -75,6 +89,9 @@ public class RoomServiceImpl extends AbstractGenericService<Room> implements
         return repo;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Room getRoom(AccessField accessField) {
         System.err.println("checking room.................................");

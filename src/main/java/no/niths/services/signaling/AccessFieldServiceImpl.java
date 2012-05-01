@@ -11,7 +11,15 @@ import no.niths.services.signaling.interfaces.AccessFieldService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service Class for AccessField
+ *
+ * <p>
+ * Inherits the basic CRUD actions and has methods
+ * for addAccessPoint
+ * and removeAccessPoint
+ * </p>
+ */
 @Service
 public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 		implements AccessFieldService {
@@ -27,6 +35,9 @@ public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 		return repo;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void addAccessPoint(long afId, long apId) {
 		AccessField accessField = validate(repo.getById(afId),
@@ -39,6 +50,9 @@ public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
 		accessField.setAccessPoint(accessPoint);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void removeAccessPoint(long afId) {
 		AccessField accessField = validate(repo.getById(afId),
