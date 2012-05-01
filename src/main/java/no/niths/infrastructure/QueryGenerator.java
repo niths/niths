@@ -10,6 +10,8 @@ import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -26,7 +28,9 @@ public class QueryGenerator<T> {
 	private final String SPLITT = ",";
 
 	private Class<T> persistentClass;
-
+	private Logger logger = LoggerFactory.getLogger(QueryGenerator.class);
+	
+	
 	public QueryGenerator(Class<T> persistentClass) {
 		setPersistentClass(persistentClass);
 	}
@@ -41,6 +45,37 @@ public class QueryGenerator<T> {
 		
 		return crit.list();
 	}
+	
+	/**
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param session
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> getBetweenDates(GregorianCalendar startTime,
+			GregorianCalendar endTime,Session session) {
+		
+		Criteria crit = session.createCriteria(persistentClass);
+		
+	
+		boolean isEndTimeNull = endTime == null;
+		if (isEndTimeNull) {
+			crit.add(Restrictions.ge(START_TIME, startTime));
+
+		} else if (startTime !=  null){
+			crit.add(Restrictions.between(START_TIME, startTime,endTime));
+		}
+		
+		crit.addOrder(Order.asc(START_TIME));	
+		
+		logger.debug(crit.toString());
+
+		return crit.list();
+
+	}
+
 
 	/**
 	 * Returns a list on when and where on tags and location between

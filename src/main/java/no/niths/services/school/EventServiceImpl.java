@@ -55,18 +55,28 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 		return events;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GenericRepository<Event> getRepository() {
 		return repo;
 	}
 	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Long create(Event domain) {
 		validateStartAndEndTime(domain);
 		return super.create(domain);
 	}
 
+	/**
+	 * Method for validating if startTime is larger than time now, 
+	 * and if its large than end time. Endtime is allowed to be null 
+	 * @param domain
+	 */
 	private void validateStartAndEndTime(Event domain) {
 		GregorianCalendar now = new GregorianCalendar();
 		if(domain!=null){
@@ -93,9 +103,11 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 	}
 	
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(Event domain) {
-		
 		validateStartAndEndTime(domain);
 		super.update(domain);
 	}

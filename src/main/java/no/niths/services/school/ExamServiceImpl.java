@@ -1,5 +1,8 @@
 package no.niths.services.school;
 
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import no.niths.application.rest.helper.Status;
 import no.niths.common.helpers.MessageProvider;
 import no.niths.common.helpers.ValidationHelper;
@@ -107,4 +110,10 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
 
         checkIfIsRemoved(isRemoved, Subject.class);
     }
+
+	@Override
+	public List<Exam> getExamsBetweenDates(GregorianCalendar startTime,
+			GregorianCalendar endTime) {
+		return examRepository.getEventsBetweenDates(startTime, endTime);
+	}
 }

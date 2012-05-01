@@ -1,20 +1,28 @@
 package no.niths.application.rest.school;
 
+import java.util.List;
+
 import no.niths.application.rest.AbstractRESTControllerImpl;
+import no.niths.application.rest.RESTConstants;
+import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.school.ExamList;
 import no.niths.application.rest.school.interfaces.ExamController;
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.school.Exam;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.ExamService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -25,7 +33,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 		implements ExamController {
 
-
+	private Logger logger = LoggerFactory.getLogger(ExamControllerImpl.class);
+	
 	@Autowired
 	private ExamService examService;
 
@@ -85,6 +94,21 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
 	 */
 	@Override
 	public ListAdapter<Exam> getList() {
+		return examList;
+	}
+
+	@Override
+	@RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@ResponseBody
+	public List<Exam> getExamsBetweenDates(TimeDTO timeDTO) {
+		
+		logger.debug(timeDTO.toString());
+		ValidationHelper.isObjectNull(timeDTO.getStartTime());
+		if(timeDTO.getEndTime() != null){
+			renewList(examService.getExamsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
+		}else{
+			renewList(examService.getExamsBetweenDates(timeDTO.getStartTimeCal(), null));
+		}
 		return examList;
 	}
 }

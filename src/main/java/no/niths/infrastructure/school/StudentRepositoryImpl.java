@@ -48,7 +48,6 @@ public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student
      */
 	@Override
 	public List<Student> getStudentByColumn(String column, String criteria) {
-		
 		return queryGen.whereQuery(criteria, column, getSession().getCurrentSession());
 	}
 

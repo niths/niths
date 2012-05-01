@@ -1,5 +1,8 @@
 package no.niths.services.school.interfaces;
 
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import no.niths.domain.school.Exam;
 import no.niths.services.interfaces.GenericService;
 /**
@@ -39,4 +42,12 @@ public interface ExamService extends GenericService<Exam> {
      * @param examId id for exam
      */
     void removeSubject(Long examId);
+    
+    /**
+     * Returns exams between on the startTime between start and end time 
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<Exam> getExamsBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime);
 }
