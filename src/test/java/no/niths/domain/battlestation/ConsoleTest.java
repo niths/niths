@@ -52,7 +52,7 @@ public class ConsoleTest {
 
     @Test
     public void testValidationOfIncorrectConsoleValues() {
-        Console console = new Console("KM");
+        Console console = new Console("KM ");
 
         Set<ConstraintViolation<Console>> constraintViolations = validator
                 .validate(console);
