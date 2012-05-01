@@ -107,7 +107,7 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
      */
     @Override
     @RequestMapping(
-            value  = "/enableDeveloper/{developerKey:.+}",
+            value  = "enableDeveloper/{developerKey:.+}",
             method = RequestMethod.GET)
     public ModelAndView enableDeveloper(@PathVariable String developerKey) {
         logger.debug("Developer wants to be enabled with developer-key: "
@@ -145,7 +145,7 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
      */
     @Override
     @RequestMapping(
-            value  = "/addApp/{developerKey}",
+            value  = "addApp/{developerKey}",
             method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public ApplicationToken addApplicationToDeveloper(
@@ -165,7 +165,7 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
      */
     @Override
     @RequestMapping(
-            value  = "/enableApp/{applicationKey:.+}",
+            value  = "enableApp/{applicationKey:.+}",
             method = RequestMethod.GET)
     public ModelAndView enableApplication(@PathVariable String applicationKey) {
         logger.debug("Application wants to be enabled with application-key: "

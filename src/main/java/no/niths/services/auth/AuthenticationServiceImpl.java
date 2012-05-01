@@ -320,7 +320,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         app.setApplicationToken(tokenService.generateToken(app.getId()));
         app.setEnabled(true);
         appService.update(app);
-        
+        logger.debug("Application enabled " + applicationKey);
         //Send confirmation email
         if(app.getDeveloper() != null){
             mailService.sendApplicationEnabledConfirmation(app.getDeveloper(), app);            

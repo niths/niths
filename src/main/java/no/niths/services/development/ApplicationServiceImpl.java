@@ -1,7 +1,9 @@
 package no.niths.services.development;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import no.niths.common.helpers.LazyFixer;
 import no.niths.domain.development.Application;
 import no.niths.domain.development.Developer;
 import no.niths.infrastructure.development.interfaces.ApplicationRepository;
@@ -30,6 +32,8 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
 	private static final Logger logger = LoggerFactory
 			.getLogger(ApplicationServiceImpl.class);
 	
+	private LazyFixer<Application> lazyFixer = new LazyFixer<Application>();
+	
 	@Autowired
 	private ApplicationRepository repo;
 
@@ -52,7 +56,12 @@ public class ApplicationServiceImpl extends AbstractGenericService<Application>
      */
 	@Override
 	public Application getByApplicationKey(String key, boolean enabled) {
-		return repo.getByApplicationKey(key, enabled);
+		Application app = repo.getByApplicationKey(key, enabled);
+		ArrayList<Application> ts = new ArrayList<Application>();
+	    ts.add(app);
+	    lazyFixer.fetchChildren(ts);
+	    return ts.get(0);
+
 	}
 
 	@Override
