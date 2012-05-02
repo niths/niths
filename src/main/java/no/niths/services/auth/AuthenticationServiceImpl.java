@@ -289,7 +289,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(dev == null){
             throw new UnvalidTokenException("No developer found with that key");
         }
-        if(dev.getEnabled() != null && dev.getEnabled() == true){
+        if(dev.getEnabled() != null && dev.getEnabled()){
         	throw new UnvalidTokenException("Developer is already enabled");
         }
         //Generate a personal token and set developer to enabled
@@ -313,7 +313,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(app == null){
             throw new UnvalidTokenException("No application found with that key");
         }
-        if(app.getEnabled() != null && app.getEnabled() == true){
+        if(app.getEnabled() != null && app.getEnabled()){
         	throw new UnvalidTokenException("Application is already enabled");
         }
         //Generate a personal token and set app to enabled
