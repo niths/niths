@@ -188,13 +188,6 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		PreAuthorize pre = m.getAnnotation(PreAuthorize.class);
 		if (pre != null) { // Extract the role names from EL
 			resAuth = handleAuthAnnotation(pre.value());
-			// Pattern pattern = Pattern.compile("ROLE_([\\w]*)");
-			// Matcher matcher = pattern.matcher(pre.value());
-			//
-			// while (matcher.find()) {
-			// resAuth += matcher.group() + " ";
-			// }
-
 		}
 		return new MethodInfo(valuesS.trim(), methodS.trim(), headersS.trim(),
 				reasonS.trim(), responseCodeS.trim(), resAuth.trim());
