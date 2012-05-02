@@ -205,7 +205,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK, reason = "Update OK")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void update(@RequestBody T domain) {
+    public void update(T domain) {
         logger.debug("Update");
         logger.debug(domain + "");
 

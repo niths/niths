@@ -196,7 +196,17 @@ public class Event implements Domain {
 
 	@Override
 	public String toString() {
-		return String.format("[%s][%s][%s]", id, name, description);
+		
+		if((startTime != null) || (endTime != null)){
+			return String.format("[%s][%s][%s][%s][%s]", id, name, description,tags,startTime.getTime(),endTime.getTime());
+		}else if (startTime!=null){
+			return String.format("[%s][%s][%s][%s]", id, name, description,tags,startTime.getTime());
+		}else if(endTime != null){
+			return String.format("[%s][%s][%s][%s]", id, name, description,tags,endTime.getTime());
+			
+			
+		}
+		return String.format("[%s][%s][%s][%s]", id, name, description,tags);
 	}
 
 	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)

@@ -137,6 +137,7 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	 */
 	@Override
 	public void update(T domain) {
+		System.err.println(domain.toString() + "hello");
 		getRepository().update(domain);
 	}
 

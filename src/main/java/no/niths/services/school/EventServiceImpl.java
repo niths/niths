@@ -83,7 +83,7 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 			System.err.println("is not null");
 			// if startTime not equal to null
 			if(domain.getStartTime() !=null){
-				System.err.println(domain.getStartTime().compareTo(now) + " ");
+
 				if(domain.getStartTime().compareTo(now) >= 0){
 					if(domain.getEndTime()!= null){
 						System.err.println(domain.getStartTime().compareTo(domain.getEndTime()) + " start time vs end time");
@@ -97,21 +97,15 @@ public class EventServiceImpl extends AbstractGenericService<Event> implements
 			}else{
 				throw new InvalidValueException("Star time cannot be null");
 			}
-		}else {
-			System.err.println("is null");
 		}
 	}
 	
-	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public void update(Event domain) {
+	public void mergeUpdate(Event domain) {
+		System.err.println(domain.toString());
 		validateStartAndEndTime(domain);
-		super.update(domain);
+		super.mergeUpdate(domain);
 	}
-
     /**
      * {@inheritDoc}
      */
