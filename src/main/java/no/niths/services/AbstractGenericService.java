@@ -101,7 +101,6 @@ public abstract class AbstractGenericService<T extends Domain> implements
 	@Override
 	public List<T> getAll(T domain) {
 	    List<T> list = getRepository().getAll(domain);
-//	    lazyFixer.fetchChildren(list);
 		return list;
 	}
 
