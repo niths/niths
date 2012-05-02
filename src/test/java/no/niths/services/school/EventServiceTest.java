@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -53,7 +52,8 @@ public class EventServiceTest {
 	
 	@Test 
 	public void testEventLocation(){
-		GregorianCalendar cal = new GregorianCalendar(2012, 11, 23, 22, 21, 23);
+		GregorianCalendar cal = new GregorianCalendar(2212, 11, 23, 22, 21, 23);
+		GregorianCalendar cal2 = new GregorianCalendar(2212, 12, 23, 22, 21, 23);
 		Event event = new Event("LUG Party", "Linux", cal, null);
 		Location loc = new Location("Oslo",10.2304,90.2030);
 		event.setLocation(loc);
@@ -68,12 +68,13 @@ public class EventServiceTest {
 		// update 
 		Event e = new Event();
 		e.setId(event.getId());
-		e.setEndTime(cal);	
+		e.setStartTime(cal);
+		e.setEndTime(cal2);	
 		eventService.mergeUpdate(e);
 		
 		temp = eventService.getById(event.getId());
 		
-		assertEquals(cal, temp.getEndTime());
+		assertEquals(cal2, temp.getEndTime());
 
 		assertEquals(loc, temp.getLocation());
 		
@@ -116,19 +117,5 @@ public class EventServiceTest {
 		
 		eventService.hibernateDelete(event.getId());
 		eventService.hibernateDelete(event2.getId());
-	}
-	
-	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testCreateAndUpdate(){
-//		
-//		
-//		Date d = new Date();
-//		
-//		d.setDate(d.getDate()+1);
-//		GregorianCalendar gre = new GregorianCalendar();
-//		gre.setTime(d);
-//		
 	}
 }

@@ -127,10 +127,12 @@ public class EventControllerImplTest {
 	@Test
 	public void testUpdateEvent() {
 		Event event = new Event();
+		GregorianCalendar cal = new GregorianCalendar(2230, Calendar.MAY, 10);
 		event.setId(testEvent04.getId());
 		event.setDescription("new Description");
-
+		event.setStartTime(cal);
 		event.setName("new Name");
+		
 		controller.update(event);
 		Event temp = controller.getById(testEvent04.getId());
 		assertEquals(event.getName(), temp.getName());
