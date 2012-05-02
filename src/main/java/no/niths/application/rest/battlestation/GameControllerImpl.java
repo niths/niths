@@ -31,8 +31,11 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 	private GameList gameList = new GameList();
 
 	/**
-	 * {@inheritDoc}
-	 */
+     * Adds a console too a game
+     *
+     * @param gameId id of the game
+     * @param consoleId id of the console
+     */
 	@Override
 	@RequestMapping(value = "{gameId}/console/{consoleId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
@@ -42,8 +45,10 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
+     * Removes a console from a game
+     *
+     * @param gameId id of the game
+     */
 	@Override
 	@RequestMapping(value = "{gameId}/console", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")

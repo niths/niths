@@ -41,7 +41,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     private LoanList loanList = new LoanList();
 
     /**
-     * {@inheritDoc}
+     * Adds a console too a loan
+     *
+     * @param loanId id of the loan
+     * @param consoleId id of the console
      */
     @Override
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.POST)
@@ -51,7 +54,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * {@inheritDoc}
+     * Removes a console from a loan
+     *
+     * @param loanId id of the loan
+     * @param consoleId if of the console
      */
     @Override
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.DELETE)
@@ -61,7 +67,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * {@inheritDoc}
+     * Adds a student too a loan
+     *
+     * @param loanId id of the loan
+     * @param studentId id of the student
      */
     @Override
     @RequestMapping(value = "{loanId}/student/{studentId}", method = RequestMethod.POST)
@@ -71,7 +80,9 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * {@inheritDoc}
+     * Removes a student from a loan
+     *
+     * @param loanId id of the loan
      */
     @Override
     @RequestMapping(value = "{loanId}/student", method = RequestMethod.DELETE)
@@ -80,6 +91,11 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
         loanService.removeStudent(loanId);
     }
 
+    /**
+     * Returns loans between or from timeDTO's startTime or / and endTime
+     * @param timeDTO
+     * @return list of loans
+     */
     @Override
     @RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody

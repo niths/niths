@@ -45,7 +45,7 @@ public interface LoanController extends GenericRESTController<Loan> {
     /**
      * Returns loans between or from timeDTO's startTime or / and endTime
      * @param timeDTO
-     * @return
+     * @return list of loans
      */
     List<Loan> getLoansBetweenDates(TimeDTO timeDTO);
 }
