@@ -31,8 +31,11 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 	private ConsoleList consoleList = new ConsoleList();
 
 	/**
-	 * {@inheritDoc}
-	 */
+     * Adds a game too a console
+     *
+     * @param consoleId id of the console
+     * @param gameId if of the game
+     */
 	@Override
 	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
@@ -40,9 +43,12 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 		consoleService.addGame(consoleId, gameId);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	 /**
+     * Removes a game from a console
+     *
+     * @param consoleId id of the console
+     * @param gameId id of the game
+     */
 	@Override
 	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Game Removed")
@@ -52,8 +58,11 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
+     * Adds a loan too a console
+     *
+     * @param consoleId id of the console
+     * @param loanId id of the loan
+     */
 	@Override
 	@RequestMapping(value = "{consoleId}/loan/{loanId}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
@@ -62,8 +71,10 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
+     * Removes a loan from a console
+     *
+     * @param consoleId id of the console
+     */
 	@Override
 	@RequestMapping(value = "{consoleId}/loan", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
