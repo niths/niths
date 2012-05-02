@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0" metadata-complete="true">
 	<display-name>niths</display-name>
-	
+
 
 
 	<!-- Spring -->
@@ -21,8 +21,8 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
-			<!-- Spring security -->
+
+	<!-- Spring security -->
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
@@ -44,28 +44,28 @@
 			<param-name>contextClass</param-name>
 			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 		</init-param>
-<!-- 		<init-param> -->
-<!--             <param-name>multipartResolver</param-name> -->
-<!--             <param-value>org.springframework.web.multipart.support.StandardServletMultipartResolver</param-value> -->
-<!--         </init-param> -->
+		<!-- <init-param> -->
+		<!-- <param-name>multipartResolver</param-name> -->
+		<!-- <param-value>org.springframework.web.multipart.support.StandardServletMultipartResolver</param-value> -->
+		<!-- </init-param> -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value></param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
-		  
-<security-constraint>
-    <web-resource-collection>
-        <web-resource-name>securedapp</web-resource-name>
-        <url-pattern>/*</url-pattern>
-    </web-resource-collection>
-    <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-    </user-data-constraint>
-</security-constraint>
-		
+
 	</servlet>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>securedapp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
 	<servlet-mapping>
 		<servlet-name>niths</servlet-name>
 		<url-pattern>/</url-pattern>
