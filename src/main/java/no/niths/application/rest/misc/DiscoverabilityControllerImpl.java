@@ -42,6 +42,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DiscoverabilityControllerImpl implements DiscoverabilityController {
 
 	private RestResourceList list = new RestResourceList();
+	
 	/**
      * 
      * Returns a list of all services in the API.
@@ -53,14 +54,21 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
      * @param req the http header, specifies return format
      * @return a list of resources in the API
      */ 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@RequestMapping(value = "api", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<RestResource> getApi(HttpServletRequest req) {
 
+		generateApiList(req.getRequestURL().toString().replace("api", ""));
+		return list;
+	}
+	
+	//Reads all classes in rest package and 
+	//generates a list of resources
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void generateApiList(String baseUrl){
 		list.clear();
-			
+		
 		// Get all classes in given package with @controller
 		// Read class annotations and then read all method annotations
 		try {
@@ -70,7 +78,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 				if (c.getAnnotation(RequestMapping.class) != null) {
 					RequestMapping mapClass = (RequestMapping) c
 							.getAnnotation(RequestMapping.class);
-					String url = req.getRequestURL().toString().replace("api", "");
+					String url = baseUrl;
 					url += mapClass.value()[0] + "/";
 					resource = new RestResource(url);
 
@@ -130,7 +138,6 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		}
 
 		list.setData(list);
-		return list;
 	}
 
 	@Override
