@@ -20,6 +20,8 @@
     - From the command line run: `mysql -u <MySQL username> -e 'CREATE DATABASE niths;'`
     - From any other tool, consult the appropriate manual
 
+- If you are looking for an easy to use, free database administrative tool, check out MySQL Workbench
+
 ### Configure the properties file
 - If you already have been provided with this project's property file, skip this entire section
 - Create a file named `application.properties`
