@@ -44,5 +44,5 @@ public interface DiscoverabilityController {
 	 * @param req the http header
 	 * @return html view of services in the API
 	 */
-	ModelAndView getApiExcel(HttpServletRequest req);
+	ModelAndView getApiHtml(HttpServletRequest req);
 }

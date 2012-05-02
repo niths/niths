@@ -79,7 +79,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	 */
 	@Override
 	@RequestMapping(value = "api/html", method = RequestMethod.GET)
-	public ModelAndView getApiExcel(HttpServletRequest req) {
+	public ModelAndView getApiHtml(HttpServletRequest req) {
 		ModelAndView view = new ModelAndView("api");
 		generateApiList(req.getRequestURL().toString().replace("api/html", ""));
 		view.addObject("api", list);
@@ -97,7 +97,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		try {
 			List<Class> all = findMyTypes("no.niths.application.rest");
 			for (Class c : all) {
-				
+				boolean isFirst = false;
 				RestResource resource = null;
 				if (c.getAnnotation(RequestMapping.class) != null
 						|| c.getSimpleName()
@@ -106,6 +106,7 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 					
 					if (c.getSimpleName()
 							.equals("AbstractRESTControllerImpl")) {
+						isFirst = true;
 						String url = baseUrl + "DOMAIN/";
 						resource = new RestResource(url);
 
@@ -137,8 +138,12 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 							}
 						}
 					}
-
-					list.add(resource);
+					if(isFirst){
+						isFirst = false;
+						list.add(0, resource);
+					}else{
+						list.add(resource);						
+					}
 				}
 			}
 		} catch (ClassNotFoundException e) {
