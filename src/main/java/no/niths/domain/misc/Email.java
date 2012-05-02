@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
  */
 public class Email {
 
-                               // Cheap email regexp for NITH email addresses
+                               // Cheap email regex for NITH email addresses
     public static final String NITH_EMAIL_REGEXP     = "^[a-z09]+@nith.no$",
                                INVALID_EMAIL_MESSAGE = "Invalid email address";
     
