@@ -13,10 +13,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -51,6 +53,9 @@ public class Game implements Domain {
 
     @Column
     @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR_NAME,
+            message = "Invalid name (should be 2 - 50 alphanumeric letters)")
     private String title;
 
     @Column
