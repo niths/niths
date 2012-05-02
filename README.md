@@ -1,6 +1,6 @@
 # NITHs
 ### The student community's API.
-##  [API reference](http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/)
+##  [API reference](http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com/)
 
 ## Setup
 
