@@ -26,6 +26,7 @@ import no.niths.services.auth.interfaces.KeyGeneratorService;
 import no.niths.services.auth.interfaces.TokenGeneratorService;
 import no.niths.services.development.interfaces.ApplicationService;
 import no.niths.services.development.interfaces.DeveloperService;
+import no.niths.services.development.interfaces.RequestStatisticsService;
 import no.niths.services.interfaces.MailSenderService;
 import no.niths.services.school.interfaces.StudentService;
 
@@ -70,6 +71,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     
     @Autowired
     private KeyGeneratorService keyService;
+    
+    @Autowired
+    private RequestStatisticsService reqService;
 
     /**
      * {@inheritDoc}
@@ -256,7 +260,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         Long id = tokenService.verifyTokenFormat(applicationToken, false);
         Application app = appService.getById(id);
-//        Application app = appService.getByApplicationKey(applicationKey, true);
+        
+        // If else for specified error messages
         if(app == null ){
             throw new UnvalidTokenException("No app found or app is not enabled");
         }else if(app.getApplicationToken() == null || app.getEnabled() == null){
@@ -266,14 +271,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }else if(app.getEnabled() == false){
         	throw new UnvalidTokenException("Application not enabled");
         }
-
-        //Up the application request counter!
-        if(app.getRequests() != null){
-        	app.setRequests(app.getRequests() + 1);        	
-        } else {
-        	app.setRequests(new Long(1));
-        }
-        appService.update(app);
+        //Register request for application statistics
+        reqService.registerRequest(app);
         
         return app.getId();
     }
