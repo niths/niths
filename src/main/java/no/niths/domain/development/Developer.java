@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -22,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -62,132 +64,134 @@ import org.jasypt.hibernate4.type.EncryptedStringType;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Developer implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = -85961208307674962L;
+    @Transient
+    private static final long serialVersionUID = -85961208307674962L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(unique = true)
-	@Email
-	@NotNull
-	private String email;
+    @Column(unique = true)
+    @Email
+    @NotNull
+    private String email;
 
-	@Column(unique = true)
-	@Size(min = 3, max = 30, message = "Length min = 3, max = 30")
-	@NotNull
-	private String name;
+    @Column(unique = true)
+    @NotNull
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR_NAME,
+            message = "Invalid name (should be 2 - 50 alphanumeric characters")
+    private String name;
 
-	@JsonIgnore
-	@XmlTransient
-	@Column
-	private Boolean enabled;
+    @JsonIgnore
+    @XmlTransient
+    @Column
+    private Boolean enabled;
 
-	@JsonIgnore
-	@XmlTransient
-	@Column(name = "developer_token")
-	@Type(type = "encryptedString")
-	private String developerToken;
+    @JsonIgnore
+    @XmlTransient
+    @Column(name = "developer_token")
+    @Type(type = "encryptedString")
+    private String developerToken;
 
-	@JsonIgnore
-	@XmlTransient
-	@Column(name = "developer_key")
-	private String developerKey;
+    @JsonIgnore
+    @XmlTransient
+    @Column(name = "developer_key")
+    private String developerKey;
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Application.class)
-	@JoinTable(
-	        name = "developers_applications", 
-	        joinColumns = @JoinColumn(name = "developers_id"),
-	        inverseJoinColumns = @JoinColumn(name = "applications_id"))
-	@Cascade(CascadeType.ALL)
-	private List<Application> apps = new ArrayList<Application>();
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Application.class)
+    @JoinTable(
+            name               = "developers_applications",
+            joinColumns        = @JoinColumn(name = "developers_id"),
+            inverseJoinColumns = @JoinColumn(name = "applications_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Application> apps = new ArrayList<Application>();
 
-	public Developer() {
-		this(null);
-		setId(null);
-		setEmail(null);
-		setEnabled(null);
-		setDeveloperToken(null);
-		setApps(null);
-	}
+    public Developer() {
+        this.id             = null;
+        this.name           = null;
+        this.email          = null;
+        this.enabled        = null;
+        this.developerToken = null;
+        this.apps           = null;
+    }
 
-	public Developer(String name) {
-		setName(name);
-	}
+    public Developer(String name) {
+        this.name = name;
+    }
 
-	public Developer(String name, String email) {
-		setName(name);
-		setEmail(email);
-	}
+    public Developer(String name, String email) {
+        this.name  = name;
+        this.email = email;
+    }
 
-	public List<Application> getApps() {
-		return apps;
-	}
+    public List<Application> getApps() {
+        return apps;
+    }
 
-	public void setApps(List<Application> apps) {
-		this.apps = apps;
-	}
+    public void setApps(List<Application> apps) {
+        this.apps = apps;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("[%s][%s][%s]", id, email, name);
-	}
+    @Override
+    public String toString() {
+        return String.format("[%s][%s][%s]", id, email, name);
+    }
 
-	@Override
-	public boolean equals(Object that) {
-		if (!(that instanceof Developer))
-			return false;
-		Developer s = (Developer) that;
-		return s == this ? true : s.getId() == id ? true : false;
-	}
+    @Override
+    public boolean equals(Object that) {
+        if (!(that instanceof Developer))
+            return false;
+        Developer s = (Developer) that;
+        return s == this ? true : s.getId() == id ? true : false;
+    }
 
-	public String getDeveloperToken() {
-		return developerToken;
-	}
+    public String getDeveloperToken() {
+        return developerToken;
+    }
 
-	public void setDeveloperToken(String developerToken) {
-		this.developerToken = developerToken;
-	}
+    public void setDeveloperToken(String developerToken) {
+        this.developerToken = developerToken;
+    }
 
-	public Boolean getEnabled() {
-		return enabled;
-	}
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public String getDeveloperKey() {
-		return developerKey;
-	}
+    public String getDeveloperKey() {
+        return developerKey;
+    }
 
-	public void setDeveloperKey(String developerKey) {
-		this.developerKey = developerKey;
-	}
+    public void setDeveloperKey(String developerKey) {
+        this.developerKey = developerKey;
+    }
 
 }
