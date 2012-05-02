@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import no.niths.application.rest.misc.RestResource;
 
 /**
@@ -35,4 +37,12 @@ public interface DiscoverabilityController {
      * @return a list of resources in the API
      */
 	List<RestResource> getApi(HttpServletRequest req);
+
+	/**
+	 * Returns a HTML view of the API
+	 * 
+	 * @param req the http header
+	 * @return html view of services in the API
+	 */
+	ModelAndView getApiExcel(HttpServletRequest req);
 }
