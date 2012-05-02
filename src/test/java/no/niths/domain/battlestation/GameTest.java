@@ -50,7 +50,7 @@ public class GameTest {
 
     @Test
     public void testValidationOfIncorrectGameValues() {
-        Game game = new Game("KM", CATEGORY);
+        Game game = new Game("<script>alert();</script>", CATEGORY);
 
         Set<ConstraintViolation<Game>> constraintViolations = validator
                 .validate(game);
