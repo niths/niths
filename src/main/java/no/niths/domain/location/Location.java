@@ -59,7 +59,7 @@ public class Location implements Domain {
     @NotNull
     @Pattern(
             regexp  = ValidationConstants.REGULAR_NAME,
-            message = ValidationConstants.REGULAR_NAME_MESSAGE)
+            message = "Invalid place (should be 2 - 50 alphanumeric chars)")
     private String place;
 
     @Column(name = "latitude")
