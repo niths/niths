@@ -16,10 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -47,39 +49,46 @@ import org.hibernate.annotations.CascadeType;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Committee implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = 7191935818417886723L;
+    @Transient
+    private static final long serialVersionUID = 7191935818417886723L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    @Size(min = 3, max = 30, message ="The length of the name must be between 3 to 30 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR_NAME,
+            message = "Invalid name (should be 2 - 500 alphanumeric letters)")
     private String name;
 
-    @Column(length=500)
-    @Size(max = 500, message ="The length of the description must not exceed 500 letters")
+    @Column
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR_NAME,
+            message = "Invalid desc (should be 2 - 500 alphanumeric letters)")
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-    		name="committee_leaders", 
-    		uniqueConstraints={@UniqueConstraint(
-    				columnNames ={"committees_id", "leaders_id"})} )
+            name="committee_leaders", 
+            uniqueConstraints= @UniqueConstraint(
+                    columnNames = { "committees_id", "leaders_id" }))
     private List<Student> leaders = new ArrayList<Student>();
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Event.class)
     @Cascade(CascadeType.ALL)
-    @JoinTable(name = "committees_events", 
-    		uniqueConstraints = {@UniqueConstraint(columnNames={"committees_id","events_id"})})
+    @JoinTable(
+            name              = "committees_events", 
+            uniqueConstraints =
+                @UniqueConstraint(columnNames = {
+                        "committees_id","events_id" }))
     private List<Event> events = new ArrayList<Event>();
     
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = Student.class)
     @Cascade(CascadeType.ALL)
-	@JoinTable(name = "students_committees", 
-		joinColumns = @JoinColumn(name = "committees_id"), 
-		inverseJoinColumns = @JoinColumn(name = "students_id"))
+    @JoinTable(name = "students_committees", 
+        joinColumns = @JoinColumn(name = "committees_id"), 
+        inverseJoinColumns = @JoinColumn(name = "students_id"))
     private List<Student> members = new ArrayList<Student>();
     
     @OneToMany(fetch = FetchType.LAZY)
@@ -108,10 +117,10 @@ public class Committee implements Domain {
     }
 
     public Committee(Long committeeId) {
-		setId(committeeId);
-	}
+        setId(committeeId);
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -150,7 +159,7 @@ public class Committee implements Domain {
 
     @Override
     public boolean equals(Object that) {
-        if (!(that instanceof Committee))	
+        if (!(that instanceof Committee))    
             return false;
         Committee s = (Committee) that;
         return s == this ? true : s.getId() == id ? true : false;
@@ -158,7 +167,7 @@ public class Committee implements Domain {
 
     @Override
     public String toString() {
-    	return String.format("[%s][%s][%s]", id, name, description);
+        return String.format("[%s][%s][%s]", id, name, description);
     }
 
     @Override
@@ -178,19 +187,19 @@ public class Committee implements Domain {
         this.leaders = students;
     }
 
-	public List<Student> getMembers() {
-		return members;
-	}
+    public List<Student> getMembers() {
+        return members;
+    }
 
-	public void setMembers(List<Student> members) {
-		this.members = members;
-	}
+    public void setMembers(List<Student> members) {
+        this.members = members;
+    }
 
-	public List<Feed> getFeeds() {
-		return feeds;
-	}
+    public List<Feed> getFeeds() {
+        return feeds;
+    }
 
-	public void setFeeds(List<Feed> feeds) {
-		this.feeds = feeds;
-	}
+    public void setFeeds(List<Feed> feeds) {
+        this.feeds = feeds;
+    }
 }

@@ -81,7 +81,7 @@ public class CommitteeTest {
 
 
     @Test
-    public void testValidationOfCorectCommitteeValues() {
+    public void testValidationOfCorrectCommitteeValues() {
         Committee committee = new Committee(NAME, DESCRIPTION);
 
         Set<ConstraintViolation<Committee>> constraintViolations = validator
@@ -91,8 +91,8 @@ public class CommitteeTest {
     }
 
     @Test
-    public void testValidationOfIncorectStudentValues() {
-        Committee committee = new Committee("UF", DESCRIPTION);
+    public void testValidationOfIncorectCommitteeValues() {
+        Committee committee = new Committee("' OR '1' = '1", DESCRIPTION);
 
         Set<ConstraintViolation<Committee>> constraintViolations = validator
                         .validate(committee);
