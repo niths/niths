@@ -71,7 +71,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      *         super.create(domain); 
      * }
      * 
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
      * method = RequestMethod.POST
      * value = HttpStatus.CREATED
      * reason = "Created"
@@ -104,7 +104,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * public You_Domain getById(@PathVariable Long id) {
      *         return super.getById(id);
      * }
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/{id}
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs/{id}
      * value = "{id}", 
      * method = RequestMethod.GET, 
      * headers = RESTConstants.ACCEPT_HEADER
@@ -141,7 +141,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      *         ArrayList<Your_Domain> all = super.getAll(domain);
      * 		return roles;
      * }
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
      * method = RequestMethod.GET
      *  headers = RESTConstants.ACCEPT_HEADER
      * </pre>
@@ -163,7 +163,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * @param firstResult the first result in the result set
      * @param maxResults the number of result to return
      * <pre>
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/paginated/{firstResult}/{maxResults}
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs/paginated/{firstResult}/{maxResults}
      * method = RequestMethod.GET
      * headers = RESTConstants.ACCEPT_HEADER
      * </pre>
@@ -194,7 +194,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      *         super.update(domain); 
      * }
      * 
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
      * method = RequestMethod.PUT
      * value = HttpStatus.OK, 
      * reason = "Update OK"
@@ -243,7 +243,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      *         super.hibernateDelete(id); 
      * }
      * 
-     * URL = http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com/niths/YOUR_DOMAINs/{id}
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs/{id}
      * @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
      * @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
      * </pre>

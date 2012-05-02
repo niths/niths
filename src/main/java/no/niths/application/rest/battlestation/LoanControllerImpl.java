@@ -41,7 +41,12 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     private LoanList loanList = new LoanList();
 
     /**
-     * Adds a console too a loan
+     * Adds a console to a loan
+     * 
+     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
+     * method = RequestMethod.POST
+     * value = HttpStatus.CREATED
+     * reason = "Created"
      *
      * @param loanId id of the loan
      * @param consoleId id of the console
