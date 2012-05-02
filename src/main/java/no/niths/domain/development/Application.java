@@ -76,7 +76,7 @@ public class Application implements Domain {
     @Column(unique = true)
     @NotNull
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = ValidationConstants.REGULAR,
             message = "Invalid title (should be 2 - 50 alphanumeric letters)")
     private String title;
 

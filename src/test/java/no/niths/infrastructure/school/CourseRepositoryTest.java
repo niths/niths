@@ -91,7 +91,7 @@ public class CourseRepositoryTest {
         int numTopics = subjectRepo.getAll(null).size();
         int numCourses = courseRepo.getAll(null).size();
 
-        Course c1 = new Course("Programmering", "Java, c++");
+        Course c1 = new Course("Programmering", "programmering");
         Subject t1 = new Subject();
         t1.setSubjectCode("PG111");
         c1.getSubjects().add(t1);

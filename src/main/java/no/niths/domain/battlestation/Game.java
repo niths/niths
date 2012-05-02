@@ -53,7 +53,7 @@ public class Game implements Domain {
 
     @Column
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = ValidationConstants.REGULAR,
             message = "Invalid name (should be 2 - 50 alphanumeric letters)")
     private String title;
 

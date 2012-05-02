@@ -57,13 +57,13 @@ public class Committee implements Domain {
 
     @Column(unique = true)
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = ValidationConstants.REGULAR,
             message = "Invalid name (should be 2 - 500 alphanumeric letters)")
     private String name;
 
     @Column
     @Pattern(
-            regexp  = ValidationConstants.REGULAR_NAME,
+            regexp  = ValidationConstants.REGULAR,
             message = "Invalid desc (should be 2 - 500 alphanumeric letters)")
     private String description;
 

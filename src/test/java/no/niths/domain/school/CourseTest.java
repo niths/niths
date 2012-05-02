@@ -71,7 +71,7 @@ public class CourseTest {
     }
 
     @Test
-    public void testValidationOfCorectStudentValues() {
+    public void testValidationOfCorrectCourseValues() {
         Course course = new Course(NAME, DESCRIPTION);
 
         Set<ConstraintViolation<Course>> constraintViolations = validator
@@ -81,8 +81,8 @@ public class CourseTest {
     }
 
     @Test
-    public void testValidationOfIncorectStudentValues() {
-        Course course = new Course("KM", DESCRIPTION);
+    public void testValidationOfIncorrectCourseValues() {
+        Course course = new Course("X", DESCRIPTION);
 
         Set<ConstraintViolation<Course>> constraintViolations = validator
                         .validate(course);
