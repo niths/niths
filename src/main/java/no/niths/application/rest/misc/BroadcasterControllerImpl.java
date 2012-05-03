@@ -32,7 +32,7 @@ public class BroadcasterControllerImpl {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
     public void broadcast(@RequestBody Email email) {
         String[] recipientAddresses = email.getRecipientAddresses();
 
