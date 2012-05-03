@@ -38,10 +38,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Simple discover ability class that handles GET requests to the ROOT URI
- * {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  * <p>
  * Returns all valid domain in header
- * </p>
+ * 
  */
 @Controller
 public class DiscoverabilityControllerImpl implements DiscoverabilityController {
@@ -101,12 +100,10 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 				boolean isFirst = false;
 				RestResource resource = null;
 				if (c.getAnnotation(RequestMapping.class) != null
-						|| c.getSimpleName()
-								.equals("AbstractRESTControllerImpl")) {
-					
-					
-					if (c.getSimpleName()
-							.equals("AbstractRESTControllerImpl")) {
+						|| c.getSimpleName().equals(
+								"AbstractRESTControllerImpl")) {
+
+					if (c.getSimpleName().equals("AbstractRESTControllerImpl")) {
 						isFirst = true;
 						String url = baseUrl + "DOMAIN/";
 						resource = new RestResource(url);
@@ -120,7 +117,6 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 										handleMethod(ms[i], url));
 							}
 						}
-						
 
 					} else {
 						RequestMapping mapClass = (RequestMapping) c
@@ -132,18 +128,19 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 						Method[] ms = c.getMethods();
 						for (int i = 0; i < ms.length; i++) {
 
-							if (ms[i].getAnnotation(RequestMapping.class) != null) {
+							if (ms[i].getAnnotation(RequestMapping.class) != null
+									|| ms[i].getAnnotation(PreAuthorize.class) != null) {
 
 								resource.getMethods().add(
 										handleMethod(ms[i], url));
 							}
 						}
 					}
-					if(isFirst){
+					if (isFirst) {
 						isFirst = false;
 						list.add(0, resource);
-					}else{
-						list.add(resource);						
+					} else {
+						list.add(resource);
 					}
 				}
 			}
@@ -166,20 +163,52 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 
 		RequestMapping map = (RequestMapping) m
 				.getAnnotation(RequestMapping.class);
-		String[] head = map.headers();
-		for (String h : head) {
-			headersS += h + " ";
+		if (map != null) {
+			String[] head = map.headers();
+			for (String h : head) {
+				headersS += h + " ";
+			}
+			String[] values = map.value();
+			for (String v : values) {
+				valuesS += url + v + " ";
+			}
+			
+			RequestMethod[] methods = map.method();
+			for (RequestMethod rm : methods) {
+				methodS += rm.name() + " ";
+			}
 		}
-		String[] values = map.value();
-		for (String v : values) {
-			valuesS += url + v + " ";
-		}
-		if (valuesS.equals(""))
+		//Add the overriden methods from AbstractRestController (dirty)
+		if (valuesS.equals("")){
 			valuesS = url;
-		RequestMethod[] methods = map.method();
-		for (RequestMethod rm : methods) {
-			methodS += rm.name() + " ";
+			if(m.getName().equals("create")){
+				methodS = "POST";
+				reasonS = "Created";
+				responseCodeS = "201";
+				headersS = "Content-type: application/json,application/xml";
+			}else if(m.getName().equals("getById")){
+				methodS = "GET";
+				valuesS += "{id}";
+			}else if(m.getName().equals("delete")){
+				methodS = "DELETE";
+				valuesS += "{id}";
+				reasonS = "Deleted";
+				responseCodeS = "200";
+			}else if(m.getName().equals("update")){
+				methodS = "PUT";
+				reasonS = "Update OK";
+				responseCodeS = "200";
+				headersS = "Content-type: application/json,application/xml";
+			}else if(m.getName().equals("getAll")){
+		
+				if(m.getParameterTypes().length > 1 ){ //paginated
+					url += "paginated/{firstResult}/{maxResults}";
+				}
+				methodS = "GET";
+				headersS = "Accept: application/json,application/xml";
+			}
 		}
+		
 		ResponseStatus status = m.getAnnotation(ResponseStatus.class);
 		if (status != null) {
 			reasonS = status.reason();
@@ -190,7 +219,10 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		if (pre != null) { // Extract the role names from EL
 			resAuth = handleAuthAnnotation(pre.value());
 		}
-		return new MethodInfo(valuesS.trim(), methodS.trim(), headersS.trim(),
+		if(responseCodeS.equals("")){
+			responseCodeS = "200";
+		}
+		return new MethodInfo(valuesS.trim(), methodS.trim(), headersS.trim().replace('=', ':'),
 				reasonS.trim(), responseCodeS.trim(), resAuth.trim());
 	}
 
@@ -250,7 +282,8 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		try {
 			Class c = Class.forName(metadataReader.getClassMetadata()
 					.getClassName());
-			if (c.getAnnotation(Controller.class) != null || c.getSimpleName().equals("AbstractRESTControllerImpl")) {
+			if (c.getAnnotation(Controller.class) != null
+					|| c.getSimpleName().equals("AbstractRESTControllerImpl")) {
 				return true;
 			}
 		} catch (Throwable e) {
