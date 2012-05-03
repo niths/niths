@@ -37,9 +37,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Simple discover ability class that handles GET requests to the ROOT URI
+ * 
+ * Discoverability Controller
  * <p>
- * Returns all valid domain in header
+ * Requests against the root uri returns a list of all valid domains in the header
+ * </p>
+ * <p>
+ * Requests against root uri + api returns a list of all resources with
+ * description in JSON or XML format (specified in request header). 
+ * For html, uri is api/html
+ * </p>
  * 
  */
 @Controller

@@ -10,11 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 import no.niths.application.rest.misc.RestResource;
 
 /**
- * Simple discoverability class that handles GET requests to the ROOT uri
- * {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ * 
+ * Discoverability Controller
  * <p>
- * Returns all valid domain in header
+ * Requests against the root uri returns a list of all valid domains in the header
  * </p>
+ * <p>
+ * Requests against root uri + api returns a list of all resources with
+ * description in JSON or XML format (specified in request header). 
+ * For html, uri is api/html
+ * </p>
+ * 
  */
 public interface DiscoverabilityController {
 	/**
