@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * <pre>
  * {@code
- * @Repository
+ * Repository
  * public class YourDomainRepositoryImpl extends AbstractGenericRepositoryImpl<YourDomain>
  * 						implements YourDomainRepository{
  * 
@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
  * }
  * }
  * 
- * <pre>
+ * </pre>
  * 
  * @param <T>
  */

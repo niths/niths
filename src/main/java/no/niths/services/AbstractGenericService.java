@@ -38,10 +38,10 @@ import org.springframework.transaction.annotation.Transactional;
  * {@code
  * public class YourDomainServiceImpl extends AbstractGenericService<YourDomain> 
  * 							implements YourDomainService{
- * 		@Autowired
+ * 		Autowired
  *  	private YourDomainRepository repository;
  * 
- * 		@Override
+ * 		Override
  * 		public GenericRepository<YourDomain> getRepository() {
  * 		return repository;
  * 		}

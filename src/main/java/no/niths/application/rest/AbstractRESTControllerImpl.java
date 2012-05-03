@@ -33,15 +33,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * GenericRESTController<your_domain>, then create a class that extends
  * AbstractRESTControllerImpl<your_domain> and implements YourInterface
  * 
- * <pre>
- * {@code
- * @Autowire your service and create a new list in 
- * @package no.niths.application.rest.list and 
- * @Override the two methods:
+ * Autowire your service and create a new list in 
+ * package no.niths.application.rest.list and 
+ * Override the two methods:
  * public GenericService<Your_domain> getService() public
- *         ListAdapter<Your_domain> getList() to return your service and your list
- * }
- * </pre>
+ * ListAdapter<Your_domain> getList() to return your service and your list
  * 
  * Add extra methods by defining them in the interface and override them in the
  * implementation class Call super.methodName(parameter) to execute CRUD methods
@@ -60,13 +56,12 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
 
     /**
      * Persists the domain
-     * 
-     * @param domain
-     *            the domain to persist
-     * 
-     *            <pre>
+     * <p>
+     * Usage in own class:
+     * </p>
+     * <pre>
      * {@code
-     * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+     * PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
      * void create(@RequestBody Your_domain domain){
      *         super.create(domain); 
      * }
@@ -75,7 +70,11 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * method = RequestMethod.POST
      * value = HttpStatus.CREATED
      * reason = "Created"
+     * }
      * </pre>
+     * 
+     * @param domain the domain to persist
+     * 
      */
     @Override
     @RequestMapping(method = RequestMethod.POST)
@@ -89,18 +88,12 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     }
     /**
      * Returns the domain object with the given id
-     * 
-     * @param id
-     *            the id of the domain object
-     * @return the domain object
-     * @throws ObjectNotFoundException
-     *             when object is not found
-     * 
-     *             Usage in your own class:
-     * 
-     *             <pre>
+     * <p>
+     * Usage in your own class:
+     * </p>
+     * <pre>
      * {@code
-     * @Override
+     * Override
      * public You_Domain getById(@PathVariable Long id) {
      *         return super.getById(id);
      * }
@@ -108,7 +101,13 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * value = "{id}", 
      * method = RequestMethod.GET, 
      * headers = RESTConstants.ACCEPT_HEADER
+     * }
      * </pre>
+     * @param id
+     *            the id of the domain object
+     * @return the domain object
+     * @throws ObjectNotFoundException
+     *             when object is not found
      *
      */
     @Override
@@ -125,26 +124,27 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     /**
      * 
      * Returns an array list with all domain objects of the type
-     * 
-     * @param domain
-     *            will search the DB for instances with the same attributes, if
-     *            null, all will be returned
-     * @return List of all domain objects
-     * 
-     *         Usage in your own class:
-     * 
-     *         <pre>
+     * <p>
+     * Usage in your own class:
+     * </p>
+     * <pre>
      * {@code
-     * @Override
-     * @PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
+     * Override
+     * PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
      * public ArrayList<Your_Domain> getAll(Your_Domain domain) {
      *         ArrayList<Your_Domain> all = super.getAll(domain);
      * 		return roles;
      * }
+     * 
      * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
      * method = RequestMethod.GET
-     *  headers = RESTConstants.ACCEPT_HEADER
+     * headers = RESTConstants.ACCEPT_HEADER
+     * }
      * </pre>
+     * @param domain
+     *            will search the DB for instances with the same attributes, if
+     *            null, all will be returned
+     * @return List of all domain objects
      * 
      */
     @Override
@@ -159,14 +159,15 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * 
      * Returns an array list with all exams like getAll(domain), 
      * but also supports pagination
-     * @param domain object with attributes to search for
-     * @param firstResult the first result in the result set
-     * @param maxResults the number of result to return
      * <pre>
      * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs/paginated/{firstResult}/{maxResults}
      * method = RequestMethod.GET
      * headers = RESTConstants.ACCEPT_HEADER
      * </pre>
+     * 
+     * @param domain object with attributes to search for
+     * @param firstResult the first result in the result set
+     * @param maxResults the number of result to return
      */
     @Override
     @RequestMapping(value = "paginated/{firstResult}/{maxResults}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
@@ -179,17 +180,13 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     /**
      * Update the domain object
      * 
-     * @param domain
-     *            the domain
-     * @throws ObjectNotFoundException
-     *             when object is not found
      * 
-     *             Usage in your own class:
+     * Usage in your own class:
      * 
-     *             <pre>
+     * <pre>
      * {@code
-     * @Override
-     * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+     * Override
+     * PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
      * void update(@RequestBody Your_domain domain){
      *         super.update(domain); 
      * }
@@ -198,7 +195,13 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * method = RequestMethod.PUT
      * value = HttpStatus.OK, 
      * reason = "Update OK"
+     * }
      * </pre>
+     * 
+     * @param domain
+     *            the domain
+     * @throws ObjectNotFoundException
+     *             when object is not found
      * 
      */
     @Override
@@ -230,25 +233,25 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     /**
      * Deletes the domain object with the given id
      * 
-     * @param id
-     *            the if of the domain object to be deleted
      * 
-     *            Usage in your own class:
+     * Usage in your own class:
      * 
-     *            <pre>
+     * <pre>
      * {@code
-     * @Override
-     * @PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
+     * Override
+     * PreAuthorize(SecurityConstants.ONLY_ADMIN)//Optional security public
      * void hibernateDelete(@PathVariable long id){
      *         super.hibernateDelete(id); 
      * }
      * 
      * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs/{id}
-     * @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-     * @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+     * RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+     * ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+     * }
      * </pre>
      * 
-     * 
+     * @param id
+     *            the if of the domain object to be deleted
      */
     @Override
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -269,9 +272,10 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * 
      * <pre>
      * {@code
-     * @Override
+     * Override
      * public GenericService<Your_domain> getService() {
      *         return yourService;
+     * }
      * }
      * </pre>
      * 
@@ -286,9 +290,10 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * 
      * <pre>
      * {@code
-     * @Override
+     * Override
      * public ListAdapter<Your_Domain> getList() {
      *         return your_domainList;
+     * }
      * }
      * </pre>
      * 
