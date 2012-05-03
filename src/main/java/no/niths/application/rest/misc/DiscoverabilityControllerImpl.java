@@ -48,6 +48,8 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	Logger logger = org.slf4j.LoggerFactory
 			.getLogger(DiscoverabilityControllerImpl.class);
 	private RestResourceList list = new RestResourceList();
+	private final static String HTML_PATH = "api/html";
+	private final static String JSON_XML_PATH = "api";
 
 	/**
 	 * 
@@ -62,11 +64,11 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	 * @return a list of resources in the API
 	 */
 	@Override
-	@RequestMapping(value = "api", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+	@RequestMapping(value = JSON_XML_PATH, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
 	public List<RestResource> getApi(HttpServletRequest req) {
-
-		generateApiList(req.getRequestURL().toString().replace("api", ""));
+		String url = getBaseUrl(req.getRequestURL().toString());
+		generateApiList(url.replace(JSON_XML_PATH, ""));
 		return list;
 	}
 
@@ -78,14 +80,23 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 	 * @return html view of services in the API
 	 */
 	@Override
-	@RequestMapping(value = "api/html", method = RequestMethod.GET)
+	@RequestMapping(value = HTML_PATH, method = RequestMethod.GET)
 	public ModelAndView getApiHtml(HttpServletRequest req) {
 		ModelAndView view = new ModelAndView("api");
-		generateApiList(req.getRequestURL().toString().replace("api/html", ""));
+		String url = getBaseUrl(req.getRequestURL().toString());
+		generateApiList(url.replace(HTML_PATH, ""));
 		view.addObject("api", list);
 		return view;
 	}
-
+	
+	private String getBaseUrl(String reqUrl){
+		String url = reqUrl;
+		if(reqUrl.endsWith("/")){
+			url = url.substring(0, url.length() - 1);
+		}
+		return url;
+	}
+ 
 	// Reads all classes in rest package and
 	// generates a list of resources
 	@SuppressWarnings({ "unchecked", "rawtypes" })
