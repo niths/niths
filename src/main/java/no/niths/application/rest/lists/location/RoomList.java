@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.location.Room;
-
+/**
+ * Class to contain a list of rooms
+ */
 @XmlRootElement(name = DomainConstantNames.ROOMS)
 public class RoomList extends ListAdapter<Room> {
 

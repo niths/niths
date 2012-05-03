@@ -18,7 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for games
+ * Controller for game
+ * has the basic CRUD methods and
+ * methods too add and remove console
+ *
+ * For the URL too get Game add /game
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.GAMES)
@@ -30,11 +35,8 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 
 	private GameList gameList = new GameList();
 
-	/**
-     * Adds a console too a game
-     *
-     * @param gameId id of the game
-     * @param consoleId id of the console
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{gameId}/console/{consoleId}", method = RequestMethod.POST)
@@ -44,10 +46,8 @@ public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
 		gameService.addConsole(gameId, consoleId);
 	}
 
-	/**
-     * Removes a console from a game
-     *
-     * @param gameId id of the game
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{gameId}/console", method = RequestMethod.DELETE)

@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * Class that holds information about the REST request
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RestResource implements Serializable {

@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for games
+ * Controller for console
+ * has the basic CRUD methods and
+ * methods too add and remove game
+ * and loan
+ *
+ * For the URL too get Console add /console
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.CONSOLES)
@@ -30,11 +36,8 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 
 	private ConsoleList consoleList = new ConsoleList();
 
-	/**
-     * Adds a game too a console
-     *
-     * @param consoleId id of the console
-     * @param gameId if of the game
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.POST)
@@ -43,11 +46,8 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 		consoleService.addGame(consoleId, gameId);
 	}
 
-	 /**
-     * Removes a game from a console
-     *
-     * @param consoleId id of the console
-     * @param gameId id of the game
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.DELETE)
@@ -57,11 +57,8 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 		consoleService.removeGame(consoleId, gameId);
 	}
 
-	/**
-     * Adds a loan too a console
-     *
-     * @param consoleId id of the console
-     * @param loanId id of the loan
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{consoleId}/loan/{loanId}", method = RequestMethod.POST)
@@ -70,10 +67,8 @@ public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
 		consoleService.addLoan(consoleId, loanId);
 	}
 
-	/**
-     * Removes a loan from a console
-     *
-     * @param consoleId id of the console
+    /**
+     * {@inheritDoc}
      */
 	@Override
 	@RequestMapping(value = "{consoleId}/loan", method = RequestMethod.DELETE)

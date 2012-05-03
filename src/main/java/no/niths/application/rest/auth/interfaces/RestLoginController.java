@@ -12,21 +12,34 @@ import no.niths.security.SessionToken;
  * <p>
  * To log in, a access token from Google must be provided
  * </p>
- * 
+ *
+ * For the URL too RestLogin add /auth
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface RestLoginController {
 
 	/**
-	 * Authenticates the user through Google
+	 * Authorize the user. Use the returned session token for future requests
+     *
+     * Too login add /login
+     * too the URL
+     *
+     * Use the POST method
 	 * 
 	 * @param token for authentication via Google
-	 * @return Session token to use for login after authentication
+	 * @return encrypted session token valid for
+     *   (See AppNames.SESSION_VALID_TIME)
 	 */
 	Student login(SessionToken token, HttpServletRequest req,
 			HttpServletResponse res);
 
 	/**
      * Logs out the student
+     *
+     * Too logout add /logout/{studentId}
+     * too the URL
+     *
+     * Use the POST method
      * 
      * @param studentId is of the student top log out
      */

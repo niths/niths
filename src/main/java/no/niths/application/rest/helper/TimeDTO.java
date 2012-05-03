@@ -12,7 +12,11 @@ import no.niths.common.constants.MiscConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Class that can hold two dates.
+ * Used in some controllers to specify the
+ * dates for a search
+ */
 public class TimeDTO implements Serializable {
 	private static final long serialVersionUID = 9063546904075958216L;
 	private String startTime;

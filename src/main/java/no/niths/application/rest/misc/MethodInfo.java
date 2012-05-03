@@ -5,15 +5,14 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * Class for holding information about a method
+ * and the request done toward it
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MethodInfo implements Serializable {
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1076462441091503957L;
 	private String path;
 	private String method;

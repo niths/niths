@@ -7,12 +7,24 @@ import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.school.Exam;
 
 /**
- * Controller for exams
+ * Controller for exam
+ * has the basic CRUD methods and
+ * methods too add and remove room
+ * and subject
+ * in addition too methods for getExamsBetweenDates
+ *
+ * For the URL too get Exam add /exams
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface ExamController extends GenericRESTController<Exam> {
 
     /**
      * Adds a room too an exam
+     *
+     * Too add room add /{examId}/room/{roomId}
+     * too the URL
+     *
+     * Use the POST method
      *
      * @param examId id of the exam
      * @param roomId if of the room
@@ -22,6 +34,11 @@ public interface ExamController extends GenericRESTController<Exam> {
     /**
      * Removes a room from an exam
      *
+     * Too remove room add /{examId}/room/{roomId}
+     * too the URL
+     *
+     * Use the DELETE method
+     *
      * @param examId id of the exam
      * @param roomId if of the room
      */
@@ -29,6 +46,11 @@ public interface ExamController extends GenericRESTController<Exam> {
 
     /**
      * Adds a subject too an exam
+     *
+     * Too add subject add /{examId}/subject/{subjectId}
+     * too the URL
+     *
+     * Use the POST method
      *
      * @param examId id of the exam
      * @param subjectId if of the subject
@@ -38,6 +60,11 @@ public interface ExamController extends GenericRESTController<Exam> {
     /**
      * Removes a subject from an exam
      *
+     * Too remove subject add /{studentId}/subject
+     * too the URL
+     *
+     * Use the DELETE method
+     *
      * @param examId id of the exam
      */
     public void removeSubject(Long examId);
@@ -45,8 +72,14 @@ public interface ExamController extends GenericRESTController<Exam> {
     
     /**
      * Returns exams on the startTime between start and end time of the time DTO object
-     * @param timeDTO
-     * @return
+     *
+     * Too get exams between dates add /dates
+     * too the URL
+     *
+     * Use the GET method
+     *
+     * @param timeDTO date that exam should be after
+     * @return a list of exams that are after a date
      */
 	List<Exam> getExamsBetweenDates(TimeDTO timeDTO);
 }

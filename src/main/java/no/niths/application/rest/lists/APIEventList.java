@@ -7,7 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.APIEvent;
-
+/**
+ * Class to contain a list of apiEvents
+ */
 @XmlRootElement(name = DomainConstantNames.APIEVENTS)
 public class APIEventList extends ListAdapter<APIEvent> {
 

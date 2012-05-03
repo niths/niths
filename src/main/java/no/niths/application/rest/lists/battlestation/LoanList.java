@@ -7,7 +7,9 @@ import no.niths.domain.battlestation.Loan;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
+/**
+ * Class to contain a list of loans
+ */
 @XmlRootElement(name = DomainConstantNames.LOANS)
 public class LoanList extends ListAdapter<Loan> {
 

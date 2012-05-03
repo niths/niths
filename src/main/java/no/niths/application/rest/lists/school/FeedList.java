@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Feed;
-
+/**
+ * Class to contain a list of feeds
+ */
 @XmlRootElement(name = DomainConstantNames.FEEDS)
 public class FeedList extends ListAdapter<Feed> {
 

@@ -1,9 +1,7 @@
 package no.niths.application.rest.helper;
 
 /**
- * 
- * @author NITHs
- *
+ * Enum with error messages
  */
 public enum Error {
 

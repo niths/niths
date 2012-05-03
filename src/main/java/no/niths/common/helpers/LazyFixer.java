@@ -15,9 +15,9 @@ import no.niths.domain.Domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- * 
- * @author NITHs
- * 
+ * Class used too clear or fetch relations so the lazy
+ * loading works correctly
+ *
  */
 public class LazyFixer<T> {
 

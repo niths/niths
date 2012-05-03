@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Course;
-
+/**
+ * Class to contain a list of courses
+ */
 @XmlRootElement(name = DomainConstantNames.COURSES)
 public class CourseList extends ListAdapter<Course> {
 

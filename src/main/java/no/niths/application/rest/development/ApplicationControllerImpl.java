@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.development.interfaces.ApplicationController;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.development.ApplicationList;
 import no.niths.common.constants.DomainConstantNames;
@@ -28,8 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for handling applications
- * 
+ * Controller for application
+ * has the basic CRUD methods and
+ * methods too enable and disable application
+ * in addition too method for getTopApps,
+ *
+ * For the URL too get Application add /applications
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.APPLICATIONS)
@@ -71,17 +75,9 @@ public class ApplicationControllerImpl extends
 		super.update(domain);
 	}
 
-	/**
-	 * Enables an application
-	 * <p>
-	 * Applications must be enabled to do request
-	 * <p>
-	 * 
-	 * @param applicationId
-	 *            id of the application
-	 * @throws ObjectNotFoundException
-	 *             if no application is found
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{applicationId}/enable" }, method = RequestMethod.PUT)
@@ -90,12 +86,9 @@ public class ApplicationControllerImpl extends
 		service.enableApplication(applicationId);
 	}
 
-	/**
-	 * Disables an application
-	 * 
-	 * @param applicationId id of the application
-	 * @throws ObjectNotFoundException if no application is found
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
@@ -103,14 +96,10 @@ public class ApplicationControllerImpl extends
 	public void disableApplication(@PathVariable Long applicationId){
 		service.disableApplication(applicationId);
 	}
-	
-	/**
-	 * Returns a list applications ordered
-	 * by the number of requests @See {@link Application}
-	 * 
-	 * @param maxResults number of results
-	 * @return list with maxResults applications
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody

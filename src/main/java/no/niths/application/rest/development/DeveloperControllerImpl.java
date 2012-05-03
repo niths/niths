@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.development.interfaces.DeveloperController;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.development.DeveloperList;
 import no.niths.common.constants.DomainConstantNames;
@@ -25,8 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for handling developers and their applications
- * 
+ * Controller for developer
+ * has the basic CRUD methods and
+ * methods too add and remove application
+ * and enable and disable developer
+ * in addition too method for resetDeveloperKey,
+ *
+ * For the URL too get Developer add /developers
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.DEVELOPERS)
@@ -68,15 +73,10 @@ public class DeveloperControllerImpl extends
 	public void update(@RequestBody Developer domain) {
 		super.update(domain);
 	}
-	
-	/**
-	 * Enables a developer
-	 * <p>
-	 * Developer must be enabled to do request
-	 * <p>
-	 * @param developerId id of the developer
-	 * @throws ObjectNotFoundException if no developer is found
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{developerId}/enable" }, method = RequestMethod.PUT)
@@ -85,11 +85,10 @@ public class DeveloperControllerImpl extends
 		service.enableDeveloper(developerId);
 	}
 
-	
-	/**
-	 * Disables a developer, so he can't make request
-	 * @param developerId
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
 	@RequestMapping(value = { "{developerId}/disable" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Developer diabled")

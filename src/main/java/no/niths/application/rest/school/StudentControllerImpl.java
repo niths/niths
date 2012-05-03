@@ -35,7 +35,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * Controller for student
+ * has the basic CRUD methods and
+ * methods too add and remove course,
+ * committee, feed, loan, role
+ * and locker
+ * in addition too methods for getStudentsWithNamedCourse,
+ * getStudentWithRoles, isStudentInRole
+ * and removeAllRolesFromStudent
+ *
+ * For the URL too get Students add /students
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ */
 @Controller
 @RequestMapping(DomainConstantNames.STUDENTS)
 public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
@@ -141,6 +153,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         return students;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = "roles")
@@ -298,6 +313,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         return studentList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
@@ -314,6 +332,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         ValidationHelper.isObjectNull(obj, clazz);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
@@ -326,6 +347,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         service.removeRole(studentId,roleId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
     @RequestMapping(
@@ -338,7 +362,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         service.removeAllRoles(studentId);
     }
 
-    
+    /**
+     * {@inheritDoc}
+     */
     @RequestMapping(
             value  = { "{studentId}/{roleName}" },
             method = RequestMethod.GET)

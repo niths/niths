@@ -24,7 +24,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Controller for subjects
- * 
+ * has the basic CRUD methods and
+ * methods too add and remove tutors
+ * and rooms
+ *
+ * For the URL too get Subjects add /subjects
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.SUBJECTS)

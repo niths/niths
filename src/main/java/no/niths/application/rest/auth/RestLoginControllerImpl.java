@@ -28,12 +28,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 /**
- * 
  * Login controller for the API
  * <p>
  * To log in, a access token from Google must be provided
  * </p>
- * 
+ *
+ * For the URL too RestLogin add /auth
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(AdminConstantNames.AUTH)
@@ -46,12 +47,7 @@ public class RestLoginControllerImpl implements RestLoginController{
     private AuthenticationService service;
 
     /**
-     * Authorize the user. Use the returned session token for future requests
-     * 
-     * @param token The token issued from google
-     * @remove: @return encrypted session token valid for
-     *   (See AppNames.SESSION_VALID_TIME)
-     * 
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(
@@ -82,10 +78,9 @@ public class RestLoginControllerImpl implements RestLoginController{
 
         return authenticatedStudent;
     }
-    
+
     /**
-     * Logs out the student
-     * @param studentId id of the student to log out
+     * {@inheritDoc}
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR +

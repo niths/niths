@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.development.Application;
-
+/**
+ * Class to contain a list of applications
+ */
 @XmlRootElement(name = DomainConstantNames.APPLICATIONS)
 public class ApplicationList extends ListAdapter<Application> {
 

@@ -6,7 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.application.rest.misc.RestResource;
-
+/**
+ * Class to contain a list of restResources
+ */
 @XmlRootElement(name = "resources")
 public class RestResourceList extends ListAdapter<RestResource> {
 

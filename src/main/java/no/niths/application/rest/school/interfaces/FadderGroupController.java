@@ -12,14 +12,25 @@ import no.niths.domain.school.FadderGroup;
 import no.niths.domain.school.Student;
 
 /**
- * 
- * @author NITHs
+ * Controller for FadderGroup
+ * has the basic CRUD methods and
+ * methods too add and remove leader, child
+ * and children and remove all leaders and children
+ * in addition too methods for getAllStudentsNotInAGroup,
+ * getAllStudents and scanImage
  *
+ * For the URL too get FadderGroup add /fadder
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface FadderGroupController extends GenericRESTController<FadderGroup> {
 
     /**
      * Adds a leader to a group
+     *
+     * Too add leader add /{groupId}/leader/{studentId}
+     * too the URL
+     *
+     * Use the POST method
      * 
      * @param groupId id of the group
      * @param studentId id of the leader
@@ -29,6 +40,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Removes a leader from a group
+     *
+     * Too remove leader add /{groupId}/leader/{studentId}
+     * too the URL
+     *
+     * Use the DELETE method
      * 
      * @param groupId id of the group to remove a leader from
      * @param studentId id of the student to remove as a leader
@@ -38,6 +54,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Adds a child to a group
+     *
+     * Too add child add /{groupId}/child/{studentId}
+     * too the URL
+     *
+     * Use the POST method
      * 
      * @param groupId id of the group to add a child to
      * @param studentId id of the student to add
@@ -47,6 +68,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Remove a child from a group
+     *
+     * Too remove child add /{groupId}/child/{studentId}
+     * too the URL
+     *
+     * Use the DELETE method
      * 
      * @param groupId id of the group to remove the child from
      * @param studentId if of the student to remove
@@ -55,15 +81,26 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
     public void removeChild(Long groupId, Long studentId);
 
     /**
-     * 
+     * Removes children whos id is in the list with student ids
+     *
+     * Too remove children add /{groupId}/children/{studentIds}
+     * too the URL
+     *
+     * Use the DELETE method
+     *
      * @param groupId id of the group to remove the children from
-     * @param studentId id of the student to remove
+     * @param studentIds id of the students to remove
      * @throws ObjectNotFoundException if the students in group do not exist
      */
-    public void removeChildren(Long groupId, Long[] studentId);
+    public void removeChildren(Long groupId, Long[] studentIds);
 
     /**
      * Removes all children from a group
+     *
+     * Too remove all children add /{groupId}/children
+     * too the URL
+     *
+     * Use the DELETE method
      * 
      * @param groupId id of the group to remove child from
      * @throws ObjectNotFoundException if the group does not exists
@@ -72,6 +109,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Removes all leaders from a group
+     *
+     * Too remove all leader add /{groupId}/leaders
+     * too the URL
+     *
+     * Use the DELETE method
      * 
      * @param groupId id of the group to remove leaders from
      * @throws ObjectNotFoundException if the group does not exists
@@ -94,6 +136,12 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Gets all the students in a given fadder group
+     *
+     * Too get all children in a group add /{groupId}/children
+     * too the URL
+     *
+     * Use the GET method
+     *
      * @param groupId id of the FadderGroup
      * @return List of students
      */
@@ -101,6 +149,12 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
     /**
      * Returns all students that has no fadder group
+     *
+     * Too get all children who's not in a group add /groupless
+     * too the URL
+     *
+     * Use the GET method
+     *
      * @return list with students
      * @throws ObjectNotFoundException if all students has a group
      */
@@ -108,6 +162,11 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
 
 	/**
 	 * Adds multiple students as children to a group
+     *
+     * Too add children add /{groupId}/children/{studentIds}
+     * too the URL
+     *
+     * Use the POST method
 	 * 
 	 * @param groupId the group to add children to
 	 * @param studentIds array with student ids

@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.signaling.AccessField;
-
+/**
+ * Class to contain a list of accessFields
+ */
 @XmlRootElement(name = DomainConstantNames.ACCESS_FIELDS)
 public class AccessFieldList extends ListAdapter<AccessField> {
 

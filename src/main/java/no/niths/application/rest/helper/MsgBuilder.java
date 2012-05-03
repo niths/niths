@@ -1,6 +1,8 @@
 package no.niths.application.rest.helper;
 
-
+/**
+ * Class that helps building status messages
+ */
 public class MsgBuilder {
 
     // TODO: Implement

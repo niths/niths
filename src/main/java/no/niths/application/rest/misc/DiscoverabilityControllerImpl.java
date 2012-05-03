@@ -38,9 +38,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Simple discover ability class that handles GET requests to the ROOT URI
+ * {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  * <p>
  * Returns all valid domain in header
- * 
+ * </p>
  */
 @Controller
 public class DiscoverabilityControllerImpl implements DiscoverabilityController {

@@ -3,6 +3,7 @@ package no.niths.application.rest.school;
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.school.RoleList;
+import no.niths.application.rest.school.interfaces.RoleController;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Role;
 import no.niths.services.interfaces.GenericService;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller for handling roles
- * 
+ * has the basic CRUD methods
+ *
+ * For the URL too get Roles add /roles
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.ROLES)

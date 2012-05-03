@@ -27,6 +27,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Controller for loan
+ * has the basic CRUD methods and
+ * methods too add and remove console
+ * and student
+ * in addition too method for getLoansBetweenDates,
+ *
+ * For the URL too get Loan add /loans
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.LOANS)
@@ -41,15 +48,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     private LoanList loanList = new LoanList();
 
     /**
-     * Adds a console to a loan
-     * 
-     * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs
-     * method = RequestMethod.POST
-     * value = HttpStatus.CREATED
-     * reason = "Created"
-     *
-     * @param loanId id of the loan
-     * @param consoleId id of the console
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.POST)
@@ -59,10 +58,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * Removes a console from a loan
-     *
-     * @param loanId id of the loan
-     * @param consoleId if of the console
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.DELETE)
@@ -72,10 +68,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * Adds a student too a loan
-     *
-     * @param loanId id of the loan
-     * @param studentId id of the student
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "{loanId}/student/{studentId}", method = RequestMethod.POST)
@@ -85,9 +78,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * Removes a student from a loan
-     *
-     * @param loanId id of the loan
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "{loanId}/student", method = RequestMethod.DELETE)
@@ -97,9 +88,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
     }
 
     /**
-     * Returns loans between or from timeDTO's startTime or / and endTime
-     * @param timeDTO
-     * @return list of loans
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)

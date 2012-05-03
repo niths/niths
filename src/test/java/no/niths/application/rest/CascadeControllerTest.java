@@ -2,11 +2,8 @@ package no.niths.application.rest;
 
 import static org.junit.Assert.assertEquals;
 import no.niths.application.rest.exception.ObjectNotFoundException;
-import no.niths.application.rest.school.RoleController;
-import no.niths.application.rest.school.interfaces.CommitteeController;
-import no.niths.application.rest.school.interfaces.CourseController;
-import no.niths.application.rest.school.interfaces.FadderGroupController;
-import no.niths.application.rest.school.interfaces.StudentController;
+import no.niths.application.rest.school.interfaces.RoleController;
+import no.niths.application.rest.school.interfaces.*;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Committee;

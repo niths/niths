@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Locker;
-
+/**
+ * Class to contain a list of lockers
+ */
 @XmlRootElement(name = DomainConstantNames.LOCKERS)
 public class LockerList extends ListAdapter<Locker> {
 

@@ -7,7 +7,9 @@ import no.niths.domain.battlestation.Console;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
+/**
+ * Class to contain a list of consoles
+ */
 @XmlRootElement(name = DomainConstantNames.CONSOLES)
 public class ConsoleList extends ListAdapter<Console> {
 

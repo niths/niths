@@ -7,7 +7,9 @@ import no.niths.domain.battlestation.Game;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
+/**
+ * Class to contain a list of games
+ */
 @XmlRootElement(name = DomainConstantNames.GAMES)
 public class GameList extends ListAdapter<Game> {
 

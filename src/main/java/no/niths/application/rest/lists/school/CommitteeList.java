@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.school.Committee;
-
+/**
+ * Class to contain a list of committees
+ */
 @XmlRootElement(name = DomainConstantNames.COMMITTEES)
 public class CommitteeList extends ListAdapter<Committee> {
 

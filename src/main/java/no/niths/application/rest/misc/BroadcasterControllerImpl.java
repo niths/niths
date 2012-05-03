@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.sun.mail.smtp.SMTPAddressFailedException;
-
+/**
+ * Class that handles and sends emails
+ */
 @Controller
 @RequestMapping(AdminConstantNames.BROADCAST)
 public class BroadcasterControllerImpl {

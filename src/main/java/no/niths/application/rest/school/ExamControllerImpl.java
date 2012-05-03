@@ -26,7 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for exams
+ * Controller for exam
+ * has the basic CRUD methods and
+ * methods too add and remove room
+ * and subject
+ * in addition too methods for getExamsBetweenDates
+ *
+ * For the URL too get Exam add /exams
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.EXAMS)

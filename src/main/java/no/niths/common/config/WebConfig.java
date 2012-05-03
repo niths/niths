@@ -4,7 +4,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
+/**
+ * Configuration class for Web Mvc
+ *
+ */
 @Configuration
 @ComponentScan({ AppConfig.REST_PACKAGE, AppConfig.EXTERNAL_PACKAGE })
 @EnableWebMvc

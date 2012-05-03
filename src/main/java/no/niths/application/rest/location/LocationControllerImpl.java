@@ -16,7 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+/**
+ * Controller for location
+ * has the basic CRUD methods
+ * in addition too a method for getPredefinedLocations
+ *
+ * For the URL too get location add /locations
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ */
 @Controller
 @RequestMapping(DomainConstantNames.LOCATIONS)
 public class LocationControllerImpl extends AbstractRESTControllerImpl<Location>
@@ -27,6 +34,9 @@ implements LocationController {
     
     private LocationList list = new LocationList();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(value = "predefined", method = RequestMethod.GET)
     @ResponseBody

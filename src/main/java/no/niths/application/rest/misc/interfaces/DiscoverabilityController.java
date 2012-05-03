@@ -11,9 +11,10 @@ import no.niths.application.rest.misc.RestResource;
 
 /**
  * Simple discoverability class that handles GET requests to the ROOT uri
+ * {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  * <p>
  * Returns all valid domain in header
- *
+ * </p>
  */
 public interface DiscoverabilityController {
 	/**

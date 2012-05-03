@@ -2,13 +2,16 @@ package no.niths.common.helpers;
 
 import no.niths.application.rest.helper.Error;
 import no.niths.application.rest.helper.Status;
-
+/**
+ * Class used too build error or status messages
+ *
+ */
 public class MessageProvider {
 
     /**
      * 
      * @param mainDomain the domain which caused the error
-     * @param commonError the type of error
+     * @param error the type of error
      * @return the string describing the error
      */
     public static String buildErrorMsg(Class<?> mainDomain, Error error) {

@@ -1,9 +1,7 @@
 package no.niths.application.rest.helper;
 
 /**
- * 
- * @author NITHs
- *
+ * Enum for status
  */
 public enum Status {
 

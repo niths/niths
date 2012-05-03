@@ -24,7 +24,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Controller for course
- * 
+ * has the basic CRUD methods and
+ * methods too add and remove subject
+ * and representative
+ *
+ * For the URL too get Course add /courses
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.COURSES)

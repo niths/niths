@@ -2,7 +2,10 @@ package no.niths.application.rest.lists;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Abstract class that contain the setData
+ * method which all the domain list extends
+ */
 public abstract class ListAdapter<E> extends ArrayList<E> implements
         Exportable<E> {
 

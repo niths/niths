@@ -7,7 +7,9 @@ import no.niths.domain.school.Exam;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
+/**
+ * Class to contain a list of exams
+ */
 @XmlRootElement(name = DomainConstantNames.EXAMS)
 public class ExamList extends ListAdapter<Exam> {
 

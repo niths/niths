@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Controller for handling API events
  *
+ * For the URL too get API events add /apievents
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.APIEVENTS)

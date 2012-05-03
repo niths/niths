@@ -21,9 +21,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 
 /**
- * 
- * @author NITHs
- *
+ * Class too decode QR codes for fadderGroups
  */
 public class QRCodeDecoder {
 

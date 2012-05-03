@@ -13,6 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Controller for AccessPoint
+ * has the basic CRUD methods
+ *
+ * For the URL too get Access points add /accesspoints
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ */
 @Controller
 @RequestMapping(DomainConstantNames.ACCESS_POINTS)
 public class AccessPointControllerImpl extends

@@ -33,7 +33,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller for events
+ * Controller for event
+ * has the basic CRUD methods and
+ * methods too add, change and remove location
+ * in addition too methods for getEventsByTag,
+ * getEventsBetweenDates
+ * and getEventsBetweenDatesAndByTag
+ *
+ * For the URL too get Event add /events
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.EVENTS)
@@ -150,7 +158,10 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	        @PathVariable Long eventId) {
 		service.removeLocation(eventId);
 	}
-	
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody
@@ -166,6 +177,9 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 		return eventList;
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(value = "tags-and-dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
 	@ResponseBody

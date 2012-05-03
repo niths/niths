@@ -18,7 +18,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * Controller for feed
+ * has the basic CRUD methods and
+ * methods too add and remove location,
+ * student and committee
+ *
+ * For the URL too get Feeds add /feeds
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ *
+ * <pre>
+ * <h1>This is a feed</h1>
+ * <p>
+ * The purpose of the feed is to be a Twitter like feed
+ * so students can post interesting messages, or something thats happening
+ * right now. like <quote>Sale on computer software on komplett.no</quote>
+ * </p>
+ * </pre>
+ */
 @Controller
 @RequestMapping(DomainConstantNames.FEEDS)
 public class FeedControllerImpl extends AbstractRESTControllerImpl<Feed>

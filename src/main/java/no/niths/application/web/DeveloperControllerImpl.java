@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 /**
  * Controller for the developer view
- * 
- * Let admin enable/desable developers and applications
  *
+ * Let admin enable/disable developers and applications
+ *
+ * For the URL too the developer view add /admin/developer
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller(value = "adminDeveloperImpl")
 @RequestMapping(AdminConstantNames.ADMIN_DEV)
@@ -43,9 +45,9 @@ public class DeveloperControllerImpl implements DeveloperController {
 	@Autowired
 	private MailSenderService mailService;
 
-	/**
-	 * Renders a view of developers and their apps
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getDevelopers() {
@@ -56,7 +58,10 @@ public class DeveloperControllerImpl implements DeveloperController {
 		view.addObject("allDevelopers", allDevelopers);
 		return view;
 	}
-	
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(value = "/reset", method = RequestMethod.POST)
 	public String resetDeveloperKey(@RequestParam(value="developerId") Long developerId){
@@ -71,12 +76,10 @@ public class DeveloperControllerImpl implements DeveloperController {
 		}
 		return "redirect:/admin/developer";
 	}
-	
-	/**
-	 * Handles POST from the developer page
-	 * 
-	 * Responsible for setting developers and apps enabled
-	 */
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateDeveloper(@RequestParam(value="developerId") Long developerId,

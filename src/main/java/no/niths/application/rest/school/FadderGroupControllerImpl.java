@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
-import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.exception.QRCodeException;
 import no.niths.application.rest.helper.QRCodeDecoder;
 import no.niths.application.rest.lists.ListAdapter;
@@ -41,8 +40,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
- * Controller for subjects
- * 
+ * Controller for FadderGroup
+ * has the basic CRUD methods and
+ * methods too add and remove leader, child
+ * and children and remove all leaders and children
+ * in addition too methods for getAllStudentsNotInAGroup,
+ * getAllStudents and scanImage
+ *
+ * For the URL too get FadderGroup add /fadder
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.FADDER)
@@ -181,11 +187,8 @@ public class FadderGroupControllerImpl extends
     }
 
     /**
-	 * Adds multiple students as children to a group
-	 * 
-	 * @param groupId the group to add children to
-	 * @param studentIds array with student ids
-	 */
+     * {@inheritDoc}
+     */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
@@ -279,11 +282,9 @@ public class FadderGroupControllerImpl extends
 
         return studentList;
     }
-    
+
     /**
-     * Returns all students without a fadder group
-     * @return list with students
-     * @throws ObjectNotFoundException if all students has a group
+     * {@inheritDoc}
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
@@ -307,15 +308,7 @@ public class FadderGroupControllerImpl extends
     }
 
     /**
-     * Scans a provided QR code and adds a student to the group in the qr.
-     * <p>
-     * The qr code must contain a string on the form: 
-     * gruppe:gruppeid (ex: gruppe:3)
-     * </p>
-     * @param studentId the student to add to the group
-     * @param request 
-     * @param response
-     * @throws QRCodeException when QR is in wrong format or unreadble
+     * {@inheritDoc}
      */
     @Override
     @RequestMapping(

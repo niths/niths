@@ -23,17 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * This class provides CRUD actions in RESTstyle <br />
- * 
- * Mapping :<br />
- * host:port/committees<br />
- * 
- * Headers : <br />
- * Accept:application/json<br />
- * Content-Type:appilcation/json <br />
- * Accept:application/xml<br />
- * Content-Type:appilcation/xml<br />
- * 
+ * Controller for committee
+ * has the basic CRUD methods and
+ * methods too add and remove leader
+ * and event
+ *
+ * For the URL too get Committee add /committees
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.COMMITTEES)
@@ -72,14 +68,9 @@ public class CommitteeControllerImpl extends
 		super.update(domain);
 	}
 
-	/**
-	 * Adds a leader to a committee
-	 * 
-	 * @param committeeId
-	 *            The id of the committee
-	 * @param studentId
-	 *            The id of the student to add as leader
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
 	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.POST)
@@ -89,14 +80,9 @@ public class CommitteeControllerImpl extends
 		committeeService.addLeader(committeeId, studentId);
 	}
 
-	/**
-	 * Removes a leader from a committee
-	 * 
-	 * @param committeeId
-	 *            The id of the committee to remove leader from
-	 * @param studentId
-	 *            The id of the student to remove
-	 */
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
 	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.DELETE)

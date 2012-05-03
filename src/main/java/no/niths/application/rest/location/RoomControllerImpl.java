@@ -18,7 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ * Controller for room
+ * has the basic CRUD methods and
+ * methods too add and remove accessField
+ * in addition too method for findRoom
+ *
+ * For the URL too get Room add /rooms
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ */
 @Controller
 @RequestMapping(DomainConstantNames.ROOMS)
 public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
@@ -61,6 +69,9 @@ public class RoomControllerImpl extends AbstractRESTControllerImpl<Room>
         service.removeAccessField(roomId, accessFieldId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @RequestMapping(
             value  = "search/accesspoint")

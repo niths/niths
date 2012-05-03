@@ -1,5 +1,9 @@
 package no.niths.common.misc;
-
+/**
+ * Enum used too clear or fetch relations
+ * used in LazyFixer
+ *
+ */
 public enum Accessor {
 
     GET("get"), SET("set");

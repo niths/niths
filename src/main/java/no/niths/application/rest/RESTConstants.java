@@ -1,7 +1,9 @@
 package no.niths.application.rest;
 
 import org.springframework.http.MediaType;
-
+/**
+ * Class for constants used with REST
+ */
 public class RESTConstants {
 
     public static final String JSON_AND_XML =MediaType.APPLICATION_JSON_VALUE+"," + MediaType.APPLICATION_XML_VALUE;

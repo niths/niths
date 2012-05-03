@@ -12,7 +12,10 @@ import no.niths.application.rest.exception.ObjectNotFoundException;
 import no.niths.application.rest.helper.Error;
 import no.niths.domain.school.Committee;
 import no.niths.domain.school.Student;
-
+/**
+ * Class used too validate objects
+ *
+ */
 public class ValidationHelper {
 
 

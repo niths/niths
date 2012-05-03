@@ -18,7 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * Controller for locker
+ * has the basic CRUD methods
+ *
+ * For the URL too get Locker add /lockers
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
+ */
 @Controller
 @RequestMapping(DomainConstantNames.LOCKERS)
 public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>

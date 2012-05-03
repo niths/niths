@@ -26,6 +26,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Controller for AccessField
+ * has the basic CRUD methods and
+ * methods too add and remove an accessPoint
+ *
+ * For the URL too get Access fields add /accessfields
+ * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 @Controller
 @RequestMapping(DomainConstantNames.ACCESS_FIELDS)
@@ -72,6 +77,9 @@ public class AccessFieldControllerImpl extends
 		super.delete(id);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@ApiEvent(title = "Access point added to access field")
 	@RequestMapping(value = "{afId}/accesspoint/{apId}", method = RequestMethod.POST)
@@ -81,6 +89,9 @@ public class AccessFieldControllerImpl extends
 		service.addAccessPoint(afId, apId);
 	}
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	@ApiEvent(title = "Access point removed from access field")
 	@RequestMapping(value = "{afId}/accesspoint", method = RequestMethod.DELETE)

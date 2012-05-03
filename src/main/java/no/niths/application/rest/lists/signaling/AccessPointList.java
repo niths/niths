@@ -8,7 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.signaling.AccessPoint;
-
+/**
+ * Class to contain a list of accessPoints
+ */
 @XmlRootElement(name = DomainConstantNames.ACCESS_POINTS)
 public class AccessPointList extends ListAdapter<AccessPoint> {
 
