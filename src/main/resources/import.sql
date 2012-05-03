@@ -464,27 +464,13 @@ INSERT INTO committee_leaders(committees_id, leaders_id) VALUES (5, 9);
 INSERT INTO committee_leaders (committees_id, leaders_id) VALUES (3, 10);
 ---------------------------------------------------------------------
 --------------------------events-------------------------------------
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distro',' distro fest','2012-04-27 11:05:32','2012-04-28 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa','Valentine party','2012-04-27 13:45:32','2012-04-28 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop',' Look, just because I dont be givin no man a foot massage dont make it right for Marsellus to throw Antwone into a glass motherfuckin house, fuckin up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, cause Ill kill the motherfucker, know what m sayin?','2012-04-28 11:05:32','2012-05-09 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Conferance',' Obligatorisk','2012-04-24 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT','Damenes møte','2012-04-28 11:05:32','2012-05-09 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke kickoff','kickoff fest','2012-04-29 11:05:32','2012-03-09 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke party','party','2012-04-28 11:05:32','2012-03-09 11:05:32','fadderuke12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Beertasting','Super cool smaking','2012-04-29 11:05:32','2012-04-11 12:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa3','Valentine party','2012-04-30 13:05:32','2012-04-11 16:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshopxx',' Android workshop','2012-05-01 11:05:32','2012-04-13 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Water party',' Obligatorisk','2012-05-01 11:05:32','2012-04-12 14:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-meeting','Damenes møte','2012-05-02 11:05:32','2012-04-14 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 kickoff','kickoff fest lorem ipsum ald adskaevmz,xvn en lang beskrivelse skal se hvorda det ser ut','2012-04-16 11:05:32','2012-04-16 11:05:32','fadderuke, kroa');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderuke5 party','party','2012-05-02 10:05:32','2012-04-15 11:05:32','fadderuka12, public');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('LUG Distrod',' distro fest','2012-05-03 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe3');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroad','Valentine party','2012-05-04 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop2x',' Android workshop','2012-05-04 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Y2k',' Obligatorisk','2012-05-05 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe3');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('KIT-meet and greet','Damenes møte','2012-05-06 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe2');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukezx3 kickoff','kickoff fest','2012-05-06 11:05:32','2012-03-09 11:05:32','fadderuka12, grupp1');
-INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fadderukex3 party','Look, just because I dont be givin no man a foot massage dont make it right for Marsellus to throw Antwone into a glass motherfuckin house, fuckin up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, cause Ill kill the motherfucker, know what m sayin?','2012-05-07 11:05:32','2012-03-09 11:05:32','fadderuka12, gruppe1');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Workshop','En veldig enkel innføring i Android programmering','2012-05-03 19:05:32','2012-05-03 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Grillfest','Vi møtes i Sofienbergparken og griller og koser oss','2012-05-03 19:05:32','2012-05-03 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fest i Kroa','Da er det fredag igjen og vi møtes i kroa for godt selskap','2012-05-04 19:05:32','2012-05-04 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Fotballturnering','Det blir en liten uhøytidelig fotballturnering i Frognerparken','2012-05-04 19:05:32','2012-05-04 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Kubbtrunering','Vi fortsetter med uhøytidelig kubbturnering i dag. Samme sted som fotballturneringen i går','2012-05-05 19:05:32','2012-05-05 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Pub tur','Vi møtes på Sir Winston og tar noen øl eller noe annet godt','2012-05-05 19:05:32','2012-05-05 20:05:32','fadderuka12, public');
+INSERT INTO events (name,description,startTime,endTime,tags) VALUES('Grilling og sosialisering','Vi tar en rolig dag i Grønlandspark med grilling, øl og enkle leker','2012-05-06 19:05:32','2012-05-06 20:05:32','fadderuka12, public');
 ---------------------------------------------------------------------
 
 
@@ -608,28 +594,30 @@ INSERT INTO subjects_tutors VALUES (1,1);
 ---------------------------------------------------------------------
 --------------------------locations--------------------------------
 INSERT INTO locations (id, latitude, longitude, place) VALUES(1, 59.911264, 10.760290, 'NITH');
-INSERT INTO locations (id, latitude, longitude, place) VALUES(2, 59.9378, 10.7354, 'Nedre ullevål');
-INSERT INTO locations (id, latitude, longitude, place) VALUES(3, 59.942022, 10.809506, 'Bjerke');
-INSERT INTO locations (id, latitude, longitude, place) VALUES(4, 59.925200, 10.733449, 'Bislett Stadion');
-INSERT INTO locations (id, latitude, longitude, place) VALUES(5, 59.941234, 10.724695, 'Blindern');
-INSERT INTO locations (id, latitude, longitude, place) VALUES(6, 59.871351, 10.761897, 'Kaninøya');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(2, 59.909814, 10.769005, 'Grønlandspark');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(3, 59.922764, 10.763168, 'Sofienbergparken');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(4, 59.916656, 10.730896, 'Slottsparken');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(5, 59.92784, 10.703602, 'Frognerparken');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(6, 59.911837, 10.746346, 'Sir Winston');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(7, 59.919237, 10.759821, 'San Leandro');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(8, 59.924184, 10.759478, 'Mucho Mas');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(9, 59.932312, 10.713043, 'Chateau Neuf');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(10, 59.9378, 10.7354, 'Nedre ullevål');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(11, 59.942022, 10.809506, 'Bjerke');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(12, 59.925200, 10.733449, 'Bislett Stadion');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(13, 59.941234, 10.724695, 'Blindern');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(14, 59.921947, 10.733171, 'Høgskolen i Oslo og Akershus');
+INSERT INTO locations (id, latitude, longitude, place) VALUES(15, 59.871351, 10.761897, 'Kaninøya');
 
 ---------------------------------------------------------------------
 --------------------------events_location--------------------------------
 INSERT INTO events_location (location_id, events_id) VALUES(1, 1);
-INSERT INTO events_location (location_id, events_id) VALUES(1, 2);
-INSERT INTO events_location (location_id, events_id) VALUES(2, 3);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 5);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 4);
-INSERT INTO events_location (location_id, events_id) VALUES(3, 6);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 7);
-INSERT INTO events_location (location_id, events_id) VALUES(3, 8);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 9);
-INSERT INTO events_location (location_id, events_id) VALUES(3, 10);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 11);
-INSERT INTO events_location (location_id, events_id) VALUES(3, 12);
-INSERT INTO events_location (location_id, events_id) VALUES(4, 13);
-INSERT INTO events_location (location_id, events_id) VALUES(3, 14);
+INSERT INTO events_location (location_id, events_id) VALUES(3, 2);
+INSERT INTO events_location (location_id, events_id) VALUES(1, 3);
+INSERT INTO events_location (location_id, events_id) VALUES(5, 4);
+INSERT INTO events_location (location_id, events_id) VALUES(5, 5);
+INSERT INTO events_location (location_id, events_id) VALUES(6, 6);
+INSERT INTO events_location (location_id, events_id) VALUES(2, 7);
 ---------------------------------------------------------------------
 --------------------------feeds------------------------------------
 INSERT INTO feeds (id, message, published) VALUES(1, 'Kroa åpner 14:00 ', '2012-03-21 13:00');
