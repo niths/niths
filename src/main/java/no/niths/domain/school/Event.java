@@ -73,8 +73,8 @@ public class Event implements Domain {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable = false)
-	@Size(min = 3, max = 30, message = "The length of the name must be between 3 to 30 letters")
+	@Column(nullable = false)
+	@Size(min = 3, max = 50, message = "The length of the name must be between 3 to 50 letters")
 	private String name;
 
 	@Column(length = 500)
