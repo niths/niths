@@ -181,7 +181,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/course/{courseId}",
             method = RequestMethod.POST)
@@ -196,7 +197,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/course/{courseId}",
             method = RequestMethod.DELETE)
@@ -211,7 +213,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/committee/{committeeId}",
             method = RequestMethod.POST)
@@ -226,7 +229,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/committee/{committeeId}",
             method = RequestMethod.DELETE)
@@ -241,7 +245,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/feed/{feedId}",
             method = RequestMethod.POST)
@@ -256,7 +261,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/feed/{feedId}",
             method = RequestMethod.DELETE)
@@ -271,7 +277,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/loan/{loanId}",
             method = RequestMethod.POST)
@@ -286,7 +293,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      * {@inheritDoc}
      */
     @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{studentId}/loan/{loanId}",
             method = RequestMethod.DELETE)
