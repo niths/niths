@@ -72,6 +72,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{courseId}/representative/{studentId}",
             method = RequestMethod.POST)
@@ -88,6 +90,8 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
             value  = "{courseId}/representative/{studentId}",
             method = RequestMethod.DELETE)
