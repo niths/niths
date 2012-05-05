@@ -138,7 +138,8 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					}
 					
 					// Login failed, clear authentication object
-					SecurityContextHolder.getContext().setAuthentication(null);
+					SecurityContextHolder.getContext().setAuthentication(
+							new RequestAuthenticationInfo(new RequestHolderDetails()));
 					// We send the error to the entry point
 					entryPoint.commence(req, res, ae);
 				}

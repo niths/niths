@@ -32,9 +32,10 @@
 	<!-- Authentication entry point for custom filter -->
 	<beans:bean id="authEntryPoint"
 		class="no.niths.security.RestAuthenticationEntryPoint" />
-
-	<!-- Basic authentication manager -->
+		
+	<!-- Authentication manager -->
 	<security:authentication-manager alias="authManager">
+		<security:authentication-provider ref="reqAuthenticationManager"></security:authentication-provider>
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
 			<security:password-encoder ref="passwordEncoder" />

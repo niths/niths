@@ -58,19 +58,25 @@ public class ApplicationControllerImpl extends
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Deletes an application
+	 * <p>
+	 * Developers must log in to be able to delete their applications
+	 * </p>
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.appId == #id)")
 	public void delete(@PathVariable long id) {
 		super.delete(id);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Updates an application
+	 * <p>
+	 * Developers must log in to be able to update their applications
+	 * </p>
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR+ " or (principal.appId == #domain.id)")
 	public void update(@RequestBody Application domain) {
 		super.update(domain);
 	}

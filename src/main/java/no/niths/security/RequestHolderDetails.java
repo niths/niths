@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * 
  * Ex: The student id can be used together with the role like this:
  * 
- * @PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId == #id)
+ * PreAuthorize(hasRole('ROLE_STUDENT') and principal.studentId == #id)
  * public void anyMethod(Long id) {...}
  * 
  * principal = the authenticated user
@@ -32,8 +32,8 @@ public class RequestHolderDetails implements UserDetails {
 	private List<String> roleNames = new ArrayList<String>();
 	private String userName;
 	private Long studentId;
-	private Long developerId;
-	private Long appId;
+	private Long developerId = new Long(-1);
+	private Long appId = new Long(-1);
 
 
 	public RequestHolderDetails() {

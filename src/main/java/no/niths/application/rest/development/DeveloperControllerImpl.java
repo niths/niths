@@ -60,7 +60,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #domain.id)")
 	public void delete(@PathVariable long id) {
 		super.delete(id);
 	}
@@ -69,7 +69,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR  + " or (principal.developerId == #domain.id)")
 	public void update(@RequestBody Developer domain) {
 		super.update(domain);
 	}
@@ -101,7 +101,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
 	@RequestMapping(value = { "{developerId}/resetDeveloperKey" }, method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void resetDeveloperKey(@PathVariable Long developerId){
@@ -113,7 +113,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
 	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
@@ -124,7 +124,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
 	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
 	public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
