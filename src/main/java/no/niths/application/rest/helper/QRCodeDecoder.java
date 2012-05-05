@@ -26,6 +26,9 @@ import com.google.zxing.common.HybridBinarizer;
 public class QRCodeDecoder {
 
     public Long decodeFadderGroupQRCode(byte[] data) throws QRCodeException {
+        System.out.println("--------------------- bytes:");
+        System.out.println("::: "+data[0]+','+data[1]+','+data[2]+','+data[3]);
+        
         Long groupNumber = null;
 
         // Resize and scan the QR code code on the image

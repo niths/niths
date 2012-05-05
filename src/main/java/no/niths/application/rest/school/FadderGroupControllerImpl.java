@@ -331,7 +331,7 @@ public class FadderGroupControllerImpl extends
 
                 CommonsMultipartFile file = (CommonsMultipartFile) entry
                         .getValue();
-                
+
                 Long groupId = new QRCodeDecoder().decodeFadderGroupQRCode(
                         file.getBytes());
 

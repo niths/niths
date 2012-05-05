@@ -215,7 +215,7 @@ public class CommitteeServiceTest {
 		
 		Event e1 = new Event();
 		GregorianCalendar g =new GregorianCalendar(2200,Calendar.JANUARY,10,10,10);
-		e1.setName("event-name");
+		e1.setName("event name");
 		e1.setStartTime(g);
 		eventService.create(e1);
 		
