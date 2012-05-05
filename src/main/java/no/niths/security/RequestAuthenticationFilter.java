@@ -124,8 +124,8 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					logger.debug("Authentication success!");
 
 					// Set the result as the authentication object
-					SecurityContextHolder.getContext().setAuthentication(
-							authResult);
+					setAuthorization(authResult);
+					
 				} catch (AuthenticationException ae) {
 
 					logger.debug("Authentication failed for developer with key: " + developerKey);
@@ -138,20 +138,25 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 					}
 					
 					// Login failed, clear authentication object
-					SecurityContextHolder.getContext().setAuthentication(
-							new RequestAuthenticationInfo(new RequestHolderDetails()));
+					setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
 					// We send the error to the entry point
 					entryPoint.commence(req, res, ae);
 				}
 				
 				
 			}else{
+				setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
+				
 				logger.debug("Could not find required headers(Developer/Application), authentication process ends...");
 			}
 		}
 		
 		logger.debug("Continuing spring security filter chain");
 		chain.doFilter(req, res);
+	}
+	
+	private void setAuthorization(Authentication auth){
+		SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 
 	public RequestAuthenticationProvider getAuthProvider() {
