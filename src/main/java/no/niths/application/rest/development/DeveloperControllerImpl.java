@@ -113,7 +113,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
 	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
 	public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
@@ -124,7 +124,7 @@ public class DeveloperControllerImpl extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
 	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
 	public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
