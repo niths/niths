@@ -1,4 +1,4 @@
-package no.niths.domain.school;
+package no.niths.domain.school.constants;
 
 /**
  * Describes a type of exam 

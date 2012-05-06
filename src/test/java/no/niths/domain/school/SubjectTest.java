@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import no.niths.domain.school.Subject;
+import no.niths.domain.school.constants.Weekday;
 
 import org.junit.Test;
 

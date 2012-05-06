@@ -1,4 +1,4 @@
-package no.niths.domain.school;
+package no.niths.domain.school.constants;
 
 /**
  * Class that holds valid weekdays

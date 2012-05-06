@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.domain.Domain;
 import no.niths.domain.location.Room;
+import no.niths.domain.school.constants.Weekday;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;

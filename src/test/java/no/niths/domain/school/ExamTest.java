@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.util.GregorianCalendar;
 
 import no.niths.domain.school.Exam;
+import no.niths.domain.school.constants.ExamType;
 
 import org.junit.Test;
 
