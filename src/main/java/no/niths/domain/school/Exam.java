@@ -77,7 +77,7 @@ public class Exam implements Domain {
             message = "Invalid name (should be 2 -80 alphanumeric letters")
     private String name;
 
-    @Column
+    @Column(name = "exam_type")
     @Enumerated(EnumType.STRING)
 	@XmlElement(name="examtype")
     private ExamType examType;

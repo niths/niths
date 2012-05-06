@@ -766,9 +766,9 @@ INSERT INTO subjects_room (room_id, subjects_id) VALUES(1, 1);
 INSERT INTO subjects_room (room_id, subjects_id) VALUES(1, 2);
 ---------------------------------------------------------------------
 --------------------------exams--------------------------------
-INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'Jave ex', '2012-03-09 11:05:32');
-INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'C++ ex', '2012-03-09 11:05:32');
-INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'Writtend', 'Math ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'WRITTEN', 'Jave ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'WRITTEN', 'C++ ex', '2012-03-09 11:05:32');
+INSERT INTO exams (allowed_aid, end_time, exam_type, name, start_time) VALUES('No aid', '2012-03-09 11:05:33', 'WRITTEN', 'Math ex', '2012-03-09 11:05:32');
 ---------------------------------------------------------------------
 --------------------------exam_subjects--------------------------------
 INSERT INTO exam_subjects (subjects_id, exams_id) VALUES(1, 1);
