@@ -36,13 +36,13 @@ public class ExamRepositoryTest {
 
     @Test
     public void whenExamIsCreated_ExamShouldBePersisted() {
-        final int size = repo.getAll(null).size();
+        final int SIZE = repo.getAll(null).size();
 
         Exam exam = new Exam();
         exam.setExamType(EXAM_TYPE);
         repo.create(exam);
 
-        assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
+        assertThat(SIZE + 1, is(equalTo(repo.getAll(null).size())));
     }
 
     @Test
