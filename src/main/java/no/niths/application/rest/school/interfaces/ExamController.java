@@ -5,6 +5,7 @@ import java.util.List;
 import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.interfaces.GenericRESTController;
 import no.niths.domain.school.Exam;
+import no.niths.domain.school.constants.ExamType;
 
 /**
  * Controller for exam
@@ -68,8 +69,7 @@ public interface ExamController extends GenericRESTController<Exam> {
      * @param examId id of the exam
      */
     public void removeSubject(Long examId);
-    
-    
+
     /**
      * Returns exams on the startTime between start and end time of the time DTO object
      *
@@ -81,5 +81,7 @@ public interface ExamController extends GenericRESTController<Exam> {
      * @param timeDTO date that exam should be after
      * @return a list of exams that are after a date
      */
-	List<Exam> getExamsBetweenDates(TimeDTO timeDTO);
+    List<Exam> getExamsBetweenDates(TimeDTO timeDTO);
+
+    List<ExamType> getExamTypes();
 }
