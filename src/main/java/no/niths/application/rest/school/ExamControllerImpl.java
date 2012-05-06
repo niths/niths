@@ -106,21 +106,26 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
     }
 
     @Override
-    @RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(
+            value   = "dates",
+            method  = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Exam> getExamsBetweenDates(TimeDTO timeDTO) {
         
         logger.debug(timeDTO.toString());
         ValidationHelper.isObjectNull(timeDTO.getStartTime());
-        if(timeDTO.getEndTime() != null){
-            renewList(examService.getExamsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
-        }else{
-            renewList(examService.getExamsBetweenDates(timeDTO.getStartTimeCal(), null));
-        }
+        
+        
+        renewList(examService.getExamsBetweenDates(
+                timeDTO.getStartTimeCal(),
+                timeDTO.getEndTime() != null ? timeDTO.getEndTimeCal() : null));
+        
         return examList;
     }
 
     @Override
+    @RequestMapping(value = "exam-types", method = RequestMethod.GET)
     public List<ExamType> getExamTypes() {
         return null;
     }

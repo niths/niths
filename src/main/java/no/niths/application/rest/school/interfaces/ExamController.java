@@ -83,5 +83,10 @@ public interface ExamController extends GenericRESTController<Exam> {
      */
     List<Exam> getExamsBetweenDates(TimeDTO timeDTO);
 
+    /**
+     * Returns a list of all exam types
+     * 
+     * @return the list of all exam types
+     */
     List<ExamType> getExamTypes();
 }
