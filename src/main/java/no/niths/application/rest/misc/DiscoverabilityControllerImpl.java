@@ -300,8 +300,9 @@ public class DiscoverabilityControllerImpl implements DiscoverabilityController 
 		try {
 			Class c = Class.forName(metadataReader.getClassMetadata()
 					.getClassName());
-			if (c.getAnnotation(Controller.class) != null
-					|| c.getSimpleName().equals("AbstractRESTControllerImpl")) {
+			if ((c.getAnnotation(Controller.class) != null
+					|| c.getSimpleName().equals("AbstractRESTControllerImpl")) 
+					&& !(c.getSimpleName().equals("ExampleControllerImpl"))) {
 				return true;
 			}
 		} catch (Throwable e) {
