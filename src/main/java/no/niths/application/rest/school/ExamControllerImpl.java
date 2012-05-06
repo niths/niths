@@ -112,11 +112,9 @@ public class ExamControllerImpl extends AbstractRESTControllerImpl<Exam>
             headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Exam> getExamsBetweenDates(TimeDTO timeDTO) {
-        
         logger.debug(timeDTO.toString());
         ValidationHelper.isObjectNull(timeDTO.getStartTime());
-        
-        
+
         renewList(examService.getExamsBetweenDates(
                 timeDTO.getStartTimeCal(),
                 timeDTO.getEndTime() != null ? timeDTO.getEndTimeCal() : null));
