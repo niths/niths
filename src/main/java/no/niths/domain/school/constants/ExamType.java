@@ -5,5 +5,5 @@ package no.niths.domain.school.constants;
  *
  */
 public enum ExamType {
-    WRITTEN, ORAL
+    ORAL, WRITTEN
 }
