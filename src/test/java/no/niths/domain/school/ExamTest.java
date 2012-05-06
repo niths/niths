@@ -13,7 +13,7 @@ import org.junit.Test;
 public class ExamTest {
     private static final Long ID = 1L;
     private static final String NAME = "Eksamen i PG110";
-    private static final String EXAM_TYPE = "Skriftlig";
+    private static final ExamType EXAM_TYPE = ExamType.WRITTEN;
     private static final String ALLOWED_AID = "Ingen";
     private static final GregorianCalendar START_TIME = new GregorianCalendar(2012, 3, 20, 9, 00);
     private static final GregorianCalendar END_TIME = new GregorianCalendar(2012, 3, 20, 12, 00);

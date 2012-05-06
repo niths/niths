@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
 import no.niths.domain.school.Exam;
+import no.niths.domain.school.ExamType;
 import no.niths.infrastructure.school.interfaces.ExamRepository;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class ExamRepositoryTest {
         int size = repo.getAll(null).size();
 
         Exam exam = new Exam();
-        exam.setExamType("Skriftlig");
+        exam.setExamType(ExamType.WRITTEN);
         repo.create(exam);
 
         assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
@@ -47,7 +48,7 @@ public class ExamRepositoryTest {
 
         Exam exam = new Exam();
         exam.setName("Eksamen i Java");
-        exam.setExamType("Skriftlig");
+        exam.setExamType(ExamType.WRITTEN);
         repo.create(exam);
 
         assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
@@ -65,15 +66,15 @@ public class ExamRepositoryTest {
 
         Exam exam = new Exam();
         exam.setName("Eksamen i Java");
-        exam.setExamType("Skritlig");
+        exam.setExamType(ExamType.WRITTEN);
         repo.create(exam);
 
         assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
 
-        exam.setExamType("Muntlig");
+        exam.setExamType(ExamType.ORAL);
         repo.update(exam);
 
-        assertThat("Muntlig", is(equalTo(repo.getById(exam.getId()).getExamType())));
+        assertThat(ExamType.ORAL, is(equalTo(repo.getById(exam.getId()).getExamType())));
     }
 
     @Test

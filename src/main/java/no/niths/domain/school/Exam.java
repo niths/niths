@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -75,10 +77,10 @@ public class Exam implements Domain {
             message = "Invalid name (should be 2 -80 alphanumeric letters")
     private String name;
 
-    @Column(name="exam_type")
-    @Size(min = 2, max = 30, message ="The length of the exam_type must be between 2 to 30 letters")
+    @Column
+    @Enumerated(EnumType.STRING)
 	@XmlElement(name="examtype")
-    private String examType;
+    private ExamType examType;
 
     @Column(name="start_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -122,12 +124,17 @@ public class Exam implements Domain {
         setName(name);
     }
 
-    public Exam(String name, String examType, String allowedAid, GregorianCalendar startTime, GregorianCalendar endTime){
-        setName(name);
-        setExamType(examType);
-        setAllowedAid(allowedAid);
-        setStartTime(startTime);
-        setEndTime(endTime);
+    public Exam(
+            String name,
+            ExamType examType,
+            String allowedAid,
+            GregorianCalendar startTime,
+            GregorianCalendar endTime) {
+        this.name       = name;
+        this.examType   = examType;
+        this.allowedAid = allowedAid;
+        this.startTime  = startTime;
+        this.endTime    = endTime;
     }
 
     public Long getId() {
@@ -146,11 +153,11 @@ public class Exam implements Domain {
         this.name = name;
     }
 
-    public String getExamType() {
+    public ExamType getExamType() {
         return examType;
     }
 
-    public void setExamType(String examType) {
+    public void setExamType(ExamType examType) {
         this.examType = examType;
     }
 
