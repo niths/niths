@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
@@ -68,7 +70,9 @@ public class Exam implements Domain {
     private Long id;
 
     @Column
-    @Size(min = 3, max = 80, message ="The length of the name must be between 3 to 80 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid name (should be 2 -80 alphanumeric letters")
     private String name;
 
     @Column(name="exam_type")
