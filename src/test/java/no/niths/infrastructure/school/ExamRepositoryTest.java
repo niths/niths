@@ -23,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class ExamRepositoryTest {
 
+    private final String EXAM_NAME   = "Javaeksamen";
+    private final ExamType EXAM_TYPE = ExamType.WRITTEN;
+
     @Autowired
     private ExamRepository repo;
 
@@ -33,10 +36,10 @@ public class ExamRepositoryTest {
 
     @Test
     public void whenExamIsCreated_ExamShouldBePersisted() {
-        int size = repo.getAll(null).size();
+        final int size = repo.getAll(null).size();
 
         Exam exam = new Exam();
-        exam.setExamType(ExamType.WRITTEN);
+        exam.setExamType(EXAM_TYPE);
         repo.create(exam);
 
         assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
@@ -44,55 +47,47 @@ public class ExamRepositoryTest {
 
     @Test
     public void whenGetById_ExamShouldBeReturned() {
-        int size = repo.getAll(null).size();
-
-        Exam exam = new Exam();
-        exam.setName("Eksamen i Java");
-        exam.setExamType(ExamType.WRITTEN);
+        Exam exam = new Exam(EXAM_NAME, EXAM_TYPE);
         repo.create(exam);
 
-        assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
-
+        // Find the newly created exam
         Exam result = repo.getById(exam.getId());
         assertThat(result, is(equalTo(exam)));
 
+        // Try to find an exam that doesn't exist
         result = repo.getById(999L);
         assertThat(result, is(equalTo(null)));
     }
 
     @Test
     public void whenExamIsUpdated_ExamShouldBeUpdated() {
-        int size = repo.getAll(null).size();
+        final int SIZE = repo.getAll(null).size();
 
-        Exam exam = new Exam();
-        exam.setName("Eksamen i Java");
-        exam.setExamType(ExamType.WRITTEN);
+        Exam exam = new Exam(EXAM_NAME, EXAM_TYPE);
         repo.create(exam);
 
-        assertThat(size + 1, is(equalTo(repo.getAll(null).size())));
+        assertThat(SIZE + 1, is(equalTo(repo.getAll(null).size())));
 
         exam.setExamType(ExamType.ORAL);
         repo.update(exam);
 
-        assertThat(ExamType.ORAL, is(equalTo(repo.getById(exam.getId()).getExamType())));
+        assertThat(
+                ExamType.ORAL,
+                is(equalTo(repo.getById(exam.getId()).getExamType())));
     }
 
     @Test
     public void whenGetAll_allShouldBeReturned() {
-        int size = repo.getAll(null).size();
+        final int SIZE = repo.getAll(null).size();
 
-        Exam examInJava = new Exam();
-        examInJava.setName("Eksamen i Java");
-        repo.create(examInJava);
-        Exam examInAdvancedJava = new Exam();
-        examInAdvancedJava.setName("Java 2");
-        repo.create(examInAdvancedJava);
-        Exam examInEnterpriseJava = new Exam();
-        examInEnterpriseJava.setName("Java 3");
-        repo.create(examInEnterpriseJava);
+        Exam javaExam = new Exam("Javaeksamen 1");
+        repo.create(javaExam);
 
-        assertThat(size + 3, is(equalTo(repo.getAll(null).size())));
+        repo.create(new Exam("Javaeksamen 2"));
 
-        assertThat(size + 1, is(equalTo(repo.getAll(examInJava).size())));
+        repo.create(new Exam("Javaeksamen 3"));
+
+        assertThat(SIZE + 3, is(equalTo(repo.getAll(null).size())));
+        assertThat(SIZE + 1, is(equalTo(repo.getAll(javaExam).size())));
     }
 }

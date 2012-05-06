@@ -22,7 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -116,12 +115,17 @@ public class Exam implements Domain {
 
     public Exam(){
     	this(null,null,null,null,null);
-    	setRooms(null);
-    	setSubject(null);
+    	this.rooms   = null;
+    	this.subject = null;
     }
 
-    public Exam(String name){
-        setName(name);
+    public Exam(String name) {
+        this.name = name;
+    }
+
+    public Exam(String name, ExamType examType) {
+        this.name     = name;
+        this.examType = examType;
     }
 
     public Exam(
