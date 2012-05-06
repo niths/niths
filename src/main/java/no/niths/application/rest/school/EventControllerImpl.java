@@ -120,6 +120,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(
 	        value  = "{eventId}/location/{locId}",
 	        method = RequestMethod.POST)
@@ -135,6 +136,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
     @RequestMapping(
             value  = "{eventId}/location/{locId}",
             method = RequestMethod.PUT)
@@ -150,6 +152,7 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
 	 * {@inheritDoc}
 	 */
 	@Override
+	@PreAuthorize(SecurityConstants.ALL_LEADERS)
 	@RequestMapping(
 	        value  = "{eventId}/location",
 	        method = RequestMethod.DELETE)

@@ -123,6 +123,7 @@ public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
             value  = "{courseId}/subject/{subjectId}",
             method = RequestMethod.DELETE)
