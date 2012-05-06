@@ -38,18 +38,16 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
 /**
  * Domain class for Loan
- *
+ * 
  * <p>
- * Loan has these variables:
- * startTime = example 09/03/2012-11:05,
- * endTime = example 12/03/2012-11:05
+ * Loan has these variables: startTime = example 09/03/2012-11:05, endTime =
+ * example 12/03/2012-11:05
  * </p>
  * <p>
- * And relations too:
- * Console,
- * Student
+ * And relations too: Console, Student
  * </p>
  */
 @XmlRootElement
@@ -70,14 +68,14 @@ public class Loan implements Domain {
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="starttime")
+	@XmlElement(name = "starttime")
 	private Calendar startTime;
 
 	@Column(name = "return_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="endtime")
+	@XmlElement(name = "endtime")
 	private Calendar endTime;
 
 	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
@@ -87,7 +85,7 @@ public class Loan implements Domain {
 
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
 	@JoinTable(name = "students_loans", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Cascade(CascadeType.ALL)
 	private Student student;
 
 	public Loan() {
@@ -95,9 +93,9 @@ public class Loan implements Domain {
 		setConsoles(null);
 		setStudent(null);
 	}
-
-	public Loan(GregorianCalendar loanDate) {
-		setStartTime(loanDate);
+	
+	public Loan(GregorianCalendar starTime) {
+		setStartTime(starTime);
 	}
 
 	public Loan(GregorianCalendar startTime, GregorianCalendar endTime) {
@@ -177,8 +175,8 @@ public class Loan implements Domain {
 		buffer.append(String.format("[%s]", id));
 		buffer.append(String.format("[%s]", (startTime == null) ? null
 				: startTime.getTime()));
-		buffer.append(String.format("[%s]", (endTime == null) ? null
-				: endTime.getTime()));
+		buffer.append(String.format("[%s]",
+				(endTime == null) ? null : endTime.getTime()));
 		return buffer.toString();
 
 	}

@@ -31,7 +31,7 @@ import org.hibernate.annotations.Cascade;
  * Domain class for Console
  *
  * <p>
- * Console has these variables:
+ * Console contains following variables:
  * name = example Wii,
  * locker = example 1
  * </p>
@@ -61,6 +61,9 @@ public class Console implements Domain {
             message = "Invalid name (should be 2 - 50 alphanumeric letters)")
     private String name;
 
+    @Column
+    private Boolean isLoand;
+    
     @Column
     private Integer locker;
 
@@ -157,4 +160,12 @@ public class Console implements Domain {
     public String toString() {
         return String.format("[%s][%s]", id, name);
     }
+
+	public Boolean isLoand() {
+		return isLoand;
+	}
+
+	public void setIsLoand(Boolean isLoand) {
+		this.isLoand = isLoand;
+	}
 }

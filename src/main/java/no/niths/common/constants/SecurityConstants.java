@@ -18,14 +18,19 @@ public final class SecurityConstants {
     public static final String R_FADDER_LEADER = "ROLE_FADDER_LEADER";
     public static final String R_SR = "ROLE_SR";
     public static final String R_DEVELOPER = "ROLE_DEVELOPER";
+    public static final String R_LIBRARIAN = "ROLE_LIBRARIAN";
+    
     
     //Authorizes annotations
-    public static final String ONLY_SR = "hasRole('ROLE_SR')";
-    public static final String ONLY_ADMIN = "hasRole('ROLE_ADMIN')";
-    public static final String ADMIN_AND_SR = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR')";
-    public static final String ADMIN_AND_SR_AND_STUDENT = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_STUDENT')";
-    public static final String ADMIN_SR_COMMITTEE_LEADER = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_COMMITTEE_LEADER')";
-    public static final String ADMIN_SR_FADDER_LEADER = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_FADDER_LEADER' )";
-    public static final String ALL_LEADERS = "hasAnyRole('ROLE_ADMIN', 'ROLE_SR', 'ROLE_FADDER_LEADER', 'ROLE_COMMITTEE_LEADER' )";
+    public static final String ONLY_SR = "hasRole('"+R_SR+"')";
+    public static final String ONLY_ADMIN = "hasRole('"+R_ADMIN+"')";
+    public static final String ADMIN_AND_SR = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"')";
+    public static final String ADMIN_AND_SR_AND_STUDENT = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_STUDENT+"')";
+    public static final String ADMIN_SR_COMMITTEE_LEADER = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_COMMITTEE_LEADER+"')";
+    public static final String ADMIN_SR_LIBRARIAN = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_LIBRARIAN+"')";
+    public static final String ADMIN_SR_FADDER_LEADER = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_FADDER_LEADER+"')";
+    public static final String ALL_LEADERS = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_FADDER_LEADER+"' , '"+R_COMMITTEE_LEADER+"')";
+  
+    
 
 }

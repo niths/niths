@@ -11,11 +11,9 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.lists.RestResourceList;
 import no.niths.application.rest.misc.interfaces.DiscoverabilityController;
-import no.niths.application.rest.signaling.AccessFieldControllerImpl;
 import no.niths.common.constants.DomainConstantNames;
 
 import org.slf4j.Logger;

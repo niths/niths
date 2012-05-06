@@ -2,7 +2,6 @@ package no.niths.application.rest.battlestation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -43,6 +42,7 @@ public class LoanControllerTest {
     @Autowired
     private StudentController studentController;
 
+   
     @Before
     public void setUp() {
         res = new MockHttpServletResponse();
@@ -55,7 +55,7 @@ public class LoanControllerTest {
         try {
             size = loanController.getAll(null).size();
         } catch (ObjectNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Loan loan = new Loan(new GregorianCalendar());
@@ -76,54 +76,35 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testCreateAndDeleteOfConsole() {
-        Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan, res);
+    public void testCreateAndRemoveLoan() {
+    	 int size = 0;
 
-        assertThat(loan, is(equalTo(loanController.getById(loan.getId()))));
-
+         try {
+             size = loanController.getAll(null).size();
+             System.err.println(size);
+         } catch (ObjectNotFoundException e) {
+             //e.printStackTrace();
+         }
+         
         Console console = new Console("Wii");
-        Console otherConsole = new Console("Xbox");
-
         consoleController.create(console, res);
-        consoleController.create(otherConsole, res);
+    
+        Student student = new Student("student@nith.no");
+        studentController.create(student, res);
 
-        loanController.addConsole(loan.getId(), console.getId());
-        loanController.addConsole(loan.getId(), otherConsole.getId());
+        loanController.creatLoan(console.getId(), student.getId(), "20-06-2012-15:40");
+        
+        Loan l = loanController.getAll(null).get(0);
+        assertEquals(size +1 , loanController.getAll(null).size());
+        
+        loanController.delete(l.getId());
+        
 
-        assertThat(2, is(equalTo(loanController.getById(loan.getId()).getConsoles().size())));
-
-        loanController.removeConsole(loan.getId(), console.getId());
-
-        assertThat(1, is(equalTo(loanController.getById(loan.getId()).getConsoles().size())));
-        assertThat(consoleController.getById(otherConsole.getId()).getId(), is(equalTo(loanController.getById(loan.getId()).getConsoles().get(0).getId())));
-
-        loanController.delete(loan.getId());
-        consoleController.delete(console.getId());
-        consoleController.delete(otherConsole.getId());
+        studentController.delete(        studentController.getAll(student).get(0).getId());
     }
 
-     @Test
-    public void testCreateAndDeleteOfStudent() {
-        Loan loan = new Loan(new GregorianCalendar());
-        loanController.create(loan, res);
-
-        assertThat(loan, is(equalTo(loanController.getById(loan.getId()))));
-
-        Student loanedBy = new Student("nyMail@nith.no");
-        studentController.create(loanedBy, res);
-
-        loanController.addStudent(loan.getId(), loanedBy.getId());
-
-        assertThat(studentController.getById(loanedBy.getId()), is(equalTo(loanController.getById(loan.getId()).getStudent())));
-
-        loanController.removeStudent(loan.getId());
-
-        assertThat(loanController.getById(loan.getId()).getStudent(), is(nullValue()));
-
-        loanController.delete(loan.getId());
-        studentController.delete(loanedBy.getId());
-    }
+    
+   
 
     @Test
     public void testGetLoansBetweenDates() {

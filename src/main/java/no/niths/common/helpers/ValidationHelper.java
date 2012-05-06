@@ -1,6 +1,6 @@
 package no.niths.common.helpers;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -50,8 +50,7 @@ public class ValidationHelper {
     }
 
     public static boolean isListEmpty(
-            @SuppressWarnings("rawtypes") ArrayList list) {
-
+            @SuppressWarnings("rawtypes") List list) {
         if (list.isEmpty()) {
             throw new ObjectNotFoundException();
         }

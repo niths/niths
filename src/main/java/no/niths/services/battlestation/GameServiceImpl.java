@@ -37,17 +37,6 @@ public class GameServiceImpl extends AbstractGenericService<Game> implements Gam
     @Autowired
     private ConsoleRepository consoleRepository;
 
-    public Game getById(long id) {
-        Game game = gameRepository.getById(id);
-
-        if (game != null) {
-            if (game.getConsole() != null) {
-                game.getConsole().getName();
-            }
-        }
-        return game;
-    }
-
     @Override
     public GenericRepository<Game> getRepository() {
         return gameRepository;

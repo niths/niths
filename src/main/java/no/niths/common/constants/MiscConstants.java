@@ -13,5 +13,6 @@ public class MiscConstants {
                                        "http://localhost:8080/niths",
                                NITHS_EMAIL        = "niths@nith.no",
                                REGULAR_NAME       = "(\\w[\\w\\s]*\\w){2,30}",
-                               VALID_EMAIL_DOMAIN = "nith.no";
+                               VALID_EMAIL_DOMAIN = "nith.no",
+                            		   CALENDAR_FORMAT_LOAN="dd-MM-yyyy-HH:mm";
 }

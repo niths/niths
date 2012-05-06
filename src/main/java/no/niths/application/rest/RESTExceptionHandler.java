@@ -11,6 +11,7 @@ import no.niths.application.rest.exception.BadRequestException;
 import no.niths.application.rest.exception.CustomParseException;
 import no.niths.application.rest.exception.HasNotRoleException;
 import no.niths.application.rest.exception.InvalidValueException;
+import no.niths.application.rest.exception.LoanException;
 import no.niths.application.rest.exception.NotInCollectionException;
 import no.niths.application.rest.exception.ObjectInCollectionException;
 import no.niths.application.rest.exception.ObjectNotFoundException;
@@ -298,4 +299,12 @@ public class RESTExceptionHandler {
 		res.setHeader("Error", cve.getMessage());
 	}
 
+	
+	@ExceptionHandler(LoanException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void loanException(
+			LoanException cve,
+			HttpServletResponse res) {
+		res.setHeader("Error", cve.getMessage());
+	}
 }

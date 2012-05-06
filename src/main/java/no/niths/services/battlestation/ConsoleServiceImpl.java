@@ -18,104 +18,103 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Service Class for Console
- *
+ * 
  * <p>
- * Inherits the basic CRUD actions and has methods
- * for addGame, removeGame,
+ * Inherits the basic CRUD actions and has methods for addGame, removeGame,
  * addLoan and removeLoan
  * </p>
  */
 @Service
 @Transactional
-public class ConsoleServiceImpl extends AbstractGenericService<Console> implements ConsoleService {
+public class ConsoleServiceImpl extends AbstractGenericService<Console>
+		implements ConsoleService {
 
-    private Logger logger = LoggerFactory.getLogger(ConsoleServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(ConsoleServiceImpl.class);
 
-    @Autowired
-    private ConsoleRepository consoleRepository;
+	@Autowired
+	private ConsoleRepository consoleRepository;
 
-    @Autowired
-    private GameRepository gameRepository;
+	@Autowired
+	private GameRepository gameRepository;
 
-    @Autowired
-    private LoanRepository loanRepository;
+	@Autowired
+	private LoanRepository loanRepository;
 
-    public Console getById(long id) {
-        Console console = consoleRepository.getById(id);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Long create(Console domain) {
+		domain.setIsLoand(false);
+		return super.create(domain);
+	}
 
-        if (console != null) {
-            console.getGames().size();
+	@Override
+	public GenericRepository<Console> getRepository() {
+		return consoleRepository;
+	}
 
-            if (console.getLoan() != null) {
-                console.getLoan().getStartTime();
-            }
-        }
-        return console;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addGame(Long consoleId, Long gameId) {
+		Console console = validate(consoleRepository.getById(consoleId),
+				Console.class);
+		checkIfObjectIsInCollection(console.getGames(), gameId, Game.class);
 
-    @Override
-    public GenericRepository<Console> getRepository() {
-        return consoleRepository;
-    }
+		Game game = gameRepository.getById(gameId);
+		ValidationHelper.isObjectNull(game, Game.class);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addGame(Long consoleId, Long gameId) {
-        Console console = validate(consoleRepository.getById(consoleId), Console.class);
-        checkIfObjectIsInCollection(console.getGames(), gameId, Game.class);
+		console.getGames().add(game);
+		logger.debug(MessageProvider.buildStatusMsg(Game.class, Status.UPDATED));
+	}
 
-        Game game = gameRepository.getById(gameId);
-        ValidationHelper.isObjectNull(game, Game.class);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeGame(Long consoleId, Long gameId) {
+		Console console = validate(consoleRepository.getById(consoleId),
+				Console.class);
+		checkIfIsRemoved(console.getGames().remove(new Game(gameId)),
+				Game.class);
+	}
 
-        console.getGames().add(game);
-        logger.debug(MessageProvider.buildStatusMsg(Game.class,
-                Status.UPDATED));
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addLoan(Long consoleId, Long loanId) {
+		Console console = validate(consoleRepository.getById(consoleId),
+				Console.class);
+		checkIfObjectExists(console.getLoan(), loanId, Loan.class);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeGame(Long consoleId, Long gameId) {
-        Console console = validate(consoleRepository.getById(consoleId), Console.class);
-        checkIfIsRemoved(console.getGames().remove(new Game(gameId)),
-                Game.class);
-    }
+		Loan loan = loanRepository.getById(loanId);
+		ValidationHelper.isObjectNull(loan, Loan.class);
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addLoan(Long consoleId, Long loanId) {
-        Console console = validate(consoleRepository.getById(consoleId), Console.class);
-        checkIfObjectExists(console.getLoan(), loanId, Loan.class);
+		console.setLoan(loan);
+		logger.debug(MessageProvider.buildStatusMsg(Loan.class, Status.UPDATED));
+	}
 
-        Loan loan = loanRepository.getById(loanId);
-        ValidationHelper.isObjectNull(loan, Loan.class);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void removeLoan(Long consoleId) {
+		Console console = validate(consoleRepository.getById(consoleId),
+				Console.class);
 
-        console.setLoan(loan);
-        logger.debug(MessageProvider.buildStatusMsg(Loan.class,
-                Status.UPDATED));
-    }
+		boolean isRemoved = false;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeLoan(Long consoleId) {
-        Console console = validate(consoleRepository.getById(consoleId), Console.class);
+		if (console.getLoan() != null) {
+			console.setLoan(null);
+			isRemoved = true;
+		}
 
-        boolean isRemoved = false;
-
-        if (console.getLoan() != null) {
-            console.setLoan(null);
-            isRemoved = true;
-        }
-
-        checkIfIsRemoved(isRemoved, Loan.class);
-    }
+		checkIfIsRemoved(isRemoved, Loan.class);
+	}
 }
