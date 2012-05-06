@@ -9,6 +9,7 @@ import no.niths.application.rest.helper.TimeDTO;
 import no.niths.application.rest.lists.ListAdapter;
 import no.niths.application.rest.lists.battlestation.LoanList;
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.battlestation.Loan;
 import no.niths.services.battlestation.interfaces.LoanService;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +53,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
     public void addConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
@@ -61,6 +64,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
     public void removeConsole(@PathVariable Long loanId, @PathVariable Long consoleId) {
@@ -71,6 +75,8 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
+            " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(value = "{loanId}/student/{studentId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student Added")
     public void addStudent(@PathVariable Long loanId, @PathVariable Long studentId) {
@@ -91,6 +97,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan> impleme
      * {@inheritDoc}
      */
     @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Loan> getLoansBetweenDates(TimeDTO timeDTO) {
