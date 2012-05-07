@@ -8,6 +8,7 @@ INSERT INTO roles(role_name) VALUES('ROLE_FADDER_LEADER');
 INSERT INTO roles(role_name) VALUES('ROLE_ANONYMOUS');
 INSERT INTO roles(role_name) VALUES('ROLE_STUDENT');
 INSERT INTO roles(role_name) VALUES('ROLE_DEVELOPER');
+INSERT INTO roles(role_name) VALUES('ROLE_LIBRARIAN');
 ---------------------------------------------------------------------
 --------------------------Subjects-----------------------------------
 INSERT INTO subjects (subject_code, name, description, start_time, end_time, weekday) VALUES('DB1100', 'Databaser 1', 'Innføring i databaser', '10:00', '11:00', 'MONDAY');

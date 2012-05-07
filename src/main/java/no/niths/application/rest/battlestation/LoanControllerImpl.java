@@ -52,8 +52,10 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 	private LoanService loanService;
 
 	private LoanList loanList = new LoanList();
-	private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT_LOAN);
 	
+	private DateFormat df = new SimpleDateFormat(
+			MiscConstants.CALENDAR_FORMAT_LOAN);
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -63,9 +65,9 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 	@RequestMapping(value = "console/{consoleId}/student/{studentId}/return/{returnDate}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK, reason = "Loan created")
 	public void creatLoan(@PathVariable Long consoleId,
-			@PathVariable Long studentId,@PathVariable String returnDate) {
+			@PathVariable Long studentId, @PathVariable String returnDate) {
 		GregorianCalendar calendar = new GregorianCalendar();
-		
+
 		try {
 			calendar.setTime(df.parse(returnDate));
 		} catch (ParseException e) {
@@ -73,7 +75,7 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 					+ MiscConstants.CALENDAR_FORMAT_LOAN + " ErrorOffset:"
 					+ e.getErrorOffset());
 		}
-		
+
 		loanService.createLoan(consoleId, studentId, calendar);
 	}
 
@@ -98,12 +100,57 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 		return loanList;
 	}
 
+	/**
+	 * 
+	 * {@inheritDoc}
+	 */
+
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_LIBRARIAN)
+	@RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
+	public void addConsole(@PathVariable Long loanId,
+			@PathVariable Long consoleId) {
+		loanService.addConsole(loanId, consoleId);
+	}
+
+	/**
+	 * 
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_LIBRARIAN)
+	@RequestMapping(value = "{loanId}/console/{consoleId}", method = RequestMethod.DELETE)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
+	public void removeConsole(@PathVariable Long loanId,
+			@PathVariable Long consoleId) {
+		loanService.removeConsole(loanId, consoleId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_AND_SR
+			+ " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
+	@RequestMapping(value = "{loanId}/student/{studentId}", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK, reason = "Student Added")
+	public void changeStudent(@PathVariable Long loanId,
+			@PathVariable Long studentId) {
+		loanService.changeStudent(loanId, studentId);
+	}
+
+	/**
+	 * Deletes the loan on the provided id and sets the consoles to be able
+	 * again.
+	 */
 	@Override
 	@PreAuthorize(SecurityConstants.ADMIN_SR_LIBRARIAN)
 	public void delete(@PathVariable long id) {
 		loanService.putBackConsoles(id);
 		super.delete(id);
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */

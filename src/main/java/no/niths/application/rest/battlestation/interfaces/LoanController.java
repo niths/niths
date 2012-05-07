@@ -48,4 +48,16 @@ public interface LoanController extends GenericRESTController<Loan> {
      * @return list of loans
      */
     List<Loan> getLoansBetweenDates(TimeDTO timeDTO);
+
+
+
+	void addConsole(Long loanId, Long consoleId);
+
+
+
+	void removeConsole(Long loanId, Long consoleId);
+
+
+
+	void changeStudent(Long loanId, Long studentId);
 }

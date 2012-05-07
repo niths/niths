@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Class for Console
@@ -28,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
  * </p>
  */
 @Service
-@Transactional
 public class ConsoleServiceImpl extends AbstractGenericService<Console>
 		implements ConsoleService {
 
@@ -48,7 +46,7 @@ public class ConsoleServiceImpl extends AbstractGenericService<Console>
 	 */
 	@Override
 	public Long create(Console domain) {
-		domain.setIsLoand(false);
+		domain.setIsLoaned(false);
 		return super.create(domain);
 	}
 

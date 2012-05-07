@@ -62,7 +62,7 @@ public class Console implements Domain {
     private String name;
 
     @Column
-    private Boolean isLoand;
+    private Boolean isLoaned;
     
     @Column
     private Integer locker;
@@ -161,11 +161,11 @@ public class Console implements Domain {
         return String.format("[%s][%s]", id, name);
     }
 
-	public Boolean isLoand() {
-		return isLoand;
+	public Boolean isLoaned() {
+		return isLoaned;
 	}
-
-	public void setIsLoand(Boolean isLoand) {
-		this.isLoand = isLoand;
+	
+	public void setIsLoaned(Boolean isLoaned) {
+		this.isLoaned = isLoaned;
 	}
 }

@@ -26,6 +26,7 @@ public final class SecurityConstants {
     public static final String ONLY_ADMIN = "hasRole('"+R_ADMIN+"')";
     public static final String ADMIN_AND_SR = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"')";
     public static final String ADMIN_AND_SR_AND_STUDENT = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_STUDENT+"')";
+    public static final String ADMIN_AND_SR_STUDENT_AND_LBRARIAN = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_STUDENT+"', '"+R_LIBRARIAN+"')";
     public static final String ADMIN_SR_COMMITTEE_LEADER = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_COMMITTEE_LEADER+"')";
     public static final String ADMIN_SR_LIBRARIAN = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_LIBRARIAN+"')";
     public static final String ADMIN_SR_FADDER_LEADER = "hasAnyRole('"+R_ADMIN+"', '"+R_SR+"', '"+R_FADDER_LEADER+"')";

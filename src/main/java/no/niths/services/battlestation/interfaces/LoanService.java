@@ -40,4 +40,27 @@ public interface LoanService extends GenericService<Loan> {
      * @param id
      */
 	void putBackConsoles(long id);
+
+	/**
+	 * 
+	 * @param loanId
+	 * @param consoleId
+	 */
+	void removeConsole(Long loanId, Long consoleId);
+
+	/**
+	 * 
+	 * @param loanId
+	 * @param studentId
+	 */
+	void changeStudent(Long loanId, Long studentId);
+
+	/**
+	 * 
+	 * @param loanId
+	 * @param consoleId
+	 */
+	void addConsole(Long loanId, Long consoleId);
+
+//	void removeStudent(Long loanId);
 }
