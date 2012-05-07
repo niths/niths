@@ -53,58 +53,58 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @Controller
 @RequestMapping(DomainConstantNames.FADDER)
 public class FadderGroupControllerImpl extends
-		AbstractRESTControllerImpl<FadderGroup> implements
-		FadderGroupController {
+        AbstractRESTControllerImpl<FadderGroup> implements
+        FadderGroupController {
 
-	@Autowired
-	private FadderGroupService service;
+    @Autowired
+    private FadderGroupService service;
 
-	private FadderGroupList fadderGroupList = new FadderGroupList();
+    private FadderGroupList fadderGroupList = new FadderGroupList();
 
-	private StudentList studentList = new StudentList();
+    private StudentList studentList = new StudentList();
 
-	
-	private LazyFixer<Student> lazyFixertStudent = new LazyFixer<Student>();
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Without nullifier
-	 */
-	@Override
-	public void renewList(List<FadderGroup> list) {
-		getList().clear();
-		getList().addAll(list);
-		getList().setData(getList()); // Used for XML marshaling
-		ValidationHelper.isListEmpty(getList());
-	}
+    private LazyFixer<Student> lazyFixertStudent = new LazyFixer<Student>();
 
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
-	public ArrayList<FadderGroup> getAll(FadderGroup domain) {
-		renewList(service.getAll(domain));
-		customLazyFixer();		
-		return fadderGroupList;
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * Without nullifier
+     */
+    @Override
+    public void renewList(List<FadderGroup> list) {
+        getList().clear();
+        getList().addAll(list);
+        getList().setData(getList()); // Used for XML marshaling
+        ValidationHelper.isListEmpty(getList());
+    }
 
-	/**
-	 * This method is setting fadder children to null and 
-	 * removes fadder leaders children so a lazy exception is avoided
-	 */
-	private void customLazyFixer() {
-		for (FadderGroup fg : fadderGroupList) {
-			fg.setFadderChildren(null);
-			lazyFixertStudent.clearRelations(fg.getLeaders());
-		}
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
+    public ArrayList<FadderGroup> getAll(FadderGroup domain) {
+        renewList(service.getAll(domain));
+        customLazyFixer();        
+        return fadderGroupList;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-	public void create(@RequestBody FadderGroup domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
+    /**
+     * This method is setting fadder children to null and 
+     * removes fadder leaders children so a lazy exception is avoided
+     */
+    private void customLazyFixer() {
+        for (FadderGroup fg : fadderGroupList) {
+            fg.setFadderChildren(null);
+            lazyFixertStudent.clearRelations(fg.getLeaders());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    public void create(@RequestBody FadderGroup domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
 
     /**
      * {@inheritDoc}
@@ -139,7 +139,6 @@ public class FadderGroupControllerImpl extends
     public ListAdapter<FadderGroup> getList() {
         return fadderGroupList;
     }
-
 
     /**
      * {@inheritDoc}
@@ -192,15 +191,15 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-    		value  = { "{groupId}/children/{studentIds}" },
-    		method = RequestMethod.POST)
+            value  = { "{groupId}/children/{studentIds}" },
+            method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Children added")
     public void addChildren(
-    		@PathVariable Long groupId,
-    		@PathVariable Long[] studentIds) {
-    	service.addChildren(groupId, studentIds);
+            @PathVariable Long groupId,
+            @PathVariable Long[] studentIds) {
+        service.addChildren(groupId, studentIds);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -263,8 +262,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
     @RequestMapping(value = "{groupId}/children", 
-    				method = RequestMethod.GET, 
-    				headers = RESTConstants.ACCEPT_HEADER)
+                    method = RequestMethod.GET, 
+                    headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getAllStudents(@PathVariable Long groupId) {
 
@@ -289,22 +288,22 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
     @RequestMapping(value = "groupless", 
-    				method = RequestMethod.GET, 
-    				headers = RESTConstants.ACCEPT_HEADER)
+                    method = RequestMethod.GET, 
+                    headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getAllStudentsNotInAGroup() {
-    	
-    	// Clear the list as it is never newed up more than once.
-    	studentList.clear();
-    	
-    	// Adds the current students to the list.
-    	studentList.addAll(service.getStudentsNotInAGroup());
-    	studentList.setData(studentList); // for XML marshalling
-    	ValidationHelper.isListEmpty(studentList);
-    	
-    	lazyFixertStudent.clearRelations(studentList);
-    	
-    	return studentList;
+        
+        // Clear the list as it is never newed up more than once.
+        studentList.clear();
+        
+        // Adds the current students to the list.
+        studentList.addAll(service.getStudentsNotInAGroup());
+        studentList.setData(studentList); // for XML marshalling
+        ValidationHelper.isListEmpty(studentList);
+
+        lazyFixertStudent.clearRelations(studentList);
+
+        return studentList;
     }
 
     /**
@@ -351,9 +350,9 @@ public class FadderGroupControllerImpl extends
         response.setHeader(ERROR, e.getMessage());
     }
 
-	private FadderGroup getGroup(Long groupId) {
-		FadderGroup group = super.getById(groupId);
-		ValidationHelper.isObjectNull(group, FadderGroup.class);
-		return group;
-	}
+    private FadderGroup getGroup(Long groupId) {
+        FadderGroup group = super.getById(groupId);
+        ValidationHelper.isObjectNull(group, FadderGroup.class);
+        return group;
+    }
 }
