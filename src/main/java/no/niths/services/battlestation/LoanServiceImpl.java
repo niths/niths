@@ -115,7 +115,8 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements
 
 		console.setIsLoaned(true);
 		loan.getConsoles().add(console);
-		logger.debug(MessageProvider.buildStatusMsg(Console.class,Status.UPDATED));
+		logger.debug(MessageProvider.buildStatusMsg(Console.class,
+				Status.UPDATED));
 
 	}
 
@@ -154,5 +155,18 @@ public class LoanServiceImpl extends AbstractGenericService<Loan> implements
 		loan.setStudent(student);
 		logger.debug(MessageProvider.buildStatusMsg(Student.class,
 				Status.UPDATED));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Loan> getExpiredLoans() {
+		List<Loan> expiredLoans = loanRepository.getExpiredLoans();
+		for (Loan l : expiredLoans) {
+			if (l.getStudent() != null)
+				l.getStudent().getFirstName();
+		}
+		return expiredLoans;
 	}
 }

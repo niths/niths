@@ -36,31 +36,35 @@ public interface LoanService extends GenericService<Loan> {
     void createLoan(Long consoleId, Long studentId, GregorianCalendar returnTime);
 
     /**
-     * 
+     * Enable the console for loaning again
      * @param id
      */
 	void putBackConsoles(long id);
 
 	/**
-	 * 
+	 * Removes a console from a loan if it more than one console on the loan.
 	 * @param loanId
 	 * @param consoleId
 	 */
 	void removeConsole(Long loanId, Long consoleId);
 
 	/**
-	 * 
+	 * The possibility to change loaner.
 	 * @param loanId
 	 * @param studentId
 	 */
 	void changeStudent(Long loanId, Long studentId);
 
 	/**
-	 * 
+	 * Method for adding a console to a existing loan.
 	 * @param loanId
 	 * @param consoleId
 	 */
 	void addConsole(Long loanId, Long consoleId);
 
-//	void removeStudent(Long loanId);
+	/**
+	 * 
+	 * @return
+	 */
+	List<Loan> getExpiredLoans();
 }

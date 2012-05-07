@@ -16,12 +16,19 @@ import java.util.List;
 public interface LoanRepository extends GenericRepository<Loan> {
 
     /**
-     * Returnes a list of loans with startTime and endTime
-     * between startTime and endTime
+     * Returns a list of loans on the start time between the parameters
+     * start and end time
      *
-     * @param startTime telles when the loan should start
-     * @param endTime telles when the loan should stop
-     * @return a list of loans between startTime and endTime
+     * @param startTime tells when the loan should start
+     * @param endTime is in this method the upper limit for the startTime
+     * @return a list of loans on start time, between the startTime and endTime provided
      */
     List<Loan> getLoansBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime);
+
+    /**
+     * Returns a list with loans with endTime less than the time now
+     * Returns
+     * @return
+     */
+	List<Loan> getExpiredLoans();
 }

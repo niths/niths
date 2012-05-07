@@ -1,5 +1,6 @@
 package no.niths.application.rest.battlestation.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.niths.application.rest.helper.TimeDTO;
@@ -49,15 +50,27 @@ public interface LoanController extends GenericRESTController<Loan> {
      */
     List<Loan> getLoansBetweenDates(TimeDTO timeDTO);
 
+    /**
+     * 
+     * @param loanId
+     * @param consoleId
+     */
+    void addConsole(Long loanId, Long consoleId);
 
-
-	void addConsole(Long loanId, Long consoleId);
-
-
-
+    /**
+     * 
+     * @param loanId
+     * @param consoleId
+     */
 	void removeConsole(Long loanId, Long consoleId);
-
-
-
+	
+	/**
+	 * 
+	 * @param loanId
+	 * @param studentId
+	 */
 	void changeStudent(Long loanId, Long studentId);
+	
+	ArrayList<Loan> getExpiredLoans();
+	
 }

@@ -3,6 +3,7 @@ package no.niths.application.rest.battlestation;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import no.niths.application.rest.lists.battlestation.LoanList;
 import no.niths.common.constants.DomainConstantNames;
 import no.niths.common.constants.MiscConstants;
 import no.niths.common.constants.SecurityConstants;
+import no.niths.common.helpers.LazyFixer;
 import no.niths.common.helpers.ValidationHelper;
 import no.niths.domain.battlestation.Loan;
 import no.niths.services.battlestation.interfaces.LoanService;
@@ -52,7 +54,9 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 	private LoanService loanService;
 
 	private LoanList loanList = new LoanList();
-	
+
+	private LazyFixer<Loan> loanFixer = new LazyFixer<Loan>();
+
 	private DateFormat df = new SimpleDateFormat(
 			MiscConstants.CALENDAR_FORMAT_LOAN);
 
@@ -164,6 +168,24 @@ public class LoanControllerImpl extends AbstractRESTControllerImpl<Loan>
 	 */
 	@Override
 	public ListAdapter<Loan> getList() {
+		return loanList;
+	}
+
+	@Override
+	@PreAuthorize(SecurityConstants.ADMIN_SR_LIBRARIAN)
+	@RequestMapping(value = "expired", method = RequestMethod.GET)
+	@ResponseBody
+	public ArrayList<Loan> getExpiredLoans() {
+
+		loanList.clear();
+		loanList.addAll(loanService.getExpiredLoans());
+		loanList.setData(loanList); // Used for XML marshaling
+		ValidationHelper.isListEmpty(loanList);	
+		
+		for (Loan l : loanList) {
+			l.setConsoles(null);
+			loanFixer.clearSubRelations(l);
+		}
 		return loanList;
 	}
 }
