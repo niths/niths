@@ -366,7 +366,7 @@
                 </configuration>
             </plugin>
 
-
+<!--
 <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
@@ -397,7 +397,7 @@
                 </execution>
         </executions>
 </plugin>
-
+-->
         </plugins>
 
     </build>
