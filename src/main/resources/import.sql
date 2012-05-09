@@ -644,7 +644,9 @@ INSERT INTO applications(id, title) VALUES(3, 'Timeplan');
 INSERT INTO applications(id, title) VALUES(4, 'Battelstation');
 
 --DO NOT CHANGE LINE UNDER! ID = 6 IMPORTANT
-INSERT INTO applications(id, title, application_key, application_token, enabled) VALUES(6, 'fuNITHs','NH3E5WANTJ', '/SwLTWhow4mp5CTtF94a4lI8OtY5J8lXw4L7sYO5jIJqQ1RgUR0D7B40toaU3lzP4Za7TDwgMXKdAlg2ZwCTTR7n9us4Y+8ZZVV2NbWkPD8zPdl1y8hl3CI6ZZ+SjEKrEihppMA8Irw=', 1);
+INSERT INTO applications(id, title, application_key, application_token, enabled) VALUES(6, 'Fadderuka NITHs WP7','NH3E5WANTJ', '/SwLTWhow4mp5CTtF94a4lI8OtY5J8lXw4L7sYO5jIJqQ1RgUR0D7B40toaU3lzP4Za7TDwgMXKdAlg2ZwCTTR7n9us4Y+8ZZVV2NbWkPD8zPdl1y8hl3CI6ZZ+SjEKrEihppMA8Irw=', 1);
+INSERT INTO applications(id, title, application_key, application_token, enabled) VALUES(7, 'Fadderuka NITHs iOS','HLRPDrXrie', 'bZ8SKvcrU6pau/u5qmv6UayxCcUCRT+rl4VoXLed/eAz7CVUtvBrT0HOwdnR3oru/ORQSuuuhMVIlAUZnB/xRDVOVsejaJusaThy0sS0MxaXYBjJtc8RxcEgob+mNYV7zx2ubakoGHY=', 1);
+INSERT INTO applications(id, title, application_key, application_token, enabled) VALUES(8, 'Fadderuka NITHs Android','dzbeao1fPG', 'DpHRKS0SfwHmF+buY4p07lzeDGyZHlbS6akUjDcT6g9W4TYSRy9uuOwhhUMFLweXemQYaxW6bVQrOGSk9ZoqR1Kgre9Rn1775qszY84uGB/c5D5UxgXrtMiLLuGxF6XL3chPtTLXNEs=', 1);
 ---------------------------------------------------------------------
 --------------------------developers_applications--------------------------------
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (1, 1);
@@ -653,6 +655,8 @@ INSERT INTO developers_applications(developers_id, applications_id) VALUES (2, 3
 
 --DO NOT CHANGE LINE UNDER IMPORTANT (ID = 6 for both!)
 INSERT INTO developers_applications(developers_id, applications_id) VALUES (6, 6);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (6, 7);
+INSERT INTO developers_applications(developers_id, applications_id) VALUES (6, 8);
 ---------------------------------------------------------------------
 --------------------------subjects_tutors--------------------------------
 INSERT INTO subjects_tutors VALUES (1,1);
