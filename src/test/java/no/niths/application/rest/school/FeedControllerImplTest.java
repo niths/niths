@@ -41,6 +41,8 @@ public class FeedControllerImplTest {
     @Autowired
     private LocationController locationController;
 
+    private final String MESSAGE = "Vi synes Java er helt OK";
+
     private Feed testFeed01;
     private Feed testFeed02;
     private Feed testFeed03;
@@ -53,8 +55,8 @@ public class FeedControllerImplTest {
         res = new MockHttpServletResponse();
         testFeed01 = new Feed("A funny message");
         testFeed02 = new Feed("Paryt beer");
-        testFeed03 = new Feed("Not ");
-        testFeed04 = new Feed("A funny message 22 ");
+        testFeed03 = new Feed("Not so funny");
+        testFeed04 = new Feed("A funny message 22");
 
         controller.create(testFeed01, res);
         controller.create(testFeed02, res);

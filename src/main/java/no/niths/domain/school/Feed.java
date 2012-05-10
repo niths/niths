@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
@@ -71,7 +73,9 @@ public class Feed implements Domain {
     private Long id;
 
     @Column
-    @Size(min = 0, max = 255, message = "Can not be more then 255 chars")
+    @Pattern(
+            regexp  = ValidationConstants.LARGE,
+            message = "Invalid message (should be 2 -500 alphanumeric letters")
     private String message;
 
     @Column(name = "published")
