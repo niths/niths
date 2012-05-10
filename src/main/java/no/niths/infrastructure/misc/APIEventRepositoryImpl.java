@@ -19,9 +19,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class APIEventRepositoryImpl extends AbstractGenericRepositoryImpl<APIEvent>
-		implements APIEventRepository {
+        implements APIEventRepository {
 
-	public APIEventRepositoryImpl() {
-		super(APIEvent.class, new APIEvent());
-	}
+    public APIEventRepositoryImpl() {
+        super(APIEvent.class, new APIEvent());
+    }
 }

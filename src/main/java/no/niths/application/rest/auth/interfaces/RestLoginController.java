@@ -18,22 +18,22 @@ import no.niths.security.SessionToken;
  */
 public interface RestLoginController {
 
-	/**
-	 * Authorize the user. Use the returned session token for future requests
+    /**
+     * Authorize the user. Use the returned session token for future requests
      *
      * Too login add /login
      * too the URL
      *
      * Use the POST method
-	 * 
-	 * @param token for authentication via Google
-	 * @return encrypted session token valid for
+     * 
+     * @param token for authentication via Google
+     * @return encrypted session token valid for
      *   (See AppNames.SESSION_VALID_TIME)
-	 */
-	Student login(SessionToken token, HttpServletRequest req,
-			HttpServletResponse res);
+     */
+    Student login(SessionToken token, HttpServletRequest req,
+            HttpServletResponse res);
 
-	/**
+    /**
      * Logs out the student
      *
      * Too logout add /logout/{studentId}
@@ -43,6 +43,6 @@ public interface RestLoginController {
      * 
      * @param studentId is of the student top log out
      */
-	void logout(Long studentId);
-	
+    void logout(Long studentId);
+    
 }

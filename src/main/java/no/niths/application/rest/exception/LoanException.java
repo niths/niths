@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class LoanException extends RuntimeException{
 
-	private static final long serialVersionUID = -2320201931656249577L;
+    private static final long serialVersionUID = -2320201931656249577L;
 
-	public LoanException(){
+    public LoanException(){
         super();
     }
 

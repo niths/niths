@@ -63,128 +63,128 @@ import org.hibernate.annotations.CascadeType;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Feed implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = -7280194759501252804L;
+    @Transient
+    private static final long serialVersionUID = -7280194759501252804L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column
-	@Size(min = 0, max = 255, message = "Can not be more then 255 chars")
-	private String message;
+    @Column
+    @Size(min = 0, max = 255, message = "Can not be more then 255 chars")
+    private String message;
 
-	@Column(name = "published")
-	@Temporal(TemporalType.TIMESTAMP)
-	@XmlSchemaType(name = "date")
-	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	private Calendar published;
+    @Column(name = "published")
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+    private Calendar published;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_location", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
-	@Cascade(CascadeType.ALL)
-	private Location location;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "feeds_location", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
+    @Cascade(CascadeType.ALL)
+    private Location location;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	@Cascade(CascadeType.ALL)
-	private Student student;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "feeds_student", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @Cascade(CascadeType.ALL)
+    private Student student;
 
-	@JsonSerialize(as=Committee.class)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "feeds_committee", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "committee_id"))
-	@Cascade(CascadeType.ALL)
-	private Committee committee;
+    @JsonSerialize(as=Committee.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "feeds_committee", joinColumns = @JoinColumn(name = "feeds_id"), inverseJoinColumns = @JoinColumn(name = "committee_id"))
+    @Cascade(CascadeType.ALL)
+    private Committee committee;
 
-	public Feed() {
-		this(null, null);
-		setPublished(null);
-		setStudent(null);
-		setLocation(null);
-		setCommittee(null);
-	}
+    public Feed() {
+        this(null, null);
+        setPublished(null);
+        setStudent(null);
+        setLocation(null);
+        setCommittee(null);
+    }
 
-	public Feed(String message) {
-		setMessage(message);
-		setPublished(new GregorianCalendar());
-	}
+    public Feed(String message) {
+        setMessage(message);
+        setPublished(new GregorianCalendar());
+    }
 
-	public Feed(Long feedId) {
-		setId(feedId);
-	}
+    public Feed(Long feedId) {
+        setId(feedId);
+    }
 
-	public Feed(Long feedId, String message) {
-		setId(feedId);
-		setMessage(message);
-	}
+    public Feed(Long feedId, String message) {
+        setId(feedId);
+        setMessage(message);
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	@JsonSerialize(as = Student.class)
-	public Student getStudent() {
-		return student;
-	}
+    @JsonSerialize(as = Student.class)
+    public Student getStudent() {
+        return student;
+    }
 
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
-	@Override
-	public boolean equals(Object that) {
-		if (this == that)
-			return true;
+    @Override
+    public boolean equals(Object that) {
+        if (this == that)
+            return true;
 
-		if (!(that instanceof Feed))
-			return false;
+        if (!(that instanceof Feed))
+            return false;
 
-		Feed feed = (Feed) that;
+        Feed feed = (Feed) that;
 
-		return (getId() == (feed.getId()));
-	}
+        return (getId() == (feed.getId()));
+    }
 
-	@Override
-	public String toString() {
-		return String.format("[%s][%s]", id, message);
-	}
+    @Override
+    public String toString() {
+        return String.format("[%s][%s]", id, message);
+    }
 
-	@JsonSerialize(as = Location.class)
-	public Location getLocation() {
-		return location;
-	}
+    @JsonSerialize(as = Location.class)
+    public Location getLocation() {
+        return location;
+    }
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-	public Calendar getPublished() {
-		return published;
-	}
+    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
+    public Calendar getPublished() {
+        return published;
+    }
 
-	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-	public void setPublished(Calendar published) {
-		this.published = published;
-	}
+    @JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
+    public void setPublished(Calendar published) {
+        this.published = published;
+    }
 
-	public Committee getCommittee() {
-		return committee;
-	}
+    public Committee getCommittee() {
+        return committee;
+    }
 
-	public void setCommittee(Committee committee) {
-		this.committee = committee;
-	}
+    public void setCommittee(Committee committee) {
+        this.committee = committee;
+    }
 }

@@ -18,25 +18,25 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlDateAdapter extends XmlAdapter<String,Date>{
 
-	private Logger logger = LoggerFactory
-			.getLogger(XmlDateAdapter.class);
-	private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
-	@Override
-	public Date unmarshal(String date){
-		
-		try {
-			return df.parse(date);
-		} catch (ParseException px) {
-			logger.error(px.getMessage(),px);
-			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstants.DATE_FORMAT + " ErrorOffset:"
-					+ px.getErrorOffset());
-		}
-	}
+    private Logger logger = LoggerFactory
+            .getLogger(XmlDateAdapter.class);
+    private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
+    @Override
+    public Date unmarshal(String date){
+        
+        try {
+            return df.parse(date);
+        } catch (ParseException px) {
+            logger.error(px.getMessage(),px);
+            throw new CustomParseException("Invalid syntacs! Valid syntax : "
+                    + MiscConstants.DATE_FORMAT + " ErrorOffset:"
+                    + px.getErrorOffset());
+        }
+    }
 
-	@Override
-	public String marshal(Date date){
-		return df.format(date);
-	}
+    @Override
+    public String marshal(Date date){
+        return df.format(date);
+    }
 
 }

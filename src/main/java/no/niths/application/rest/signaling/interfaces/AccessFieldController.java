@@ -23,7 +23,7 @@ public interface AccessFieldController
      * @param afId id for the accessField
      * @param apId id for the accessPoint
      */
-	void addAccessPoint(long afId, long apId);
+    void addAccessPoint(long afId, long apId);
 
     /**
      * Too remove accessPoint add /{afId}/accesspoint
@@ -33,6 +33,6 @@ public interface AccessFieldController
      *
      * @param afId id for the accessField
      */
-	void removeAccessPoint(long afId);
-	
+    void removeAccessPoint(long afId);
+    
 }

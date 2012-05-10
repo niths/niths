@@ -21,34 +21,34 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class StudentRepositoryImpl extends AbstractGenericRepositoryImpl<Student>
-		implements StudentRepository {
+        implements StudentRepository {
 
-	
-	private QueryGenerator<Student> queryGen;
-	
-	public StudentRepositoryImpl() {
-		super(Student.class, new Student());
-		queryGen = new QueryGenerator<Student>(Student.class);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Student> getStudentsWithNamedCourse(String name) {
-		String sql = "from " + Student.class.getSimpleName()
-				+ " s join fetch s.courses c where c.name=:name";
-		return getSession().getCurrentSession().createQuery(sql)
-				.setString("name", name)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-	}
+    
+    private QueryGenerator<Student> queryGen;
+    
+    public StudentRepositoryImpl() {
+        super(Student.class, new Student());
+        queryGen = new QueryGenerator<Student>(Student.class);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<Student> getStudentsWithNamedCourse(String name) {
+        String sql = "from " + Student.class.getSimpleName()
+                + " s join fetch s.courses c where c.name=:name";
+        return getSession().getCurrentSession().createQuery(sql)
+                .setString("name", name)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Student> getStudentByColumn(String column, String criteria) {
-		return queryGen.whereQuery(criteria, column, getSession().getCurrentSession());
-	}
+    @Override
+    public List<Student> getStudentByColumn(String column, String criteria) {
+        return queryGen.whereQuery(criteria, column, getSession().getCurrentSession());
+    }
 
 }

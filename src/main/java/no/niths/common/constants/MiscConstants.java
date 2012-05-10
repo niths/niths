@@ -14,5 +14,5 @@ public class MiscConstants {
                                NITHS_EMAIL        = "nithscommunity@gmail.com",
                                REGULAR_NAME       = "(\\w[\\w\\s]*\\w){2,30}",
                                VALID_EMAIL_DOMAIN = "nith.no",
-                            		   CALENDAR_FORMAT_LOAN="dd-MM-yyyy-HH:mm";
+                                       CALENDAR_FORMAT_LOAN="dd-MM-yyyy-HH:mm";
 }

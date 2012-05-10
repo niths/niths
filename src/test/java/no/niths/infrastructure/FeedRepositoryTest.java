@@ -19,50 +19,50 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FeedRepositoryTest {
 
-	@Autowired
-	private FeedRepoistory repo;
+    @Autowired
+    private FeedRepoistory repo;
 
-	@Test
-	public void testCRUD() {
-		// create
-		int size = repo.getAll(null).size();
+    @Test
+    public void testCRUD() {
+        // create
+        int size = repo.getAll(null).size();
 
-		Feed feed = new Feed("Hello this is a message");
-		repo.create(feed);
-		assertEquals(size + 1, repo.getAll(null).size());
-		assertEquals(feed, repo.getById(feed.getId()));
+        Feed feed = new Feed("Hello this is a message");
+        repo.create(feed);
+        assertEquals(size + 1, repo.getAll(null).size());
+        assertEquals(feed, repo.getById(feed.getId()));
 
-		// update time
-		feed.setMessage("new message");
-		repo.update(feed);
-		feed = repo.getById(feed.getId());
-		assertEquals("new message", feed.getMessage());
+        // update time
+        feed.setMessage("new message");
+        repo.update(feed);
+        feed = repo.getById(feed.getId());
+        assertEquals("new message", feed.getMessage());
 
-		repo.delete(feed.getId());
-		assertEquals(size, repo.getAll(null).size());
+        repo.delete(feed.getId());
+        assertEquals(size, repo.getAll(null).size());
 
-	}
+    }
 
-	@Test 
-	public void testEventLocation(){
-	
-		Feed feed = new Feed("Hello this is a message");
-		Location loc = new Location("Oslo",10.2304,90.2030);
-		feed.setLocation(loc);
-		
-		repo.create(feed);
-		Feed temp = repo.getAll(feed).get(0);
-		assertEquals(feed,temp);
-		
-		
-		assertEquals(loc, temp.getLocation());
-		
-		// update 
-		feed.setMessage("new message");
-		temp = repo.getAll(feed).get(0);
-		
-		assertEquals(feed.getMessage(), temp.getMessage());
-	
-		assertEquals(loc, temp.getLocation());
-	}
+    @Test 
+    public void testEventLocation(){
+    
+        Feed feed = new Feed("Hello this is a message");
+        Location loc = new Location("Oslo",10.2304,90.2030);
+        feed.setLocation(loc);
+        
+        repo.create(feed);
+        Feed temp = repo.getAll(feed).get(0);
+        assertEquals(feed,temp);
+        
+        
+        assertEquals(loc, temp.getLocation());
+        
+        // update 
+        feed.setMessage("new message");
+        temp = repo.getAll(feed).get(0);
+        
+        assertEquals(feed.getMessage(), temp.getMessage());
+    
+        assertEquals(loc, temp.getLocation());
+    }
 }

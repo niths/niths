@@ -21,24 +21,24 @@ import org.slf4j.LoggerFactory;
  */
 public class JsonCalendarDeserializerAdapter extends JsonDeserializer<Calendar> {
 
-	private Logger logger = LoggerFactory
-			.getLogger(JsonCalendarDeserializerAdapter.class);
-	private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
+    private Logger logger = LoggerFactory
+            .getLogger(JsonCalendarDeserializerAdapter.class);
+    private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
 
-	@Override
-	public Calendar deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException { 
-		Calendar calendar = new GregorianCalendar();		
-		try {
-			logger.debug("calendarDezerializer is entred" + jp.getText());
-			calendar.setTime(df.parse(jp.getText()));
-			
-		} catch (ParseException px) {
-			logger.error(px.getMessage(),px);
-			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstants.CALENDAR_FORMAT + " ErrorOffset:"
-					+ px.getErrorOffset());
-		}
-		return calendar;
-	}
+    @Override
+    public Calendar deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException { 
+        Calendar calendar = new GregorianCalendar();        
+        try {
+            logger.debug("calendarDezerializer is entred" + jp.getText());
+            calendar.setTime(df.parse(jp.getText()));
+            
+        } catch (ParseException px) {
+            logger.error(px.getMessage(),px);
+            throw new CustomParseException("Invalid syntacs! Valid syntax : "
+                    + MiscConstants.CALENDAR_FORMAT + " ErrorOffset:"
+                    + px.getErrorOffset());
+        }
+        return calendar;
+    }
 }

@@ -14,50 +14,50 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StringCryptationServiceImpl implements StringCryptationService {
-	
-	private StandardPBEStringEncryptor jasypt;
-	
-	@Value("${jasypt.password}")
-	private String password;
-	
-	@PostConstruct
-	public void init(){
-		jasypt = new StandardPBEStringEncryptor();
-		jasypt.setPassword(password);
-	}
+    
+    private StandardPBEStringEncryptor jasypt;
+    
+    @Value("${jasypt.password}")
+    private String password;
+    
+    @PostConstruct
+    public void init(){
+        jasypt = new StandardPBEStringEncryptor();
+        jasypt.setPassword(password);
+    }
 
     /**
      * {@inheritDoc}
      */
-	public String encrypt(String txt) throws EncryptionOperationNotPossibleException{
-		return jasypt.encrypt(txt);
-	}
+    public String encrypt(String txt) throws EncryptionOperationNotPossibleException{
+        return jasypt.encrypt(txt);
+    }
 
     /**
      * {@inheritDoc}
      */
-	public String decrypt(String txt) throws EncryptionOperationNotPossibleException{
-		return jasypt.decrypt(txt);
-	}
+    public String decrypt(String txt) throws EncryptionOperationNotPossibleException{
+        return jasypt.decrypt(txt);
+    }
 
-	
-	//Getters and setters
-	public StandardPBEStringEncryptor getJasypt() {
-		return jasypt;
-	}
+    
+    //Getters and setters
+    public StandardPBEStringEncryptor getJasypt() {
+        return jasypt;
+    }
 
-	public void setJasypt(StandardPBEStringEncryptor jasypt) {
-		this.jasypt = jasypt;
-	}
+    public void setJasypt(StandardPBEStringEncryptor jasypt) {
+        this.jasypt = jasypt;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
 
 }

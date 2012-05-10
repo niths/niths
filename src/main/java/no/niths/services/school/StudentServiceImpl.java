@@ -305,10 +305,10 @@ public class StudentServiceImpl extends AbstractGenericService<Student>
         // TODO  need to provide a group number
         if(role.getRoleName().equals("ROLE_FADDER_LEADER")){
         
-        	
- 		// TODO  need to provide a committee
+            
+         // TODO  need to provide a committee
         }else if(role.getRoleName().equals("ROLE_COMMITTEE_LEADER")){        
-              	
+                  
         }
   */      
         student.getRoles().add(role);

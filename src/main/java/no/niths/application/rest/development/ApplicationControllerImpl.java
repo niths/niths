@@ -38,96 +38,96 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.APPLICATIONS)
 public class ApplicationControllerImpl extends
-		AbstractRESTControllerImpl<Application> implements
-		ApplicationController {
+        AbstractRESTControllerImpl<Application> implements
+        ApplicationController {
 
-	@Autowired
-	private ApplicationService service;
+    @Autowired
+    private ApplicationService service;
 
-	private ApplicationList applicationList = new ApplicationList();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(
-	        @RequestBody Application domain,
-	        HttpServletResponse res) {
-		super.create(domain, res);
-	}
-
-	/**
-	 * Deletes an application
-	 * <p>
-	 * Developers must log in to be able to delete their applications
-	 * </p>
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.appId == #id)")
-	public void delete(@PathVariable long id) {
-		super.delete(id);
-	}
-
-	/**
-	 * Updates an application
-	 * <p>
-	 * Developers must log in to be able to update their applications
-	 * </p>
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR+ " or (principal.appId == #domain.id)")
-	public void update(@RequestBody Application domain) {
-		super.update(domain);
-	}
+    private ApplicationList applicationList = new ApplicationList();
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{applicationId}/enable" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application enabled")
-	public void enableApplication(@PathVariable Long applicationId) {
-		service.enableApplication(applicationId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void create(
+            @RequestBody Application domain,
+            HttpServletResponse res) {
+        super.create(domain, res);
+    }
+
+    /**
+     * Deletes an application
+     * <p>
+     * Developers must log in to be able to delete their applications
+     * </p>
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.appId == #id)")
+    public void delete(@PathVariable long id) {
+        super.delete(id);
+    }
+
+    /**
+     * Updates an application
+     * <p>
+     * Developers must log in to be able to update their applications
+     * </p>
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR+ " or (principal.appId == #domain.id)")
+    public void update(@RequestBody Application domain) {
+        super.update(domain);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application disable")
-	public void disableApplication(@PathVariable Long applicationId){
-		service.disableApplication(applicationId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = { "{applicationId}/enable" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Application enabled")
+    public void enableApplication(@PathVariable Long applicationId) {
+        service.enableApplication(applicationId);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Application> getTopApps(@PathVariable int maxResults){
-		renewList(service.getTopApps(maxResults));
-		return applicationList;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Application> getService() {
-		return service;
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = { "{applicationId}/disable" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Application disable")
+    public void disableApplication(@PathVariable Long applicationId){
+        service.disableApplication(applicationId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Application> getList() {
-		return applicationList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = {"top/{maxResults}"}, method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Application> getTopApps(@PathVariable int maxResults){
+        renewList(service.getTopApps(maxResults));
+        return applicationList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Application> getService() {
+        return service;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Application> getList() {
+        return applicationList;
+    }
 
 }

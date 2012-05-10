@@ -111,10 +111,10 @@ public class Course implements Domain {
     }
 
     public Course(Long courseId) {
-		setId(courseId);
-	}
+        setId(courseId);
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 

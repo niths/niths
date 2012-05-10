@@ -16,37 +16,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class APIEventServiceTest {
 
-	@Autowired
-	private APIEventService apiService;
-	
-	@Test
-	public void testCRUD(){
-		
-		int apiSize = apiService.getAll(null).size();
-		
-		APIEvent a1 = new APIEvent();
-		APIEvent a2 = new APIEvent();
-		a1.setTitle("aaaTitle");
-		apiService.create(a1);
-		apiService.create(a2);
-		assertEquals(apiSize + 2, apiService.getAll(null).size());
-		
-		assertEquals(a1, apiService.getById(a1.getId()));
-		
-		a1.setTitle("bbbTitle");
-		apiService.update(a1);
-		assertEquals(a1.getTitle(), apiService.getById(a1.getId()).getTitle());
-		
-		APIEvent temp = new APIEvent();
-		temp.setTitle("aaaTitle");
-		assertEquals(0, apiService.getAll(temp).size());
-		temp.setTitle("bbbTitle");
-		assertEquals(1, apiService.getAll(temp).size());
-		
-		apiService.hibernateDelete(a1.getId());
-		apiService.hibernateDelete(a2.getId());
-		
-		assertEquals(apiSize, apiService.getAll(null).size());
-	}
-	
+    @Autowired
+    private APIEventService apiService;
+    
+    @Test
+    public void testCRUD(){
+        
+        int apiSize = apiService.getAll(null).size();
+        
+        APIEvent a1 = new APIEvent();
+        APIEvent a2 = new APIEvent();
+        a1.setTitle("aaaTitle");
+        apiService.create(a1);
+        apiService.create(a2);
+        assertEquals(apiSize + 2, apiService.getAll(null).size());
+        
+        assertEquals(a1, apiService.getById(a1.getId()));
+        
+        a1.setTitle("bbbTitle");
+        apiService.update(a1);
+        assertEquals(a1.getTitle(), apiService.getById(a1.getId()).getTitle());
+        
+        APIEvent temp = new APIEvent();
+        temp.setTitle("aaaTitle");
+        assertEquals(0, apiService.getAll(temp).size());
+        temp.setTitle("bbbTitle");
+        assertEquals(1, apiService.getAll(temp).size());
+        
+        apiService.hibernateDelete(a1.getId());
+        apiService.hibernateDelete(a2.getId());
+        
+        assertEquals(apiSize, apiService.getAll(null).size());
+    }
+    
 }

@@ -18,9 +18,9 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan( "no.niths.security" )
 @ImportResource( { "classpath*:springSecurityConfig.xml" } )
 public class SecurityConfig{
-	
-	public SecurityConfig(){
-		super();
-	}
+    
+    public SecurityConfig(){
+        super();
+    }
 
 }

@@ -70,12 +70,12 @@ public interface FadderGroupService extends GenericService<FadderGroup> {
      * Returns all students without a fadder group
      * @return list with students
      */
-	List<Student> getStudentsNotInAGroup();
+    List<Student> getStudentsNotInAGroup();
 
     /**
      * Adds a list of children to the fadderGroup
      * @param groupId id for fadderGroup
      * @param studentIds list of ids for students
      */
-	void addChildren(Long groupId, Long[] studentIds);
+    void addChildren(Long groupId, Long[] studentIds);
 }

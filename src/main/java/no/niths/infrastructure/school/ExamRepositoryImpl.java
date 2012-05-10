@@ -19,19 +19,19 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ExamRepositoryImpl extends AbstractGenericRepositoryImpl<Exam>
-		implements ExamRepository {
+        implements ExamRepository {
 
-	private QueryGenerator<Exam> queryGen;
+    private QueryGenerator<Exam> queryGen;
 
-	public ExamRepositoryImpl() {
-		super(Exam.class, new Exam());
-		queryGen = new QueryGenerator<>(Exam.class);
-	}
+    public ExamRepositoryImpl() {
+        super(Exam.class, new Exam());
+        queryGen = new QueryGenerator<>(Exam.class);
+    }
 
-	@Override
-	public List<Exam> getEventsBetweenDates(GregorianCalendar startTime,
-			GregorianCalendar endTime) {
-		return queryGen.getBetweenDates(startTime, endTime, getSession().getCurrentSession());
-	}
+    @Override
+    public List<Exam> getEventsBetweenDates(GregorianCalendar startTime,
+            GregorianCalendar endTime) {
+        return queryGen.getBetweenDates(startTime, endTime, getSession().getCurrentSession());
+    }
 
 }

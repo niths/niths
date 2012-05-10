@@ -15,21 +15,21 @@ package no.niths.services.auth.interfaces;
  */
 
 public interface TokenGeneratorService {
-	
-	/**
-	 * Generates a token based on the userId
-	 * 
-	 * @param userId id of the user
-	 */
-	String generateToken(Long userId);
-	
-	/**
-	 * Verifies the format of the provided token
-	 * 
-	 * @param token the string to verify
-	 * @param checkTime true if we want to verify the token timestamp
-	 * @return token secret. Usually the domain id.
-	 */
-	Long verifyTokenFormat(String token, boolean checkTime);
+    
+    /**
+     * Generates a token based on the userId
+     * 
+     * @param userId id of the user
+     */
+    String generateToken(Long userId);
+    
+    /**
+     * Verifies the format of the provided token
+     * 
+     * @param token the string to verify
+     * @param checkTime true if we want to verify the token timestamp
+     * @return token secret. Usually the domain id.
+     */
+    Long verifyTokenFormat(String token, boolean checkTime);
 
 }

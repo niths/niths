@@ -13,7 +13,7 @@ import no.niths.domain.school.Subject;
  */
 public interface SubjectController extends GenericRESTController<Subject> {
 
-	/**
+    /**
      * Removes a tutor from a subject
      *
      * Too remove tutor add /{subjectId}/tutor/{studentId}

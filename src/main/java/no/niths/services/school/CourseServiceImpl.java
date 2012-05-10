@@ -29,23 +29,23 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CourseServiceImpl extends AbstractGenericService<Course> implements
-		CourseService {
+        CourseService {
 
     private Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
-	@Autowired
-	private CourseRepository courseRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Autowired
-	private StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-	private SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
-	@Override
-	public GenericRepository<Course> getRepository() {
-		return courseRepository;
-	}
+    @Override
+    public GenericRepository<Course> getRepository() {
+        return courseRepository;
+    }
 
     /**
      * {@inheritDoc}

@@ -46,19 +46,19 @@ public class StudentControllerTest {
     public static final String EMAIL = "epost@nith.no";
 
     @Autowired
-	private StudentController studController;
+    private StudentController studController;
 
     @Autowired
-	private CourseController courseController;
+    private CourseController courseController;
 
     @Autowired
-	private CommitteeController committeeController;
+    private CommitteeController committeeController;
 
     @Autowired
-	private FeedController feedController;
+    private FeedController feedController;
 
     @Autowired
-	private LoanController loanController;
+    private LoanController loanController;
 
     @Autowired
     private LockerController lockerController;
@@ -79,76 +79,76 @@ public class StudentControllerTest {
         studController.delete(student2.getId());
     }
 
-	@Test(expected= ConstraintViolationException.class)
-	public void testInsertNullObject_shallThrowException() {
-		
-		Student s = new Student();
-		studController.create(s, res);
-	}
-	
-	@Test
-	public void testCreateAndDeleteWithExistingIds(){
-		int size = 0;
-		try {
-			size = studController.getAll(null).size();
-		} catch (ObjectNotFoundException e) {
-			//size = 0
-		}
-		
-		Student s = new Student("mail@mail.com");
-		studController.create(s, res);
-		
-		assertEquals(size + 1, studController.getAll(null).size());
-		
-		studController.delete(s.getId());
-		int currentSize = 0;
-		try {
-			currentSize  = studController.getAll(null).size();
-		} catch (ObjectNotFoundException e) {
-			//size = 0
-		}
-		
-		assertEquals(size, currentSize);
-		
-	}
-	
-	@Test(expected = ObjectNotFoundException.class)
-	public void testDeleteWithUnvalidId(){
-		studController.delete(new Long(9391));
-	}
-	
-	@Test
-	public void testGetMethods(){
-		int size = 0;
-		try {
-			size = studController.getAll(null).size();
-		} catch (ObjectNotFoundException e) {
-			//size = 0
-		}
-		Student s1 = new Student("mail1@mail.com");
-		Student s2 = new Student("mail2@mail.com");
-		Student s3 = new Student("mail3@mail.com");
-		
-		studController.create(s1, res);
-		studController.create(s2, res);
-		studController.create(s3, res);
-		
-		assertEquals(size + 3, studController.getAll(null).size());
-		
-		assertEquals(s1, studController.getById(s1.getId()));
-		
-		assertEquals(1, studController.getAll(s1).size());
-		
-		s1.setEmail("xxx@mail.com");
-		assertEquals("mail1@mail.com", studController.getById(s1.getId()).getEmail());
-		
-		studController.update(s1);
-		assertEquals("xxx@mail.com", studController.getById(s1.getId()).getEmail());
-		
-		studController.delete(s1.getId());
-		studController.delete(s2.getId());
-		studController.delete(s3.getId());
-	}
+    @Test(expected= ConstraintViolationException.class)
+    public void testInsertNullObject_shallThrowException() {
+        
+        Student s = new Student();
+        studController.create(s, res);
+    }
+    
+    @Test
+    public void testCreateAndDeleteWithExistingIds(){
+        int size = 0;
+        try {
+            size = studController.getAll(null).size();
+        } catch (ObjectNotFoundException e) {
+            //size = 0
+        }
+        
+        Student s = new Student("mail@mail.com");
+        studController.create(s, res);
+        
+        assertEquals(size + 1, studController.getAll(null).size());
+        
+        studController.delete(s.getId());
+        int currentSize = 0;
+        try {
+            currentSize  = studController.getAll(null).size();
+        } catch (ObjectNotFoundException e) {
+            //size = 0
+        }
+        
+        assertEquals(size, currentSize);
+        
+    }
+    
+    @Test(expected = ObjectNotFoundException.class)
+    public void testDeleteWithUnvalidId(){
+        studController.delete(new Long(9391));
+    }
+    
+    @Test
+    public void testGetMethods(){
+        int size = 0;
+        try {
+            size = studController.getAll(null).size();
+        } catch (ObjectNotFoundException e) {
+            //size = 0
+        }
+        Student s1 = new Student("mail1@mail.com");
+        Student s2 = new Student("mail2@mail.com");
+        Student s3 = new Student("mail3@mail.com");
+        
+        studController.create(s1, res);
+        studController.create(s2, res);
+        studController.create(s3, res);
+        
+        assertEquals(size + 3, studController.getAll(null).size());
+        
+        assertEquals(s1, studController.getById(s1.getId()));
+        
+        assertEquals(1, studController.getAll(s1).size());
+        
+        s1.setEmail("xxx@mail.com");
+        assertEquals("mail1@mail.com", studController.getById(s1.getId()).getEmail());
+        
+        studController.update(s1);
+        assertEquals("xxx@mail.com", studController.getById(s1.getId()).getEmail());
+        
+        studController.delete(s1.getId());
+        studController.delete(s2.getId());
+        studController.delete(s3.getId());
+    }
 
     @Test
     public void testCreateAndDeleteOfCourses() {
@@ -265,7 +265,7 @@ public class StudentControllerTest {
 
     @Test
     public void testGetStudentWithRoles(){
-    	//TODO: make test here!
+        //TODO: make test here!
     }
 
     // XXX: Should this and similar methods be moved to the service layer?

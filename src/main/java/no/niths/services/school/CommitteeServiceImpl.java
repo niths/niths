@@ -33,99 +33,99 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CommitteeServiceImpl extends AbstractGenericService<Committee>
-		implements CommitteeService {
+        implements CommitteeService {
 
-	private Logger logger = LoggerFactory.getLogger(CommitteeServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(CommitteeServiceImpl.class);
 
-	@Autowired
-	private CommitteeRepositorty repo;
+    @Autowired
+    private CommitteeRepositorty repo;
 
-	@Autowired
-	private EventRepository eventRepo;
+    @Autowired
+    private EventRepository eventRepo;
 
-	@Autowired
-	private StudentRepository studentRepo;
+    @Autowired
+    private StudentRepository studentRepo;
 
-	@Autowired
-	private RoleRepository roleRepo;
-	
-	@Override
-	public GenericRepository<Committee> getRepository() {
-		return repo;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addLeader(Long committeeId, Long studentId) {
-		Committee committee = validate(repo.getById(committeeId),
-				Committee.class);
-		checkIfObjectIsInCollection(committee.getLeaders(), studentId,
-				Student.class);
-
-		Student student = studentRepo.getById(studentId);
-		ValidationHelper.isObjectNull(student, Student.class);
-
-		Role r = new Role();
-		r.setRoleName("ROLE_COMMITTEE_LEADER");
-		List<Role> roles = roleRepo.getAll(r);
-		if (roles.size() > 0) {
-			student.getRoles().add(roles.get(0));
-		}
-		
-		
-		committee.getLeaders().add(student);
-		logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
-	}
+    @Autowired
+    private RoleRepository roleRepo;
+    
+    @Override
+    public GenericRepository<Committee> getRepository() {
+        return repo;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeLeader(Long committeeId, Long studentId) {
-		Committee committee = validate(repo.getById(committeeId),
-				Committee.class);
-		Student student = studentRepo.getById(studentId);
+    @Override
+    public void addLeader(Long committeeId, Long studentId) {
+        Committee committee = validate(repo.getById(committeeId),
+                Committee.class);
+        checkIfObjectIsInCollection(committee.getLeaders(), studentId,
+                Student.class);
 
-		checkIfIsRemoved(committee.getLeaders().remove(student),
-				Student.class);
-				
-		for(Role r:student.getRoles()){
-			if(r.getRoleName().equals("ROLE_COMMITTEE_LEADER")){
-				student.getRoles().remove(r);
-				break;
-			}
-		}
-	}
+        Student student = studentRepo.getById(studentId);
+        ValidationHelper.isObjectNull(student, Student.class);
 
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addEvent(Long committeeId, Long eventId) {
-		Committee committee = validate(repo.getById(committeeId),
-				Committee.class);
-		checkIfObjectIsInCollection(committee.getEvents(), eventId, Event.class);
-
-		Event event = eventRepo.getById(eventId);
-		ValidationHelper.isObjectNull(event, Event.class);
-
-		committee.getEvents().add(event);
-		logger.debug(MessageProvider
-				.buildStatusMsg(Event.class, Status.UPDATED));
-	}
+        Role r = new Role();
+        r.setRoleName("ROLE_COMMITTEE_LEADER");
+        List<Role> roles = roleRepo.getAll(r);
+        if (roles.size() > 0) {
+            student.getRoles().add(roles.get(0));
+        }
+        
+        
+        committee.getLeaders().add(student);
+        logger.debug(MessageProvider.buildStatusMsg(Feed.class, Status.UPDATED));
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeEvent(Long committeeId, Long eventId) {
-		Committee committee = validate(repo.getById(committeeId),
-				Committee.class);
+    @Override
+    public void removeLeader(Long committeeId, Long studentId) {
+        Committee committee = validate(repo.getById(committeeId),
+                Committee.class);
+        Student student = studentRepo.getById(studentId);
 
-		checkIfIsRemoved(committee.getEvents().remove(new Event(eventId)),
-				Event.class);
-	}
+        checkIfIsRemoved(committee.getLeaders().remove(student),
+                Student.class);
+                
+        for(Role r:student.getRoles()){
+            if(r.getRoleName().equals("ROLE_COMMITTEE_LEADER")){
+                student.getRoles().remove(r);
+                break;
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addEvent(Long committeeId, Long eventId) {
+        Committee committee = validate(repo.getById(committeeId),
+                Committee.class);
+        checkIfObjectIsInCollection(committee.getEvents(), eventId, Event.class);
+
+        Event event = eventRepo.getById(eventId);
+        ValidationHelper.isObjectNull(event, Event.class);
+
+        committee.getEvents().add(event);
+        logger.debug(MessageProvider
+                .buildStatusMsg(Event.class, Status.UPDATED));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeEvent(Long committeeId, Long eventId) {
+        Committee committee = validate(repo.getById(committeeId),
+                Committee.class);
+
+        checkIfIsRemoved(committee.getEvents().remove(new Event(eventId)),
+                Event.class);
+    }
 
 }

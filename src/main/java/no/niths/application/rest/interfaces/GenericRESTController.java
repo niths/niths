@@ -15,11 +15,11 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
  */
 public interface GenericRESTController<T> {
  
-	/**
-	 * Persists the domain
-	 * 
-	 * @param domain
-	 */
+    /**
+     * Persists the domain
+     * 
+     * @param domain
+     */
     public void create(T domain, HttpServletResponse res) ;
     
     /**

@@ -30,49 +30,49 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.GAMES)
 public class GameControllerImpl extends AbstractRESTControllerImpl<Game>
-		implements GameController {
+        implements GameController {
 
-	@Autowired
-	private GameService gameService;
+    @Autowired
+    private GameService gameService;
 
-	private GameList gameList = new GameList();
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{gameId}/console/{consoleId}", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
-	public void addConsole(@PathVariable Long gameId,
-			@PathVariable Long consoleId) {
-		gameService.addConsole(gameId, consoleId);
-	}
+    private GameList gameList = new GameList();
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{gameId}/console", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
-	public void removeConsole(@PathVariable Long gameId) {
-		gameService.removeConsole(gameId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{gameId}/console/{consoleId}", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Console Added")
+    public void addConsole(@PathVariable Long gameId,
+            @PathVariable Long consoleId) {
+        gameService.addConsole(gameId, consoleId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Game> getService() {
-		return gameService;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{gameId}/console", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Console Removed")
+    public void removeConsole(@PathVariable Long gameId) {
+        gameService.removeConsole(gameId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Game> getList() {
-		return gameList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Game> getService() {
+        return gameService;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Game> getList() {
+        return gameList;
+    }
 }

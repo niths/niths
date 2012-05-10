@@ -18,99 +18,99 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class DeveloperServiceTest {
 
-	@Autowired
-	private DeveloperService devService;
-	
-	@Autowired
-	private ApplicationService appService;
+    @Autowired
+    private DeveloperService devService;
+    
+    @Autowired
+    private ApplicationService appService;
 
-	@Test
-	public void testCRUD() {
-		int devSize = devService.getAll(null).size();
-		int appSize = appService.getAll(null).size();
-		
-		Developer dev = new Developer("DevolName");//, "mailert@mailer.com");
-		dev.setEmail("mailert@mailer.com");
-		devService.create(dev);
-		assertEquals(devSize + 1, devService.getAll(null).size());
-		
-		//create an app and set the developer
-		Application app = new Application("Angry Birds Oslo");
-		app.setDeveloper(dev);
-		appService.create(app);
-		Application app2 = new Application("Angry Birds Haag");
-		app2.setDeveloper(dev);
-		appService.create(app2);
-		
-		assertEquals(appSize + 2, appService.getAll(null).size());
-		assertEquals(dev, appService.getById(app.getId()).getDeveloper());
-		Developer fetched = devService.getById(dev.getId());
-		assertEquals(2, fetched.getApps().size());
-		//Delete an app
-		appService.hibernateDelete(app.getId());
-		assertEquals(appSize + 1, appService.getAll(null).size());
-		
-		//App should be removed from dev
-		fetched = devService.getById(dev.getId());
-		assertEquals(1, fetched.getApps().size());
-		
-//		for (Application a : fetched.getApps()){
-//			appService.hibernateDelete(a.getId());			
-//		}
-//		//Delete dev
-		devService.hibernateDelete(dev.getId());
-		assertEquals(devSize, devService.getAll(null).size());
-		//App should still exist
-		assertEquals(appSize + 1, appService.getAll(null).size());
-		
-		appService.hibernateDelete(app2.getId());
-		assertEquals(appSize, appService.getAll(null).size());
-	}
-	
+    @Test
+    public void testCRUD() {
+        int devSize = devService.getAll(null).size();
+        int appSize = appService.getAll(null).size();
+        
+        Developer dev = new Developer("DevolName");//, "mailert@mailer.com");
+        dev.setEmail("mailert@mailer.com");
+        devService.create(dev);
+        assertEquals(devSize + 1, devService.getAll(null).size());
+        
+        //create an app and set the developer
+        Application app = new Application("Angry Birds Oslo");
+        app.setDeveloper(dev);
+        appService.create(app);
+        Application app2 = new Application("Angry Birds Haag");
+        app2.setDeveloper(dev);
+        appService.create(app2);
+        
+        assertEquals(appSize + 2, appService.getAll(null).size());
+        assertEquals(dev, appService.getById(app.getId()).getDeveloper());
+        Developer fetched = devService.getById(dev.getId());
+        assertEquals(2, fetched.getApps().size());
+        //Delete an app
+        appService.hibernateDelete(app.getId());
+        assertEquals(appSize + 1, appService.getAll(null).size());
+        
+        //App should be removed from dev
+        fetched = devService.getById(dev.getId());
+        assertEquals(1, fetched.getApps().size());
+        
+//        for (Application a : fetched.getApps()){
+//            appService.hibernateDelete(a.getId());            
+//        }
+//        //Delete dev
+        devService.hibernateDelete(dev.getId());
+        assertEquals(devSize, devService.getAll(null).size());
+        //App should still exist
+        assertEquals(appSize + 1, appService.getAll(null).size());
+        
+        appService.hibernateDelete(app2.getId());
+        assertEquals(appSize, appService.getAll(null).size());
+    }
+    
 
-	@Test
-	public void testAppDevRelation(){
-		Developer d1 = new Developer();
-		d1.setName("DevName");
-		d1.setEmail("mailer@mailer.com");
-		devService.create(d1);
-		Application a1 = new Application("App",null,null,null);
-		Application a2 = new Application("Apssp",null,null,null);
-		appService.create(a1);
-		appService.create(a2);
-		
-		Developer temp = devService.getById(d1.getId());
-		temp.getApps().add(a1);
-		temp.getApps().add(a2);
-		devService.update(temp);
-		//Did developer get apps?
-		temp = devService.getById(d1.getId());
-		assertEquals(2, temp.getApps().size());
-		//Did app get developer?
-		Application appTemp = appService.getById(a1.getId());
-		assertEquals(temp, appTemp.getDeveloper());
-		
-		//Remove dev from app
-		appTemp.setDeveloper(null);
-		appService.update(appTemp);
-		//App should be removed from dev
-		temp = devService.getById(d1.getId());
-		assertEquals(1, temp.getApps().size());
-		//Set it back
-		appTemp.setDeveloper(temp);
-		appService.update(appTemp);
-		//Dev should get the app back
-		temp = devService.getById(d1.getId());
-		assertEquals(2, temp.getApps().size());
-		
-		//Delete dev
-		devService.hibernateDelete(temp.getId());
-		//Apps should still be there but with null dev
-		appTemp = appService.getById(a1.getId());
-		assertEquals(null, appTemp.getDeveloper());
-		
-		appService.hibernateDelete(a1.getId());
-		appService.hibernateDelete(a2.getId());
-	}
+    @Test
+    public void testAppDevRelation(){
+        Developer d1 = new Developer();
+        d1.setName("DevName");
+        d1.setEmail("mailer@mailer.com");
+        devService.create(d1);
+        Application a1 = new Application("App",null,null,null);
+        Application a2 = new Application("Apssp",null,null,null);
+        appService.create(a1);
+        appService.create(a2);
+        
+        Developer temp = devService.getById(d1.getId());
+        temp.getApps().add(a1);
+        temp.getApps().add(a2);
+        devService.update(temp);
+        //Did developer get apps?
+        temp = devService.getById(d1.getId());
+        assertEquals(2, temp.getApps().size());
+        //Did app get developer?
+        Application appTemp = appService.getById(a1.getId());
+        assertEquals(temp, appTemp.getDeveloper());
+        
+        //Remove dev from app
+        appTemp.setDeveloper(null);
+        appService.update(appTemp);
+        //App should be removed from dev
+        temp = devService.getById(d1.getId());
+        assertEquals(1, temp.getApps().size());
+        //Set it back
+        appTemp.setDeveloper(temp);
+        appService.update(appTemp);
+        //Dev should get the app back
+        temp = devService.getById(d1.getId());
+        assertEquals(2, temp.getApps().size());
+        
+        //Delete dev
+        devService.hibernateDelete(temp.getId());
+        //Apps should still be there but with null dev
+        appTemp = appService.getById(a1.getId());
+        assertEquals(null, appTemp.getDeveloper());
+        
+        appService.hibernateDelete(a1.getId());
+        appService.hibernateDelete(a2.getId());
+    }
 
 }

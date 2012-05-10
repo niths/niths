@@ -158,20 +158,20 @@ public interface FadderGroupController extends GenericRESTController<FadderGroup
      * @return list with students
      * @throws ObjectNotFoundException if all students has a group
      */
-	List<Student> getAllStudentsNotInAGroup();
+    List<Student> getAllStudentsNotInAGroup();
 
-	/**
-	 * Adds multiple students as children to a group
+    /**
+     * Adds multiple students as children to a group
      *
      * Too add children add /{groupId}/children/{studentIds}
      * too the URL
      *
      * Use the POST method
-	 * 
-	 * @param groupId the group to add children to
-	 * @param studentIds array with student ids
-	 */
-	void addChildren(Long groupId, Long[] studentIds);
+     * 
+     * @param groupId the group to add children to
+     * @param studentIds array with student ids
+     */
+    void addChildren(Long groupId, Long[] studentIds);
 
 
 }

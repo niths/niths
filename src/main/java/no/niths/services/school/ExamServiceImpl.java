@@ -33,23 +33,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ExamServiceImpl extends AbstractGenericService<Exam> implements
-		ExamService {
+        ExamService {
 
     private Logger logger = LoggerFactory.getLogger(ExamServiceImpl.class);
 
-	@Autowired
-	private ExamRepository examRepository;
+    @Autowired
+    private ExamRepository examRepository;
 
     @Autowired
-	private RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-	private SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
-	@Override
-	public GenericRepository<Exam> getRepository() {
-		return examRepository;
-	}
+    @Override
+    public GenericRepository<Exam> getRepository() {
+        return examRepository;
+    }
 
     /**
      * {@inheritDoc}
@@ -111,9 +111,9 @@ public class ExamServiceImpl extends AbstractGenericService<Exam> implements
         checkIfIsRemoved(isRemoved, Subject.class);
     }
 
-	@Override
-	public List<Exam> getExamsBetweenDates(GregorianCalendar startTime,
-			GregorianCalendar endTime) {
-		return examRepository.getEventsBetweenDates(startTime, endTime);
-	}
+    @Override
+    public List<Exam> getExamsBetweenDates(GregorianCalendar startTime,
+            GregorianCalendar endTime) {
+        return examRepository.getEventsBetweenDates(startTime, endTime);
+    }
 }

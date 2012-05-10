@@ -6,19 +6,19 @@ import org.springframework.social.google.api.Google;
  *
  */
 public interface GoogleAuthenticationService {
-	/**
-	 * Authenticates a user through Google and returns the profiles email
-	 * @param token the token provided by Google
-	 * @return the email from the Google profile as a string
-	 */
-	public String authenticateAndGetEmail(String token);
-	
-	/**
-	 * Authenticates user via Google and return their account
-	 * 
-	 * @param token the token provided by Google
-	 * @return the Google account
-	 */
-	public Google authenticateAndGetGoogleAccount(String token);
+    /**
+     * Authenticates a user through Google and returns the profiles email
+     * @param token the token provided by Google
+     * @return the email from the Google profile as a string
+     */
+    public String authenticateAndGetEmail(String token);
+    
+    /**
+     * Authenticates user via Google and return their account
+     * 
+     * @param token the token provided by Google
+     * @return the Google account
+     */
+    public Google authenticateAndGetGoogleAccount(String token);
 
 }

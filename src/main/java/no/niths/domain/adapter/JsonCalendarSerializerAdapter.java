@@ -18,26 +18,26 @@ import org.slf4j.LoggerFactory;
  */
 public class JsonCalendarSerializerAdapter extends JsonSerializer<Calendar> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(JsonCalendarSerializerAdapter.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(JsonCalendarSerializerAdapter.class);
 
-	private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
+    private DateFormat df = new SimpleDateFormat(MiscConstants.CALENDAR_FORMAT);
 
-	@Override
-	public void serialize(Calendar calendar, JsonGenerator gen,
-			SerializerProvider provider) {
-		try {
-			if(calendar!= null){
-				gen.writeString(df.format(calendar.getTime()));
-			}else{
-				gen.writeNull();
-			}
-		} catch (JsonGenerationException e) {
-			logger.error(e.getMessage(),e);
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.error(e.getMessage(),e);
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void serialize(Calendar calendar, JsonGenerator gen,
+            SerializerProvider provider) {
+        try {
+            if(calendar!= null){
+                gen.writeString(df.format(calendar.getTime()));
+            }else{
+                gen.writeNull();
+            }
+        } catch (JsonGenerationException e) {
+            logger.error(e.getMessage(),e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            e.printStackTrace();
+        }
+    }
 }

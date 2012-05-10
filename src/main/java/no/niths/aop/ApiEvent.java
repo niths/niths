@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
  * 
  * To add more attributes, simply add new ones:
  * public @interface ApiEvent{
- * 		String title();
- * 		String description();
+ *         String title();
+ *         String description();
  * }
  * 
  */
@@ -20,5 +20,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ApiEvent {
-	String title();
+    String title();
 }

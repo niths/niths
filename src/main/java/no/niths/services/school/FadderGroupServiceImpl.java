@@ -33,177 +33,177 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FadderGroupServiceImpl extends AbstractGenericService<FadderGroup>
-		implements FadderGroupService {
+        implements FadderGroupService {
 
-	private Logger logger = LoggerFactory
-			.getLogger(FadderGroupServiceImpl.class);
+    private Logger logger = LoggerFactory
+            .getLogger(FadderGroupServiceImpl.class);
 
-	@Autowired
-	private FadderGroupRepository fadderGroupRepository;
+    @Autowired
+    private FadderGroupRepository fadderGroupRepository;
 
-	@Autowired
-	private StudentRepository studentRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
-	@Autowired
-	private RoleRepository roleRepo;
+    @Autowired
+    private RoleRepository roleRepo;
 
-	@Override
-	public GenericRepository<FadderGroup> getRepository() {
-		return fadderGroupRepository;
-	}
+    @Override
+    public GenericRepository<FadderGroup> getRepository() {
+        return fadderGroupRepository;
+    }
 
-	@Override
-	public List<FadderGroup> getAll(FadderGroup domain) {
-		List<FadderGroup> list = fadderGroupRepository.getAll(domain);
-		for (FadderGroup fg : list) {
-			fg.getLeaders().size();
-		}
-		return list;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addLeader(Long groupId, Long studentId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-		checkIfObjectIsInCollection(group.getLeaders(), studentId,
-				Student.class);
-
-		Student leader = studentRepository.getById(studentId);
-		ValidationHelper.isObjectNull(leader, Student.class);
-
-		// add role FADDER_LEADER To student;
-		Role r = new Role();
-		r.setRoleName("ROLE_FADDER_LEADER");
-		List<Role> roles = roleRepo.getAll(r);
-		if (roles.size() > 0) {
-			if(!leader.getRoles().contains(roles.get(0))){
-				leader.getRoles().add(roles.get(0));
-			}
-		}
-		
-		group.getLeaders().add(leader);
-
-		logger.debug(MessageProvider.buildStatusMsg(Student.class,
-				Status.UPDATED));
-	}
+    @Override
+    public List<FadderGroup> getAll(FadderGroup domain) {
+        List<FadderGroup> list = fadderGroupRepository.getAll(domain);
+        for (FadderGroup fg : list) {
+            fg.getLeaders().size();
+        }
+        return list;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeLeader(Long groupId, Long studentId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-		
-		Student student = studentRepository.getById(studentId);
+    @Override
+    public void addLeader(Long groupId, Long studentId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+        checkIfObjectIsInCollection(group.getLeaders(), studentId,
+                Student.class);
 
-		checkIfIsRemoved(group.getLeaders().remove(student),
-				Student.class);
-		
-		// remove role
-		for(Role r:student.getRoles()){
-			if(r.getRoleName().equals("ROLE_FADDER_LEADER")){
-				student.getRoles().remove(r);
-				break;
-			}
-		}
-	}
+        Student leader = studentRepository.getById(studentId);
+        ValidationHelper.isObjectNull(leader, Student.class);
 
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addChild(Long groupId, Long studentId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-		checkIfObjectIsInCollection(group.getFadderChildren(), studentId,
-				Student.class);
+        // add role FADDER_LEADER To student;
+        Role r = new Role();
+        r.setRoleName("ROLE_FADDER_LEADER");
+        List<Role> roles = roleRepo.getAll(r);
+        if (roles.size() > 0) {
+            if(!leader.getRoles().contains(roles.get(0))){
+                leader.getRoles().add(roles.get(0));
+            }
+        }
+        
+        group.getLeaders().add(leader);
 
-		Student child = studentRepository.getById(studentId);
-		ValidationHelper.isObjectNull(child, Student.class);
-
-		group.getFadderChildren().add(child);
-		logger.debug(MessageProvider.buildStatusMsg(Student.class,
-				Status.UPDATED));
-	}
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void addChildren(Long groupId, Long[] studentIds) {
-		for (Long studentId : studentIds) {
-			addChild(groupId, studentId);
-		}
-	}
+    @Override
+    public void removeLeader(Long groupId, Long studentId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+        
+        Student student = studentRepository.getById(studentId);
+
+        checkIfIsRemoved(group.getLeaders().remove(student),
+                Student.class);
+        
+        // remove role
+        for(Role r:student.getRoles()){
+            if(r.getRoleName().equals("ROLE_FADDER_LEADER")){
+                student.getRoles().remove(r);
+                break;
+            }
+        }
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeChild(Long groupId, Long studentId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-		checkIfIsRemoved(
-				group.getFadderChildren().remove(new Student(studentId)),
-				Student.class);
-	}
+    @Override
+    public void addChild(Long groupId, Long studentId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+        checkIfObjectIsInCollection(group.getFadderChildren(), studentId,
+                Student.class);
+
+        Student child = studentRepository.getById(studentId);
+        ValidationHelper.isObjectNull(child, Student.class);
+
+        group.getFadderChildren().add(child);
+        logger.debug(MessageProvider.buildStatusMsg(Student.class,
+                Status.UPDATED));
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeChildren(Long groupId, Long[] studentIds) {
-		for (Long studentId : studentIds) {
-			removeChild(groupId, studentId);
-		}
-	}
+    @Override
+    public void addChildren(Long groupId, Long[] studentIds) {
+        for (Long studentId : studentIds) {
+            addChild(groupId, studentId);
+        }
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeAllChildren(Long groupId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-
-		boolean isRemoved = false;
-
-		if (group.getFadderChildren() != null) {
-			group.getFadderChildren().clear();
-			isRemoved = true;
-		}
-
-		checkIfIsRemoved(isRemoved, Student.class);
-	}
+    @Override
+    public void removeChild(Long groupId, Long studentId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+        checkIfIsRemoved(
+                group.getFadderChildren().remove(new Student(studentId)),
+                Student.class);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeAllLeaders(Long groupId) {
-		FadderGroup group = validate(fadderGroupRepository.getById(groupId),
-				FadderGroup.class);
-
-		boolean isRemoved = false;
-
-		if (group.getLeaders() != null) {
-			group.getLeaders().clear();
-			isRemoved = true;
-		}
-
-		checkIfIsRemoved(isRemoved, Student.class);
-	}
+    @Override
+    public void removeChildren(Long groupId, Long[] studentIds) {
+        for (Long studentId : studentIds) {
+            removeChild(groupId, studentId);
+        }
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Student> getStudentsNotInAGroup() {
-		return fadderGroupRepository.getStudentsNotInAGroup();
-	}
+    @Override
+    public void removeAllChildren(Long groupId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+
+        boolean isRemoved = false;
+
+        if (group.getFadderChildren() != null) {
+            group.getFadderChildren().clear();
+            isRemoved = true;
+        }
+
+        checkIfIsRemoved(isRemoved, Student.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeAllLeaders(Long groupId) {
+        FadderGroup group = validate(fadderGroupRepository.getById(groupId),
+                FadderGroup.class);
+
+        boolean isRemoved = false;
+
+        if (group.getLeaders() != null) {
+            group.getLeaders().clear();
+            isRemoved = true;
+        }
+
+        checkIfIsRemoved(isRemoved, Student.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Student> getStudentsNotInAGroup() {
+        return fadderGroupRepository.getStudentsNotInAGroup();
+    }
 
 }

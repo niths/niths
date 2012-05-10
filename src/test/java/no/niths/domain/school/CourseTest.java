@@ -77,7 +77,7 @@ public class CourseTest {
         Set<ConstraintViolation<Course>> constraintViolations = validator
                         .validate(course);
 
-        assertThat(0, is(equalTo(constraintViolations.size())));		
+        assertThat(0, is(equalTo(constraintViolations.size())));        
     }
 
     @Test
@@ -88,7 +88,7 @@ public class CourseTest {
                         .validate(course);
 
         constraintViolations = validator.validate(course);
-        assertThat(1, is(equalTo(constraintViolations.size())));		
+        assertThat(1, is(equalTo(constraintViolations.size())));        
     }
 
     @Test

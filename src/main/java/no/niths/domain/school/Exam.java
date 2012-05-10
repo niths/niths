@@ -79,25 +79,25 @@ public class Exam implements Domain {
 
     @Column(name = "exam_type")
     @Enumerated(EnumType.STRING)
-	@XmlElement(name="examtype")
+    @XmlElement(name="examtype")
     private ExamType examType;
 
     @Column(name="start_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="starttime")
+    @XmlElement(name="starttime")
     private Calendar startTime;
 
     @Column(name="end_time")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name="endtime")
+    @XmlElement(name="endtime")
     private Calendar endTime;
 
     @Column(name="allowed_aid")
-	@XmlElement(name="allowaid")
+    @XmlElement(name="allowaid")
     private String allowedAid;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity= Subject.class)
@@ -115,9 +115,9 @@ public class Exam implements Domain {
     private List<Room> rooms = new ArrayList<Room>();
 
     public Exam(){
-    	this(null,null,null,null,null);
-    	this.rooms   = null;
-    	this.subject = null;
+        this(null,null,null,null,null);
+        this.rooms   = null;
+        this.subject = null;
     }
 
     public Exam(String name) {

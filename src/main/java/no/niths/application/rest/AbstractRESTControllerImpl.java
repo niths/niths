@@ -114,11 +114,11 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @RequestMapping(value = "{id}", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public T getById(@PathVariable Long id) {
-    	T domain = getService().getById(id);
-    	ValidationHelper.isObjectNull(domain);
-    	nullifier.clearSubRelations(domain);
-    	logger.debug(domain.toString());
-    	return domain;
+        T domain = getService().getById(id);
+        ValidationHelper.isObjectNull(domain);
+        nullifier.clearSubRelations(domain);
+        logger.debug(domain.toString());
+        return domain;
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * PreAuthorize(SecurityConstants.ONLY_ADMIN) //Optional security
      * public ArrayList<Your_Domain> getAll(Your_Domain domain) {
      *         ArrayList<Your_Domain> all = super.getAll(domain);
-     * 		return roles;
+     *         return roles;
      * }
      * 
      * URL = {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}/YOUR_DOMAINs

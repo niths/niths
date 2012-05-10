@@ -70,11 +70,11 @@ public class QRCodeDecoder {
     }
 
     private BufferedImage resizeImage(BufferedImage originalImg) {
-    	
-    	return Scalr.resize(originalImg, 300);
-    	
-//    	int w = originalImg.getWidth()/5;
-//    	int h = originalImg.getHeight()/5;
+        
+        return Scalr.resize(originalImg, 300);
+        
+//        int w = originalImg.getWidth()/5;
+//        int h = originalImg.getHeight()/5;
 //        BufferedImage resizedImg = new BufferedImage(
 //                w, h, originalImg.getType());
 //        Graphics2D g = resizedImg.createGraphics();
@@ -99,18 +99,18 @@ public class QRCodeDecoder {
         String[] info = data.split(":");
         Long groupNumber = null;
         if(info.length == 2){
-        	try {
-        		if(info[0].equals("gruppe")){
-        			groupNumber = Long.parseLong(info[1]);
-        			System.err.println("FOUND GROUPNUMBER : " + groupNumber);        			
-        		}else{
-        			throw new QRCodeException("Invalid QR code content");
-        		}
-        	} catch (NumberFormatException e) {
-        		throw new QRCodeException("Invalid QR code format");
-        	}
-        	
+            try {
+                if(info[0].equals("gruppe")){
+                    groupNumber = Long.parseLong(info[1]);
+                    System.err.println("FOUND GROUPNUMBER : " + groupNumber);                    
+                }else{
+                    throw new QRCodeException("Invalid QR code content");
+                }
+            } catch (NumberFormatException e) {
+                throw new QRCodeException("Invalid QR code format");
+            }
+            
         }
-        return groupNumber;        	
+        return groupNumber;            
     }
 }

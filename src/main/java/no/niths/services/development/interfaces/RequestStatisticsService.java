@@ -16,12 +16,12 @@ import no.niths.domain.development.Application;
  *
  */
 public interface RequestStatisticsService {
-	
-	/**
-	 * Simple example method for tracking app statistics
-	 * 
-	 * @param app the application that holds the request
-	 */
-	public void registerRequest(Application app);
+    
+    /**
+     * Simple example method for tracking app statistics
+     * 
+     * @param app the application that holds the request
+     */
+    public void registerRequest(Application app);
 
 }

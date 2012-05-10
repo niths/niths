@@ -24,22 +24,22 @@ import no.niths.services.interfaces.GenericService;
  *
  */
 public class ExampleControllerImpl extends AbstractRESTControllerImpl<ExampleDomain>
-						implements ExampleController{
+                        implements ExampleController{
 
-	@Autowired
-	private ExampleService service;
-	
-	private ExampleList list;
-	
-	@Override
-	public GenericService<ExampleDomain> getService() {
-		return service;
-	}
+    @Autowired
+    private ExampleService service;
+    
+    private ExampleList list;
+    
+    @Override
+    public GenericService<ExampleDomain> getService() {
+        return service;
+    }
 
-	@Override
-	public ListAdapter<ExampleDomain> getList() {
-		return list;
-	}
-	
+    @Override
+    public ListAdapter<ExampleDomain> getList() {
+        return list;
+    }
+    
 
 }

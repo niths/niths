@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public final class UnvalidEmailException extends AuthenticationException{
 
     public UnvalidEmailException(String msg) {
-		super(msg);
-		// TODO Auto-generated constructor stub
-	}
+        super(msg);
+        // TODO Auto-generated constructor stub
+    }
 
-	private static final long serialVersionUID = 344699966872664622L;
+    private static final long serialVersionUID = 344699966872664622L;
 
 
 }

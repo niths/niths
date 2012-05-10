@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public interface Domain extends Serializable{
 
-	void setId(Long id);
-	Long getId();
+    void setId(Long id);
+    Long getId();
 
 }

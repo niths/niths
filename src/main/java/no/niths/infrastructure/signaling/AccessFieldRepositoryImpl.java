@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class AccessFieldRepositoryImpl extends
-		AbstractGenericRepositoryImpl<AccessField> implements
-		AccessFieldRepository {
+        AbstractGenericRepositoryImpl<AccessField> implements
+        AccessFieldRepository {
 
-	public AccessFieldRepositoryImpl() {
-		super(AccessField.class, new AccessField());
-	}
+    public AccessFieldRepositoryImpl() {
+        super(AccessField.class, new AccessField());
+    }
 }

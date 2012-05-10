@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CourseControllerImpl extends AbstractRESTControllerImpl<Course>
         implements CourseController {
 
-	@Autowired
+    @Autowired
     private CourseService courseService;
 
     private CourseList courseList = new CourseList();

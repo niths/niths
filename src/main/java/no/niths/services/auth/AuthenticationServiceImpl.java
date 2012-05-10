@@ -165,13 +165,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void logout(Long studentId) {
-		Student wantToLogout = studentService.getById(studentId);
-		ValidationHelper.isObjectNull(wantToLogout, Student.class);
-		wantToLogout.setSessionToken(null);
-		studentService.update(wantToLogout);
-	}
+    @Override
+    public void logout(Long studentId) {
+        Student wantToLogout = studentService.getById(studentId);
+        ValidationHelper.isObjectNull(wantToLogout, Student.class);
+        wantToLogout.setSessionToken(null);
+        studentService.update(wantToLogout);
+    }
 
     /**
      * {@inheritDoc}
@@ -269,7 +269,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }else if(!(app.getApplicationToken().equals(applicationToken))){
             throw new UnvalidTokenException("Application token is not correct");
         }else if(app.getEnabled() == false){
-        	throw new UnvalidTokenException("Application not enabled");
+            throw new UnvalidTokenException("Application not enabled");
         }
         //Register request for application statistics
         reqService.registerRequest(app);
@@ -289,7 +289,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new UnvalidTokenException("No developer found with that key");
         }
         if(dev.getEnabled() != null && dev.getEnabled()){
-        	throw new UnvalidTokenException("Developer is already enabled");
+            throw new UnvalidTokenException("Developer is already enabled");
         }
         //Generate a personal token and set developer to enabled
         dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
@@ -313,7 +313,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new UnvalidTokenException("No application found with that key");
         }
         if(app.getEnabled() != null && app.getEnabled()){
-        	throw new UnvalidTokenException("Application is already enabled");
+            throw new UnvalidTokenException("Application is already enabled");
         }
         //Generate a personal token and set app to enabled
         app.setApplicationToken(tokenService.generateToken(app.getId()));

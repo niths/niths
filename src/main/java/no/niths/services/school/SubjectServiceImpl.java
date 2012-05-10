@@ -28,23 +28,23 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SubjectServiceImpl extends AbstractGenericService<Subject>
-		implements SubjectService {
+        implements SubjectService {
 
     private Logger logger = LoggerFactory.getLogger(SubjectServiceImpl.class);
 
-	@Autowired
-	private SubjectRepository subjectRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @Autowired
-	private StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-	private RoomRepository roomRepository;
+    private RoomRepository roomRepository;
 
-	@Override
-	public GenericRepository<Subject> getRepository() {
-		return subjectRepository;
-	}
+    @Override
+    public GenericRepository<Subject> getRepository() {
+        return subjectRepository;
+    }
 
     /**
      * {@inheritDoc}

@@ -23,22 +23,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(DomainConstantNames.ACCESS_POINTS)
 public class AccessPointControllerImpl extends
-		AbstractRESTControllerImpl<AccessPoint> implements
-		AccessPointController {
+        AbstractRESTControllerImpl<AccessPoint> implements
+        AccessPointController {
 
-	@Autowired
-	private AccessPointService service;
+    @Autowired
+    private AccessPointService service;
 
-	private AccessPointList accessPointList = new AccessPointList();
+    private AccessPointList accessPointList = new AccessPointList();
 
-	@Override
-	public GenericService<AccessPoint> getService() {
-		return service;
-	}
+    @Override
+    public GenericService<AccessPoint> getService() {
+        return service;
+    }
 
-	@Override
-	public ListAdapter<AccessPoint> getList() {
-		return accessPointList;
-	}
-	
+    @Override
+    public ListAdapter<AccessPoint> getList() {
+        return accessPointList;
+    }
+    
 }

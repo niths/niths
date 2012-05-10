@@ -20,38 +20,38 @@ public interface FeedService extends GenericService<Feed>{
      * @param feedId id for feed
      * @param locationId id for location
      */
-	void addLocation(Long feedId, Long locationId);
+    void addLocation(Long feedId, Long locationId);
 
     /**
      * Removes a location from a feed
      * @param feedId id for feed
      */
-	void removeLocation(Long feedId);
+    void removeLocation(Long feedId);
 
     /**
      * Adds a student to the feed
      * @param feedId id for feed
      * @param studentId id for student
      */
-	void addStudent(Long feedId, Long studentId);
+    void addStudent(Long feedId, Long studentId);
 
     /**
      * Removes a student from the feed
      * @param feedId id for feed
      */
-	void removeStudent(Long feedId);
+    void removeStudent(Long feedId);
 
     /**
      * Removes a committee from the feed
      * @param feedId id for feed
      */
-	void removeCommittee(Long feedId);
+    void removeCommittee(Long feedId);
 
     /**
      * Adds a committee to the feed
      * @param feedId id for feed
      * @param committeeId id for committee
      */
-	void addCommittee(Long feedId, Long committeeId);
+    void addCommittee(Long feedId, Long committeeId);
 
 }

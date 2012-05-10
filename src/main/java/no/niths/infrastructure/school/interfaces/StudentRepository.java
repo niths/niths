@@ -17,25 +17,25 @@ import no.niths.infrastructure.interfaces.GenericRepository;
  */
 public interface StudentRepository extends GenericRepository<Student>{
 
-	/**
-	 * Returns all student in the given course
-	 * 
-	 * @param name The course name
-	 * @return list of students in the course
-	 */
-	List<Student> getStudentsWithNamedCourse(String name);
-	
-	/**
-	 * Returns all students with matching attribute
-	 * Columns must be annotated with @Searchable
-	 * 
-	 * @see Searchable
-	 * 
-	 * @param column the attribute to search for
-	 * @param criteria the search query
-	 * @return List of matching students
-	 * 
-	 */
-	List<Student> getStudentByColumn(String column, String criteria);
+    /**
+     * Returns all student in the given course
+     * 
+     * @param name The course name
+     * @return list of students in the course
+     */
+    List<Student> getStudentsWithNamedCourse(String name);
+    
+    /**
+     * Returns all students with matching attribute
+     * Columns must be annotated with @Searchable
+     * 
+     * @see Searchable
+     * 
+     * @param column the attribute to search for
+     * @param criteria the search query
+     * @return List of matching students
+     * 
+     */
+    List<Student> getStudentByColumn(String column, String criteria);
 
 }

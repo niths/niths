@@ -19,21 +19,21 @@ import org.slf4j.LoggerFactory;
  * Class JsonDateDeserializerAdapter used too parse a String too a Date
  */
 public class JsonDateDeserializerAdapter extends JsonDeserializer<Date>{
-	private Logger logger = LoggerFactory
-			.getLogger(JsonDateDeserializerAdapter.class);
-	private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
-	
-	@Override
-	public Date deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
-		try {
-			return df.parse(jp.getText());
-		} catch (ParseException e) {
-			logger.error(e.getMessage(),e);
-			throw new CustomParseException("Invalid syntacs! Valid syntax : "
-					+ MiscConstants.DATE_FORMAT + " ErrorOffset:"
-					+ e.getErrorOffset());
-		}
-	}
+    private Logger logger = LoggerFactory
+            .getLogger(JsonDateDeserializerAdapter.class);
+    private DateFormat df = new SimpleDateFormat(MiscConstants.DATE_FORMAT);
+    
+    @Override
+    public Date deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
+        try {
+            return df.parse(jp.getText());
+        } catch (ParseException e) {
+            logger.error(e.getMessage(),e);
+            throw new CustomParseException("Invalid syntacs! Valid syntax : "
+                    + MiscConstants.DATE_FORMAT + " ErrorOffset:"
+                    + e.getErrorOffset());
+        }
+    }
 
 }

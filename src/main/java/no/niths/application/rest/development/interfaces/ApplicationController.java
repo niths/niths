@@ -16,47 +16,47 @@ import no.niths.domain.development.Application;
  */
 public interface ApplicationController extends GenericRESTController<Application> {
 
-	/**
-	 * Enables an application
-	 * <p>
-	 * Applications must be enabled to do request
-	 * <p>
+    /**
+     * Enables an application
+     * <p>
+     * Applications must be enabled to do request
+     * <p>
      *
      * Too enable the application add /{applicationId}/enable
      * too the URL
      *
      * Use the PUT method
      *
-	 * @param applicationId id of the application
-	 * @throws ObjectNotFoundException if no application is found
-	 */
-	void enableApplication(Long applicationId);
+     * @param applicationId id of the application
+     * @throws ObjectNotFoundException if no application is found
+     */
+    void enableApplication(Long applicationId);
 
-	/**
-	 * Disables an application
+    /**
+     * Disables an application
      *
      * Too disable the application add /{applicationId}/disable
      * too the URL
      *
      * Use the PUT method
-	 * 
-	 * @param applicationId id of the application
-	 * @throws ObjectNotFoundException if no application is found
-	 */
-	void disableApplication(Long applicationId);
+     * 
+     * @param applicationId id of the application
+     * @throws ObjectNotFoundException if no application is found
+     */
+    void disableApplication(Long applicationId);
 
-	/**
-	 * Returns a list applications ordered
-	 * by the number of requests @See {@link Application}
+    /**
+     * Returns a list applications ordered
+     * by the number of requests @See {@link Application}
      *
      * Too get the top application add /top/{maxResults}
      * too the URL
      *
      * Use the GET method
-	 * 
-	 * @param maxResults number of results
-	 * @return list with maxResults applications
-	 */
-	List<Application> getTopApps(int maxResults);
+     * 
+     * @param maxResults number of results
+     * @return list with maxResults applications
+     */
+    List<Application> getTopApps(int maxResults);
 
 }

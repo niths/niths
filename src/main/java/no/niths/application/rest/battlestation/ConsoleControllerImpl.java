@@ -31,65 +31,65 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.CONSOLES)
 public class ConsoleControllerImpl extends AbstractRESTControllerImpl<Console>
-		implements ConsoleController {
+        implements ConsoleController {
 
-	@Autowired
-	private ConsoleService consoleService;
+    @Autowired
+    private ConsoleService consoleService;
 
-	private ConsoleList consoleList = new ConsoleList();
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
-	public void addGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
-		consoleService.addGame(consoleId, gameId);
-	}
+    private ConsoleList consoleList = new ConsoleList();
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Game Removed")
-	public void removeGame(@PathVariable Long consoleId,
-			@PathVariable Long gameId) {
-		consoleService.removeGame(consoleId, gameId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Game Added")
+    public void addGame(@PathVariable Long consoleId, @PathVariable Long gameId) {
+        consoleService.addGame(consoleId, gameId);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{consoleId}/loan/{loanId}", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
-	public void addLoan(@PathVariable Long consoleId, @PathVariable Long loanId) {
-		consoleService.addLoan(consoleId, loanId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{consoleId}/game/{gameId}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Game Removed")
+    public void removeGame(@PathVariable Long consoleId,
+            @PathVariable Long gameId) {
+        consoleService.removeGame(consoleId, gameId);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = "{consoleId}/loan", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
-	public void removeLoan(@PathVariable Long consoleId) {
-		consoleService.removeLoan(consoleId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{consoleId}/loan/{loanId}", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Added")
+    public void addLoan(@PathVariable Long consoleId, @PathVariable Long loanId) {
+        consoleService.addLoan(consoleId, loanId);
+    }
 
-	@Override
-	public GenericService<Console> getService() {
-		return consoleService;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "{consoleId}/loan", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Loan Removed")
+    public void removeLoan(@PathVariable Long consoleId) {
+        consoleService.removeLoan(consoleId);
+    }
 
-	@Override
-	public ListAdapter<Console> getList() {
-		return consoleList;
-	}
+    @Override
+    public GenericService<Console> getService() {
+        return consoleService;
+    }
+
+    @Override
+    public ListAdapter<Console> getList() {
+        return consoleList;
+    }
 }

@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class RoomRepositoryImpl extends AbstractGenericRepositoryImpl<Room> implements
-		RoomRepository {
+        RoomRepository {
 
-	public RoomRepositoryImpl() {
-		super(Room.class, new Room());
-	}
+    public RoomRepositoryImpl() {
+        super(Room.class, new Room());
+    }
 }

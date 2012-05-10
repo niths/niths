@@ -17,17 +17,17 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(RestAuthenticationEntryPoint.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(RestAuthenticationEntryPoint.class);
 
-	@Override
-	public void commence(HttpServletRequest request,
-			HttpServletResponse response, AuthenticationException authException)
-			throws IOException, ServletException {
-		
-		logger.debug("Authentication failed, entry point is set");
-		response.addHeader("Error", authException.getMessage());
-	
-	}
+    @Override
+    public void commence(HttpServletRequest request,
+            HttpServletResponse response, AuthenticationException authException)
+            throws IOException, ServletException {
+        
+        logger.debug("Authentication failed, entry point is set");
+        response.addHeader("Error", authException.getMessage());
+    
+    }
 
 }

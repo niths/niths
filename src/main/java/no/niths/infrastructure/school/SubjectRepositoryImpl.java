@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class SubjectRepositoryImpl extends AbstractGenericRepositoryImpl<Subject>
-		implements SubjectRepository {
+        implements SubjectRepository {
 
-	public SubjectRepositoryImpl() {
-		super(Subject.class, new Subject());
-	}
+    public SubjectRepositoryImpl() {
+        super(Subject.class, new Subject());
+    }
 
 }

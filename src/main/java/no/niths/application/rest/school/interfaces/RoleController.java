@@ -10,5 +10,5 @@ import no.niths.domain.school.Role;
  * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface RoleController extends GenericRESTController<Role> {
-	
+    
 }

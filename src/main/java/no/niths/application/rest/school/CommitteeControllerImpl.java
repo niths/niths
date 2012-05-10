@@ -34,102 +34,102 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.COMMITTEES)
 public class CommitteeControllerImpl extends
-		AbstractRESTControllerImpl<Committee> implements CommitteeController {
+        AbstractRESTControllerImpl<Committee> implements CommitteeController {
 
-	@Autowired
-	private CommitteeService committeeService;
+    @Autowired
+    private CommitteeService committeeService;
 
-	private CommitteeList committeeList = new CommitteeList();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	public void delete(@PathVariable long id) {
-		super.delete(id);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	public void create(@RequestBody Committee domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	public void update(@RequestBody Committee domain) {
-		super.update(domain);
-	}
+    private CommitteeList committeeList = new CommitteeList();
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
-	public void addLeader(@PathVariable Long committeeId,
-			@PathVariable Long studentId) {
-		committeeService.addLeader(committeeId, studentId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void delete(@PathVariable long id) {
+        super.delete(id);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
-	public void removeLeader(@PathVariable Long committeeId,
-			@PathVariable Long studentId) {
-		committeeService.removeLeader(committeeId, studentId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void create(@RequestBody Committee domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Event added")
-	public void addEvent(@PathVariable Long committeeId,
-			@PathVariable Long eventId) {
-		committeeService.addEvent(committeeId, eventId);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    public void update(@RequestBody Committee domain) {
+        super.update(domain);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
-	@RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
-	public void removeEvent(@PathVariable Long committeeId,
-			@PathVariable Long eventId) {
-		committeeService.removeEvent(committeeId, eventId);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    @RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Leader added to committee")
+    public void addLeader(@PathVariable Long committeeId,
+            @PathVariable Long studentId) {
+        committeeService.addLeader(committeeId, studentId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Committee> getService() {
-		return committeeService;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    @RequestMapping(value = "{committeeId}/leader/{studentId}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Deleted")
+    public void removeLeader(@PathVariable Long committeeId,
+            @PathVariable Long studentId) {
+        committeeService.removeLeader(committeeId, studentId);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Committee> getList() {
-		return committeeList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    @RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Event added")
+    public void addEvent(@PathVariable Long committeeId,
+            @PathVariable Long eventId) {
+        committeeService.addEvent(committeeId, eventId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_SR_COMMITTEE_LEADER)
+    @RequestMapping(value = "{committeeId}/event/{eventId}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Event removed")
+    public void removeEvent(@PathVariable Long committeeId,
+            @PathVariable Long eventId) {
+        committeeService.removeEvent(committeeId, eventId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Committee> getService() {
+        return committeeService;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Committee> getList() {
+        return committeeList;
+    }
 
 }

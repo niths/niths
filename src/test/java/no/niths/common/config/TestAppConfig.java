@@ -15,7 +15,7 @@ public class TestAppConfig {
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
-    	final PropertyPlaceholderConfigurer ppc =
+        final PropertyPlaceholderConfigurer ppc =
                 new PropertyPlaceholderConfigurer();
         final ClassPathResource[] resources = new ClassPathResource[] {
                 new ClassPathResource(APP_PROPS)};

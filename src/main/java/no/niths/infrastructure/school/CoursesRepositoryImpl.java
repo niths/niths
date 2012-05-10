@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CoursesRepositoryImpl extends AbstractGenericRepositoryImpl<Course>
-		implements CourseRepository {
+        implements CourseRepository {
 
-	public CoursesRepositoryImpl() {
-		super(Course.class, new Course());
-	}
+    public CoursesRepositoryImpl() {
+        super(Course.class, new Course());
+    }
 }

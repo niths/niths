@@ -77,7 +77,7 @@ public class LoanControllerTest {
 
     @Test
     public void testCreateAndRemoveLoan() {
-    	 int size = 0;
+         int size = 0;
 
          try {
              size = loanController.getAll(null).size();

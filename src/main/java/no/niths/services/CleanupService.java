@@ -26,91 +26,91 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CleanupService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(CleanupService.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(CleanupService.class);
 
-	@Autowired
-	private APIEventRepository apiRepo;
+    @Autowired
+    private APIEventRepository apiRepo;
 
-	@Autowired
-	private LoanRepository loanRepo;
+    @Autowired
+    private LoanRepository loanRepo;
 
-	@Autowired
-	private MailSenderServiceImpl mailSender;
+    @Autowired
+    private MailSenderServiceImpl mailSender;
 
-	private final int max = 100;
+    private final int max = 100;
 
-	@Scheduled(cron = "0 0 6 * * *")
-	/**                | | | | | | 
-	 *                 | | | | | | 
-	 *                 | | | | | +----- any day of the week. 
-	 *                 | | | | +------- any month (September).
-	 *                 | | | +--------- any day of the month.
-	 *                 | | +----------- 6th hour of the day.
-	 *                 | +------------- top of the hour (minutes = 0).
-	 *                 +--------------- top of the minute (seconds = 0).
-	 */
-	public void cleanUpAPIEvents() {
-		logger.debug("Starting API repo cleanup at "
-				+ new Date(System.currentTimeMillis()));
+    @Scheduled(cron = "0 0 6 * * *")
+    /**                | | | | | | 
+     *                 | | | | | | 
+     *                 | | | | | +----- any day of the week. 
+     *                 | | | | +------- any month (September).
+     *                 | | | +--------- any day of the month.
+     *                 | | +----------- 6th hour of the day.
+     *                 | +------------- top of the hour (minutes = 0).
+     *                 +--------------- top of the minute (seconds = 0).
+     */
+    public void cleanUpAPIEvents() {
+        logger.debug("Starting API repo cleanup at "
+                + new Date(System.currentTimeMillis()));
 
-		List<APIEvent> events = apiRepo.getAll(null);
-		logger.debug("Events size: " + events.size());
+        List<APIEvent> events = apiRepo.getAll(null);
+        logger.debug("Events size: " + events.size());
 
-		// if its larger than the max value
-		if (events.size() > max) {
-			int size = events.size();
+        // if its larger than the max value
+        if (events.size() > max) {
+            int size = events.size();
 
-			for (int i = 0; i < size - max; i++) {
-				apiRepo.delete(events.get(i).getId());
-			}
-		}
+            for (int i = 0; i < size - max; i++) {
+                apiRepo.delete(events.get(i).getId());
+            }
+        }
 
-		logger.debug("API repo cleanup done at new size is "
-				+ (events.size() - (events.size() - max)) + " "
-				+ new Date(System.currentTimeMillis()));
-	}
+        logger.debug("API repo cleanup done at new size is "
+                + (events.size() - (events.size() - max)) + " "
+                + new Date(System.currentTimeMillis()));
+    }
 
-	/**
-	 * Sends out a reminder to the students that have failed to 
-	 * return the consoles.
-	 */
-	@Scheduled(cron = "0 0 2 * * *")
-	public void checkIfLoanisExpired() {
-		GregorianCalendar now = new GregorianCalendar();
-		List<Loan> loans = loanRepo.getAll(null);
-	
+    /**
+     * Sends out a reminder to the students that have failed to 
+     * return the consoles.
+     */
+    @Scheduled(cron = "0 0 2 * * *")
+    public void checkIfLoanisExpired() {
+        GregorianCalendar now = new GregorianCalendar();
+        List<Loan> loans = loanRepo.getAll(null);
+    
 
-		for (Loan l : loans) {
-			String subject = "Påminnelse om å retuner lån fra Battlestation";
-			StringBuffer greeting = new StringBuffer("Hei");
+        for (Loan l : loans) {
+            String subject = "Påminnelse om å retuner lån fra Battlestation";
+            StringBuffer greeting = new StringBuffer("Hei");
 
-			StringBuffer body = new StringBuffer(
-					"Dette er en påminnelse om at utstyert du har lånt er på overtid.\n"
-							+ "Leveres tilbake snarest\n");
+            StringBuffer body = new StringBuffer(
+                    "Dette er en påminnelse om at utstyert du har lånt er på overtid.\n"
+                            + "Leveres tilbake snarest\n");
 
-			StringBuffer borrowed = new StringBuffer("Utstyert du har lånt er:");
-			String from = "nithscommunity@gmail.com";
-			
-			if (now.compareTo(l.getEndTime()) > 0) {
-				if (l.getStudent() != null) {
+            StringBuffer borrowed = new StringBuffer("Utstyert du har lånt er:");
+            String from = "nithscommunity@gmail.com";
+            
+            if (now.compareTo(l.getEndTime()) > 0) {
+                if (l.getStudent() != null) {
 
-					// add console name
-					for (Console c : l.getConsoles()) {
-						borrowed.append(c.getName() + "\n");
-					}
+                    // add console name
+                    for (Console c : l.getConsoles()) {
+                        borrowed.append(c.getName() + "\n");
+                    }
 
-					// add student name
-					greeting.append((l.getStudent().getFirstName() != null ? " "+l
-							.getStudent().getFirstName() : " student")
-							+ "!\n");
-				}
-				
-				String message = greeting + "" + body + "" + borrowed;
-				mailSender.composeAndSend(l.getStudent().getEmail(), from,subject, message);
-				
-			}// end compare to
-		}// end loans
-	}
+                    // add student name
+                    greeting.append((l.getStudent().getFirstName() != null ? " "+l
+                            .getStudent().getFirstName() : " student")
+                            + "!\n");
+                }
+                
+                String message = greeting + "" + body + "" + borrowed;
+                mailSender.composeAndSend(l.getStudent().getEmail(), from,subject, message);
+                
+            }// end compare to
+        }// end loans
+    }
 
 }

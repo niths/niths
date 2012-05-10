@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { TestAppConfig.class, HibernateConfig.class })
 public class GameServiceTest {
 
-	public static final String NAME = "Super Mario";
+    public static final String NAME = "Super Mario";
     public static final String CHANGED_NAME = "Halo";
 
     @Autowired

@@ -40,139 +40,139 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
-	Logger logger = org.slf4j.LoggerFactory
-			.getLogger(RequestAuthenticationFilter.class);
+    Logger logger = org.slf4j.LoggerFactory
+            .getLogger(RequestAuthenticationFilter.class);
 
-	@Autowired
-	private RestAuthenticationEntryPoint entryPoint;
+    @Autowired
+    private RestAuthenticationEntryPoint entryPoint;
 
-	@Autowired
-	private RequestAuthenticationProvider authProvider;
+    @Autowired
+    private RequestAuthenticationProvider authProvider;
 
-	/**
-	 * Handles the verification process.
-	 * <p>
-	 * Checks for authentication headers and based
-	 * on the information authenticates the user
-	 * <p>
-	 * @param req
-	 *            the HttpServletRequest
-	 * @param res
-	 *            the HttpServletResponse
-	 * @param chain
-	 *            the Security filter chain
-	 * @throws ServletException
-	 *             , IOException
-	 */
-	@Override
-	protected void doFilterInternal(HttpServletRequest req,
-			HttpServletResponse res, FilterChain chain)
-			throws ServletException, IOException {
+    /**
+     * Handles the verification process.
+     * <p>
+     * Checks for authentication headers and based
+     * on the information authenticates the user
+     * <p>
+     * @param req
+     *            the HttpServletRequest
+     * @param res
+     *            the HttpServletResponse
+     * @param chain
+     *            the Security filter chain
+     * @throws ServletException
+     *             , IOException
+     */
+    @Override
+    protected void doFilterInternal(HttpServletRequest req,
+            HttpServletResponse res, FilterChain chain)
+            throws ServletException, IOException {
 
-		logger.debug("Incoming request, firing security filter;");
-		// Checking if Basic Authentication has been set,
-		// if not, we check for a Session-Token header
-		Authentication currentAuth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (currentAuth == null) { // If basic auth has been populated,
-									// do not check for session token
-			logger.debug("No Basic Authentication header found");
-			logger.debug("Starting request authentication process...");
-			// Wrapper
-			RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(
-					new RequestHolderDetails());
+        logger.debug("Incoming request, firing security filter;");
+        // Checking if Basic Authentication has been set,
+        // if not, we check for a Session-Token header
+        Authentication currentAuth = SecurityContextHolder.getContext()
+                .getAuthentication();
+        if (currentAuth == null) { // If basic auth has been populated,
+                                    // do not check for session token
+            logger.debug("No Basic Authentication header found");
+            logger.debug("Starting request authentication process...");
+            // Wrapper
+            RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(
+                    new RequestHolderDetails());
 
-			// Get the authorization headers
-			String developerKey = req.getHeader("Developer-key");
-			String developerToken = req.getHeader("Developer-token");
-			String applicationKey = req.getHeader("Application-key");
-			String applicationToken = req.getHeader("Application-token");
+            // Get the authorization headers
+            String developerKey = req.getHeader("Developer-key");
+            String developerToken = req.getHeader("Developer-token");
+            String applicationKey = req.getHeader("Application-key");
+            String applicationToken = req.getHeader("Application-token");
 
-			logger.debug("HTTP headers have been processed.");
-			
-			if (developerKey != null && developerToken != null 
-					&& applicationToken != null && applicationKey != null) {
-				
-				logger.debug("Developer key found: " + developerKey);
-				logger.debug("Developer token found: " + developerToken);
-				logger.debug("Application key found: " + applicationKey);
-				logger.debug("Application token found: " + applicationToken);
-				
-				authInfo.setDeveloperKey(developerKey);
-				authInfo.setDeveloperToken(developerToken);
-				authInfo.setAppKey(applicationKey);
-				authInfo.setAppToken(applicationToken);
+            logger.debug("HTTP headers have been processed.");
+            
+            if (developerKey != null && developerToken != null 
+                    && applicationToken != null && applicationKey != null) {
+                
+                logger.debug("Developer key found: " + developerKey);
+                logger.debug("Developer token found: " + developerToken);
+                logger.debug("Application key found: " + applicationKey);
+                logger.debug("Application token found: " + applicationToken);
+                
+                authInfo.setDeveloperKey(developerKey);
+                authInfo.setDeveloperToken(developerToken);
+                authInfo.setAppKey(applicationKey);
+                authInfo.setAppToken(applicationToken);
 
-				String sessionToken = req.getHeader("Session-token");
-				if (sessionToken != null) {
-					logger.debug("Session-token header found: " + sessionToken);
-					authInfo.setSessionToken(sessionToken);
-				}else{
-					logger.debug("No session header found");
-				}
-				
-				try {
-					logger.debug("Calling authentication provider to authenticate the header(s)");
+                String sessionToken = req.getHeader("Session-token");
+                if (sessionToken != null) {
+                    logger.debug("Session-token header found: " + sessionToken);
+                    authInfo.setSessionToken(sessionToken);
+                }else{
+                    logger.debug("No session header found");
+                }
+                
+                try {
+                    logger.debug("Calling authentication provider to authenticate the header(s)");
 
-					// Let the authentication provider authenticate the request
-					// Will throw AuthenticationException, so it is important
-					// that every exception extends AuthenticationException.
-					// Exceptions are catched in AbstractRestController.
-					Authentication authResult = authProvider
-							.authenticate(authInfo);
+                    // Let the authentication provider authenticate the request
+                    // Will throw AuthenticationException, so it is important
+                    // that every exception extends AuthenticationException.
+                    // Exceptions are catched in AbstractRestController.
+                    Authentication authResult = authProvider
+                            .authenticate(authInfo);
 
-					logger.debug("Authentication success!");
+                    logger.debug("Authentication success!");
 
-					// Set the result as the authentication object
-					setAuthorization(authResult);
-					
-				} catch (AuthenticationException ae) {
+                    // Set the result as the authentication object
+                    setAuthorization(authResult);
+                    
+                } catch (AuthenticationException ae) {
 
-					logger.debug("Authentication failed for developer with key: " + developerKey);
-					logger.debug("Authentication failed for developer with token: " + developerToken);
-					logger.debug("Authentication failed for app with key: "+ applicationKey);
-					logger.debug("Authentication failed for app with token: "+ applicationToken);
-					
-					if (sessionToken != null) {
-						logger.debug("Authentication failed for session: "+ sessionToken);
-					}
-					
-					// Login failed, clear authentication object
-					setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
-					// We send the error to the entry point
-					entryPoint.commence(req, res, ae);
-				}
-				
-				
-			}else{
-				setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
-				
-				logger.debug("Could not find required headers(Developer/Application), authentication process ends...");
-			}
-		}
-		
-		logger.debug("Continuing spring security filter chain");
-		chain.doFilter(req, res);
-	}
-	
-	private void setAuthorization(Authentication auth){
-		SecurityContextHolder.getContext().setAuthentication(auth);
-	}
+                    logger.debug("Authentication failed for developer with key: " + developerKey);
+                    logger.debug("Authentication failed for developer with token: " + developerToken);
+                    logger.debug("Authentication failed for app with key: "+ applicationKey);
+                    logger.debug("Authentication failed for app with token: "+ applicationToken);
+                    
+                    if (sessionToken != null) {
+                        logger.debug("Authentication failed for session: "+ sessionToken);
+                    }
+                    
+                    // Login failed, clear authentication object
+                    setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
+                    // We send the error to the entry point
+                    entryPoint.commence(req, res, ae);
+                }
+                
+                
+            }else{
+                setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
+                
+                logger.debug("Could not find required headers(Developer/Application), authentication process ends...");
+            }
+        }
+        
+        logger.debug("Continuing spring security filter chain");
+        chain.doFilter(req, res);
+    }
+    
+    private void setAuthorization(Authentication auth){
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
 
-	public RequestAuthenticationProvider getAuthProvider() {
-		return authProvider;
-	}
+    public RequestAuthenticationProvider getAuthProvider() {
+        return authProvider;
+    }
 
-	public void setAuthProvider(RequestAuthenticationProvider authProvider) {
-		this.authProvider = authProvider;
-	}
+    public void setAuthProvider(RequestAuthenticationProvider authProvider) {
+        this.authProvider = authProvider;
+    }
 
-	public RestAuthenticationEntryPoint getEntryPoint() {
-		return entryPoint;
-	}
+    public RestAuthenticationEntryPoint getEntryPoint() {
+        return entryPoint;
+    }
 
-	public void setEntryPoint(RestAuthenticationEntryPoint entryPoint) {
-		this.entryPoint = entryPoint;
-	}
+    public void setEntryPoint(RestAuthenticationEntryPoint entryPoint) {
+        this.entryPoint = entryPoint;
+    }
 
 }

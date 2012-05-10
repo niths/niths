@@ -16,16 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoomRepositoryTest {
 
-	@Autowired
-	private RoomRepository repo;
+    @Autowired
+    private RoomRepository repo;
 
-	@Test
-	public void testCRUDROOM() {
-		
-		
-		int size = repo.getAll(null).size();
-		System.out.println(size);
-		
+    @Test
+    public void testCRUDROOM() {
+        
+        
+        int size = repo.getAll(null).size();
+        System.out.println(size);
+        
 
-	}
+    }
 }

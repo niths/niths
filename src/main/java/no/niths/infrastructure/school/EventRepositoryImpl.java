@@ -20,42 +20,42 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class EventRepositoryImpl extends AbstractGenericRepositoryImpl<Event>
-		implements EventRepository {
+        implements EventRepository {
 
-	private static final String START_TIME = "startTime";
-	private QueryGenerator<Event> queryGen;
-	private final String COLUMNAME = "tags";
+    private static final String START_TIME = "startTime";
+    private QueryGenerator<Event> queryGen;
+    private final String COLUMNAME = "tags";
 
 
-	public EventRepositoryImpl() {
-		super(Event.class, new Event());
-		queryGen = new QueryGenerator<Event>(Event.class);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public List<Event> getEventsByTag(String tag) {
-		return queryGen.whereQuery(tag, COLUMNAME, getSession()
-				.getCurrentSession());
-	}
+    public EventRepositoryImpl() {
+        super(Event.class, new Event());
+        queryGen = new QueryGenerator<Event>(Event.class);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
-			GregorianCalendar endTime) {
-		return queryGen.getBetweenDates(startTime, endTime, getSession().getCurrentSession());
-	}
+    @Override
+    public List<Event> getEventsByTag(String tag) {
+        return queryGen.whereQuery(tag, COLUMNAME, getSession()
+                .getCurrentSession());
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Event> getEventsBetweenDatesAndByTag(String tag,
-			GregorianCalendar startTime, GregorianCalendar endTime) {
-		return queryGen.whereAndBetween(tag, COLUMNAME,START_TIME, getSession().getCurrentSession(), startTime, endTime);
-	}
+    @Override
+    public List<Event> getEventsBetweenDates(GregorianCalendar startTime,
+            GregorianCalendar endTime) {
+        return queryGen.getBetweenDates(startTime, endTime, getSession().getCurrentSession());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Event> getEventsBetweenDatesAndByTag(String tag,
+            GregorianCalendar startTime, GregorianCalendar endTime) {
+        return queryGen.whereAndBetween(tag, COLUMNAME,START_TIME, getSession().getCurrentSession(), startTime, endTime);
+    }
 }

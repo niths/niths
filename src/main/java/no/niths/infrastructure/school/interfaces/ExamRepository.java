@@ -13,14 +13,14 @@ import no.niths.infrastructure.interfaces.GenericRepository;
  * </p>
  */
 public interface ExamRepository extends GenericRepository<Exam> {
-	
-	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @return
-	 */
-	List<Exam> getEventsBetweenDates(GregorianCalendar startTime,
-			GregorianCalendar endTime) ; 
-	
+    
+    /**
+     * 
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<Exam> getEventsBetweenDates(GregorianCalendar startTime,
+            GregorianCalendar endTime) ; 
+    
 }

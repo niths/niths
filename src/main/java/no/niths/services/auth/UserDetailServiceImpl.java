@@ -22,62 +22,62 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserDetailServiceImpl implements UserDetailService {
-	
-	Logger logger = org.slf4j.LoggerFactory
-			.getLogger(UserDetailServiceImpl.class);
+    
+    Logger logger = org.slf4j.LoggerFactory
+            .getLogger(UserDetailServiceImpl.class);
 
-	@Autowired
-	private AuthenticationService authService;
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public UserDetails loadUserByUsername(String sessionToken)
-			throws UsernameNotFoundException {
-		
-		return null;
-	}
-
+    @Autowired
+    private AuthenticationService authService;
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public UserDetails loadStudentBySessionToken(String sessionToken) throws UsernameNotFoundException{
-		RequestHolderDetails user = authService.authenticateSessionToken(sessionToken);
-		if(user == null){
-			throw new UsernameNotFoundException("Could not find user with that sessiontoken");
-		}
-		logger.debug("Found student in UserDetailService");
-		return user;
-	}
+    @Override
+    public UserDetails loadUserByUsername(String sessionToken)
+            throws UsernameNotFoundException {
+        
+        return null;
+    }
+
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
-		Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
-		if(id == null){
-			throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
-		}
-		logger.debug("Found developer in UserDetailService");
-		return id;
-	}
+    @Override
+    public UserDetails loadStudentBySessionToken(String sessionToken) throws UsernameNotFoundException{
+        RequestHolderDetails user = authService.authenticateSessionToken(sessionToken);
+        if(user == null){
+            throw new UsernameNotFoundException("Could not find user with that sessiontoken");
+        }
+        logger.debug("Found student in UserDetailService");
+        return user;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Long loadApplicationIdFromApplicationKey(String applicationKey, String applicationToken) throws UsernameNotFoundException{
-		Long id = authService.authenticateApplicationToken(applicationKey, applicationToken);
-		if(id == null){
-			throw new UsernameNotFoundException("Could not find a application with that token/key");
-		}
-		logger.debug("Found application in UserDetailService");
-		return id;
-	}
-	
+    @Override
+    public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
+        Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
+        if(id == null){
+            throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
+        }
+        logger.debug("Found developer in UserDetailService");
+        return id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long loadApplicationIdFromApplicationKey(String applicationKey, String applicationToken) throws UsernameNotFoundException{
+        Long id = authService.authenticateApplicationToken(applicationKey, applicationToken);
+        if(id == null){
+            throw new UsernameNotFoundException("Could not find a application with that token/key");
+        }
+        logger.debug("Found application in UserDetailService");
+        return id;
+    }
+    
 
 }

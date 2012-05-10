@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class RoleRepositoryImpl extends AbstractGenericRepositoryImpl<Role>
-		implements RoleRepository{
+        implements RoleRepository{
 
-	public RoleRepositoryImpl() {
-		super(Role.class, new Role());
-	}
+    public RoleRepositoryImpl() {
+        super(Role.class, new Role());
+    }
 }

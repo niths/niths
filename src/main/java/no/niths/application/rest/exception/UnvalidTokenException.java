@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public final class UnvalidTokenException extends AuthenticationException {
 
     public UnvalidTokenException(String msg) {
-		super(msg);
-	}
+        super(msg);
+    }
 
-	private static final long serialVersionUID = 344699966872664622L;
+    private static final long serialVersionUID = 344699966872664622L;
 
    
 

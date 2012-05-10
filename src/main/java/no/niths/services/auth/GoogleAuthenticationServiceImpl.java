@@ -17,19 +17,19 @@ public class GoogleAuthenticationServiceImpl implements GoogleAuthenticationServ
     /**
      * {@inheritDoc}
      */
-	@Override
-	public String authenticateAndGetEmail(String token) throws HttpClientErrorException {
-		Google google = new GoogleTemplate(token);
-		LegacyGoogleProfile profile = google.userOperations().getUserProfile();
-		return profile.getEmail();
-	}
+    @Override
+    public String authenticateAndGetEmail(String token) throws HttpClientErrorException {
+        Google google = new GoogleTemplate(token);
+        LegacyGoogleProfile profile = google.userOperations().getUserProfile();
+        return profile.getEmail();
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Google authenticateAndGetGoogleAccount(String token) {
-		return new GoogleTemplate(token);
-	}
+    @Override
+    public Google authenticateAndGetGoogleAccount(String token) {
+        return new GoogleTemplate(token);
+    }
 
 }

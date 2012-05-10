@@ -7,21 +7,21 @@ import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
  *
  */
 public interface StringCryptationService {
-	/**
-	 * Returns an encrypted String
-	 * 
-	 * @param txt the string to encrypt
-	 * @return the encrypted string
-	 * @throws EncryptionOperationNotPossibleException
-	 */
-	String encrypt(String txt) throws EncryptionOperationNotPossibleException;
-	
-	/**
-	 * Returns a decrypted string
-	 * 
-	 * @param txt string to decrypt
-	 * @return the decrypted string
-	 * @throws EncryptionOperationNotPossibleException
-	 */
-	String decrypt(String txt) throws EncryptionOperationNotPossibleException;
+    /**
+     * Returns an encrypted String
+     * 
+     * @param txt the string to encrypt
+     * @return the encrypted string
+     * @throws EncryptionOperationNotPossibleException
+     */
+    String encrypt(String txt) throws EncryptionOperationNotPossibleException;
+    
+    /**
+     * Returns a decrypted string
+     * 
+     * @param txt string to decrypt
+     * @return the decrypted string
+     * @throws EncryptionOperationNotPossibleException
+     */
+    String decrypt(String txt) throws EncryptionOperationNotPossibleException;
 }

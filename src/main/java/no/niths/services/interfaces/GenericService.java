@@ -7,5 +7,5 @@ import no.niths.common.misc.GenericCRUDActions;
  * @param <T> the domain object type
  */
 public interface GenericService <T> extends GenericCRUDActions<T> {
-	void mergeUpdate(T domain);
+    void mergeUpdate(T domain);
 }

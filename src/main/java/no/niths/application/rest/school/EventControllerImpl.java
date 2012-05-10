@@ -46,93 +46,93 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.EVENTS)
 public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
-		implements EventController {
+        implements EventController {
 
-	@Autowired
-	private EventsService service;
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(EventControllerImpl.class);
+    @Autowired
+    private EventsService service;
+    
+    private static final Logger logger = LoggerFactory
+            .getLogger(EventControllerImpl.class);
 
-	private EventList eventList = new EventList();
+    private EventList eventList = new EventList();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ALL_LEADERS)
-	@ApiEvent(title="Event created")
-	public void create(@RequestBody Event domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ALL_LEADERS)
-	@ApiEvent(title="Event updated")
-	public void update(@RequestBody Event domain) {
-		super.update(domain);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ALL_LEADERS)
-	@ApiEvent(title="Event removed")
-	public void delete(@PathVariable long id) {
-		super.delete(id);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
+    @ApiEvent(title="Event created")
+    public void create(@RequestBody Event domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
+    @ApiEvent(title="Event updated")
+    public void update(@RequestBody Event domain) {
+        super.update(domain);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
+    @ApiEvent(title="Event removed")
+    public void delete(@PathVariable long id) {
+        super.delete(id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Event> getService() {
-		return service;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Event> getService() {
+        return service;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Event> getList() {
-		return eventList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Event> getList() {
+        return eventList;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@RequestMapping(value = { "search" }, 	
-	method = RequestMethod.GET, 
-	headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Event> getEventsByTag(TagProvider tag) {
-		logger.debug(tag+"");
-		renewList(service.getEventsByTag(tag+""));	
-		return eventList;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ALL_LEADERS)
-	@RequestMapping(
-	        value  = "{eventId}/location/{locId}",
-	        method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
-	public void addLocation(
-	        @PathVariable Long eventId,
-	        @PathVariable Long locId) {
-		
-		service.addLocation(eventId,locId);
-	}
-	
-	/**
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @RequestMapping(value = { "search" },     
+    method = RequestMethod.GET, 
+    headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Event> getEventsByTag(TagProvider tag) {
+        logger.debug(tag+"");
+        renewList(service.getEventsByTag(tag+""));    
+        return eventList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
+    @RequestMapping(
+            value  = "{eventId}/location/{locId}",
+            method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Location Added")
+    public void addLocation(
+            @PathVariable Long eventId,
+            @PathVariable Long locId) {
+        
+        service.addLocation(eventId,locId);
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -148,53 +148,53 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
         service.addLocation(eventId, locId);
     }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ALL_LEADERS)
-	@RequestMapping(
-	        value  = "{eventId}/location",
-	        method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
-	public void removeLocation(
-	        @PathVariable Long eventId) {
-		service.removeLocation(eventId);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ALL_LEADERS)
+    @RequestMapping(
+            value  = "{eventId}/location",
+            method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Location removed")
+    public void removeLocation(
+            @PathVariable Long eventId) {
+        service.removeLocation(eventId);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
-		logger.debug(timeDTO +"");
-		ValidationHelper.isObjectNull(timeDTO.getStartTime());
-		
-		if(timeDTO.getEndTime() != null){
-			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
-		}else{
-			renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
-		}
-		return eventList;
-	}
+    @Override
+    @RequestMapping(value = "dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Event> getEventsBetweenDates(TimeDTO timeDTO) {
+        logger.debug(timeDTO +"");
+        ValidationHelper.isObjectNull(timeDTO.getStartTime());
+        
+        if(timeDTO.getEndTime() != null){
+            renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), timeDTO.getEndTimeCal()));
+        }else{
+            renewList(service.getEventsBetweenDates(timeDTO.getStartTimeCal(), null));
+        }
+        return eventList;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@RequestMapping(value = "tags-and-dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
-	@ResponseBody
-	public List<Event> getEventsBetweenDatesAndByTag(TagProvider tag) {
-		if(tag.getEndTime() != null){
-			renewList(service.getEventsBetweenDatesAndByTag(tag+"",tag.getStartTimeCal(), tag.getEndTimeCal()));
-		}else if(tag.getStartTime() != null){
-			renewList(service.getEventsBetweenDatesAndByTag(tag+" ",tag.getStartTimeCal(), null));
-		}else{
-			eventList.clear();
-			renewList(eventList);
-		}
-		return eventList;
-	}
+    @Override
+    @RequestMapping(value = "tags-and-dates", method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
+    public List<Event> getEventsBetweenDatesAndByTag(TagProvider tag) {
+        if(tag.getEndTime() != null){
+            renewList(service.getEventsBetweenDatesAndByTag(tag+"",tag.getStartTimeCal(), tag.getEndTimeCal()));
+        }else if(tag.getStartTime() != null){
+            renewList(service.getEventsBetweenDatesAndByTag(tag+" ",tag.getStartTimeCal(), null));
+        }else{
+            eventList.clear();
+            renewList(eventList);
+        }
+        return eventList;
+    }
 }

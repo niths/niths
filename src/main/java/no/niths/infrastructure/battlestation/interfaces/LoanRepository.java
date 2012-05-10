@@ -30,5 +30,5 @@ public interface LoanRepository extends GenericRepository<Loan> {
      * Returns
      * @return
      */
-	List<Loan> getExpiredLoans();
+    List<Loan> getExpiredLoans();
 }

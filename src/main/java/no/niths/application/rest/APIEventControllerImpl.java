@@ -21,26 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(DomainConstantNames.APIEVENTS)
 public class APIEventControllerImpl extends AbstractRESTControllerImpl<APIEvent> implements APIEventController{
 
-	@Autowired
-	private APIEventService service;
+    @Autowired
+    private APIEventService service;
 
-	private APIEventList subjectList = new APIEventList();
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<APIEvent> getService() {
-		return service;
-	}
+    private APIEventList subjectList = new APIEventList();
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<APIEvent> getService() {
+        return service;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<APIEvent> getList() {
-		return subjectList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<APIEvent> getList() {
+        return subjectList;
+    }
 
 
 }

@@ -28,11 +28,11 @@ public interface LoanController extends GenericRESTController<Loan> {
      * 
      *
      * Use the POST method
-	 * 
-	 * @param consoleId
-	 * @param studentId
-	 * @param retrunDate format = dd/MM/YYYY-hh:mm
-	 */
+     * 
+     * @param consoleId
+     * @param studentId
+     * @param retrunDate format = dd/MM/YYYY-hh:mm
+     */
     void creatLoan(Long consoleId, Long studentId,String retrunDate);
 
   
@@ -62,15 +62,15 @@ public interface LoanController extends GenericRESTController<Loan> {
      * @param loanId
      * @param consoleId
      */
-	void removeConsole(Long loanId, Long consoleId);
-	
-	/**
-	 * 
-	 * @param loanId
-	 * @param studentId
-	 */
-	void changeStudent(Long loanId, Long studentId);
-	
-	ArrayList<Loan> getExpiredLoans();
-	
+    void removeConsole(Long loanId, Long consoleId);
+    
+    /**
+     * 
+     * @param loanId
+     * @param studentId
+     */
+    void changeStudent(Long loanId, Long studentId);
+    
+    ArrayList<Loan> getExpiredLoans();
+    
 }

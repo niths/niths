@@ -23,79 +23,79 @@ import no.niths.domain.school.Feed;
  */
 public interface FeedController extends GenericRESTController<Feed> {
 
-	/**
-	 * Method for adding location
+    /**
+     * Method for adding location
      *
      * Too add a location add /locations
      * too the URL
      *
      * Use the POST method
      *
-	 * @param feedId id for feed
-	 * @param locationId id for location
-	 */
-	void addLocation(Long feedId, Long locationId);
+     * @param feedId id for feed
+     * @param locationId id for location
+     */
+    void addLocation(Long feedId, Long locationId);
 
-	/**
-	 * Removing a location from a feed
+    /**
+     * Removing a location from a feed
      *
      * Too remove a location add /locations
      * too the URL
      *
      * Use the DELETE method
      *
-	 * @param feedId id for the feed
-	 */
-	void removeLocation(Long feedId);
+     * @param feedId id for the feed
+     */
+    void removeLocation(Long feedId);
 
-	/**
-	 * Adding a student to a feed
+    /**
+     * Adding a student to a feed
      *
      * Too add a student add /students
      * too the URL
      *
      * Use the POST method
      *
-	 * @param feedId id for feed
-	 * @param studentId id for student
-	 */
-	void addStudent(Long feedId, Long studentId);
+     * @param feedId id for feed
+     * @param studentId id for student
+     */
+    void addStudent(Long feedId, Long studentId);
 
-	/**
-	 * Removing a student from a feed
+    /**
+     * Removing a student from a feed
      *
      * Too remove a student add /students
      * too the URL
      *
      * Use the DELETE method
      *
-	 * @param feedId id for the feed
-	 */
-	void removeStudent(Long feedId);
-	
-	/**
-	 * Adding a committee relationship to the feed with the provided id
+     * @param feedId id for the feed
+     */
+    void removeStudent(Long feedId);
+    
+    /**
+     * Adding a committee relationship to the feed with the provided id
      *
      * Too add a committee add /committees
      * too the URL
      *
      * Use the POST method
      *
-	 * @param feedId id for feed
-	 * @param committeeId id for committee
-	 */
-	void addCommittee(Long feedId, Long committeeId);
-	
-	/**
-	 * Removing committee from a feed
+     * @param feedId id for feed
+     * @param committeeId id for committee
+     */
+    void addCommittee(Long feedId, Long committeeId);
+    
+    /**
+     * Removing committee from a feed
      *
      * Too remove a committee add /committees
      * too the URL
      *
      * Use the DELETE method
      *
-	 * @param feedId id for feed
-	 */
-	void removeCommittee(Long feedId);
-	
+     * @param feedId id for feed
+     */
+    void removeCommittee(Long feedId);
+    
 }

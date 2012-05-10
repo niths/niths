@@ -22,46 +22,46 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AccessFieldServiceImpl extends AbstractGenericService<AccessField>
-		implements AccessFieldService {
+        implements AccessFieldService {
 
-	@Autowired
-	private AccessFieldRepository repo;
+    @Autowired
+    private AccessFieldRepository repo;
 
-	@Autowired
-	private AccessPointRepository accessPointRepo;
+    @Autowired
+    private AccessPointRepository accessPointRepo;
 
-	@Override
-	public GenericRepository<AccessField> getRepository() {
-		return repo;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addAccessPoint(long afId, long apId) {
-		AccessField accessField = validate(repo.getById(afId),
-				AccessField.class);
-		checkIfObjectExists(accessField.getAccessPoint(), apId,
-				AccessPoint.class);
-
-		AccessPoint accessPoint = accessPointRepo.getById(apId);
-		ValidationHelper.isObjectNull(accessPoint, AccessPoint.class);
-		accessField.setAccessPoint(accessPoint);
-	}
+    @Override
+    public GenericRepository<AccessField> getRepository() {
+        return repo;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeAccessPoint(long afId) {
-		AccessField accessField = validate(repo.getById(afId),
-				AccessField.class);
-		boolean isRemoved = false;
-		if (accessField.getAccessPoint() != null) {
-			accessField.setAccessPoint(null);
-			isRemoved = true;
-		}
-		checkIfIsRemoved(isRemoved, AccessPoint.class);
-	}
+    @Override
+    public void addAccessPoint(long afId, long apId) {
+        AccessField accessField = validate(repo.getById(afId),
+                AccessField.class);
+        checkIfObjectExists(accessField.getAccessPoint(), apId,
+                AccessPoint.class);
+
+        AccessPoint accessPoint = accessPointRepo.getById(apId);
+        ValidationHelper.isObjectNull(accessPoint, AccessPoint.class);
+        accessField.setAccessPoint(accessPoint);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeAccessPoint(long afId) {
+        AccessField accessField = validate(repo.getById(afId),
+                AccessField.class);
+        boolean isRemoved = false;
+        if (accessField.getAccessPoint() != null) {
+            accessField.setAccessPoint(null);
+            isRemoved = true;
+        }
+        checkIfIsRemoved(isRemoved, AccessPoint.class);
+    }
 }

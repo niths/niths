@@ -23,49 +23,49 @@ import javax.persistence.Id;
  */
 public class ExampleDomain implements Domain{
 
-	private static final long serialVersionUID = -6235554113298449810L;
+    private static final long serialVersionUID = -6235554113298449810L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column
-	private String attribute;
+    private Long id;
+    
+    @Column
+    private String attribute;
 
-	public ExampleDomain(){
-		this(null);
-	}
-	
-	public ExampleDomain(String attribute){
-		this.attribute = attribute;
-	}
-	
-	@Override
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public ExampleDomain(){
+        this(null);
+    }
+    
+    public ExampleDomain(String attribute){
+        this.attribute = attribute;
+    }
+    
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@Override
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	public String getAttribute() {
-		return attribute;
-	}
+    public String getAttribute() {
+        return attribute;
+    }
 
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("[%s][%s]", id, attribute);
-	}
-	
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("[%s][%s]", id, attribute);
+    }
+    
     @Override
     public boolean equals(Object that) {
-        if (!(that instanceof APIEvent))	
+        if (!(that instanceof APIEvent))    
             return false;
         ExampleDomain d = (ExampleDomain) that;
         return d == this ? true : d.getId() == id ? true : false;

@@ -76,7 +76,7 @@ public class CommitteeTest {
         Set<ConstraintViolation<Committee>> constraintViolations = validator
                         .validate(new Committee(NAME, DESCRIPTION));
 
-        assertThat(0, is(equalTo(constraintViolations.size())));		
+        assertThat(0, is(equalTo(constraintViolations.size())));        
     }
 
     @Test
@@ -87,7 +87,7 @@ public class CommitteeTest {
                         .validate(committee);
 
         constraintViolations = validator.validate(committee);
-        assertThat(1, is(equalTo(constraintViolations.size())));		
+        assertThat(1, is(equalTo(constraintViolations.size())));        
     }
 
     @Test

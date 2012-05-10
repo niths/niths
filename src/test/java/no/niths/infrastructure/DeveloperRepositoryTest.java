@@ -19,45 +19,45 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes= { TestAppConfig.class, HibernateConfig.class})
 @Transactional 
 public class DeveloperRepositoryTest {
-	
-	@Autowired
-	private ApplicationRepository appRepo;
-	
-	@Autowired
-	private DeveloperRepository devRepo;
-	
-	@Test
-	public void testCRUD(){
-		int size = devRepo.getAll(null).size();
-		
-		Developer dev = new Developer("The name", "atemail@nith.com");
-		devRepo.create(dev);
-		assertEquals(size + 1, devRepo.getAll(null).size());
-		
-		dev.setEmail("nith@nith.no");
-		devRepo.update(dev);
-		assertEquals("nith@nith.no", devRepo.getById(dev.getId()).getEmail());
-		
-		assertEquals(true, devRepo.delete(dev.getId()));
-	}
-	
-	@Test
-	public void testApplicationRelation(){
-		Developer dev = new Developer("mrDEv", "niths@nithsmail.com");
-		//devRepo.create(dev);
-		
-		Application app = new Application("hello",null,null,null);
-		dev.getApps().add(app);
-		
-		appRepo.create(app);
-		devRepo.create(dev);
-		
-		assertEquals(1, devRepo.getById(dev.getId()).getApps().size());
-		
-		dev.getApps().remove(app);
-		devRepo.update(dev);
-		assertEquals(0, devRepo.getById(dev.getId()).getApps().size());
-		
-	}
+    
+    @Autowired
+    private ApplicationRepository appRepo;
+    
+    @Autowired
+    private DeveloperRepository devRepo;
+    
+    @Test
+    public void testCRUD(){
+        int size = devRepo.getAll(null).size();
+        
+        Developer dev = new Developer("The name", "atemail@nith.com");
+        devRepo.create(dev);
+        assertEquals(size + 1, devRepo.getAll(null).size());
+        
+        dev.setEmail("nith@nith.no");
+        devRepo.update(dev);
+        assertEquals("nith@nith.no", devRepo.getById(dev.getId()).getEmail());
+        
+        assertEquals(true, devRepo.delete(dev.getId()));
+    }
+    
+    @Test
+    public void testApplicationRelation(){
+        Developer dev = new Developer("mrDEv", "niths@nithsmail.com");
+        //devRepo.create(dev);
+        
+        Application app = new Application("hello",null,null,null);
+        dev.getApps().add(app);
+        
+        appRepo.create(app);
+        devRepo.create(dev);
+        
+        assertEquals(1, devRepo.getById(dev.getId()).getApps().size());
+        
+        dev.getApps().remove(app);
+        devRepo.update(dev);
+        assertEquals(0, devRepo.getById(dev.getId()).getApps().size());
+        
+    }
 
 }

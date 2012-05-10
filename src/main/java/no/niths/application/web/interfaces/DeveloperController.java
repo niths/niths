@@ -10,16 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
  * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface DeveloperController {
-	/**
-	 * Renders a view of developers and their apps
-	 */
-	ModelAndView getDevelopers();
-	/**
-	 * Handles POST from the developer page
-	 *
-	 * Responsible for setting developers and apps enabled
-	 */
-	String updateDeveloper(Long developerId, Long[] checkDevs, Long[] checkedApps);
+    /**
+     * Renders a view of developers and their apps
+     */
+    ModelAndView getDevelopers();
+    /**
+     * Handles POST from the developer page
+     *
+     * Responsible for setting developers and apps enabled
+     */
+    String updateDeveloper(Long developerId, Long[] checkDevs, Long[] checkedApps);
 
     /**
      * Method too reset developer key
@@ -27,6 +27,6 @@ public interface DeveloperController {
      * Add /reset too the URL
      * and use the POST method
      */
-	String resetDeveloperKey(Long developerId);
+    String resetDeveloperKey(Long developerId);
 
 }

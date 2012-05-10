@@ -27,73 +27,73 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ApplicationServiceImpl extends AbstractGenericService<Application>
-		implements ApplicationService {
-	
-	private static final Logger logger = LoggerFactory
-			.getLogger(ApplicationServiceImpl.class);
-	
-	private LazyFixer<Application> lazyFixer = new LazyFixer<Application>();
-	
-	@Autowired
-	private ApplicationRepository repo;
+        implements ApplicationService {
+    
+    private static final Logger logger = LoggerFactory
+            .getLogger(ApplicationServiceImpl.class);
+    
+    private LazyFixer<Application> lazyFixer = new LazyFixer<Application>();
+    
+    @Autowired
+    private ApplicationRepository repo;
 
-	@Override
-	@Deprecated
-	public Application getByApplicationToken(String token) {
-		return repo.getByApplicationToken(token);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public List<Application> getTopApps(int maxResults){
-		return repo.getTopApps(maxResults);
-	}
+    @Override
+    @Deprecated
+    public Application getByApplicationToken(String token) {
+        return repo.getByApplicationToken(token);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Application getByApplicationKey(String key, boolean enabled) {
-		Application app = repo.getByApplicationKey(key, enabled);
-		ArrayList<Application> ts = new ArrayList<Application>();
-	    ts.add(app);
-	    lazyFixer.fetchChildren(ts);
-	    return ts.get(0);
-
-	}
-
-	@Override
-	public GenericRepository<Application> getRepository() {
-		return repo;
-	}
+    @Override
+    public List<Application> getTopApps(int maxResults){
+        return repo.getTopApps(maxResults);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void enableApplication(Long applicationId) {
-		Application applications = validate(repo.getById(applicationId),
-				Application.class);
-		if ((applications.getEnabled() != null) || (!applications.getEnabled())) {
-			applications.setEnabled(true);
-			logger.debug("Application " + applications.getTitle() + " is enabled");
-		}
-		
-	}
+    @Override
+    public Application getByApplicationKey(String key, boolean enabled) {
+        Application app = repo.getByApplicationKey(key, enabled);
+        ArrayList<Application> ts = new ArrayList<Application>();
+        ts.add(app);
+        lazyFixer.fetchChildren(ts);
+        return ts.get(0);
+
+    }
+
+    @Override
+    public GenericRepository<Application> getRepository() {
+        return repo;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void disableApplication(Long applicationId) {
-		Application applicatipns = validate(repo.getById(applicationId),
-				Developer.class);
-		if (applicatipns.getEnabled() != null && applicatipns.getEnabled()) {
-			applicatipns.setEnabled(false);
-			logger.debug("Application " + applicatipns.getTitle() + " is disabled");
-		}
-		
-	}
+    @Override
+    public void enableApplication(Long applicationId) {
+        Application applications = validate(repo.getById(applicationId),
+                Application.class);
+        if ((applications.getEnabled() != null) || (!applications.getEnabled())) {
+            applications.setEnabled(true);
+            logger.debug("Application " + applications.getTitle() + " is enabled");
+        }
+        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableApplication(Long applicationId) {
+        Application applicatipns = validate(repo.getById(applicationId),
+                Developer.class);
+        if (applicatipns.getEnabled() != null && applicatipns.getEnabled()) {
+            applicatipns.setEnabled(false);
+            logger.debug("Application " + applicatipns.getTitle() + " is disabled");
+        }
+        
+    }
 }

@@ -16,10 +16,10 @@ import no.niths.infrastructure.interfaces.ExampleRepository;
  * </p>
  */
 public class ExampleRepositoryImpl extends AbstractGenericRepositoryImpl<ExampleDomain> 
-						implements ExampleRepository{
+                        implements ExampleRepository{
 
-	public ExampleRepositoryImpl() {
-		super(ExampleDomain.class, new ExampleDomain());
-	}
-	
+    public ExampleRepositoryImpl() {
+        super(ExampleDomain.class, new ExampleDomain());
+    }
+    
 }

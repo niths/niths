@@ -23,13 +23,13 @@ import no.niths.application.rest.misc.RestResource;
  * 
  */
 public interface DiscoverabilityController {
-	/**
-	 * Returns all domains
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
+    /**
+     * Returns all domains
+     * 
+     * @param request
+     * @param response
+     * @return
+     */
     String root(HttpServletRequest request, HttpServletResponse response);
 
     /**
@@ -43,13 +43,13 @@ public interface DiscoverabilityController {
      * @param req the http header, specifies return format
      * @return a list of resources in the API
      */
-	List<RestResource> getApi(HttpServletRequest req);
+    List<RestResource> getApi(HttpServletRequest req);
 
-	/**
-	 * Returns a HTML view of the API
-	 * 
-	 * @param req the http header
-	 * @return html view of services in the API
-	 */
-	ModelAndView getApiHtml(HttpServletRequest req);
+    /**
+     * Returns a HTML view of the API
+     * 
+     * @param req the http header
+     * @return html view of services in the API
+     */
+    ModelAndView getApiHtml(HttpServletRequest req);
 }

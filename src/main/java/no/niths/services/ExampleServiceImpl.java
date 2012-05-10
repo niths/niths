@@ -17,14 +17,14 @@ import no.niths.services.interfaces.ExampleService;
  *
  */
 public class ExampleServiceImpl extends AbstractGenericService<ExampleDomain>
-							implements ExampleService{
+                            implements ExampleService{
 
-	@Autowired
-	private ExampleRepository repo;
-	
-	@Override
-	public GenericRepository<ExampleDomain> getRepository() {
-		return repo;
-	}
+    @Autowired
+    private ExampleRepository repo;
+    
+    @Override
+    public GenericRepository<ExampleDomain> getRepository() {
+        return repo;
+    }
 
 }

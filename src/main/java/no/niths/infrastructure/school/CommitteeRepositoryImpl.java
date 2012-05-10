@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CommitteeRepositoryImpl extends AbstractGenericRepositoryImpl<Committee>
-		implements CommitteeRepositorty{
+        implements CommitteeRepositorty{
 
-	public CommitteeRepositoryImpl() {
-		super(Committee.class, new Committee());
-	}
-	
+    public CommitteeRepositoryImpl() {
+        super(Committee.class, new Committee());
+    }
+    
 }

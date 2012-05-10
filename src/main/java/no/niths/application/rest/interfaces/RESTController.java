@@ -13,11 +13,11 @@ import no.niths.application.rest.AbstractRESTControllerImpl;
  */
 public interface RESTController<T> {
  
-	/**
-	 * Persists the domain
-	 * 
-	 * @param domain
-	 */
+    /**
+     * Persists the domain
+     * 
+     * @param domain
+     */
     public void create( T domain) ;
     
     /**
@@ -51,7 +51,7 @@ public interface RESTController<T> {
      * @param id the id of the domain object to be deleted
      * @deprecated
      */
-	@Deprecated
+    @Deprecated
     public void delete(Long id);
     
     /**

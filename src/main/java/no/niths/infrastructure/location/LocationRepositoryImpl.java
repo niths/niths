@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class LocationRepositoryImpl extends
-		AbstractGenericRepositoryImpl<Location> implements LocationRepository {
+        AbstractGenericRepositoryImpl<Location> implements LocationRepository {
 
     @Override
     public Long create(Location location) {
@@ -28,7 +28,7 @@ public class LocationRepositoryImpl extends
         
     }
 
-	public LocationRepositoryImpl() {
-		super(Location.class, new Location());
-	}
+    public LocationRepositoryImpl() {
+        super(Location.class, new Location());
+    }
 }

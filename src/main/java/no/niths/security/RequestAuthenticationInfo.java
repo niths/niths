@@ -11,9 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
 
-	private static final long serialVersionUID = 1192605098301148314L;
+    private static final long serialVersionUID = 1192605098301148314L;
 
-	private RequestHolderDetails principal;
+    private RequestHolderDetails principal;
     private String developerToken;
     private String sessionToken;
     private String appToken;
@@ -27,8 +27,8 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
     }
     
     public RequestAuthenticationInfo(){
-    	super(null);
-    	setAuthenticated(false);
+        super(null);
+        setAuthenticated(false);
     }
 
     public RequestAuthenticationInfo(RequestHolderDetails principal, Collection<? extends GrantedAuthority> authorities) {
@@ -51,54 +51,54 @@ public class RequestAuthenticationInfo extends AbstractAuthenticationToken {
         super.setAuthenticated(false);
     }
 
-	public String getDeveloperToken() {
-		return developerToken;
-	}
+    public String getDeveloperToken() {
+        return developerToken;
+    }
 
-	public void setDeveloperToken(String developerToken) {
-		this.developerToken = developerToken;
-	}
+    public void setDeveloperToken(String developerToken) {
+        this.developerToken = developerToken;
+    }
 
-	public String getSessionToken() {
-		return sessionToken;
-	}
+    public String getSessionToken() {
+        return sessionToken;
+    }
 
-	public void setSessionToken(String sessionToken) {
-		this.sessionToken = sessionToken;
-	}
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+    }
 
-	@Override
-	public void eraseCredentials() {
-		super.eraseCredentials();
-		//credentials = null;
-	}
-	@Override
-	public Object getCredentials() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void eraseCredentials() {
+        super.eraseCredentials();
+        //credentials = null;
+    }
+    @Override
+    public Object getCredentials() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getAppToken() {
-		return appToken;
-	}
+    public String getAppToken() {
+        return appToken;
+    }
 
-	public void setAppToken(String appToken) {
-		this.appToken = appToken;
-	}
+    public void setAppToken(String appToken) {
+        this.appToken = appToken;
+    }
 
-	public String getDeveloperKey() {
-		return developerKey;
-	}
+    public String getDeveloperKey() {
+        return developerKey;
+    }
 
-	public void setDeveloperKey(String developerKey) {
-		this.developerKey = developerKey;
-	}
+    public void setDeveloperKey(String developerKey) {
+        this.developerKey = developerKey;
+    }
 
-	public String getAppKey() {
-		return appKey;
-	}
+    public String getAppKey() {
+        return appKey;
+    }
 
-	public void setAppKey(String appKey) {
-		this.appKey = appKey;
-	}
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
 }

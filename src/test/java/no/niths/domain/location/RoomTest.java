@@ -8,13 +8,13 @@ import org.junit.BeforeClass;
 
 public class RoomTest {
 
-	@SuppressWarnings("unused")
-	private static Validator validator;
+    @SuppressWarnings("unused")
+    private static Validator validator;
     
-	@BeforeClass
+    @BeforeClass
     public void setup() {
-    	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    	validator = factory.getValidator();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
    //TODO create Room validation test

@@ -57,127 +57,127 @@ import org.hibernate.annotations.CascadeType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Loan implements Domain {
 
-	@Transient
-	private static final long serialVersionUID = 3498079752190376516L;
+    @Transient
+    private static final long serialVersionUID = 3498079752190376516L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(name = "loan_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	@XmlSchemaType(name = "date")
-	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name = "starttime")
-	private Calendar startTime;
+    @Column(name = "loan_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+    @XmlElement(name = "starttime")
+    private Calendar startTime;
 
-	@Column(name = "return_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	@XmlSchemaType(name = "date")
-	@XmlJavaTypeAdapter(XmlCalendarAdapter.class)
-	@XmlElement(name = "endtime")
-	private Calendar endTime;
+    @Column(name = "return_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @XmlSchemaType(name = "date")
+    @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
+    @XmlElement(name = "endtime")
+    private Calendar endTime;
 
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
-	@JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
-	@Cascade(CascadeType.ALL)
-	private List<Console> consoles = new ArrayList<Console>();
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Console.class)
+    @JoinTable(name = "loans_consoles", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "console_id"))
+    @Cascade(CascadeType.ALL)
+    private List<Console> consoles = new ArrayList<Console>();
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
-	@JoinTable(name = "students_loans", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	@Cascade(CascadeType.ALL)
-	private Student student;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
+    @JoinTable(name = "students_loans", joinColumns = @JoinColumn(name = "loan_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @Cascade(CascadeType.ALL)
+    private Student student;
 
-	public Loan() {
-		this(null, null);
-		setConsoles(null);
-		setStudent(null);
-	}
-	
-	public Loan(GregorianCalendar starTime) {
-		setStartTime(starTime);
-	}
+    public Loan() {
+        this(null, null);
+        setConsoles(null);
+        setStudent(null);
+    }
+    
+    public Loan(GregorianCalendar starTime) {
+        setStartTime(starTime);
+    }
 
-	public Loan(GregorianCalendar startTime, GregorianCalendar endTime) {
-		setStartTime(startTime);
-		setEndTime(endTime);
-	}
+    public Loan(GregorianCalendar startTime, GregorianCalendar endTime) {
+        setStartTime(startTime);
+        setEndTime(endTime);
+    }
 
-	public Loan(Long loanId) {
-		setId(loanId);
-	}
+    public Loan(Long loanId) {
+        setId(loanId);
+    }
 
-	@Override
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@Override
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-	public void setStartTime(Calendar startTime) {
-		this.startTime = startTime;
-	}
+    @JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
+    public void setStartTime(Calendar startTime) {
+        this.startTime = startTime;
+    }
 
-	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-	public Calendar getStartTime() {
-		return startTime;
-	}
+    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
+    public Calendar getStartTime() {
+        return startTime;
+    }
 
-	@JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
-	public void setEndTime(Calendar endTime) {
-		this.endTime = endTime;
-	}
+    @JsonDeserialize(using = JsonCalendarDeserializerAdapter.class)
+    public void setEndTime(Calendar endTime) {
+        this.endTime = endTime;
+    }
 
-	@JsonSerialize(using = JsonCalendarSerializerAdapter.class)
-	public Calendar getEndTime() {
-		return endTime;
-	}
+    @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
+    public Calendar getEndTime() {
+        return endTime;
+    }
 
-	public void setConsoles(List<Console> consoles) {
-		this.consoles = consoles;
-	}
+    public void setConsoles(List<Console> consoles) {
+        this.consoles = consoles;
+    }
 
-	public List<Console> getConsoles() {
-		return consoles;
-	}
+    public List<Console> getConsoles() {
+        return consoles;
+    }
 
-	@JsonSerialize(as = Student.class)
-	public Student getStudent() {
-		return student;
-	}
+    @JsonSerialize(as = Student.class)
+    public Student getStudent() {
+        return student;
+    }
 
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
-	@Override
-	public boolean equals(Object that) {
-		if (!(that instanceof Loan))
-			return false;
-		Loan loan = (Loan) that;
+    @Override
+    public boolean equals(Object that) {
+        if (!(that instanceof Loan))
+            return false;
+        Loan loan = (Loan) that;
 
-		return loan == this || loan.getId() == id;
-	}
+        return loan == this || loan.getId() == id;
+    }
 
-	@JsonIgnore
-	public boolean isEmpty() {
-		return (id == null && startTime == null && endTime == null);
-	}
+    @JsonIgnore
+    public boolean isEmpty() {
+        return (id == null && startTime == null && endTime == null);
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(String.format("[%s]", id));
-		buffer.append(String.format("[%s]", (startTime == null) ? null
-				: startTime.getTime()));
-		buffer.append(String.format("[%s]",
-				(endTime == null) ? null : endTime.getTime()));
-		return buffer.toString();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(String.format("[%s]", id));
+        buffer.append(String.format("[%s]", (startTime == null) ? null
+                : startTime.getTime()));
+        buffer.append(String.format("[%s]",
+                (endTime == null) ? null : endTime.getTime()));
+        return buffer.toString();
 
-	}
+    }
 }

@@ -17,18 +17,18 @@ import no.niths.infrastructure.interfaces.GenericRepository;
  */
 public interface FadderGroupRepository extends GenericRepository<FadderGroup>{
 
-	/**
-	 * Returns the group the student is a child in
-	 * @param studentId id of the student
-	 * @return FadderGroup the group the student is a child in
-	 */
-	FadderGroup getGroupBelongingToStudent(Long studentId);
-	
-	/**
+    /**
+     * Returns the group the student is a child in
+     * @param studentId id of the student
+     * @return FadderGroup the group the student is a child in
+     */
+    FadderGroup getGroupBelongingToStudent(Long studentId);
+    
+    /**
      * Returns all students without a fadder group
      * 
      * @return list with students not in a group
      */
-	List<Student> getStudentsNotInAGroup();
-	
+    List<Student> getStudentsNotInAGroup();
+    
 }

@@ -7,18 +7,18 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class XmlCharAdapter extends XmlAdapter<String, Character> {
 
-	@Override
-	public Character unmarshal(String v) throws Exception {
-		if(v != null){
-			return v.charAt(0);
-		}else{
-			return null;
-		}
-	}
+    @Override
+    public Character unmarshal(String v) throws Exception {
+        if(v != null){
+            return v.charAt(0);
+        }else{
+            return null;
+        }
+    }
 
-	@Override
-	public String marshal(Character v) throws Exception {
-		return v+ "";
-	}
+    @Override
+    public String marshal(Character v) throws Exception {
+        return v+ "";
+    }
 
 }

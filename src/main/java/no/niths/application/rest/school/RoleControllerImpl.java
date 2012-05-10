@@ -23,26 +23,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(DomainConstantNames.ROLES)
 public class RoleControllerImpl extends AbstractRESTControllerImpl<Role>
-		implements RoleController {
+        implements RoleController {
 
-	@Autowired
-	private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-	private RoleList roleList = new RoleList();
+    private RoleList roleList = new RoleList();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Role> getService() {
-		return roleService;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Role> getService() {
+        return roleService;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Role> getList() {
-		return roleList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Role> getList() {
+        return roleList;
+    }
 }

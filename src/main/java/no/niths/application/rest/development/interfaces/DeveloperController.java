@@ -16,73 +16,73 @@ import no.niths.domain.development.Developer;
  * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
 public interface DeveloperController extends GenericRESTController<Developer> {
-	
-	/**
-	 * Adds a app to a developer
+    
+    /**
+     * Adds a app to a developer
      *
      * Too add application add /{devId}/application/{applicationId}
      * too the URL
      *
      * Use the POST method
      *
-	 * @param devId id for the developer
-	 * @param applicationId id for the application
-	 */
-	void addApplication(Long devId, Long applicationId);
-	
-	/**
-	 * Removes a app from a developer
+     * @param devId id for the developer
+     * @param applicationId id for the application
+     */
+    void addApplication(Long devId, Long applicationId);
+    
+    /**
+     * Removes a app from a developer
      *
      * Too remove application add /{devId}/application/{applicationId}
      * too the URL
      *
      * Use the DELETE method
      *
-	 * @param devId id for the developer
-	 * @param applicationId id for the application
-	 */
-	void removeApplication(Long devId, Long applicationId);
+     * @param devId id for the developer
+     * @param applicationId id for the application
+     */
+    void removeApplication(Long devId, Long applicationId);
 
-	/**
-	 * Enables a developer
-	 * <p>
-	 * Developer must be enabled to do request
-	 * <p>
+    /**
+     * Enables a developer
+     * <p>
+     * Developer must be enabled to do request
+     * <p>
      *
      * Too enable the developer add /{developerId}/enable
      * too the URL
      *
      * Use the PUT method
      *
-	 * @param developerId id of the developer
-	 * @throws ObjectNotFoundException if no developer is found
-	 */
-	void enableDeveloper(Long developerId);
+     * @param developerId id of the developer
+     * @throws ObjectNotFoundException if no developer is found
+     */
+    void enableDeveloper(Long developerId);
 
-	/**
-	 * Reset developer key
+    /**
+     * Reset developer key
      *
      * Too reset the developer key add /{developerId}/resetDeveloperKey
      * too the URL
      *
      * Use the PUT method
      *
-	 * @param developerId id of the developer
-	 * @throws ObjectNotFoundException id no dev is found
-	 */
-	void resetDeveloperKey(Long developerId);
-	
-	
-	/**
-	 * Disables a developer, so he can't make request
+     * @param developerId id of the developer
+     * @throws ObjectNotFoundException id no dev is found
+     */
+    void resetDeveloperKey(Long developerId);
+    
+    
+    /**
+     * Disables a developer, so he can't make request
      *
      * Too disable the application add /{developerId}/disable
      * too the URL
      *
      * Use the PUT method
      *
-	 * @param developerId
-	 */
-	void disableDeveloper(@PathVariable Long developerId);
+     * @param developerId
+     */
+    void disableDeveloper(@PathVariable Long developerId);
 
 }

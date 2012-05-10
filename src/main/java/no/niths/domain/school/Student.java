@@ -85,7 +85,7 @@ import org.jasypt.hibernate4.type.EncryptedStringType;
 @TypeDef(name = "encryptedString" ,
 typeClass = EncryptedStringType.class,
 parameters = {
-	@Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
+    @Parameter(name = "encryptorRegisteredName", value = "strongHibernateStringEncryptor")
 })
 @Entity
 @Table(name = DomainConstantNames.STUDENTS)
@@ -301,10 +301,10 @@ public class Student implements Domain {
     }
 
     public Student(Long studentId) {
-		setId(studentId);
-	}
+        setId(studentId);
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 

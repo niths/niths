@@ -16,10 +16,10 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = StudentGenderValidator.class)
 public @interface StudentGender {
-	String message() default "Must be M(ale) or F(emale)";
+    String message() default "Must be M(ale) or F(emale)";
  
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
  
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
  
 }

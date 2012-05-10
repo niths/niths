@@ -18,30 +18,30 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class LocationRepositoryTest {
 
-	@Autowired
-	private LocationRepository repo;
-	
-	@Test
-	public void testCRUD() {
-		// create
-		int size = repo.getAll(null).size();
-		
-		Location loc = new Location("Oslo",10.2304,90.2030);
-	
-		repo.create(loc);
-		assertEquals(size + 1, repo.getAll(null).size());
-		assertEquals(loc, repo.getById(loc.getId()));
+    @Autowired
+    private LocationRepository repo;
+    
+    @Test
+    public void testCRUD() {
+        // create
+        int size = repo.getAll(null).size();
+        
+        Location loc = new Location("Oslo",10.2304,90.2030);
+    
+        repo.create(loc);
+        assertEquals(size + 1, repo.getAll(null).size());
+        assertEquals(loc, repo.getById(loc.getId()));
 
 
-		loc.setPlace("Molde");
-		repo.update(loc);
-		loc = repo.getById(loc.getId());
-		assertEquals("Molde", loc.getPlace());
-	
+        loc.setPlace("Molde");
+        repo.update(loc);
+        loc = repo.getById(loc.getId());
+        assertEquals("Molde", loc.getPlace());
+    
 
-		repo.delete(loc.getId());
-		assertEquals(size, repo.getAll(null).size());
-		
-	}
+        repo.delete(loc.getId());
+        assertEquals(size, repo.getAll(null).size());
+        
+    }
 
 }

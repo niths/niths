@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends AbstractGenericService<Role> implements RoleService{
 
-	
+    
     @Autowired
     private RoleRepository repo;
 
-	@Override
-	public GenericRepository<Role> getRepository() {
-		return repo;
-	}
+    @Override
+    public GenericRepository<Role> getRepository() {
+        return repo;
+    }
 }

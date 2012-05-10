@@ -15,23 +15,23 @@ public class RequestStatisticsServiceImpl implements RequestStatisticsService{
     private static final Logger logger = LoggerFactory
             .getLogger(RequestStatisticsServiceImpl.class);
     
-	@Autowired
-	private ApplicationService appService;
+    @Autowired
+    private ApplicationService appService;
 
-	/**
-	 * Simple example method for tracking app statistics
-	 * 
-	 * @param app the application that holds the request
-	 */
-	@Override
-	public void registerRequest(Application app) {
-		if(app.getRequests() != null){
-        	app.setRequests(app.getRequests() + 1);        	
+    /**
+     * Simple example method for tracking app statistics
+     * 
+     * @param app the application that holds the request
+     */
+    @Override
+    public void registerRequest(Application app) {
+        if(app.getRequests() != null){
+            app.setRequests(app.getRequests() + 1);            
         } else {
-        	app.setRequests(new Long(1));
+            app.setRequests(new Long(1));
         }
-		logger.debug("App counter upped! " + app.getTitle() + " - " + app.getRequests());
+        logger.debug("App counter upped! " + app.getTitle() + " - " + app.getRequests());
         appService.update(app);
-	}
+    }
 
 }

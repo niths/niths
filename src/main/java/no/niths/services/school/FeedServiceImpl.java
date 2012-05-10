@@ -28,108 +28,108 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FeedServiceImpl extends AbstractGenericService<Feed> implements
-		FeedService {
+        FeedService {
 
-	@Autowired
-	private FeedRepoistory repo;
+    @Autowired
+    private FeedRepoistory repo;
 
-	@Autowired
-	private LocationRepository locationRepo;
+    @Autowired
+    private LocationRepository locationRepo;
 
-	@Autowired
-	private StudentRepository studentRepo;
+    @Autowired
+    private StudentRepository studentRepo;
 
-	@Autowired
-	private CommitteeRepositorty committeeRepo;
-	
-	@Override
-	public GenericRepository<Feed> getRepository() {
-		return repo;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addLocation(Long feedId, Long locationId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
-		checkIfObjectExists(feed.getLocation(), locationId, Location.class);
-		Location location = locationRepo.getById(locationId);
-		ValidationHelper.isObjectNull(location, Location.class);
-		feed.setLocation(location);
-	}
+    @Autowired
+    private CommitteeRepositorty committeeRepo;
+    
+    @Override
+    public GenericRepository<Feed> getRepository() {
+        return repo;
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeLocation(Long feedId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
-
-		boolean isRemoved = false;
-		if (feed.getLocation() != null) {
-			isRemoved = true;
-			feed.setLocation(null);
-		}
-
-		checkIfIsRemoved(isRemoved, Location.class);
-	}
+    @Override
+    public void addLocation(Long feedId, Long locationId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
+        checkIfObjectExists(feed.getLocation(), locationId, Location.class);
+        Location location = locationRepo.getById(locationId);
+        ValidationHelper.isObjectNull(location, Location.class);
+        feed.setLocation(location);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void addStudent(Long feedId, Long studentId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
-		checkIfObjectExists(feed.getStudent(), studentId, Student.class);
-		Student student = studentRepo.getById(studentId);
-		ValidationHelper.isObjectNull(student, Student.class);
-		feed.setStudent(student);
-	}
+    @Override
+    public void removeLocation(Long feedId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
+
+        boolean isRemoved = false;
+        if (feed.getLocation() != null) {
+            isRemoved = true;
+            feed.setLocation(null);
+        }
+
+        checkIfIsRemoved(isRemoved, Location.class);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeStudent(Long feedId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
-
-		boolean isRemoved = false;
-		if (feed.getStudent() != null) {
-			isRemoved = true;
-			feed.setStudent(null);
-		}
-
-		checkIfIsRemoved(isRemoved, Student.class);
-	}
+    @Override
+    public void addStudent(Long feedId, Long studentId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
+        checkIfObjectExists(feed.getStudent(), studentId, Student.class);
+        Student student = studentRepo.getById(studentId);
+        ValidationHelper.isObjectNull(student, Student.class);
+        feed.setStudent(student);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void removeCommittee(Long feedId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
+    @Override
+    public void removeStudent(Long feedId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
 
-		boolean isRemoved = false;
-		if (feed.getCommittee() != null) {
-			isRemoved = true;
-			feed.setCommittee(null);
-		}
+        boolean isRemoved = false;
+        if (feed.getStudent() != null) {
+            isRemoved = true;
+            feed.setStudent(null);
+        }
 
-		checkIfIsRemoved(isRemoved, Committee.class);
-		
-	}
+        checkIfIsRemoved(isRemoved, Student.class);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void addCommittee(Long feedId, Long committeeId) {
-		Feed feed = validate(repo.getById(feedId), Feed.class);
-		checkIfObjectExists(feed.getCommittee(), committeeId, Committee.class);
-		Committee committee = committeeRepo.getById(committeeId);
-		ValidationHelper.isObjectNull(committee, Committee.class);
-		feed.setCommittee(committee);
-	}
+    @Override
+    public void removeCommittee(Long feedId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
+
+        boolean isRemoved = false;
+        if (feed.getCommittee() != null) {
+            isRemoved = true;
+            feed.setCommittee(null);
+        }
+
+        checkIfIsRemoved(isRemoved, Committee.class);
+        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addCommittee(Long feedId, Long committeeId) {
+        Feed feed = validate(repo.getById(feedId), Feed.class);
+        checkIfObjectExists(feed.getCommittee(), committeeId, Committee.class);
+        Committee committee = committeeRepo.getById(committeeId);
+        ValidationHelper.isObjectNull(committee, Committee.class);
+        feed.setCommittee(committee);
+    }
 
 }

@@ -19,12 +19,12 @@ public interface AccessFieldService extends GenericService<AccessField> {
      * @param afId id for the accessField
      * @param apId id for the accessPoint
      */
-	void addAccessPoint(long afId, long apId);
+    void addAccessPoint(long afId, long apId);
 
     /**
      * Removes the AccessPoint from the AccessField
      *
      * @param afId id for the accessField
      */
-	void removeAccessPoint(long afId);
+    void removeAccessPoint(long afId);
 }

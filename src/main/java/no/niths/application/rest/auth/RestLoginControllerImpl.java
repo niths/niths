@@ -86,12 +86,12 @@ public class RestLoginControllerImpl implements RestLoginController{
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
             " or (hasRole('ROLE_STUDENT') and principal.studentId == #studentId)")
     @RequestMapping(
-    		value   = { "logout/{studentId}" },
-    		method  = RequestMethod.POST,
-    		headers = RESTConstants.ACCEPT_HEADER)
+            value   = { "logout/{studentId}" },
+            method  = RequestMethod.POST,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseStatus(value = HttpStatus.OK, reason = "Student logged out")
     public void logout(@PathVariable Long studentId) {
-    	service.logout(studentId);	
+        service.logout(studentId);    
     }
     
     

@@ -64,7 +64,7 @@ public class Room implements Domain {
     @Pattern(
             regexp  = "\\w+[\\w\\s]*\\w",
             message = "Invalid room name: only alphanumeric characters allowed")
-	@XmlElement(name="roomname")
+    @XmlElement(name="roomname")
     private String roomName;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -73,7 +73,7 @@ public class Room implements Domain {
             name               = "rooms_accessfields",
             joinColumns        = @JoinColumn(name = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "accessfield_id"))
-	@XmlElement(name="accessfields")
+    @XmlElement(name="accessfields")
     private List<AccessField> accessFields = new ArrayList<AccessField>();
 
     @JsonIgnore

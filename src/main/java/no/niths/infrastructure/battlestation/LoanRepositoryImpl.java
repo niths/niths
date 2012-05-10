@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 public class LoanRepositoryImpl extends AbstractGenericRepositoryImpl<Loan> implements LoanRepository {
 
     private static final String END_TIME = "endTime";
-	private QueryGenerator<Loan> queryGen;
+    private QueryGenerator<Loan> queryGen;
     
     
     public LoanRepositoryImpl() {
@@ -42,9 +42,9 @@ public class LoanRepositoryImpl extends AbstractGenericRepositoryImpl<Loan> impl
     
     @Override
     @SuppressWarnings("unchecked")
-	public List<Loan> getExpiredLoans(){
-    	Criteria crit = getSession().getCurrentSession().createCriteria(Loan.class);
-    	crit.add(Restrictions.lt(END_TIME, new GregorianCalendar()));
-    	return crit.list();
+    public List<Loan> getExpiredLoans(){
+        Criteria crit = getSession().getCurrentSession().createCriteria(Loan.class);
+        crit.add(Restrictions.lt(END_TIME, new GregorianCalendar()));
+        return crit.list();
     }
 }

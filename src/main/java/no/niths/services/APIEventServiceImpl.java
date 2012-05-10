@@ -22,12 +22,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class APIEventServiceImpl extends AbstractGenericService<APIEvent> implements APIEventService {
-	
-	@Autowired
-	private APIEventRepository repo;
+    
+    @Autowired
+    private APIEventRepository repo;
 
-	@Override
-	public GenericRepository<APIEvent> getRepository() {
-		return repo;
-	}
+    @Override
+    public GenericRepository<APIEvent> getRepository() {
+        return repo;
+    }
 }

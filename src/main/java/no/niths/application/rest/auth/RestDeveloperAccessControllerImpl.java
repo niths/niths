@@ -155,15 +155,15 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
             method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public DeveloperToken enableDeveloperRest(@PathVariable String developerKey){
-    	DeveloperToken token = new DeveloperToken();
-    	try {
+        DeveloperToken token = new DeveloperToken();
+        try {
             Developer dev = service.enableDeveloper(developerKey);
             token.setKey(dev.getDeveloperKey());
             token.setToken(dev.getDeveloperToken());
         } catch (AuthenticationException e) {
-        	token.setMessage(e.getMessage());
+            token.setMessage(e.getMessage());
         }
-    	return token;
+        return token;
     }
 
     /**
@@ -228,7 +228,7 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
         return view;
     }
     
-	 /**
+     /**
      * Enables an application. Same as enableApplication(String applicationKey),
      * but as a REST service
      * <p>
@@ -243,20 +243,20 @@ public class RestDeveloperAccessControllerImpl extends RESTExceptionHandler
      */
     @Override
     @RequestMapping(
-    		value  = "enable/application/{applicationKey:.+}",
-    		method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
+            value  = "enable/application/{applicationKey:.+}",
+            method = RequestMethod.PUT, headers = RESTConstants.ACCEPT_HEADER)
     public ApplicationToken enableApplicationRest(@PathVariable String applicationKey) {
-    	logger.debug("Application wants to be enabled with application-key: "
-    			+ applicationKey);
-    	ApplicationToken token = new ApplicationToken();
-    	try {
-    		Application app = service.enableApplication(applicationKey);
-    		token.setAppKey(app.getApplicationKey());
-    		token.setToken(app.getApplicationToken());
-    	} catch (AuthenticationException e) {
-    		token.setMessage(e.getMessage());
-    	}
-    	
-    	return token;
+        logger.debug("Application wants to be enabled with application-key: "
+                + applicationKey);
+        ApplicationToken token = new ApplicationToken();
+        try {
+            Application app = service.enableApplication(applicationKey);
+            token.setAppKey(app.getApplicationKey());
+            token.setToken(app.getApplicationToken());
+        } catch (AuthenticationException e) {
+            token.setMessage(e.getMessage());
+        }
+        
+        return token;
     }
 }

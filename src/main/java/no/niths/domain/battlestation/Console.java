@@ -161,11 +161,11 @@ public class Console implements Domain {
         return String.format("[%s][%s]", id, name);
     }
 
-	public Boolean isLoaned() {
-		return isLoaned;
-	}
-	
-	public void setIsLoaned(Boolean isLoaned) {
-		this.isLoaned = isLoaned;
-	}
+    public Boolean isLoaned() {
+        return isLoaned;
+    }
+    
+    public void setIsLoaned(Boolean isLoaned) {
+        this.isLoaned = isLoaned;
+    }
 }

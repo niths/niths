@@ -22,7 +22,7 @@ public interface EventsService extends GenericService<Event> {
      * @param tag a String too specify which events should be returned
      * @return list with events
      */
-	List<Event> getEventsByTag(String tag);
+    List<Event> getEventsByTag(String tag);
 
     /**
      * Returns all events between two dates
@@ -30,20 +30,20 @@ public interface EventsService extends GenericService<Event> {
      * @param endTime a date which events should be before
      * @return list with events
      */
-	List<Event> getEventsBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime);
+    List<Event> getEventsBetweenDates(GregorianCalendar startTime, GregorianCalendar endTime);
 
     /**
      * Adds a location to the Event
      * @param eventId id for event
      * @param locId id for location
      */
-	void addLocation(Long eventId, Long locId);
+    void addLocation(Long eventId, Long locId);
 
     /**
      * Removes a location from an event
      * @param eventId id for event
      */
-	void removeLocation(Long eventId);
+    void removeLocation(Long eventId);
 
     /**
      * Returns all events which are between dates and has tag
@@ -52,7 +52,7 @@ public interface EventsService extends GenericService<Event> {
      * @param endTime a date which events should be before
      * @return list with events
      */
-	List<Event> getEventsBetweenDatesAndByTag(String tag,
-			GregorianCalendar startTime, GregorianCalendar endTime);
+    List<Event> getEventsBetweenDatesAndByTag(String tag,
+            GregorianCalendar startTime, GregorianCalendar endTime);
 
 }

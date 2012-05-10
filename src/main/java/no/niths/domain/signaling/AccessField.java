@@ -72,9 +72,9 @@ public class AccessField implements Domain {
     private AccessPoint accessPoint;
 
     public AccessField() {
-    	this(null, null);
-    	setAccessPoint(null);
-    	setRooms(null);
+        this(null, null);
+        setAccessPoint(null);
+        setRooms(null);
     }
 
     public AccessField(Integer min, Integer max) {
@@ -149,15 +149,15 @@ public class AccessField implements Domain {
     
     @Override
     public boolean equals(Object obj) {
-    	if(obj == this) return true;
-    	if(!(obj instanceof AccessField))return false;
-    	
-    	AccessField af = (AccessField)obj;
-    	return getId() == af.getId();
+        if(obj == this) return true;
+        if(!(obj instanceof AccessField))return false;
+        
+        AccessField af = (AccessField)obj;
+        return getId() == af.getId();
     }
     
     @Override
     public String toString() {
-    	return String.format("[%s][%s][%s]", id, minRange, maxRange);
+        return String.format("[%s][%s][%s]", id, minRange, maxRange);
     }
 }

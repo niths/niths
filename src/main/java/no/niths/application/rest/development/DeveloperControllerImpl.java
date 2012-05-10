@@ -36,115 +36,115 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping(DomainConstantNames.DEVELOPERS)
 public class DeveloperControllerImpl extends
-		AbstractRESTControllerImpl<Developer> implements DeveloperController {
+        AbstractRESTControllerImpl<Developer> implements DeveloperController {
 
-	@Autowired
-	private DeveloperService service;
-	
-	@Autowired
-	private KeyGeneratorService keyService;
-	
-	private DeveloperList developerList = new DeveloperList();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	public void create(@RequestBody Developer domain, HttpServletResponse res) {
-		super.create(domain, res);
-	}
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #domain.id)")
-	public void delete(@PathVariable long id) {
-		super.delete(id);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR  + " or (principal.developerId == #domain.id)")
-	public void update(@RequestBody Developer domain) {
-		super.update(domain);
-	}
+    @Autowired
+    private DeveloperService service;
+    
+    @Autowired
+    private KeyGeneratorService keyService;
+    
+    private DeveloperList developerList = new DeveloperList();
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/enable" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Developer enabled")
-	public void enableDeveloper(@PathVariable Long developerId){
-		service.enableDeveloper(developerId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    public void create(@RequestBody Developer domain, HttpServletResponse res) {
+        super.create(domain, res);
+    }
 
 
     /**
      * {@inheritDoc}
      */
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-	@RequestMapping(value = { "{developerId}/disable" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Developer diabled")
-	public void disableDeveloper(@PathVariable Long developerId){
-		service.disableDeveloper(developerId);
-	}
-	
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
-	@RequestMapping(value = { "{developerId}/resetDeveloperKey" }, method = RequestMethod.PUT)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
-	public void resetDeveloperKey(@PathVariable Long developerId){
-		service.resetDeveloperKey(developerId,keyService.generateDeveloperKey());		
-	}
-	
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
-	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
-	public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
-		service.addApplication(developerId,applicationId);
-	}
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #domain.id)")
+    public void delete(@PathVariable long id) {
+        super.delete(id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
-	@RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
-	public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
-		service.removeApplicaiton(developerId,applicationId);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GenericService<Developer> getService() {
-		return service;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR  + " or (principal.developerId == #domain.id)")
+    public void update(@RequestBody Developer domain) {
+        super.update(domain);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ListAdapter<Developer> getList() {
-		return developerList;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = { "{developerId}/enable" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Developer enabled")
+    public void enableDeveloper(@PathVariable Long developerId){
+        service.enableDeveloper(developerId);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = { "{developerId}/disable" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Developer diabled")
+    public void disableDeveloper(@PathVariable Long developerId){
+        service.disableDeveloper(developerId);
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #developerId)")
+    @RequestMapping(value = { "{developerId}/resetDeveloperKey" }, method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
+    public void resetDeveloperKey(@PathVariable Long developerId){
+        service.resetDeveloperKey(developerId,keyService.generateDeveloperKey());        
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
+    @RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Application added to developer")
+    public void addApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
+        service.addApplication(developerId,applicationId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or ((principal.developerId == #developerId) and (principal.appId == #applicationId))")
+    @RequestMapping(value = { "{developerId}/application/{applicationId}" }, method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK, reason = "Application removed from developer")
+    public void removeApplication(@PathVariable Long developerId,@PathVariable Long applicationId) {
+        service.removeApplicaiton(developerId,applicationId);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GenericService<Developer> getService() {
+        return service;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAdapter<Developer> getList() {
+        return developerList;
+    }
 
 }
