@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.common.misc.Searchable;
 import no.niths.domain.Domain;
 import no.niths.domain.adapter.JsonDateDeserializerAdapter;
@@ -103,20 +104,18 @@ public class Student implements Domain {
 
     @Searchable
     @Column(name = "first_name")
-    @Size(
-            min     = 1,
-            max     = 55,
-            message = "Must be minimun 1 char and max 55 chars")
     @XmlElement(name = "firstname")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid first name (2 - 500 alphanumeric letters only")
     private String firstName;
 
     @Searchable
     @Column(name = "last_name")
-    @Size(
-            min     = 1,
-            max     = 55,
-            message = "Must be minimun 1 char and max 55 chars")
     @XmlElement(name = "lastname")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid last name (2 - 500 alphanumeric letters only")
     private String lastName;
 
     @Column
@@ -152,7 +151,9 @@ public class Student implements Domain {
     private String telephoneNumber;
 
     @Column
-    @Size(min = 0, max = 255, message = "Can not be more then 255 chars")
+    @Pattern(
+            regexp  = ValidationConstants.LARGE,
+            message = "Invalid first name (2 - 500 alphanumeric letters only")
     private String description;
 
     @JsonIgnore

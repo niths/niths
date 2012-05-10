@@ -11,7 +11,7 @@ public class ValidationConstants {
 
  // Regular word
     W    =
-        "\\wæøå,",
+        "\\wæøåÆØÅ,",
 
     // Space and words
     SW   =
@@ -32,7 +32,7 @@ public class ValidationConstants {
 
     // Regular text (name)
     REGULAR =
-        "([\\wæøå][\\wæøå\\s,]*[\\wæøå]){1,50}",
+        "([\\wæøåÆØÅ][\\wæøåÆØÅ\\s,]*[\\wæøåÆØÅ]){1,50}",
 
     COURSE =
         "(" +

@@ -173,7 +173,7 @@ public class StudentRepositoryTest {
 	
 	@Test
 	public void testAddRoles(){
-		Student s1 = new Student("J","D");
+		Student s1 = new Student("John","Doe");
 		s1.setEmail("mailai@mail.com");
 		studentRepo.create(s1);
 	
