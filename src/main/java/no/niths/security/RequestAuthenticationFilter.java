@@ -69,6 +69,9 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse res, FilterChain chain)
             throws ServletException, IOException {
 
+    	//add no cache header
+    	res.addHeader("Cache-Control","no-cache");
+    	
         logger.debug("Incoming request, firing security filter;");
         // Checking if Basic Authentication has been set,
         // if not, we check for a Session-Token header
