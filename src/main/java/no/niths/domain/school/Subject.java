@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 import no.niths.domain.location.Room;
 import no.niths.domain.school.constants.Weekday;
@@ -70,24 +71,22 @@ public class Subject implements Domain {
     private Long id;
 
     @Column(unique = true)
-    @Size(
-            min     = 3,
-            max     = 80,
-            message = "The length of the name must be between 3 to 80 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid name (should be 2 - 80 alphanumeric letters)")
     private String name;
 
     @Column(unique = true, name = "subject_code")
-    @Size(
-            min     = 2,
-            max     = 10,
-            message = "The length of the code must be between 2 to 10 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid name (should be 2 - 80 alphanumeric letters)")
     @XmlElement(name="sibjectcode")
     private String subjectCode;
 
-    @Column(length=500)
-    @Size(
-            max     = 500,
-            message = "The length of the desc must not exceed 500 letters")
+    @Column
+    @Pattern(
+            regexp  = ValidationConstants.LARGE,
+            message = "Invalid name (should be 2 - 500 alphanumeric letters)")
     private String description;
 
     @Column

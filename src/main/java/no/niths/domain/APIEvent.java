@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import no.niths.common.constants.AdminConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.adapter.JsonCalendarDeserializerAdapter;
 import no.niths.domain.adapter.JsonCalendarSerializerAdapter;
 import no.niths.domain.adapter.XmlCalendarAdapter;
@@ -49,7 +50,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class APIEvent implements Domain{
-    
+
     private static final String EVENTTIME = "eventtime";
 
     @Transient
@@ -59,31 +60,36 @@ public class APIEvent implements Domain{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @OrderBy
     private Long id;
-    
+
     @Column
-    @Size(min = 1, max = 80, message ="The length of the title must be between 1 and 80 letters")
+    @Pattern(
+            regexp  = ValidationConstants.REGULAR,
+            message = "Invalid title (should be 2 - 80 alphanumeric letters)")
     private String title;
-    
+
     @Column(name= "eventTime")
     @Temporal(TemporalType.TIMESTAMP)
     @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(XmlCalendarAdapter.class)
     @XmlElement(name=EVENTTIME)
     private Calendar eventTime;
-    
-    @Column(length=500)
-    @Size(max = 500, message ="The length of the description must not exceed 500 letters")
+
+    @Column
+    @Pattern(
+            regexp  = ValidationConstants.LARGE,
+            message = "Invalid title (should be 2 - 500 alphanumeric letters)")
     private String description;
-    
-    public APIEvent(){
+
+    public APIEvent() {
         this(null,null,null);
-        setId(null);
+        this.id = null;
     }
-    
-    public APIEvent(String title, String description, GregorianCalendar eventTime){
-        this.title = title;
+
+    public APIEvent(
+            String title, String description, GregorianCalendar eventTime) {
+        this.title       = title;
         this.description = description;
-        this.eventTime = eventTime;
+        this.eventTime  = eventTime;
     }
 
     public Long getId() {
@@ -109,10 +115,11 @@ public class APIEvent implements Domain{
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Override
     public String toString() {
-        return String.format("[%s][%s][%s][%s]", id, eventTime, title, description);
+        return String.format(
+                "[%s][%s][%s][%s]", id, eventTime, title, description);
     }
 
     @JsonSerialize(using = JsonCalendarSerializerAdapter.class)
@@ -124,7 +131,7 @@ public class APIEvent implements Domain{
     public void setEventTime(Calendar eventTime) {
         this.eventTime = eventTime;
     }
-    
+
     @Override
     public boolean equals(Object that) {
         if (!(that instanceof APIEvent))    
@@ -132,8 +139,4 @@ public class APIEvent implements Domain{
         APIEvent s = (APIEvent) that;
         return s == this ? true : s.getId() == id ? true : false;
     }
-    
-    
-    
-
 }

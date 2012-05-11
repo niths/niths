@@ -64,7 +64,7 @@ public class RoomServiceTest {
         int size = roomService.getAll(null).size();
         Room r = new Room("Vrimle");
         AccessField af = new AccessField(20, 50);
-        AccessPoint ap = new AccessPoint("87:82:23:24:32");
+        AccessPoint ap = new AccessPoint("87:82:23:24:32:EF");
         
         apService.create(ap);
         af.setAccessPoint(ap);

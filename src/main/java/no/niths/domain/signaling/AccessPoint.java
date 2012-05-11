@@ -14,10 +14,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -46,6 +48,9 @@ public class AccessPoint implements Domain {
     private Long id;
 
     @Column(unique = true)
+    @Pattern(
+            regexp  = ValidationConstants.ACCESS_POINT_ADDRESS,
+            message = "Invalid name (should be 2 - 80 alphanumeric letters)")
     private String address;
 
     @OneToMany(fetch = FetchType.LAZY)
