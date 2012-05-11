@@ -30,6 +30,9 @@ public class ValidationConstants {
             '(' + SEW + "+)+" +
         "){1,250}",
 
+    ACCESS_POINT_ADDRESS =
+        "([0-9A-F]{2}:){5}([0-9A-F]{2})",
+
     // Regular text (name)
     REGULAR =
         "([\\wæøåÆØÅ][\\wæøåÆØÅ\\s,]*[\\wæøåÆØÅ]){1,50}",

@@ -48,7 +48,7 @@ public class AccessFieldControllerImplTest {
         testAF03 = new AccessField(22,50);
         testAF04 = new AccessField(22,50);
         
-        testAP = new AccessPoint("22:1A:AA:FF:00");
+        testAP = new AccessPoint("22:1A:AA:FF:00:FF");
         apController.create(testAP, res);
         
         controller.create(testAF01, res);

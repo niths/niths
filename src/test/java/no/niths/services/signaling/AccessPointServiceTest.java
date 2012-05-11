@@ -26,21 +26,21 @@ public class AccessPointServiceTest {
         int size = service.getAll(null).size();
         
         AccessPoint ap = new AccessPoint();
-        ap.setAddress("00:23:12:ad:af:ad");
+        ap.setAddress("00:23:12:AD:AF:AD");
         service.create(ap);
         assertEquals(size + 1, service.getAll(null).size());
         
         AccessPoint temp = service.getById(ap.getId());
-        assertEquals("00:23:12:ad:af:ad", temp.getAddress());
+        assertEquals("00:23:12:AD:AF:AD", temp.getAddress());
         
-        temp.setAddress("00:23:12:ad:23:33");
+        temp.setAddress("00:23:12:AD:23:33");
         service.update(temp);
         
         temp = service.getById(ap.getId());
-        assertEquals("00:23:12:ad:23:33", temp.getAddress());
+        assertEquals("00:23:12:AD:23:33", temp.getAddress());
         
         temp = new AccessPoint();
-        temp.setAddress("00:23:12:ad:23:33");
+        temp.setAddress("00:23:12:AD:23:33");
         
         assertEquals(1, service.getAll(temp).size());
         

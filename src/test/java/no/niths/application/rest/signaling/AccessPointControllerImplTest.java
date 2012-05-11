@@ -36,10 +36,10 @@ public class AccessPointControllerImplTest {
     public  void setUp() throws Exception {
         res = new MockHttpServletResponse();
 
-        testAP01 = new AccessPoint("00:22:AB:CF:FF");
-        testAP02 = new AccessPoint("00:23:AB:CF:FF");
-        testAP03 = new AccessPoint("00:24:AD:CF:AF");
-        testAP04 = new AccessPoint("00:25:AB:AF:FF");
+        testAP01 = new AccessPoint("00:22:AB:CF:FF:AA");
+        testAP02 = new AccessPoint("00:23:AB:CF:FF:AA");
+        testAP03 = new AccessPoint("00:24:AD:CF:AF:AA");
+        testAP04 = new AccessPoint("00:25:AB:AF:FF:AA");
         
         controller.create(testAP01, res);
         controller.create(testAP02, res);
@@ -76,7 +76,7 @@ public class AccessPointControllerImplTest {
     @Test
     public void testUpdate() {
         AccessPoint changedAP = new AccessPoint();
-        changedAP.setAddress("22:1A:AA:FF:00");
+        changedAP.setAddress("22:1A:AA:FF:00:01");
         changedAP.setId(testAP04.getId());
         
         controller.update(changedAP);

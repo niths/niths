@@ -311,25 +311,25 @@ INSERT INTO rooms(room_name) VALUES('Vrimleområdet');
 INSERT INTO rooms(room_name) VALUES('Fagstab');
 ---------------------------------------------------------------------
 --------------------------accesspoints-------------------------------
-INSERT INTO accesspoints(address) VALUES('00:21:55:60:e7:d0');
-INSERT INTO accesspoints(address) VALUES('00:24:97:f2:92:e0');
-INSERT INTO accesspoints(address) VALUES('00:24:97:f2:91:70');
-INSERT INTO accesspoints(address) VALUES('00:18:74:d3:4b:90');
-INSERT INTO accesspoints(address) VALUES('00:26:cb:d1:2e:10');
-INSERT INTO accesspoints(address) VALUES('00:26:cb:d1:2d:a0');
-INSERT INTO accesspoints(address) VALUES('00:17:0f:e7:2d:60');
-INSERT INTO accesspoints(address) VALUES('00:21:55.60.e6:10');
-INSERT INTO accesspoints(address) VALUES('dc:7b:94:34:94:90');
-INSERT INTO accesspoints(address) VALUES('00:17:df:a6:c8:80');
-INSERT INTO accesspoints(address) VALUES('00:17:df:a7:7c:50');
-INSERT INTO accesspoints(address) VALUES('dc:7b:94:a4:2e:80');
-INSERT INTO accesspoints(address) VALUES('00:26:cb:d1:2b:40');
-INSERT INTO accesspoints(address) VALUES('00:23:04:88:d4:c0');
-INSERT INTO accesspoints(address) VALUES('00:17:df:a7:7a:b0');
-INSERT INTO accesspoints(address) VALUES('00:24:97:f2:93:60');
-INSERT INTO accesspoints(address) VALUES('00:23:04:88:c1:20');
+INSERT INTO accesspoints(address) VALUES('00:21:55:60:E7:D0');
+INSERT INTO accesspoints(address) VALUES('00:24:97:F2:92:E0');
+INSERT INTO accesspoints(address) VALUES('00:24:97:F2:91:70');
+INSERT INTO accesspoints(address) VALUES('00:18:74:D3:4B:90');
+INSERT INTO accesspoints(address) VALUES('00:26:CB:D1:2E:10');
+INSERT INTO accesspoints(address) VALUES('00:26:CB:D1:2D:A0');
+INSERT INTO accesspoints(address) VALUES('00:17:0F:E7:2D:60');
+INSERT INTO accesspoints(address) VALUES('00:21:55.60.E6:10');
+INSERT INTO accesspoints(address) VALUES('DC:7B:94:34:94:90');
+INSERT INTO accesspoints(address) VALUES('00:17:DF:A6:C8:80');
+INSERT INTO accesspoints(address) VALUES('00:17:DF:A7:7C:50');
+INSERT INTO accesspoints(address) VALUES('DC:7B:94:A4:2E:80');
+INSERT INTO accesspoints(address) VALUES('00:26:CB:D1:2B:40');
+INSERT INTO accesspoints(address) VALUES('00:23:04:88:D4:C0');
+INSERT INTO accesspoints(address) VALUES('00:17:DF:A7:7A:B0');
+INSERT INTO accesspoints(address) VALUES('00:24:97:F2:93:60');
+INSERT INTO accesspoints(address) VALUES('00:23:04:88:C1:20');
 INSERT INTO accesspoints(address) VALUES('00:19:07:07:79:80');
-INSERT INTO accesspoints(address) VALUES('00:24:97:f2:93:40');
+INSERT INTO accesspoints(address) VALUES('00:24:97:F2:93:40');
 ---------------------------------------------------------------------
 --------------------------accessfields-------------------------------
 INSERT INTO accessfields(min_range, max_range) VALUES(53, 64);
