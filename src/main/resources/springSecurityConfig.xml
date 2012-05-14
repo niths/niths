@@ -15,13 +15,6 @@
 		pre-post-annotations="enabled" proxy-target-class="true" />
 	<security:http create-session="stateless" use-expressions="true">
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https" />
-		<security:intercept-url pattern="/register/**" access="permitAll" requires-channel="https" />
-		<security:intercept-url pattern="/**" access="permitAll" requires-channel="https" method="POST" />
-		<security:intercept-url pattern="/**" access="permitAll" requires-channel="https" method="PUT" />
-		<security:intercept-url pattern="/**" access="permitAll" requires-channel="https" method="DELETE" />
-		<security:intercept-url pattern="/students/**" access="permitAll" requires-channel="https" method="GET" />
-		<security:intercept-url pattern="/fadder/**" access="permitAll" requires-channel="https" method="GET" />
-		
 		<security:http-basic />
 		<security:custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
 	</security:http>
