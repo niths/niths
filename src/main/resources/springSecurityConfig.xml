@@ -13,8 +13,8 @@
 	<!-- Enable security annotations, set session no none, secure the admin panel, enable custom filter -->
 	<security:global-method-security
 		pre-post-annotations="enabled" proxy-target-class="true" />
-	<security:http create-session="stateless">
-		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" requires-channel="https" />
+	<security:http create-session="stateless" use-expressions="true">
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https" />
 		<security:http-basic />
 		<security:custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
 	</security:http>
