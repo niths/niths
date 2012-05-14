@@ -68,7 +68,8 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req,
             HttpServletResponse res, FilterChain chain)
             throws ServletException, IOException {
-
+    	
+    	System.err.println(req.getProtocol());
     	//add no cache header
     	res.addHeader("Cache-Control","no-cache");
     	
