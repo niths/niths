@@ -53,11 +53,5 @@
 		<security:user name="admin"
 			password="eb744e642692319a16da42b058e6e76c7c7e253ec37ef08e8200f80a68de03ee52eff70fc973398da526aad2dbe2c8833aa3dd21caa630cba95d47b002eeeac1"
 			authorities="ROLE_ADMIN" />
-		<security:user name="user"
-			password="b14361404c078ffd549c03db443c3fede2f3e534d73f78f77301ed97d4a436a9fd9db05ee8b325c0ad36438b43fec8510c204fc1c1edb21d0941c00e9e2c1ce2"
-			authorities="ROLE_USER" />
-		<security:user name="test"
-			password="ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff"
-			authorities="ROLE_TEST" />
 	</security:user-service>
 </beans:beans>

@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  *
- * Indicates which field is searchable in the admin panel
+ * Indicates which field is searchable in the administrator panel
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

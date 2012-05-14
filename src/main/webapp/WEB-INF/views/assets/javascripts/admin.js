@@ -1,4 +1,4 @@
-address = 'http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8080/niths/';
+address = 'https://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8443/niths/';
 avgTimeout = 5000;
 roles = '';
 
