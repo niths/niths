@@ -9,10 +9,11 @@
 <style type="text/css">
 <%@include file='assets/stylesheets/admin.css'%>
 </style>
-<script type="text/javascript">
-	
-<%@include file='assets/javascripts/admin.js'%>
-	
+<script>
+  <%@include file="assets/javascripts/jquery-1.7.2.min.js" %>
+</script>
+<script>
+  <%@include file="assets/javascripts/developers.js" %>
 </script>
 </head>
 <body>
@@ -52,7 +53,9 @@
 				<input type="hidden" value="${developer.id}" id=developerId
 							name="developerId">
 					<div class="right">
-							<input type="submit" value="Reset developer key + token" />
+							<button class="reset-developer">
+							  Reset developer key + token
+							</button>
 						</div>
 				</form>
 			</c:forEach>
