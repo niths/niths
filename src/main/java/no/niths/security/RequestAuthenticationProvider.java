@@ -1,6 +1,8 @@
 package no.niths.security;
 
 import no.niths.application.rest.exception.UnvalidTokenException;
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 import no.niths.services.auth.interfaces.UserDetailService;
 
 import org.slf4j.Logger;
@@ -45,12 +47,11 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 
             RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
 
-            Long devId = null; // ID of the developer holding the request
-            Long appId = null; // ID of the app holding the request
+            Developer dev = null;
+            Application app = null;
             
             //Verifying the authorization object
-            if (authInfo.getDeveloperToken() == null || authInfo.getDeveloperKey() == null
-                    || authInfo.getAppKey() == null || authInfo.getAppToken() == null) {
+            if (authInfo.getDeveloperToken() == null || authInfo.getAppToken() == null) {
                 logger.warn("Authorization object passed to provider is not correct");
                 throw new UnvalidTokenException("Error with HTTP-header values");
 
@@ -59,23 +60,16 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
                 //This is the object holding the authenticated user
                 RequestHolderDetails userInfo = new RequestHolderDetails();
 
-                logger.debug("Provider found developer-key: "
-                        + authInfo.getDeveloperKey());
                 logger.debug("Provider found developer-token: "
-                        + authInfo.getDeveloperToken());
+                        + authInfo.getDeveloperToken()); 
+              //Let our implementation of UserDetailService fetch the developer
+                dev = userDetailService.loadDeveloperFromDeveloperToken(authInfo.getDeveloperToken()); 
                 
-                //Let our implementation of UserDetailService fetch the dev
-                devId = userDetailService.loadDeveloperIdFromDeveloperKey(
-                        authInfo.getDeveloperKey(), authInfo.getDeveloperToken());    
-                
-                logger.debug("Provider found Application-key: "
-                        + authInfo.getAppKey());
                 logger.debug("Provider found Application-token: "
                         + authInfo.getAppToken());
                 
                 //Let our implementation of UserDetailService fetch the app 
-                appId = userDetailService.loadApplicationIdFromApplicationKey(
-                        authInfo.getAppKey(), authInfo.getAppToken());
+                app = userDetailService.loadApplicationFromApplicationToken(authInfo.getAppToken());
 
                 // We found tokens and keys, they have been authenticated,
                 // proceed to check for a session token
@@ -90,8 +84,8 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
                                     .getSessionToken());
                 }
 
-                userInfo.setDeveloperId(devId);
-                userInfo.setAppId(appId);
+                userInfo.setDeveloperId(dev.getId());
+                userInfo.setAppId(app.getId());
 
                 authInfo = new RequestAuthenticationInfo(userInfo,
                         userInfo.getAuthorities());
