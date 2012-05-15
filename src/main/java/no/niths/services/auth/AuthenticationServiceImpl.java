@@ -254,7 +254,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 		if (dev == null) {
 			throw new UnvalidTokenException("No developer found for token/key");
-		} else if (dev.getEnabled() == null || dev.getEnabled() == false) {
+		} else if (dev.getEnabled() == null || !dev.getEnabled()) {
 			throw new UnvalidTokenException("Developer is not enabled");
 		} else if (dev.getDeveloperToken() == null
 				|| !(dev.getDeveloperToken().equals(devToken))) {
@@ -288,7 +288,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			throw new UnvalidTokenException("Application does not have a token");
 		} else if (!(app.getApplicationToken().equals(applicationToken))) {
 			throw new UnvalidTokenException("Application token is not correct");
-		} else if (app.getEnabled() == null || app.getEnabled() == false) {
+		} else if (app.getEnabled() == null || !app.getEnabled()) {
 			throw new UnvalidTokenException("Application not enabled");
 		}
 		// Register request for application statistics

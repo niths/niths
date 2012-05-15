@@ -92,8 +92,7 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
             logger.debug("HTTP headers have been processed.");
             
-            if (developerToken != null 
-                    && applicationToken != null) {
+            if (developerToken != null && applicationToken != null) {
 
                 logger.debug("Developer token found: " + developerToken);
                 logger.debug("Application token found: " + applicationToken);
