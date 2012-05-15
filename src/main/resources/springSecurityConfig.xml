@@ -17,7 +17,7 @@
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="https" />
 		<security:http-basic />
 		<security:custom-filter ref="authfilter" after="BASIC_AUTH_FILTER" />
-	</security:http>
+ 	</security:http>
 
 	<!-- Authentication filter that handles requests if no Basic authorization header is provided-->
 	<beans:bean id="authfilter" class="no.niths.security.RequestAuthenticationFilter">
