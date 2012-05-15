@@ -14,8 +14,6 @@ public final class EmailTexts {
         String linkUrl = MiscConstants.NITHS_BASE_DOMAIN + "/register/enableDeveloper/" + dev.getDeveloperKey();
         String body = "<h2>Congratulations, you are almost there!</h2>"+
                         "<br /><br />" +
-                        //"Your developer token is: " + dev.getDeveloperToken() +
-                        //"<br /><br />" +
                         "Your developer key is: " + dev.getDeveloperKey() +
                         "<br /><br />" +
                         "<a href='"+ linkUrl +"'>Click to enable!</a>" +
@@ -32,7 +30,7 @@ public final class EmailTexts {
                 "<br /><br />" +
                 "Your new developer key is: " + dev.getDeveloperKey() +
                 "<br /><br />" +
-                "Use this in all future requests." +
+                "Save your developer key and use the token in all future requests." +
                 "<br /><br />";
         return body;
     }
@@ -47,7 +45,7 @@ public final class EmailTexts {
                 "<br /><br />" +
                 "Your application key is: " + app.getApplicationKey() +
                 "<br /><br />" +
-                "Use this in all future requests." +
+                "Save your keys and uyse tokens in all future requests" +
                 "<br /><br />";
         return body;
     }

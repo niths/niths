@@ -1,5 +1,7 @@
 package no.niths.services.auth;
 
+import no.niths.domain.development.Application;
+import no.niths.domain.development.Developer;
 import no.niths.security.RequestHolderDetails;
 import no.niths.services.auth.interfaces.AuthenticationService;
 import no.niths.services.auth.interfaces.UserDetailService;
@@ -52,31 +54,26 @@ public class UserDetailServiceImpl implements UserDetailService {
         logger.debug("Found student in UserDetailService");
         return user;
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     @Override
-    public Long loadDeveloperIdFromDeveloperKey(String developerKey, String developerToken) throws UsernameNotFoundException{
-        Long id = authService.authenticateDeveloperToken(developerToken, developerKey);
-        if(id == null){
-            throw new UsernameNotFoundException("Could not find a developer with that developer token/key");
-        }
-        logger.debug("Found developer in UserDetailService");
-        return id;
+    public Developer loadDeveloperFromDeveloperToken(String devToken) throws UsernameNotFoundException{
+    	Developer dev = authService.authenticateDeveloperToken(devToken);
+
+    	if(dev == null){
+    		throw new UsernameNotFoundException("Could not find a developer with that developer token");
+    	}
+    	logger.debug("Found developer in UserDetailService");
+    	return dev;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Long loadApplicationIdFromApplicationKey(String applicationKey, String applicationToken) throws UsernameNotFoundException{
-        Long id = authService.authenticateApplicationToken(applicationKey, applicationToken);
-        if(id == null){
-            throw new UsernameNotFoundException("Could not find a application with that token/key");
-        }
-        logger.debug("Found application in UserDetailService");
-        return id;
+    public Application loadApplicationFromApplicationToken(String appToken) throws UsernameNotFoundException{
+    	Application app = authService.authenticateApplicationToken(appToken);
+    	logger.debug("Found application in UserDetailService");
+    	 if(app == null){
+             throw new UsernameNotFoundException("Could not find a application with that token/key");
+         }
+    	return app;
     }
     
 

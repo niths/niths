@@ -68,8 +68,9 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req,
             HttpServletResponse res, FilterChain chain)
             throws ServletException, IOException {
+    	// Debug
+    	// logger.debug(req.getProtocol());
     	
-    	System.err.println(req.getProtocol());
     	//add no cache header
     	res.addHeader("Cache-Control","no-cache");
     	
@@ -86,25 +87,18 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
             RequestAuthenticationInfo authInfo = new RequestAuthenticationInfo(
                     new RequestHolderDetails());
 
-            // Get the authorization headers
-            String developerKey = req.getHeader("Developer-key");
             String developerToken = req.getHeader("Developer-token");
-            String applicationKey = req.getHeader("Application-key");
             String applicationToken = req.getHeader("Application-token");
 
             logger.debug("HTTP headers have been processed.");
             
-            if (developerKey != null && developerToken != null 
-                    && applicationToken != null && applicationKey != null) {
-                
-                logger.debug("Developer key found: " + developerKey);
+            if (developerToken != null 
+                    && applicationToken != null) {
+
                 logger.debug("Developer token found: " + developerToken);
-                logger.debug("Application key found: " + applicationKey);
                 logger.debug("Application token found: " + applicationToken);
                 
-                authInfo.setDeveloperKey(developerKey);
                 authInfo.setDeveloperToken(developerToken);
-                authInfo.setAppKey(applicationKey);
                 authInfo.setAppToken(applicationToken);
 
                 String sessionToken = req.getHeader("Session-token");
@@ -131,10 +125,7 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
                     setAuthorization(authResult);
                     
                 } catch (AuthenticationException ae) {
-
-                    logger.debug("Authentication failed for developer with key: " + developerKey);
                     logger.debug("Authentication failed for developer with token: " + developerToken);
-                    logger.debug("Authentication failed for app with key: "+ applicationKey);
                     logger.debug("Authentication failed for app with token: "+ applicationToken);
                     
                     if (sessionToken != null) {

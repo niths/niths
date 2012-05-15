@@ -100,34 +100,6 @@ public interface AuthenticationService {
     ApplicationToken registerApplication(Application app, String developerKey);
 
     /**
-     * Authenticates the developer token. Verifies the format of the token and 
-     * and fetches matching student from DB based on the key. Then checks if 
-     * developer token is correct
-     * <p>
-     * @param devToken the developer token
-     * @param devKey the developer key
-     * @throws AuthenticationException if no matching student is found
-     * </p>
-     */
-    Long authenticateDeveloperToken(String devToken, String devKey)
-            throws AuthenticationException;
-
-    /**
-     * Authenticates the application token.
-     * <p>
-     * Verifies the token format and, based on the key,
-     * fetches the matching application from DB,
-     * if it is enabled.
-     * <p>
-     * @param applicationKey the application key
-     * @param applicationToken the application token
-     * @return id of the application
-     * @throws AuthenticationException if no matching app is found
-     */
-    Long authenticateApplicationToken(String applicationKey,
-            String applicationToken) throws AuthenticationException;
-
-    /**
      *
      * Enables an application
      * <p>
@@ -149,4 +121,29 @@ public interface AuthenticationService {
      * @param studentId Id of the student to log out
      */
     void logout(Long studentId);
+
+    /**
+     * Authenticates the developer token. Verifies the format of the token and 
+     * and fetches matching student from DB. Then checks if 
+     * developer token is correct
+     * <p>
+     * @param devToken the developer token
+     * @return Developer that has the token
+     * @throws AuthenticationException if no matching student is found
+     * </p>
+     */
+	Developer authenticateDeveloperToken(String devToken)
+			throws AuthenticationException;
+
+    /**
+     * Authenticates the application token.
+     * <p>
+     * Verifies the token format and, fetches the matching application from DB,
+     * if it is enabled.
+     * <p>
+     * @param applicationToken the application token
+     * @return the application that has the token
+     * @throws AuthenticationException if no matching app is found
+     */
+	Application authenticateApplicationToken(String appToken);
 }
