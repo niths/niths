@@ -13,7 +13,7 @@
 - Eclipse / Netbeans / IntelliJ IDEA
 
 ### Download the source code
-- `git clone git@github.com:niths/niths.git`
+>     `git clone git@github.com:niths/niths.git`
 
 ### Create the database
 - Create a database named `niths`
