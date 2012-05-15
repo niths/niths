@@ -49,7 +49,6 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 
             Developer dev = null;
             Application app = null;
-            logger.debug("XXXX : " + authInfo.getDeveloperToken() + " app: " + authInfo.getAppToken());
             //Verifying the authorization object
             if (authInfo.getDeveloperToken() == null || authInfo.getAppToken() == null) {
                 logger.warn("Authorization object passed to provider is not correct");
