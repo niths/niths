@@ -26,13 +26,13 @@
 					<p><b><c:out value="${msg}" /></b></p>
 					<br />
 					<br />
-					<p>In every request from any of your apps, place:</p>
+					<p>Save your keys and tokens a secure place</p>
 					<br />
 					<p><b><c:out value="${key}" /></b></p>
 					<br />
 					<p><b><c:out value="${token}" /></b></p>
 					<br />
-					<p>in the header.</p>
+					<p>Use the token in every request</p>
 					
 				</c:when>
 				<c:otherwise>
@@ -40,7 +40,7 @@
 					<br />
 					<p>Error report: <b>${error}</b></p>
 					<br />
-					<p>You sure you sendt in the correct token?</p>
+					<p>You sure you sendt in the correct key?</p>
 				</c:otherwise>
 			</c:choose>
 

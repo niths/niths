@@ -193,12 +193,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		logger.debug("Developer[" + dev.getId()
 				+ "] has been created and given key: " + dev.getDeveloperKey());
 
+		dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
+		developerService.update(dev);
+
+		logger.debug("Developer[" + dev.getId()
+				+ "] has been updated and given token: "
+				+ dev.getDeveloperToken());
+
 		// Create response to the request holder
 		DeveloperToken devToken = new DeveloperToken();
 		devToken.setKey(developerKey);
-
-		logger.debug("Developer[" + dev.getId() + "] has been given key: "
-				+ devToken.getKey());
+		devToken.setToken(dev.getDeveloperToken());
 
 		mailService.sendDeveloperRegistratedConfirmation(dev);
 
@@ -234,21 +239,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return appToken;
 	}
 
-
-    /**
-     * Authenticates the developer token. Verifies the format of the token and 
-     * and fetches matching student from DB. Then checks if 
-     * developer token is correct
-     * <p>
-     * @param devToken the developer token
-     * @return Developer that has the token
-     * @throws AuthenticationException if no matching student is found
-     * </p>
-     */
+	/**
+	 * Authenticates the developer token. Verifies the format of the token and
+	 * and fetches matching student from DB. Then checks if developer token is
+	 * correct
+	 * <p>
+	 * 
+	 * @param devToken
+	 *            the developer token
+	 * @return Developer that has the token
+	 * @throws AuthenticationException
+	 *             if no matching student is found
+	 *             </p>
+	 */
 	@Override
 	public Developer authenticateDeveloperToken(String devToken)
 			throws AuthenticationException {
-		
+
 		Long id = tokenService.verifyTokenFormat(devToken, false);
 		Developer dev = developerService.getById(id);
 
@@ -264,22 +271,26 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return dev;
 	}
 
-    /**
-     * Authenticates the application token.
-     * <p>
-     * Verifies the token format and, fetches the matching application from DB,
-     * if it is enabled.
-     * <p>
-     * @param applicationToken the application token
-     * @return the application that has the token
-     * @throws AuthenticationException if no matching app is found
-     */
+	/**
+	 * Authenticates the application token.
+	 * <p>
+	 * Verifies the token format and, fetches the matching application from DB,
+	 * if it is enabled.
+	 * <p>
+	 * 
+	 * @param applicationToken
+	 *            the application token
+	 * @return the application that has the token
+	 * @throws AuthenticationException
+	 *             if no matching app is found
+	 */
 	@Override
-	public Application authenticateApplicationToken(String applicationToken) throws AuthenticationException {
-		
+	public Application authenticateApplicationToken(String applicationToken)
+			throws AuthenticationException {
+
 		Long id = tokenService.verifyTokenFormat(applicationToken, false);
 		Application app = appService.getById(id);
-		
+
 		// If else for specified error messages
 		if (app == null) {
 			throw new UnvalidTokenException(
@@ -293,7 +304,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		// Register request for application statistics
 		reqService.registerRequest(app);
-		
+
 		return app;
 	}
 
@@ -304,21 +315,35 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public Developer enableDeveloper(String developerKey)
 			throws AuthenticationException {
 		logger.debug("Trying to enable developer with token: " + developerKey);
+
+		String[] keyParts = developerKey.split("-");
+
 		Developer dev = developerService
 				.getDeveloperByDeveloperKey(developerKey);
 		if (dev == null) {
 			throw new UnvalidTokenException("No developer found with that key");
-		}
-		if (dev.getEnabled() != null && dev.getEnabled()) {
+		} else if (dev.getEnabled() != null && dev.getEnabled()) {
 			throw new UnvalidTokenException("Developer is already enabled");
+		} else if (keyParts.length != 2) {
+			throw new UnvalidTokenException("Key is not valid");
 		}
-		// Generate a personal token and set developer to enabled
-		dev.setDeveloperToken(tokenService.generateToken(dev.getId()));
-		dev.setEnabled(true);
-		developerService.update(dev);
 
-		// Send confirmation email
-		mailService.sendDeveloperEnabledConfirmation(dev);
+		try {
+			long issued = Long.parseLong(keyParts[1]);
+			long now = new GregorianCalendar().getTimeInMillis();
+
+			if (now - issued < 3600000) { // One hour
+				dev.setEnabled(true);
+				developerService.update(dev);
+				// Send confirmation email
+				mailService.sendDeveloperEnabledConfirmation(dev);
+			} else {
+				throw new UnvalidTokenException(
+						"You waited too long, get admin to enable your account");
+			}
+		} catch (NumberFormatException e) {
+			throw new UnvalidTokenException("No hax");
+		}
 
 		return dev;
 	}

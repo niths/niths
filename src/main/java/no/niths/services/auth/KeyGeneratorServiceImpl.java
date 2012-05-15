@@ -1,5 +1,7 @@
 package no.niths.services.auth;
 
+import java.util.GregorianCalendar;
+
 import no.niths.services.auth.interfaces.KeyGeneratorService;
 import no.niths.services.development.interfaces.ApplicationService;
 import no.niths.services.development.interfaces.DeveloperService;
@@ -59,7 +61,7 @@ public class KeyGeneratorServiceImpl implements KeyGeneratorService {
         boolean found = false;
         String key = "";
         while(!found){
-            key = RandomStringUtils.randomAlphanumeric(10);
+            key = RandomStringUtils.randomAlphanumeric(5) + "-" + new GregorianCalendar().getTimeInMillis();
             switch (domain) {
             case DEVELOPER:
                 if(developerService.getDeveloperByDeveloperKey(key) == null){

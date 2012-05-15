@@ -16,6 +16,8 @@ public final class EmailTexts {
                         "<br /><br />" +
                         "Your developer key is: " + dev.getDeveloperKey() +
                         "<br /><br />" +
+                        "Your developer token is: " + dev.getDeveloperToken() +
+                        "<br /><br />" +
                         "<a href='"+ linkUrl +"'>Click to enable!</a>" +
                         "<br /><br />" +
                         "Link not working? Paste this into your favourite browser:" + 
@@ -23,6 +25,7 @@ public final class EmailTexts {
                         linkUrl;
         return body;
     }
+    
     public static String getDeveloperEnabledBody(Developer dev){
         String body = "<h2>Congratulations, you are now enabled!</h2>"+
                 "<br /><br />" +
@@ -45,7 +48,7 @@ public final class EmailTexts {
                 "<br /><br />" +
                 "Your application key is: " + app.getApplicationKey() +
                 "<br /><br />" +
-                "Save your keys and uyse tokens in all future requests" +
+                "Save your keys and use tokens in all future requests" +
                 "<br /><br />";
         return body;
     }
