@@ -18,7 +18,7 @@
     </head>
   <body>
     <div id="container">
-      <h1>NITHs Admin Panel</h1>
+      <h1>NITHs adminpanel</h1>
       <section id="content">
         <div id="searcher">
           <form id="search-form" method="get" action="#">
