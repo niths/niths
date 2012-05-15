@@ -1,4 +1,5 @@
-address = 'https://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8443/niths/';
+//address = 'https://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8443/niths/';
+address = 'https://localhost:8443/niths/';
 avgTimeout = 5000;
 roles = '';
 
@@ -87,19 +88,21 @@ $(document).ready(function() {
 $(document).on('click', 'button', function(event) {
   var currentListElementId = $(event.target).parent().parent().attr('id');
 
-  $.ajax({
-             // Forge the URL with the extracted student's id
-    url:     address + 'students/' + /student-(\d+)/g.exec(
-                 $(event.target).parent().parent().attr('id'))[1],
-    type:    'DELETE',
-    timeout: avgTimeout,
-    success: function(data) {
-      $('#' + currentListElementId).fadeOut('slow', function() {});
-    },
-    error:   function(xhr) {
-      alert(JSON.stringify(xhr));
-    }
-  });
+  if (confirm('Er du sikker?')) {
+    $.ajax({
+               // Forge the URL with the extracted student's id
+      url:     address + 'students/' + /student-(\d+)/g.exec(
+                   $(event.target).parent().parent().attr('id'))[1],
+      type:    'DELETE',
+      timeout: avgTimeout,
+      success: function(data) {
+        $('#' + currentListElementId).fadeOut('slow', function() {});
+      },
+      error:   function(xhr) {
+        alert(JSON.stringify(xhr));
+      }
+    });
+  }
 });
 
 // Update a student's roles
