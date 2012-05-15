@@ -70,7 +70,11 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
                 
                 //Let our implementation of UserDetailService fetch the app 
                 app = userDetailService.loadApplicationFromApplicationToken(authInfo.getAppToken());
-
+                
+                //Throw exception if app does not belong to developer
+                if(!(dev.getApps().contains(app))){
+                	throw new UnvalidTokenException("Application does not belong to developer");
+                }
                 // We found tokens and keys, they have been authenticated,
                 // proceed to check for a session token
                 if (authInfo.getSessionToken() != null) {
