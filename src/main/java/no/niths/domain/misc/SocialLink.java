@@ -41,6 +41,20 @@ public class SocialLink implements Domain {
             message = "Invalid social community")
     private String socialCommunity;
 
+    @Column
+    @Pattern(
+            regexp  = ".*",
+            message = "Invalid category")
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public SocialLink() {}
 
     public Long getId() {

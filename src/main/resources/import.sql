@@ -100,6 +100,10 @@ INSERT INTO courses (name, description) VALUES('Interaktivt design', 'Det er i d
 INSERT INTO courses (name, description) VALUES('Digital markedsføring', 'En ny generasjon av sosiale elektroniske nettverk gjør Internett til en av våre viktigste kommunikasjonskanaler.');
 INSERT INTO courses (name, description) VALUES('E-business', 'Det er i dag mangel på høgskoleutdannede personer som har kunnskap om teknologiske forretningsløsninger og hvordan disse best fungerer.');
 INSERT INTO courses (name, description) VALUES('Industribachelor', 'Våre studenter har nå mulighet for å kombinere en jobb i IT-industrien med en bachelor ved NITH. Vi har inngått et samarbeid med to av landets største konsulent-selskaper, Accenture og Avanade.');
+
+INSERT INTO sociallinks (id, address, social_community, category) VALUES(1, 'http://search.twitter.com/search.json?q=%23nith&rpp=5', 'twitter', 'fadderuka');
+INSERT INTO sociallinks (id, address, social_community, category) VALUES(2, 'https://graph.facebook.com/10150304760787369/photos', 'facebook', 'fadderuka');
+
 ---------------------------------------------------------------------
 --------------------------courses_subjects---------------------------
 INSERT INTO courses_subjects (courses_id, subjects_id) VALUES(1,1);
