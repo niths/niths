@@ -33,4 +33,4 @@
 
 ### Deployer
 - Plasser `niths/target/niths.war` i  `path/to/tomcat/installation/webapps/niths.war`
-- Restart Tomcat: `service tomcat restart`
+- Restart Tomcat: `service tomcat restart` eller kjør `catalina restart`
