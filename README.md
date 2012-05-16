@@ -20,10 +20,10 @@
     - Kjør følgende fra terminalen:` mysql -u <MySQL username> -e 'CREATE DATABASE niths;'`
     - Oppsøk andre manualer dersom nødvendig
 
-- **Et alternativ er å bruke [MySQL Workbench](http://www.mysql.com/products/workbench/)**
+- *Et alternativ er å bruke [MySQL Workbench](http://www.mysql.com/products/workbench/)*
 
 ### Konfigurer property filene
-- Dersom du har blitt tildelt en **propert fil**, hopp over denne seksjonen
+- Dersom du har blitt tildelt en *property fil*, hopp over denne seksjonen
 - Lag en ny fil under `src/main/resources` med navn `application.properties`
 - Lim inn innholdet fra [denne gisten](https://gist.github.com/2226677), slik at de stemmer med ditt oppsett
 - Lag en kopi av filen og gi kopien navnet `test-application.properties`, og plasser den under `niths/src/test/resources/`
