@@ -1,5 +1,5 @@
 # NITHs
-### Studentsamfunnet ved NITH sitt REST API.
+### Studentsamfunnet ved NITH sitt REST API
 ##  [Mer informasjon](http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com/)
 
 ## Oppsett
