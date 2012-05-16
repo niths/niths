@@ -31,6 +31,6 @@
 ### Bygg applikasjonen
 - Applikasjonen kan bygges ved å kjøre `mvn clean install` fra prosjektroten fra kommandolinjen
 
-### Deploer
+### Deployer
 - Plasser `niths/target/niths.war` i  `path/to/tomcat/installation/webapps/niths.war`
 - Restart Tomcat: `service tomcat restart`
