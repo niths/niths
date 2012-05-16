@@ -1,10 +1,10 @@
 # NITHs
-### The student community's API.
-##  [API reference](http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com/)
+### Studentsamfunnet ved NITH sitt REST API.
+##  [Mer informasjon](http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com/)
 
-## Setup
+## Oppsett
 
-### Prerequisites
+### Krav
 - Git
 - Tomcat 7
 - MySQL Server > 5
@@ -12,27 +12,25 @@
 - Maven
 - Eclipse / Netbeans / IntelliJ IDEA
 
-### Download the source code
+### Last ned kildekoden
 >     `git clone git@github.com:niths/niths.git`
 
-### Create the database
-- Create a database named `niths`
-    - From the command line run: `mysql -u <MySQL username> -e 'CREATE DATABASE niths;'`
-    - From any other tool, consult the appropriate manual
+### Sett opp databasen
+- Opprett en database kalt `niths`
+    - Kjør følgende fra terminalen:` mysql -u <MySQL username> -e 'CREATE DATABASE niths;'`
+    - Oppsøk andre manualer dersom nødvendig
 
-- If you are looking for an easy to use, free database administrative tool, check out MySQL Workbench
+- **Et alternativ er å bruke [MySQL Workbench](http://www.mysql.com/products/workbench/)**
 
-### Configure the properties file
-- If you already have been provided with this project's property file, skip this entire section
-- Create a file named `application.properties`
-- Paste the contents of [this Gist](https://gist.github.com/2226677), and edit the values
-- Place the file at `niths/src/main/resources/application.properties`
-- Make a copy of the file, rename it to `test-application.properties`, and place it at `niths/src/test/resources/test-application.properties`
+### Konfigurer property filene
+- Dersom du har blitt tildelt en **propert fil**, hopp over denne seksjonen
+- Lag en ny fil under `src/main/resources` med navn `application.properties`
+- Lim inn innholdet fra [denne gisten](https://gist.github.com/2226677), slik at de stemmer med ditt oppsett
+- Lag en kopi av filen og gi kopien navnet `test-application.properties`, og plasser den under `niths/src/test/resources/`
 
-### Build the application
+### Bygg applikasjonen
+- Applikasjonen kan bygges ved å kjøre `mvn clean install` fra prosjektroten fra kommandolinjen
 
-- Finally you can build the application running `mvn clean install` inside the project's root from the command line
-
-### Deploy
-- Place `niths/target/niths.war` in `path/to/tomcat/installation/webapps/niths.war`
+### Deploer
+- Plasser `niths/target/niths.war` i  `path/to/tomcat/installation/webapps/niths.war`
 - Restart Tomcat: `service tomcat restart`
