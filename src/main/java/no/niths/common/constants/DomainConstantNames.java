@@ -25,6 +25,7 @@ public final class DomainConstantNames {
                                LOCKERS       = "lockers",
                                ROLES         = "roles",
                                ROOMS         = "rooms",
+                               SOCIAL_LINKS  = "sociallinks",
                                STUDENTS      = "students",
                                SUBJECTS      = "subjects";
 }
