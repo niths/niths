@@ -52,11 +52,11 @@ public class FeedControllerImplTest {
 
     @Before
     public void setUp() throws Exception {
-        res = new MockHttpServletResponse();
+        res        = new MockHttpServletResponse();
         testFeed01 = new Feed("A funny message");
-        testFeed02 = new Feed("Paryt beer");
-        testFeed03 = new Feed("Not so funny");
-        testFeed04 = new Feed("A funny message 22");
+        testFeed02 = new Feed("A regular message");
+        testFeed03 = new Feed("A not so funny message");
+        testFeed04 = new Feed("A boring message");
 
         controller.create(testFeed01, res);
         controller.create(testFeed02, res);
@@ -66,7 +66,7 @@ public class FeedControllerImplTest {
         testLocation = new Location("School", 12.123, 12.3122);
         locationController.create(testLocation, res);
 
-        testStudents = new Student("Jhone", "doe", 'M', 1, "doejho09@nith.no",
+        testStudents = new Student("John", "Doe", 'M', 1, "johdoe@nith.no",
                 "81549300", "This is a super student");
         studentcontroller.create(testStudents, res);
     }
