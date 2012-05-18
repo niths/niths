@@ -46,19 +46,16 @@ public class LocationTest {
     public void testValidationOfIncorectLocationPlaceName() {
         final String invalidPlace = "?";
 
-        Location location1 = new Location();
-        Location location2 = new Location(invalidPlace);
-        
-        Set<ConstraintViolation<Location>> violations1 =
-                validator.validate(location1);
-        Set<ConstraintViolation<Location>> violations2 =
-                validator.validate(location2);
-        
-        assertThat(1, is(equalTo(violations1.size())));
+        // Cannot be null
+        assertEquals(
+                null,
+                validator.validate(
+                        new Location()).iterator().next().getInvalidValue());
 
         // Cannot be "?", and the length should also be > 1
         assertEquals(
-                violations2.iterator().next().getInvalidValue(),
-                invalidPlace);
+                invalidPlace,
+                validator.validate(new Location(
+                        invalidPlace)).iterator().next().getInvalidValue());
     }
 }
