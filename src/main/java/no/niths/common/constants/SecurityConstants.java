@@ -5,10 +5,11 @@ package no.niths.common.constants;
  *
  */
 public final class SecurityConstants {
-    //Session times -- TODO: CHANGE TO: 3600000 --> 1 hour
-    public static final long MAX_SESSION_VALID_TIME = 7200000; //Max time session is valid from user logging in
-
-    public static final long SESSION_VALID_TIME = 36000000; //Time session is valid between each request. Above field trumps this.
+    //Session times
+    public static final long MAX_SESSION_VALID_TIME = 36000000; //Max time session is valid from user logging in
+    															//10 hours											
+    public static final long SESSION_VALID_TIME = 18000000; //Time session is valid between each request. Above field trumps this.
+    														//5 hours
 
     //Roles
     public static final String R_ANONYMOUS = "ROLE_ANONYMOUS";
