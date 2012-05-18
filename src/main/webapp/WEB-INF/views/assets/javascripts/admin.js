@@ -3,8 +3,6 @@ avgTimeout = 5000;
 roles = '';
 
 $(document).ready(function() {
-  alert(window.location);
-
   $('#search-form').submit(function() {
 
     // Empty the list every time a new search is issued
