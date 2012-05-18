@@ -5,14 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
-import no.niths.domain.location.Location;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,22 +17,22 @@ public class LocationTest {
 
     @BeforeClass
     public static void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     @Test
     public void testShouldCreateNewLoaction() {
-        long id = 1;
-        double lat = 10.3030;
-        double lng = 20.12312;
-        String place= "Oslo";
+        final Long id      = 1L;
+        final Double lat   = 10.3030;
+        final Double lng   = 20.12312;
+        final String place = "Oslo";
+
         Location location = new Location(place, lng, lat);
         location.setId(id);
 
-        assertThat(id, is(equalTo(location.getId())));
-        assertThat(lat, is(equalTo(location.getLatitude())));
-        assertThat(lng, is(equalTo(location.getLongitude())));
+        assertThat(id,    is(equalTo(location.getId())));
+        assertThat(lat,   is(equalTo(location.getLatitude())));
+        assertThat(lng,   is(equalTo(location.getLongitude())));
         assertThat(place, is(equalTo(location.getPlace())));
     }
 
