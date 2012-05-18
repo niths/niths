@@ -1,21 +1,31 @@
 package no.niths.domain.location;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class RoomTest {
 
-    @SuppressWarnings("unused")
     private static Validator validator;
     
     @BeforeClass
-    public void setup() {
+    public static void setup() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
-   //TODO create Room validation test
+    @Test
+    public void testCreateLocationWithInvalidPlace() {
+        final String invalidPlace = "</script>alert();</script>";
+
+        assertEquals(
+                invalidPlace,
+                validator.validate(new Location(invalidPlace)).iterator()
+                        .next().getInvalidValue());
+    }
 }
