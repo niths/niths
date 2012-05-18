@@ -13,9 +13,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import no.niths.common.constants.DomainConstantNames;
+import no.niths.common.constants.ValidationConstants;
 import no.niths.domain.Domain;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.validator.constraints.URL;
 
 @XmlRootElement(name = "sociallink")
 @Entity
@@ -29,15 +31,15 @@ public class SocialLink implements Domain {
     private Long id;
 
     @Column
-    @Pattern(
-            regexp  = ".*",
+    @URL(
+            regexp  = "[\\w\\./&=øæåØÆÅ%:]{8,200}",
             message = "Invalid address")
     private String address;
 
     @XmlElement(name = "socialcommunity")
     @Column(name = "social_community")
     @Pattern(
-            regexp  = ".*",
+            regexp  = ValidationConstants.REGULAR,
             message = "Invalid social community")
     private String socialCommunity;
 
@@ -56,6 +58,11 @@ public class SocialLink implements Domain {
     }
 
     public SocialLink() {}
+
+    public SocialLink(String address, String socialCommunity) {
+        this.address         = address;
+        this.socialCommunity = socialCommunity;
+    }
 
     public Long getId() {
         return id;
