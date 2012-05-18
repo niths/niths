@@ -7,6 +7,7 @@ import no.niths.application.rest.exception.ExpiredTokenException;
 import no.niths.application.rest.exception.UnvalidTokenException;
 import no.niths.common.config.HibernateConfig;
 import no.niths.common.config.TestAppConfig;
+import no.niths.common.constants.SecurityConstants;
 import no.niths.services.auth.TokenGeneratorServiceImpl;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -60,7 +61,7 @@ public class TokenGeneratorServiceTest {
     
     private String generateUnvalidToken(Long userId) {
         
-        long tokenIssued = new GregorianCalendar().getTimeInMillis() - 9999000;
+        long tokenIssued = new GregorianCalendar().getTimeInMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME - 10);
         String generatedToken = UUID.randomUUID().toString().toUpperCase()
                 + "|" + Long.toString(userId) + "|"
                 + Long.toString(tokenIssued);
