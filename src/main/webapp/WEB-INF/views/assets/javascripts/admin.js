@@ -1,12 +1,9 @@
-//address = 'https://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8443/niths/';
-
-// NEXT TIME USE THE FOLLOWING:
-// address = window.location;
-address = 'https://localhost:8443/niths/';
+address = document.URL.replace('admin', '');
 avgTimeout = 5000;
 roles = '';
 
 $(document).ready(function() {
+  alert(window.location);
 
   $('#search-form').submit(function() {
 
