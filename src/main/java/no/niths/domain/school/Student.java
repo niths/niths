@@ -152,7 +152,7 @@ public class Student implements Domain {
     @Column
     @Pattern(
             regexp  = ValidationConstants.LARGE,
-            message = "Invalid first name (2 - 500 alphanumeric letters only")
+            message = "Invalid description (2 - 500 alphanumeric letters only")
     private String description;
 
     @JsonIgnore
