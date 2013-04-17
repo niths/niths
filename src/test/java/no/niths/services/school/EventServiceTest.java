@@ -90,7 +90,7 @@ public class EventServiceTest {
     
     @Test
     public void testGetEventsGreaterThanAGivenDay(){
-        GregorianCalendar cal = new GregorianCalendar(2012, Calendar.DECEMBER, 23, 22, 21, 23);
+        GregorianCalendar cal = new GregorianCalendar(2212, Calendar.DECEMBER, 23, 22, 21, 23);
         Event event = new Event("LUG Party", "Linux", cal, null);
         eventService.create(event);
         
