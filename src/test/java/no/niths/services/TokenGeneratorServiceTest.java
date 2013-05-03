@@ -61,7 +61,7 @@ public class TokenGeneratorServiceTest {
     
     private String generateUnvalidToken(Long userId) {
         
-        long tokenIssued = new GregorianCalendar().getTimeInMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME - 10);
+        long tokenIssued = new GregorianCalendar().getTimeInMillis() - (SecurityConstants.MAX_SESSION_VALID_TIME + 10);
         String generatedToken = UUID.randomUUID().toString().toUpperCase()
                 + "|" + Long.toString(userId) + "|"
                 + Long.toString(tokenIssued);
