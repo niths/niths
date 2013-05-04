@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Authenticates requests from the @see {@link RequestAuthenticationFilter}
@@ -46,34 +47,13 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
         try {
 
             RequestAuthenticationInfo authInfo = (RequestAuthenticationInfo) authentication;
-
-            Developer dev = null;
-            Application app = null;
-            //Verifying the authorization object
-            if (authInfo.getDeveloperToken() == null || authInfo.getAppToken() == null) {
-                logger.warn("Authorization object passed to provider is not correct");
-                throw new UnvalidTokenException("Error with HTTP-header values");
-
-            } else { // Verified, proceed
+            // Verified, proceed
                 
                 //This is the object holding the authenticated user
                 RequestHolderDetails userInfo = new RequestHolderDetails();
-
-                logger.debug("Provider found developer-token: "
-                        + authInfo.getDeveloperToken()); 
-              //Let our implementation of UserDetailService fetch the developer
-                dev = userDetailService.loadDeveloperFromDeveloperToken(authInfo.getDeveloperToken()); 
                 
                 logger.debug("Provider found Application-token: "
                         + authInfo.getAppToken());
-                
-                //Let our implementation of UserDetailService fetch the app 
-                app = userDetailService.loadApplicationFromApplicationToken(authInfo.getAppToken());
-                
-                //Throw exception if app does not belong to developer
-                if(!(dev.getApps().contains(app))){
-                	throw new UnvalidTokenException("Application does not belong to developer");
-                }
                 // We found tokens and keys, they have been authenticated,
                 // proceed to check for a session token
                 if (authInfo.getSessionToken() != null) {
@@ -82,20 +62,20 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
 
                     // Get a user that holds the student matching the session
                     // token
-                    userInfo = (RequestHolderDetails) userDetailService
+
+                    UserDetails details = userDetailService
                             .loadStudentBySessionToken(authInfo
                                     .getSessionToken());
+                    userInfo = (RequestHolderDetails) details;
+                    //userInfo.setUserName(((RequestHolderDetails) userDetailService.loadStudentBySessionToken(authInfo.getSessionToken())).getUserName());
                 }
-
-                userInfo.setDeveloperId(dev.getId());
-                userInfo.setAppId(app.getId());
 
                 authInfo = new RequestAuthenticationInfo(userInfo,
                         userInfo.getAuthorities());
                 logger.debug("Authication provider has finished successfully");
                 logger.debug("Sending a RequestAuthenticationInfo object back to the request filter");
                 return authInfo;
-            }
+
 
         } catch (ClassCastException cce) {
             logger.warn("Could not cast the authentication object");

@@ -32,7 +32,7 @@
 	<!-- Authentication entry point for custom filter -->
 	<beans:bean id="authEntryPoint"
 		class="no.niths.security.RestAuthenticationEntryPoint" />
-		
+
 	<!-- Authentication manager -->
 	<security:authentication-manager alias="authManager">
 		<security:authentication-provider ref="reqAuthenticationManager"></security:authentication-provider>
@@ -53,5 +53,8 @@
 		<security:user name="admin"
 			password="eb744e642692319a16da42b058e6e76c7c7e253ec37ef08e8200f80a68de03ee52eff70fc973398da526aad2dbe2c8833aa3dd21caa630cba95d47b002eeeac1"
 			authorities="ROLE_ADMIN" />
+
+        <security:user name="hmeide"
+                       authorities="ROLE_ADMIN" />
 	</security:user-service>
 </beans:beans>

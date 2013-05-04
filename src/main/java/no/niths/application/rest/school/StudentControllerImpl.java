@@ -89,6 +89,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @ApiEvent(title="Student created")
+    @RequestMapping(
+           method = RequestMethod.POST
+    )
     public void create(@RequestBody Student domain, HttpServletResponse res) {
         super.create(domain, res);
     }
@@ -108,6 +111,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(
+            value = "/getAll"
+    )
     public ArrayList<Student> getAll(
             Student domain,
             @PathVariable int firstResult,

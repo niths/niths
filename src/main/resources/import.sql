@@ -281,6 +281,7 @@ INSERT INTO students (first_name, last_name, birthday, email, gender, descriptio
 INSERT INTO students (id,first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES(2,'Andre', 'Kristensen', '1989-08-07','kriand09@nith.no','M','All docked up','81549300',3);
 INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Bendik', 'Rostad', '1983-03-29','rosben09@nith.no','M','Snill','97160680',3);
 INSERT INTO students (first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES('Liv', 'Kolås', '1987-03-02', 'kolliv@nith.no','F','Snill','92263169',3);
+INSERT INTO students (id,first_name, last_name, birthday, email, gender, description, phone_number,grade) VALUES(29,'Hakon Martin', 'Eide', '1991-09-18', 'eidhak11@nith.no','M','Snill','47393843',3);
 ---------------------------------------------------------------------
 --------------------------Students_roles-----------------------------------
 INSERT INTO students_roles(students_id, roles_id) VALUES(1, 1);
@@ -292,6 +293,7 @@ INSERT INTO students_roles(students_id, roles_id) VALUES(2, 4);
 INSERT INTO students_roles(students_id, roles_id) VALUES(3, 1);
 INSERT INTO students_roles(students_id, roles_id) VALUES(3, 3);
 INSERT INTO students_roles(students_id, roles_id) VALUES(4, 1);
+INSERT INTO students_roles(students_id, roles_id) VALUES(29, 1);
 ---------------------------------------------------------------------
 --------------------------Room---------------------------------------
 INSERT INTO rooms(room_name) VALUES('38');
@@ -441,8 +443,6 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('nymlar09@nith.no','Colt','Olson','1973-06-23','15115262','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('mobmad@nith.no','Vladimir','Chaney','1978-05-08','87723202','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('niemar09@nith.no','Jelani','Knapp','1979-10-30','94080151','2');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('skaodd09@nith.no','Tanek','Cohen','1972-01-18','90422830','2');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('myknik09@nith.no','Roth','Vazquez','1986-11-08','44160310','3');
 ---------------------------------------------------------------------
 --------------------------committees---------------------------------
 INSERT INTO committees (name,description) VALUES('Linx utvalget','Linux');
