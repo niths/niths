@@ -76,6 +76,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or " +
             "(hasRole('ROLE_STUDENT') and principal.studentId == #domain.id)")
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@RequestBody Student domain) {
         logger.info(
                 domain.getEmail()     + " : " +
@@ -99,6 +100,9 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR +
             " or (hasRole('ROLE_STUDENT') and principal.studentId == #id)")
+    @RequestMapping(
+            value   = "{id}",
+            method  = RequestMethod.DELETE)
     public void delete(@PathVariable long id) {
         super.delete(id);
     }
@@ -164,7 +168,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "roles")
+    @RequestMapping(value = "roles", method = RequestMethod.GET)
     @ResponseBody
     public List<Student> getStudentWithRoles(Student student) {
         List<Student> students = service.getStudentsAndRoles(student);

@@ -33,6 +33,7 @@
 	<beans:bean id="authEntryPoint"
 		class="no.niths.security.RestAuthenticationEntryPoint" />
 
+
 	<!-- Authentication manager -->
 	<security:authentication-manager alias="authManager">
 		<security:authentication-provider ref="reqAuthenticationManager"></security:authentication-provider>

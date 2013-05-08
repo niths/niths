@@ -51,6 +51,7 @@ public class ApplicationControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
     public void create(
             @RequestBody Application domain,
             HttpServletResponse res) {

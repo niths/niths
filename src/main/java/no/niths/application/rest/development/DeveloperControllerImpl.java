@@ -51,6 +51,7 @@ public class DeveloperControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
+    @RequestMapping(value = "/developers/create", method = RequestMethod.POST)
     public void create(@RequestBody Developer domain, HttpServletResponse res) {
         super.create(domain, res);
     }

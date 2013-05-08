@@ -637,6 +637,7 @@ INSERT INTO developers(id, name, email) VALUES (1, 'Urtegata', 'urter@mail.com')
 INSERT INTO developers(id, name, email) VALUES (2, 'Knut sine apps', 'knut@mail.com');
 INSERT INTO developers(id, name, email) VALUES (3, 'Apps AS', 'apps@mail.com');
 INSERT INTO developers(id, name, email) VALUES (4, 'Android etc', 'android@mail.com');
+INSERT INTO developers(id, name, email) VALUES (4, 'hakon app', 'default@mail.com');
 
 --DO NOT CHANGE LINE UNDER! ID = 6 IMPORTANT
 INSERT INTO developers(id, name, email, developer_key, developer_token, enabled) VALUES (6, 'NithsTeam', 'nithscommunity@mail.com', 'sob8gvpyk2', '1QnBcxhDpSOBWy/b32uaGd9vIYnxpFRTZ9wLWqsH4ji3yy1m1QuFXy2jfNS29xbZVJdHzZ/wsCQas2KaCkAd6q+xjcWzG/tp6AFEBhriL36BAKpAIZbsAb5uvnIJWbratFCExhxv24M=', 1);

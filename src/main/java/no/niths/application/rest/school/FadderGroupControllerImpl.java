@@ -80,6 +80,7 @@ public class FadderGroupControllerImpl extends
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
+    @RequestMapping(method = RequestMethod.GET)
     public ArrayList<FadderGroup> getAll(FadderGroup domain) {
         renewList(service.getAll(domain));
         customLazyFixer();        
@@ -102,6 +103,7 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @RequestMapping(method = RequestMethod.POST)
     public void create(@RequestBody FadderGroup domain, HttpServletResponse res) {
         super.create(domain, res);
     }
@@ -111,6 +113,7 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@RequestBody FadderGroup domain) {
         super.update(domain);
     }
@@ -120,6 +123,7 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
+    @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@PathVariable long id) {
         super.delete(id);
     }
