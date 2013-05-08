@@ -31,7 +31,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * tokens from the http request and passes them to the class responsible for
  * the verification @see {@link RequestAuthenticationProvider}
  * </p>
- * <p>w
+ * <p>
  * For an understanding of how Spring security works, I recommend the book:
  * "Spring security 3" from Peter Mularien {@link http://www.springsecuritybook.com/}
  * </p>
@@ -89,53 +89,25 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
             String developerToken = req.getHeader("Developer-token");
             String applicationToken = req.getHeader("Application-token");
-            String sessionToken = req.getHeader("Session-token");
-
-            if (sessionToken != null){
-                    logger.debug("Session-token header found: " + sessionToken);
-                    authInfo.setSessionToken(sessionToken);
-
-                try {
-                    logger.debug("Calling authentication provider to authenticate the header(s)");
-
-                    // Let the authentication provider authenticate the request
-                    // Will throw AuthenticationException, so it is important
-                    // that every exception extends AuthenticationException.
-                    // Exceptions are catched in AbstractRestController.
-                    Authentication authResult = authProvider
-                            .authenticate(authInfo);
-
-                    logger.debug("Authentication success!");
-
-                    // Set the result as the authentication object
-                    setAuthorization(authResult);
-
-                } catch (AuthenticationException ae) {
-                        logger.debug("Authentication failed for session: "+ sessionToken);
-
-                    // Login failed, clear authentication object
-                    setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
-                    // We send the error to the entry point
-                    entryPoint.commence(req, res, ae);
-                }
-
 
             logger.debug("HTTP headers have been processed.");
             
-            }else if (developerToken != null && applicationToken != null) {
+            if (developerToken != null && applicationToken != null) {
 
                 logger.debug("Developer token found: " + developerToken);
                 logger.debug("Application token found: " + applicationToken);
                 
                 authInfo.setDeveloperToken(developerToken);
                 authInfo.setAppToken(applicationToken);
+
+                String sessionToken = req.getHeader("Session-token");
                 if (sessionToken != null) {
                     logger.debug("Session-token header found: " + sessionToken);
                     authInfo.setSessionToken(sessionToken);
                 }else{
                     logger.debug("No session header found");
                 }
-
+                
                 try {
                     logger.debug("Calling authentication provider to authenticate the header(s)");
 
@@ -150,15 +122,15 @@ public class RequestAuthenticationFilter extends OncePerRequestFilter {
 
                     // Set the result as the authentication object
                     setAuthorization(authResult);
-
+                    
                 } catch (AuthenticationException ae) {
                     logger.debug("Authentication failed for developer with token: " + developerToken);
                     logger.debug("Authentication failed for app with token: "+ applicationToken);
-
+                    
                     if (sessionToken != null) {
                         logger.debug("Authentication failed for session: "+ sessionToken);
                     }
-
+                    
                     // Login failed, clear authentication object
                     setAuthorization(new RequestAuthenticationInfo(new RequestHolderDetails()));
                     // We send the error to the entry point

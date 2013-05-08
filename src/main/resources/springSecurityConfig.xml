@@ -56,6 +56,7 @@
 			authorities="ROLE_ADMIN" />
 
         <security:user name="hmeide"
+                       password="7e3e89f13c91d31604fd9210f5628da7f5a3b3db1b900147fdfbfd80eec183eac4f6a67f9c877944a6a26ab2c2f92c889ebf7533f62eb87ae7139fcfe0701a76"
                        authorities="ROLE_ADMIN" />
 	</security:user-service>
 </beans:beans>

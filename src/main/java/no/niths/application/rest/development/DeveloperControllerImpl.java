@@ -47,7 +47,7 @@ public class DeveloperControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Developer create(@RequestBody Developer domain, HttpServletResponse res) {
         return super.create(domain, res);
     }
@@ -58,6 +58,7 @@ public class DeveloperControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.developerId == #domain.id)")
+    @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@PathVariable long id) {
         super.delete(id);
     }
@@ -67,6 +68,7 @@ public class DeveloperControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR  + " or (principal.developerId == #domain.id)")
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@RequestBody Developer domain) {
         super.update(domain);
     }

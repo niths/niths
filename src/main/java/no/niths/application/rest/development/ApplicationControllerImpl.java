@@ -51,7 +51,7 @@ public class ApplicationControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"create"}, method = RequestMethod.POST)
     public Application create(
             @RequestBody Application domain,
             HttpServletResponse res) {
@@ -66,6 +66,7 @@ public class ApplicationControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR + " or (principal.appId == #id)")
+    @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@PathVariable long id) {
         super.delete(id);
     }

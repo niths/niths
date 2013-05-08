@@ -640,7 +640,7 @@ INSERT INTO developers(id, name, email) VALUES (4, 'Android etc', 'android@mail.
 
 --DO NOT CHANGE LINE UNDER! ID = 6 IMPORTANT
 INSERT INTO developers(id, name, email, developer_key, developer_token, enabled) VALUES (6, 'NithsTeam', 'nithscommunity@mail.com', 'sob8gvpyk2', '1QnBcxhDpSOBWy/b32uaGd9vIYnxpFRTZ9wLWqsH4ji3yy1m1QuFXy2jfNS29xbZVJdHzZ/wsCQas2KaCkAd6q+xjcWzG/tp6AFEBhriL36BAKpAIZbsAb5uvnIJWbratFCExhxv24M=', 1);
-INSERT INTO developers(id, name, email) VALUES (4, 'hakon app', 'default@mail.com');
+INSERT INTO developers(id, name, email, developer_key, enabled) VALUES (4, 'hakon app', 'default@mail.com', 'oqHRS-1368024841082', 1);
 ---------------------------------------------------------------------
 --------------------------applications--------------------------------
 INSERT INTO applications(id, title) VALUES(1, 'Locker status');
