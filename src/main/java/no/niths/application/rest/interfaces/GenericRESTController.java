@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import no.niths.application.rest.AbstractRESTControllerImpl;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  * Generic interface for Controllers
  * 
@@ -17,10 +19,10 @@ public interface GenericRESTController<T> {
  
     /**
      * Persists the domain
-     * 
+     *
      * @param domain
      */
-    public void create(T domain, HttpServletResponse res) ;
+    public T create(T domain, HttpServletResponse res) ;
     
     /**
      * Returns the domain object with the given id

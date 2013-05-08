@@ -62,8 +62,8 @@ public class EventControllerImpl extends AbstractRESTControllerImpl<Event>
     @Override
     @PreAuthorize(SecurityConstants.ALL_LEADERS)
     @ApiEvent(title="Event created")
-    public void create(@RequestBody Event domain, HttpServletResponse res) {
-        super.create(domain, res);
+    public Event create(@RequestBody Event domain, HttpServletResponse res) {
+        return super.create(domain, res);
     }
     
     /**

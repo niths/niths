@@ -93,8 +93,8 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @RequestMapping(
            method = RequestMethod.POST
     )
-    public void create(@RequestBody Student domain, HttpServletResponse res) {
-        super.create(domain, res);
+    public Student create(@RequestBody Student domain, HttpServletResponse res) {
+        return super.create(domain, res);
     }
 
     @Override

@@ -42,10 +42,10 @@ public class SocialLinkControllerImpl
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void create(
+    public SocialLink create(
             @RequestBody SocialLink socialLink,
             HttpServletResponse res) {
-        super.create(socialLink, res);
+        return super.create(socialLink, res);
     }
 
     @Override

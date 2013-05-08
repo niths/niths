@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  * Controller for locker
  * has the basic CRUD methods
@@ -37,8 +38,8 @@ public class LockerControllerImpl extends AbstractRESTControllerImpl<Locker>
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    public void create(@RequestBody Locker locker, HttpServletResponse res) {
-        super.create(locker, res);
+    public Locker create(@RequestBody Locker locker, HttpServletResponse res) {
+        return super.create(locker, res);
         
     }
 

@@ -104,8 +104,8 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(method = RequestMethod.POST)
-    public void create(@RequestBody FadderGroup domain, HttpServletResponse res) {
-        super.create(domain, res);
+    public FadderGroup create(@RequestBody FadderGroup domain, HttpServletResponse res) {
+        return super.create(domain, res);
     }
 
     /**

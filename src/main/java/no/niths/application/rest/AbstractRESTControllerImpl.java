@@ -72,7 +72,7 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
      * reason = "Created"
      * }
      * </pre>
-     * 
+     *
      * @param domain the domain to persist
      * 
      */
@@ -80,11 +80,16 @@ public abstract class AbstractRESTControllerImpl<T> extends RESTExceptionHandler
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED, reason = "Created")
     @PreAuthorize(SecurityConstants.ONLY_ADMIN)
-    public void create(@RequestBody T domain, HttpServletResponse res) {
+    @ResponseBody
+    public T create(@RequestBody T domain, HttpServletResponse res) {
             logger.debug(domain +"");
+        Long id = getService().create(domain);
+                T domainObject = getService().getById(id);
             res.addHeader(
                     "location",
-                    String.valueOf(getService().create(domain)));
+                    String.valueOf(id));
+        return domainObject;
+        
     }
     /**
      * Returns the domain object with the given id

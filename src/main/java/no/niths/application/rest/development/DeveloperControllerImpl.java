@@ -17,11 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller for developer
@@ -51,9 +47,9 @@ public class DeveloperControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(value = "/developers/create", method = RequestMethod.POST)
-    public void create(@RequestBody Developer domain, HttpServletResponse res) {
-        super.create(domain, res);
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public Developer create(@RequestBody Developer domain, HttpServletResponse res) {
+        return super.create(domain, res);
     }
 
 
