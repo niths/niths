@@ -116,7 +116,7 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value = "/getAll"
+            value = "/getAll/{firstResult}/{maxResults}"
     )
     public ArrayList<Student> getAll(
             Student domain,
