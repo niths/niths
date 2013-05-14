@@ -113,18 +113,6 @@ public class StudentControllerImpl extends AbstractRESTControllerImpl<Student>
         return super.getAll(domain);
     }
 
-    @Override
-    @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
-    @RequestMapping(
-            value = "/getAll/{firstResult}/{maxResults}"
-    )
-    public ArrayList<Student> getAll(
-            Student domain,
-            @PathVariable int firstResult,
-            @PathVariable int maxResults) {
-        return super.getAll(domain, firstResult, maxResults);
-    }
-
     /**
      * {@inheritDoc}
      */
