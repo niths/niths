@@ -1,12 +1,5 @@
 package no.niths.application.rest.school;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import no.niths.application.rest.AbstractRESTControllerImpl;
 import no.niths.application.rest.RESTConstants;
 import no.niths.application.rest.exception.QRCodeException;
@@ -23,21 +16,20 @@ import no.niths.domain.school.FadderGroup;
 import no.niths.domain.school.Student;
 import no.niths.services.interfaces.GenericService;
 import no.niths.services.school.interfaces.FadderGroupService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for FadderGroup
@@ -46,7 +38,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * and children and remove all leaders and children
  * in addition too methods for getAllStudentsNotInAGroup,
  * getAllStudents and scanImage
- *
+ * <p/>
  * For the URL too get FadderGroup add /fadder
  * after the {@value no.niths.common.constants.MiscConstants#NITHS_BASE_DOMAIN}
  */
@@ -58,16 +50,13 @@ public class FadderGroupControllerImpl extends
 
     @Autowired
     private FadderGroupService service;
-
     private FadderGroupList fadderGroupList = new FadderGroupList();
-
     private StudentList studentList = new StudentList();
-
     private LazyFixer<Student> lazyFixertStudent = new LazyFixer<Student>();
 
     /**
      * {@inheritDoc}
-     * 
+     * <p/>
      * Without nullifier
      */
     @Override
@@ -80,15 +69,16 @@ public class FadderGroupControllerImpl extends
 
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
     public ArrayList<FadderGroup> getAll(FadderGroup domain) {
         renewList(service.getAll(domain));
-        customLazyFixer();        
+        customLazyFixer();
         return fadderGroupList;
     }
 
     /**
-     * This method is setting fadder children to null and 
+     * This method is setting fadder children to null and
      * removes fadder leaders children so a lazy exception is avoided
      */
     private void customLazyFixer() {
@@ -103,7 +93,8 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, headers = RESTConstants.ACCEPT_HEADER)
+    @ResponseBody
     public FadderGroup create(@RequestBody FadderGroup domain, HttpServletResponse res) {
         return super.create(domain, res);
     }
@@ -150,7 +141,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/leader/{studentId}",
+            value = "{groupId}/leader/{studentId}",
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader added")
     public void addLeader(
@@ -165,7 +156,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/leader/{studentId}",
+            value = "{groupId}/leader/{studentId}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Leader removed")
     public void removeLeader(
@@ -180,7 +171,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/child/{studentId}",
+            value = "{groupId}/child/{studentId}",
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child added")
     public void addChild(
@@ -195,7 +186,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = { "{groupId}/children/{studentIds}" },
+            value = {"{groupId}/children/{studentIds}"},
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Children added")
     public void addChildren(
@@ -210,7 +201,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/child/{studentId}",
+            value = "{groupId}/child/{studentId}",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Child removed")
     public void removeChild(
@@ -225,7 +216,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = { "{groupId}/children/{studentIds}" },
+            value = {"{groupId}/children/{studentIds}"},
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "Children removed")
     public void removeChildren(
@@ -240,7 +231,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_SR_FADDER_LEADER)
     @RequestMapping(
-            value  = "{groupId}/children",
+            value = "{groupId}/children",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "All children removed")
     public void removeAllChildren(@PathVariable Long groupId) {
@@ -253,7 +244,7 @@ public class FadderGroupControllerImpl extends
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR)
     @RequestMapping(
-            value  = "{groupId}/leaders",
+            value = "{groupId}/leaders",
             method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK, reason = "All leaders removed")
     public void removeAllLeaders(@PathVariable Long groupId) {
@@ -265,9 +256,9 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
-    @RequestMapping(value = "{groupId}/children", 
-                    method = RequestMethod.GET, 
-                    headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(value = "{groupId}/children",
+            method = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getAllStudents(@PathVariable Long groupId) {
 
@@ -291,15 +282,15 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @PreAuthorize(SecurityConstants.ADMIN_AND_SR_AND_STUDENT)
-    @RequestMapping(value = "groupless", 
-                    method = RequestMethod.GET, 
-                    headers = RESTConstants.ACCEPT_HEADER)
+    @RequestMapping(value = "groupless",
+            method = RequestMethod.GET,
+            headers = RESTConstants.ACCEPT_HEADER)
     @ResponseBody
     public List<Student> getAllStudentsNotInAGroup() {
-        
+
         // Clear the list as it is never newed up more than once.
         studentList.clear();
-        
+
         // Adds the current students to the list.
         studentList.addAll(service.getStudentsNotInAGroup());
         studentList.setData(studentList); // for XML marshalling
@@ -315,19 +306,19 @@ public class FadderGroupControllerImpl extends
      */
     @Override
     @RequestMapping(
-            value  = "scan-qr-code/{studentId}",
+            value = "scan-qr-code/{studentId}",
             method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK, reason = "Added to group")
     public void scanImage(
             @PathVariable Long studentId,
             HttpServletRequest req,
             HttpServletResponse response)
-                    throws QRCodeException {
+            throws QRCodeException {
 
         if (req instanceof MultipartHttpServletRequest) {
             Map<String, MultipartFile> files =
                     ((MultipartHttpServletRequest) req)
-                    .getFileMap();
+                            .getFileMap();
 
             // Iterate over maps like a boss
             for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {

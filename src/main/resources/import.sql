@@ -432,7 +432,7 @@ INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VA
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('mykbrd10@nith.no','Curran','McINTOsh','1978-09-23','41738341','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('ileayh09@nith.no','Jared','Austin','1970-04-19','24624683','2');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('blistog@nith.no','Kennan','Hale','1988-03-01','32901065','1');
-INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('reicar09@nith.no','Sheila','Burks','1971-04-14','84225427','3');	
+INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('reicar09@nith.no','Sheila','Burks','1971-04-14','84225427','3');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('mllchr09@nith.no','Amery','Hale','1987-06-15','58726950','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('ellchr09@nith.no','Cullen','Miller','1993-02-18','57982890','1');
 INSERT INTO students (email,first_name,last_name,birthday,phone_number,grade) VALUES ('pauchr09@nith.no','Keith','Shields','1975-06-04','65664609','2');
@@ -573,33 +573,30 @@ INSERT INTO fadder_groups(group_number) VALUES (26);
 ---------------------------------------------------------------------
 --------------------------fadder_leaders-----------------------------
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(1, 1);
-INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(7, 5);
+INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(29, 1);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(2, 4);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(3, 3);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(4, 4);
 INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(5, 4);
-INSERT INTO fadder_leaders_students (leaders_id, fadder_groups_id) VALUES(6, 1);
 ---------------------------------------------------------------------
 --------------------------fadder_children----------------------------
---INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 2);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 6);
---INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 3);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 7);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 8);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 9);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 10);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 11);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 12);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 13);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 14);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 15);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 16);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 17);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 18);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 19);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 20);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 21);
-INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 22);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 30);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 31);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 32);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 33);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 34);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(1, 35);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 36);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 37);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(2, 38);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 39);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 40);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(3, 41);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 42);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 43);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 44);
+INSERT INTO fadder_children_students (fadder_groups_id, fadderChildren_id) VALUES(4, 45);
+
 ---------------------------------------------------------------------
 --------------------------Students_commitees-------------------------
 INSERT INTO students_committees(students_id, committees_id) VALUES(1, 1);
